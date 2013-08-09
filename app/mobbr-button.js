@@ -7,7 +7,7 @@
  For specification see: https://mobbr.com/protocol
  */
 var mobbr = mobbr || (function() {
-    var api = 'https://mobbr.com';
+    var api = 'https://api.mobbr.com';
     var mobbrDiv = createMobbrDiv();
     var mobbrFrame;
     var buttons_shown = 0;
@@ -103,7 +103,7 @@ var mobbr = mobbr || (function() {
             {
                 md5_hash = hex_md5(data[0].url.replace(/\/$/, ""));
             }
-            var full_image_url = 'https://mobbr.com/button/' + md5_hash + '/' + button_type;
+            var full_image_url = api + '/button/' + md5_hash + '/' + button_type;
             this.incrementButtonsShown();
 
             // Create a temporary form to commit to the iframe
@@ -388,7 +388,6 @@ var mobbr = mobbr || (function() {
         hide_mobbr_div: function()
         {
             mobbrDiv.style.display = 'none';
-            // TODO Try http://stackoverflow.com/questions/10284251/close-iframe-and-refresh-parent-cross-domain#comment15026605_10284251
             if (window.location.hash == '#mobbrdone') {
                 if (typeof originalHash == 'undefined') delete window.location.hash;
                 else window.location.hash = originalHash;
