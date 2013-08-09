@@ -1,13 +1,13 @@
 (function () {
 
-    var api = 'https://mobbr.com';
+    var api = 'https://api.mobbr.com';
     var s;
     var mobbr_div = document.getElementById('mobbr_div_bookmarklet');
     var html;
 
     if (typeof mobbr === 'undefined') {
         s = document.createElement('script');
-        s.setAttribute('src', 'https://mobbr.com/mobbr-button.js');
+        s.setAttribute('src', api+'/mobbr-button.js');
         document.body.appendChild(s);
     }
 
