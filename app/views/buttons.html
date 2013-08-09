@@ -1,0 +1,578 @@
+<div class="page-header">
+    <h1>
+        Buttons, badges, images, labels and icons<br>
+        <small> There are several integration options, but in the end you will probably want the button.</small>
+    </h1>
+</div>
+
+<p class="lead">
+   We supply several versions
+    of the Mobbr button
+    that you can place on your pages, next to the picture, downloads, artwork, a blogpost, or anything else for which
+    you would like to receive payments.
+    Clicking these buttons opens the payment popin or so called ligthbox.
+</p>
+<h2>Basic buttons</h2>
+<p>
+    There are five button types. Simply copy-paste the code into your HTML and subsitute the desired URL between the
+    parenthesis.
+</p>
+<p>
+<mobbrbutton size="medium" url="{{startLocation}}"></mobbrbutton>
+</p>
+<pre class="prettyprint">&lt;script src="https://{{host}}/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;mobbr.button('https://{{host}}/#/buttons');&lt;/script&gt;</pre>
+
+<p><mobbrbutton size="large" url="{{startLocation}}"></mobbrbutton></p>
+<pre class="prettyprint">&lt;script src="https://{{host}}/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;mobbr.buttonLarge('https://{{host}}/#/buttons');&lt;/script&gt;</pre>
+
+<p><mobbrbutton size="flat" url="{{startLocation}}"></mobbrbutton></p>
+<pre class="prettyprint">&lt;script src="https://{{host}}/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;mobbr.buttonFlat('https://{{host}}/#/buttons');&lt;/script&gt;</pre>
+
+<p><mobbrbutton size="small" url="{{startLocation}}"></mobbrbutton></p>
+<pre class="prettyprint">&lt;script src="https://{{host}}/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;mobbr.buttonSmall('https://{{host}}/#/buttons');&lt;/script&gt;</pre>
+
+<p><mobbrbutton size="slim" url="{{startLocation}}"></mobbrbutton></p>
+<pre class="prettyprint">&lt;script src="https://{{host}}/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;mobbr.buttonSlim('https://{{host}}/#/buttons');&lt;/script&gt;</pre>
+
+<p>
+    The resulting button will not have any configuration yet (but will work), you can add a configuration in <a
+        href="#/buttons#configure">different ways</a>. Generate configured buttons <a href="#/generatebutton">here</a>.
+</p>
+<p>
+    The button acts on the URL given as their argument, so it is possible to donate URL's different from the URL where
+    the
+    button is located.
+    Every time the button is clicked, our system will do a callback and analyze the script. This is flexible and secure.
+</p>
+<p>
+    <strong>Note: As you can see on this page, it is possible to have many buttons on a single page. In this case you
+        need to include the Javascript <code>https://{{host}}/js</code> only once.</strong>
+</p>
+
+<h2>Badges</h2>
+<p>
+    There are several badges that display the total count of payments on your domain.
+    These look nice on the homepage or communitypage of your site. Clicking these badges opens your website's page
+    on the Mobbr-site.
+</p>
+<p>
+    <a href="https://{{host}}/#/domain/aHR0cHM6Ly9tb2Jici5jb20=">
+        <img ng-src="https://{{host}}/badge/https/{{host}}/medium" alt="">
+    </a>
+</p>
+<pre class="prettyprint">&lt;script src="https://{{host}}/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;mobbr.badgeMedium();&lt;/script&gt;</pre>
+<p>
+    <a href="https://{{host}}/#/domain/aHR0cHM6Ly9tb2Jici5jb20=">
+        <img ng-src="https://{{host}}/badge/https/{{host}}/wide" alt="">
+    </a>
+</p>
+<pre class="prettyprint">&lt;script src="https://{{host}}/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;mobbr.badgeWide();&lt;/script&gt;</pre>
+
+<p>
+    To have a badge show actual amounts append a <a href="#/exchangerate">currency code</a> to the script.
+</p>
+<p>
+    <a href="https://{{host}}/#/domain/aHR0cHM6Ly9tb2Jici5jb20=">
+        <img src="https://{{host}}/badge/https/{{host}}/wide/EUR" alt="">
+    </a>
+</p>
+<pre class="prettyprint">&lt;script src="https://{{host}}/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;mobbr.badgeWide('EUR');&lt;/script&gt;</pre>
+
+<p>
+    There is no need to configure the badge. The code above can be used on every site or page.
+    All buttons and badges are dynamically generated on our servers. Badges are regenerated at fixed intervals, buttons
+    at every payment.
+</p>
+
+<h2>Configuring the buttons</h2>
+<p>
+    To integrate Mobbr with your site you need to supply 'transaction descriptions' for your products.
+    Depending on how visible or flexible you want the Mobbr-mechanism to be, you can use:
+</p>
+<ul>
+    <li>
+        <strong><a ng-click="scrollToId('metadata')">The page &lt;metadata&gt;-tag</a></strong>
+    </li>
+    <li>
+        <strong><a ng-click="scrollToId('metalink')">The page &lt;metalink&gt;-tag</a></strong>
+    </li>
+    <li>
+        <strong><a ng-click="scrollToId('domain')">The /participation.txt domain description</a></strong>
+    </li>
+</ul>
+<h3>Script basics</h3>
+<p>
+    Buttons act on webpages. These webpages need to be configured for payments / donations. This is very simple.
+    First some basics. To divide any payment among the participants in the desired ratios, you must use a script.
+</p>
+<p>
+    Transaction scripts are written in JSON. JSON is a simple and common computer language. With the script it is
+    possible to completely specify every aspect of the transaction (donation or payment) without the need to
+    pre-register
+    your URL or product on our site. You can even donate to persons that are not yet registered with Mobbr.
+    For a complete specification, see the <a href="https://mobbr.com/protocol.html">CPR-protocol</a> where we
+    explain
+    the script language and give you the tools to gain complete control over your donations and payments.
+    Below are some examples.
+</p>
+<p>
+    Suppose you want to specify yourself as the sole recipient of the payment, no more. Then this code will do the
+    trick:
+</p>
+<pre class="prettyprint">{
+    "id-base" : "https://mobbr.com/id/",
+    "participants":
+    [
+	    {"id": "your_username"}
+	]
+}</pre>
+<p>
+    We will show you in a moment what you need to do with this script, first lets look at another example.
+</p>
+<p>
+    Now suppose you want to share the payments among a whole team of creators, each of which added value to the product.
+    Then you can add these to the button. Of have your system (like CMS, collaboration software or Wiki) add them to the
+    script automatically.
+    Here is an example of that:
+</p>
+<pre class="prettyprint">{
+    "id-base" : "https://mobbr.com/id/",
+    "title" : "The button",
+    "description" : "Article about the Mobbr button",
+    "participants" :
+    [
+        {
+            "id": "Patrick",
+            "role": "author",
+            "share": "3"
+        },
+        {
+            "id": "Robbert",
+            "role": "design",
+            "share": "3"
+        },
+        {
+            "id": "Alexander",
+            "role": "site / platform",
+            "share": "1"
+        },
+        {
+            "id": "Hartger",
+            "role": "editor",
+            "share": "1"
+        }
+    ]
+}</pre>
+<p>
+    You can use percentages (absolute shares) and ratios (relative shares). Percentages are added, the remainder is
+    divided according to the ratios.
+</p>
+<pre class="prettyprint">{
+    "id-base" : "https://mobbr.com/id/",
+    "title" : "The button",
+    "description" : "Article about the Mobbr button",
+    "participants" :
+    [
+        {
+            "id": "Patrick",
+            "role": "author",
+            "share": "25%"
+        },
+        {
+            "id": "Robbert",
+            "role": "design",
+            "share": "10%"
+        },
+        {
+            "id": "Alexander",
+            "role": "site / platform",
+            "share": "1"
+        },
+        {
+            "id": "Hartger",
+            "role": "editor",
+            "share": "2"
+        }
+    ]
+}</pre>
+<p>
+    You can also use absolute amounts, this will set a minimum for the donation amount or a fixed price.
+</p>
+<pre class="prettyprint">{
+    "id-base" : "https://mobbr.com/id/",
+    "title" : "The button",
+    "description" : "Article about the Mobbr button",
+    "participants" :
+    [
+        {
+            "id": "Patrick",
+            "share": "EUR5"
+        },
+        {
+            "id": "Robbert",
+            "share": "10%"
+        },
+        {
+            "id": "Alexander",
+            "share": "1"
+        }
+    ]
+}</pre>
+<p>
+    Take a look at the <a href="https://mobbr.com/protocol.html">CPR-protocol</a> definition for a complete overview
+    of
+    payment-schema capabilities. <a href="#/generatebutton">You can generate buttons here</a>.
+    To validate your own JSON button-script go <a href="#/validate">here</a>.
+</p>
+<p>
+    Up to 10000 participants can be specified, with shares ranging from 1 to 1000. A recipient can be mentioned any
+    number of times but must have a different role each time.
+</p>
+<p>
+    It is possible to use email addresses, twitter-addresses, gravatar-profiles, bitcoin-addresses or custom / external
+    addresses as participants. You can even use the <a href="#/siteconnector">usernames of your own site</a>!
+</p>
+
+<h3 id="metadata">Embedding meta-tags in your page's (X)HTML</h2>
+<p>
+    Once you have the script, you need to place it inside a <a target="_blank"
+                                                               href="http://www.w3schools.com/html/html_meta.asp">meta-tag</a>
+    in the <a target="_blank" href="http://www.w3schools.com/html/html_head.asp">HTML HEAD section</a> of your webpage.
+    Our sytem, but also plugins, search-engines and bots will be able to find, and use this information.
+</p>
+<pre class="prettyprint">&lt;meta name="participation" content='
+    {
+         "title" : "The iPhony4",
+         "description" : "Article about some fictious planned obscolescence device",
+         "participants" : [
+            {
+             "id": "your_username",
+             "role": "author",
+             "share": "1"
+            }
+         ]
+    }'/&gt;</pre>
+<p>
+    On advanced websites this script can be generated dynamically each time the page is generated, based on actual
+    participation levels and an elaborate algorithm.
+</p>
+<p>
+    Note that JSON needs double quotes which means the data of the tag needs to be enclosed in single quotes, this
+    construction is W3C valid (X)HTML.
+</p>
+<p>
+    For pages that have the metadata tags, the button is as simple as:
+</p>
+<pre class="prettyprint">&lt;script src="https://{{host}}/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;mobbr.button('http://yourdomain.com/product/your_product.html');&lt;/script&gt;</pre>
+<p>
+    You can generate the meta-tag <a href="#/generatebutton">here</a>.
+</p>
+
+<h3 id="metalink">Embedding a meta link in your page's (X)HTML</h3>
+<p>
+    Instead of a metatag you can also use a <a target="_blank" href="http://www.w3schools.com/tags/tag_link.asp">metalink</a>
+    in the header tag of your page. Then, either link to a text file with the JSON string in it, or link to the JSON on
+    the
+    Mobbr server if you used our button-configurator. Like so:
+</p>
+<pre class="prettyprint">&lt;link rel="participation" href="https://{{host}}/jsonstore/24C0466BF8949FD5BB2518664A98A238"/&gt;</pre>
+<p>
+    The content of the link is the <a href="https://{{host}}/jsonstore/24C0466BF8949FD5BB2518664A98A238">same
+    JSON</a> otherwise present in a metadata-tag.
+</p>
+
+<p>
+    For pages that have the metalink tags, the button is as simple as:
+</p>
+    <pre class="prettyprint">&lt;script src="https://{{host}}/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;mobbr.button('http://yourdomain.com/product/your_product.html');&lt;/script&gt;</pre>
+
+
+<p>
+    You can generate the meta-link <a href="#/generatebutton">here</a>.
+</p>
+
+<h3 id="domain">For domain administrators</h3>
+
+<p>
+    If you own or manage a domain, you have the option to place a /participation.txt file
+    in the root of the domain. With such a file you can describe all or selected URL's on your domain.
+    In its simplest form, you just assign a global recipient for payments on all the domain's URL's. Like
+    this:
+</p>
+    <pre class="prettyprint">[
+    {
+        "url-pattern" : "*",
+        "participation-info":
+        {
+            "id-base" : "https://{{host}}/id/",
+            "participants" :
+            [
+                {
+                    "id" : "your_username",
+                }
+            ]
+        }
+    }
+]</pre>
+<p>
+    The URL-pattern uses the * as wildcard, using it you can match many URL's with one pattern. * means: 'any or no
+    char'.
+</p>
+
+<p>
+    If you specifiy an email address as recipient, you don't even need to register with Mobbr. If someone donates, you
+    will be mailed. If you specify a Bitcoin address the recipient will receive his money directly without the need to
+    ever register with Mobbr or even know of the existence of Mobbr.
+</p>
+
+<p>
+    You don't need to change any pages of your site. This is the 'just-in-case' option.
+</p>
+
+<p>
+    On sites / domain that have the MIROPAYMENTS.TXT, adding the button is as simple as:
+</p>
+    <pre class="prettyprint">&lt;script src="https://{{host}}/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;mobbr.button('http://yourdomain.com/product/your_product.html');&lt;/script&gt;</pre>
+<p>
+    Mobbr will automatically use the participation.txt file.
+</p>
+
+<p>
+    Check out our <a href="/participation.txt">participation.txt</a>.
+</p>
+
+<p>
+    The server-file can be used to describe different url-groups, each with their own participants and shares. This is
+    done
+    by supplying different 'rules'. Each rule has a pattern against which your URL's will be tested. The
+    participation-info will be applied to every URL that matches.
+    You can make this as elaborate as you need since the info of all patterns that match a specific URL will be
+    cascaded. For example, if you would have the following description:
+</p>
+    <pre class="prettyprint">[
+    {
+        "url-pattern" : "*",
+        "participation-info":
+        {
+            "id-base" : "https://{{host}}/id/",
+            "participants" :
+            [
+                {
+                    "id" : "patrick",
+                    "role" : "website-owner",
+                    "share" : "1"
+                }
+            ]
+        }
+    },
+    {
+        "url-pattern" : "*/article/*",
+        "participation-info" :
+        {
+            "id-base" : "https://{{host}}/id/",
+            "participants" :
+            [
+                {
+                    "id" : "bob",
+                    "role" : "author",
+                    "share" : "4"
+                },
+                {
+                    "id" : "bill",
+                    "role" : "reviewer",
+                    "share" : "1"
+                }
+            ]
+        }
+    },
+    {
+        "url-pattern" : "*/picture/*",
+        "participation-info" :
+        {
+            "id-base" : "https://{{host}}/id/",
+            "participants" :
+            [
+                {
+                    "id" : "james",
+                    "role" : "photographer",
+                    "share" : "1"
+                }
+            ]
+        }
+    }
+]</pre>
+<p>
+    If someone would donate to this URL on your site:
+    <code>
+        /article/history/picture/ancient_rome.jpg
+    </code>, the URL
+    would match '*', '*/article/*' and '*/picture/*', and the payment would be shared
+    between Patrick, Bob, Bill and James, with Bob receiving a 4 times larger share then the rest.
+</p>
+
+<h2>Icons and labels</h2>
+
+<p>
+    These are icons you can use if you want to support Mobbr. Please use them freely, the bandwidth is ours!
+    <br>
+</p>
+
+<p>
+    <img src="https://mobbr.com/images/buttons/mobbr16.png" alt="">
+</p>
+<pre>&lt;img src="https://mobbr.com/images/buttons/mobbr16.png" alt="" /&gt;</pre>
+<p>
+    <img src="https://mobbr.com/images/buttons/mobbr16gs.png" alt="">
+</p>
+<pre>&lt;img src="https://mobbr.com/images/buttons/mobbr16gs.png" alt="" /&gt;</pre>
+<p>
+    <img src="https://mobbr.com/images/buttons/weusemobbr80x15.png" alt="">
+</p>
+<pre>&lt;img src="https://mobbr.com/images/buttons/weusemobbr80x15.png" alt="" /&gt;</pre>
+<p>
+    <img src="https://mobbr.com/images/buttons/weusemobbr80x15gs.png" alt="">
+</p>
+<pre>&lt;img src="https://mobbr.com/images/buttons/weusemobbr80x15gs.png" alt="" /&gt;</pre>
+<p>
+    <img src="https://mobbr.com/images/buttons/mobbrbol60.png" alt="">
+</p>
+<pre>&lt;img src="https://mobbr.com/images/buttons/mobbrbol60.png" alt="" /&gt;</pre>
+<p>
+    <img src="https://mobbr.com/images/buttons/mobbrbol60gs.png" alt="">
+</p>
+<pre>&lt;img src="https://mobbr.com/images/buttons/mobbrbol60gs.png" alt="" /&gt;</pre>
+
+<p>
+    <img src="https://mobbr.com/images/mobbrball400x400.png" alt="">
+</p>
+<pre>&lt;img src="https://mobbr.com/images/mobbrball400x400.png" alt="" /&gt;</pre>
+
+<p>
+    <img src="https://mobbr.com/images/mobbrband.png" alt="">
+</p>
+<pre>&lt;img src="https://mobbr.com/images/mobbrband.png" alt="" /&gt;</pre>
+
+<p>
+    <img src="https://mobbr.com/images/logo-mobbr.png" alt="">
+</p>
+<pre>&lt;img src="https://mobbr.com/images/logo-mobbr.png" alt="" /&gt;</pre>
+
+<p>
+    <img src="https://mobbr.com/images/mobbr-ripple.jpg" alt="">
+</p>
+<pre>&lt;img src="https://mobbr.com/images/mobbr-ripple.jpg" alt="" /&gt;</pre>
+
+<p>
+    <img src="https://mobbr.com/images/mobberlogoloader.gif" alt="">
+</p>
+<pre>&lt;img src="https://mobbr.com/images/mobberlogoloader.gif" alt="" /&gt;</pre>
+
+<h2>Button specifics</h2>
+
+<p>
+    Whenever a button is clicked, the Mobbr server will do a callback and analyze the page.
+    The Mobbr server will try several things to get all the data it needs to complete the
+    payment or donation.
+</p>
+
+<h3>Which URL does the button act upon?</h3>
+
+<p>
+    The button can specify an URL. If it doesn't, the button will try to determine
+    the URL by checking the following things:
+</p>
+<ul>
+    <li>
+        If the HTML contains a metadata name="canonical" <a
+            href="http://googlewebmastercentral.blogspot.com/2009/02/specify-your-canonical.html">element</a>, that URL
+        will be followed until a final page is reached, even if they go <a
+            href="http://googlewebmastercentral.blogspot.com/2009/12/handling-legitimate-cross-domain.html">cross
+        domain</a>.
+        </p>
+
+    </li>
+    <li>
+        Else if the HTML contains a metadata property="og:url" <a href="http://ogp.me/">element</a>, that URL will be
+        used
+    </li>
+    <li>
+        Else Mobbr will reject the button.
+    </li>
+</ul>
+<h3>Cascading scripts</h3>
+
+<p>
+    When a payment is received by the server, Mobbr uses the following cascade to complete transaction information:
+</p>
+<ul>
+    <li>
+        If the donated page contains a script in the <a href="#metadata">special metadata-tag</a>, that will be
+        used ('the page script')
+    </li>
+    <li>
+        Else if the donated page contains a script behind the <a href="#metalink">special metalink-tag</a>, that will be
+        used (also: 'the page script')
+    </li>
+    <li>
+        Else if the donated domain contains a <a href="#domain">MICROPAYMENT.JSON</a>, that will be used ('the domain
+        script')
+    </li>
+    <li>
+        Else Mobbr will make an unclaimed payment which can be claimed <a href="#/claim_payment">here</a>
+    </li>
+</ul>
+<p>
+    Mobbr will cascade these different types of script. Differing keys are combined and duplicates keys get overwritten
+    where the page script gets priority over the the domain script.
+</p>
+
+<p>
+    In all cases Mobbr will visit the page in question to verify its existence and validity.
+</p>
+
+<h3>How to design Mobbr-ready web pages</h3>
+
+<p>
+    On a button click Mobbr will try to gather as much information as possible
+    by analysing the (X)HTML metadata of the indicated page. To help this proces, use the
+    following elements in your HTML pages
+</p>
+<ul>
+    <li>
+        The HTML &lt;title&gt; element.
+    </li>
+    <li>
+        A metadata name="description" <a href="http://www.w3schools.com/tags/tag_meta.asp">element</a>.
+    </li>
+    <li>
+        A metadata name="canonical" <a
+            href="http://googlewebmastercentral.blogspot.com/2009/02/specify-your-canonical.html">element</a>.
+    </li>
+    <li>
+        A metadata name="original-source" <a
+            href="http://googlenewsblog.blogspot.com/2010/11/credit-where-credit-is-due.html">element(s)</a>.
+    </li>
+    <li>
+        A metalink rel="copyright" <a href="http://htmlhelp.com/reference/html40/head/link.html">element</a>, defining
+        sharing and derivation rights
+    </li>
+    <li>
+        A correct set of <a href="http://ogp.me/">OG-properties</a>, as
+        used by Facebook.
+    </li>
+</ul>
+<p>
+    This is not Mobbr specific though, it is good webdesign practice in general. If possible make your pages W3C
+    valid.
+</p>

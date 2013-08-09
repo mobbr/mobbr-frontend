@@ -1,0 +1,168 @@
+
+    <tabs>
+        <pane heading="Primary settings">
+            <form name="primary" class="form-horizontal">
+
+                <div class="control-group">
+
+                    <div class="control-label">
+                        <label>Username</label>
+                    </div>
+
+                    <div class="controls">
+                        <input ng-model="user.username" name="username" type="text" ng-disabled="true">
+                    </div>
+                </div>
+
+                <div class="control-group">
+
+                    <div class="control-label">
+                        <label>E-mail address</label>
+                    </div>
+
+                    <div class="controls">
+                        <input ng-model="user.email" name="email" type="text" ng-disabled="true" title="It is not possible to change your email address">
+                    </div>
+                </div>
+
+                <div class="control-group">
+
+                    <div class="control-label">
+                        <label>Default currency</label>
+                    </div>
+
+                    <div class="controls">
+                        <select
+                                ng-model="user.currency_iso"
+                                ng-options="value as key for (value,key ) in currenciesMap"
+                                name="currency_iso"
+                                title="the currency to which other currencies are converted when displayed"></select>
+                        <span class="help-inline"></span>
+
+                    </div>
+                </div>
+
+                <div class="control-group">
+
+                    <div class="control-label">
+                        <label>Language</label>
+                    </div>
+
+                    <div class="controls">
+                        <select
+                                ng-model="user.language_iso"
+                                ng-options="value as key for (value,key ) in languagesMap"
+                                name="language_iso"
+                                title="the available languages"></select>
+                        <span class="help-inline"></span>
+
+                    </div>
+                </div>
+
+                <div class="control-group">
+
+                    <div class="control-label">
+                        <label for="timezone">Timezone</label>
+                    </div>
+
+                    <div class="controls">
+                         <select ng-model="user.timezone" name="timezone" id="timezone"
+                                 ng-options="value as key for (value,key ) in timezones">
+
+                         </select>
+                    </div>
+                </div>
+
+                <div class="control-group">
+
+                    <div class="control-label">
+                        <label for="bitcoin_address">Bitcoin address</label>
+                    </div>
+
+                    <div class="controls">
+                        <input ng-model="user.bitcoin_address" name="bitcoin_address" type="text" id="bitcoin_address" placeholder="bitcoin hash">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <div class="controls">
+                        <button ng-click="submitSettings()" class="btn btn-success">Save</button>
+                    </div>
+                </div>
+            </form>
+        </pane>
+
+        <pane heading="Security settings">
+            <form user-password name="security" class="form-horizontal">
+
+                <div class="control-group">
+
+                    <div class="control-label">
+                        <label for="new_password">New password</label>
+                    </div>
+
+                    <div class="controls">
+                        <input ng-model="new_password" id="new_password" name="new_password" type="password" required>
+                        <span ng-show="security.new_password.$error.required" class="help-inline">Required field.</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+
+                    <div class="control-label">
+                        <label for="new_password2">New password again</label>
+                    </div>
+
+                    <div class="controls">
+                        <input name="new_password2" id="new_password2" ng-model="new_password_control" type="password" required>
+                        <span ng-show="security.new_password2.$error.required" class="help-inline">Required field.</span>
+                    </div>
+                </div>
+
+                <div ng-show="userSession.user.has_password" class="control-group" style="display:none;">
+
+                    <div class="control-label">
+                        <label for="password">Your current password</label>
+                    </div>
+
+                    <div class="controls">
+                        <input ng-model="password" id="password" name="current_password" type="password" placeholder="your current password">
+                        <span ng-show="security.password.$error.required" class="help-inline">Required field.</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <div class="controls">
+                        <button type="submit" class="btn btn-success">Save</button>
+                    </div>
+                </div>
+            </form>
+        </pane>
+
+        <pane heading="Privacy settings" class="privacy-settings">
+            <form name="primary" class="form-horizontal">
+
+                <div class="special well labelwidth pull-left"></div>
+
+                <div class="control-group" ng-repeat="(key, value) in user.setting">
+                    <div class="controls">
+                        <label for="{{key}}">
+                            <input type="checkbox" ng-bind="value" id="{{key}}"> {{key}}</label>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <div class="controls">
+                        <button ng-click="submitSettings()" class="btn btn-success">Save</button>
+                    </div>
+                </div>
+            </form>
+        </pane>
+
+        <pane heading="Public profile">
+            <form user-settings name="profile" class="form-horizontal">
+                <img class="gravatar" ng-src="{{userSession.user.thumbnail}}">
+                We use gravatars, created from your email address. Create your profile <a href="http://gravatar.com">here</a>
+            </form>
+        </pane>
+    </tabs>

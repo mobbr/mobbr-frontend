@@ -1,0 +1,196 @@
+<div class="page-header">
+    <h1>
+        Connecting your website<br>
+        <small>Using your site's usernames in Mobbr scripts.</small>
+    </h1>
+</div>
+
+<p>
+    <strong>First make sure your pages have either <a href="/#/buttons">buttons or metadata</a>. Or supply a <a href="/#/buttons#domain">domain script</a>.</strong>
+</p>
+
+<p>
+    Mobbr has a simple mechanism that allows you to connect your entire weblog, community or site in such
+    a way that you can start receiving payments and share them among all contributors without the neccessity for them to
+    be registered with Mobbr.
+</p>
+<p>
+    <strong>Using this mechanism sites can use their own member names or id's in their scripts.</strong>
+</p>
+<p>
+    You website needs to have a special page / URL that Mobbr can use to resolve your local usernames into email-addresses.
+    Suppose you have a weblog on zaplog.nl, then you could provide an URL like:
+</p>
+<pre>http://zaplog.nl/id/&lt;local-member-name&gt;</pre>
+<p>
+    The content of this URL should be the email address of your local member. Like this:
+</p>
+<pre>     REQUEST:
+         http://zaplog.nl/id/patrick
+
+     RESPONSE:
+         patman@mobbrr.com</pre>
+<p>
+    If you don't plan to use buttons, but want to rely on the bookmarket or some other tool, you need to place the following script on /PARTICIPATION.TXT, like <a href="http://zaplog.nl/participation.txt">here</a>.
+    This tells our server where to find your special page.
+</p>
+<pre>[
+    {
+        url-pattern: "*",
+        participation-info:
+        {
+            id-base: "http://zaplog.nl/id/",
+            description: "ZapLog - Nederlands beste nieuwssite, Dutch Bloggie winnaar 2008",
+        }
+    }
+]</pre>
+<h2>Buttons</h2>
+<p>
+    Create or generate your Mobbr scripts using your local member names and use your special URL as "id-base". Like this:
+</p>
+<pre class="prettify">&lt;script src="https://{{host}}/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+mobbr.button({
+    <strong>"id-base" : "http://zaplog.nl/id/"</strong>,
+    "title" : "Very special article",
+    "description" : "Article about the Mobbr button",
+    "participants" : [
+        {
+            <strong>"id": "zaplog"</strong>,
+            "role": "platform",
+            "share": "1"
+        },
+        {
+            <strong>"id": "Patman"</strong>,
+            "role": "webmaster",
+            "share": "1"
+        },
+        {
+            <strong>"id": "P.Uncia"</strong>,
+            "role": "author",
+            "share": "2"
+        }
+    ]
+});
+&lt;/script&gt;</pre>
+<p>
+    Or this:
+</p>
+<pre class="prettify">&lt;script src="https://{{host}}/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+mobbr.button({
+    "title" : "Very special article",
+    "description" : "Article about the Mobbr button",
+    "participants" : [
+        {
+            <strong>"id": "http://zaplog.nl/id/zaplog"</strong>,
+            "role": "platform",
+            "share": "1"
+        },
+        {
+            <strong>"id": "http://zaplog.nl/id/Patman"</strong>,
+            "role": "webmaster",
+            "share": "1"
+        },
+        {
+            <strong>"id": "http://zaplog.nl/id/P.Uncia"</strong>,
+            "role": "author",
+            "share": "2"
+        }
+    ]
+});
+&lt;/script&gt;</pre>
+<p>
+    When someone now uses the Mobbr button, Mobbr will call your special URL 3 times in rapid succession:
+</p>
+<pre>    http://zaplog.nl/id/zaplog
+    http://zaplog.nl/id/patman
+    http://zaplog.nl/id/p.uncia</pre>
+<p>
+    Other URL formats are no problem as long as id-base + id form a valid URL, for instance:
+</p>
+<pre>    http://zaplog.nl?type=id&amp;user=patman</pre>
+<p>
+    If your members are not yet registered with Mobbr, they will receive mail inviting them to register.
+    By registering they automatically claim their payments and will receive all subsequent payments
+    directly into their Mobbr-account. You don't need to change anything on your side (or site).
+</p>
+<p>
+    Your system will be given 2 seconds and only 3 redirects to reply. So make it quick. Don't be worried about Mobbr
+    overloading your system, we will do some caching / buffering on our side if necessary.
+</p>
+<p>
+    If your system has throttling or anti-hammering enabled, try to exclude the Mobbr bot from this.
+</p>
+<h2>Security / privacy</h2>
+<p>
+    To prevent others from accessing your special URL and stealing the email-addresses of your members, protect it by adding the
+    something like the following to your Apache server's <a href="http://httpd.apache.org/docs/2.4/mod/mod_authz_host.html">.htaccess file.</a>
+</p>
+<pre>&lt;Location /zaplog/id/.*$&gt;
+Require host mobbr.com
+&lt;/Location&gt;</pre>
+<p>
+    Now only the Mobbr-server can access the page. Of course you can use any alternative mechanism. You can also do a referer check. Our calls will always originate from https://mobbr.com.
+</p>
+<p>
+    You can put the Mobbr payment scripts in metadata, a metalink or a button. See <a href="/#/buttons">here</a> for details, or <a href="/protocol">here</a> for the protocol.
+</p>
+
+<h2>Expression Engine example</h2>
+<p>
+    Because you will probably want to integrate the above mechanism into your CMS or publication system, we will give an example.
+    There are many, many CMS-ses and publication systems, but the example for Expression Engine (EE) is representative for a lot of those.
+</p>
+<p>
+    <img src="http://ellislab.com/_user_guide_src_ee/_images/cp_home.png" class="thumbnail">
+</p>
+<p>
+    Like many similar blogging systems (Blogger, Drupal, Word Press), EE is template based. For the special URL (in our example: http://zaplog.nl/zaplog/id/)
+    we must create a template. You can do this in <a href="http://ellislab.com/expressionengine/user-guide/cp/design/templates/index.html">the EE backend</a>.
+</p>
+<p>
+    <img src="http://ellislab.com/_user_guide_src_ee/_images/template_new.png" alt="">
+</p>
+<p>
+    The template only needs the following content. It is a tag that generate the email address as page content.
+</p>
+<pre>{exp:query sql="select email from exp_members
+where username='{segment_3}'"}{email}{/exp:query}
+</pre>
+<p>
+    Suppose you want to have a button with every article in you weblog and you want to give the platform owner,
+    the webmaster and the author each a fair share. Then you could add a piece of code like this to the template of
+    your articles, it will generate the Mobbr payment description and give the author, the webmaster and the platform owner a share.
+    Place it in the &lt;head&gt; of the HTML. Of course you will have to sue your own usernames and shares, fitted to your situation.
+</p>
+<pre class="prettify">{exp:query sql="select username as authorname from exp_channel_titles where url_title='{segment_3}'"}
+    &lt;meta name="participation" content='
+        {
+            "id-base" : "http://zaplog.nl/zaplog/id/",
+            "participants" : [
+                {
+                    "id": "Patman",
+                    "role": "Zaplog owner",
+                    "share": "1"
+                },
+                {
+                    "id": "P.Uncia",
+                    "role": "Zaplog webmaster",
+                    "share": "1"
+                },
+                {
+                    "id": "{authorname}",
+                    "role": "Zaplog article author",
+                    "share": "3"
+                }
+            ]
+        }
+    '/&gt;
+{/exp:query}</pre>
+<p>
+    For the button itself you will only need to place the following code in the template of the article:
+</p>
+<pre class="prettify">&lt;script src="https://{{host}}/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;mobbr.button();&lt;/script&gt;</pre>
+</div>
