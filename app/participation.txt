@@ -1,0 +1,46 @@
+[
+    {
+        "url-pattern" : "*",
+        "participation-info":
+        {
+            "id-base" : "https://api.mobbr.com/id/",
+            "participants" : [
+                {
+                    "id": "Patrick",
+                    "role": "Concept, design, REST server programming",
+                    "share": "30%"
+                },
+                {
+                    "id": "Alexander",
+                    "role": "Prototyping",
+                    "share": "1"
+                },
+                {
+                    "id": "Robbert",
+                    "role": "Server-infrastructure and facilities",
+                    "share": "2"
+                },
+                {
+                    "id": "Handijk",
+                    "role": "Design and stylesheets",
+                    "share": "3"
+                },
+                {
+                    "id": "Andre",
+                    "role": "AngularJS front-end programming",
+                    "share": "3"
+                },
+                {
+                    "id": "mailto:thijmen.hendrikx@dtx.nl",
+                    "role": "Server-infrastructure",
+                    "share": "1"
+                },
+                {
+                    "id": "Ernesto",
+                    "role": "Marketing",
+                    "share": "1"
+                }
+            ]
+        }
+    }
+]
