@@ -1,0 +1,110 @@
+<div class="page-header">
+    <h1>
+        {{payment.meta_data.title}}<br>
+    </h1>
+</div>
+
+<div class="row-fluid">
+    <div class="span8">
+        <a href="{payment.meta_data.url}}" ng-show="payment.meta_data.img_url">
+            <img ng-src="{{payment.meta_data.img_url}}">
+        </a>
+
+        <p>{{payment.meta_data.description}}</p>
+    </div>
+
+    <div class="well special pull-right span4 receipt">
+        <table class="table table-striped">
+            <thead>
+            <th colspan="3">Domain earnings</th>
+            </thead>
+            <tbody>
+            <tr ng-repeat="balance in balances">
+                <td ng-bind="currencyDescription(balance.currency_iso)"></td>
+                <td ng-bind="balance.currency_iso"></td>
+                <td ng-bind="balance.amount | number:4" class="amount decorate-amount"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="bigbox">
+
+    <tabs>
+        <pane heading="Currently listed participants">
+            <people people="payment.meta_data.participants"
+                    nodatatitle=""
+                    persontitle="Participant ID"
+                    showamount="false"
+                    gravatavailable="false"
+                    ownsearch="true"></people>
+        </pane>
+
+        <pane heading="Payments made to this URL">
+            <table ng-show="personPayments.length > 0" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Senders</th>
+                        <th>Receivers</th>
+                        <th colspan="2">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="pp in personPayments">
+                        <td ng-bind="pp.datetime"></td>
+                        <td>
+                            <img ng-repeat="person in pp.senders" width="20" ng-src="https://secure.gravatar.com/avatar/{{person.gravatar}}?size=20&default=https://mobbr.com/images/default-gravatar.png" title="{{person.username}}">
+                        </td>
+                        <td>
+                            <img ng-repeat="person in pp.receivers" width="20" ng-src="https://secure.gravatar.com/avatar/{{person.gravatar}}?size=20&default=https://mobbr.com/images/default-gravatar.png" title="{{person.username}}">
+                        </td>
+                        <td ng-bind="pp.currency_iso"></td>
+                        <td ng-bind="pp.amount | number:4" class="amount decorate-amount"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </pane>
+
+        <pane heading="Where payments where made">
+            <form class="form-inline" ng-show="locations.length > 0">
+                <label for="searchEntriesLocations">Search: </label>
+                <input class="search-query" type="search" ng-model="searchentriesLocations" id="searchEntriesLocations">
+            </form>
+
+            <div class="alert" ng-show="locations.length == 0">
+                No referrers found
+            </div>
+
+            <table ng-show="locations.length > 0" class="table table-striped">
+                <thead>
+                <tr>
+                    <th ng-click="sortLocations('url')">Url</th>
+                    <th></th>
+                    <th ng-click="sortLocations('amount')">Amount</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="location in locations | orderBy:sortEntriesLocations:sortOrderLocations | filter:searchentriesLocations">
+                    <td><a href="{{location.url}}" target="_blank">{{location.url}}</a></td>
+                    <td ng-bind="location.currency_iso"></td>
+                    <td ng-bind="location.amount | number:4" class="amount decorate-amount"></td>
+                </tr>
+                </tbody>
+            </table>
+        </pane>
+
+        <pane heading="How payments where divided">
+            <people people="payment.persons"
+                    title=""
+                    nodatatitle=""
+                    gravatavailable="true"
+                    persontitle="Person"
+                    showamount="true"
+                    ownsearch="true"></people>
+        </pane>
+
+    </tabs>
+
+</div>

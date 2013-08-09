@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js ie ie6 lt-ie9 lt-ie8 lt-ie7" xmlns:ng="http://angularjs.org"> <![endif]-->
+<!--[if IE 7]><html class="no-js ie ie7 lt-ie9 lt-ie8 lt-ie7" xmlns:ng="http://angularjs.org"> <![endif]-->
+<!--[if IE 8]><html class="no-js ie ie8 lt-ie9 lt-ie8" xmlns:ng="http://angularjs.org"> <![endif]-->
+<!--[if IE 9]><html class="no-js ie ie9 lt-ie9" xmlns:ng="http://angularjs.org"> <![endif]-->
+<!--[if gt IE 9]><html xmlns:ng="http://angularjs.org"> <![endif]-->
+<!--[if !IE]><!--><html xmlns:ng="http://angularjs.org"> <!--<![endif]-->
+    <head>
+        <!--<script>var api_url = 'https://api.mobbr.com';</script>-->
+        <script>var api_url = 'https://mobbr.com';</script>
+        <script src="scripts/vendor/modernizr.min.js"></script>
+        <!--[if lte IE 8]>
+        <script>
+            document.createElement('ng-include');
+            document.createElement('ng-pluralize');
+            document.createElement('ng-view');
+            document.createElement('ng-switch');
+            document.createElement('accordion');
+            document.createElement('accordion-group');
+            document.createElement('interceptor');
+            document.createElement('payments');
+            document.createElement('paymentsprovided');
+            document.createElement('user-settings');
+            document.createElement('peoplepagesearch');
+            document.createElement('people');
+            document.createElement('mobbrbutton');
+            document.createElement('tabs');
+            document.createElement('pane');
+            document.createElement('alert');
+        </script>
+        <![endif]-->
+
+        <title>MOBBR Crowdpayment System</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:title" content="MOBBR crowdpayment system" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://mobbr.com" />
+        <meta property="og:image" content="https://mobbr.com/images/mobbr-ripple.jpg" />
+        <meta property="og:description" content="Welcome to MOBBR, the world's first crowdpayment system. Start sharing rewards and donations in bitcoin, XRP, social currencies and FIAT currencies." />
+
+        <meta name="description" content="Welcome to MOBBR, the world's first crowdpayment system. Start sharing rewards and donations in bitcoin, XRP, social currencies and FIAT currencies." />
+
+        <link href='//fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
+        <link href='//fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="styles/style.css">
+        <link rel="stylesheet" href="scripts/vendor/pnotify-1.2.0/jquery.pnotify.default.css">
+
+        <!--[if lte IE 7]>
+        <!--<script src="//cdnjs.cloudflare.com/ajax/libs/json3/3.2.4/json3.min.js"></script>-->
+        <!--<![endif]-->
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+            var _paq = _paq || [];
+            _paq.push(['trackPageView']);
+            _paq.push(['enableLinkTracking']);
+            (function() {
+                var u=(("https:" == document.location.protocol) ? "https" : "http") + "://mobbr.com/piwik/";
+                _paq.push(['setTrackerUrl', u+'piwik.php']);
+                _paq.push(['setSiteId', 1]);
+                var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.type='text/javascript';
+                g.defer=true; g.async=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+            })();
+        </script>
+        <noscript><p><img src="http://mobbr.com/piwik/piwik.php?idsite=1" style="border:0" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+    </head>
+
+    <body ng-app="mobbr" id="ng-app" class="ng-app:mobbr">
+
+        <!--[if lt IE 8]>
+        <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser
+            today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better
+            experience this site. {{showMobbrFrame}}</p>
+        <![endif]-->
+
+        <!--[if lt IE 9]>
+        <script src="scripts/vendor/es5-shim.min.js"></script>
+        <script src="scripts/vendor/json3.min.js"></script>
+        <![endif]-->
+
+
+
+        <div class="pusher">
+
+            <!--<div class="beta">
+                Advanced prototype for demonstration purposes. Dummy money only. Login / sign-up and try the worlds first crowdpayment system.
+            </div>-->
+            <header class="navbar navbar-fixed-top">
+                <nav class="navbar-inner">
+                    <ul class="nav">
+                        <li><a href="#/"><img src="img/logo-mobbr.png"></a></li>
+                    </ul>
+
+                    <ul class="nav pull-right ng-cloak" ng-switch on="userSession.authenticated" ng-show="true">
+                        <li class="dropdown" ng-switch-when="false">
+                            <a class="dropdown-toggle">Account <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-header"></li>
+                                <li>
+                                    <form ng-submit="login()" name="head-login" ng-controller="LoginController">
+                                        <input ng-model="email" type="email" name="email" placeholder="email address">
+                                        <input ng-model="password" type="password" name="password" placeholder="password">
+                                        <button type="submit" class="btn">Log in</button>
+                                    </form>
+                                </li>
+                                <li class="divider"></li>
+                                <li><a class="nav-header" href="#/join">Register / new user</a></li>
+                                <li class="divider"></li>
+                                <li><a class="nav-header" href="#/recover">Recover password</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown ng-cloak" ng-switch-when="true" >
+                            <ul class="nav">
+                                <li user-settings class="dropdown">
+                                    <a class="dropdown-toggle"><span ng-bind="userSession.user.username"></span> <img ng-src="{{ userSession.user.thumbnail }}" style="height: 30px;" class="img-rounded user-thumb"> <b class="caret"></b></a>
+                                    <ul class="dropdown-menu" ng-controller="LoginController">
+                                        <li><a href="#/settings"><i class="icon-wrench"></i> Settings</a></li>
+                                        <li><a ng-click="logout()"><i class="icon-lock"></i> Log out</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </header>
+
+            <section class="navbar navbar-inverse navbar-static-top">
+                <nav class="navbar-inner">
+                    <ul class="nav">
+                        <li><a href="#/dashboard">Your wallet</a></li>
+                        <li><a href="#/claimpayment">Claim payment</a></li>
+                        <li><a href="#/generatebutton">Create button</a></li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle">More <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-header">About Mobbr</li>
+                                <li><a target="_blank" href="http://blog.mobbr.com/2013/03/to-boldly-start-economy-that-no-one-has.html">Our manifesto →</a></li>
+                                <!--<li><a target="_blank" href="http://community.mobbr.com/">Together we are legion →</a></li>-->
+                                <!--<li><a href="#/company">Company</a></li>-->
+                                <!--<li><a href="#/partnering">Partnering</a></li>-->
+                                <li class="divider"></li>
+                                <li class="nav-header">Using Mobbr<li>
+                                <li><a href="#/usecases">Use cases</a></li>
+                                <li><a href="#/consumers">Consumers</a></li>
+                                <li><a href="#/creators">Creators</a></li>
+                                <li><a href="#/webmasters">Site-owners</a></li>
+                                <li class="divider"></li>
+                                <li class="nav-header">Developers</li>
+                                <li><a href="#/buttons">Buttons and widgets</a></li>
+                                <li><a href="#/siteconnector">Site-connector and plugins</a></li>
+                                <li><a target="_blank" href="https://api.mobbr.com">API →</a></li>
+                                <li><a target="_blank" href="/protocol.html">Script-syntax →</a></li>
+                                <li class="divider"></li>
+                                <li class="nav-header">Stay up-to-date</li>
+                                <!--<li><a target="_blank" href="http://blog.mobbr.com/">Mobbr blog →</a></li>
+                                <li><a target="_blank" href="https://twitter.com/#%21/mobbrcom">Mobbr on Twitter →</a></li>
+                                <li><a target="_blank" href="https://plus.google.com/communities/100962413817465214183">Mobbr on Google+ →</a></li>-->
+                                <li><a href="#/exchangerate">Currency exchange rates</a></li>
+                            </ul>
+                        </li>
+                        <li><a target="_blank" href="https://twitter.com/mobbrcom"><img class="customicon" src="img/icon-twitter.png"></a></li>
+                        <li><a target="_blank" href="https://plus.google.com/communities/100962413817465214183"><img class="customicon" src="img/icon-gplus.png"></a></li>
+                        <li><a target="_blank" href="http://blog.mobbr.com/"><img class="customicon" src="img/icon-rss.png"></a></li>
+                    </ul>
+
+                    <div ng-controller="MobbrNowController">
+                        <form class="navbar-form pull-right" title="Do a direct payment to an URL or email address" id="mobbrform" name="mobbrform" ng-submit="submit()">
+                            <div class="input-append">
+                                <input name="data" title="Enter the URL, Mobbr-account, email-address you want to send money to" placeholder="Enter recipient address" size="35" maxlength="512" type="text" ng-model="mobbrnowInput">
+                                <button name="go" class="btn" type="submit">Do a direct payment</button>
+                            </div>
+                            <input name="using_lightbox" value="true" type="hidden">
+                        </form>
+                    </div>
+                </nav>
+            </section>
+
+            <div class="container main">
+                <div ng-view id="wrapper" class="row-fluid"></div>
+            </div>
+
+            <!-- outer div is to make sure the mobbr_div is only shown when we want it to be -->
+            <div style="display:none" ng-show="true" ng-controller="MobbrNowController">
+                <div id="mobbr_div" ng-show="showMobbrFrame" name="mobbr_div" class="small" >
+                    <a class="close" ng-click="closeMobbrNow()">
+                        <img src="/images/frame_closebutton.png" alt="Close button">
+                    </a>
+                    <iframe frameborder="0" id="mobbr_frame" name="mobbr_frame">
+                        <html>
+                        <head></head>
+                        <body></body>
+                        </html>
+                    </iframe>
+                </div>
+            </div>
+        </div>
+
+        <form ng-show="false" action="{{api_url}}/gateway/" target="mobbr_frame" id="mobbr_frm_1" method="POST">
+            <input value="true" name="using_lightbox" type="hidden">
+            <input value="{{location}}" name="data" type="hidden">
+        </form>
+
+        <script type="text/javascript" src="https://jira.mobbr.com/s/en_US-v1z3lw-418945332/854/4/1.2.9/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?collectorId=cf50ef21"></script>
+        <script src="scripts/vendor/jquery/jquery-1.8.3.min.js"></script>
+        <script src="scripts/vendor/angular.min.js"></script>
+        <script src="scripts/vendor/angular-cookies.js"></script>
+        <script src="scripts/vendor/angular-resource.js"></script>
+        <script src="scripts/vendor/ui-bootstrap-tpls-0.3.0.js"></script>
+        <script src="scripts/vendor/pnotify-1.2.0/jquery.pnotify.min.js"></script>
+        <script src="scripts/vendor/md5.js"></script>
+
+        <!-- build:js scripts/scripts.js -->
+        <script src="scripts/services/localStorageModule.js"></script>
+        <script src="scripts/services/mbr-api.js"></script>
+        <script src="scripts/services/UserSession.js"></script>
+        <script src="scripts/app.js"></script>
+
+        <script src="scripts/controllers/ApiController.js"></script>
+        <script src="scripts/controllers/ActivateController.js"></script>
+        <script src="scripts/controllers/MobbrNowController.js"></script>
+        <script src="scripts/controllers/UrlReceiptController.js"></script>
+        <script src="scripts/controllers/PaymentReceiptController.js"></script>
+        <script src="scripts/controllers/ExchangeRateController.js"></script>
+        <script src="scripts/controllers/DomainController.js"></script>
+        <script src="scripts/controllers/SearchDomainController.js"></script>
+        <script src="scripts/controllers/CreateButtonController.js"></script>
+        <script src="scripts/controllers/ClaimPaymentController.js"></script>
+        <script src="scripts/controllers/MainController.js"></script>
+        <script src="scripts/controllers/DashboardController.js"></script>
+        <script src="scripts/controllers/LinkLoginController.js"></script>
+        <script src="scripts/controllers/LoginController.js"></script>
+        <script src="scripts/controllers/UserSettingsController.js"></script>
+        <script src="scripts/controllers/RecoverPasswordController.js"></script>
+
+        <script src="scripts/directives.js"></script>
+        <!-- endbuild -->
+
+        <!-- TODO: needs to be replaced by https://api.mobbr.com/js as soon as the certificate is installed -->
+        <script src="scripts/vendor/mobbr-button.js"></script>
+
+    </body>
+</html>

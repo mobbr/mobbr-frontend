@@ -1,0 +1,75 @@
+<div class="payments">
+    <div ng-show="showSearchEntriesDirective">
+        <form class="form-inline" ng-show="payments.length > 0">
+            <label for="searchEntries{{paymenttype}}">Search: </label>
+            <input class="search-query" type="search" ng-model="searchentries" id="searchEntries{{paymenttype}}">
+        </form>
+    </div>
+
+    <div id="{{paymenttype}}_box">
+        <h2 ng-show="title">{{title}}</h2>
+
+        <h6><small ng-show="payments.length == 0 && !initializing" ng-bind="nodatatitle"></small></h6>
+
+        <div class="alert alert-info" ng-show="payments.length == 0 && initializing">
+            <button class="btn btn-link" ng-click="retrieveUrl()">Loading data <i class="icon-white mobbrloader"></i></button>
+        </div>
+
+        <div ng-show="payments.length > 0">
+            <div class="form-inline">
+                <div>
+                    <button class="btn"
+                            ng-click="finalizePayments()"
+                            ng-disabled="!canFinalize()"
+                            ng-show="editable">Finalize payments <i class="icon-white mobbrloader" ng-show="working"></i></button>
+
+                    <button class="btn"
+                            ng-click="deletePayments()"
+                            ng-disabled="!anyChecked()"
+                            ng-show="editable">Delete payments  <i class="icon-white mobbrloader" ng-show="working"></i></button>
+                </div>
+
+                <div class="pull-right">
+                    <label for="showentries">Entries: </label>
+                    <select class="input-small" id="showentries" ng-model="showentries">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </div>
+            </div>
+
+            <table class="paymentslist table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th ng-click="sortPayments('datetime')" ng-bind="dateHeader()"></th>
+                    <th ng-click="sortPayments('title')">subject / thing</th>
+                    <th ng-click="sortPayments('payment.currency_iso')">currency</th>
+                    <th ng-click="sortPayments('amount')">amount</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="form-inline" ng-repeat="payment in payments | filter:searchentries | limitTo:showentries | orderBy:sortEntries:sortOrder" >
+                    <td class="form-inline"><input type="checkbox" ng-model="payment.checked" ng-show="editable"></td>
+                    <td ng-click="openPayment(payment.id)">{{payment.datetime}}</td>
+                    <td ng-click="openPayment(payment.id)">{{payment.title}}</td>
+                    <td>
+                        <select class="input-small"
+                                ng-show="editable"
+                                ng-model="payment.currency_iso"
+                                ng-options="cur.currency_code as cur.currency_code for cur in currencies"
+                                ng-change="paymentChanged(payment)"></select>
+                        <span ng-show="!editable" ng-bind="payment.currency_iso"></span>
+                    </td>
+                    <td>
+                        <input class="input-small" type="number" ng-model="payment.amount" ng-show="editable" ng-change="paymentChanged(payment)" step="any" min="0" max="1000000000">
+                        <span class="amount decorate-amount" ng-show="!editable" ng-bind="payment.amount | number:4"></span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

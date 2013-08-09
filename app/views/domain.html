@@ -1,0 +1,121 @@
+<div class="page-header">
+    <h1>
+        {{info.meta_data.title}}<br>
+    </h1>
+</div>
+
+<div class="row-fluid">
+    <div class="span8">
+        <a href="{info.meta_data.url}}" ng-show="info.meta_data.img_url">
+            <img ng-src="{{info.meta_data.img_url}}">
+        </a>
+
+        <p>{{info.meta_data.description}}</p>
+    </div>
+
+    <div class="well special pull-right span4 receipt">
+        <table class="table table-striped">
+            <thead>
+            <th colspan="3">Domain earnings</th>
+            </thead>
+            <tbody>
+            <tr ng-repeat="balance in balances" ng-class-odd="'odd'" ng-class-even="'even'">
+                <td ng-bind="currencyDescription(balance.currency_iso)"></td>
+                <td ng-bind="balance.currency_iso"></td>
+                <td ng-bind="balance.amount | number:4" class="amount decorate-amount"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<tabs>
+    <pane heading="Payments to this domain">
+        <div ng-show="owner">
+            <paymentsprovided title=""
+                              nodatatitle="No payments"
+                              searchentries="searchentries"
+                              payments="payments"
+                              showexpiresdate="false">
+
+            </paymentsprovided>
+        </div>
+        <div class="alert alert-error" ng-show="!owner">
+            This information is only viewable by the ownwer of this domain
+        </div>
+    </pane>
+
+    <pane heading="Where were payments made">
+        <div class="alert alert-error" ng-show="!owner">
+            This information is only viewable by the ownwer of this domain
+        </div>
+
+        <div ng-show="owner">
+            <div ng-show="locations.length > 0">
+                <form class="form-inline" ng-show="payments.length > 0">
+                    <label for="searchEntriesLocations">Search: </label>
+                    <input class="search-query" type="search" ng-model="searchentriesLocations" id="searchEntriesLocations">
+                </form>
+            </div>
+
+            <div class="alert" ng-show="locations.length == 0">
+                No referrers found
+            </div>
+
+            <table ng-show="locations.length > 0" class="table table-striped">
+                <thead>
+                <tr>
+                    <th ng-click="sortLocations('url')">Url</th>
+                    <th></th>
+                    <th ng-click="sortLocations('amount')">Amount</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="location in locations | orderBy:sortEntriesLocations:sortOrderLocations | filter:searchentriesLocations">
+                    <td><a href="{{location.url}}" target="_blank">{{location.url}}</a></td>
+                    <td ng-bind="location.currency_iso"></td>
+                    <td ng-bind="location.amount | number:4" class="amount decorate-amount"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </pane>
+    <pane heading="How were payments divided">
+        <div class="alert" ng-show="!owner">
+            This information is only viewable by the ownwer of this domain
+        </div>
+        <div ng-show="owner">
+
+            <form class="form-inline" ng-show="persons.length > 0">
+                <label for="searchEntriesPeople">Search: </label>
+                <input class="search-query" type="search" ng-model="searchentriesPeople" id="searchEntriesPeople">
+            </form>
+
+            <div class="laert alert-info" ng-show="persons.length == 0">
+                No persons found
+            </div>
+
+            <table ng-show="persons.length > 0" class="table table-striped">
+                <thead>
+                <tr>
+                    <th colspan="2" ng-click="sortPeople('username')">Person</th>
+                    <th ng-click="sortPeople('roles')">Roles</th>
+                    <th colspan="2" ng-click="sortPeople('amount')">Amount</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="person in persons | orderBy:sortEntriesPeople:sortOrderPeople | filter:searchentriesPeople">
+                    <td>
+                        <img width="20" ng-src="https://secure.gravatar.com/avatar/{{person.gravatar}}&default=https://mobbr.com/images/default-gravatar.png" ng-show="person.gravatar">
+                    </td>
+                    <td ng-bind="person.username"></td>
+                    <td ng-bind="person.roles"></td>
+
+                    <td ng-bind="person.currency_iso"></td>
+                    <td ng-bind="person.amount | number:4" class="amount decorate-amount"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </pane>
+</tabs>

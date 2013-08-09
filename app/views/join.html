@@ -1,0 +1,49 @@
+<div class="page-header">
+    <h1>Join Mobbr<br><small>Choose your username with care, it can never be changed. Ever.</small></h1>
+</div>
+
+
+<form user-register name="register" class="form-horizontal">
+
+    <!-- TODO: correct styling -->
+    <div class="control-group">
+        <div class="control-label">
+            <label for="username">Username</label>
+        </div>
+        <div class="controls">
+            <input type="text" ng-model="username" placeholder="username" id="username">
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="control-label">
+            <label for="email">Email</label>
+        </div>
+        <div class="controls">
+            <input ng-model="email" type="email" name="email" placeholder="email" required id="email">
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="control-label">
+            <label for="password">Password</label>
+        </div>
+        <div class="controls">
+            <input ng-model="password" id="password" type="password" required placeholder="password">
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="control-label">
+           <label for="password_control">Confirm password</label>
+        </div>
+        <div class="controls">
+            <input ng-model="password_control" id="password_control" type="password" required placeholder="confirm password">
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
+            <button class="btn btn-primary" type="submit">Join</button>
+        </div>
+    </div>
+</form>
