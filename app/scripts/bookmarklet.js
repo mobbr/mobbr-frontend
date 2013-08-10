@@ -7,7 +7,7 @@
 
     if (typeof mobbr === 'undefined') {
         s = document.createElement('script');
-        s.setAttribute('src', api+'/mobbr-button.js');
+        s.setAttribute('src', 'https://mobbr.com/mobbr-button.js');
         document.body.appendChild(s);
     }
 
