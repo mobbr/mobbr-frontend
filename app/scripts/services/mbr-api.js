@@ -105,10 +105,10 @@ angular.module('mobbr.services.mbr-api', [
             setPassword: {method: 'POST',params : {action:'update_password'},isArray:false},
             register: {method: 'PUT',params :{action:'register_user_send_login_link'}, isArray:false},
             recover: {method: 'GET',params :{email:'email',username:'username',action:'send_login_link'},isArray:false},
-            login: {method: 'POST',params : {action:'password_login'},isArray:false},
+            login: {method: 'PUT',params : {action:'password_login'},isArray:false},
             get: {method: 'GET',params :{action:'logged_in_user'},isArray:false},
             save: {method: 'POST',params :{action:'update_user'}},
-            linkLogin: {method: 'POST',params :{action:'link_login'}},
+            linkLogin: {method: 'PUT',params :{action:'link_login'}},
             logout: {method: 'DELETE',params :{action:'logout'}}
 
         });
@@ -138,13 +138,13 @@ angular.module('mobbr.services.mbr-api', [
             paymentDescription: {method: 'GET',params: {url:'url', action: 'payment_script'},isArray:false},
             checkUrl: {method: 'GET',params: { url:'url',action: 'check_url'},isArray:false},
             unclaimedPayments: {method: 'GET',params: {url:'url', action: 'unclaimed_payments'},isArray:false},
-            claim: {method: 'PUT',params: {url:'url', action: 'claim_payments'}}
+            claim: {method: 'POST',params: {url:'url', action: 'claim_payments'}}
         });
     }).factory('CreateButton', function($resource) {
         return $resource(api_url + '/api/script/:action',{},{
             checkUrl: {method: 'GET',params: {url:'url', action: 'retrieve_script'}},
             storeJson: {method: 'PUT',params: { action: 'store_script'}},
-            validateJson: {method: 'POST',params: {json:'json', action: 'validate_script'}}
+            validateJson: {method: 'GET',params: {json:'json', action: 'validate_script'}}
 
         });
     }).factory('Balances',function($resource){
