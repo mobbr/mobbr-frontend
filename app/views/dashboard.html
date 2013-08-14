@@ -39,7 +39,7 @@
             <div class="btn-group">
                 <button class="btn dropdown-toggle" data-toggle="dropdown">Receive <span class="caret"></span></button>
                 <ul class="dropdown-menu pull-right">
-                    <li ng-show="bitcoinaddresses.length > 0" class="nav-header">Your bitcoin addresses</li>
+                    <li ng-show="bitcoinaddresses.length > 0" class="nav-header">On these bitcoin addresses</li>
                     <li ng-show="bitcoinaddresses.length > 0" class="nav-header">
                         <ul class="no-style">
                             <li ng-repeat="bitcoinaddress in bitcoinaddresses">
@@ -48,7 +48,27 @@
                         </ul>
                     </li>
                     <li class="nav-header">
-                        <button class="btn btn-primary" ng-click="newBitcoinaddress()">Generate address</button>
+                        <button class="btn btn-primary" ng-click="newBitcoinaddress()">Generate extra address</button>
+                    </li>
+                    <li class="divider"></li>
+                    <li ng-show="bitcoinaddresses.length > 0" class="nav-header">On this email address</li>
+                    <li ng-show="bitcoinaddresses.length > 0" class="nav-header">
+                        <ul class="no-style">
+                            <li>
+                                paypal@mobbr.com
+                            </li>
+                        </ul>
+                    </li>
+                    <li ng-show="bitcoinaddresses.length > 0" class="nav-header">With this token in / as description</li>
+                    <li ng-show="bitcoinaddresses.length > 0" class="nav-header">
+                        <ul class="no-style">
+                            <li>
+                                %bfcd63d724d1bf3462e61f1f397da1d1%
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-header">
+                        <button class="btn btn-primary" ng-click="newBitcoinaddress()">Generate extra token</button>
                     </li>
                 </ul>
             </div>
