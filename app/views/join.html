@@ -2,8 +2,13 @@
     <h1>Join Mobbr<br><small>Choose your username with care, it can never be changed. Ever.</small></h1>
 </div>
 
+<iframe style="width: 100%;" class="eula" src="{{ api_url }}/mobbr-terms-of-use.txt"></iframe>
 
 <form user-register name="register" class="form-horizontal">
+    <label class="checkbox">
+        <input type="checkbox" ng-model="accept_eula">
+        I accept the terms
+    </label>
 
     <!-- TODO: correct styling -->
     <div class="control-group">
