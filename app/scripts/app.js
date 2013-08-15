@@ -142,12 +142,23 @@ angular.module('mobbr', [
 
             }).otherwise({ redirectTo: '/' });
 
-    }]).config([ '$locationProvider', function ($locationProvider) {
-        // TODO: every request that is no api request should be rewritten on the server to the base index.html
-        // TODO: angular app should be placed in the root to make this work
+    }]).config([ '$httpProvider', function ($httpProvider, Msg) {
 
-        //$locationProvider.html5Mode(true);
-        //$locationProvider.hashPrefix = '!';
+        $httpProvider.responseInterceptors.push(function($q, $timeout, userSession, Msg) {
+
+            var timer;
+
+            return function (promise) {
+                $timeout.cancel(timer);
+                timer = $timeout(function () {
+                    if (userSession.authenticated) {
+                        Msg.addNotification('Session timed out');
+                        userSession.doLogout();
+                    }
+                }, 1000 * 60 * 15);
+                return promise;
+            }
+        });
 
     }]).factory('Msg',function () {
 
