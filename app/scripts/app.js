@@ -38,6 +38,7 @@ angular.module('mobbr', [
                 templateUrl: 'views/recover-password.html',
                 controller: 'ResetPasswordController'
             }).when('/join', {
+                controller: 'JoinController',
                 templateUrl: 'views/join.html',
                 authsettings: { authenticated: false, redirectTo: '/dashboard' }
                 ,
