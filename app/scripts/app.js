@@ -31,6 +31,9 @@ angular.module('mobbr', [
             }).when('/activate/:hash', {
                 templateUrl: 'views/activate.html',
                 controller: 'ActivateController'
+            }).when('/email/:hash', {
+                templateUrl: 'views/update-email.html',
+                controller: 'UpdateEmailController'
             }).when('/recover', {
                 templateUrl: 'views/recover-password.html',
                 controller: 'ResetPasswordController'
@@ -139,7 +142,6 @@ angular.module('mobbr', [
             }).otherwise({ redirectTo: '/' });
 
     }]).config([ '$locationProvider', function ($locationProvider) {
-
         // TODO: every request that is no api request should be rewritten on the server to the base index.html
         // TODO: angular app should be placed in the root to make this work
 

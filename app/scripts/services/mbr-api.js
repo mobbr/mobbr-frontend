@@ -109,8 +109,10 @@ angular.module('mobbr.services.mbr-api', [
             get: {method: 'GET',params :{action:'logged_in_user'},isArray:false},
             save: {method: 'POST',params :{action:'update_user'}},
             linkLogin: {method: 'PUT',params :{action:'link_login'}},
-            logout: {method: 'DELETE',params :{action:'logout'}}
-
+            logout: {method: 'DELETE',params :{action:'logout'}},
+            updateEmail: {method: 'POST',params :{action:'update_email'}},
+            confirmEmail: {method: 'POST',params :{action:'confirm_email'}},
+            updatePassword: {method: 'POST',params :{action:'update_password'}}
         });
 
     }).factory('Dashboard', function($resource) {
