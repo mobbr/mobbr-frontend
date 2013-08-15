@@ -1,6 +1,16 @@
 'use strict';
 
 angular.module('mobbr.services.user', ['mobbr.services.mbr-api', 'LocalStorageModule']).factory('userSession',function ($injector, $http, localStorageService,$location,Msg) {
+
+    function clearLogin() {
+        this.authenticated = false;
+        this.user = null;
+        delete $http.defaults.headers.common['Authorization'];
+        localStorageService.clearAll();
+        userSession.user = undefined;
+        userSession.authenticated = false;
+    }
+
     var userSession = {
         authenticated: false,
         user: undefined,
@@ -20,23 +30,12 @@ angular.module('mobbr.services.user', ['mobbr.services.mbr-api', 'LocalStorageMo
             localStorageService.clearAll();
             localStorageService.add('Authorization', headerValue);
             localStorageService.add('User', user);
-
-
-
         },
         doLogout: function(){
-           this.authenticated = false;
-           this.user = null;
-
-            delete $http.defaults.headers.common['Authorization'];
-            localStorageService.clearAll();
-
-            userSession.user = undefined;
-            userSession.authenticated = false;
-
-
+            clearLogin();
             this.reload();
-        } ,
+        },
+        clearLogin: clearLogin,
         reload: function () {
             var $route = $injector.get('$route');
 

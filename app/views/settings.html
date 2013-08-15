@@ -1,7 +1,7 @@
 
     <tabs>
         <pane heading="Account settings">
-            <form name="primary" class="form-horizontal">
+            <form name="changeemail" class="form-horizontal" novalidate>
 
                 <div class="control-group">
 
@@ -21,9 +21,94 @@
                     </div>
 
                     <div class="controls">
-                        <input ng-model="user.email" name="email" type="text" ng-disabled="true" title="It is not possible to change your email address">
+                        <input ng-model="new_email" name="email" type="email" required>
+                        <span ng-show="changeemail.email.$dirty && changeemail.email.$error.required" class="help-inline">Enter a email address.</span>
+                        <span ng-show="changeemail.email.$dirty && changeemail.email.$error.email" class="help-inline">Enter a valid email address.</span>
                     </div>
                 </div>
+
+                <div class="control-group">
+                    <div class="controls">
+                        <button ng-click="submitEmail(changeemail)"
+                                ng-disabled="!changeemail.$valid || user.email == new_email"
+                                type="submit"
+                                class="btn btn-success">Change email address</button>
+                    </div>
+                </div>
+            </form>
+            <form name="changepassword" class="form-horizontal" novalidate>
+                <div class="control-group">
+
+                    <div class="control-label">
+                        <label for="new_password">New password</label>
+                    </div>
+
+                    <div class="controls">
+                        <input ng-model="new_password" id="new_password" name="new_password" type="password" required ng-pattern="/^.*(?=.{8,})(?=.*\d)(?=.*[a-z]).*$/">
+                        <span ng-show="changepassword.new_password.$dirty && changepassword.new_password.$error.required" class="help-inline">Enter a new password</span>
+                        <span ng-show="changepassword.new_password.$dirty && changepassword.new_password.$error.pattern" class="help-inline">Minimal 8 charactes, uppercase, lowercase and numbers</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+
+                    <div class="control-label">
+                        <label for="new_password2">New password again</label>
+                    </div>
+
+                    <div class="controls">
+                        <input name="new_password2" id="new_password2" ng-model="new_password_control" type="password" required pw-check="new_password">
+                        <span ng-show="changepassword.new_password2.$dirty && changepassword.new_password2.$error.pwmatch" class="help-inline">Passwords do not match</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+
+                    <div class="control-label">
+                        <label for="password">Your current password</label>
+                    </div>
+
+                    <div class="controls">
+                        <input ng-model="password" id="password" name="current_password" type="password" required>
+                        <span ng-show="changepassword.current_password.$dirty && changepassword.password.$error.required" class="help-inline">Enter your current password</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <div class="controls">
+                        <button ng-click="submitPassword(changepassword)"
+                                ng-disabled="!changepassword.$valid"
+                                type="submit"
+                                class="btn btn-success">Change password</button>
+                    </div>
+                </div>
+            </form>
+        </pane>
+
+        <pane heading="Payment settings">
+            <form name="security" class="form-horizontal">
+
+                <div class="control-group">
+
+                    <div class="control-label">
+                        <label for="bitcoin_address">Bitcoin address</label>
+                    </div>
+
+                    <div class="controls">
+                        <input ng-model="user.bitcoin_address" name="bitcoin_address" type="text" id="bitcoin_address" placeholder="bitcoin hash">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <div class="controls">
+                        <button ng-click="submitSettings()" class="btn btn-success">Save</button>
+                    </div>
+                </div>
+            </form>
+        </pane>
+
+        <pane heading="Display settings">
+            <form name="security" class="form-horizontal">
 
                 <div class="control-group">
 
@@ -66,74 +151,16 @@
                     </div>
 
                     <div class="controls">
-                         <select ng-model="user.timezone" name="timezone" id="timezone"
-                                 ng-options="value as key for (value,key ) in timezones">
+                        <select ng-model="user.timezone" name="timezone" id="timezone"
+                                ng-options="value as key for (value,key ) in timezones">
 
-                         </select>
-                    </div>
-                </div>
-
-                <div class="control-group">
-
-                    <div class="control-label">
-                        <label for="bitcoin_address">Bitcoin address</label>
-                    </div>
-
-                    <div class="controls">
-                        <input ng-model="user.bitcoin_address" name="bitcoin_address" type="text" id="bitcoin_address" placeholder="bitcoin hash">
+                        </select>
                     </div>
                 </div>
 
                 <div class="control-group">
                     <div class="controls">
-                        <button ng-click="submitSettings()" class="btn btn-success">Save</button>
-                    </div>
-                </div>
-            </form>
-        </pane>
-
-        <pane heading="Display settings">
-            <form user-password name="security" class="form-horizontal">
-
-                <div class="control-group">
-
-                    <div class="control-label">
-                        <label for="new_password">New password</label>
-                    </div>
-
-                    <div class="controls">
-                        <input ng-model="new_password" id="new_password" name="new_password" type="password" required>
-                        <span ng-show="security.new_password.$error.required" class="help-inline">Required field.</span>
-                    </div>
-                </div>
-
-                <div class="control-group">
-
-                    <div class="control-label">
-                        <label for="new_password2">New password again</label>
-                    </div>
-
-                    <div class="controls">
-                        <input name="new_password2" id="new_password2" ng-model="new_password_control" type="password" required>
-                        <span ng-show="security.new_password2.$error.required" class="help-inline">Required field.</span>
-                    </div>
-                </div>
-
-                <div ng-show="userSession.user.has_password" class="control-group" style="display:none;">
-
-                    <div class="control-label">
-                        <label for="password">Your current password</label>
-                    </div>
-
-                    <div class="controls">
-                        <input ng-model="password" id="password" name="current_password" type="password" placeholder="your current password">
-                        <span ng-show="security.password.$error.required" class="help-inline">Required field.</span>
-                    </div>
-                </div>
-
-                <div class="control-group">
-                    <div class="controls">
-                        <button type="submit" class="btn btn-success">Save</button>
+                        <button ng-click="submitSettings()" type="submit" class="btn btn-success">Save</button>
                     </div>
                 </div>
             </form>
