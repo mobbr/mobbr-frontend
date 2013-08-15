@@ -122,7 +122,7 @@ angular.module('mobbr.services.mbr-api', [
             deletePayment: {method: 'POST',params: {action: 'delete_payments'}},
             withdraw: {method: 'POST',params: {action: 'send_external_payment'}},
             paymentservices: {method: 'GET',params: {action: 'available_payment_services'}},
-            getCurrencies: {method: 'GET',params: { action: 'currencies'},isArray:false}
+            getCurrencies: {method: 'GET',params: { action: 'currencies'},isArray:false},
         });
 
     }).factory('Domain', function($resource) {
@@ -137,10 +137,10 @@ angular.module('mobbr.services.mbr-api', [
         });
     }).factory('Claim', function($resource) {
         return $resource(api_url + '/api/claim/:action',{},{
-            paymentDescription: {method: 'GET',params: {url:'url', action: 'payment_script'},isArray:false},
-            checkUrl: {method: 'GET',params: { url:'url',action: 'check_url'},isArray:false},
-            unclaimedPayments: {method: 'GET',params: {url:'url', action: 'unclaimed_payments'},isArray:false},
-            claim: {method: 'POST',params: {url:'url', action: 'claim_payments'}}
+            paymentDescription: {method: 'GET',params: {action: 'payment_script'},isArray:false},
+            checkUrl: {method: 'GET',params: { action: 'check_url'},isArray:false},
+            unclaimedPayments: {method: 'GET',params: {action: 'unclaimed_payments'},isArray:false},
+            claim: {method: 'POST',params: {action: 'claim_payments'}}
         });
     }).factory('CreateButton', function($resource) {
         return $resource(api_url + '/api/script/:action',{},{
@@ -187,5 +187,13 @@ angular.module('mobbr.services.mbr-api', [
         });
     }
 
-);
+    ).factory('PaymentNetwork', function ($resource) {
+        return $resource(api_url + '/api/payment_network/:action', {}, {
+            networks: {method: 'GET',params: { action: 'networks'}},
+            accountAddresses: {method: 'GET', params: { action: 'account_addresses'}},
+            newAccountAddress: {method: 'PUT', params: { action: 'new_account_address'}},
+            supportedCurrencies: {method: 'GET', params: { action: 'supported_currencies'}},
+            sendPayment: {method: 'POST', params: { action: 'send_payment'}}
+        })
+    });
 
