@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('DashboardController', function ($scope, $rootScope, Balances,userSession, Util, Dashboard, Bitcoin, Msg) {
+angular.module('mobbr.controllers').controller('DashboardController', function ($scope, $rootScope, Balances,userSession, Util, Dashboard, Bitcoin, Msg, PaymentNetwork) {
 
     $scope.searchentries;                // filter on search criteria
     $scope.searchentriesAllPayments;                // filter on search criteria
@@ -73,5 +73,41 @@ angular.module('mobbr.controllers').controller('DashboardController', function (
             $scope.bitcoinaddresses.push(response.result);
         });
     }
+
+    PaymentNetwork.networks(function (response) {
+
+        var i = 0,
+            l = response.result.length;
+
+        $scope.networks = [];
+
+        for (; i < l; i++) {
+            $scope.networks.push({
+                name: response.result[i],
+                addresses: PaymentNetwork.accountAddresses({ network: response.result[i] }),
+                currencies: PaymentNetwork.supportedCurrencies({ network: response.result[i] })
+            });
+        }
+
+        $scope.network_method = $scope.networks[0];
+    });
+
+    $scope.newAccountAddress = function (network_method) {
+        PaymentNetwork.newAccountAddress({ network: network_method.name }, function (response) {
+            network_method.addresses = PaymentNetwork.accountAddresses({ network: network_method.name })
+        });
+    }
+
+    $scope.withdraw = function (network, currency, amount, to_address, note) {
+        PaymentNetwork.sendPayment({network: network, currency: currency, amount: amount, to_address: to_address, note: note}, function (response) {
+            Msg.setResponseMessage('success', 'Successful withdrawal', response);
+        }, function (response) {
+            Msg.setResponseMessage('error', 'Withdrawal failed', response);
+        });
+    }
+
+    /*$scope.getAddresses = function (network) {
+        return PaymentNetwork.accountAddresses({ network: network });
+    }*/
 
 });
