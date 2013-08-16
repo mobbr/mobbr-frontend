@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('DashboardController', function ($scope, $rootScope, Balances,userSession, Util, Dashboard, Bitcoin, Msg, PaymentNetwork) {
+angular.module('mobbr.controllers').controller('DashboardController', function ($scope, $rootScope, Balances,userSession, Util, Dashboard, Msg, PaymentNetwork) {
 
     $scope.searchentries;                // filter on search criteria
     $scope.searchentriesAllPayments;                // filter on search criteria
@@ -35,7 +35,7 @@ angular.module('mobbr.controllers').controller('DashboardController', function (
 
     $scope.$rootScope = $rootScope;
 
-    $scope.withdraw = function () {
+    /*$scope.withdraw = function () {
 
         Dashboard.withdraw({
 
@@ -72,7 +72,7 @@ angular.module('mobbr.controllers').controller('DashboardController', function (
         Bitcoin.newBitcoinaddress(function (response) {
             $scope.bitcoinaddresses.push(response.result);
         });
-    }
+    }*/
 
     PaymentNetwork.networks(function (response) {
 
