@@ -176,11 +176,11 @@ angular.module('mobbr.services.mbr-api', [
              languages: {method: 'GET',params: { action: 'languages'},isArray:false},
              timezones: {method: 'GET',params: { action: 'timezones'},isArray:false}
         });
-    }).factory('Bitcoin', function($resource) {
+    /*}).factory('Bitcoin', function($resource) {
         return $resource(api_url + '/api/bitcoin/:action',{},{
             bitcoinaddresses: {method: 'GET',params: { action: 'user_bitcoin_addresses'},isArray:false},
             newBitcoinaddress: {method: 'PUT',params: { action: 'new_user_bitcoin_address'},isArray:false}
-        });
+        });*/
     }).factory('Api', function($resource) {
                 return $resource(api_url + '/api/api/:action',{},{
                     list: {method: 'GET',params: { action: 'list'},isArray:false}
