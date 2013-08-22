@@ -38,9 +38,10 @@ var mobbr = mobbr || (function() {
         //mobbrFrame.src = 'https://mobbr.com/loader';
 
         mobbrFrame.onload = function() {
-            if (mobbrFrame.src == 'undefined') {
+            mobbrFrame.src = 'http://www.mobbr.com/lightbox/#/';
+            /*if (mobbrFrame.src == 'undefined') {
                 mobbrFrame.src = 'https://mobbr.com/loader';
-            }
+            }*/
         }
 
         a.appendChild(img);
@@ -107,17 +108,21 @@ var mobbr = mobbr || (function() {
             this.incrementButtonsShown();
 
             // Create a temporary form to commit to the iframe
-            var mobbr_frm = this.createMobbrForm();
-            document.body.appendChild(mobbr_frm);
-            this.addFormElement(mobbr_frm, "ref_uri", document.location.href.replace(/\/$/, ""));
-            this.addFormElement(mobbr_frm, "using_lightbox", "true");
-            this.addFormElement(mobbr_frm, "data", "");
+            //var mobbr_frm = this.createMobbrForm();
+            //document.body.appendChild(mobbr_frm);
+            //this.addFormElement(mobbr_frm, "ref_uri", document.location.href.replace(/\/$/, ""));
+            //this.addFormElement(mobbr_frm, "using_lightbox", "true");
+            //this.addFormElement(mobbr_frm, "data", "");
 
             // Add the Mobbr button
             var img = document.createElement('img');
             img.style.cssText = 'cursor: pointer; cursor: hand; width: '+button_size.width+'px !important; height: '+button_size.height+'px !important';
             img.className = 'mobbr_button';
-            img.setAttribute('onclick', 'mobbr.show_mobbr_div(' + buttons_shown + '); return false;');
+            //img.setAttribute('onclick', 'mobbr.show_mobbr_div(' + buttons_shown + '); return false;');
+            img.onclick = function () {
+                mobbr.show_mobbr_div(buttons_shown, data);
+                return false;
+            }
             img.src = full_image_url;
             img.alt = 'Mobbr button';
             img.title = 'Click to see payment info';
@@ -209,7 +214,7 @@ var mobbr = mobbr || (function() {
             }
         }
 
-        this.createMobbrForm = function()
+        /*this.createMobbrForm = function()
         {
             var mobbr_frm = document.createElement("form");
             mobbr_frm.method = "POST";
@@ -219,7 +224,7 @@ var mobbr = mobbr || (function() {
             mobbr_frm.onsubmit = "return false;";
             mobbr_frm.style.display = "none";
             return mobbr_frm;
-        }
+        }*/
 
         //helper function to add elements to the form
         this.addFormElement = function(inputForm, elementName, elementValue)
@@ -373,16 +378,23 @@ var mobbr = mobbr || (function() {
             return mobbr_object.incrementButtonsShown();
         },
 
-        show_mobbr_div_for_form: function(form_name)
+        show_mobbr_div_for_form: function(form_name, data)
         {
             mobbrDiv.style.display = 'block';
-            var frm = document.getElementById(form_name);
-            frm.submit();
+            var r = new XMLHttpRequest();
+            r.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+            r.open('POST', 'http://api.mobbr.com/api/gateway/analyze_payment', true);
+            r.onreadystatechange = function () {
+                if (r.readyState != 4 || r.status != 200) return;
+                var jsonResponse = JSON.parse(r.responseText);
+                mobbrFrame.src = 'http://www.mobbr.com/lightbox/#/?hash=' + jsonResponse.result;
+            };
+            r.send(JSON.stringify(data));
         },
 
-        show_mobbr_div: function(counter)
+        show_mobbr_div: function(counter, data)
         {
-            this.show_mobbr_div_for_form('mobbr_frm_' + counter);
+            this.show_mobbr_div_for_form('mobbr_frm_' + counter, data);
         },
 
         hide_mobbr_div: function()

@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js ie ie6 lt-ie9 lt-ie8 lt-ie7" xmlns:ng="http://angularjs.org"> <![endif]-->
+<!--[if IE 7]><html class="no-js ie ie7 lt-ie9 lt-ie8 lt-ie7" xmlns:ng="http://angularjs.org"> <![endif]-->
+<!--[if IE 8]><html class="no-js ie ie8 lt-ie9 lt-ie8" xmlns:ng="http://angularjs.org"> <![endif]-->
+<!--[if IE 9]><html class="no-js ie ie9 lt-ie9" xmlns:ng="http://angularjs.org"> <![endif]-->
+<!--[if gt IE 9]><html xmlns:ng="http://angularjs.org"> <![endif]-->
+<!--[if !IE]><!--><html xmlns:ng="http://angularjs.org"> <!--<![endif]-->
+<head>
+    <script>var api_url = 'https://api.mobbr.com';</script>
+    <!--<script>var api_url = 'http://192.168.1.13';</script>-->
+    <script src="../scripts/vendor/modernizr.min.js"></script>
+    <!--[if lte IE 8]>
+    <script>
+        document.createElement('ng-include');
+        document.createElement('ng-pluralize');
+        document.createElement('ng-view');
+        document.createElement('ng-switch');
+        document.createElement('accordion');
+        document.createElement('accordion-group');
+        document.createElement('interceptor');
+        document.createElement('payments');
+        document.createElement('paymentsprovided');
+        document.createElement('user-settings');
+        document.createElement('peoplepagesearch');
+        document.createElement('people');
+        document.createElement('mobbrbutton');
+        document.createElement('tabs');
+        document.createElement('pane');
+        document.createElement('alert');
+    </script>
+    <![endif]-->
+
+    <title>MOBBR Crowdpayment System</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:title" content="MOBBR crowdpayment system" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://mobbr.com" />
+    <meta property="og:image" content="https://mobbr.com/images/mobbr-ripple.jpg" />
+    <meta property="og:description" content="Welcome to MOBBR, the world's first crowdpayment system. Start sharing rewards and donations in bitcoin, XRP, social currencies and FIAT currencies." />
+
+    <meta name="description" content="Welcome to MOBBR, the world's first crowdpayment system. Start sharing rewards and donations in bitcoin, XRP, social currencies and FIAT currencies." />
+
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+
+    <style type="text/css">
+        body {
+            width: 491px;
+            min-height: 360px;
+            font-family: 'Open Sans';
+            margin: 0;
+            padding: 0;
+        }
+        .wrapper {
+            margin: 13px 20px 20px 20px;
+        }
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        h2 {
+            font-family: 'Open Sans Condensed';
+            font-weight: normal;
+            border: 1px solid #009ee0;
+            border-left: 0;
+            border-right: 0;
+            padding: 20px 0;
+            margin: 20px 0;
+        }
+        table {
+            width: 100%;
+            margin: 0;
+            border-collapse: collapse;
+            border-spacing: 0;
+            border-bottom: 1px solid #DDD;
+        }
+        th {
+            text-transform: uppercase;
+            color: #333;
+            text-align: left;
+            border-bottom: 1px solid #DDD;
+            margin: 0;
+        }
+        tr:nth-child(odd) td {
+            background: #f9f9f9;
+        }
+        th, td {
+            font-size: 11px;
+            padding: 5px;
+        }
+        .btn {
+            display: inline-block;
+            *display: inline;
+            /* IE7 inline-block hack */
+            *zoom: 1;
+            padding: 4px 12px;
+            margin-bottom: 0;
+            font-size: 14px;
+            line-height: 20px;
+            text-align: center;
+            vertical-align: middle;
+            cursor: pointer;
+            color: #333333;
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+            background-color: whitesmoke;
+            background-image: -moz-linear-gradient(top, white, #e6e6e6);
+            background-image: -webkit-gradient(linear, 0 0, 0 100%, from(white), to(#e6e6e6));
+            background-image: -webkit-linear-gradient(top, white, #e6e6e6);
+            background-image: -o-linear-gradient(top, white, #e6e6e6);
+            background-image: linear-gradient(to bottom, white, #e6e6e6);
+            background-repeat: repeat-x;
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFFFF', endColorstr='#FFE6E6E6', GradientType=0);
+            border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+            border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+            *background-color: #e6e6e6;
+            /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+            filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+            border: 1px solid #cccccc;
+            *border: 0;
+            border-bottom-color: #b3b3b3;
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            border-radius: 4px;
+            *margin-left: .3em;
+            -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+            -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05); }
+        .btn:hover, .btn:focus, .btn:active, .btn.active, .btn.disabled, .btn[disabled] {
+            color: #333333;
+            background-color: #e6e6e6;
+            *background-color: #d9d9d9; }
+        .btn:active, .btn.active {
+            background-color: #cccccc \9; }
+        .btn:first-child {
+            *margin-left: 0; }
+        .btn:hover, .btn:focus {
+            color: #333333;
+            text-decoration: none;
+            background-position: 0 -15px;
+            -webkit-transition: background-position 0.1s linear;
+            -moz-transition: background-position 0.1s linear;
+            -o-transition: background-position 0.1s linear;
+            transition: background-position 0.1s linear; }
+        .btn:focus {
+            outline: thin dotted #333333;
+            outline: 5px auto -webkit-focus-ring-color;
+            outline-offset: -2px; }
+        .btn.active, .btn:active {
+            background-image: none;
+            outline: 0;
+            -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+            -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05); }
+        .btn.disabled, .btn[disabled] {
+            cursor: default;
+            background-image: none;
+            opacity: 0.65;
+            filter: alpha(opacity=65);
+            -webkit-box-shadow: none;
+            -moz-box-shadow: none;
+            box-shadow: none; }
+
+        .btn-large {
+            padding: 11px 19px;
+            font-size: 17.5px;
+            -webkit-border-radius: 6px;
+            -moz-border-radius: 6px;
+            border-radius: 6px; }
+        .btn-success {
+            color: white;
+            text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+            background-color: #5bb65b;
+            background-image: -moz-linear-gradient(top, #62c462, #51a351);
+            background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#62c462), to(#51a351));
+            background-image: -webkit-linear-gradient(top, #62c462, #51a351);
+            background-image: -o-linear-gradient(top, #62c462, #51a351);
+            background-image: linear-gradient(to bottom, #62c462, #51a351);
+            background-repeat: repeat-x;
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF62C462', endColorstr='#FF51A351', GradientType=0);
+            border-color: #51a351 #51a351 #387038;
+            border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+            *background-color: #51a351;
+            /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+            filter: progid:DXImageTransform.Microsoft.gradient(enabled=false); }
+        .btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success.active, .btn-success.disabled, .btn-success[disabled] {
+            color: white;
+            background-color: #51a351;
+            *background-color: #499249; }
+        .btn-success:active, .btn-success.active {
+            background-color: #408140 \9; }
+
+        .buttons {
+            width: 240px;
+            margin: 0 auto;
+        }
+        label,
+        input,
+        button,
+        select,
+        textarea {
+            font-size: 14px;
+            font-weight: normal;
+            line-height: 20px; }
+
+        input,
+        button,
+        select,
+        textarea {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+
+        label {
+            display: block;
+            margin-bottom: 5px; }
+
+        select,
+        textarea,
+        input[type="text"],
+        input[type="password"],
+        input[type="datetime"],
+        input[type="datetime-local"],
+        input[type="date"],
+        input[type="month"],
+        input[type="time"],
+        input[type="week"],
+        input[type="number"],
+        input[type="email"],
+        input[type="url"],
+        input[type="search"],
+        input[type="tel"],
+        input[type="color"],
+        .uneditable-input {
+            display: inline-block;
+            height: 20px;
+            padding: 4px 6px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            line-height: 20px;
+            color: #555555;
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            border-radius: 4px;
+            vertical-align: middle; }
+        textarea,
+        input[type="text"],
+        input[type="password"],
+        input[type="datetime"],
+        input[type="datetime-local"],
+        input[type="date"],
+        input[type="month"],
+        input[type="time"],
+        input[type="week"],
+        input[type="number"],
+        input[type="email"],
+        input[type="url"],
+        input[type="search"],
+        input[type="tel"],
+        input[type="color"],
+        .uneditable-input {
+            background-color: white;
+            border: 1px solid #cccccc;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+            -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+            -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+            -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+            -o-transition: border linear 0.2s, box-shadow linear 0.2s;
+            transition: border linear 0.2s, box-shadow linear 0.2s; }
+        textarea:focus,
+        input[type="text"]:focus,
+        input[type="password"]:focus,
+        input[type="datetime"]:focus,
+        input[type="datetime-local"]:focus,
+        input[type="date"]:focus,
+        input[type="month"]:focus,
+        input[type="time"]:focus,
+        input[type="week"]:focus,
+        input[type="number"]:focus,
+        input[type="email"]:focus,
+        input[type="url"]:focus,
+        input[type="search"]:focus,
+        input[type="tel"]:focus,
+        input[type="color"]:focus,
+        .uneditable-input:focus {
+            border-color: rgba(82, 168, 236, 0.8);
+            outline: 0;
+            outline: thin dotted \9;
+            /* IE6-9 */
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+            -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6); }
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+            display: none !important;
+        }
+
+    .loading .wrapper {
+        display: none;
+    }
+
+    .loading {
+        background: url(/images/mobberlogoloader.gif) center center no-repeat;
+    }
+    </style>
+</head>
+<body ng-app="mobbr" id="ng-app" class="ng-app:mobbr" ng-class="{ loading: loading }" ng-controller="LightboxController">
+<img src="/images/mobbrband.png">
+<div ng-switch on="userSession.authenticated" class="wrapper" ng-cloak>
+    <div id="login_form" ng-switch-when="false">
+        <h2>
+            Identify yourself
+        </h2>
+
+        <form ng-submit="login(false)" name="head-login" ng-controller="LoginController">
+            <ul>
+                <li>
+                    <input ng-model="email" type="email" name="email" placeholder="email address">
+                </li>
+                <li>
+                    <input ng-model="password" type="password" name="password" placeholder="password">
+                </li>
+                <li>
+                    <button type="submit" class="btn btn-success">Log in</button>
+                </li>
+            </ul>
+        </form>
+        <div id="signup">
+            <div>
+                New user or forgotten password? &rarr; <a href="/#/join" target="_blank">Go here</a>
+            </div>
+        </div>
+    </div>
+
+    <div ng-switch-when="true">
+
+        <div ng-switch on="marked">
+            <div ng-switch-when="undefined">
+                <div class="container buttons">
+                    <button class="btn btn-large btn-success" ng-click="registerPayment()" title="Register this URL for payment. To actually pay, go to your dashboard">
+                        Pay later
+                    </button>
+                    <button class="btn btn-large" disabled title="Register this URL for payment. To actually pay, go to your dashboard">
+                        Pay now
+                    </button>
+                </div>
+
+                <div id="tab" class="active">
+
+                    <div class="start">
+                        <img ng-src="{{ json['image'] }}" ng-show="json['image']" height="24" style="float:left;" class="gravatar">
+                        <h2>
+                            <span ng-bind="json['title']"></span>
+                            <span class="attributes">
+                                <a ng-show="!same_domain" ng-bind="@{{ $json['url'] }}" ng-href="{{ json['url'] }}" target="_blank"></a>
+                                <a ng-show="json[language_iso]" title="language" ng-bind="language_iso"></a>
+                                <a ng-show="json[copyright]" ng-href="{{ json['copyright'] }}" title="copyright" target="_blank">&copy;</a>
+                                <a ng-show="json[mimetype]" ng-bind="json[mimetype]" title="mimetype"></a>
+                            </span>
+                        </h2>
+                        <p ng-show="json[desscription]" ng-bind="json[description]" class="description"></p>
+                        <div ng-show="noscript" class="overlay">This URL/product has not specified participation-information. Mobbr will generate an unclaimed payment. The owner of the URL <a target="_blank" href="/#/claimpayment">can claim this payment</a>.</div>
+                        <div class="tablewrapper" id="tablewrapper">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>
+                                        Value added by
+                                    </th>
+                                    <th>
+                                        In the role of
+                                    </th>
+                                    <th>
+                                        Share
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="participant in json['participants']">
+                                    <td ng-bind="participant['id']"></td>
+                                    <td ng-bind="participant['role']"></td>
+                                    <td ng-bind="(participant['.percentage'] | number:0) + '%'"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-switch-when="false">
+                <h2 ng-bind="errormessage"></h2>
+                <fieldset>
+                    <legend>
+                        Checklist for webmasters of <span ng-bind="json['url']"></span>
+                    </legend>
+                    <div class="error">
+                        <ul>
+                            <li>
+                                The syntax of the script is invalid, use a JSON-validator
+                                </br>&rarr; <a target="_blank" href="http://www.jsonlint.com/">http://www.jsonlint.com/</a>
+                            </li>
+                            <li>
+                                The schema of the script is invalid, use the Mobbr script validator
+                                </br>&rarr; <a target="_blank" href="/#/validate">#/validate</a>
+                            </li>
+                            <li>
+                                Values are out-of-range , check the specifications
+                                </br>&rarr; <a target="_blank" href="http://mobbr.com/protocol.html">http://mobbr.com/protocol.html</a>
+                            </li>
+                        </ul>
+                        Visit <a href="/#/buttons">the website</a> for instructions on using the buttons and widgets.
+                    </div>
+                </fieldset>
+            </div>
+            <div ng-switch-when="true">
+                <h2>Registered for payment!</h2>
+                <p>
+                    All your payments are collected <a target="_blank" href="/#/dashboard">on your dashboard</a>.
+                    You can review them and make them final all at once every week or so. You may now close this window.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../scripts/vendor/jquery/jquery-1.8.3.min.js"></script>
+<script src="../scripts/vendor/angular.min.js"></script>
+<script src="../scripts/vendor/angular-cookies.js"></script>
+<script src="../scripts/vendor/angular-resource.js"></script>
+<script src="../scripts/vendor/ui-bootstrap-tpls-0.3.0.js"></script>
+<script src="../scripts/vendor/pnotify-1.2.0/jquery.pnotify.min.js"></script>
+<script src="../scripts/vendor/md5.js"></script>
+
+<!-- build:js scripts/scripts.js -->
+<script src="../scripts/services/localStorageModule.js"></script>
+<script src="../scripts/services/mbr-api.js"></script>
+<script src="../scripts/services/UserSession.js"></script>
+<script src="scripts/services/Gateway.js"></script>
+<script src="scripts/app.js"></script>
+
+<script src="../scripts/controllers/ApiController.js"></script>
+<script src="../scripts/controllers/ActivateController.js"></script>
+<script src="../scripts/controllers/MobbrNowController.js"></script>
+<script src="../scripts/controllers/UrlReceiptController.js"></script>
+<script src="../scripts/controllers/PaymentReceiptController.js"></script>
+<script src="../scripts/controllers/ExchangeRateController.js"></script>
+<script src="../scripts/controllers/DomainController.js"></script>
+<script src="../scripts/controllers/SearchDomainController.js"></script>
+<script src="../scripts/controllers/CreateButtonController.js"></script>
+<script src="../scripts/controllers/ClaimPaymentController.js"></script>
+<script src="../scripts/controllers/MainController.js"></script>
+<script src="../scripts/controllers/DashboardController.js"></script>
+<script src="../scripts/controllers/LinkLoginController.js"></script>
+<script src="../scripts/controllers/LoginController.js"></script>
+<script src="../scripts/controllers/UserSettingsController.js"></script>
+<script src="../scripts/controllers/RecoverPasswordController.js"></script>
+<script src="../scripts/controllers/UpdateEmailController.js"></script>
+<script src="../scripts/controllers/JoinController.js"></script>
+<script src="scripts/controllers/LightboxController.js"></script>
+<script src="../scripts/directives.js"></script>
+<script src="../scripts/directives/pw-check.js"></script>
+</body>
+</html>
