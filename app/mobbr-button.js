@@ -7,7 +7,8 @@
  For specification see: https://mobbr.com/protocol
  */
 var mobbr = mobbr || (function() {
-    var api = 'https://api.mobbr.com';
+    var api_url = 'https://api.mobbr.com';
+    var ui_url  = 'https://mobbr.com';
     var mobbrDiv = createMobbrDiv();
     var mobbrFrame;
     var buttons_shown = 0;
@@ -35,7 +36,7 @@ var mobbr = mobbr || (function() {
         mobbrFrame.setAttribute('name', 'mobbr_frame');
         mobbrFrame.setAttribute('frameborder', '0');
         mobbrFrame.style.cssText = 'position:relative;top:-10px;left:0;right:0;bottom:0;opacity:1;filter:alpha(opacity=100); width: 100%; height: 315px; padding:0; margin:0;';
-        mobbrFrame.src = 'http://www.mobbr.com/lightbox/#/';
+        mobbrFrame.src = 'http://mobbr.dev:9000/lightbox/#/';
 
         mobbrFrame.onload = function() {
             //mobbrFrame.src = 'http://www.mobbr.com/lightbox/#/';
@@ -104,7 +105,7 @@ var mobbr = mobbr || (function() {
             {
                 md5_hash = hex_md5(data[0].url.replace(/\/$/, ""));
             }
-            var full_image_url = api + '/button/' + md5_hash + '/' + button_type;
+            var full_image_url = api_url + '/button/' + md5_hash + '/' + button_type;
             this.incrementButtonsShown();
 
             // Create a temporary form to commit to the iframe
@@ -383,11 +384,11 @@ var mobbr = mobbr || (function() {
             mobbrDiv.style.display = 'block';
             var r = new XMLHttpRequest();
             r.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-            r.open('POST', 'http://api.mobbr.com/api/gateway/analyze_payment', true);
+            r.open('POST', api_url + '/api/gateway/analyze_payment', true);
             r.onreadystatechange = function () {
                 if (r.readyState != 4 || r.status != 200) return;
                 var jsonResponse = JSON.parse(r.responseText);
-                mobbrFrame.src = 'http://www.mobbr.com/lightbox/#/?hash=' + jsonResponse.result;
+                mobbrFrame.src = ui_url + '/lightbox/#/?hash=' + jsonResponse.result;
             };
             r.send(JSON.stringify(data));
         },
