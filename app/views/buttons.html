@@ -20,23 +20,23 @@
 <p>
 <mobbrbutton size="medium" url="{{startLocation}}"></mobbrbutton>
 </p>
-<pre class="prettyprint">&lt;script src="https://{{host}}/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
+<pre class="prettyprint">&lt;script src="https://mobbr.com/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
 &lt;script type="text/javascript"&gt;mobbr.button('https://{{host}}/#/buttons');&lt;/script&gt;</pre>
 
 <p><mobbrbutton size="large" url="{{startLocation}}"></mobbrbutton></p>
-<pre class="prettyprint">&lt;script src="https://{{host}}/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
+<pre class="prettyprint">&lt;script src="https://mobbr.com/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
 &lt;script type="text/javascript"&gt;mobbr.buttonLarge('https://{{host}}/#/buttons');&lt;/script&gt;</pre>
 
 <p><mobbrbutton size="flat" url="{{startLocation}}"></mobbrbutton></p>
-<pre class="prettyprint">&lt;script src="https://{{host}}/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
+<pre class="prettyprint">&lt;script src="https://mobbr.com/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
 &lt;script type="text/javascript"&gt;mobbr.buttonFlat('https://{{host}}/#/buttons');&lt;/script&gt;</pre>
 
 <p><mobbrbutton size="small" url="{{startLocation}}"></mobbrbutton></p>
-<pre class="prettyprint">&lt;script src="https://{{host}}/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
+<pre class="prettyprint">&lt;script src="https://mobbr.com/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
 &lt;script type="text/javascript"&gt;mobbr.buttonSmall('https://{{host}}/#/buttons');&lt;/script&gt;</pre>
 
 <p><mobbrbutton size="slim" url="{{startLocation}}"></mobbrbutton></p>
-<pre class="prettyprint">&lt;script src="https://{{host}}/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
+<pre class="prettyprint">&lt;script src="https://mobbr.com/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
 &lt;script type="text/javascript"&gt;mobbr.buttonSlim('https://{{host}}/#/buttons');&lt;/script&gt;</pre>
 
 <p>
@@ -51,7 +51,7 @@
 </p>
 <p>
     <strong>Note: As you can see on this page, it is possible to have many buttons on a single page. In this case you
-        need to include the Javascript <code>https://{{host}}/js</code> only once.</strong>
+        need to include the Javascript <code>https://mobbr.com/mobbr-button.js</code> only once.</strong>
 </p>
 
 <h2>Badges</h2>
@@ -61,29 +61,29 @@
     on the Mobbr-site.
 </p>
 <p>
-    <a href="https://{{host}}/#/domain/aHR0cHM6Ly9tb2Jici5jb20=">
-        <img ng-src="https://{{host}}/badge/https/{{host}}/medium" alt="">
+    <a href="/#/domain/aHR0cHM6Ly9tb2Jici5jb20=">
+        <img ng-src="{{api_url}}/badge/https/{{host}}/medium" alt="">
     </a>
 </p>
-<pre class="prettyprint">&lt;script src="https://{{host}}/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
+<pre class="prettyprint">&lt;script src="https://mobbr.com/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
 &lt;script type="text/javascript"&gt;mobbr.badgeMedium();&lt;/script&gt;</pre>
 <p>
-    <a href="https://{{host}}/#/domain/aHR0cHM6Ly9tb2Jici5jb20=">
-        <img ng-src="https://{{host}}/badge/https/{{host}}/wide" alt="">
+    <a href="/#/domain/aHR0cHM6Ly9tb2Jici5jb20=">
+        <img ng-src="{{api_url}}/badge/https/{{host}}/wide" alt="">
     </a>
 </p>
-<pre class="prettyprint">&lt;script src="https://{{host}}/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
+<pre class="prettyprint">&lt;script src="https://mobbr.com/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
 &lt;script type="text/javascript"&gt;mobbr.badgeWide();&lt;/script&gt;</pre>
 
 <p>
     To have a badge show actual amounts append a <a href="#/exchangerate">currency code</a> to the script.
 </p>
 <p>
-    <a href="https://{{host}}/#/domain/aHR0cHM6Ly9tb2Jici5jb20=">
-        <img src="https://{{host}}/badge/https/{{host}}/wide/EUR" alt="">
+    <a href="/#/domain/aHR0cHM6Ly9tb2Jici5jb20=">
+        <img src="{{api_url}}/badge/https/{{host}}/wide/EUR" alt="">
     </a>
 </p>
-<pre class="prettyprint">&lt;script src="https://{{host}}/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
+<pre class="prettyprint">&lt;script src="https://mobbr.com/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
 &lt;script type="text/javascript"&gt;mobbr.badgeWide('EUR');&lt;/script&gt;</pre>
 
 <p>
@@ -271,7 +271,7 @@
 <p>
     For pages that have the metadata tags, the button is as simple as:
 </p>
-<pre class="prettyprint">&lt;script src="https://{{host}}/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
+<pre class="prettyprint">&lt;script src="https://mobbr.com/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
 &lt;script type="text/javascript"&gt;mobbr.button('http://yourdomain.com/product/your_product.html');&lt;/script&gt;</pre>
 <p>
     You can generate the meta-tag <a href="#/generatebutton">here</a>.
@@ -293,7 +293,7 @@
 <p>
     For pages that have the metalink tags, the button is as simple as:
 </p>
-    <pre class="prettyprint">&lt;script src="https://{{host}}/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
+    <pre class="prettyprint">&lt;script src="https://mobbr.com/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
 &lt;script type="text/javascript"&gt;mobbr.button('http://yourdomain.com/product/your_product.html');&lt;/script&gt;</pre>
 
 
@@ -342,7 +342,7 @@
 <p>
     On sites / domain that have the MIROPAYMENTS.TXT, adding the button is as simple as:
 </p>
-    <pre class="prettyprint">&lt;script src="https://{{host}}/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
+    <pre class="prettyprint">&lt;script src="https://mobbr.com/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
 &lt;script type="text/javascript"&gt;mobbr.button('http://yourdomain.com/product/your_product.html');&lt;/script&gt;</pre>
 <p>
     Mobbr will automatically use the participation.txt file.
