@@ -400,12 +400,12 @@ var mobbr = mobbr || (function() {
         hide_mobbr_div: function()
         {
             mobbrDiv.style.display = 'none';
-            if (window.location.hash == '#mobbrdone') {
+            /*if (window.location.hash == '#mobbrdone') {
                 if (typeof originalHash == 'undefined') delete window.location.hash;
                 else window.location.hash = originalHash;
                 window.location.href = originalHref;
                 //window.location.reload();
-            }
+            }*/
         },
 
         getMobbrDiv: function()
