@@ -9,7 +9,8 @@ angular.module('mobbr.controllers').controller('LoginController', function ($sco
         });
     }, 250);
 
-    $scope.login = function () {
+    $scope.login = function (redirect) {
+        redirect = redirect === undefined && true || redirect;
         User.login({ email: $scope.email, password: $scope.password }, function (response) {
             console.log('promise finished');
 
@@ -25,7 +26,7 @@ angular.module('mobbr.controllers').controller('LoginController', function ($sco
 
                     userSession.redirectAfterLoginIn = null;
 
-                } else {
+                } else if (redirect) {
                     $location.path('/dashboard');
                 }
 
