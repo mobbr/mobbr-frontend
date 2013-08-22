@@ -201,16 +201,16 @@ var mobbr = mobbr || (function() {
                 var draw_array = [ ];
                 draw_array[0] = data[0];
                 this.drawButton(draw_array, button_type, data[1], data[2]);
-                var mobbr_frm = document.getElementById('mobbr_frm_' + buttons_shown);
-                mobbr_frm.data.value = '{"url":"'+data[0]+'"}';
+                //var mobbr_frm = document.getElementById('mobbr_frm_' + buttons_shown);
+                //mobbr_frm.data.value = '{"url":"'+data[0]+'"}';
             }
             else
             {
                 if(!data[0].url) data[0].url = url;
                 var string_data = JSON.stringify(data[0]);
                 this.drawButton(data, button_type, data[1], data[2]);
-                var mobbr_frm = document.getElementById('mobbr_frm_' + buttons_shown);
-                if (mobbr_frm && mobbr_frm.data) mobbr_frm.data.value = string_data;
+                //var mobbr_frm = document.getElementById('mobbr_frm_' + buttons_shown);
+                //if (mobbr_frm && mobbr_frm.data) mobbr_frm.data.value = string_data;
             }
         }
 
