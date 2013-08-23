@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mobbr.controllers')
-    .controller('LightboxController', function ($scope, $location, Gateway, UserSession) {
+    .controller('LightboxController', function ($scope, $location, Gateway, userSession) {
 
         var hash,
             error;
@@ -37,7 +37,7 @@ angular.module('mobbr.controllers')
             });
         }
 
-        $scope.userSession = UserSession;
+        $scope.userSession = userSession;
         //$scope.same_domain = strcmp( parse_url( $json['url'], PHP_URL_HOST), parse_url( $referrer, PHP_URL_HOST) ) == 0;
     }
 );
