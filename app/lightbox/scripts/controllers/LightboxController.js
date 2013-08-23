@@ -9,6 +9,7 @@ angular.module('mobbr.controllers')
         function check() {
             error = $location.search()['error'];
             hash = $location.search()['hash'];
+            console.log('url change in de lightbox', error, hash);
             if (error) {
                 $scope.errormessage = error;
                 $scope.marked = false;
