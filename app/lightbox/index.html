@@ -55,7 +55,7 @@
             font-family: 'Open Sans';
             margin: 0 20px;
             padding: 0;
-            font-size: 13px;
+            font-size: 12px;
         }
         .wrapper {
             margin: 13px 0 20px 0;
@@ -311,10 +311,14 @@
         display: none;
     }
 
+    .header {
+        margin: 0 -20px;
+    }
+
     </style>
 </head>
 <body ng-app="mobbr" id="ng-app" class="ng-app:mobbr" ng-class="{ loading: loading }" ng-controller="LightboxController">
-<img src="/images/mobbrband.png">
+<img src="/images/mobbrband.png" class="header">
 <div ng-switch on="userSession.authenticated" class="wrapper" ng-cloak>
 
     <div ng-show="marked == false">
@@ -373,10 +377,10 @@
         <div ng-switch on="marked">
             <div ng-switch-when="undefined">
                 <div class="container buttons">
-                    <button class="btn btn-large btn-success" ng-click="registerPayment()" title="Register this URL for payment. To actually pay, go to your dashboard">
+                    <button class="btn btn-success" ng-click="registerPayment()" title="Register this URL for payment. To actually pay, go to your dashboard">
                         Pay later
                     </button>
-                    <button class="btn btn-large" disabled title="Register this URL for payment. To actually pay, go to your dashboard">
+                    <button class="btn" disabled title="Register this URL for payment. To actually pay, go to your dashboard">
                         Pay now
                     </button>
                 </div>
