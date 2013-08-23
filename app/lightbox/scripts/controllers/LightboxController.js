@@ -11,6 +11,7 @@ angular.module('mobbr.controllers')
             hash = $location.search()['hash'];
             console.log('url change in de lightbox', error, hash);
             if (error) {
+                $scope.loading = false;
                 $scope.errormessage = error;
                 $scope.marked = false;
             } else if (hash) {
