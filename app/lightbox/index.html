@@ -53,11 +53,11 @@
             width: 491px;
             min-height: 360px;
             font-family: 'Open Sans';
-            margin: 0;
+            margin: 0 20px;
             padding: 0;
         }
         .wrapper {
-            margin: 13px 20px 20px 20px;
+            margin: 13px 0 20px 0;
         }
         ul {
             list-style: none;
@@ -305,6 +305,11 @@
     .loading {
         background: url(/images/mobberlogoloader.gif) center center no-repeat;
     }
+
+    .ui-pnotify-history-container {
+        display: none;
+    }
+
     </style>
 </head>
 <body ng-app="mobbr" id="ng-app" class="ng-app:mobbr" ng-class="{ loading: loading }" ng-controller="LightboxController">
