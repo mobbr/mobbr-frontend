@@ -390,7 +390,7 @@ var mobbr = mobbr || (function() {
                 var jsonResponse = JSON.parse(r.responseText);
                 mobbrFrame.src = ui_url + '/lightbox/#/?hash=' + jsonResponse.result;
             };
-            r.send(JSON.stringify({ data: data[0] }));
+            r.send(JSON.stringify({ referrer: document.referrer, data: data[0] }));
         },
 
         show_mobbr_div: function(counter, data)
