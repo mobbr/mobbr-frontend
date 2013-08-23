@@ -36,6 +36,8 @@ angular.module('mobbr.controllers')
                 $scope.marked = false;
             });
         }
+
+        $scope.userSession = UserSession;
         //$scope.same_domain = strcmp( parse_url( $json['url'], PHP_URL_HOST), parse_url( $referrer, PHP_URL_HOST) ) == 0;
     }
 );
