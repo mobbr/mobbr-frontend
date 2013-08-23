@@ -394,7 +394,7 @@ var mobbr = mobbr || (function() {
                     mobbrFrame.src = ui_url + '/lightbox/#/?hash=' + jsonResponse.result;
                 } else if (r.status == 400) {
                     var jsonResponse = JSON.parse(r.responseText),
-                        message = jsonResponse.result.message && jsonResponse.result.message.text || 'Error';
+                        message = jsonResponse.message && jsonResponse.message.text || 'Error';
                     mobbrFrame.src = ui_url + '/lightbox/#/?error=' + message;
                 }
             };
