@@ -58,7 +58,7 @@
             background: url(/images/mobbrband.png) no-repeat top left;
         }
         .wrapper {
-            margin: 75px 0 20px 0;
+            margin: 78px 0 20px 0;
         }
         ul {
             list-style: none;
@@ -383,8 +383,8 @@
                 <div id="tab" class="active">
 
                     <div class="start">
-                        <img ng-src="{{ json['image'] }}" ng-show="json['image']" height="24" style="float:left;" class="gravatar">
                         <h2>
+                            <img ng-src="{{ json['image'] }}" ng-show="json['image']" height="24" style="float:left;" class="gravatar">
                             <span ng-bind="json['title']"></span>
                             <span class="attributes">
                                 <a ng-show="!same_domain" ng-bind="@{{ $json['url'] }}" ng-href="{{ json['url'] }}" target="_blank"></a>
