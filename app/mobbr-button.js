@@ -383,8 +383,8 @@ var mobbr = mobbr || (function() {
         {
             mobbrDiv.style.display = 'block';
             var r = new XMLHttpRequest();
-            r.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
             r.open('POST', api_url + '/api/gateway/analyze_payment', true);
+            r.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
             r.onreadystatechange = function () {
                 if (r.readyState != 4 || r.status != 200) return;
                 var jsonResponse = JSON.parse(r.responseText);
