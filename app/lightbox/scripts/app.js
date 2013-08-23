@@ -6,9 +6,9 @@ angular.module('mobbr', [
 
         'mobbr.controllers',
         'mobbr.services.Gateway',
+        'mobbr.services.mbr-api',
         'mobbr.services.user',
-        'LocalStorageModule',
-        'mobbr.services.mbr-api'
+        'LocalStorageModule'
 
     ]).config([ '$httpProvider', function ($httpProvider, Msg) {
 
