@@ -3,11 +3,16 @@
 angular.module('mobbr.controllers')
     .controller('LightboxController', function ($scope, $location, Gateway) {
 
-        var hash;
+        var hash,
+            error;
 
         function check() {
+            error = $location.search()['error'];
             hash = $location.search()['hash'];
-            if (hash) {
+            if (error) {
+                $scope.errormessage = error;
+                $scope.marked = false;
+            } else if (hash) {
                 Gateway.getPayment({ hash: hash }, function (response) {
                     $scope.json = response.result;
                     $scope.noscript = $scope.json['participants'] === undefined || $scope.json['participants'].length === 0;

@@ -388,9 +388,15 @@ var mobbr = mobbr || (function() {
             r.open('POST', api_url + '/api/gateway/analyze_payment', true);
             r.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
             r.onreadystatechange = function () {
-                if (r.readyState != 4 || r.status != 201) return;
-                var jsonResponse = JSON.parse(r.responseText);
-                mobbrFrame.src = ui_url + '/lightbox/#/?hash=' + jsonResponse.result;
+                if (r.readyState != 4) return;
+                if (r.status == 201) {
+                    var jsonResponse = JSON.parse(r.responseText);
+                    mobbrFrame.src = ui_url + '/lightbox/#/?hash=' + jsonResponse.result;
+                } else if (r.status == 400) {
+                    var jsonResponse = JSON.parse(r.responseText),
+                        message = jsonResponse.result.message && jsonResponse.result.message.text || 'Error';
+                    mobbrFrame.src = ui_url + '/lightbox/#/?error=' + message;
+                }
             };
             r.send(JSON.stringify({ referrer: document.referrer, data: data[0] }));
         },
