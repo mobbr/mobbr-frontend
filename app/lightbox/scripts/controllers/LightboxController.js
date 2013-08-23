@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mobbr.controllers')
-    .controller('LightboxController', function ($scope, $location, Gateway) {
+    .controller('LightboxController', function ($scope, $location, Gateway, UserSession) {
 
         var hash,
             error;
