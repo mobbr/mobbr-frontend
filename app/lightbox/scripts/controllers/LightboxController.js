@@ -15,6 +15,9 @@ angular.module('mobbr.controllers')
                 });
             } else {
                 $scope.loading = true;
+                $scope.marked = undefined;
+                $scope.json = undefined;
+                $scope.noscript = undefined;
             }
         }
         $scope.$on('$locationChangeSuccess', check);
