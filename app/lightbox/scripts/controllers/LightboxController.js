@@ -23,7 +23,7 @@ angular.module('mobbr.controllers')
             Gateway.registerPayment({ referrer: document.referrer || 'http://zaplog.nl', hash: hash }, function (response) {
                 $scope.marked = true;
             }, function (response) {
-                $scope.errormessage = response.data.message.text;
+                $scope.errormessage = response.data && response.data.message && response.data.message.text;
                 $scope.marked = false;
             });
         }

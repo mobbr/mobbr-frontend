@@ -24,7 +24,9 @@ var mobbr = mobbr || (function() {
 
         var a = document.createElement('a');
         a.style.cssText = 'float:right; position:relative; top:-17px; right:5px; text-decoration:none; font-size:7pt; color:black;font-family: Arial, Helvetica, sans-serif;';
-        a.setAttribute('onclick', 'javascript:mobbr.hide_mobbr_div();');
+        a.onclick = function () {
+            mobbr.hide_mobbr_div();
+        }
         a.innetText = '[close window] ';
 
         var img = document.createElement('img');
@@ -400,6 +402,7 @@ var mobbr = mobbr || (function() {
 
         hide_mobbr_div: function()
         {
+            mobbrFrame.src = ui_url + '/lightbox/#/';
             mobbrDiv.style.display = 'none';
             /*if (window.location.hash == '#mobbrdone') {
                 if (typeof originalHash == 'undefined') delete window.location.hash;
