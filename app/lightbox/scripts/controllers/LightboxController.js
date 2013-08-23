@@ -3,18 +3,21 @@
 angular.module('mobbr.controllers')
     .controller('LightboxController', function ($scope, $location, Gateway) {
 
-        var hash = $location.search()['hash'];
+        var hash;
 
-        $scope.loading = false;
-
-        if (hash) {
-            Gateway.getPayment({ hash: hash }, function (response) {
-                $scope.json = response.result;
-                $scope.noscript = $scope.json['participants'] === undefined || $scope.json['participants'].length === 0;
-            });
-        } else {
-            $scope.loading = true;
+        function check() {
+            hash = $location.search()['hash'];
+            if (hash) {
+                Gateway.getPayment({ hash: hash }, function (response) {
+                    $scope.json = response.result;
+                    $scope.noscript = $scope.json['participants'] === undefined || $scope.json['participants'].length === 0;
+                    $scope.loading = false;
+                });
+            } else {
+                $scope.loading = true;
+            }
         }
+        $scope.$on('$locationChangeSuccess', check);
 
         $scope.registerPayment = function () {
             Gateway.registerPayment({ referrer: document.referrer || 'http://zaplog.nl', hash: hash }, function (response) {
