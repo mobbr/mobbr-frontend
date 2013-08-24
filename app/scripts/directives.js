@@ -5,7 +5,7 @@ angular.module('mobbr.directives', [
             restrict: 'E',
             replace: true,
             transclude:true,
-            templateUrl: 'directives/payments.html',
+            templateUrl: '../directives/payments.html',
             scope: {
                 searchentries:'='
             },
@@ -190,7 +190,7 @@ angular.module('mobbr.directives', [
             restrict: 'E',
             replace: true,
             transclude:true,
-            templateUrl: 'directives/payments.html',
+            templateUrl: '../directives/payments.html',
             scope: {
                 payments:'='
             },
@@ -247,7 +247,7 @@ angular.module('mobbr.directives', [
             restrict: 'E',
             replace: true,
             transclude:true,
-            templateUrl: 'directives/people.html',
+            templateUrl: '../directives/people.html',
             scope: {
                 people:'=',
                 title:'@',
@@ -284,7 +284,7 @@ angular.module('mobbr.directives', [
             restrict: 'E',
             replace: true,
             transclude:true,
-            templateUrl: 'directives/people.html',
+            templateUrl: '../directives/people.html',
             scope: {
                 people:'=',
                 searchentries:'=',
@@ -320,7 +320,7 @@ angular.module('mobbr.directives', [
             restrict: 'E',
             replace: true,
             transclude:true,
-            templateUrl: 'directives/mobbrbutton.html',
+            templateUrl: '../directives/mobbrbutton.html',
             scope: {
                 size:'@',
                 url:'@'
@@ -395,4 +395,18 @@ angular.module('mobbr.directives', [
                 });
             }
         }
-    });
+    }).directive('pwCheck', [function () {
+        return {
+            require: 'ngModel',
+            link: function (scope, elem, attrs, ctrl) {
+                var firstPassword = '#' + attrs.pwCheck;
+                elem.add(firstPassword).on('keyup', function () {
+                    scope.$apply(function () {
+                        var v = elem.val()===$(firstPassword).val();
+                        ctrl.$setValidity('pwmatch', v);
+                    });
+                });
+            }
+        }
+    }
+    ]);
