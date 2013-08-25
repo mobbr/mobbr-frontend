@@ -333,17 +333,8 @@ angular.module('mobbr.directives', [
                     size = size || 'large';
                     return api_url + '/button/' + md5(url) + '/' + size + '#' + $rootScope.uniqueButton;
                 }
-                $scope.submit = function () {
-                    $rootScope.location = $scope.url;
-
-                    setTimeout(function(){
-                        mobbr.show_mobbr_div(1);
-                        setTimeout(function(){
-                            $rootScope.showMobbrFrame = true;
-                            $scope.$apply();
-                        },100);
-                    },200) ;
-
+                $scope.submit = function ($event) {
+                    mobbr.show($scope.url, $event.target);
                 }
             }
 

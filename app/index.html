@@ -176,7 +176,6 @@
                                 <input name="data" title="Enter the URL, Mobbr-account, email-address you want to send money to" placeholder="Enter recipient address" size="35" maxlength="512" type="text" ng-model="mobbrnowInput">
                                 <button name="go" class="btn" type="submit">Do a direct payment</button>
                             </div>
-                            <input name="using_lightbox" value="true" type="hidden">
                         </form>
                     </div>
                 </nav>
@@ -184,21 +183,6 @@
 
             <div class="container main">
                 <div ng-view id="wrapper" class="row-fluid"></div>
-            </div>
-
-            <!-- outer div is to make sure the mobbr_div is only shown when we want it to be -->
-            <div style="display:none" ng-show="true" ng-controller="MobbrNowController">
-                <div id="mobbr_div" ng-show="showMobbrFrame" name="mobbr_div" class="small" >
-                    <a class="close" ng-click="closeMobbrNow()">
-                        <img src="/images/frame_closebutton.png" alt="Close button">
-                    </a>
-                    <iframe frameborder="0" id="mobbr_frame" name="mobbr_frame">
-                        <html>
-                        <head></head>
-                        <body></body>
-                        </html>
-                    </iframe>
-                </div>
             </div>
         </div>
 

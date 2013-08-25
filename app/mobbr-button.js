@@ -15,6 +15,8 @@ var mobbr = mobbr || (function() {
     var mobbr_object = new mobbrObject();
     var originalHref = window.location.href;
     var originalHash = window.location.hash;
+    var divAdded = false;
+    var lastButton;
 
     function createMobbrDiv() {
         var div = document.createElement('div');
@@ -122,8 +124,9 @@ var mobbr = mobbr || (function() {
             img.style.cssText = 'cursor: pointer; cursor: hand; width: '+button_size.width+'px !important; height: '+button_size.height+'px !important';
             img.className = 'mobbr_button';
             //img.setAttribute('onclick', 'mobbr.show_mobbr_div(' + buttons_shown + '); return false;');
-            img.onclick = function () {
-                mobbr.show_mobbr_div(buttons_shown, data);
+            img.onclick = function (e) {
+                //mobbr.show_mobbr_div(buttons_shown, data);
+                mobbr.show(data[0], e.target);
                 return false;
             }
             img.src = full_image_url;
@@ -157,6 +160,7 @@ var mobbr = mobbr || (function() {
             if (buttons_shown == 1) // only insert iframe for first button
             {
                 document.body.appendChild(mobbrDiv);
+                divAdded = true;
             }
         }
 
@@ -381,7 +385,7 @@ var mobbr = mobbr || (function() {
             return mobbr_object.incrementButtonsShown();
         },
 
-        show_mobbr_div_for_form: function(form_name, data)
+        /*show_mobbr_div_for_form: function(form_name, data)
         {
             mobbrDiv.style.display = 'block';
             var r = new XMLHttpRequest();
@@ -404,23 +408,47 @@ var mobbr = mobbr || (function() {
         show_mobbr_div: function(counter, data)
         {
             this.show_mobbr_div_for_form('mobbr_frm_' + counter, data);
-        },
+        },*/
 
         hide_mobbr_div: function()
         {
+            if (lastButton) {
+                var buttonsrc = lastButton.src;
+                lastButton.src = '';
+                lastButton.src = buttonsrc + '#' + new Date().getTime();
+            }
             mobbrFrame.src = ui_url + '/lightbox/#/';
             mobbrDiv.style.display = 'none';
-            /*if (window.location.hash == '#mobbrdone') {
-                if (typeof originalHash == 'undefined') delete window.location.hash;
-                else window.location.hash = originalHash;
-                window.location.href = originalHref;
-                //window.location.reload();
-            }*/
         },
 
         getMobbrDiv: function()
         {
             return mobbrDiv;
+        },
+
+        show: function(data, target)
+        {
+            if (!divAdded) {
+                document.body.appendChild(mobbrDiv);
+            }
+
+            lastButton = target;
+            mobbrDiv.style.display = 'block';
+            var r = new XMLHttpRequest();
+            r.open('POST', api_url + '/api/gateway/analyze_payment', true);
+            r.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+            r.onreadystatechange = function () {
+                if (r.readyState != 4) return;
+                if (r.status == 201) {
+                    var jsonResponse = JSON.parse(r.responseText);
+                    mobbrFrame.src = ui_url + '/lightbox/#/?hash=' + jsonResponse.result;
+                } else if (r.status == 400) {
+                    var jsonResponse = JSON.parse(r.responseText),
+                        message = jsonResponse.message && jsonResponse.message.text || 'Error';
+                    mobbrFrame.src = ui_url + '/lightbox/#/?error=' + message;
+                }
+            };
+            r.send(JSON.stringify({ referrer: document.referrer, data: data }));
         }
 
     };
