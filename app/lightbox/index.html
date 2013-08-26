@@ -338,26 +338,20 @@
         </fieldset>
     </div>
 
-    <div id="login_form" ng-show="marked != false && !userSession.authenticated">
-        <form ng-submit="login(false)" name="head-login">
-            <input ng-model="email" type="email" name="email" placeholder="email address">
-            <input ng-model="password" type="password" name="password" placeholder="password">
-        </form>
-    </div>
-
     <div>
         <div ng-switch on="marked">
             <div ng-switch-when="undefined">
-                <div class="container buttons">
-                    <span ng-show="!userSession.authenticated">Login and </span>
-                    <button class="btn btn-success" ng-click="registerPayment()" title="Register this URL for payment. To actually pay, go to your dashboard">
-                        Pay later
-                    </button>
-                    <button class="btn" disabled title="Register this URL for payment. To actually pay, go to your dashboard">
-                        Pay now
-                    </button>
+                <div id="login_form">
+                    <form name="login">
+                        <span ng-show="marked != false && !userSession.authenticated">
+                            <input ng-model="email" type="email" name="email" placeholder="email address" style="margin: 0;">
+                            <input ng-model="password" type="password" name="password" placeholder="password" style="margin: 0;">
+                        </span>
+                        <button class="btn btn-success" ng-click="registerPayment(login)" title="Register this URL for payment. To actually pay, go to your dashboard">
+                            Pay later
+                        </button>
+                    </form>
                 </div>
-
                 <span ng-show="!userSession.authenticated">New user or forgotten password? &rarr; <a href="/#/join" target="_blank">Go here</a></span>
 
                 <div id="tab" class="active">

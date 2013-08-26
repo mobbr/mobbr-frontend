@@ -38,9 +38,9 @@ angular.module('mobbr.controllers')
 
         $scope.$on('$locationChangeSuccess', check);
 
-        $scope.registerPayment = function () {
+        $scope.registerPayment = function (data) {
             if (!userSession.authenticated) {
-                User.login({ email: $scope.email, password: $scope.password }, function (response) {
+                User.login({ email: data.email.$modelValue, password: data.password.$modelValue }, function (response) {
                     if (response.result != undefined && response.result != null) {
                         userSession.doLogin(response.result);
                         register();
