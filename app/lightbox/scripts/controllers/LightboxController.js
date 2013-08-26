@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mobbr.controllers')
-    .controller('LightboxController', function ($scope, $location, Gateway, userSession) {
+    .controller('LightboxController', function ($scope, $location, Gateway, userSession, User) {
 
         var hash,
             error;
@@ -26,15 +26,29 @@ angular.module('mobbr.controllers')
                 $scope.noscript = undefined;
             }
         }
-        $scope.$on('$locationChangeSuccess', check);
 
-        $scope.registerPayment = function () {
+        function register() {
             Gateway.registerPayment({ referrer: document.referrer || 'http://zaplog.nl', hash: hash }, function (response) {
                 $scope.marked = true;
             }, function (response) {
                 $scope.errormessage = response.data && response.data.message && response.data.message.text;
                 $scope.marked = false;
             });
+        }
+
+        $scope.$on('$locationChangeSuccess', check);
+
+        $scope.registerPayment = function () {
+            if (!userSession.authenticated) {
+                User.login({ email: $scope.email, password: $scope.password }, function (response) {
+                    if (response.result != undefined && response.result != null) {
+                        userSession.doLogin(response.result);
+                        register();
+                    }
+                });
+            } else {
+                register();
+            }
         }
 
         $scope.userSession = userSession;

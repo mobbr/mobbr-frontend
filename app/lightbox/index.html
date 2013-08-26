@@ -196,10 +196,6 @@
         .btn-success:active, .btn-success.active {
             background-color: #408140 \9; }
 
-        .buttons {
-            width: 172px;
-            margin: 0 auto;
-        }
         label,
         input,
         button,
@@ -314,7 +310,7 @@
     </style>
 </head>
 <body ng-app="mobbr" id="ng-app" class="ng-app:mobbr" ng-class="{ loading: loading }" ng-controller="LightboxController">
-<div ng-switch on="userSession.authenticated" class="wrapper" ng-cloak>
+<div class="wrapper" ng-cloak>
 
     <div ng-show="marked == false">
         <h2 ng-bind="errormessage"></h2>
@@ -342,36 +338,18 @@
         </fieldset>
     </div>
 
-    <div id="login_form" ng-show="marked != false" ng-switch-when="false">
-        <h2>
-            Identify yourself
-        </h2>
-
-        <form ng-submit="login(false)" name="head-login" ng-controller="LoginController">
-            <ul>
-                <li>
-                    <input ng-model="email" type="email" name="email" placeholder="email address">
-                </li>
-                <li>
-                    <input ng-model="password" type="password" name="password" placeholder="password">
-                </li>
-                <li>
-                    <button type="submit" class="btn btn-success">Log in</button>
-                </li>
-            </ul>
+    <div id="login_form" ng-show="marked != false && !userSession.authenticated">
+        <form ng-submit="login(false)" name="head-login">
+            <input ng-model="email" type="email" name="email" placeholder="email address">
+            <input ng-model="password" type="password" name="password" placeholder="password">
         </form>
-        <div id="signup">
-            <div>
-                New user or forgotten password? &rarr; <a href="/#/join" target="_blank">Go here</a>
-            </div>
-        </div>
     </div>
 
-    <div ng-switch-when="true">
-
+    <div>
         <div ng-switch on="marked">
             <div ng-switch-when="undefined">
                 <div class="container buttons">
+                    <span ng-show="!userSession.authenticated">Login and </span>
                     <button class="btn btn-success" ng-click="registerPayment()" title="Register this URL for payment. To actually pay, go to your dashboard">
                         Pay later
                     </button>
@@ -379,6 +357,8 @@
                         Pay now
                     </button>
                 </div>
+
+                <span ng-show="!userSession.authenticated">New user or forgotten password? &rarr; <a href="/#/join" target="_blank">Go here</a></span>
 
                 <div id="tab" class="active">
 
@@ -445,6 +425,5 @@
 <script src="scripts/app.js"></script>
 
 <script src="scripts/controllers/LightboxController.js"></script>
-<script src="../scripts/controllers/LoginController.js"></script>
 </body>
 </html>
