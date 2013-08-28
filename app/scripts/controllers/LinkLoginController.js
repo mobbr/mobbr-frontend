@@ -5,7 +5,7 @@ angular.module('mobbr.controllers').controller('LinkLoginController', function (
 
 
 
-    User.linkLogin({'session_token': $routeParams.hash},
+    User.linkLogin({'login_token': $routeParams.hash},
         function (response) {
             if (response.result != null) {
 
