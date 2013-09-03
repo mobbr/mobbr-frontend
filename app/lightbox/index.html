@@ -297,12 +297,9 @@
         display: none;
     }
 
-    .loading {
-        background: url(/images/mobberlogoloader.gif) center center no-repeat;
-    }
-
-    .ui-pnotify-history-container {
-        display: none;
+    .loginerror {
+        font-weight: bold;
+        color: red;
     }
 
     </style>
@@ -341,6 +338,9 @@
             <div ng-switch-when="undefined">
                 <div id="login_form">
                     <form name="login">
+                        <p class="loginerror" ng-show="loginerror">
+                            Wrong email/password
+                        </p>
                         <span ng-show="marked != false && !userSession.authenticated">
                             <input ng-model="email" type="email" name="email" placeholder="email address" style="margin: 0;">
                             <input ng-model="password" type="password" name="password" placeholder="password" style="margin: 0;">

@@ -1,10 +1,11 @@
 'use strict';
 
 angular.module('mobbr.controllers')
-    .controller('LightboxController', function ($scope, $location, Gateway, userSession, User) {
+    .controller('LightboxController', function ($scope, $location, $timeout, Gateway, userSession, User) {
 
         var hash,
-            error;
+            error,
+            logintimeout;
 
         function check() {
             error = $location.search()['error'];
@@ -45,6 +46,12 @@ angular.module('mobbr.controllers')
                         userSession.doLogin(response.result);
                         register();
                     }
+                }, function (response) {
+                    $scope.loginerror = true;
+                    $timeout.cancel(logintimeout);
+                    logintimeout = $timeout(function () {
+                        $scope.loginerror = undefined;
+                    }, 5000);
                 });
             } else {
                 register();
