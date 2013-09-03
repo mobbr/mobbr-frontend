@@ -20,7 +20,6 @@ angular.module('mobbr', [
                 $timeout.cancel(timer);
                 timer = $timeout(function () {
                     if (userSession.authenticated) {
-                        Msg.addNotification('Session timed out');
                         userSession.doLogout();
                     }
                 }, 1000 * 60 * 15);
