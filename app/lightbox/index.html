@@ -6,7 +6,7 @@
 <!--[if gt IE 9]><html xmlns:ng="http://angularjs.org"> <![endif]-->
 <!--[if !IE]><!--><html xmlns:ng="http://angularjs.org"> <!--<![endif]-->
 <head>
-    <script>var api_url = 'https://api.mobbr.com';</script>
+    <script>var api_url = 'http://api.mobbr.dev';</script>
     <!--<script>var api_url = 'http://192.168.1.13';</script>-->
     <script src="../scripts/vendor/modernizr.min.js"></script>
     <!--[if lte IE 8]>
@@ -95,6 +95,13 @@
         th, td {
             font-size: 11px;
             padding: 5px;
+        }
+        .overlay {
+            margin : 10px;
+            font-size:0.95em;
+            padding : 5px 10px;
+            background: #DDD;
+            border : 1px solid #333;
         }
         .btn {
             display: inline-block;
@@ -349,10 +356,10 @@
                             <input ng-model="password" type="password" name="password" placeholder="password" style="margin: 0;">
                         </span>
                         <button class="btn btn-success" ng-click="registerPayment(login)" title="Register this URL for payment. To actually pay, go to your dashboard">
-                            Save payment
-                        </button>
+                            Pay / donate
+                        </button> <span ng-show="userSession.authenticated" style="color:#666">&larr; Will be visible as 'pending' on your dashboard</span>
                     </form>
-                <span ng-show="!userSession.authenticated">New user or forgotten password? &rarr; <a href="/#/join" target="_blank">Go here</a></span>
+                <div style="margin-top:5px;" ng-show="!userSession.authenticated">New user or forgotten password? &rarr; <a href="/#/join" target="_blank">Go here</a></div>
                 </div>
 
                 <div id="tab" class="active">
@@ -369,7 +376,14 @@
                             </span>
                         </h2>
                         <p ng-show="json[desscription]" ng-bind="json[description]" class="description"></p>
-                        <div ng-show="noscript" class="overlay">This URL/product has not specified participation-information. Mobbr will generate an unclaimed payment. The owner of the URL <a target="_blank" href="/#/claimpayment">can claim this payment</a>.</div>
+                        <div ng-show="noscript" class="overlay">
+                            <p>
+                                This URL/product has not specified participation-information. Mobbr will generate an unclaimed payment. The owner of the URL can claim this payment <a target="_blank" href="/#/claimpayment">here</a>.
+                            </p>
+                            <p>
+                                The owner should make this URL or domain <a href="/#/buttons" target="_blank">Mobbr-ready</a>.
+                            </p>
+                        </div>
                         <div ng-show="!noscript" class="tablewrapper" id="tablewrapper">
                             <table>
                                 <thead>
