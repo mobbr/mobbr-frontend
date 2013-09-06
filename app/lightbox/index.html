@@ -60,6 +60,9 @@
         .wrapper {
             margin: 78px 0 20px 0;
         }
+        #login_form {
+            margin: 0 0 10px 0;
+        }
         ul {
             list-style: none;
             margin: 0;
@@ -69,8 +72,8 @@
             font-family: 'Open Sans Condensed';
             font-weight: normal;
             border-top: 1px solid #009ee0;
-            padding: 20px 0;
-            margin: 20px 0;
+            padding: 5px 0;
+            margin: 5px 0;
         }
         table {
             width: 100%;
@@ -349,8 +352,8 @@
                             Save payment
                         </button>
                     </form>
-                </div>
                 <span ng-show="!userSession.authenticated">New user or forgotten password? &rarr; <a href="/#/join" target="_blank">Go here</a></span>
+                </div>
 
                 <div id="tab" class="active">
 
@@ -367,7 +370,7 @@
                         </h2>
                         <p ng-show="json[desscription]" ng-bind="json[description]" class="description"></p>
                         <div ng-show="noscript" class="overlay">This URL/product has not specified participation-information. Mobbr will generate an unclaimed payment. The owner of the URL <a target="_blank" href="/#/claimpayment">can claim this payment</a>.</div>
-                        <div class="tablewrapper" id="tablewrapper">
+                        <div ng-show="!noscript" class="tablewrapper" id="tablewrapper">
                             <table>
                                 <thead>
                                 <tr>
