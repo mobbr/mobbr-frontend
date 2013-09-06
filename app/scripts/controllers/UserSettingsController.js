@@ -26,7 +26,7 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
     }
 
     $scope.submitPassword = function (form) {
-        User.updatePassword({ new_password: form.new_password.$modelValue, old_password: form.current_password.$modelValue }, function (response) {
+        User.updatePassword({ new_password: form.new_password.$modelValue }, function (response) {
             Msg.setResponseMessage('info', 'New password saved', response);
         }, function (response) {
             Msg.setResponseMessage('error', 'Could not save password', response);
