@@ -65,7 +65,7 @@
                                 </li>
                             </ul>
                             <ul ng-switch-when="paypal">
-                                <li class="nav-header">Pay to this paypal address:</li>
+                                <li class="nav-header">Your account can receive on this paypal address:</li>
                                 <li ng-show="network_method.addresses.result.length > 0" class="nav-header">
                                     <ul class="no-style">
                                         <li>
@@ -73,7 +73,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="nav-header">Copy-paste one of these tokens to memo/note field of payment</li>
+                                <li class="nav-header">When one of these tokens is in the memo/note field of payment</li>
                                 <li ng-show="network_method.addresses.result.length > 0" class="nav-header">
                                     <ul class="no-style">
                                         <li ng-repeat="address in network_method.addresses.result">
