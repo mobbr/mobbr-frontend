@@ -8,10 +8,10 @@ angular.module('mobbr.controllers').controller('ExchangeRateController', functio
         if(response.result != undefined && response.result != null){
             $scope.exchangerates = response.result;
         }else{
-            Msg.setResponseMessage( 'error', 'Couldn\'t load exchange rates',response);
+            Msg.setResponseMessage( 'error', 'Could not load exchange rates',response);
         }
     },function (response){
-        Msg.setResponseMessage( 'error', 'Couldn\'t load exchange rates',response);
+        Msg.setResponseMessage( 'error', 'Could not load exchange rates',response);
     });
 
     $scope.sortField = 'currency_iso';

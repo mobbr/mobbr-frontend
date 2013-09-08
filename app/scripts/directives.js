@@ -54,7 +54,7 @@ angular.module('mobbr.directives', [
                                }else{
                                    $scope.payments = [];
 
-                                   Msg.setResponseMessage( 'info','Could load payments',response);
+                                   Msg.setResponseMessage( 'info','Could not load payments',response);
 
                                }
                         },function(response){
@@ -102,7 +102,7 @@ angular.module('mobbr.directives', [
                                 $rootScope.reloadPayments = 'reloadpayments' +Math.random();
                                 Msg.setResponseMessage( 'info','Finalized payments',response);
                             } else{
-                                Msg.setResponseMessage( 'info','couldn\' finalize payments:',response);
+                                Msg.setResponseMessage( 'info','could not finalize payments',response);
                             }
                         },function(response){
                             $scope.working = false;
@@ -137,12 +137,12 @@ angular.module('mobbr.directives', [
                                 Msg.setResponseMessage( 'info','Deleted payments',response);
                                 $rootScope.reloadPayments = 'reloadpayments' +Math.random();
                             }   else{
-                                Msg.setResponseMessage( 'info','could\'t delete payments: ', response);
+                                Msg.setResponseMessage( 'info','Could not delete payments: ', response);
                             }
 
                         },function(response){
                             $scope.working = false;
-                            Msg.setResponseMessage( 'error', 'Probleem while deleting payments',response);
+                            Msg.setResponseMessage( 'error', 'Could not delete payments',response);
                         });
                     }
                 }

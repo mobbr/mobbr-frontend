@@ -13,14 +13,14 @@ angular.module('mobbr.controllers').controller('LinkLoginController', function (
 
                 $location.path('/dashboard');
 
-                Msg.setResponseMessage('info', 'Logged in, please change your password', response);
+                Msg.setResponseMessage('info', 'Logged you in, please change your password now', response);
 
             } else {
-                Msg.setResponseMessage('info', 'Could not login', response);
+                Msg.setResponseMessage('info', 'Could not log you in', response);
             }
         },
         function (response) {
-            Msg.setResponseMessage('error', 'could not log you in', response);
+            Msg.setResponseMessage('error', 'Could not log you in', response);
         });
 
 });

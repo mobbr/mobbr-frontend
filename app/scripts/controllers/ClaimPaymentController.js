@@ -64,10 +64,10 @@ angular.module('mobbr.controllers').controller('ClaimPaymentController', functio
                     Msg.setResponseMessage( 'info','We found no payments for ' + $scope.claimpayment.url,response);
                 }
                 else{
-                    Msg.setResponseMessage( 'info','Error while fetching unclaimed payments', response);
+                    Msg.setResponseMessage( 'info','Error fetching unclaimed payments', response);
                 }
             },function(response){
-                Msg.setResponseMessage( 'error', 'Error while fetching unclaimed payments',response);
+                Msg.setResponseMessage( 'error', 'Error fetching unclaimed payments',response);
                 $scope.workingCheck = false;
             });
 
