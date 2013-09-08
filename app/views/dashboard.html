@@ -182,8 +182,9 @@
                 <table class="table table-striped" ng-show="mutations.length >0">
                     <thead>
                     <tr>
-                        <th ng-click="sortPayments('paiddatetime')">date</th>
-                        <th ng-click="sortPayments('payment_service')" >Payment network</th>
+                        <th ng-click="sortPayments('paiddatetime')">Date</th>
+                        <th ng-click="sortPayments('payment_service')" >Network</th>
+                        <th ng-click="sortPayments('ext_trx_id')" >ID</th>
                         <th ng-click="sortPayments('currency_iso')">Currency</th>
                         <th ng-click="sortPayments('amount')" colspan="3">Amount</th>
                     </tr>
@@ -192,6 +193,7 @@
                     <tr ng-repeat="mutation in mutations | orderBy:sortEntries:sortOrderPayments | filter:searchBalanceEntries"  ng-class-odd="'odd'" ng-class-even="'even'">
                         <td ng-bind="mutation.paiddatetime || mutation.announceddatetime" class="datetime {{ !mutation.paiddatetime && 'muted' }}"></td>
                         <td ng-bind="mutation.payment_service"></td>
+                        <td ng-bind="mutation.ext_trx_id"></td>
                         <td ng-bind="mutation.currency_iso" class="currency"></td>
                         <td ng-bind="mutation.amount | number:4" class="amount decorate-amount"></td>
                         <td class="amount"></td>
