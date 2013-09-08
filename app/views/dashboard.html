@@ -37,7 +37,7 @@
 
         <div class="pull-right btn-toolbar" style="margin: 0;">
             <div class="btn-group">
-                <button class="btn dropdown-toggle" data-toggle="dropdown">Receive <span class="caret"></span></button>
+                <button class="btn dropdown-toggle" data-toggle="dropdown">Receive / deposit <span class="caret"></span></button>
                 <ul class="dropdown-menu pull-right">
                     <li>
                         <div class="clearfix">
@@ -97,7 +97,7 @@
                 </ul>
             </div>
             <div class="btn-group">
-                <button class="btn dropdown-toggle" data-toggle="dropdown">Send <span class="caret"></span></button>
+                <button class="btn dropdown-toggle" data-toggle="dropdown">Send / withdraw <span class="caret"></span></button>
                 <ul class="dropdown-menu pull-right">
 
                     <div class="clearfix">
@@ -110,7 +110,7 @@
                                 <select class="input-small" ng-model="withdraw_currency" ng-options="currency for currency in network_method.currencies.result"></select>
                                 <input class="input-small" ng-model="withdraw_amount" required type="number" step="any" min="0" max="1000000000">
                             </li>
-                            <li class="nav-header">Bitoin address</li>
+                            <li class="nav-header">Bitcoin address</li>
                             <li class="nav-header">
                                 <input type="text" ng-model="withdraw_address" required class="input-xlarge">
                             </li>
@@ -125,10 +125,10 @@
                         <ul ng-switch-when="paypal">
                             <li class="nav-header">Curreny &amp; amount</li>
                             <li class="nav-header">
-                                <select class="input-small" ng-model="withdraw_currency" ng-options="currency for currency in network_method.currencies.result"></select>
+                                <select class="input-small" ng-model="withdraw_currency" ng-options="currency for currency in network_method.currencies.result">MBR</select>
                                 <input class="input-small" ng-model="withdraw_amount" required type="number" step="any" min="0" max="1000000000">
                             </li>
-                            <li class="nav-header">Email address</li>
+                            <li class="nav-header">Paypal account / email address</li>
                             <li class="nav-header">
                                 <input type="email" ng-model="withdraw_address" required class="input-xlarge">
                             </li>
