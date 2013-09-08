@@ -49,11 +49,11 @@ angular.module('mobbr.controllers').controller('LoginController', function ($sco
 
         User.logout({'session_token': $http.defaults.headers.common['Authorization']}, function (response) {
 
-            Msg.setResponseMessage('info', 'Logged out', response);
+            Msg.setResponseMessage('info', 'Logged you out', response);
 
         }, function (response) {
 
-            Msg.setResponseMessage('info', 'Logged out', response);
+            Msg.setResponseMessage('info', 'Logged you out', response);
 
         });
 
@@ -78,7 +78,7 @@ angular.module('mobbr.controllers').controller('LoginController', function ($sco
 
                     $location.path('/dashboard');
                 } else {
-                    Msg.setResponseMessage('info', 'Could not login', response);
+                    Msg.setResponseMessage('info', 'Could not log you in', response);
                 }
             },
             function (response) {

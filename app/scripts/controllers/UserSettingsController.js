@@ -10,7 +10,7 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
             if (response.result === true) {
                 Msg.setResponseMessage('info', 'Settings saved', response);
             } else {
-                Msg.setResponseMessage('info', 'Settings', response);
+                Msg.setResponseMessage('error', 'Could not save settings', response);
             }
         }, function (response) {
             Msg.setResponseMessage('error', 'Could not save settings', response);
@@ -19,9 +19,9 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
 
     $scope.submitEmail = function (form) {
         User.updateEmail({ new_email: form.email.$modelValue }, function (response) {
-            Msg.setResponseMessage('info', 'New e-mail address saved', response);
+            Msg.setResponseMessage('info', 'New email address set', response);
         }, function (response) {
-            Msg.setResponseMessage('error', 'Could not save e-mail address', response);
+            Msg.setResponseMessage('error', 'Could not change email address', response);
         });
     }
 
@@ -29,7 +29,7 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
         User.updatePassword({ new_password: form.new_password.$modelValue }, function (response) {
             Msg.setResponseMessage('info', 'New password saved', response);
         }, function (response) {
-            Msg.setResponseMessage('error', 'Could not save password', response);
+            Msg.setResponseMessage('error', 'Could not change password', response);
         });
     }
 });

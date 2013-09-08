@@ -100,9 +100,9 @@ angular.module('mobbr.controllers').controller('DashboardController', function (
 
     $scope.withdraw = function (network, currency, amount, to_address, note) {
         PaymentNetwork.sendPayment({network: network, currency: currency, amount: amount, to_address: to_address, note: note}, function (response) {
-            Msg.setResponseMessage('success', 'Successfully sent', response);
+            Msg.setResponseMessage('success', 'Payment sent to paypal account', response);
         }, function (response) {
-            Msg.setResponseMessage('error', 'Send failed', response);
+            Msg.setResponseMessage('error', 'Could not send payment', response);
         });
     }
 

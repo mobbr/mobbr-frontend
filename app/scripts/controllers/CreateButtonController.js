@@ -63,11 +63,11 @@ angular.module('mobbr.controllers').controller('CreateButtonController', functio
 
                     Msg.setResponseMessage( 'info','Checked URL for payment script',response);
                 }else{
-                    Msg.setResponseMessage( 'error', 'Error while checking URL for payment script',response);
+                    Msg.setResponseMessage( 'error', 'Error checking URL for payment script',response);
                 }
             },function(response){
                 $scope.workingRetrieveUrl = false;
-                Msg.setResponseMessage( 'error', 'Error while checking url',response);
+                Msg.setResponseMessage( 'error', 'Error checking url for payment script',response);
             });
 
         }
@@ -286,11 +286,11 @@ angular.module('mobbr.controllers').controller('CreateButtonController', functio
                     Msg.setResponseMessage( 'info','Stored payment script',response);
 
                 }  else{
-                    Msg.setResponseMessage( 'info','Couldn\'t store payment script',response);
+                    Msg.setResponseMessage( 'info','Could not store payment script',response);
                 }
             },function(response){
                 $scope.workingConfiguration = false;
-                Msg.setResponseMessage( 'error', 'Couldn\'t store payment script',response);
+                Msg.setResponseMessage( 'error', 'Could not store payment script',response);
             });
 
         }else{

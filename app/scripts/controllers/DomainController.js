@@ -52,11 +52,11 @@ angular.module('mobbr.controllers').controller('DomainController', function ($sc
                         if (response.result != null) {
                             $scope.payments = response.result;
                         } else {
-                            Msg.setResponseMessage( 'error', 'Payments', response);
+                            Msg.setResponseMessage( 'error', 'Could not get payments', response);
                         }
                     },
                     function (response) {
-                        Msg.setResponseMessage( 'error', 'An error occured', response);
+                        Msg.setResponseMessage( 'error', 'Could not get payments', response);
                     });
 
 

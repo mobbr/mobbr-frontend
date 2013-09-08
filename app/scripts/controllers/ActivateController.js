@@ -13,11 +13,11 @@ angular.module('mobbr.controllers').controller('ActivateController', function ($
 
                 $location.path('/dashboard');
             } else {
-                Msg.setResponseMessage('info', 'Could not login', response);
+                Msg.setResponseMessage('info', 'Could not log you in', response);
             }
         },
         function (response) {
-            Msg.setResponseMessage('error', 'could not activate your account', response);
+            Msg.setResponseMessage('error', 'Could not activate your account', response);
         });
 
 
