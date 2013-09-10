@@ -8,21 +8,39 @@ angular.module('mobbr.controllers').controller('DashboardController', function (
         return $rootScope.currencyDescription(iso);
     }
     $scope.balances = [];
-    if(userSession.authenticated){
-        Balances.balance(function(response){
-            $scope.balances = response.result;
-        });
-    }
+    $scope.reloadBalances = function () {
+        if(userSession.authenticated){
+            Balances.balance(function(response){
+                $scope.balances = response.result;
+            });
+        }
+    } ;
+    $scope.reloadBalances();
+
+
     $scope.sortOrderBalance;
     $scope.sortBalance = function (column) {
         $scope.sortOrderBalance = column;
     }
     $scope.mutations = [];
+    $scope.reloadMutation =  function ( ) {
     if(userSession.authenticated){
         Balances.payments(function(response){
             $scope.mutations = response.result;
         });
     }
+    };
+    $scope.reloadMutation();
+
+    $rootScope.$watch('reloadPayments', function(newValue, oldValue) {
+        if(newValue != undefined){
+            console.log(' reloading payments from rootscope') ;
+            $scope.reloadMutation();
+            $scope.reloadBalances();
+        }
+    });
+
+
     $scope.sortOrderPayments;
     $scope.sortPayments = function (column) {
         $scope.sortOrderPayments = column;
