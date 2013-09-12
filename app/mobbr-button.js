@@ -415,14 +415,16 @@ var mobbr = mobbr || (function() {
         buttonSlim: function() { mobbr_object.showButton(arguments, 'slim'); },
         buttonIcon: function() { mobbr_object.showButton(arguments, 'icon'); },
         badgeMedium: function() {
-            var curr = arguments[1] || undefined;
-            arguments.splice(1, 1);
-            mobbr_object.showButton(arguments, 'badgeMedium', curr);
+            var args = Array.prototype.slice.call(arguments);
+            var curr = args[1] || undefined;
+            args.splice(1, 1);
+            mobbr_object.showButton(args, 'badgeMedium', curr);
         },
         badgeWide: function() {
-            var curr = arguments[1] || undefined;
-            arguments.splice(1, 1);
-            mobbr_object.showButton(arguments, 'badgeWide', curr);
+            var args = Array.prototype.slice.call(arguments);
+            var curr = args[1] || undefined;
+            args.splice(1, 1);
+            mobbr_object.showButton(args, 'badgeWide', curr);
         },
 
         incrementButtonsShown: function()
