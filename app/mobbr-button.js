@@ -80,7 +80,7 @@ var mobbr = mobbr || (function() {
             return buttons_shown;
         }
 
-        this.drawButton = function(data, button_type, target, position)
+        this.drawButton = function(data, button_type, target, position, curr)
         {
             var buttonTypes=["slim","icon","flat","small","large","medium","icongs","flatgs","smallgs","largegs","mediumgs","badgeMedium","badgeWide"];
             if (!in_array(button_type, buttonTypes)) button_type = 'medium';
@@ -126,7 +126,7 @@ var mobbr = mobbr || (function() {
                 var urlparts;
                 var badgeurl;
                 var type = button_type.replace('badge', '').toLowerCase();
-                var currency = data[1] !== undefined && data[1] || false;
+                var currency = curr !== undefined && curr || false;
 
                 if (is_url(data[0]))
                 {
@@ -199,7 +199,7 @@ var mobbr = mobbr || (function() {
             }
         }
 
-        this.showButton = function(data, button_type)
+        this.showButton = function(data, button_type, curr)
         {
             var url = '';
             if (is_url(data[0]))
@@ -242,7 +242,7 @@ var mobbr = mobbr || (function() {
             {
                 var draw_array = [ ];
                 draw_array[0] = data[0];
-                this.drawButton(draw_array, button_type, data[1], data[2]);
+                this.drawButton(draw_array, button_type, data[1], data[2], curr);
                 //var mobbr_frm = document.getElementById('mobbr_frm_' + buttons_shown);
                 //mobbr_frm.data.value = '{"url":"'+data[0]+'"}';
             }
@@ -250,7 +250,7 @@ var mobbr = mobbr || (function() {
             {
                 if(!data[0].url) data[0].url = url;
                 var string_data = JSON.stringify(data[0]);
-                this.drawButton(data, button_type, data[1], data[2]);
+                this.drawButton(data, button_type, data[1], data[2], curr);
                 //var mobbr_frm = document.getElementById('mobbr_frm_' + buttons_shown);
                 //if (mobbr_frm && mobbr_frm.data) mobbr_frm.data.value = string_data;
             }
@@ -414,8 +414,16 @@ var mobbr = mobbr || (function() {
         buttonMediumGS: function() { mobbr_object.showButton(arguments, 'mediumgs'); },
         buttonSlim: function() { mobbr_object.showButton(arguments, 'slim'); },
         buttonIcon: function() { mobbr_object.showButton(arguments, 'icon'); },
-        badgeMedium: function() { mobbr_object.showButton(arguments, 'badgemedium'); },
-        badgeWide: function() { mobbr_object.showButton(arguments, 'badgewide'); },
+        badgeMedium: function() {
+            var curr = arguments[1] || undefined;
+            arguments.splice(1, 1);
+            mobbr_object.showButton(arguments, 'badgeMedium', curr);
+        },
+        badgeWide: function() {
+            var curr = arguments[1] || undefined;
+            arguments.splice(1, 1);
+            mobbr_object.showButton(arguments, 'badgeWide', curr);
+        },
 
         incrementButtonsShown: function()
         {
