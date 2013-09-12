@@ -82,7 +82,7 @@ var mobbr = mobbr || (function() {
 
         this.drawButton = function(data, button_type, target, position)
         {
-            var buttonTypes=["slim","icon","flat","small","large","medium","icongs","flatgs","smallgs","largegs","mediumgs"];
+            var buttonTypes=["slim","icon","flat","small","large","medium","icongs","flatgs","smallgs","largegs","mediumgs","badgeMedium","badgeWide"];
             if (!in_array(button_type, buttonTypes)) button_type = 'medium';
 
             var buttonSizes={
@@ -96,21 +96,52 @@ var mobbr = mobbr || (function() {
                 "flatgs" : {"width" : 120, "height" : 21},
                 "smallgs" : {"width" : 32, "height" : 32},
                 "largegs" : {"width" : 64, "height" : 64},
-                "mediumgs" : {"width" : 50, "height" : 60}
+                "mediumgs" : {"width" : 50, "height" : 60},
+                "badgeMedium" : {"width" : 53, "height" : 65},
+                "badgeWide" : {"width" : 150, "height" : 20}
             };
+            var badge = (button_type === 'badgeMedium' || button_type === 'badgeWide') && true || false;
             var button_size = buttonSizes[button_type];
+            var full_image_url;
 
-            var md5_hash = '';
-            if (is_url(data[0]))
-            {
-                md5_hash = hex_md5(data[0].replace(/\/$/, ""));
+            if (!badge) {
+
+                var md5_hash = '';
+
+                if (is_url(data[0]))
+                {
+                    md5_hash = hex_md5(data[0].replace(/\/$/, ""));
+                }
+                else
+                {
+                    md5_hash = hex_md5(data[0].url.replace(/\/$/, ""));
+                }
+
+
+                full_image_url = api_url + '/button/' + md5_hash + '/' + button_type;
+                this.incrementButtonsShown();
+
+            } else {
+
+                var urlparts;
+                var badgeurl;
+                var type = button_type.replace('badge', '').toLowerCase();
+                var currency = data[1] !== undefined && data[1] || false;
+
+                if (is_url(data[0]))
+                {
+                    urlparts = data[0].split("://");
+                }
+                else
+                {
+                    urlparts = data[0].url.split("://");
+                }
+                badgeurl = urlparts[1];
+                full_image_url = api_url + '/badge/' + urlparts[0] + '/' + urlparts[1] + '/' + type;
+                if (currency) {
+                    full_image_url += '/' + currency.toUpperCase();
+                }
             }
-            else
-            {
-                md5_hash = hex_md5(data[0].url.replace(/\/$/, ""));
-            }
-            var full_image_url = api_url + '/button/' + md5_hash + '/' + button_type;
-            this.incrementButtonsShown();
 
             // Create a temporary form to commit to the iframe
             //var mobbr_frm = this.createMobbrForm();
@@ -125,9 +156,13 @@ var mobbr = mobbr || (function() {
             img.className = 'mobbr_button';
             //img.setAttribute('onclick', 'mobbr.show_mobbr_div(' + buttons_shown + '); return false;');
             img.onclick = function (e) {
-                //mobbr.show_mobbr_div(buttons_shown, data);
-                mobbr.show(data[0], e.target);
-                return false;
+                if (!badge) {
+                    //mobbr.show_mobbr_div(buttons_shown, data);
+                    mobbr.show(data[0], e.target);
+                    return false;
+                } else {
+                    window.open(ui_url + '/#/domain/' + rstr2b64(badgeurl), '_blank');
+                }
             }
             img.src = full_image_url;
             img.alt = 'Mobbr button';
@@ -379,6 +414,8 @@ var mobbr = mobbr || (function() {
         buttonMediumGS: function() { mobbr_object.showButton(arguments, 'mediumgs'); },
         buttonSlim: function() { mobbr_object.showButton(arguments, 'slim'); },
         buttonIcon: function() { mobbr_object.showButton(arguments, 'icon'); },
+        badgeMedium: function() { mobbr_object.showButton(arguments, 'badgemedium'); },
+        badgeWide: function() { mobbr_object.showButton(arguments, 'badgewide'); },
 
         incrementButtonsShown: function()
         {
