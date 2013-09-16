@@ -6,7 +6,7 @@
 <!--[if gt IE 9]><html xmlns:ng="http://angularjs.org"> <![endif]-->
 <!--[if !IE]><!--><html xmlns:ng="http://angularjs.org"> <!--<![endif]-->
 <head>
-    <script>var api_url = 'http://api.mobbr.dev';</script>
+    <script>var api_url = 'https://api.mobbr.com';</script>
     <!--<script>var api_url = 'http://192.168.1.13';</script>-->
     <script src="../scripts/vendor/modernizr.min.js"></script>
     <!--[if lte IE 8]>
@@ -403,6 +403,7 @@
                             </tr>
                         </tbody>
                     </table>
+                    <span ng-show="noscript">[No recipients for this item]</span>
                     <div class="overlay">
                     <h4>CONTRACT</h4>
                     <p ng-show="json['message']" ng-bind="json['message']"></p>
