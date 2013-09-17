@@ -1,11 +1,101 @@
 <div class="page-header">
     <h1>
+        Developers guide<br>
+        <small>Turn all your pages and items into donatable things</small>
+    </h1>
+</div>
+
+<div class="well special pull-right span6">
+    <h4>This is how it works</h4>
+    <ul>
+        <li>
+            Place Mobbr metadata (containing a JSON script) in the header of your HTML headers so bots, crawlers, plugins and Mobbr know what to do
+        </li>
+        <li>
+            Optionally / alternatively mark all pages of your entire domain with a single /participation.txt file (containing a JSON script)
+        </li>
+        <li>
+            Optionally place the Mobbr button-javascript in the body of your HTML to show a button
+        </li>
+        <li>
+            If the user clicks a button, the Mobbr lightbox will pop up automatically
+        </li>
+         <li>
+            Use a plugin for your CMS or platform
+        </li>
+        <li>
+            Develop your own Mobbr integration using our REST-API
+        </li>
+    </ul>
+</div>
+
+<p>
+    Whether it is art, music, software or anything else and whether it is created by one person or an
+    entire community, the Mobbr button enables you to let reward any value that was added. Direct,
+    peer-to-peer, no middleman. A totally new payment concept that fits the way your website really works.
+    Just add your business-model to our button.
+</p>
+<p>
+    Generate the Mobbr script dynamically, based on actual participation ratios, or use static scripts based on
+    predetermined participation ratios.
+</p>
+
+<h2>The 1-minute catch-all option</h2>
+<p>If you don't want visible buttons (yet) but you do want your domain to be processable by Mobbr, just place 1 simple script in the root of your domain.</p>
+<p>Use <a href="/participation.txt">this</a> script as example, you'll <a href=""></a>figure</a> it out.</p>
+
+
+<div class="row-fluid" style="margin-top:40px;padding-bottom: 45px;">
+    <div class="well special clearfix" style="background-color: #fff;">
+        <div class="span1"></div>
+        <div class="span7">
+            <h3 style="margin-top: 0; line-height: 1em;">Integration</h3>
+        </div>
+        <div class="span4">
+            <p><a href="#/buttons?scrollTo=domain" class="btn" style="width: 168px;" title="Place a /participation.txt file to enable Mobbr on all your pages with just a few lines of script. This is the 'just in case' option.">The 1-minute just-in-case</a></p>
+            <p><a href="#/buttons?scrollTo=buttonbasics" class="btn" style="width: 168px;" title="Place invisible metadata that Mobbr can use in your pages. Optionally place buttons to allow user to use Mobbr directly from the pages.">Mobbrize your pages</a></p>
+            <p><a href="#/buttons?scrollTo=siteconnector" class="btn" style="width: 168px;" title="Connect your entire site to Mobbr at once without having to register your users or compromis their privacy.">Connect your userbase</a></p>
+        </div>
+        <img src="/images/2013_0706_MOBBR_V4.jpg" style="padding-top:50px;"/>
+    </div>
+</div>
+
+<div class="row-fluid" style="padding-bottom: 45px;">
+    <div class="well special clearfix" style="background-color: #fff;">
+        <div class="span6" style="height: 180px; overflow: scroll; overflow-y: scroll; overflow-x: hidden;" ng-controller="apiController">
+            <table class="apitable" width="100%" style="font-size: .8em;">
+                <tbody>
+
+                    <tr ng-repeat="apiCall in apiCalls">
+                         <td ng-bind="apiCall.type"></td>
+                         <td ng-bind="apiCall.endpoint"></td>
+                         <td>
+                             <span ng-repeat="param in apiCall.parameter">
+                                {{param.name }}<span ng-show="!$last">, </span>
+                             </span>
+
+                         </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+        <div class="span6">
+            <h3 style="margin-top: 0; line-height: 1em;">RESTful API</h3>
+            <p>Build your own Mobbr client or website using our API. You can use our web application (you're looking at it) to start with, it's open source.</p>
+            <p><a href="https://api.mobbr.com" target="_blank" class="btn" title="Our API has its own website, visit it for details">Go to API site</a></p>
+        </div>
+    </div>
+</div>
+
+<div  id="buttonbasics" class="page-header">
+    <h1>
         Buttons, badges, images, labels and icons<br>
         <small> There are several integration options, but in the end you will probably want the button.</small>
     </h1>
 </div>
 
-<p class="lead">
+<p>
    We supply several versions
     of the Mobbr button
     that you can place on your pages, next to the picture, downloads, artwork, a blogpost, or anything else for which
@@ -18,18 +108,13 @@
     parenthesis.
 </p>
 <p>
-<mobbrbutton size="medium" url="{{startLocation}}"></mobbrbutton>
-</p>
+<mobbrbutton size="medium" url="{{startLocation}}"></mobbrbutton></p>
 <pre class="prettyprint">&lt;script src="https://mobbr.com/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
 &lt;script type="text/javascript"&gt;mobbr.button('https://{{host}}/#/buttons');&lt;/script&gt;</pre>
 
 <p><mobbrbutton size="large" url="{{startLocation}}"></mobbrbutton></p>
 <pre class="prettyprint">&lt;script src="https://mobbr.com/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
 &lt;script type="text/javascript"&gt;mobbr.buttonLarge('https://{{host}}/#/buttons');&lt;/script&gt;</pre>
-
-<p><mobbrbutton size="flat" url="{{startLocation}}"></mobbrbutton></p>
-<pre class="prettyprint">&lt;script src="https://mobbr.com/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
-&lt;script type="text/javascript"&gt;mobbr.buttonFlat('https://{{host}}/#/buttons');&lt;/script&gt;</pre>
 
 <p><mobbrbutton size="small" url="{{startLocation}}"></mobbrbutton></p>
 <pre class="prettyprint">&lt;script src="https://mobbr.com/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
@@ -44,9 +129,14 @@
         href="#/buttons#configure">different ways</a>. Generate configured buttons <a href="#/generatebutton">here</a>.
 </p>
 <p>
+    To have a button show amounts in another currency append a <a href="#/exchangerate">currency code</a> to the script.
+</p>
+<p><mobbrbutton size="slim" url="{{startLocation}}"></mobbrbutton></p>
+<pre class="prettyprint">&lt;script src="https://mobbr.com/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;mobbr.buttonSlim('https://{{host}}/#/buttons','USD');&lt;/script&gt;</pre>
+<p>
     The button acts on the URL given as their argument, so it is possible to donate URL's different from the URL where
-    the
-    button is located.
+    the button is located.
     Every time the button is clicked, our system will do a callback and analyze the script. This is flexible and secure.
 </p>
 <p>
@@ -76,11 +166,11 @@
 &lt;script type="text/javascript"&gt;mobbr.badgeWide();&lt;/script&gt;</pre>
 
 <p>
-    To have a badge show actual amounts append a <a href="#/exchangerate">currency code</a> to the script.
+    To have a badge show amounts in another currency append a <a href="#/exchangerate">currency code</a> to the script.
 </p>
 <p>
     <a href="/#/domain/aHR0cHM6Ly9tb2Jici5jb20=">
-        <img src="{{api_url}}/badge/https/{{host}}/wide/EUR" alt="">
+        <img src="{{api_url}}/badge/https/{{host}}/wide/USD" alt="">
     </a>
 </p>
 <pre class="prettyprint">&lt;script src="https://mobbr.com/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
@@ -576,3 +666,200 @@
     This is not Mobbr specific though, it is good webdesign practice in general. If possible make your pages W3C
     valid.
 </p>
+
+<div id="siteconnector" class="page-header">
+    <h1>
+        Connecting your users to Mobbr<br>
+        <small>Using your site's usernames in Mobbr scripts.</small>
+    </h1>
+</div>
+
+<p>
+    <strong>First make sure your pages have either <a href="/#/buttons">buttons or metadata</a>. Or supply a <a href="/#/buttons#domain">domain script</a>.</strong>
+</p>
+
+<p>
+    Mobbr has a simple mechanism that allows you to connect your entire weblog, community or site in such
+    a way that you can start receiving payments and share them among all contributors without the neccessity for them to
+    be registered with Mobbr.
+</p>
+<p>
+    <strong>Using this mechanism sites can use their own member names or id's in their scripts.</strong>
+</p>
+<p>
+    You website needs to have a special page / URL that Mobbr can use to resolve your local usernames into email-addresses.
+    Suppose you have a weblog on zaplog.nl, then you could provide an URL like:
+</p>
+<pre>http://zaplog.nl/id/&lt;local-member-name&gt;</pre>
+<p>
+    The content of this URL should be the email address of your local member. Like this:
+</p>
+<pre>     REQUEST:
+         http://zaplog.nl/id/patrick
+
+     RESPONSE:
+         patman@mobbrr.com</pre>
+<p>
+    If you don't plan to use buttons, but want to rely on the bookmarket or some other tool, you need to place the following script on /PARTICIPATION.TXT, like <a href="http://zaplog.nl/participation.txt">here</a>.
+    This tells our server where to find your special page.
+</p>
+<pre>[
+    {
+        url-pattern: "*",
+        participation-info:
+        {
+            id-base: "http://zaplog.nl/id/",
+            description: "ZapLog - Nederlands beste nieuwssite, Dutch Bloggie winnaar 2008",
+        }
+    }
+]</pre>
+<h2>Buttons</h2>
+<p>
+    Create or generate your Mobbr scripts using your local member names and use your special URL as "id-base". Like this:
+</p>
+<pre class="prettify">&lt;script src="https://{{host}}/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+mobbr.button({
+    <strong>"id-base" : "http://zaplog.nl/id/"</strong>,
+    "title" : "Very special article",
+    "description" : "Article about the Mobbr button",
+    "participants" : [
+        {
+            <strong>"id": "zaplog"</strong>,
+            "role": "platform",
+            "share": "1"
+        },
+        {
+            <strong>"id": "Patman"</strong>,
+            "role": "webmaster",
+            "share": "1"
+        },
+        {
+            <strong>"id": "P.Uncia"</strong>,
+            "role": "author",
+            "share": "2"
+        }
+    ]
+});
+&lt;/script&gt;</pre>
+<p>
+    Or this:
+</p>
+<pre class="prettify">&lt;script src="https://{{host}}/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+mobbr.button({
+    "title" : "Very special article",
+    "description" : "Article about the Mobbr button",
+    "participants" : [
+        {
+            <strong>"id": "http://zaplog.nl/id/zaplog"</strong>,
+            "role": "platform",
+            "share": "1"
+        },
+        {
+            <strong>"id": "http://zaplog.nl/id/Patman"</strong>,
+            "role": "webmaster",
+            "share": "1"
+        },
+        {
+            <strong>"id": "http://zaplog.nl/id/P.Uncia"</strong>,
+            "role": "author",
+            "share": "2"
+        }
+    ]
+});
+&lt;/script&gt;</pre>
+<p>
+    When someone now uses the Mobbr button, Mobbr will call your special URL 3 times in rapid succession:
+</p>
+<pre>    http://zaplog.nl/id/zaplog
+    http://zaplog.nl/id/patman
+    http://zaplog.nl/id/p.uncia</pre>
+<p>
+    Other URL formats are no problem as long as id-base + id form a valid URL, for instance:
+</p>
+<pre>    http://zaplog.nl?type=id&amp;user=patman</pre>
+<p>
+    If your members are not yet registered with Mobbr, they will receive mail inviting them to register.
+    By registering they automatically claim their payments and will receive all subsequent payments
+    directly into their Mobbr-account. You don't need to change anything on your side (or site).
+</p>
+<p>
+    Your system will be given 2 seconds and only 3 redirects to reply. So make it quick. Don't be worried about Mobbr
+    overloading your system, we will do some caching / buffering on our side if necessary.
+</p>
+<p>
+    If your system has throttling or anti-hammering enabled, try to exclude the Mobbr bot from this.
+</p>
+<h2>Security / privacy</h2>
+<p>
+    To prevent others from accessing your special URL and stealing the email-addresses of your members, protect it by adding the
+    something like the following to your Apache server's <a href="http://httpd.apache.org/docs/2.4/mod/mod_authz_host.html">.htaccess file.</a>
+</p>
+<pre>&lt;Location /zaplog/id/.*$&gt;
+Require host mobbr.com
+&lt;/Location&gt;</pre>
+<p>
+    Now only the Mobbr-server can access the page. Of course you can use any alternative mechanism. You can also do a referer check. Our calls will always originate from https://mobbr.com.
+</p>
+<p>
+    You can put the Mobbr payment scripts in metadata, a metalink or a button. See <a href="/#/buttons">here</a> for details, or <a href="/protocol">here</a> for the protocol.
+</p>
+
+<h2>Expression Engine example</h2>
+<p>
+    Because you will probably want to integrate the above mechanism into your CMS or publication system, we will give an example.
+    There are many, many CMS-ses and publication systems, but the example for Expression Engine (EE) is representative for a lot of those.
+</p>
+<p>
+    <img src="http://ellislab.com/_user_guide_src_ee/_images/cp_home.png" class="thumbnail">
+</p>
+<p>
+    Like many similar blogging systems (Blogger, Drupal, Word Press), EE is template based. For the special URL (in our example: http://zaplog.nl/zaplog/id/)
+    we must create a template. You can do this in <a href="http://ellislab.com/expressionengine/user-guide/cp/design/templates/index.html">the EE backend</a>.
+</p>
+<p>
+    <img src="http://ellislab.com/_user_guide_src_ee/_images/template_new.png" alt="">
+</p>
+<p>
+    The template only needs the following content. It is a tag that generate the email address as page content.
+</p>
+<pre>{exp:query sql="select email from exp_members
+where username='{segment_3}'"}{email}{/exp:query}
+</pre>
+<p>
+    Suppose you want to have a button with every article in you weblog and you want to give the platform owner,
+    the webmaster and the author each a fair share. Then you could add a piece of code like this to the template of
+    your articles, it will generate the Mobbr payment description and give the author, the webmaster and the platform owner a share.
+    Place it in the &lt;head&gt; of the HTML. Of course you will have to sue your own usernames and shares, fitted to your situation.
+</p>
+<pre class="prettify">{exp:query sql="select username as authorname from exp_channel_titles where url_title='{segment_3}'"}
+    &lt;meta name="participation" content='
+        {
+            "id-base" : "http://zaplog.nl/zaplog/id/",
+            "participants" : [
+                {
+                    "id": "Patman",
+                    "role": "Zaplog owner",
+                    "share": "1"
+                },
+                {
+                    "id": "P.Uncia",
+                    "role": "Zaplog webmaster",
+                    "share": "1"
+                },
+                {
+                    "id": "{authorname}",
+                    "role": "Zaplog article author",
+                    "share": "3"
+                }
+            ]
+        }
+    '/&gt;
+{/exp:query}</pre>
+<p>
+    For the button itself you will only need to place the following code in the template of the article:
+</p>
+<pre class="prettify">&lt;script src="https://{{host}}/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;mobbr.button();&lt;/script&gt;</pre>
+</div>
