@@ -227,6 +227,7 @@ var mobbr = mobbr || (function() {
                 var metas = document.getElementsByTagName("meta");
                 for (var i = 0; i < metas.length; i ++)
                 {
+                    console.log(metas[i]);
                     if (metas[i].getAttribute("property").toLowerCase().replace(/^\s+|\s+$/g,'') === "og:url")
                     {
                         url = metas[i].getAttribute("content").replace(/^\s+|\s+$/g,'').replace(/\/$/, "");
@@ -415,7 +416,6 @@ var mobbr = mobbr || (function() {
         buttonSlim: function(data, curr) { mobbr_object.showButton(data, 'slim', curr); },
         buttonIcon: function(data, curr) { mobbr_object.showButton(data, 'icon', curr); },
         badgeMedium: function(data, curr) { mobbr_object.showButton(data, 'badgeMedium', curr); },
-        // test
         badgeWide: function(data, curr) { mobbr_object.showButton(data, 'badgeWide', curr); },
 
         incrementButtonsShown: function()
