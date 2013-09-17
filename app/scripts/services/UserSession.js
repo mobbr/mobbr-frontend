@@ -139,6 +139,10 @@ angular.module('mobbr.services.user', ['mobbr.services.mbr-api', 'LocalStorageMo
                     User.register(user, function (response) {
                         Msg.setResponseMessage('info', '', response);
                         scope.waiting = false;
+                        scope.email = '';
+                        scope.username = '';
+                        scope.password = '';
+                        scope.password_control = '';
                     }, function (response) {
                         Msg.setResponseMessage('error', 'Couldn\'t send information', response);
                         scope.waiting = false;
@@ -154,15 +158,18 @@ angular.module('mobbr.services.user', ['mobbr.services.mbr-api', 'LocalStorageMo
             restrict: 'A',
             scope: {},
             link: function (scope, element, attrs) {
+                scope.waiting = false;
 
-                element.bind('submit', function (event) {
-
+                scope.recover = function () {
+                    scope.waiting = true;
                     User.recover({email: scope.email}, function (response) {
                         Msg.setResponseMessage('info', 'Recover user', response);
+                        scope.waiting = false;
                     }, function (response) {
                         Msg.setResponseMessage('error', 'Couln\'t recover user', response);
+                        scope.waiting = false;
                     });
-                });
+                }
             }
         };
     }

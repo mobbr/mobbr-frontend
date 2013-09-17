@@ -11,9 +11,10 @@ angular.module('mobbr.controllers').controller('LoginController', function ($sco
 
     $scope.login = function (redirect) {
         redirect = redirect === undefined && true || redirect;
+        $scope.waiting = true;
         User.login({ email: $scope.email, password: $scope.password }, function (response) {
             console.log('promise finished');
-
+            $scope.waiting = false;
             if (response.result != undefined && response.result != null) {
 
                 userSession.doLogin(response.result);
@@ -41,6 +42,7 @@ angular.module('mobbr.controllers').controller('LoginController', function ($sco
             }
 
         }, function (response) {
+            $scope.waiting = false;
             Msg.setResponseMessage('error', 'Could not log you in', response);
         });
     }
@@ -66,8 +68,11 @@ angular.module('mobbr.controllers').controller('LoginController', function ($sco
 
     $scope.resetPassword = function () {
 
+        $scope.waiting = true;
+
         User.resetPasswordForHash({'session_token': $routeParams.hash, password: $scope.new_password, password_control: $scope.new_password_control},
             function (response) {
+                $scope.waiting = false;
                 if (response.result != null) {
 
                     Msg.setResponseMessage('info', 'Updated password, logging you in', response);
@@ -82,6 +87,7 @@ angular.module('mobbr.controllers').controller('LoginController', function ($sco
                 }
             },
             function (response) {
+                $scope.waiting = false;
                 Msg.setResponseMessage('error', 'could not log you in', response);
             });
     }
