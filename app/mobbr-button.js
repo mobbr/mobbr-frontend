@@ -415,6 +415,7 @@ var mobbr = mobbr || (function() {
         buttonSlim: function(data, curr) { mobbr_object.showButton(data, 'slim', curr); },
         buttonIcon: function(data, curr) { mobbr_object.showButton(data, 'icon', curr); },
         badgeMedium: function(data, curr) { mobbr_object.showButton(data, 'badgeMedium', curr); },
+        // test
         badgeWide: function(data, curr) { mobbr_object.showButton(data, 'badgeWide', curr); },
 
         incrementButtonsShown: function()
