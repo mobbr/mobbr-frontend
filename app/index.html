@@ -6,7 +6,7 @@
 <!--[if gt IE 9]><html xmlns:ng="http://angularjs.org"> <![endif]-->
 <!--[if !IE]><!--><html xmlns:ng="http://angularjs.org"> <!--<![endif]-->
     <head>
-        <script>var api_url = 'http://api.mobbr.dev';</script>
+        <script>var api_url = 'https://api.mobbr.com';</script>
         <!--<script>var api_url = 'http://192.168.1.129';</script>-->
         <script src="scripts/vendor/modernizr.min.js"></script>
         <!--[if lte IE 8]>
@@ -106,7 +106,7 @@
                                     <form ng-submit="login()" name="head-login" ng-controller="LoginController">
                                         <input ng-model="email" type="email" name="email" placeholder="email address">
                                         <input ng-model="password" type="password" name="password" placeholder="password">
-                                        <button type="submit" class="btn">Log in</button>
+                                        <button ng-disabled="waiting" type="submit" class="btn"><i class="icon-white mobbrloader" ng-show="waiting"></i> Log in</button>
                                     </form>
                                 </li>
                                 <li class="divider"></li>
