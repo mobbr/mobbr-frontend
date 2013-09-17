@@ -107,47 +107,55 @@
                         <select class="pull-right" ng-model="network_method" ng-options="n.name for n in networks"></select>
                     </div>
                     <div ng-switch="network_method.name">
-                        <ul ng-switch-when="bitcoin">
-                            <li class="nav-header">Curreny &amp; amount</li>
-                            <li class="nav-header">
-                                <select class="input-small" ng-model="withdraw_currency" ng-options="currency for currency in network_method.currencies.result"></select>
-                                <input class="input-small" ng-model="withdraw_amount" required type="number" step="any" min="0" max="1000000000">
-                            </li>
-                            <li class="nav-header">Bitoin address</li>
-                            <li class="nav-header">
-                                <input type="text" ng-model="withdraw_address" required class="input-xlarge">
-                            </li>
-                            <li class="nav-header">Note</li>
-                            <li class="nav-header">
-                                <textarea class="input-xlarge" ng-model="withdraw_note"></textarea>
-                            </li>
-                            <li class="nav-header">
-                                <button class="btn btn-success" ng-click="withdraw(network_method.name, withdraw_currency, withdraw_amount, withdraw_address, withdraw_note)">Send</button>
-                            </li>
-                        </ul>
-                        <ul ng-switch-when="paypal">
-                            <li class="nav-header">Curreny &amp; amount</li>
-                            <li class="nav-header">
-                                <select class="input-small" ng-model="withdraw_currency" ng-options="currency for currency in network_method.currencies.result"></select>
-                                <input class="input-small" ng-model="withdraw_amount" required type="number" step="any" min="0" max="1000000000">
-                            </li>
-                            <li class="nav-header">Email address</li>
-                            <li class="nav-header">
-                                <input type="email" ng-model="withdraw_address" required class="input-xlarge">
-                            </li>
-                            <li class="nav-header">Note</li>
-                            <li class="nav-header">
-                                <textarea class="input-xlarge" ng-model="withdraw_note"></textarea>
-                            </li>
-                            <li class="nav-header">
-                                <button class="btn btn-success"
-                                        ng-disabled="waitingwithdraw"
-                                        ng-click="withdraw(network_method.name, withdraw_currency, withdraw_amount, withdraw_address, withdraw_note)">
-                                    <i class="icon-white mobbrloader" ng-show="waitingwithdraw"></i>
-                                    Send
-                                </button>
-                            </li>
-                        </ul>
+                        <form name="bitcoinform">
+                            <ul ng-switch-when="bitcoin">
+                                <li class="nav-header">Curreny &amp; amount</li>
+                                <li class="nav-header">
+                                    <select class="input-small" ng-model="withdraw_currency" ng-options="currency for currency in network_method.currencies.result"></select>
+                                    <input name="withdraw_amount" class="input-small" ng-model="withdraw_amount" required type="number" step="any" min="0" max="1000000000">
+                                </li>
+                                <li class="nav-header">Bitoin address</li>
+                                <li class="nav-header">
+                                    <input name="withdraw_address" type="text" ng-model="withdraw_address" required class="input-xlarge">
+                                </li>
+                                <li class="nav-header">Note</li>
+                                <li class="nav-header">
+                                    <textarea name="withdraw_note" class="input-xlarge" ng-model="withdraw_note"></textarea>
+                                </li>
+                                <li class="nav-header">
+                                    <button class="btn btn-success"
+                                            ng-click="withdraw(this, network_method.name, withdraw_currency, withdraw_amount, withdraw_address, withdraw_note)">
+                                        <i class="icon-white mobbrloader" ng-show="waitingwithdraw"></i>
+                                        Send
+                                    </button>
+                                </li>
+                            </ul>
+                        </form>
+                        <form name="paypalform">
+                            <ul ng-switch-when="paypal">
+                                <li class="nav-header">Curreny &amp; amount</li>
+                                <li class="nav-header">
+                                    <select class="input-small" ng-model="withdraw_currency" ng-options="currency for currency in network_method.currencies.result"></select>
+                                    <input name="withdraw_amount" class="input-small" ng-model="withdraw_amount" required type="number" step="any" min="0" max="1000000000">
+                                </li>
+                                <li class="nav-header">Email address</li>
+                                <li class="nav-header">
+                                    <input name="withdraw_address" type="email" ng-model="withdraw_address" required class="input-xlarge">
+                                </li>
+                                <li class="nav-header">Note</li>
+                                <li class="nav-header">
+                                    <textarea name="withdraw_note" class="input-xlarge" ng-model="withdraw_note"></textarea>
+                                </li>
+                                <li class="nav-header">
+                                    <button class="btn btn-success"
+                                            ng-disabled="waitingwithdraw"
+                                            ng-click="withdraw(this, network_method.name, withdraw_currency, withdraw_amount, withdraw_address, withdraw_note)">
+                                        <i class="icon-white mobbrloader" ng-show="waitingwithdraw"></i>
+                                        Send
+                                    </button>
+                                </li>
+                            </ul>
+                        </form>
                     </div>
                 </ul>
             </div>

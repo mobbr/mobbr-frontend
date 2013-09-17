@@ -111,15 +111,23 @@ angular.module('mobbr.controllers').controller('DashboardController', function (
     });
 
     $scope.newAccountAddress = function (network_method) {
+        $scope.waitinggenerate = true;
         PaymentNetwork.newAccountAddress({ network: network_method.name }, function (response) {
+            $scope.waitinggenerate = false;
             network_method.addresses = PaymentNetwork.accountAddresses({ network: network_method.name })
         });
     }
 
-    $scope.withdraw = function (network, currency, amount, to_address, note) {
+    $scope.withdraw = function (form, network, currency, amount, to_address, note) {
+        $scope.waitingwithdraw = true;
         PaymentNetwork.sendPayment({network: network, currency: currency, amount: amount, to_address: to_address, note: note}, function (response) {
+            $scope.waitingwithdraw = false;
+            form.withdraw_note = '';
+            form.withdraw_address = '';
+            form.withdraw_amount = '';
             Msg.setResponseMessage('success', 'Payment sent to paypal account', response);
         }, function (response) {
+            $scope.waitingwithdraw = false;
             Msg.setResponseMessage('error', 'Could not send payment', response);
         });
     }
