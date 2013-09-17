@@ -152,7 +152,7 @@
                                 <li class="nav-header">
                                     <button class="btn btn-success"
                                             ng-disabled="waitingwithdraw"
-                                            ng-click="withdraw($parent.$parent.$parent, network_method.name, withdraw_currency, withdraw_amount, withdraw_address, withdraw_note)">
+                                            ng-click="withdraw(this, network_method.name, withdraw_currency, withdraw_amount, withdraw_address, withdraw_note)">
                                         <i class="icon-white mobbrloader" ng-show="waitingwithdraw"></i>
                                         Send
                                     </button>

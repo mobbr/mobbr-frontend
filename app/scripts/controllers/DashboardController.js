@@ -24,11 +24,11 @@ angular.module('mobbr.controllers').controller('DashboardController', function (
     }
     $scope.mutations = [];
     $scope.reloadMutation =  function ( ) {
-    if(userSession.authenticated){
-        Balances.payments(function(response){
-            $scope.mutations = response.result;
-        });
-    }
+        if(userSession.authenticated){
+            Balances.payments(function(response){
+                $scope.mutations = response.result;
+            });
+        }
     };
     $scope.reloadMutation();
 
@@ -123,12 +123,14 @@ angular.module('mobbr.controllers').controller('DashboardController', function (
     $scope.withdraw = function (form, network, currency, amount, to_address, note) {
         $scope.waitingwithdraw = true;
         PaymentNetwork.sendPayment({network: network, currency: currency, amount: amount, to_address: to_address, note: note}, function (response) {
+            $rootScope.reloadPayments = 'reloadpayments' +Math.random();
             $scope.waitingwithdraw = false;
             form.withdraw_note = '';
             form.withdraw_address = '';
             form.withdraw_amount = '';
             Msg.setResponseMessage('success', 'Payment sent to paypal account', response);
         }, function (response) {
+            $rootScope.reloadPayments = 'reloadpayments' +Math.random();
             $scope.waitingwithdraw = false;
             Msg.setResponseMessage('error', 'Could not send payment', response);
         });
