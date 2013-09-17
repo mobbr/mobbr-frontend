@@ -136,7 +136,8 @@ var mobbr = mobbr || (function() {
                 {
                     urlparts = data[0].url.split("://");
                 }
-                badgeurl = urlparts[1];
+                badgeurl = urlparts[0] + '://' + urlparts[1];
+                console.log(badgeurl);
                 full_image_url = api_url + '/badge/' + urlparts[0] + '/' + urlparts[1] + '/' + type;
                 if (currency) {
                     full_image_url += '/' + currency.toUpperCase();
