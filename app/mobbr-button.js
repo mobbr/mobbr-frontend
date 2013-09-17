@@ -136,8 +136,7 @@ var mobbr = mobbr || (function() {
                 {
                     urlparts = data[0].url.split("://");
                 }
-                badgeurl = (urlparts[0] + '://' + urlparts[1]).trim();
-                console.log(badgeurl);
+                badgeurl = urlparts[0] + '://' + urlparts[1];
                 full_image_url = api_url + '/badge/' + urlparts[0] + '/' + urlparts[1] + '/' + type;
                 if (currency) {
                     full_image_url += '/' + currency.toUpperCase();
@@ -162,7 +161,7 @@ var mobbr = mobbr || (function() {
                     mobbr.show(data[0], e.target);
                     return false;
                 } else {
-                    window.open(ui_url + '/#/domain/' + rstr2b64(badgeurl), '_blank');
+                    window.open(ui_url + '/#/domain/' + rstr2b64(badgeurl) + '=', '_blank');
                 }
             }
             img.src = full_image_url;
@@ -401,10 +400,6 @@ var mobbr = mobbr || (function() {
     {var lsw=(x&0xFFFF)+(y&0xFFFF);var msw=(x>>16)+(y>>16)+(lsw>>16);return(msw<<16)|(lsw&0xFFFF);}
     function bit_rol(num,cnt)
     {return(num<<cnt)|(num>>>(32-cnt));}
-
-    if (!String.prototype.trim) {
-        String.prototype.trim=function(){return this.replace(/^\s+|\s+$/g, '');};
-    }
 
     return { // public interface
 
