@@ -242,7 +242,7 @@ var mobbr = mobbr || (function() {
             }
             if (is_url(data))
             {
-                this.drawButton(data, button_type, curr, data[1], data[2]);
+                this.drawButton(data, button_type, curr);
                 //var mobbr_frm = document.getElementById('mobbr_frm_' + buttons_shown);
                 //mobbr_frm.data.value = '{"url":"'+data[0]+'"}';
             }
@@ -250,7 +250,7 @@ var mobbr = mobbr || (function() {
             {
                 if(!data.url) data.url = url;
                 var string_data = JSON.stringify(data);
-                this.drawButton(data, button_type, curr, data[1], data[2]);
+                this.drawButton(data, button_type, curr);
                 //var mobbr_frm = document.getElementById('mobbr_frm_' + buttons_shown);
                 //if (mobbr_frm && mobbr_frm.data) mobbr_frm.data.value = string_data;
             }
