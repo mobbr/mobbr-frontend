@@ -111,10 +111,10 @@ angular.module('mobbr.services.user', ['mobbr.services.mbr-api', 'LocalStorageMo
                         else if (response.message != null) {
                             scope.new_password = '';
                             scope.new_password_control = '';
-                            Msg.setResponseMessage('info', 'Saved password', response);
+                            Msg.setResponseMessage('info', 'Save password', response);
                         }
                     }, function (response) {
-                        Msg.setResponseMessage('error', 'Could not save password', response);
+                        Msg.setResponseMessage('error', 'Error saving password', response);
                     });
                 });
             }
@@ -130,18 +130,20 @@ angular.module('mobbr.services.user', ['mobbr.services.mbr-api', 'LocalStorageMo
             scope: {},
             link: function (scope, element, attrs) {
 
+                scope.waiting = false;
                 scope.email = $routeParams.email;
-
-                element.bind('submit', function (event) {
-
+                scope.register = function () {
                     var user = {'email': scope.email, 'username': scope.username, 'password': scope.password, 'password_control': scope.password_control};
+                    scope.waiting = true;
 
                     User.register(user, function (response) {
-                        Msg.setResponseMessage('info', 'User registered', response);
+                        Msg.setResponseMessage('info', '', response);
+                        scope.waiting = false;
                     }, function (response) {
-                        Msg.setResponseMessage('error', 'Could not send information', response);
+                        Msg.setResponseMessage('error', 'Couldn\'t send information', response);
+                        scope.waiting = false;
                     });
-                });
+                }
             }
         };
 
@@ -156,9 +158,9 @@ angular.module('mobbr.services.user', ['mobbr.services.mbr-api', 'LocalStorageMo
                 element.bind('submit', function (event) {
 
                     User.recover({email: scope.email}, function (response) {
-                        Msg.setResponseMessage('info', 'Recovered user', response);
+                        Msg.setResponseMessage('info', 'Recover user', response);
                     }, function (response) {
-                        Msg.setResponseMessage('error', 'Could not recover user', response);
+                        Msg.setResponseMessage('error', 'Couln\'t recover user', response);
                     });
                 });
             }
