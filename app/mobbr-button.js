@@ -403,29 +403,19 @@ var mobbr = mobbr || (function() {
 
     return { // public interface
 
-        button: function() { mobbr_object.showButton(arguments, 'medium'); },
-        buttonFlat: function() { mobbr_object.showButton(arguments, 'flat'); },
-        buttonSmall: function() { mobbr_object.showButton(arguments, 'small'); },
-        buttonLarge: function() { mobbr_object.showButton(arguments, 'large'); },
-        buttonMedium: function() { mobbr_object.showButton(arguments, 'medium'); },
-        buttonFlatGS: function() { mobbr_object.showButton(arguments, 'flatgs'); },
-        buttonSmallGS: function() { mobbr_object.showButton(arguments, 'smallgs'); },
-        buttonLargeGS: function() { mobbr_object.showButton(arguments, 'largegs'); },
-        buttonMediumGS: function() { mobbr_object.showButton(arguments, 'mediumgs'); },
-        buttonSlim: function() { mobbr_object.showButton(arguments, 'slim'); },
-        buttonIcon: function() { mobbr_object.showButton(arguments, 'icon'); },
-        badgeMedium: function() {
-            var args = Array.prototype.slice.call(arguments);
-            var curr = args[1] || undefined;
-            args.splice(1, 1);
-            mobbr_object.showButton(args, 'badgeMedium', curr);
-        },
-        badgeWide: function() {
-            var args = Array.prototype.slice.call(arguments);
-            var curr = args[1] || undefined;
-            args.splice(1, 1);
-            mobbr_object.showButton(args, 'badgeWide', curr);
-        },
+        button: function(data, curr) { mobbr_object.showButton(data, 'medium', curr); },
+        buttonFlat: function(data, curr) { mobbr_object.showButton(data, 'flat', curr); },
+        buttonSmall: function(data, curr) { mobbr_object.showButton(data, 'small', curr); },
+        buttonLarge: function(data, curr) { mobbr_object.showButton(data, 'large', curr); },
+        buttonMedium: function(data, curr) { mobbr_object.showButton(data, 'medium', curr); },
+        buttonFlatGS: function(data, curr) { mobbr_object.showButton(data, 'flatgs', curr); },
+        buttonSmallGS: function(data, curr) { mobbr_object.showButton(data, 'smallgs', curr); },
+        buttonLargeGS: function(data, curr) { mobbr_object.showButton(data, 'largegs', curr); },
+        buttonMediumGS: function(data, curr) { mobbr_object.showButton(data, 'mediumgs', curr); },
+        buttonSlim: function(data, curr) { mobbr_object.showButton(data, 'slim', curr); },
+        buttonIcon: function(data, curr) { mobbr_object.showButton(data, 'icon', curr); },
+        badgeMedium: function(data, curr) { mobbr_object.showButton(data, 'badgeMedium', curr); },
+        badgeWide: function(data, curr) { mobbr_object.showButton(args, 'badgeWide', curr); },
 
         incrementButtonsShown: function()
         {
