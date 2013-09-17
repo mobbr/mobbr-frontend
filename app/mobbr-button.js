@@ -128,6 +128,8 @@ var mobbr = mobbr || (function() {
                 var type = button_type.replace('badge', '').toLowerCase();
                 var currency = curr !== undefined && curr || false;
 
+                console.log(data);
+
                 if (is_url(data[0]))
                 {
                     urlparts = data[0].split("://");
@@ -227,7 +229,6 @@ var mobbr = mobbr || (function() {
                 var metas = document.getElementsByTagName("meta");
                 for (var i = 0; i < metas.length; i ++)
                 {
-                    console.log(metas[i].getAttribute("property"));
                     if (metas[i].getAttribute("property")) {
                         if (metas[i].getAttribute("property").toLowerCase().replace(/^\s+|\s+$/g,'') === "og:url")
                         {
