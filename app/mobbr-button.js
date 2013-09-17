@@ -227,11 +227,13 @@ var mobbr = mobbr || (function() {
                 var metas = document.getElementsByTagName("meta");
                 for (var i = 0; i < metas.length; i ++)
                 {
-                    console.log(metas[i]);
-                    if (metas[i].getAttribute("property").toLowerCase().replace(/^\s+|\s+$/g,'') === "og:url")
-                    {
-                        url = metas[i].getAttribute("content").replace(/^\s+|\s+$/g,'').replace(/\/$/, "");
-                        break;
+                    console.log(metas[i].getAttribute("property"));
+                    if (metas[i].getAttribute("property")) {
+                        if (metas[i].getAttribute("property").toLowerCase().replace(/^\s+|\s+$/g,'') === "og:url")
+                        {
+                            url = metas[i].getAttribute("content").replace(/^\s+|\s+$/g,'').replace(/\/$/, "");
+                            break;
+                        }
                     }
                 }
             }
