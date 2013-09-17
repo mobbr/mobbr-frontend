@@ -118,6 +118,8 @@ angular.module('mobbr.controllers').controller('DashboardController', function (
         });
     }
 
+    $scope.withdraw_currency = userSession.user.currency_iso;
+
     $scope.withdraw = function (form, network, currency, amount, to_address, note) {
         $scope.waitingwithdraw = true;
         PaymentNetwork.sendPayment({network: network, currency: currency, amount: amount, to_address: to_address, note: note}, function (response) {
