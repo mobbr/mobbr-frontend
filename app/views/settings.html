@@ -30,9 +30,12 @@
                 <div class="control-group">
                     <div class="controls">
                         <button ng-click="submitEmail(changeemail)"
-                                ng-disabled="!changeemail.$valid || user.email == new_email"
+                                ng-disabled="waitingemail || !changeemail.$valid || user.email == new_email"
                                 type="submit"
-                                class="btn btn-success">Change email address</button>
+                                class="btn btn-success">
+                            <i class="icon-white mobbrloader" ng-show="waitingemail"></i>
+                            Change email address
+                        </button>
                     </div>
                 </div>
             </form>
@@ -62,7 +65,6 @@
                     </div>
                 </div>
 
-                <!--
                 <div class="control-group">
 
                     <div class="control-label">
@@ -74,14 +76,16 @@
                         <span ng-show="changepassword.current_password.$dirty && changepassword.password.$error.required" class="help-inline">Enter your current password</span>
                     </div>
                 </div>
-                -->
 
                 <div class="control-group">
                     <div class="controls">
                         <button ng-click="submitPassword(changepassword)"
-                                ng-disabled="!changepassword.$valid"
+                                ng-disabled="!changepassword.$valid || waitingpassword"
                                 type="submit"
-                                class="btn btn-success">Change password</button>
+                                class="btn btn-success">
+                            <i class="icon-white mobbrloader" ng-show="waitingpassword"></i>
+                            Change password
+                        </button>
                     </div>
                 </div>
             </form>
@@ -103,7 +107,10 @@
 
                 <div class="control-group">
                     <div class="controls">
-                        <button ng-click="submitSettings()" class="btn btn-success">Save</button>
+                        <button ng-disabled="waitingsettings" ng-click="submitSettings()" class="btn btn-success">
+                            <i class="icon-white mobbrloader" ng-show="waitingsettings"></i>
+                            Save
+                        </button>
                     </div>
                 </div>
             </form>
@@ -162,7 +169,10 @@
 
                 <div class="control-group">
                     <div class="controls">
-                        <button ng-click="submitSettings()" type="submit" class="btn btn-success">Save</button>
+                        <button ng-disabled="waitingsettings" ng-click="submitSettings()" class="btn btn-success">
+                            <i class="icon-white mobbrloader" ng-show="waitingsettings"></i>
+                            Save
+                        </button>
                     </div>
                 </div>
             </form>
@@ -182,7 +192,10 @@
 
                 <div class="control-group">
                     <div class="controls">
-                        <button ng-click="submitSettings()" class="btn btn-success">Save</button>
+                        <button ng-disabled="waitingsettings" ng-click="submitSettings()" class="btn btn-success">
+                            <i class="icon-white mobbrloader" ng-show="waitingsettings"></i>
+                            Save
+                        </button>
                     </div>
                 </div>
             </form>
