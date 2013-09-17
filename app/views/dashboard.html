@@ -111,7 +111,10 @@
                             <ul ng-switch-when="bitcoin">
                                 <li class="nav-header">Curreny &amp; amount</li>
                                 <li class="nav-header">
-                                    <select class="input-small" ng-model="withdraw_currency" ng-options="currency for currency in network_method.currencies.result"></select>
+                                    <select class="input-small"
+                                            ng-model="$parent.$parent.$parent.withdraw_currency"
+                                            ng-options="currency for currency in network_method.currencies.result">
+                                    </select>
                                     <input name="withdraw_amount" class="input-small" ng-model="withdraw_amount" required type="number" step="any" min="0" max="1000000000">
                                 </li>
                                 <li class="nav-header">Bitoin address</li>
@@ -135,7 +138,7 @@
                             <ul ng-switch-when="paypal">
                                 <li class="nav-header">Curreny &amp; amount</li>
                                 <li class="nav-header">
-                                    <select class="input-small" ng-model="withdraw_currency" ng-options="currency for currency in network_method.currencies.result"></select>
+                                    <select class="input-small" ng-model="$parent.$parent.$parent.withdraw_currency" ng-options="currency for currency in network_method.currencies.result"></select>
                                     <input name="withdraw_amount" class="input-small" ng-model="withdraw_amount" required type="number" step="any" min="0" max="1000000000">
                                 </li>
                                 <li class="nav-header">Email address</li>
@@ -149,7 +152,7 @@
                                 <li class="nav-header">
                                     <button class="btn btn-success"
                                             ng-disabled="waitingwithdraw"
-                                            ng-click="withdraw(this, network_method.name, withdraw_currency, withdraw_amount, withdraw_address, withdraw_note)">
+                                            ng-click="withdraw($parent.$parent.$parent, network_method.name, withdraw_currency, withdraw_amount, withdraw_address, withdraw_note)">
                                         <i class="icon-white mobbrloader" ng-show="waitingwithdraw"></i>
                                         Send
                                     </button>
