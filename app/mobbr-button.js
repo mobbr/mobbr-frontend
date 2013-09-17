@@ -108,13 +108,13 @@ var mobbr = mobbr || (function() {
 
                 var md5_hash = '';
 
-                if (is_url(data[0]))
+                if (is_url(data))
                 {
-                    md5_hash = hex_md5(data[0].replace(/\/$/, ""));
+                    md5_hash = hex_md5(data.replace(/\/$/, ""));
                 }
                 else
                 {
-                    md5_hash = hex_md5(data[0].url.replace(/\/$/, ""));
+                    md5_hash = hex_md5(data.url.replace(/\/$/, ""));
                 }
 
 
@@ -128,15 +128,13 @@ var mobbr = mobbr || (function() {
                 var type = button_type.replace('badge', '').toLowerCase();
                 var currency = curr !== undefined && curr || false;
 
-                console.log(data);
-
-                if (is_url(data[0]))
+                if (is_url(data))
                 {
-                    urlparts = data[0].split("://");
+                    urlparts = data.split("://");
                 }
                 else
                 {
-                    urlparts = data[0].url.split("://");
+                    urlparts = data.url.split("://");
                 }
                 badgeurl = urlparts[0] + '://' + urlparts[1];
                 full_image_url = api_url + '/badge/' + urlparts[0] + '/' + urlparts[1] + '/' + type;
@@ -160,7 +158,7 @@ var mobbr = mobbr || (function() {
             img.onclick = function (e) {
                 if (!badge) {
                     //mobbr.show_mobbr_div(buttons_shown, data);
-                    mobbr.show(data[0], e.target);
+                    mobbr.show(data, e.target);
                     return false;
                 } else {
                     window.open(ui_url + '/#/domain/' + rstr2b64(badgeurl) + '=', '_blank');
@@ -204,13 +202,13 @@ var mobbr = mobbr || (function() {
         this.showButton = function(data, button_type, curr)
         {
             var url = '';
-            if (is_url(data[0]))
+            if (is_url(data))
             {
-                url = data[0];
+                url = data;
             }
-            else if (data[0] && data[0].url)
+            else if (data && data.url)
             {
-                url = data[0].url;
+                url = data.url;
             }
             if (url=='')
             {
@@ -238,23 +236,21 @@ var mobbr = mobbr || (function() {
                     }
                 }
             }
-            if (!data[0])
+            if (!data)
             {
-                data[0] = url;
+                data = url;
             }
-            if (is_url(data[0]))
+            if (is_url(data))
             {
-                var draw_array = [ ];
-                draw_array[0] = data[0];
-                this.drawButton(draw_array, button_type, data[1], data[2], curr);
+                this.drawButton([ data ], button_type, data[1], data[2], curr);
                 //var mobbr_frm = document.getElementById('mobbr_frm_' + buttons_shown);
                 //mobbr_frm.data.value = '{"url":"'+data[0]+'"}';
             }
             else
             {
-                if(!data[0].url) data[0].url = url;
-                var string_data = JSON.stringify(data[0]);
-                this.drawButton(data, button_type, data[1], data[2], curr);
+                if(!data.url) data.url = url;
+                var string_data = JSON.stringify(data);
+                this.drawButton([ data ], button_type, data[1], data[2], curr);
                 //var mobbr_frm = document.getElementById('mobbr_frm_' + buttons_shown);
                 //if (mobbr_frm && mobbr_frm.data) mobbr_frm.data.value = string_data;
             }
