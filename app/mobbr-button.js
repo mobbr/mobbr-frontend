@@ -136,7 +136,7 @@ var mobbr = mobbr || (function() {
                 {
                     urlparts = data[0].url.split("://");
                 }
-                badgeurl = urlparts[0] + '://' + urlparts[1];
+                badgeurl = (urlparts[0] + '://' + urlparts[1]).trim();
                 console.log(badgeurl);
                 full_image_url = api_url + '/badge/' + urlparts[0] + '/' + urlparts[1] + '/' + type;
                 if (currency) {
@@ -401,6 +401,10 @@ var mobbr = mobbr || (function() {
     {var lsw=(x&0xFFFF)+(y&0xFFFF);var msw=(x>>16)+(y>>16)+(lsw>>16);return(msw<<16)|(lsw&0xFFFF);}
     function bit_rol(num,cnt)
     {return(num<<cnt)|(num>>>(32-cnt));}
+
+    if (!String.prototype.trim) {
+        String.prototype.trim=function(){return this.replace(/^\s+|\s+$/g, '');};
+    }
 
     return { // public interface
 
