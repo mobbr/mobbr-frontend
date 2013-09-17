@@ -138,9 +138,10 @@ var mobbr = mobbr || (function() {
                 }
                 badgeurl = urlparts[0] + '://' + urlparts[1];
                 full_image_url = api_url + '/badge/' + urlparts[0] + '/' + urlparts[1] + '/' + type;
-                if (currency) {
-                    full_image_url += '/' + currency.toUpperCase();
-                }
+            }
+
+            if (currency) {
+                full_image_url += '/' + currency.toUpperCase();
             }
 
             // Create a temporary form to commit to the iframe
