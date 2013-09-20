@@ -80,7 +80,7 @@
                 // we set a new cookie with the userdata cookie value
 
                 logout = e.data === 'logout' && (cookie && cookie !== 'deleted');
-                login = !logout && e.data !== cookie;
+                login = e.data !== 'logout' && e.data !== cookie;
 
                 console.log(logout, login);
 
