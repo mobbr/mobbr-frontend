@@ -95,7 +95,7 @@ angular.module('mobbr', [
             // if we are in an iframe we let our parent know we are logged in
             if ($window.parent && $window.parent.postMessage) {
                 console.log(userSession.user);
-                $window.parent.postMessage([ userSession.user.username, userSession.user.email ].join('|'), '*.mobbr.com');
+                $window.parent.postMessage([ userSession.user.username, userSession.user.email ].join('|'), '*');
             }
         }
     }]);
