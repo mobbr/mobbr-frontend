@@ -29,7 +29,7 @@ angular.module('mobbr.controllers')
                     $scope.noscript = $scope.json['participants'] === undefined || $scope.json['participants'].length === 0;
                     $scope.loading = false;
                 });
-            } else if (login) {
+            } else if (dologin) {
                 $scope.dologin = true;
                 $scope.loading = false;
             } else if (logout) {
