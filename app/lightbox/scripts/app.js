@@ -82,7 +82,7 @@ angular.module('mobbr', [
 
 
         return Msg;
-    }).run([ 'localStorageService','$http', 'userSession', function (localStorageService, $http, userSession) {
+    }).run([ 'localStorageService','$http', '$window', 'userSession', function (localStorageService, $http, $window, userSession) {
 
         // TODO: move this to usersession, it's prettier
 
