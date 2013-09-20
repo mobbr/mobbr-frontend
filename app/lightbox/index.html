@@ -355,7 +355,7 @@
 
     <div>
         <div id="login_form">
-            <form name="login">
+            <form name="login_form">
                 <p class="loginerror" ng-show="loginerror">
                     Wrong email/password
                 </p>
@@ -363,9 +363,9 @@
                    <input ng-model="email" type="email" name="email" placeholder="email address" style="margin: 0;">
                    <input ng-model="password" type="password" name="password" placeholder="password" style="margin: 0;">
                 </span>
-                <button ng-click="login && registerPayment(login) || login(login, true, false)"
-                        ng-bind="login && 'Login' || 'Pay / donate'"
-                        ng-show="marked == undefined || login == true"
+                <button ng-click="dologin && registerPayment(login_form) || login(login_form, true, false)"
+                        ng-bind="dologin && 'Login' || 'Pay / donate'"
+                        ng-show="marked == undefined || dologin == true"
                         class="btn btn-success"
                         title="Register this URL for payment. To actually pay, go to your dashboard">
 \                </button>
@@ -373,7 +373,7 @@
                     &larr; Will be placed on dashboard as 'pending'
                 </span>
             </form>
-            <div id="newuser" ng-show="login && !userSession.authenticated">
+            <div id="newuser" ng-show="dologin && !userSession.authenticated">
                 New user or forgotten password? &rarr; <a href="/#/join" target="_blank">Go here</a>
             </div>
         </div>
