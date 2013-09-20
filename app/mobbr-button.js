@@ -5,7 +5,8 @@
 
 (function (window, undefined) {
 
-    var cookie;
+    var cookie,
+        source;
 
     /**
      * Create a default javascript cookie with a name, a value and a expiry date, set negative to reset
@@ -72,21 +73,19 @@
 
             var logout, login;
 
-            console.log(e);
+            source = e.source;
 
             if (e.origin === 'https://mobbr.com') {
 
                 // If we don't get a logout message and our data is not the same
                 // we set a new cookie with the userdata cookie value
+                // if the user is logged in and we get a logout message we remove the cookie by setting days to -1
 
                 logout = e.data === 'logout' && (cookie && cookie !== 'deleted');
                 login = e.data !== 'logout' && e.data !== cookie;
 
-                console.log(logout, login);
-
                 if (login || logout) {
                     cookie = createCookie('mobbr-auth', login && e.data || 'deleted', logout && -1 || undefined);
-                    console.log('set cookie', cookie);
                     window.location.reload(true);
                 }
             }
@@ -95,15 +94,45 @@
     }
 
     /**
-     * Bind a Single Sign On initializer function to the window object
-     * @type {Function}
+     * Send a message to the mobbr iframe
      */
 
-    window.enableMobbrSSO = window.enableMobbrSSO || function () {
-        cookie = readCookie('mobbr-auth');
-        console.log('initial cookie', cookie);
-        setPostEvent();
+    function postMessage(msg) {
+
+        if (source && $window.parent && $window.parent.postMessage) {
+            source.postMessage(msg, 'http://mobbr.com');
+            return true
+        }
+
+        return false;
     }
+
+    var mobbrSSO = {
+
+        enable: function () {
+
+            if (!source) {
+                cookie = readCookie('mobbr-auth');
+                setPostEvent();
+                return true;
+            }
+
+            return false;
+        },
+        login: function () {
+            return postMessage('login');
+
+        },
+        logout: function () {
+            return postMessage('logout');
+        }
+    }
+
+    /**
+     * Bind our single sign on object to the window
+     */
+
+    window.mobbrSSO = window.mobbrSSO || mobbrSSO;
 
 }(this));
 
@@ -274,7 +303,7 @@ var mobbr = mobbr || (function() {
             img.onclick = function (e) {
                 if (!badge) {
                     //mobbr.show_mobbr_div(buttons_shown, data);
-                    mobbr.show(data, e.target);
+                    mobbr.makePayment(data, e.target);
                     return false;
                 } else {
                     window.open(ui_url + '/#/domain/' + rstr2b64(badgeurl) + '=', '_blank');
@@ -535,78 +564,65 @@ var mobbr = mobbr || (function() {
         badgeMedium: function(data, curr) { mobbr_object.showButton(data, 'badgeMedium', curr); },
         badgeWide: function(data, curr) { mobbr_object.showButton(data, 'badgeWide', curr); },
 
-        incrementButtonsShown: function()
-        {
+        incrementButtonsShown: function () {
             return mobbr_object.incrementButtonsShown();
         },
 
-        /*show_mobbr_div_for_form: function(form_name, data)
-        {
-            mobbrDiv.style.display = 'block';
-            var r = new XMLHttpRequest();
-            r.open('POST', api_url + '/api/gateway/analyze_payment', true);
-            r.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-            r.onreadystatechange = function () {
-                if (r.readyState != 4) return;
-                if (r.status == 201) {
-                    var jsonResponse = JSON.parse(r.responseText);
-                    mobbrFrame.src = ui_url + '/lightbox/#/?hash=' + jsonResponse.result;
-                } else if (r.status == 400) {
-                    var jsonResponse = JSON.parse(r.responseText),
-                        message = jsonResponse.message && jsonResponse.message.text || 'Error';
-                    mobbrFrame.src = ui_url + '/lightbox/#/?error=' + message;
-                }
-            };
-            r.send(JSON.stringify({ referrer: document.referrer, data: data[0] }));
-        },
+        hide_mobbr_div: function () {
 
-        show_mobbr_div: function(counter, data)
-        {
-            this.show_mobbr_div_for_form('mobbr_frm_' + counter, data);
-        },*/
+            var buttonsrc;
 
-        hide_mobbr_div: function()
-        {
             if (lastButton) {
-                var buttonsrc = lastButton.src;
+                buttonsrc = lastButton.src;
                 lastButton.src = '';
                 lastButton.src = buttonsrc + '#' + new Date().getTime();
             }
+
             mobbrFrame.src = ui_url + '/lightbox/#/';
             mobbrDiv.style.display = 'none';
         },
 
-        getMobbrDiv: function()
-        {
+        getMobbrDiv: function () {
             return mobbrDiv;
         },
 
-        show: function(data, target)
-        {
-            // the iframe is always here now so we don't need this
-
-            //if (!divAdded) {
-            //    document.body.appendChild(mobbrDiv);
-            //}
-
+        show: function (data, target) {
             lastButton = target;
             mobbrDiv.style.display = 'block';
-            var r = new XMLHttpRequest();
+        },
+
+        makePayment: function (data, target) {
+
+            var r = new XMLHttpRequest(),
+                jsonResponse,
+                message;
+
+            this.show(data, target);
             r.open('POST', api_url + '/api/gateway/analyze_payment', true);
             r.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+
             r.onreadystatechange = function () {
                 if (r.readyState != 4) return;
                 if (r.status == 201) {
-                    var jsonResponse = JSON.parse(r.responseText);
+                    jsonResponse = JSON.parse(r.responseText);
                     mobbrFrame.src = ui_url + '/lightbox/#/?hash=' + jsonResponse.result;
                 } else if (r.status == 400) {
-                    var jsonResponse = JSON.parse(r.responseText),
-                        message = jsonResponse.message && jsonResponse.message.text || 'Error';
+                    jsonResponse = JSON.parse(r.responseText),
+                    message = jsonResponse.message && jsonResponse.message.text || 'Error';
                     mobbrFrame.src = ui_url + '/lightbox/#/?error=' + message;
                 }
             };
-            r.send(JSON.stringify({ referrer: document.referrer, data: data }));
-        }
 
+            r.send(JSON.stringify({ referrer: document.referrer, data: data }));
+        },
+
+        login: function () {
+            mobbrFrame.src = ui_url + '/lightbox/#/?login=true';
+            this.show();
+        },
+
+        logout: function () {
+            mobbrFrame.src = ui_url + '/lightbox/#/?logout=true';
+        }
     };
 })();
