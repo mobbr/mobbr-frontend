@@ -72,7 +72,7 @@
 
             console.log(e);
 
-            if (e.origin === 'mobbr.com') {
+            if (e.origin === 'https://mobbr.com') {
 
                 // If we don't get a logout message and our data is not the same
                 // we set a new cookie with the userdata cookie value
