@@ -71,6 +71,8 @@
             var data,
                 userdata;
 
+            console.log(e);
+
             if (e.origin === 'mobbr.com') {
 
                 // If we don't get a logout message and our data is not the same
