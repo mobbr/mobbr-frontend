@@ -5,7 +5,7 @@ angular.module('mobbr.controllers')
 
         var hash,
             error,
-            login,
+            dologin,
             logout,
             logintimeout;
 
@@ -13,29 +13,29 @@ angular.module('mobbr.controllers')
 
             error = $location.search()['error'];
             hash = $location.search()['hash'];
-            login = $location.search()['login'];
+            dologin = $location.search()['login'];
             logout = $location.search()['logout'];
             $scope.loginerror = false;
 
             if (error) {
-                $scope.login = false;
+                $scope.dologin = false;
                 $scope.loading = false;
                 $scope.errormessage = error;
                 $scope.marked = false;
             } else if (hash) {
-                $scope.login = false;
+                $scope.dologin = false;
                 Gateway.getPayment({ hash: hash }, function (response) {
                     $scope.json = response.result;
                     $scope.noscript = $scope.json['participants'] === undefined || $scope.json['participants'].length === 0;
                     $scope.loading = false;
                 });
             } else if (login) {
-                $scope.login = true;
+                $scope.dologin = true;
                 $scope.loading = false;
             } else if (logout) {
                 userSession.doLogout(true);
             } else {
-                $scope.login = false;
+                $scope.dologin = false;
                 $scope.loading = true;
                 $scope.marked = undefined;
                 $scope.json = undefined;

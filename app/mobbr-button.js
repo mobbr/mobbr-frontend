@@ -107,6 +107,11 @@
         return false;
     }
 
+    /**
+     * public object
+     * @type {{enable: Function, login: Function, logout: Function}}
+     */
+
     var mobbrSSO = {
 
         enable: function () {
