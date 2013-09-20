@@ -354,6 +354,7 @@
     </div>
 
     <div>
+        <h2 ng-show="dologin && userSession.authenticated" ng-bind="'Logged in as: ' + userSession.username"></h2>
         <div id="login_form">
             <form name="login_form">
                 <p class="loginerror" ng-show="loginerror">
@@ -365,11 +366,11 @@
                 </span>
                 <button ng-click="dologin && login(login_form, true, false) || !dologin && registerPayment(login_form)"
                         ng-bind="dologin && 'Login' || 'Pay / donate'"
-                        ng-show="marked == undefined || dologin == true"
+                        ng-show="dologin == false && marked == undefined || dologin == true"
                         class="btn btn-success"
                         title="Register this URL for payment. To actually pay, go to your dashboard">
 \                </button>
-                <span ng-show="marked == undefined && userSession.authenticated" style="color:#666">
+                <span ng-show="dologin == false && marked == undefined && userSession.authenticated" style="color:#666">
                     &larr; Will be placed on dashboard as 'pending'
                 </span>
             </form>
@@ -379,7 +380,7 @@
         </div>
         <div ng-switch on="marked">
             <div ng-switch-when="undefined">
-                <div id="tab" class="active">
+                <div id="tab" class="active" ng-show="!dologin">
                     <h2>
                         <span ng-bind="json['title']"></span>
                         <span class="attributes">
