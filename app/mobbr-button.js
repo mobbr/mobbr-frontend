@@ -26,6 +26,8 @@
         }
 
         document.cookie = name + "=" + value + expires + "; path=/";
+
+        return value;
     }
 
     /**
@@ -79,7 +81,8 @@
                 if (e.data !== 'logout') {
 
                     if (e.data !== cookie) {
-                        createCookie('mobbr-auth', e.data);
+                        cookie = createCookie('mobbr-auth', e.data);
+                        console.log(cookie);
                         window.location.reload(true);
                     }
 
@@ -99,6 +102,7 @@
 
     window.enableMobbrSSO = window.enableMobbrSSO || function () {
         cookie = readCookie('mobbr-auth');
+        console.log(cookie);
         setPostEvent();
     }
 
