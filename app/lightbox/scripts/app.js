@@ -94,7 +94,7 @@ angular.module('mobbr', [
             $http.defaults.headers.common['Authorization'] = authorization;
             // if we are in an iframe we let our parent know we are logged in
             if ($window.parent && $window.parent.postMessage) {
-                $window.parent.postMessage([ this.user.username, this.user.email ].join('|'), '*.mobbr.com');
+                $window.parent.postMessage([ userSession.user.username, userSession.user.email ].join('|'), '*.mobbr.com');
             }
         }
     }]);
