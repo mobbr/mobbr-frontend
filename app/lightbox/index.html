@@ -363,7 +363,7 @@
                    <input ng-model="email" type="email" name="email" placeholder="email address" style="margin: 0;">
                    <input ng-model="password" type="password" name="password" placeholder="password" style="margin: 0;">
                 </span>
-                <button ng-click="dologin && login(login_form, true, false) || registerPayment(login_form)"
+                <button ng-click="dologin ? login(login_form, true, false) : registerPayment(login_form)"
                         ng-bind="dologin && 'Login' || 'Pay / donate'"
                         ng-show="marked == undefined || dologin == true"
                         class="btn btn-success"
