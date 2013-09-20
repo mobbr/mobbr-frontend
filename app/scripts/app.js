@@ -227,7 +227,7 @@ angular.module('mobbr', [
 
         $rootScope.$on('$routeChangeSuccess', function (newRoute, oldRoute) {
             $location.hash($routeParams.scrollTo);
-            $anchorScroll();
+            //$anchorScroll();
         });
 
         $rootScope.currenciesMap = {};

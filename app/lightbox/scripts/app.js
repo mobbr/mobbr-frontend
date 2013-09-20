@@ -20,7 +20,7 @@ angular.module('mobbr', [
                 $timeout.cancel(timer);
                 timer = $timeout(function () {
                     if (userSession.authenticated) {
-                        userSession.doLogout();
+                        userSession.doLogout(true);
                     }
                 }, 1000 * 60 * 15);
                 return promise;
@@ -84,12 +84,18 @@ angular.module('mobbr', [
         return Msg;
     }).run([ 'localStorageService','$http', 'userSession', function (localStorageService, $http, userSession) {
 
+        // TODO: move this to usersession, it's prettier
+
         var authorization = localStorageService.get('Authorization');
         if(authorization !== null && authorization != undefined){
             userSession.authenticated = true;
             userSession.user = localStorageService.get('User');
 
             $http.defaults.headers.common['Authorization'] = authorization;
+            // if we are in an iframe we let our parent know we are logged in
+            if ($window.parent && $window.parent.postMessage) {
+                $window.parent.postMessage([ this.user.username, this.user.email ].join('|'), '*.mobbr.com');
+            }
         }
     }]);
 
