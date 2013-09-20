@@ -70,9 +70,6 @@
 
         eventer(messageEvent, function (e) {
 
-            var data,
-                userdata;
-
             if (e.origin === 'mobbr.com') {
 
                 // If we don't get a logout message and our data is not the same
@@ -82,12 +79,13 @@
 
                     if (e.data !== cookie) {
                         cookie = createCookie('mobbr-auth', e.data);
-                        console.log(cookie);
+                        console.log('set cookie', cookie);
                         window.location.reload(true);
                     }
 
                 } else if (!cookie || cookie !== 'deleted') {
                     createCookie('mobbr-auth', 'deleted', -1);
+                    console.log('detelete cookie');
                     window.location.reload(true);
                 }
             }
@@ -102,7 +100,7 @@
 
     window.enableMobbrSSO = window.enableMobbrSSO || function () {
         cookie = readCookie('mobbr-auth');
-        console.log(cookie);
+        console.log('initial cookie', cookie);
         setPostEvent();
     }
 
