@@ -70,18 +70,17 @@
 
         eventer(messageEvent, function (e) {
 
+            console.log(e);
+
             if (e.origin === 'mobbr.com') {
 
                 // If we don't get a logout message and our data is not the same
                 // we set a new cookie with the userdata cookie value
 
-                if (e.data !== 'logout') {
-
-                    if (e.data !== cookie) {
-                        cookie = createCookie('mobbr-auth', e.data);
-                        console.log('set cookie', cookie);
-                        window.location.reload(true);
-                    }
+                if (e.data !== 'logout' && e.data !== cookie) {
+                    cookie = createCookie('mobbr-auth', e.data);
+                    console.log('set cookie', cookie);
+                    window.location.reload(true);
 
                 } else if (!cookie || cookie !== 'deleted') {
                     createCookie('mobbr-auth', 'deleted', -1);
