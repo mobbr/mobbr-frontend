@@ -5,22 +5,37 @@ angular.module('mobbr.controllers')
 
         var hash,
             error,
+            login,
+            logout,
             logintimeout;
 
         function check() {
+
             error = $location.search()['error'];
             hash = $location.search()['hash'];
+            login = $location.search()['login'];
+            logout = $location.search()['logout'];
+            $scope.loginerror = false;
+
             if (error) {
+                $scope.login = false;
                 $scope.loading = false;
                 $scope.errormessage = error;
                 $scope.marked = false;
             } else if (hash) {
+                $scope.login = false;
                 Gateway.getPayment({ hash: hash }, function (response) {
                     $scope.json = response.result;
                     $scope.noscript = $scope.json['participants'] === undefined || $scope.json['participants'].length === 0;
                     $scope.loading = false;
                 });
+            } else if (login) {
+                $scope.login = true;
+                $scope.loading = false;
+            } else if (logout) {
+                userSession.doLogout(true);
             } else {
+                $scope.login = false;
                 $scope.loading = true;
                 $scope.marked = undefined;
                 $scope.json = undefined;
@@ -41,21 +56,25 @@ angular.module('mobbr.controllers')
 
         $scope.registerPayment = function (data) {
             if (!userSession.authenticated) {
-                User.login({ email: data.email.$modelValue, password: data.password.$modelValue }, function (response) {
-                    if (response.result != undefined && response.result != null) {
-                        userSession.doLogin(response.result);
-                        register();
-                    }
-                }, function (response) {
-                    $scope.loginerror = true;
-                    $timeout.cancel(logintimeout);
-                    logintimeout = $timeout(function () {
-                        $scope.loginerror = undefined;
-                    }, 5000);
-                });
+                $scope.login(data, false, true);
             } else {
                 register();
             }
+        }
+
+        $scope.login = function (data, notifyParent, do_register) {
+            User.login({ email: data.email.$modelValue, password: data.password.$modelValue }, function (response) {
+                if (response.result != undefined && response.result != null) {
+                    userSession.doLogin(response.result, notifyParent);
+                    do_register && register();
+                }
+            }, function (response) {
+                $scope.loginerror = true;
+                $timeout.cancel(logintimeout);
+                logintimeout = $timeout(function () {
+                    $scope.loginerror = undefined;
+                }, 5000);
+            });
         }
 
         $scope.userSession = userSession;
