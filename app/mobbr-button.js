@@ -82,7 +82,7 @@
                     console.log('set cookie', cookie);
                     window.location.reload(true);
 
-                } else if (data === 'logout' && (!cookie || cookie !== 'deleted')) {
+                } else if (e.data === 'logout' && (!cookie || cookie !== 'deleted')) {
                     createCookie('mobbr-auth', 'deleted', -1);
                     console.log('delete cookie');
                     window.location.reload(true);
