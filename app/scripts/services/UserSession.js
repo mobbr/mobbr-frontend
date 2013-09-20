@@ -13,7 +13,7 @@ angular.module('mobbr.services.user', ['mobbr.services.mbr-api', 'LocalStorageMo
             if (notifyParent) {
                 // if we are in an iframe we let our parent know we are logged in
                 if ($window.parent && $window.parent.postMessage) {
-                    $window.parent.postMessage('logout', '*.mobbr.com');
+                    $window.parent.postMessage('logout', '*');
                 }
             }
         }
@@ -42,7 +42,7 @@ angular.module('mobbr.services.user', ['mobbr.services.mbr-api', 'LocalStorageMo
                 if (notifyParent) {
                     // if we are in an iframe we let our parent know we are logged in
                     if ($window.parent && $window.parent.postMessage) {
-                        $window.parent.postMessage([ this.user.username, this.user.email ].join('|'), '*.mobbr.com');
+                        $window.parent.postMessage([ this.user.username, this.user.email ].join('|'), '*');
                     }
                 }
             },
