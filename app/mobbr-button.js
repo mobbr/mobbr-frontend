@@ -70,21 +70,18 @@
 
         eventer(messageEvent, function (e) {
 
-            console.log(e);
+            var logout, login;
 
             if (e.origin === 'https://mobbr.com') {
 
                 // If we don't get a logout message and our data is not the same
                 // we set a new cookie with the userdata cookie value
 
-                if (e.data !== 'logout' && e.data !== cookie) {
-                    cookie = createCookie('mobbr-auth', e.data);
-                    console.log('set cookie', cookie);
-                    window.location.reload(true);
+                logout = e.data === 'logout' && (!cookie || cookie !== 'deleted');
+                login = !logout && e.data !== cookie;
 
-                } else if (e.data === 'logout' && (!cookie || cookie !== 'deleted')) {
-                    createCookie('mobbr-auth', 'deleted', -1);
-                    console.log('delete cookie');
+                if (login || logout) {
+                    cookie = createCookie('mobbr-auth', login && e.data || 'deleted', logout && -1 || undefined);
                     window.location.reload(true);
                 }
             }
@@ -99,7 +96,6 @@
 
     window.enableMobbrSSO = window.enableMobbrSSO || function () {
         cookie = readCookie('mobbr-auth');
-        console.log('initial cookie', cookie);
         setPostEvent();
     }
 
