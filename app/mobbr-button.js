@@ -130,8 +130,10 @@ var mobbr = mobbr || (function() {
     var divAdded = false;
     var lastButton;
 
-    document.body.appendChild(mobbrDiv);
-    divAdded = true;
+    window.onload = function () {
+        document.body.appendChild(mobbrDiv);
+        divAdded = true;
+    }
 
     function createMobbrDiv() {
         var div = document.createElement('div');
