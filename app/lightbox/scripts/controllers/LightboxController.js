@@ -63,6 +63,7 @@ angular.module('mobbr.controllers')
         }
 
         $scope.login = function (data, notifyParent, do_register) {
+            console.log(do_register);
             User.login({ email: data.email.$modelValue, password: data.password.$modelValue }, function (response) {
                 if (response.result != undefined && response.result != null) {
                     userSession.doLogin(response.result, notifyParent);
