@@ -120,11 +120,13 @@
             return false;
         },
         login: function () {
-            return postMessage('login');
+            mobbr.login();
+            //return postMessage('login');
 
         },
         logout: function () {
-            return postMessage('logout');
+            mobbr.logout();
+            //return postMessage('logout');
         }
     }
 
