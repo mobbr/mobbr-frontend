@@ -1,3 +1,114 @@
+/**
+ * If we receive a message from a mobbr.com iframe that reports a user is logged in or out
+ * we set a cookie and refresh the page
+ */
+
+(function (window, undefined) {
+
+    var cookie;
+
+    /**
+     * Create a default javascript cookie with a name, a value and a expiry date, set negative to reset
+     * @param name (string)
+     * @param value (string)
+     * @param days (int)
+     */
+
+    function createCookie(name, value, days) {
+
+        var date,
+            expires = '';
+
+        if (days) {
+            date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires="+date.toGMTString();
+        }
+
+        document.cookie = name + "=" + value + expires + "; path=/";
+    }
+
+    /**
+     * Retrieve the value for a cookie key
+     * @param name (string)
+     * @returns (string)
+     */
+
+    function readCookie(name) {
+
+        var nameEQ = name + "=",
+            ca = document.cookie.split(';'),
+            c,
+            i;
+
+        for (i = 0; i < ca.length; i++) {
+            c = ca[i];
+
+            while (c.charAt(0)==' ') {
+                c = c.substring(1,c.length);
+            }
+
+            if (c.indexOf(nameEQ) == 0) {
+                return c.substring(nameEQ.length,c.length);
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Create a listener for post events from mobbr.com
+     */
+
+    function setPostEvent() {
+
+        var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent",
+            eventer = window[eventMethod],
+            messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
+
+        eventer(messageEvent, function (e) {
+
+            var data,
+                userdata;
+
+            if (e.origin === 'mobbr.com') {
+
+                // If we don't get a logout message and our data is not the same
+                // we set a new cookie with the userdata cookie value
+
+                if (e.data !== 'logout') {
+
+                    data = e.data.split('|');
+
+                    if (data.length === 2) {
+                        userdata = [ data[0], data[1] ].join('|');
+                        if (userdata !== cookie) {
+                            createCookie('mobbr-auth', userdata);
+                            window.location.reload(true);
+                        }
+                    }
+
+                } else if (!cookie || cookie !== 'deleted') {
+                    createCookie('mobbr-auth', 'deleted', -1);
+                    window.location.reload(true);
+                }
+            }
+
+        }, false);
+    }
+
+    /**
+     * Bind a Single Sign On initializer function to the window object
+     * @type {Function}
+     */
+
+    window.enableMobbrSSO = window.enableMobbrSSO || function () {
+        cookie = readCookie('mobbr-auth');
+        setPostEvent();
+    }
+
+}(this));
+
 /*
  mobbbr::javascript.js
  2012-04-12
@@ -6,6 +117,7 @@
  For usage see: https://mobbr.com/#/buttons
  For specification see: https://mobbr.com/protocol
  */
+
 var mobbr = mobbr || (function() {
     var api_url = 'https://api.mobbr.com';
     var ui_url  = 'https://mobbr.com';
@@ -17,6 +129,9 @@ var mobbr = mobbr || (function() {
     var originalHash = window.location.hash;
     var divAdded = false;
     var lastButton;
+
+    document.body.appendChild(mobbrDiv);
+    divAdded = true;
 
     function createMobbrDiv() {
         var div = document.createElement('div');
@@ -193,11 +308,13 @@ var mobbr = mobbr || (function() {
                 this_script.parentNode.insertBefore(img, this_script);
             }
 
-            if (buttons_shown == 1) // only insert iframe for first button
-            {
-                document.body.appendChild(mobbrDiv);
-                divAdded = true;
-            }
+            // we add the iframe on init
+
+            //if (buttons_shown == 1) // only insert iframe for first button
+            //{
+            //    document.body.appendChild(mobbrDiv);
+            //    divAdded = true;
+            //}
         }
 
         this.showButton = function(data, button_type, curr)
@@ -466,9 +583,11 @@ var mobbr = mobbr || (function() {
 
         show: function(data, target)
         {
-            if (!divAdded) {
-                document.body.appendChild(mobbrDiv);
-            }
+            // the iframe is always here now so we don't need this
+
+            //if (!divAdded) {
+            //    document.body.appendChild(mobbrDiv);
+            //}
 
             lastButton = target;
             mobbrDiv.style.display = 'block';

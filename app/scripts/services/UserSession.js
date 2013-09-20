@@ -1,98 +1,113 @@
 'use strict';
 
-angular.module('mobbr.services.user', ['mobbr.services.mbr-api', 'LocalStorageModule']).factory('userSession',function ($injector, localStorageService,$location,Msg) {
+angular.module('mobbr.services.user', ['mobbr.services.mbr-api', 'LocalStorageModule'])
+    .factory('userSession',function ($injector, localStorageService, $location, $window, Msg) {
 
-    function clearLogin() {
-        var $http = $http || $injector.get('$http');
-        delete $http.defaults.headers.common['Authorization'];
-        localStorageService.clearAll();
-        userSession.user = undefined;
-        userSession.authenticated = false;
-    }
-
-    var userSession = {
-        authenticated: false,
-        user: undefined,
-        lastCheck: null,
-        redirectAfterLogin: null,
-        redirectAfterLoginIn: null,
-        doLogin: function (user) {
+        function clearLogin(notifyParent) {
             var $http = $http || $injector.get('$http');
-            // Login with the received token
-            this.authenticated = true;
-            this.user = user;
-
-            // Set Basic Auth header for subsequent calls
-            var headerValue = 'Basic ' + encode64(':' + userSession.user.password);
-            userSession.user.password = null;
-            $http.defaults.headers.common['Authorization'] = headerValue;
-
+            delete $http.defaults.headers.common['Authorization'];
             localStorageService.clearAll();
-            localStorageService.add('Authorization', headerValue);
-            localStorageService.add('User', user);
-        },
-        doLogout: function(){
-            clearLogin();
-            this.reload();
-        },
-        clearLogin: clearLogin,
-        reload: function () {
-            var $route = $injector.get('$route');
+            userSession.user = undefined;
+            userSession.authenticated = false;
 
-            $route.reload();
-        },
-        authenticate: function () {
-            var $route = $injector.get('$route');
-            var $location = $injector.get('$location');
-
-            var route = $route.current && $route.current.$route;
-
-            if (route && route.authsettings && route.authsettings.authenticated !== this.authenticated) {
-                // if authentication is in progress we want to redirect after auth to that route
-
-                if (this.authenticated === false) {
-
-
-                    if (route.authsettings.authenticated === true) {
-
-                        if (!this.redirectAfterLogin) {
-
-                            this.redirectAfterLogin = $location.path();
-                            this.redirectAfterLoginIn = new Date().getTime() + 60000;   // 60 seconds more than enough
-                        }
-
-                        $location.path(route.authsettings.redirectTo);
-                        Msg.addNotification('Please login at the account menu');
-                        console.log('authentication is required, we dont know if we are authenticated, redirect but come back when we know');
-                        console.log('setting redirectAfterLogin ' + this.redirectAfterLogin);
-                        $route.reload();
-
-                    } else if (route.authsettings.authenticated === false) {
-
-                        if (!this.redirectAfterLogin) {
-
-                            this.redirectAfterLogin = route.authsettings.redirectTo;
-                            this.redirectAfterLoginIn = new Date().getTime() + 60000;   // 60 seconds more than enough
-                        }
-
-                        Msg.addNotification('Please login at the account menu');
-                        console.log('authentication should be false, we dont know if we are authenticated, redirect when we know');
-                        console.log('setting redirectAfterLogin ' + this.redirectAfterLogin)
-                    }
-
-                } else {
-
-                    $location.path(route.authsettings.redirectTo);
-                    console.log('authentication does not meet requirements, redirect');
+            if (notifyParent) {
+                // if we are in an iframe we let our parent know we are logged in
+                if ($window.parent && $window.parent.postMessage) {
+                    $window.parent.postMessage('logout', '*.mobbr.com');
                 }
             }
         }
-    };
+
+        var userSession = {
+            authenticated: false,
+            user: undefined,
+            lastCheck: null,
+            redirectAfterLogin: null,
+            redirectAfterLoginIn: null,
+            doLogin: function (user, notifyParent) {
+                var $http = $http || $injector.get('$http');
+                // Login with the received token
+                this.authenticated = true;
+                this.user = user;
+
+                // Set Basic Auth header for subsequent calls
+                var headerValue = 'Basic ' + encode64(':' + userSession.user.password);
+                userSession.user.password = null;
+                $http.defaults.headers.common['Authorization'] = headerValue;
+
+                localStorageService.clearAll();
+                localStorageService.add('Authorization', headerValue);
+                localStorageService.add('User', user);
+
+                if (notifyParent) {
+                    // if we are in an iframe we let our parent know we are logged in
+                    if ($window.parent && $window.parent.postMessage) {
+                        $window.parent.postMessage([ this.user.username, this.user.email ].join('|'), '*.mobbr.com');
+                    }
+                }
+            },
+            doLogout: function(notifyParent){
+                clearLogin(notifyParent);
+                this.reload();
+            },
+            clearLogin: clearLogin,
+            reload: function () {
+                var $route = $injector.get('$route');
+
+                $route.reload();
+            },
+            authenticate: function () {
+                var $route = $injector.get('$route');
+                var $location = $injector.get('$location');
+
+                var route = $route.current && $route.current.$route;
+
+                if (route && route.authsettings && route.authsettings.authenticated !== this.authenticated) {
+                    // if authentication is in progress we want to redirect after auth to that route
+
+                    if (this.authenticated === false) {
 
 
-    return userSession;
+                        if (route.authsettings.authenticated === true) {
 
-}).directive('userPassword',function (User, Msg, $http) {
+                            if (!this.redirectAfterLogin) {
+
+                                this.redirectAfterLogin = $location.path();
+                                this.redirectAfterLoginIn = new Date().getTime() + 60000;   // 60 seconds more than enough
+                            }
+
+                            $location.path(route.authsettings.redirectTo);
+                            Msg.addNotification('Please login at the account menu');
+                            console.log('authentication is required, we dont know if we are authenticated, redirect but come back when we know');
+                            console.log('setting redirectAfterLogin ' + this.redirectAfterLogin);
+                            $route.reload();
+
+                        } else if (route.authsettings.authenticated === false) {
+
+                            if (!this.redirectAfterLogin) {
+
+                                this.redirectAfterLogin = route.authsettings.redirectTo;
+                                this.redirectAfterLoginIn = new Date().getTime() + 60000;   // 60 seconds more than enough
+                            }
+
+                            Msg.addNotification('Please login at the account menu');
+                            console.log('authentication should be false, we dont know if we are authenticated, redirect when we know');
+                            console.log('setting redirectAfterLogin ' + this.redirectAfterLogin)
+                        }
+
+                    } else {
+
+                        $location.path(route.authsettings.redirectTo);
+                        console.log('authentication does not meet requirements, redirect');
+                    }
+                }
+            }
+        };
+
+
+        return userSession;
+
+    }).directive('userPassword',function (User, Msg, $http) {
 
         return {
 
@@ -121,8 +136,6 @@ angular.module('mobbr.services.user', ['mobbr.services.mbr-api', 'LocalStorageMo
         };
 
     }).directive('userRegister',function (User, Msg,$routeParams) {
-
-
 
         return {
 
