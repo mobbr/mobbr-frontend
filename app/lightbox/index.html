@@ -354,7 +354,7 @@
     </div>
 
     <div>
-        <h2 ng-show="dologin" ng-bind="userSession.authenticated && 'Logged in as: ' + userSession.user.username || 'Login'"></h2>
+        <h2 style="margin: 0 0 15px 0" ng-show="dologin" ng-bind="userSession.authenticated && 'Logged in as: ' + userSession.user.username || 'Login to Fast Moving Crowdwork'" + ></h2>
         <div ng-show="!(dologin && userSession.authenticated)" id="login_form">
             <form name="login_form">
                 <p class="loginerror" ng-show="loginerror">
