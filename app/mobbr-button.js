@@ -79,7 +79,7 @@
                 // If we don't get a logout message and our data is not the same
                 // we set a new cookie with the userdata cookie value
 
-                logout = e.data === 'logout' && (!cookie || (cookie && cookie !== 'deleted'));
+                logout = e.data === 'logout' && (cookie && cookie !== 'deleted');
                 login = !logout && e.data !== cookie;
 
                 console.log(logout, login);
