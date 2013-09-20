@@ -72,6 +72,8 @@
 
             var logout, login;
 
+            console.log(e);
+
             if (e.origin === 'https://mobbr.com') {
 
                 // If we don't get a logout message and our data is not the same
@@ -82,6 +84,7 @@
 
                 if (login || logout) {
                     cookie = createCookie('mobbr-auth', login && e.data || 'deleted', logout && -1 || undefined);
+                    console.log('set cookie', cookie);
                     window.location.reload(true);
                 }
             }
@@ -96,6 +99,7 @@
 
     window.enableMobbrSSO = window.enableMobbrSSO || function () {
         cookie = readCookie('mobbr-auth');
+        console.log('initial cookie', cookie);
         setPostEvent();
     }
 
