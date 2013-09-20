@@ -71,8 +71,6 @@
             var data,
                 userdata;
 
-            console.log(e);
-
             if (e.origin === 'mobbr.com') {
 
                 // If we don't get a logout message and our data is not the same
@@ -80,14 +78,9 @@
 
                 if (e.data !== 'logout') {
 
-                    data = e.data.split('|');
-
-                    if (data.length === 2) {
-                        userdata = [ data[0], data[1] ].join('|');
-                        if (userdata !== cookie) {
-                            createCookie('mobbr-auth', userdata);
-                            window.location.reload(true);
-                        }
+                    if (e.data !== cookie) {
+                        createCookie('mobbr-auth', e.data);
+                        window.location.reload(true);
                     }
 
                 } else if (!cookie || cookie !== 'deleted') {
