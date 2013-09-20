@@ -87,6 +87,7 @@ angular.module('mobbr', [
         // TODO: move this to usersession, it's prettier
 
         var authorization = localStorageService.get('Authorization');
+
         if(authorization !== null && authorization != undefined){
             userSession.authenticated = true;
             userSession.user = localStorageService.get('User');
@@ -95,6 +96,10 @@ angular.module('mobbr', [
             // if we are in an iframe we let our parent know we are logged in
             if ($window.parent && $window.parent.postMessage) {
                 $window.parent.postMessage([ userSession.user.username, userSession.user.email ].join('|'), '*');
+            }
+        } else {
+            if ($window.parent && $window.parent.postMessage) {
+                $window.parent.postMessage('logout', '*');
             }
         }
     }]);
