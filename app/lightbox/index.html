@@ -354,8 +354,8 @@
     </div>
 
     <div>
-        <h2 ng-show="dologin && userSession.authenticated" ng-bind="'Logged in as: ' + userSession.username"></h2>
-        <div id="login_form">
+        <h2 ng-show="dologin && userSession.authenticated" ng-bind="'Logged in as: ' + userSession.user.username"></h2>
+        <div ng-show="!(dologin && userSession.authenticated)" id="login_form">
             <form name="login_form">
                 <p class="loginerror" ng-show="loginerror">
                     Wrong email/password
@@ -366,15 +366,15 @@
                 </span>
                 <button ng-click="dologin && login(login_form, true, false) || !dologin && registerPayment(login_form)"
                         ng-bind="dologin && 'Login' || 'Pay / donate'"
-                        ng-show="dologin == false && marked == undefined || dologin == true"
+                        ng-show="!dologin && marked == undefined || dologin == true"
                         class="btn btn-success"
                         title="Register this URL for payment. To actually pay, go to your dashboard">
 \                </button>
-                <span ng-show="dologin == false && marked == undefined && userSession.authenticated" style="color:#666">
+                <span ng-show="!dologin && marked == undefined && userSession.authenticated" style="color:#666">
                     &larr; Will be placed on dashboard as 'pending'
                 </span>
             </form>
-            <div id="newuser" ng-show="dologin && !userSession.authenticated">
+            <div id="newuser" ng-show="dologin || marked == undefined && !userSession.authenticated">
                 New user or forgotten password? &rarr; <a href="/#/join" target="_blank">Go here</a>
             </div>
         </div>
