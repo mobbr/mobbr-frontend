@@ -71,7 +71,7 @@
         <!-- End Piwik Code -->
     </head>
 
-    <body ng-app="mobbr" id="ng-app" class="ng-app:mobbr">
+    <body ng-app="mobbr" id="ng-app" class="ng-app:mobbr" idle-timeout>
 
         <!--[if lt IE 8]>
         <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser
@@ -187,6 +187,7 @@
         </form>
 
         <script type="text/javascript" src="https://jira.mobbr.com/s/en_US-v1z3lw-418945332/854/4/1.2.9/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?collectorId=cf50ef21"></script>
+
         <script src="scripts/vendor/jquery/jquery-1.8.3.min.js"></script>
         <script src="scripts/vendor/angular.min.js"></script>
         <script src="scripts/vendor/angular-cookies.js"></script>
@@ -194,11 +195,13 @@
         <script src="scripts/vendor/ui-bootstrap-tpls-0.3.0.js"></script>
         <script src="scripts/vendor/pnotify-1.2.0/jquery.pnotify.min.js"></script>
         <script src="scripts/vendor/md5.js"></script>
+        <script src="scripts/vendor/ngStorage.js"></script>
 
         <!-- build:js scripts/scripts.js -->
-        <script src="scripts/services/localStorageModule.js"></script>
         <script src="scripts/services/mbr-api.js"></script>
+        <script src="scripts/services/idleTimeout.js"></script>
         <script src="scripts/services/UserSession.js"></script>
+        <script src="scripts/services/userStorage.js"></script>
         <script src="scripts/app.js"></script>
 
         <script src="scripts/controllers/ApiController.js"></script>

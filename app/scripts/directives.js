@@ -334,7 +334,7 @@ angular.module('mobbr.directives', [
                     return api_url + '/button/' + md5(url) + '/' + size + '#' + $rootScope.uniqueButton;
                 }
                 $scope.submit = function ($event) {
-                    mobbr.show($scope.url, $event.target);
+                    mobbr.makePayment($scope.url, $event.target);
                 }
             }
 

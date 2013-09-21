@@ -1,14 +1,18 @@
 'use strict';
 
-angular.module('mobbr.services.user', ['mobbr.services.mbr-api', 'LocalStorageModule'])
-    .factory('userSession',function ($injector, localStorageService, $location, $window, Msg) {
+angular.module('mobbr.services.user', [
+
+        'mobbr.services.mbr-api',
+        'mobbr.services.timeout'
+
+    ]).factory('userSession',function ($injector, $location, $window, $rootScope, userStorage, Msg, idleTimeout, $localStorage) {
 
         function clearLogin(notifyParent) {
-            var $http = $http || $injector.get('$http');
-            delete $http.defaults.headers.common['Authorization'];
-            localStorageService.clearAll();
+
+            idleTimeout.stop();
             userSession.user = undefined;
             userSession.authenticated = false;
+            userStorage.clear();
 
             if (notifyParent) {
                 // if we are in an iframe we let our parent know we are logged in
@@ -25,19 +29,12 @@ angular.module('mobbr.services.user', ['mobbr.services.mbr-api', 'LocalStorageMo
             redirectAfterLogin: null,
             redirectAfterLoginIn: null,
             doLogin: function (user, notifyParent) {
-                var $http = $http || $injector.get('$http');
-                // Login with the received token
-                this.authenticated = true;
-                this.user = user;
 
-                // Set Basic Auth header for subsequent calls
-                var headerValue = 'Basic ' + encode64(':' + userSession.user.password);
+                userSession.authenticated = true;
+                userSession.user = user;
+                userStorage.save(userSession.user);
                 userSession.user.password = null;
-                $http.defaults.headers.common['Authorization'] = headerValue;
-
-                localStorageService.clearAll();
-                localStorageService.add('Authorization', headerValue);
-                localStorageService.add('User', user);
+                idleTimeout.start();
 
                 if (notifyParent) {
                     // if we are in an iframe we let our parent know we are logged in
@@ -52,9 +49,7 @@ angular.module('mobbr.services.user', ['mobbr.services.mbr-api', 'LocalStorageMo
             },
             clearLogin: clearLogin,
             reload: function () {
-                var $route = $injector.get('$route');
-
-                $route.reload();
+                $injector.get('$route').reload();
             },
             authenticate: function () {
                 var $route = $injector.get('$route');
@@ -104,6 +99,30 @@ angular.module('mobbr.services.user', ['mobbr.services.mbr-api', 'LocalStorageMo
             }
         };
 
+        $rootScope.$on('idleTimeout', function (event) {
+            userSession.doLogout(true);
+        });
+
+        var user;
+
+        function init() {
+            user = userStorage.init();
+            if (user) userSession.doLogin(user, true);
+            else userSession.authenticated = false;
+        }
+
+        $rootScope.$storage = $localStorage;
+        $rootScope.$watch('$storage.authorization', function (value) {
+            console.log(userStorage.authorization, value);
+            if (value && value !== userStorage.authorization) {
+                console.log('re init');
+                init();
+            } else {
+                console.log('niet re-init');
+            }
+        });
+
+        init();
 
         return userSession;
 

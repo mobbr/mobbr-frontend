@@ -7,27 +7,12 @@ angular.module('mobbr', [
         'mobbr.controllers',
         'mobbr.services.Gateway',
         'mobbr.services.mbr-api',
-        'mobbr.services.user',
-        'LocalStorageModule'
+        'mobbr.services.storage',
+        'mobbr.services.user'
 
-    ]).config([ '$httpProvider', function ($httpProvider, Msg) {
+    ]).factory('Msg',function () {
 
-        $httpProvider.responseInterceptors.push(function($q, $timeout, userSession, Msg) {
-
-            var timer;
-
-            return function (promise) {
-                $timeout.cancel(timer);
-                timer = $timeout(function () {
-                    if (userSession.authenticated) {
-                        userSession.doLogout(true);
-                    }
-                }, 1000 * 60 * 15);
-                return promise;
-            }
-        });
-
-    }]).factory('Msg',function () {
+        // TODO: move the messaging service to its own file
 
         var Msg = {
             addWarning: function (msg) {
@@ -82,17 +67,13 @@ angular.module('mobbr', [
 
 
         return Msg;
-    }).run([ 'localStorageService','$http', '$window', 'userSession', function (localStorageService, $http, $window, userSession) {
+    }).run(['$http', '$window', 'userSession', '$localStorage', function ($http, $window, userSession, $localStorage) {
 
         // TODO: move this to usersession, it's prettier
 
-        var authorization = localStorageService.get('Authorization');
+        var authorization = $localStorage.authorization;
 
         if(authorization !== null && authorization != undefined){
-            userSession.authenticated = true;
-            userSession.user = localStorageService.get('User');
-
-            $http.defaults.headers.common['Authorization'] = authorization;
             // if we are in an iframe we let our parent know we are logged in
             if ($window.parent && $window.parent.postMessage) {
                 $window.parent.postMessage([ userSession.user.username, userSession.user.email ].join('|'), '*');

@@ -8,9 +8,9 @@ angular.module('mobbr', [
         'mobbr.controllers',
         'mobbr.services.mbr-api',
         'mobbr.services.user',
+        'mobbr.services.storage',
         'mobbr.directives',
-        'ngCookies',
-        'LocalStorageModule'
+        'ngCookies'
 
     ]).config([ '$routeProvider', function ($routeProvider) {
 
@@ -142,7 +142,7 @@ angular.module('mobbr', [
 
             }).otherwise({ redirectTo: '/' });
 
-    }]).config([ '$httpProvider', function ($httpProvider, Msg) {
+    }])/*.config([ '$httpProvider', function ($httpProvider, Msg) {
 
         $httpProvider.responseInterceptors.push(function($q, $timeout, userSession, Msg) {
 
@@ -160,7 +160,7 @@ angular.module('mobbr', [
             }
         });
 
-    }]).factory('Msg',function () {
+    }])*/.factory('Msg',function () {
 
         var Msg = {
             addWarning: function (msg) {
@@ -215,15 +215,15 @@ angular.module('mobbr', [
 
 
         return Msg;
-    }).run([ 'localStorageService','$http','$rootScope', 'Util', '$location', 'userSession', 'Msg', '$window', '$anchorScroll', '$routeParams', function (localStorageService,$http,$rootScope, Util, $location, userSession, Msg, $window, $anchorScroll, $routeParams) {
+    }).run([ '$http','$rootScope', 'Util', '$location', 'userSession', 'Msg', '$window', '$anchorScroll', '$routeParams', function ($http,$rootScope, Util, $location, userSession, Msg, $window, $anchorScroll, $routeParams) {
 
-        var authorization = localStorageService.get('Authorization');
+        /*var authorization = localStorageService.get('Authorization');
         if(authorization !== null && authorization != undefined){
             userSession.authenticated = true;
             userSession.user = localStorageService.get('User');
 
             $http.defaults.headers.common['Authorization'] = authorization;
-        }
+        }*/
 
         $rootScope.$on('$routeChangeSuccess', function (newRoute, oldRoute) {
             $location.hash($routeParams.scrollTo);

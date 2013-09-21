@@ -154,7 +154,7 @@
 
 var mobbr = mobbr || (function() {
     var api_url = 'https://api.mobbr.com';
-    var ui_url  = 'https://mobbr.com';
+    var ui_url  = 'http://mobbr-www.dev.handijk.nl:9000';
     var mobbrDiv = createMobbrDiv();
     var mobbrFrame;
     var buttons_shown = 0;
@@ -311,6 +311,7 @@ var mobbr = mobbr || (function() {
                 if (!badge) {
                     //mobbr.show_mobbr_div(buttons_shown, data);
                     mobbr.makePayment(data, e.target);
+                    console.log('make payment');
                     return false;
                 } else {
                     window.open(ui_url + '/#/domain/' + rstr2b64(badgeurl) + '=', '_blank');
