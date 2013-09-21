@@ -1,7 +1,7 @@
 'use strict';
 
 
-angular.module('mobbr.controllers').controller('LoginController', function ($scope, $route, User, userSession, Msg, $location, $http, $routeParams, localStorageService) {
+angular.module('mobbr.controllers').controller('LoginController', function ($scope, $route, User, userSession, Msg, $location, $http, $routeParams) {
 
     setTimeout(function () {
         $scope.$apply(function () {

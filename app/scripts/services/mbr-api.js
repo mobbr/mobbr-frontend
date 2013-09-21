@@ -4,72 +4,7 @@ angular.module('mobbr.services.mbr-api', [
 
         'ngResource'
 
-    ])
-    .factory('mbrApi', function ($injector, $q) {
-
-        var api = api_url + '/api',
-            $resource,
-            $http;
-
-        return {
-
-            resource: function (model, params, methods) {
-
-                var url = [ api, model, ':action' ].join('/'),
-                    Resource;
-
-                $resource = $resource || $injector.get('$resource');
-                Resource = $resource(url, params, methods);
-
-                return new Resource();
-            },
-
-            request: function (model, method, action, params) {
-
-                var url = [ api, model ],
-                    deferred = $q.defer(),
-                    data,
-                    request = {};
-
-                $http = $http || $injector.get('$http'),
-                request.method = method || 'GET';
-
-                if (model) {
-
-                    action && url.push(action);
-                    request.url = url.join('/');
-
-                    if (request.method === 'POST' || request.method === 'PUT') {
-
-                        request.data = params;
-                      //  request.data.csrftoken = $cookies.csrftoken
-
-                    } else {
-
-                        if (params && params.url !== undefined) {
-
-                            params.url = encodeURIComponent(params.url);
-                        }
-
-                        request.params = params;
-                    }
-
-                    $http(request).then(function (response) {
-
-                            deferred.resolve(response.data);
-                        }
-                    );
-
-                } else {
-
-                    deferred.reject('no_model_defined');
-                }
-
-                return deferred.promise;
-            }
-        }
-
-    }).factory('HttpLoggedInInterceptor',function($injector,$q){
+    ]).factory('HttpLoggedInInterceptor', function($injector, $q){
         return function( promise ) {
 
             // convert the returned data using values passed to $http.get()'s config param
@@ -99,7 +34,7 @@ angular.module('mobbr.services.mbr-api', [
             return promise;
         }
     }).config( function( $httpProvider) {
-        $httpProvider.responseInterceptors.push( 'HttpLoggedInInterceptor' );
+        $httpProvider.responseInterceptors.push('HttpLoggedInInterceptor');
     }).factory('User', function($resource) {
         return $resource(api_url + '/api/user/:action',{},{
             setPassword: {method: 'POST',params : {action:'update_password'},isArray:false},
@@ -176,18 +111,11 @@ angular.module('mobbr.services.mbr-api', [
              languages: {method: 'GET',params: { action: 'languages'},isArray:false},
              timezones: {method: 'GET',params: { action: 'timezones'},isArray:false}
         });
-    /*}).factory('Bitcoin', function($resource) {
-        return $resource(api_url + '/api/bitcoin/:action',{},{
-            bitcoinaddresses: {method: 'GET',params: { action: 'user_bitcoin_addresses'},isArray:false},
-            newBitcoinaddress: {method: 'PUT',params: { action: 'new_user_bitcoin_address'},isArray:false}
-        });*/
     }).factory('Api', function($resource) {
-                return $resource(api_url + '/api/api/:action',{},{
-                    list: {method: 'GET',params: { action: 'list'},isArray:false}
+        return $resource(api_url + '/api/api/:action',{},{
+            list: {method: 'GET',params: { action: 'list'},isArray:false}
         });
-    }
-
-    ).factory('PaymentNetwork', function ($resource) {
+    }).factory('PaymentNetwork', function ($resource) {
         return $resource(api_url + '/api/payment_network/:action', {}, {
             networks: {method: 'GET',params: { action: 'networks'}},
             accountAddresses: {method: 'GET', params: { action: 'account_addresses'}},
