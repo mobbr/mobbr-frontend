@@ -29,6 +29,7 @@ angular.module('mobbr.services.storage', [
                     }
                 },
                 clear: function () {
+                    authorization = undefined;
                     delete userStorage.authorization;
                     delete $http.defaults.headers.common['Authorization'];
                     delete $localStorage.authorization;

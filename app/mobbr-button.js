@@ -311,7 +311,6 @@ var mobbr = mobbr || (function() {
                 if (!badge) {
                     //mobbr.show_mobbr_div(buttons_shown, data);
                     mobbr.makePayment(data, e.target);
-                    console.log('make payment');
                     return false;
                 } else {
                     window.open(ui_url + '/#/domain/' + rstr2b64(badgeurl) + '=', '_blank');
