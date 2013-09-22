@@ -1,14 +1,14 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('UrlReceiptController', function ($scope,Url,$routeParams,$location,Msg) {
+angular.module('mobbr.controllers').controller('UrlReceiptController', function ($scope,Url,$routeParams,$location,$window,Msg) {
 
     var url = document.referrer.replace(/[\/?#]*$/, "");
 
     if (!$routeParams.url) {
-        $location.path('/url/' + encode64(url)).replace();;
+        $location.path('/url/' + $window.btoa(url)).replace();;
     }
 
-    $scope.url =  decode64($routeParams.url);
+    $scope.url = $window.atob($routeParams.url);
     $scope.payment = {};
     $scope.urlParam = {url:$scope.url};
     Url.fullData($scope.urlParam,function(response){

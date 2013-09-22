@@ -5,7 +5,7 @@ angular.module('mobbr.controllers')
 
         $scope.submit = function () {
             if ($scope.mobbrnowInput) {
-                mobbr.show($scope.mobbrnowInput);
+                mobbr.makePayment($scope.mobbrnowInput);
             }
         }
     }

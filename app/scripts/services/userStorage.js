@@ -4,44 +4,53 @@ angular.module('mobbr.services.storage', [
 
         'ngStorage'
 
-    ]).factory('userStorage', function ($rootScope, $localStorage, $injector) {
+    ]).factory('userStorage', function ($rootScope, $sessionStorage, $injector, $window) {
 
         var authorization,
             user,
-            $http = $http || $injector.get('$http'),
-            userStorage = {
-                init: function () {
-                    authorization = $localStorage.authorization;
-                    user = $localStorage.user;
-                    if (authorization && user) {
-                        setAuthorization();
-                        return user;
-                    } else {
-                        return false;
-                    }
-                },
-                save: function (user) {
-                    $localStorage.user = user;
-                    if (!authorization) {
-                        authorization = 'Basic ' + encode64(':' + user.password);
-                        $localStorage.authorization = authorization;
-                        setAuthorization();
-                    }
-                },
-                clear: function () {
-                    authorization = undefined;
-                    delete userStorage.authorization;
-                    delete $http.defaults.headers.common['Authorization'];
-                    delete $localStorage.authorization;
-                    delete $localStorage.user;
-                }
-            };
+            $http = $http || $injector.get('$http');
+
+        function sync(value) {
+            if (!authorization && value) {
+                authorization = $sessionStorage.authorization;
+                user = $sessionStorage.user;
+                setAuthorization();
+                $rootScope.$emit('login-external', user);
+            } else if (!value && authorization) {
+                clear();
+                $rootScope.$emit('logout-external');
+            }
+        }
+
+        function save(event, user) {
+            $sessionStorage.user = user;
+            if (!authorization) {
+                authorization = 'Basic ' + $window.btoa(':' + user.password);
+                $sessionStorage.authorization = authorization;
+                setAuthorization();
+            }
+        }
+
+        function clear() {
+            authorization = undefined;
+            delete $http.defaults.headers.common['Authorization'];
+            delete $sessionStorage.authorization;
+            delete $sessionStorage.user;
+        }
 
         function setAuthorization() {
-            userStorage.authorization = authorization;
             $http.defaults.headers.common['Authorization'] = authorization;
         }
 
-        return userStorage;
+        $rootScope.$storage = $sessionStorage;
+        $rootScope.$watch('$storage.authorization', sync);
+        $rootScope.$on('userSession:login', save);
+        $rootScope.$on('userSession:logout', clear);
+
+        return {
+            sync: sync,
+            save: save,
+            clear: clear
+        };
     }
 );
