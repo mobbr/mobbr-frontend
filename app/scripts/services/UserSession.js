@@ -9,26 +9,9 @@ angular.module('mobbr.services.user', [
 
     ]).factory('userSession',function ($injector, $location, $window, $rootScope, userStorage, Msg, idleTimeout) {
 
-        function clearLogin(notifyParent) {
-
-            userSession.user = undefined;
-            userSession.authenticated = false;
-            $rootScope.$emit('userSession:logout');
-
-            if (notifyParent) {
-                // if we are in an iframe we let our parent know we are logged in
-                if ($window.parent && $window.parent.postMessage) {
-                    $window.parent.postMessage('logout', '*');
-                }
-            }
-        }
-
         var userSession = {
             authenticated: false,
             user: undefined,
-            lastCheck: null,
-            redirectAfterLogin: null,
-            redirectAfterLoginIn: null,
             doLogin: function (user, notifyParent) {
 
                 userSession.authenticated = true;
@@ -42,75 +25,58 @@ angular.module('mobbr.services.user', [
                     }
                 }
             },
-            doLogout: function(notifyParent){
-                clearLogin(notifyParent);
-                this.reload();
-            },
-            clearLogin: clearLogin,
-            reload: function () {
-                $injector.get('$route').reload();
-            },
+            doLogout: doLogout,
             authenticate: function () {
-                var $route = $injector.get('$route');
-                var $location = $injector.get('$location');
 
-                var route = $route.current && $route.current.$route;
+                var $route = $injector.get('$route'),
+                    route = $route.current && $route.current.$route;
 
                 if (route && route.authsettings && route.authsettings.authenticated !== this.authenticated) {
-                    // if authentication is in progress we want to redirect after auth to that route
 
-                    if (this.authenticated === false) {
+                    route.authsettings.redirectTo && $location.path(route.authsettings.redirectTo);
+                    if (this.authenticated === false) Msg.addNotification('Please login at the account menu');
 
+                    return false;
 
-                        if (route.authsettings.authenticated === true) {
+                } else {
 
-                            if (!this.redirectAfterLogin) {
-
-                                this.redirectAfterLogin = $location.path();
-                                this.redirectAfterLoginIn = new Date().getTime() + 60000;   // 60 seconds more than enough
-                            }
-
-                            $location.path(route.authsettings.redirectTo);
-                            Msg.addNotification('Please login at the account menu');
-                            console.log('authentication is required, we dont know if we are authenticated, redirect but come back when we know');
-                            console.log('setting redirectAfterLogin ' + this.redirectAfterLogin);
-                            $route.reload();
-
-                        } else if (route.authsettings.authenticated === false) {
-
-                            if (!this.redirectAfterLogin) {
-
-                                this.redirectAfterLogin = route.authsettings.redirectTo;
-                                this.redirectAfterLoginIn = new Date().getTime() + 60000;   // 60 seconds more than enough
-                            }
-
-                            Msg.addNotification('Please login at the account menu');
-                            console.log('authentication should be false, we dont know if we are authenticated, redirect when we know');
-                            console.log('setting redirectAfterLogin ' + this.redirectAfterLogin)
-                        }
-
-                    } else {
-
-                        $location.path(route.authsettings.redirectTo);
-                        console.log('authentication does not meet requirements, redirect');
-                    }
+                    return true;
                 }
             }
         };
 
-        $rootScope.userSession = userSession;
+        function doLogout(notifyParent) {
 
-        $rootScope.$on('idleTimeout:timeout', function (event) {
-            userSession.doLogout(true);
-        });
+            userSession.user = undefined;
+            userSession.authenticated = false;
+            $rootScope.$emit('userSession:logout');
 
-        $rootScope.$on('login-external', function (event, user) {
+            if (notifyParent) {
+                // if we are in an iframe we let our parent know we are logged in
+                if ($window.parent && $window.parent.postMessage) {
+                    $window.parent.postMessage('logout', '*');
+                }
+            }
+        }
+
+        function reload() {
+            $injector.get('$route').reload();
+        }
+
+        function logout() {
+            doLogout(true);
+        }
+
+        function login(event, user) {
             userSession.doLogin(user, true);
-        });
+        }
 
-        $rootScope.$on('logout-external', function (event) {
-            userSession.doLogout(true);
-        });
+        $rootScope.userSession = userSession;
+        $rootScope.$on('idleTimeout:timeout', logout);
+        $rootScope.$on('userStorage:login-external', login);
+        $rootScope.$on('userStorage:logout-external', logout);
+        $rootScope.$on('userStorage:saved', reload);
+        $rootScope.$on('userStorage:cleared', reload);
 
         return userSession;
 
