@@ -7,7 +7,7 @@ angular.module('mobbr.services.timeout', [
     ]).factory('idleTimeout', function ($rootScope, $timeout, $sessionStorage) {
 
         var timer,
-            timeout = 1000 * 60 * 5,
+            timeout = 1000 * 60 * 60,
             interval = 1000,
             idletime = 0,
             running = false;
