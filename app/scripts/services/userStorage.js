@@ -30,6 +30,7 @@ angular.module('mobbr.services.storage', [
                 $localStorage.authorization = authorization;
                 setAuthorization();
             }
+            $rootScope.$emit('userStorage:saved');
         }
 
         function clear() {
@@ -38,6 +39,7 @@ angular.module('mobbr.services.storage', [
             delete $localStorage.authorization;
             delete $localStorage.user;
             delete $sessionStorage.user;
+            $rootScope.$emit('userStorage:cleared');
         }
 
         function setAuthorization() {
