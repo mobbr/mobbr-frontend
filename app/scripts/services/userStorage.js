@@ -4,32 +4,29 @@ angular.module('mobbr.services.storage', [
 
         'ngStorage'
 
-    ]).factory('userStorage', function ($rootScope, $sessionStorage, $injector, $window) {
+    ]).factory('userStorage', function ($rootScope, $localStorage, $injector, $window) {
 
         var authorization,
             user,
             $http = $http || $injector.get('$http');
 
         function sync(value) {
-            console.log('try sync', authorization, value);
             if (!authorization && value) {
-                console.log('login');
-                authorization = $sessionStorage.authorization;
-                user = $sessionStorage.user;
+                authorization = $localStorage.authorization;
+                user = $localStorage.user;
                 setAuthorization();
                 $rootScope.$emit('login-external', user);
             } else if (!value && authorization) {
-                console.log('logout');
                 clear();
                 $rootScope.$emit('logout-external');
             }
         }
 
         function save(event, user) {
-            $sessionStorage.user = user;
+            $localStorage.user = user;
             if (!authorization) {
                 authorization = 'Basic ' + $window.btoa(':' + user.password);
-                $sessionStorage.authorization = authorization;
+                $localStorage.authorization = authorization;
                 setAuthorization();
             }
         }
@@ -37,15 +34,15 @@ angular.module('mobbr.services.storage', [
         function clear() {
             authorization = undefined;
             delete $http.defaults.headers.common['Authorization'];
-            delete $sessionStorage.authorization;
-            delete $sessionStorage.user;
+            delete $localStorage.authorization;
+            delete $localStorage.user;
         }
 
         function setAuthorization() {
             $http.defaults.headers.common['Authorization'] = authorization;
         }
 
-        $rootScope.$storage = $sessionStorage;
+        $rootScope.$storage = $localStorage;
         $rootScope.$watch('$storage.authorization', sync);
         $rootScope.$on('userSession:login', save);
         $rootScope.$on('userSession:logout', clear);
