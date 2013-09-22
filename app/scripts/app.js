@@ -184,13 +184,9 @@ angular.module('mobbr', [
                 $location.path('/generatebutton').replace();
             }
 
-            $rootScope.userSession = userSession;
-            $rootScope.api_url = api_url;
-
             $rootScope.scrollToId = function(id){
                 $location.hash(id);
                 $anchorScroll();
-
             }
         }
     ]

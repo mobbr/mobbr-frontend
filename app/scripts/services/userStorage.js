@@ -4,7 +4,7 @@ angular.module('mobbr.services.storage', [
 
         'ngStorage'
 
-    ]).factory('userStorage', function ($rootScope, $localStorage, $injector, $window) {
+    ]).factory('userStorage', function ($rootScope, $localStorage, $sessionStorage, $injector, $window) {
 
         var authorization,
             user,
@@ -24,6 +24,7 @@ angular.module('mobbr.services.storage', [
 
         function save(event, user) {
             $localStorage.user = user;
+            $sessionStorage.user = user;
             if (!authorization) {
                 authorization = 'Basic ' + $window.btoa(':' + user.password);
                 $localStorage.authorization = authorization;
@@ -36,10 +37,15 @@ angular.module('mobbr.services.storage', [
             delete $http.defaults.headers.common['Authorization'];
             delete $localStorage.authorization;
             delete $localStorage.user;
+            delete $sessionStorage.user;
         }
 
         function setAuthorization() {
             $http.defaults.headers.common['Authorization'] = authorization;
+        }
+
+        if (!$sessionStorage.user) {
+            clear();
         }
 
         $rootScope.$storage = $localStorage;

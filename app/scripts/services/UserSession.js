@@ -98,6 +98,8 @@ angular.module('mobbr.services.user', [
             }
         };
 
+        $rootScope.userSession = userSession;
+
         $rootScope.$on('idleTimeout:timeout', function (event) {
             userSession.doLogout(true);
         });
@@ -111,6 +113,27 @@ angular.module('mobbr.services.user', [
         });
 
         return userSession;
+
+    }).factory('HttpLoggedInInterceptor', function($injector, $q){
+
+        return function(promise) {
+            promise.then(function () {}, function (response) {
+
+                var userSession = $injector.get('userSession');
+
+                if (response != null && response.status != null && (response.status === 401 || response.status === 0) && userSession.authenticated) {
+                    userSession.doLogout();
+                }
+
+                return $q.reject(response);
+            });
+
+            return promise;
+        }
+
+    }).config(function ($httpProvider) {
+
+        $httpProvider.responseInterceptors.push('HttpLoggedInInterceptor');
 
     }).directive('userPassword',function (User, Msg, $http) {
 
