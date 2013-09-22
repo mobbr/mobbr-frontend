@@ -11,7 +11,7 @@ angular.module('mobbr.services.storage', [
             $http = $http || $injector.get('$http');
 
         function sync(value) {
-            console.log('try sync');
+            console.log('try sync', authorization, value);
             if (!authorization && value) {
                 console.log('login');
                 authorization = $sessionStorage.authorization;
