@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('DomainController', function ($scope, userSession,Domain,Msg,$location,$routeParams,$rootScope) {
+angular.module('mobbr.controllers').controller('DomainController', function ($scope, userSession,Domain,Msg,$location,$routeParams,$rootScope,$window) {
 
     // payments
     var refarray = document.referrer.split('/');
@@ -26,10 +26,10 @@ angular.module('mobbr.controllers').controller('DomainController', function ($sc
 
     if (!$routeParams.url) {
         console.log(refarray[0]);
-        $location.path('/domain/' + encode64(refarray[0] + '//' + refarray[2])).replace();
+        $location.path('/domain/' + $window.btoa(refarray[0] + '//' + refarray[2])).replace();
     }
 
-    $scope.urlParam = {domain:decode64($routeParams.url)};
+    $scope.urlParam = {domain:$window.atob($routeParams.url)};
 
     Domain.balances($scope.urlParam,function(response){
         $scope.balances = response.result;

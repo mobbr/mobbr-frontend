@@ -11,10 +11,9 @@ angular.module('mobbr.services.user', [
 
         function clearLogin(notifyParent) {
 
-            idleTimeout.stop();
             userSession.user = undefined;
             userSession.authenticated = false;
-            userStorage.clear();
+            $rootScope.$emit('userSession:logout');
 
             if (notifyParent) {
                 // if we are in an iframe we let our parent know we are logged in
@@ -34,9 +33,7 @@ angular.module('mobbr.services.user', [
 
                 userSession.authenticated = true;
                 userSession.user = user;
-                userStorage.save(userSession.user);
-                userSession.user.password = null;
-                idleTimeout.start();
+                $rootScope.$emit('userSession:login', user);
 
                 if (notifyParent) {
                     // if we are in an iframe we let our parent know we are logged in
@@ -101,28 +98,17 @@ angular.module('mobbr.services.user', [
             }
         };
 
-        $rootScope.$on('idleTimeout', function (event) {
+        $rootScope.$on('idleTimeout:timeout', function (event) {
             userSession.doLogout(true);
         });
 
-        var user;
-
-        function init() {
-            user = userStorage.init();
-            if (user) userSession.doLogin(user, true);
-            else userSession.authenticated = false;
-        }
-
-        $rootScope.$storage = $localStorage;
-        $rootScope.$watch('$storage.authorization', function (value) {
-            if (!userStorage.authorization && value) {
-                init();
-            } else if (!value && userStorage.authorization) {
-                userSession.doLogout(true);
-            }
+        $rootScope.$on('login-external', function (event, user) {
+            userSession.doLogin(user, true);
         });
 
-        init();
+        $rootScope.$on('logout-external', function (event) {
+            userSession.doLogout(true);
+        });
 
         return userSession;
 

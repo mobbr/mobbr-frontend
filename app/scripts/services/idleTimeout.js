@@ -18,11 +18,10 @@ angular.module('mobbr.services.timeout', [
 
         function activityInterval() {
             if ($localStorage.idletime < idletime) idletime = 0;
-            console.log('timeout', $localStorage.idletime);
             idletime += interval;
             $localStorage.idletime = idletime;
             if ($localStorage.idletime > timeout) {
-                $rootScope.$emit('idleTimeout');
+                $rootScope.$emit('idleTimeout:timeout');
                 $localStorage.idletime = 0;
             }
             if (running === true) {
@@ -30,16 +29,23 @@ angular.module('mobbr.services.timeout', [
             }
         }
 
+        function start() {
+            resetIdleTime();
+            running = true;
+            activityInterval();
+        }
+
+        function stop() {
+            running = false;
+            $timeout.cancel(timer);
+        }
+
+        $rootScope.$on('userSession:login', start);
+        $rootScope.$on('userSession:logout', stop);
+
         return {
-            start: function () {
-                resetIdleTime();
-                running = true;
-                activityInterval();
-            },
-            stop: function () {
-                running = false;
-                $timeout.cancel(timer);
-            },
+            start: start,
+            stop: stop,
             reset: resetIdleTime
         };
 
