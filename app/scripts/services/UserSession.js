@@ -5,6 +5,8 @@ angular.module('mobbr.services.user', [
         'mobbr.services.mbr-api',
         'mobbr.services.timeout'
 
+    // TODO: put notifyparent in a seperate service
+
     ]).factory('userSession',function ($injector, $location, $window, $rootScope, userStorage, Msg, idleTimeout, $localStorage) {
 
         function clearLogin(notifyParent) {
@@ -113,12 +115,10 @@ angular.module('mobbr.services.user', [
 
         $rootScope.$storage = $localStorage;
         $rootScope.$watch('$storage.authorization', function (value) {
-            console.log(userStorage.authorization, value);
-            if (value && value !== userStorage.authorization) {
-                console.log('re init');
+            if (!userStorage.authorization && value) {
                 init();
-            } else {
-                console.log('niet re-init');
+            } else if (!value && userStorage.authorization) {
+                userSession.doLogout(true);
             }
         });
 
