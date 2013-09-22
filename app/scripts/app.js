@@ -27,14 +27,8 @@ angular.module('mobbr', [
                         var authenticated = userSession.authenticate(),
                             deferred = $q.defer();
 
-                        if (authenticated) {
-                            console.log('de auth resolver zegt ja');
-                            deferred.resolve();
-                        } else {
-                            console.log('de auth resolver zegt nee');
-                            deferred.reject();
-                        }
-
+                        authenticated && deferred.resolve() || deferred.reject();
+                     
                         return deferred.promise;
                     }
                 ]
