@@ -4,7 +4,7 @@ angular.module('mobbr.services.timeout', [
 
         'ngStorage'
 
-    ]).factory('idleTimeout', function ($rootScope, $timeout, $localStorage) {
+    ]).factory('idleTimeout', function ($rootScope, $timeout, $sessionStorage) {
 
         var timer,
             timeout = 1000 * 15,
@@ -13,16 +13,16 @@ angular.module('mobbr.services.timeout', [
             running = false;
 
         function resetIdleTime(event) {
-            $localStorage.idletime = 0;
+            $sessionStorage.idletime = 0;
         }
 
         function activityInterval() {
-            if ($localStorage.idletime < idletime) idletime = 0;
+            if ($sessionStorage.idletime < idletime) idletime = 0;
             idletime += interval;
-            $localStorage.idletime = idletime;
-            if ($localStorage.idletime > timeout) {
+            $sessionStorage.idletime = idletime;
+            if ($sessionStorage.idletime > timeout) {
                 $rootScope.$emit('idleTimeout:timeout');
-                $localStorage.idletime = 0;
+                $sessionStorage.idletime = 0;
             }
             if (running === true) {
                 timer = $timeout(activityInterval, interval);

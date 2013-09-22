@@ -7,7 +7,7 @@ angular.module('mobbr.services.user', [
 
     // TODO: put notifyparent in a seperate service
 
-    ]).factory('userSession',function ($injector, $location, $window, $rootScope, userStorage, Msg, idleTimeout, $localStorage) {
+    ]).factory('userSession',function ($injector, $location, $window, $rootScope, userStorage, Msg, idleTimeout) {
 
         function clearLogin(notifyParent) {
 

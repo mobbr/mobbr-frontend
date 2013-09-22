@@ -11,12 +11,15 @@ angular.module('mobbr.services.storage', [
             $http = $http || $injector.get('$http');
 
         function sync(value) {
+            console.log('try sync');
             if (!authorization && value) {
+                console.log('login');
                 authorization = $sessionStorage.authorization;
                 user = $sessionStorage.user;
                 setAuthorization();
                 $rootScope.$emit('login-external', user);
             } else if (!value && authorization) {
+                console.log('logout');
                 clear();
                 $rootScope.$emit('logout-external');
             }
