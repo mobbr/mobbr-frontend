@@ -28,7 +28,7 @@ angular.module('mobbr', [
                             deferred = $q.defer();
 
                         authenticated && deferred.resolve() || deferred.reject();
-                     
+
                         return deferred.promise;
                     }
                 ]
