@@ -390,6 +390,7 @@ var mobbr = mobbr || (function() {
                     }
                 }
             }
+            url = rtrim(url.replace(/([^:])(\/\/+)/g, '$1/'), '/#?');
             if (!data)
             {
                 data = url;
@@ -435,6 +436,10 @@ var mobbr = mobbr || (function() {
 
     }
 
+    function rtrim(str, chr) {
+        var rgxtrim = (!chr) ? new RegExp('\\s+$') : new RegExp(chr + '+$');
+        return str.replace(rgxtrim, '');
+    }
 
     function in_array(obj, array) {
         var i = array.length;

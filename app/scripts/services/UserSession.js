@@ -80,7 +80,10 @@ angular.module('mobbr.services.user', [
 
         return userSession;
 
-    }).factory('HttpLoggedInInterceptor', function($injector, $q){
+    }
+);
+
+/*.factory('HttpLoggedInInterceptor', function($injector, $q){
 
         return function(promise) {
             promise.then(function () {}, function (response) {
@@ -180,4 +183,4 @@ angular.module('mobbr.services.user', [
             }
         };
     }
-);
+);*/
