@@ -80,10 +80,7 @@ angular.module('mobbr.services.user', [
 
         return userSession;
 
-    }
-);
-
-/*.factory('HttpLoggedInInterceptor', function($injector, $q){
+    }).factory('HttpLoggedInInterceptor', function($injector, $q){
 
         return function(promise) {
             promise.then(function () {}, function (response) {
@@ -91,7 +88,7 @@ angular.module('mobbr.services.user', [
                 var userSession = $injector.get('userSession');
 
                 if (response != null && response.status != null && (response.status === 401 || response.status === 0) && userSession.authenticated) {
-                    userSession.doLogout();
+                    userSession.doLogout(true);
                 }
 
                 return $q.reject(response);
@@ -104,7 +101,7 @@ angular.module('mobbr.services.user', [
 
         $httpProvider.responseInterceptors.push('HttpLoggedInInterceptor');
 
-    }).directive('userPassword',function (User, Msg, $http) {
+    })/*.directive('userPassword',function (User, Msg, $http) {
 
         return {
 
@@ -115,7 +112,6 @@ angular.module('mobbr.services.user', [
 
                 element.bind('submit', function (event) {
 
-                    // TODO: this should be moved to a controller and a service
                     User.setPassword({'new_password': scope.new_password}, function (response) {
                         if (response.result === true) {
                             Msg.addNotification('Saved password');
@@ -132,7 +128,9 @@ angular.module('mobbr.services.user', [
             }
         };
 
-    }).directive('userRegister',function (User, Msg,$routeParams) {
+    })*/.directive('userRegister',function (User, Msg,$routeParams) {
+
+        // TODO: Put this in join controller
 
         return {
 
@@ -161,7 +159,7 @@ angular.module('mobbr.services.user', [
             }
         };
 
-    }).directive('userRecover', function (User, Msg) {
+    })/*.directive('userRecover', function (User, Msg) {
 
         return {
 
