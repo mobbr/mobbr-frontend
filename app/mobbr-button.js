@@ -390,7 +390,10 @@ var mobbr = mobbr || (function() {
                     }
                 }
             }
-            url = rtrim(url.replace(/([^:])(\/\/+)/g, '$1/'), '/#?');
+            if (url!='')
+            {
+                url = rtrim(url.replace(/([^:])(\/\/+)/g, '$1/'), '/#?');
+            }
             if (!data)
             {
                 data = url;
