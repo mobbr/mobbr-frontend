@@ -390,10 +390,7 @@ var mobbr = mobbr || (function() {
                     }
                 }
             }
-            if (url!='')
-            {
-                url = rtrim(url.replace(/([^:])(\/\/+)/g, '$1/'), '/#?');
-            }
+            url = url.replace(/([^:])(\/\/+)/g, '$1/').replace(/[#?\/]+$/, '');
             if (!data)
             {
                 data = url;
@@ -437,11 +434,6 @@ var mobbr = mobbr || (function() {
             return newElement;
         }
 
-    }
-
-    function rtrim(str, chr) {
-        var rgxtrim = (!chr) ? new RegExp('\\s+$') : new RegExp(chr + '+$');
-        return str.replace(rgxtrim, '');
     }
 
     function in_array(obj, array) {
