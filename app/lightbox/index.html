@@ -356,13 +356,13 @@
     <div>
         <h2 style="margin: 0 0 15px 0" ng-show="dologin" ng-bind="userSession.authenticated && 'Logged in as: ' + userSession.user.username || 'Login to Fast Moving Crowdwork'" + ></h2>
         <div ng-show="!(dologin && userSession.authenticated)" id="login_form">
-            <form name="login_form">
+            <form name="login_form" autocomplete="off">
                 <p class="loginerror" ng-show="loginerror">
                     Wrong email/password
                 </p>
                 <span ng-show="marked != false && !userSession.authenticated">
-                   <input ng-model="email" type="email" name="email" placeholder="email address" style="margin: 0;">
-                   <input ng-model="password" type="password" name="password" placeholder="password" style="margin: 0;">
+                   <input ng-model="email" type="email" name="email" placeholder="email address" style="margin: 0;" autocomplete="off">
+                   <input ng-model="password" type="password" name="password" placeholder="password" style="margin: 0;" autocomplete="off">
                 </span>
                 <button ng-click="dologin && login(login_form, true, false) || !dologin && registerPayment(login_form)"
                         ng-bind="dologin && 'Login' || 'Pay / donate'"

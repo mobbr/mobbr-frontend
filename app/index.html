@@ -102,9 +102,9 @@
                             <ul class="dropdown-menu">
                                 <li class="nav-header"></li>
                                 <li>
-                                    <form ng-submit="login()" name="head-login" ng-controller="LoginController">
-                                        <input ng-model="email" type="email" name="email" placeholder="email address">
-                                        <input ng-model="password" type="password" name="password" placeholder="password">
+                                    <form ng-submit="login()" name="head-login" ng-controller="LoginController" autocomplete="off">
+                                        <input ng-model="email" type="email" name="email" placeholder="email address" autocomplete="off">
+                                        <input ng-model="password" type="password" name="password" placeholder="password" autocomplete="off">
                                         <button ng-disabled="waiting" type="submit" class="btn"><i class="icon-white mobbrloader" ng-show="waiting"></i> Log in</button>
                                     </form>
                                 </li>
