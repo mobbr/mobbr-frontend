@@ -47,7 +47,7 @@ angular.module('mobbr.services.mbr-api', [
         return $resource(api_url + '/api/claim/:action',{},{
             paymentDescription: {method: 'GET',params: {action: 'payment_script'},isArray:false},
             checkUrl: {method: 'GET',params: { action: 'check_url'},isArray:false},
-            unclaimedPayments: {method: 'GET',params: {action: 'unclaimed_payments'},isArray:false},
+            //unclaimedPayments: {method: 'GET',params: {action: 'unclaimed_payments'},isArray:false},
             claim: {method: 'POST',params: {action: 'claim_url'}}
         });
 
