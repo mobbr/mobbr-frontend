@@ -29,7 +29,7 @@ angular.module('mobbr.controllers').controller('ClaimPaymentController', functio
     $scope.step = function (){
         if($scope.claimpayment.url == '' || $scope.unclaimedPayments == undefined){
             return 1;
-        }else if($scope.unclaimedPayments.length > 0 && ($scope.paymentDescription == '' && $scope.isUrl())){
+        }else if($scope.unclaimedPayments.length && $scope.unclaimedPayments.length > 0 && ($scope.paymentDescription == '' && $scope.isUrl())){
             return 3;
         }
         else{
@@ -124,11 +124,15 @@ angular.module('mobbr.controllers').controller('ClaimPaymentController', functio
             }
 
             Claim.claim({url:$scope.claimpayment.url},function(response){
+                $scope.claiming = false;
                 if(response.result === true){
+                    $scope.claimpayment.url = '';
+                    $scope.unclaimedPayments = null;
+                    $scope.paymentDescription = '';
                     Msg.setResponseMessage( 'info','Claim successful',response);
+                    $scope.step
 
                 }else{
-                    $scope.claiming = false;
                     Msg.setResponseMessage( 'error', 'Could not claim payments',response);
                 }
             },function(response){
