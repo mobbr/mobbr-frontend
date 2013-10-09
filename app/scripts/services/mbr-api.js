@@ -48,7 +48,7 @@ angular.module('mobbr.services.mbr-api', [
             paymentDescription: {method: 'GET',params: {action: 'payment_script'},isArray:false},
             checkUrl: {method: 'GET',params: { action: 'check_url'},isArray:false},
             unclaimedPayments: {method: 'GET',params: {action: 'unclaimed_payments'},isArray:false},
-            claim: {method: 'POST',params: {action: 'claim_payments'}}
+            claim: {method: 'POST',params: {action: 'claim_url'}}
         });
 
     }).factory('CreateButton', function ($resource) {

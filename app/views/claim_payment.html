@@ -33,16 +33,14 @@
             <table class="unclaimed-payments table">
                 <thead>
                 <tr>
-                    <th></th>
-                    <th ng-click="sortPayments('title')">Item / thing</th>
-                    <th ng-click="sortPayments('expiredays')">Expires in (days)</th>
+                    <th ng-click="sortPayments('url')">URL</th>
+                    <th ng-click="sortPayments('title')">Title</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr ng-repeat="payment in unclaimedPayments | filter:searchEntries | limitTo:showEntries | orderBy:sortEntries:sortOrder">
-                    <td><input type="checkbox" ng-model="payment.checked" ng-show="isUrl()"/></td>
-                    <td><a href="{{payment.url}}">{{payment.title}}</a></td>
-                    <td ng-bind="payment.expiredays | number:0"></td>
+                    <td><a href="{{payment.url}}">{{payment.url}}</a></td>
+                    <td ng-bind="payment.title"></td>
                 </tr>
                 </tbody>
             </table>
