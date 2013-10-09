@@ -184,7 +184,7 @@ var mobbr = mobbr || (function() {
 
         var img = document.createElement('img');
         img.style.cssText = 'position:relative;top:5px;width: 24px;height: 24px';
-        img.src = 'https://mobbr.com/images/frame_closebutton.png';
+        img.src = 'https://mobbr.com/img/frame_closebutton.png';
         img.alt = 'Close button';
 
         mobbrFrame = document.createElement('iframe');

@@ -29,7 +29,7 @@
     <tbody>
         <tr ng-repeat="person in people | orderBy:sortEntries:sortOrder | filter:searchentries | limitTo:showentries" ng-class-odd="'odd'" ng-class-even="'even'">
             <td>
-                <img ng-src="https://secure.gravatar.com/avatar/{{person.gravatar}}?size=20&default=https://mobbr.com/images/default-gravatar.png" ng-show="person.gravatar" width="20" class="gravatar">
+                <img ng-src="https://secure.gravatar.com/avatar/{{person.gravatar}}?size=20&default=https://mobbr.com/img/default-gravatar.png" ng-show="person.gravatar" width="20" class="gravatar">
                 <span ng-bind="person.username" ng-show="person.username"></span>
             </td>
             <td ng-bind="person.role"></td>

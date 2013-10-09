@@ -106,7 +106,7 @@
                 <tbody>
                 <tr ng-repeat="person in persons | orderBy:sortEntriesPeople:sortOrderPeople | filter:searchentriesPeople">
                     <td>
-                        <img width="20" ng-src="https://secure.gravatar.com/avatar/{{person.gravatar}}&default=https://mobbr.com/images/default-gravatar.png" ng-show="person.gravatar">
+                        <img width="20" ng-src="https://secure.gravatar.com/avatar/{{person.gravatar}}&default=https://mobbr.com/img/default-gravatar.png" ng-show="person.gravatar">
                     </td>
                     <td ng-bind="person.username"></td>
                     <td ng-bind="person.roles"></td>
