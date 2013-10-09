@@ -365,7 +365,7 @@
                    <input ng-model="password" type="password" name="password" placeholder="password" style="margin: 0;" autocomplete="off">
                 </span>
                 <button ng-click="dologin && login(login_form, true, false) || !dologin && registerPayment(login_form)"
-                        ng-bind="dologin && 'Login' || 'Pay / donate'"
+                        ng-bind="dologin && 'Login' || 'Pay/donate'"
                         ng-show="!dologin && marked == undefined || dologin == true"
                         class="btn btn-success"
                         title="Register this URL for payment. To actually pay, go to your dashboard">
