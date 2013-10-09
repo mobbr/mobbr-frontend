@@ -10,8 +10,8 @@
         </div>
 
         <accordion close-others="false">
-            <accordion-group heading="Pending" is-open="true">
-                <payments nodatatitle="No pending payments"
+            <accordion-group heading="Unfinalized" is-open="true">
+                <payments nodatatitle="No pending/unfinalized payments"
                           searchentries="searchentries"
                           paymenttype="pending_payments"
                           showexpiresdate="false"
@@ -24,7 +24,7 @@
                           searchentries="searchentries"
                           showexpiresdate="false"></payments>
             </accordion-group>
-            <accordion-group heading="Payments" is-open="true">
+            <accordion-group heading="Historic payments" is-open="true">
                 <payments nodatatitle="No payments"
                           searchentries="searchentries"
                           paymenttype="payments"
@@ -185,7 +185,7 @@
                         <th>Currency description</th>
                         <th ng-click="sortBalance('currency_iso')">Currency</th>
                         <th ng-click="sortBalance('amount')">Total</th>
-                        <th ng-click="sortBalance('fee')">Reserved</th>
+                        <th ng-click="sortBalance('fee')">Fee</th>
                         <th ng-click="sortBalance('spendable')">Spendable</th>
                     </tr>
                     </thead>
