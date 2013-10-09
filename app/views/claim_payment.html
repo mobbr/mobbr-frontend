@@ -75,7 +75,10 @@
         </accordion-group>
         <accordion-group heading="5/5: Claim payments" is-open="step() >= 4" is-active="step() >= 4">
 
-            <button class="btn btn-success" ng-disabled="!paymentDescription" ng-click="claim()" ng-disabled="claiming">Claim my URL's</button>
+            <button class="btn btn-success" ng-disabled="!paymentDescription || claiming" ng-click="claim()">
+                Claim my URL's
+                <i class="icon-white mobbrloader" ng-show="claiming"></i>
+            </button>
 
         </accordion-group>
     </div>
