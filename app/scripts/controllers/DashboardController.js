@@ -3,7 +3,7 @@
 angular.module('mobbr.controllers').controller('DashboardController', function ($scope, $rootScope, Balances,userSession, Util, Dashboard, Msg, PaymentNetwork) {
 
     $scope.searchentries;                // filter on search criteria
-    $scope.searchentriesAllPayments;                // filter on search criteria
+    //$scope.searchentriesAllPayments;                // filter on search criteria
     $scope.currencyDescription = function(iso){
         return $rootScope.currencyDescription(iso);
     }

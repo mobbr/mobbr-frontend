@@ -102,7 +102,7 @@ angular.module('mobbr.controllers').controller('ClaimPaymentController', functio
                         Msg.setResponseMessage( 'error', 'No payment script found',response);
                     }
                 },function(respone){
-                    Msg.setResponseMessage( 'error', 'No payment script found',response);
+                    Msg.setResponseMessage( 'error', 'No payment script found');
                     $scope.loadingPaymentDescription = false;
                 }
 
@@ -123,7 +123,7 @@ angular.module('mobbr.controllers').controller('ClaimPaymentController', functio
                 }
             }
 
-            Claim.claim({ids:ids,url:$scope.claimpayment.url},function(response){
+            Claim.claim({url:$scope.claimpayment.url},function(response){
                 if(response.result === true){
                     Msg.setResponseMessage( 'info','Claim successful',response);
 

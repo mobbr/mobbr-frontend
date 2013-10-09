@@ -2,7 +2,7 @@
     The dashboard is empty because you are not logged in. To login or signup, go <a href="#/join">here</a>.
 </div>
 <tabs>
-    <pane heading="Session">
+    <pane heading="Payments">
 
         <div class="form-inline" style="margin-bottom: 20px;">
             <label for="searchEntries{{paymenttype}}">Search: </label>
@@ -24,13 +24,20 @@
                           searchentries="searchentries"
                           showexpiresdate="false"></payments>
             </accordion-group>
-            <accordion-group heading="Unclaimed" is-open="true">
+            <accordion-group heading="Payments" is-open="true">
+                <payments nodatatitle="No payments"
+                          searchentries="searchentries"
+                          paymenttype="payments"
+                          editable="false"
+                          showexpiresdate="false"></payments>
+            </accordion-group>
+            <!--<accordion-group heading="Unclaimed" is-open="true">
                 <payments nodatatitle="No unclaimed payments"
                           paymenttype="unclaimed_payments"
                           editable="false"
                           searchentries="searchentries"
                           showexpiresdate="true"></payments>
-            </accordion-group>
+            </accordion-group>-->
         </accordion>
     </pane>
     <pane heading="Balances">
@@ -65,19 +72,19 @@
                                 </li>
                             </ul>
                             <ul ng-switch-when="paypal">
-                                <li class="nav-header">Send to this paypal address:</li>
+                                <li class="nav-header">Send to paypal address:</li>
                                 <li ng-show="network_method.addresses.result.length > 0" class="nav-header balancesub">
                                     <ul class="no-style">
                                         <li>
-                                            <span>bank@mobbr.com</span>
+                                            <span>paypal@mobbr.com</span>
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="nav-header">Put one of these tokens in memo/note/message field</li>
+                                <li class="nav-header">Place one of these tokens in the memo/note field of payment</li>
                                 <li ng-show="network_method.addresses.result.length > 0" class="nav-header balancesub">
                                     <ul class="no-style">
                                         <li ng-repeat="address in network_method.addresses.result">
-                                            <span>x{{ address.address }}x</span>
+                                            <span>%{{ address.address }}%</span>
                                         </li>
                                     </ul>
                                 </li>
@@ -224,7 +231,7 @@
             </accordion-group>
         </accordion>
     </pane>
-    <pane heading="Payments">
+    <!--<pane heading="Payments">
 
         <div class="form-inline" style="margin-bottom: 20px;">
             <label for="searchentriesAllPayments">Search: </label>
@@ -236,7 +243,7 @@
                   paymenttype="payments"
                   editable="false"
                   showexpiresdate="false"></payments>
-    </pane>
+    </pane>-->
     <pane heading="Domains">
         <div ng-controller="SearchDomainController">
             <form ng-submit="searchDomain()">
