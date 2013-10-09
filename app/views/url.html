@@ -55,10 +55,10 @@
                     <tr ng-repeat="pp in personPayments">
                         <td ng-bind="pp.datetime"></td>
                         <td>
-                            <img ng-repeat="person in pp.senders" width="20" ng-src="https://secure.gravatar.com/avatar/{{person.gravatar}}?size=20&default=https://mobbr.com/images/default-gravatar.png" title="{{person.username}}">
+                            <img ng-repeat="person in pp.senders" width="20" ng-src="https://secure.gravatar.com/avatar/{{person.gravatar}}?size=20&default=https://mobbr.com/img/default-gravatar.png" title="{{person.username}}">
                         </td>
                         <td>
-                            <img ng-repeat="person in pp.receivers" width="20" ng-src="https://secure.gravatar.com/avatar/{{person.gravatar}}?size=20&default=https://mobbr.com/images/default-gravatar.png" title="{{person.username}}">
+                            <img ng-repeat="person in pp.receivers" width="20" ng-src="https://secure.gravatar.com/avatar/{{person.gravatar}}?size=20&default=https://mobbr.com/img/default-gravatar.png" title="{{person.username}}">
                         </td>
                         <td ng-bind="pp.currency_iso"></td>
                         <td ng-bind="pp.amount | number:4" class="amount decorate-amount"></td>
