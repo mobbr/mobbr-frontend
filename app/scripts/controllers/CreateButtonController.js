@@ -27,11 +27,11 @@ angular.module('mobbr.controllers').controller('CreateButtonController', functio
     }
 
     $scope.buttons = [
-        {"id": "normal_button", "name": "Normal button", "function": "button", "url": "/images/buttons/mobbr_button50x60.png"},
-        {"id": "big_button", "name": "Big button", "function": "buttonLarge", "url": "/images/buttons/mobbr64.png"},
-        {"id": "slim_button", "name": "Slim button", "function": "buttonSlim", "url": "/images/buttons/mobbr_button110x20.png"},
-        {"id": "small_button", "name": "Small button", "function": "buttonSmall", "url": "/images/buttons/mobbr32.png"},
-        {"id": "flat_button", "name": "Flat button", "function": "buttonFlat", "url": "/images/buttons/mobbrrecht120x21.png"},
+        {"id": "normal_button", "name": "Normal button", "function": "button", "url": "/img/buttons/mobbr_button50x60.png"},
+        {"id": "big_button", "name": "Big button", "function": "buttonLarge", "url": "/img/buttons/mobbr64.png"},
+        {"id": "slim_button", "name": "Slim button", "function": "buttonSlim", "url": "/img/buttons/mobbr_button110x20.png"},
+        {"id": "small_button", "name": "Small button", "function": "buttonSmall", "url": "/img/buttons/mobbr32.png"},
+        {"id": "flat_button", "name": "Flat button", "function": "buttonFlat", "url": "/img/buttons/mobbrrecht120x21.png"},
         {"id": "NO_BUTTON", name: 'No button, only metadata','function':$scope.nobutton(),url:""}
     ];
 
@@ -278,7 +278,7 @@ angular.module('mobbr.controllers').controller('CreateButtonController', functio
                 if(response.result != null && response.result.length > 0){
                     $scope.generatedHeaderLink = ''
                     if($scope.form.button != $scope.nobutton()){
-                        $scope.generatedHeaderLink += '<script type="text/javascript" src="https://mobbr.com/mobbr-button.js"></script>\n';
+                        $scope.generatedHeaderLink += '<script type="text/javascript" src="https://mobbr.com/mobbr-button.js/"></script>\n';
                     }
                     $scope.generatedHeaderLink += '<link rel="participation" href="' +response.result+ '"/>';
                     $scope.mobbrConfiguration = config;
@@ -321,7 +321,7 @@ angular.module('mobbr.controllers').controller('CreateButtonController', functio
     $scope.generateMetaScript = function () {
         var metaScript = ''
         if($scope.form.button != $scope.nobutton()){
-            metaScript += '<script type="text/javascript" src="https://mobbr.com/mobbr-button.js"></script>\n';
+            metaScript += '<script type="text/javascript" src="https://mobbr.com/mobbr-button.js/"></script>\n';
         }
         metaScript += '<meta name="participation" content=\'' + $scope.generateContributeurJson() + '\'/>';
 
