@@ -123,10 +123,12 @@
 <p><mobbrbutton size="slim" url="{{startLocation}}"></mobbrbutton></p>
 <pre class="prettyprint">&lt;script src="https://mobbr.com/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
 &lt;script type="text/javascript"&gt;mobbr.buttonSlim('https://{{host}}/#/buttons');&lt;/script&gt;</pre>
-
 <p>
-    The resulting button will not have any configuration yet (but will work), you can add a configuration in <a
-        href="#/buttons#configure">different ways</a>. Generate configured buttons <a href="#/generatebutton">here</a>.
+    Adding a payment script is done using metadata to your pages, see below for instructions.
+</p>
+<p>
+    If the button has no URL, it will use the canonical URL from the HTML-header if present or the current URL otherwise.
+    Generate configured buttons <a href="#/generatebutton">here</a>.
 </p>
 <p>
     To have a button show amounts in another currency append a <a href="#/exchangerate">currency code</a> to the script.
@@ -152,14 +154,14 @@
 </p>
 <p>
     <a href="/#/domain/aHR0cHM6Ly9tb2Jici5jb20=">
-        <img ng-src="{{api_url}}/badge/https/{{host}}/medium" alt="">
+        <img ng-src="https://api.mobbr.com/badge/https/{{host}}/medium" alt="">
     </a>
 </p>
 <pre class="prettyprint">&lt;script src="https://mobbr.com/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
 &lt;script type="text/javascript"&gt;mobbr.badgeMedium();&lt;/script&gt;</pre>
 <p>
     <a href="/#/domain/aHR0cHM6Ly9tb2Jici5jb20=">
-        <img ng-src="{{api_url}}/badge/https/{{host}}/wide" alt="">
+        <img ng-src="https://api.mobbr.com/badge/https/{{host}}/wide" alt="">
     </a>
 </p>
 <pre class="prettyprint">&lt;script src="https://mobbr.com/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
@@ -170,7 +172,7 @@
 </p>
 <p>
     <a href="/#/domain/aHR0cHM6Ly9tb2Jici5jb20=">
-        <img src="{{api_url}}/badge/https/{{host}}/wide/USD" alt="">
+        <img src="https://api.mobbr.com/badge/https/{{host}}/wide/USD" alt="">
     </a>
 </p>
 <pre class="prettyprint">&lt;script src="https://mobbr.com/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
