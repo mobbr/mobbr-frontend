@@ -297,7 +297,7 @@ angular.module('mobbr.controllers').controller('CreateButtonController', functio
             CreateButton.validateJson({'json':$scope.generateContributeurJson()},function(response){
                 $scope.workingConfiguration = false;
                 if(response.result === true){
-                    Msg.setResponseMessage( 'info','Payment script validated',response);
+                    Msg.setResponseMessage( 'info','Payment script generated',response);
 
                     $scope.mobbrConfiguration = config;
                 }else{
