@@ -278,7 +278,7 @@ angular.module('mobbr.controllers').controller('CreateButtonController', functio
                 if(response.result != null && response.result.length > 0){
                     $scope.generatedHeaderLink = ''
                     if($scope.form.button != $scope.nobutton()){
-                        $scope.generatedHeaderLink += '<script type="text/javascript" src="https://mobbr.com/mobbr-button.js/"></script>\n';
+                        $scope.generatedHeaderLink += '<script type="text/javascript" src="https://mobbr.com/mobbr-button.js"></script>\n';
                     }
                     $scope.generatedHeaderLink += '<link rel="participation" href="' +response.result+ '"/>';
                     $scope.mobbrConfiguration = config;
@@ -321,7 +321,7 @@ angular.module('mobbr.controllers').controller('CreateButtonController', functio
     $scope.generateMetaScript = function () {
         var metaScript = ''
         if($scope.form.button != $scope.nobutton()){
-            metaScript += '<script type="text/javascript" src="https://mobbr.com/mobbr-button.js/"></script>\n';
+            metaScript += '<script type="text/javascript" src="https://mobbr.com/mobbr-button.js"></script>\n';
         }
         metaScript += '<meta name="participation" content=\'' + $scope.generateContributeurJson() + '\'/>';
 
