@@ -50,14 +50,14 @@ angular.module('mobbr.services.storage', [
             $http.defaults.headers.common['Authorization'] = authorization;
         }
 
-        if (!$sessionStorage.user) {
-            clear();
-        }
-
         $rootScope.$storage = $localStorage;
         $rootScope.$watch('$storage.authorization', sync);
         $rootScope.$on('userSession:login', save);
         $rootScope.$on('userSession:logout', clear);
+
+        if (!$sessionStorage.user) {
+            $rootScope.$emit('userStorage:logout-external');
+        }
 
         return {
             sync: sync,
