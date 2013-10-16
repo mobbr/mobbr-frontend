@@ -394,7 +394,7 @@ var mobbr = mobbr || (function() {
             }
             if (!url)
             {
-                console.log(window.location);
+                console.log(window.location.toString());
                 //url = window.location;
             }
             url = url.replace(/([^:])(\/\/+)/g, '$1/').replace(/[#\?\/]+$/, '');
