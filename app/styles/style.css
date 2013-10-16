@@ -7176,6 +7176,11 @@ pre {
   font-weight: normal;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-style\.scss}line{font-family:\00003343}}
+.tab-content {
+  min-height: 400px;
+}
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/sass-twitter-bootstrap\/lib\/_utilities\.scss}line{font-family:\000037}}
 .pull-right {
   float: right;
