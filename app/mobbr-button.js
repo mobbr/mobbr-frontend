@@ -392,6 +392,10 @@ var mobbr = mobbr || (function() {
                 }
                 console.log('check 2', url);
             }
+            if (!url)
+            {
+                url = window.location;
+            }
             url = url.replace(/([^:])(\/\/+)/g, '$1/').replace(/[#\?\/]+$/, '');
             console.log(data || 'niks');
             if (!data)
