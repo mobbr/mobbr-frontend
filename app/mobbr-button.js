@@ -264,7 +264,7 @@ var mobbr = mobbr || (function() {
                 {
                     md5_hash = hex_md5(data.replace(/\/$/, ""));
                 }
-                else
+                else if (is_url(data.url))
                 {
                     md5_hash = hex_md5(data.url.replace(/\/$/, ""));
                 }
@@ -390,6 +390,7 @@ var mobbr = mobbr || (function() {
                     }
                 }
             }
+            console.log(data);
             url = url.replace(/([^:])(\/\/+)/g, '$1/').replace(/[#\?\/]+$/, '');
             if (!data)
             {
