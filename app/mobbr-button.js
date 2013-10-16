@@ -394,7 +394,8 @@ var mobbr = mobbr || (function() {
             }
             if (!url)
             {
-                url = window.location;
+                console.log(window.location);
+                //url = window.location;
             }
             url = url.replace(/([^:])(\/\/+)/g, '$1/').replace(/[#\?\/]+$/, '');
             console.log(data || 'niks');
