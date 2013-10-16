@@ -391,13 +391,13 @@ var mobbr = mobbr || (function() {
                 }
             }
             url = url.replace(/([^:])(\/\/+)/g, '$1/').replace(/[#\?\/]+$/, '');
+            console.log(data || 'niks');
             if (!data)
             {
                 data = url;
             }
             if (is_url(data))
             {
-                console.log(data);
                 this.drawButton(data, button_type, curr);
                 //var mobbr_frm = document.getElementById('mobbr_frm_' + buttons_shown);
                 //mobbr_frm.data.value = '{"url":"'+data[0]+'"}';
