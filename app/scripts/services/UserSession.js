@@ -103,34 +103,7 @@ angular.module('mobbr.services.user', [
 
         $httpProvider.responseInterceptors.push('HttpLoggedInInterceptor');
 
-    })/*.directive('userPassword',function (User, Msg, $http) {
-
-        return {
-
-            restrict: 'A',
-            link: function (scope, element, attrs) {
-
-                scope.settings = User.settings;
-
-                element.bind('submit', function (event) {
-
-                    User.setPassword({'new_password': scope.new_password}, function (response) {
-                        if (response.result === true) {
-                            Msg.addNotification('Saved password');
-                        }
-                        else if (response.message != null) {
-                            scope.new_password = '';
-                            scope.new_password_control = '';
-                            Msg.setResponseMessage('info', 'Save password', response);
-                        }
-                    }, function (response) {
-                        Msg.setResponseMessage('error', 'Error saving password', response);
-                    });
-                });
-            }
-        };
-
-    })*/.directive('userRegister',function (User, Msg,$routeParams) {
+    }).directive('userRegister',function (User, Msg,$routeParams) {
 
         // TODO: Put this in join controller
 
@@ -161,26 +134,5 @@ angular.module('mobbr.services.user', [
             }
         };
 
-    })/*.directive('userRecover', function (User, Msg) {
-
-        return {
-
-            restrict: 'A',
-            scope: {},
-            link: function (scope, element, attrs) {
-                scope.waiting = false;
-
-                scope.recover = function () {
-                    scope.waiting = true;
-                    User.recover({email: scope.email}, function (response) {
-                        Msg.setResponseMessage('info', 'Recover user', response);
-                        scope.waiting = false;
-                    }, function (response) {
-                        Msg.setResponseMessage('error', 'Couln\'t recover user', response);
-                        scope.waiting = false;
-                    });
-                }
-            }
-        };
     }
-);*/
+);

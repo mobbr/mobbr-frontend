@@ -56,7 +56,9 @@ angular.module('mobbr.services.storage', [
         $rootScope.$on('userSession:logout', clear);
 
         if (!$sessionStorage.user) {
-            $rootScope.$emit('userStorage:logout-external');
+            if ($window.parent && $window.parent.postMessage) {
+                $window.parent.postMessage('logout', '*');
+            }
         }
 
         return {
