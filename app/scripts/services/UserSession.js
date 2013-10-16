@@ -17,6 +17,7 @@ angular.module('mobbr.services.user', [
                 userSession.authenticated = true;
                 userSession.user = user;
                 $rootScope.$emit('userSession:login', user);
+                console.log('user login');
 
                 if (notifyParent) {
                     // if we are in an iframe we let our parent know we are logged in
@@ -50,6 +51,7 @@ angular.module('mobbr.services.user', [
             userSession.user = undefined;
             userSession.authenticated = false;
             $rootScope.$emit('userSession:logout');
+            console.log('user logout');
 
             if (notifyParent) {
                 // if we are in an iframe we let our parent know we are logged in

@@ -16,9 +16,11 @@ angular.module('mobbr.services.storage', [
                 user = $localStorage.user;
                 setAuthorization();
                 $rootScope.$emit('userStorage:login-external', user);
+                console.log('external login');
             } else if (!value && authorization) {
                 clear();
                 $rootScope.$emit('userStorage:logout-external');
+                console.log('external logout');
             }
         }
 
@@ -31,6 +33,7 @@ angular.module('mobbr.services.storage', [
                 setAuthorization();
             }
             $rootScope.$emit('userStorage:saved');
+            console.log('storage save');
         }
 
         function clear() {
@@ -40,6 +43,7 @@ angular.module('mobbr.services.storage', [
             delete $localStorage.user;
             delete $sessionStorage.user;
             $rootScope.$emit('userStorage:cleared');
+            console.log('storage clear');
         }
 
         function setAuthorization() {

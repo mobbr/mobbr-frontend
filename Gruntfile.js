@@ -203,7 +203,7 @@ module.exports = function (grunt) {
         htmlmin: {
             dist: {
                 options: {
-                    /*removeCommentsFromCDATA: true,
+                      removeCommentsFromCDATA: true,
                      // https://github.com/yeoman/grunt-usemin/issues/44
                      //collapseWhitespace: true,
                      collapseBooleanAttributes: true,
@@ -211,7 +211,7 @@ module.exports = function (grunt) {
                      removeRedundantAttributes: true,
                      useShortDoctype: true,
                      removeEmptyAttributes: true,
-                     removeOptionalTags: true*/
+                     removeOptionalTags: true
                 },
                 files: [{
                     expand: true,
@@ -236,15 +236,15 @@ module.exports = function (grunt) {
                 }]
             }
         },
-//        uglify: {
-//            dist: {
-//                files: {
-//                    '<%= yeoman.dist %>/scripts/scripts.js': [
-//                        '<%= yeoman.dist %>/scripts/scripts.js'
-//                    ]
-//                }
-//            }
-//        },
+        uglify: {
+            dist: {
+                files: {
+                    '<%= yeoman.dist %>/scripts/scripts.js': [
+                        '<%= yeoman.dist %>/scripts/scripts.js'
+                    ]
+                }
+            }
+        },
         rev: {
             dist: {
                 files: {
@@ -303,18 +303,18 @@ module.exports = function (grunt) {
     grunt.registerTask('build', [
         'clean:dist',
         'preprocess',
-//    'test',
+//      'test',
         'useminPrepare',
         'imagemin',
         'cssmin',
         'htmlmin',
         'concat',
         'copy',
-//        'cdnify',
-//    'ngmin',
-        'usemin'
-//    'uglify'
-//    'rev'
+        'cdnify',
+        'ngmin',
+        'usemin',
+        'uglify',
+        'rev'
     ]);
 
     grunt.registerTask('default', ['build']);
