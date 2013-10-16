@@ -390,7 +390,6 @@ var mobbr = mobbr || (function() {
                     }
                 }
             }
-            console.log(data);
             url = url.replace(/([^:])(\/\/+)/g, '$1/').replace(/[#\?\/]+$/, '');
             if (!data)
             {
@@ -398,6 +397,7 @@ var mobbr = mobbr || (function() {
             }
             if (is_url(data))
             {
+                console.log(data);
                 this.drawButton(data, button_type, curr);
                 //var mobbr_frm = document.getElementById('mobbr_frm_' + buttons_shown);
                 //mobbr_frm.data.value = '{"url":"'+data[0]+'"}';
