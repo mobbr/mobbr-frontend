@@ -81,6 +81,8 @@
                 // we set a new cookie with the userdata cookie value
                 // if the user is logged in and we get a logout message we remove the cookie by setting days to -1
 
+                console.log(e);
+
                 logout = e.data === 'logout' && (cookie && cookie !== 'deleted');
                 login = e.data !== 'logout' && e.data !== cookie;
 
@@ -364,7 +366,7 @@ var mobbr = mobbr || (function() {
             {
                 url = data.url;
             }
-            if (url=='')
+            if (!url)
             {
                 var links = document.getElementsByTagName("link");
                 for (var i = 0; i < links.length; i ++)
@@ -376,7 +378,7 @@ var mobbr = mobbr || (function() {
                     }
                 }
             }
-            if (url=='')
+            if (!url)
             {
                 var metas = document.getElementsByTagName("meta");
                 for (var i = 0; i < metas.length; i ++)
