@@ -55,10 +55,13 @@ angular.module('mobbr.services.storage', [
         $rootScope.$on('userSession:login', save);
         $rootScope.$on('userSession:logout', clear);
 
+        /*
+        disabled because it makes new tabs with no access to the session clear the localstorage
+        
         if (!$sessionStorage.user) {
             console.log('no session, clear the user info');
             clear();
-        }
+        }*/
 
         if (!$localStorage.user) {
             if ($window.parent && $window.parent.postMessage) {
