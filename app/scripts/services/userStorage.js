@@ -56,7 +56,11 @@ angular.module('mobbr.services.storage', [
         $rootScope.$on('userSession:logout', clear);
 
         if (!$sessionStorage.user) {
+            console.log('no session, clear the user info');
             clear();
+        }
+
+        if (!$localStorage.user) {
             if ($window.parent && $window.parent.postMessage) {
                 $window.parent.postMessage('logout', '*');
             }
