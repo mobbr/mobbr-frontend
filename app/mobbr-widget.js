@@ -8,8 +8,8 @@ createWidget(widgetName, title);
 
 function createWidget(widgetName, title) {
 
-//  var baseUrl = 'https://boplicity.nl/mobbr-widget/#/'
-  var baseUrl = 'http://localhost:9000/#/'
+  var baseUrl = 'https://mobbr.com/widget/#/'
+  //var baseUrl = 'http://mobbr-www.dev.handijk.nl:9000/#/'
   var div = document.createElement('div');
   div.setAttribute('id', 'mobbr_div');
   div.setAttribute('name', 'mobbr_div');

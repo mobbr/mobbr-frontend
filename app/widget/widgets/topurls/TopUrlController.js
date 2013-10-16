@@ -3,7 +3,7 @@
 angular.module('mobbr.widgets').controller('TopUrlController', function (TopUrlService, $scope, $routeParams) {
 
   $scope.title = $routeParams['title'] ? $routeParams['title'] : '';
-
+    console.log('test');
   $scope.urls = TopUrlService.urls();
 
   $scope.open = function (url) {
