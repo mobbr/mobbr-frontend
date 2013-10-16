@@ -264,7 +264,7 @@ var mobbr = mobbr || (function() {
                 {
                     md5_hash = hex_md5(data.replace(/\/$/, ""));
                 }
-                else if (data.url && is_url(data.url))
+                else
                 {
                     md5_hash = hex_md5(data.url.replace(/\/$/, ""));
                 }
