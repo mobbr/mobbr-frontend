@@ -394,6 +394,7 @@ var mobbr = mobbr || (function() {
             console.log(data || 'niks');
             if (!data)
             {
+                console.log(url);
                 data = url;
             }
             if (is_url(data))
