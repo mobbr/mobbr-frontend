@@ -156,7 +156,7 @@
 
 var mobbr = mobbr || (function() {
     var api_url = 'https://api.mobbr.com';
-    var ui_url  = 'https://mobbr.com';
+    var ui_url  = 'http://mobbr-www.dev.handijk.nl:9000';
     var mobbrDiv = createMobbrDiv();
     var mobbrFrame;
     var buttons_shown = 0;

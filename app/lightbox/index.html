@@ -8,7 +8,7 @@
 <head>
     <script>var api_url = 'https://api.mobbr.com';</script>
     <!--<script>var api_url = 'http://192.168.1.13';</script>-->
-    <script src="../scripts/vendor/modernizr.min.js"></script>
+    <script src="../components/modernizr/modernizr.js"></script>
     <!--[if lte IE 8]>
     <script>
         document.createElement('ng-include');
@@ -413,8 +413,8 @@
                     </table>
                     <span ng-show="noscript">[No recipients for this item]</span>
                     <div class="overlay">
-                    <h4>CONTRACT</h4>
-                    <p ng-show="json['message']" ng-bind="json['message']"></p>
+                        <h4>CONTRACT</h4>
+                        <p ng-show="json['message']" ng-bind="json['message']"></p>
                     </div>
                 </div>
             </div>
@@ -428,12 +428,12 @@
         </div>
     </div>
 </div>
-<script src="../scripts/vendor/base64/base64.js"></script>
-<script src="../scripts/vendor/jquery/jquery-1.8.3.min.js"></script>
-<script src="../scripts/vendor/angular.min.js"></script>
-<script src="../scripts/vendor/angular-resource.js"></script>
-<script src="../scripts/vendor/pnotify-1.2.0/jquery.pnotify.min.js"></script>
-<script src="../scripts/vendor/ngStorage.js"></script>
+<script src="../components/base64/base64.js"></script>
+<script src="../components/jquery/jquery.js"></script>
+<script src="../components/angular/angular.js"></script>
+<script src="../components/angular-resource/angular-resource.js"></script>
+<script src="../components/pines-notify/jquery.pnotify.js"></script>
+<script src="../components/ngstorage/ngStorage.js"></script>
 
 <!-- build:js scripts/scripts.js -->
 <script src="../scripts/services/msg.js"></script>
@@ -441,7 +441,6 @@
 <script src="../scripts/services/idleTimeout.js"></script>
 <script src="../scripts/services/userStorage.js"></script>
 <script src="../scripts/services/UserSession.js"></script>
-<script src="scripts/services/Gateway.js"></script>
 <script src="scripts/app.js"></script>
 
 <script src="scripts/controllers/LightboxController.js"></script>

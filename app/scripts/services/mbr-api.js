@@ -110,6 +110,14 @@ angular.module('mobbr.services.mbr-api', [
             supportedCurrencies: {method: 'GET', params: { action: 'supported_currencies'}},
             sendPayment: {method: 'POST', params: { action: 'send_payment'}}
         });
+
+    }).factory('Gateway', function ($resource) {
+
+        return $resource(api_url + '/api/gateway/:action', {}, {
+            getPayment: {method: 'GET', params : { action: 'get_payment' }},
+            registerPayment: {method: 'PUT', params : { action: 'register_payment' }}
+        });
+
     }
 );
 

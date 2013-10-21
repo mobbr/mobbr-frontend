@@ -8,7 +8,9 @@ Using grunt for running and building the app:
 ```
 npm install -g grunt
 npm install -g grunt-cli
+npm install -g bower
 npm install
+bower install
 ```
 3. run the app with ```grunt server```
 4. build the app with ```grunt build```. This minifies and concatenates resources and copies them to the ```/dist``` directory.
