@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mobbr.controllers')
-    .controller('LightboxController', function ($scope, $location, $timeout, Gateway, userSession, User) {
+    .controller('LightboxController', function ($scope, $location, $timeout, Gateway, Url, userSession, User) {
 
         var hash,
             error,
@@ -28,6 +28,12 @@ angular.module('mobbr.controllers')
                     $scope.json = response.result;
                     $scope.noscript = $scope.json['participants'] === undefined || $scope.json['participants'].length === 0;
                     $scope.loading = false;
+                });
+                Url.fullData({ url: hash }, function (response) {
+                    console.log(response);
+                    //$scope.json = response.result;
+                    //$scope.noscript = $scope.json['participants'] === undefined || $scope.json['participants'].length === 0;
+                    //$scope.loading = false;
                 });
             } else if (dologin) {
                 $scope.dologin = true;
