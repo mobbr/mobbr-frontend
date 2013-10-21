@@ -221,11 +221,11 @@ module.exports = function (grunt) {
                 }]
             }
         },
-        cdnify: {
+        /*cdnify: {
             dist: {
                 html: ['<%= yeoman.dist %>/*.html']
             }
-        },
+        },*/
         ngmin: {
             dist: {
                 files: [{
