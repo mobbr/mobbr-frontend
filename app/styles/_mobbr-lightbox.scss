@@ -19,12 +19,13 @@ body {
   margin: 80px 0 20px 0;
 }
 
-.accordion-heading .label {
+.accordion-heading .headlabel {
   display: inline-block;
   width: 70px;
 }
 
-.accordion-heading {
+.nowrap-header .accordion-heading,
+.nowrap {
   white-space: nowrap;
   overflow: hidden;
 }
@@ -36,7 +37,7 @@ body {
 
 .gravatar-heading img {
   margin: -3px 0 0 0;
-  height: 29px;
+  height: 20px;
 }
 
 h2 {
@@ -45,6 +46,10 @@ h2 {
   border-bottom: 1px solid #009ee0;
   padding: 0 0 5px 0;
   margin: 5px 0;
+}
+
+.gravatar {
+  width: 30px;
 }
 
 /*#login_form {
