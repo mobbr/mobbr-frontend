@@ -20,7 +20,7 @@
 @import "../components/sass-bootstrap/lib/_reset";
 
 // Grid system and page structure
-//@import "../components/sass-bootstrap/lib/_scaffolding";
+@import "../components/sass-bootstrap/lib/_scaffolding";
 //@import "../components/sass-bootstrap/lib/_grid";
 //@import "../components/sass-bootstrap/lib/_layouts";
 
@@ -55,8 +55,8 @@
 //@import "_popovers.scss";
 
 // Components: Misc
-//@import "../../components/sass-bootstrap/lib/_thumbnails";
-//@import "../../components/sass-bootstrap/lib/_media";
+//@import "../components/sass-bootstrap/lib/_thumbnails";
+//@import "../components/sass-bootstrap/lib/_media";
 //@import "_labels-badges.scss";
 //@import "_progress-bars.scss";
 @import "../components/sass-bootstrap/lib/_accordion";

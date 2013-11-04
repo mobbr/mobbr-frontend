@@ -24,7 +24,7 @@ angular.module('mobbr.controllers')
                 $scope.marked = false;
             } else if (hash) {
                 $scope.dologin = false;
-                Url.fullData({ url: 'https://mobbr.com' /*'http://fmt.mobbr.com/3/programmas-documentaires-mogen-ontbreken-innovation-station' document.referrer*/ }, function (response) {
+                Url.fullData({ url: /*'https://mobbr.com' 'http://fmt.mobbr.com/3/programmas-documentaires-mogen-ontbreken-innovation-station'*/ document.referrer }, function (response) {
                     $scope.urlData = response.result;
                     $scope.noscript = $scope.urlData['participants'] === undefined || $scope.urlData['participants'].length === 0;
                     $scope.loading = false;
