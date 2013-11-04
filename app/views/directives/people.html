@@ -1,0 +1,44 @@
+<div ng-show="people.length >= 1">
+
+    <form class="form-inline" ng-show="people.length > 0 && ownsearch">
+        <label for="searchEntriesDirective">Search: </label>
+        <input class="search-query" type="search" ng-model="searchentries" id="searchEntriesDirective">
+    </form>
+
+    <div ng-show="people.length > 0 && ownsearch" class="pull-right">
+        <label for="showentries">Entries: </label>
+        <select class="input-small" id="showentries" ng-model="showentries">
+            <option value="10">10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+        </select>
+    </div>
+
+    <h3>{{title}}</h3>
+
+    <table class="table table-striped" ng-show="people.length > 0">
+    <thead>
+        <tr>
+            <th ng-click="sortPeople('username')">{{persontitle}}</th>
+            <th ng-click="sortPeople('role')">Role</th>
+            <th ng-show="showamount == 'true'" ng-click="sortPeople('amount')">Amount</th>
+            <th ng-click="sortPeople('share')" ng-show="showamount !='true'" >Share</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="person in people | orderBy:sortEntries:sortOrder | filter:searchentries | limitTo:showentries" ng-class-odd="'odd'" ng-class-even="'even'">
+            <td>
+                <img ng-src="https://secure.gravatar.com/avatar/{{person.gravatar}}?size=20&default=https://mobbr.com/img/default-gravatar.png" ng-show="person.gravatar" width="20" class="gravatar">
+                <span ng-bind="person.username" ng-show="person.username"></span>
+            </td>
+            <td ng-bind="person.role"></td>
+            <td>
+                <span ng-bind="person.currency_iso" ng-show="showamount == 'true'"></span>
+                <span ng-bind="person.amount | number:4" ng-show="showamount == 'true'" class="amount decorate-amount"></span>
+            </td>
+            <td ng-show="showamount != 'true'">{{person.share}}</td>
+        </tr>
+    </tbody>
+    </table>
+</div>
