@@ -17,6 +17,7 @@ angular.module('mobbr.directives').directive('mobbrtable', function factory(user
             username: 'username',
             amount: 'amount',
             share: 'share',
+            '.percentage': 'share',
             roles: 'roles',
             role: 'role'
         };
