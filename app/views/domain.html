@@ -37,7 +37,6 @@
                               searchentries="searchentries"
                               payments="payments"
                               showexpiresdate="false">
-
             </paymentsprovided>
         </div>
         <div class="alert alert-error" ng-show="!owner">
@@ -91,7 +90,7 @@
                 <input class="search-query" type="search" ng-model="searchentriesPeople" id="searchEntriesPeople">
             </form>
 
-            <div class="laert alert-info" ng-show="persons.length == 0">
+            <div class="alert alert-info" ng-show="persons.length == 0">
                 No persons found
             </div>
 
@@ -104,13 +103,12 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="person in persons | orderBy:sortEntriesPeople:sortOrderPeople | filter:searchentriesPeople">
+                <tr ng-repeat="person in persons | orderBy:sortEntriesPeople:sortOrderPeople | limitTo:showEntries | filter:searchentriesPeople">
                     <td>
                         <img width="20" ng-src="https://secure.gravatar.com/avatar/{{person.gravatar}}&default=https://mobbr.com/img/default-gravatar.png" ng-show="person.gravatar">
                     </td>
                     <td ng-bind="person.username"></td>
                     <td ng-bind="person.roles"></td>
-
                     <td ng-bind="person.currency_iso"></td>
                     <td ng-bind="person.amount | number:4" class="amount decorate-amount"></td>
                 </tr>

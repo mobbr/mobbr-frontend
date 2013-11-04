@@ -7,7 +7,9 @@
 <!--[if !IE]><!--><html xmlns:ng="http://angularjs.org"> <!--<![endif]-->
     <head>
         <script>var api_url = 'https://api.mobbr.com';</script>
+        <!-- build:js scripts/combined-head.js -->
         <script src="components/modernizr/modernizr.js"></script>
+        <!-- endbuild -->
         <!--[if lte IE 8]>
         <script>
             document.createElement('ng-include');
@@ -28,45 +30,38 @@
             document.createElement('alert');
         </script>
         <![endif]-->
-
         <title>MOBBR Crowdpayment System</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
-
         <meta property="og:locale" content="en_US" />
         <meta property="og:title" content="MOBBR crowdpayment system" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://mobbr.com" />
         <meta property="og:image" content="https://mobbr.com/img/mobbr-ripple.jpg" />
         <meta property="og:description" content="Welcome to MOBBR, the world's first crowdpayment system. Start sharing rewards and donations in bitcoin, XRP, social currencies and FIAT currencies." />
-
         <meta name="description" content="Welcome to MOBBR, the world's first crowdpayment system. Start sharing rewards and donations in bitcoin, XRP, social currencies and FIAT currencies." />
-
-        <link href='//fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
-        <link href='//fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="styles/style.css">
-        <link rel="stylesheet" href="components/pines-notify/jquery.pnotify.default.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700" rel="stylesheet">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
+        <!-- build:css styles/style.css -->
+        <link href="styles/style.css" rel="stylesheet">
+        <link href="components/pines-notify/jquery.pnotify.default.css" rel="stylesheet">
+        <!-- endbuild -->
     </head>
-
     <body ng-app="mobbr" id="ng-app" class="ng-app:mobbr" idle-timeout>
-
         <!--[if lt IE 8]>
         <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser
             today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better
             experience this site. {{showMobbrFrame}}</p>
         <![endif]-->
-
+        <!-- build:js scripts/combined-ie.js -->
         <!--[if lt IE 9]>
         <script src="components/es5-shim/es5-shim.js"></script>
         <script src="components/json3/lib/json3.js"></script>
         <![endif]-->
-
-
-
+        <!-- endbuild -->
         <div class="pusher">
-
             <!--<div class="beta">
                 Advanced prototype for demonstration purposes. Dummy money only. Login / sign-up and try the worlds first crowdpayment system.
             </div>-->
@@ -164,6 +159,7 @@
 
         <!--<script type="text/javascript" src="https://jira.mobbr.com/s/en_US-v1z3lw-418945332/854/4/1.2.9/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?collectorId=cf50ef21"></script>-->
 
+        <!-- build:js scripts/combined.js -->
         <script src="components/base64/base64.js"></script>
         <script src="components/jquery/jquery.js"></script>
         <script src="components/angular/angular.js"></script>
@@ -173,15 +169,16 @@
         <script src="components/pines-notify/jquery.pnotify.js"></script>
         <script src="components/js-md5/js/md5.js"></script>
         <script src="components/ngstorage/ngStorage.js"></script>
-
-        <!-- build:js scripts/scripts.js -->
+        <!-- endbuild -->
+        <!-- build:js scripts/mobbr-core.js -->
         <script src="scripts/services/msg.js"></script>
         <script src="scripts/services/mbr-api.js"></script>
         <script src="scripts/services/idleTimeout.js"></script>
-        <script src="scripts/services/UserSession.js"></script>
         <script src="scripts/services/userStorage.js"></script>
+        <script src="scripts/services/UserSession.js"></script>
+        <!-- endbuild -->
+        <!-- build:js scripts/mobbr-www.js -->
         <script src="scripts/app.js"></script>
-
         <script src="scripts/controllers/ApiController.js"></script>
         <script src="scripts/controllers/ActivateController.js"></script>
         <script src="scripts/controllers/MobbrNowController.js"></script>
@@ -200,8 +197,14 @@
         <script src="scripts/controllers/RecoverPasswordController.js"></script>
         <script src="scripts/controllers/UpdateEmailController.js"></script>
         <script src="scripts/controllers/JoinController.js"></script>
-
-        <script src="scripts/directives.js"></script>
+        <script src="scripts/directives/decorateAmount.js"></script>
+        <script src="scripts/directives/mobbrbutton.js"></script>
+        <script src="scripts/directives/payments.js"></script>
+        <script src="scripts/directives/paymentsprovided.js"></script>
+        <script src="scripts/directives/people.js"></script>
+        <script src="scripts/directives/peoplepagesearch.js"></script>
+        <script src="scripts/directives/placeholder.js"></script>
+        <script src="scripts/directives/pwCheck.js"></script>
         <!-- endbuild -->
         <script src="/mobbr-button.js"></script>
     </body>
