@@ -103,3 +103,11 @@ $btnPrimaryBackgroundHighlight:     darken($mobbrblue, 5%);
   border-right: 0px;
   margin-top: 6px;
 }
+
+.img-rounded-small {
+  border-radius: 3px;
+}
+
+.accordion-toggle:hover {
+  text-decoration: none;
+}

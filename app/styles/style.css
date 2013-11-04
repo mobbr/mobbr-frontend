@@ -29,6 +29,16 @@
   margin-top: 6px;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-variables\.scss}line{font-family:\00003107}}
+.img-rounded-small {
+  border-radius: 3px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-variables\.scss}line{font-family:\00003111}}
+.accordion-toggle:hover {
+  text-decoration: none;
+}
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/components\/sass-bootstrap\/lib\/_reset\.scss}line{font-family:\0000319}}
 article,
 aside,

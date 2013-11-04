@@ -105,9 +105,9 @@
                                 class="btn btn-success"
                                 title="Register this URL for payment. To actually pay, go to your dashboard">
         \                </button>
-                        <!--<span ng-show="marked == undefined" style="color:#666">
+                        <span ng-show="userSession.authenticated && marked == undefined" style="color:#666">
                             &larr; Will be placed on dashboard as 'pending'
-                        </span>-->
+                        </span>
                         <div id="newuser" ng-show="dologin || marked == undefined && !userSession.authenticated">
                             New user or forgotten password? &rarr; <a href="/#/join" target="_blank">Go here</a>
                         </div>
@@ -119,19 +119,18 @@
                         <accordion close-others="true">
                             <accordion-group is-open="false">
                                 <accordion-heading>
-                                    <span class="label">Item:</span>
+                                    <span class="headlabel">Item:</span>
                                     <strong ng-show="!isOpen" ng-bind="urlData.meta_data.title"></strong>
                                 </accordion-heading>
-                                <h2 ng-bind="urlData.meta_data.title"></h2>
                                 <img ng-src="{{ urlData.meta_data.image }}" class="pull-left" width="100">
                                 <div ng-bind="urlData.meta_data.description"></div>
                             </accordion-group>
-                            <accordion-group ng-show="$parent.urlData.meta_data.participants.length > 0" is-open="false">
+                            <accordion-group class="nowrap-header" ng-show="$parent.urlData.meta_data.participants.length > 0" is-open="false">
                                 <accordion-heading>
-                                    <span class="label">Participants:</span>
+                                    <span class="headlabel">Participants:</span>
                                     <ul class="inline gravatar-heading">
                                         <li ng-repeat="participant in urlData.meta_data.participants">
-                                            <img ng-src="http://www.gravatar.com/avatar/{{ participant['.gravatar'] }}?s=29&default=https://mobbr.com/img/default-gravatar.png" class="gravatar">
+                                            <img ng-src="http://www.gravatar.com/avatar/{{ participant['.gravatar'] }}?s=20&default=https://mobbr.com/img/default-gravatar.png" class="img-rounded-small">
                                         </li>
                                     </ul>
                                 </accordion-heading>
@@ -140,7 +139,7 @@
                             </accordion-group>
                             <accordion-group is-open="false">
                                 <accordion-heading>
-                                    <span class="label" ng-bind="(urlData.meta_data.participants.length > 0 && 'History' || 'Pledged') + ':'"></span>
+                                    <span class="headlabel" ng-bind="(urlData.meta_data.participants.length > 0 && 'History' || 'Pledged') + ':'"></span>
                                     <ul class="inline gravatar-heading">
                                         <li ng-repeat="balance in urlData.balances">
                                             <strong ng-bind="(balance.amount | currency:balance.currency_iso)"></strong>
