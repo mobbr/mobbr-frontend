@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('mobbr.controllers', []);
+angular.module('mobbr.directives', []);
 
 /**
  * Prevent the dropdown from closing when an input is clicked, fix this nicer, perhaps make a push request to angular ui team
@@ -236,6 +237,9 @@ angular.module('mobbr', [
         }
     ]
 );
+
+/* TODO: Check if functions below are really needed, if not remove them
+ */
 
 function rtrim(str, chr) {
     var rgxtrim = (!chr) ? new RegExp('\\s+$') : new RegExp(chr + '+$');

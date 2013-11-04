@@ -24,16 +24,11 @@ angular.module('mobbr.controllers')
                 $scope.marked = false;
             } else if (hash) {
                 $scope.dologin = false;
-                Gateway.getPayment({ hash: hash }, function (response) {
-                    $scope.json = response.result;
-                    $scope.noscript = $scope.json['participants'] === undefined || $scope.json['participants'].length === 0;
+                Url.fullData({ url: 'https://mobbr.com' /*'http://fmt.mobbr.com/3/programmas-documentaires-mogen-ontbreken-innovation-station'*/ /*document.referrer*/ }, function (response) {
+                    $scope.urlData = response.result;
+                    $scope.noscript = $scope.urlData['participants'] === undefined || $scope.urlData['participants'].length === 0;
                     $scope.loading = false;
-                });
-                Url.fullData({ url: hash }, function (response) {
-                    console.log(response);
-                    //$scope.json = response.result;
-                    //$scope.noscript = $scope.json['participants'] === undefined || $scope.json['participants'].length === 0;
-                    //$scope.loading = false;
+                    console.log($scope.urlData);
                 });
             } else if (dologin) {
                 $scope.dologin = true;
@@ -83,6 +78,7 @@ angular.module('mobbr.controllers')
             });
         }
 
+        $scope.loading = true;
         $scope.userSession = userSession;
         //$scope.same_domain = strcmp( parse_url( $json['url'], PHP_URL_HOST), parse_url( $referrer, PHP_URL_HOST) ) == 0;
     }

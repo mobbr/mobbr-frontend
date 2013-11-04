@@ -12,7 +12,7 @@
 @import "../components/sass-bootstrap/lib/_variables"; // Modify this for custom colors, font-sizes, etc
 
 // mobbr variable overrides
-@import "_mobbr-variables";
+@import "../styles/_mobbr-variables";
 
 @import "../components/sass-bootstrap/lib/_mixins";
 
@@ -20,22 +20,22 @@
 @import "../components/sass-bootstrap/lib/_reset";
 
 // Grid system and page structure
-@import "../components/sass-bootstrap/lib/_scaffolding";
-@import "../components/sass-bootstrap/lib/_grid";
-@import "../components/sass-bootstrap/lib/_layouts";
+//@import "../components/sass-bootstrap/lib/_scaffolding";
+//@import "../components/sass-bootstrap/lib/_grid";
+//@import "../components/sass-bootstrap/lib/_layouts";
 
 // Base CSS
 @import "../components/sass-bootstrap/lib/_type";
-@import "../components/sass-bootstrap/lib/_code";
+//@import "../components/sass-bootstrap/lib/_code";
 @import "../components/sass-bootstrap/lib/_forms";
 @import "../components/sass-bootstrap/lib/_tables";
 
 // Components: common
-@import "../components/sass-bootstrap/lib/_sprites";
-@import "../components/sass-bootstrap/lib/_dropdowns";
+//@import "../components/sass-bootstrap/lib/_sprites";
+//@import "../components/sass-bootstrap/lib/_dropdowns";
 @import "../components/sass-bootstrap/lib/_wells";
 @import "../components/sass-bootstrap/lib/_component-animations";
-@import "../components/sass-bootstrap/lib/_close";
+//@import "../components/sass-bootstrap/lib/_close";
 
 // Components: Buttons & Alerts
 @import "../components/sass-bootstrap/lib/_buttons";
@@ -43,11 +43,11 @@
 @import "../components/sass-bootstrap/lib/_alerts"; // Note: alerts share common CSS with buttons and thus have styles in buttons
 
 // Components: Nav
-@import "../components/sass-bootstrap/lib/_navs";
-@import "../components/sass-bootstrap/lib/_navbar";
-@import "../components/sass-bootstrap/lib/_breadcrumbs";
-@import "../components/sass-bootstrap/lib/_pagination";
-@import "../components/sass-bootstrap/lib/_pager";
+//@import "../../components/sass-bootstrap/lib/_navs";
+//@import "../../components/sass-bootstrap/lib/_navbar";
+//@import "../../components/sass-bootstrap/lib/_breadcrumbs";
+//@import "../../components/sass-bootstrap/lib/_pagination";
+//@import "../../components/sass-bootstrap/lib/_pager";
 
 // Components: Popovers
 //@import "_modals.scss";
@@ -55,8 +55,8 @@
 //@import "_popovers.scss";
 
 // Components: Misc
-@import "../components/sass-bootstrap/lib/_thumbnails";
-@import "../components/sass-bootstrap/lib/_media";
+//@import "../../components/sass-bootstrap/lib/_thumbnails";
+//@import "../../components/sass-bootstrap/lib/_media";
 //@import "_labels-badges.scss";
 //@import "_progress-bars.scss";
 @import "../components/sass-bootstrap/lib/_accordion";
@@ -66,7 +66,7 @@
 // RESPONSIVE CLASSES
 // ------------------
 
-@import "../components/sass-bootstrap/lib/_responsive-utilities";
+//@import "../../components/sass-bootstrap/lib/_responsive-utilities";
 
 
 // MEDIA QUERIES
@@ -76,20 +76,20 @@
 //@import "_responsive-1200px-min.scss";
 
 // Tablets to regular desktops
-@import "../components/sass-bootstrap/lib/_responsive-768px-979px";
+//@import "../../components/sass-bootstrap/lib/_responsive-768px-979px";
 
 // Phones to portrait tablets and narrow desktops
-@import "../components/sass-bootstrap/lib/_responsive-767px-max";
+//@import "../../components/sass-bootstrap/lib/_responsive-767px-max";
 
 
 // RESPONSIVE NAVBAR
 // ------------------
 
 // From 979px and below, show a button to toggle navbar contents
-@import "../components/sass-bootstrap/lib/_responsive-navbar";
+//@import "../../components/sass-bootstrap/lib/_responsive-navbar";
 
 // include mobbr styles
-@import "_mobbr-www";
+@import "mobbr-lightbox";
 
 // Utility classes
 @import "../components/sass-bootstrap/lib/_utilities"; // Has to be last to override when necessary
