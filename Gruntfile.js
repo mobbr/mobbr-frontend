@@ -89,15 +89,6 @@ module.exports = function (grunt) {
             },
             server: '.tmp'
         },
-        // TODO: flesh out preprocess task
-        preprocess: {
-            dev: {
-
-            },
-            production: {
-
-            }
-        },
         jshint: {
             options: {
                 jshintrc: '.jshintrc'
@@ -142,7 +133,6 @@ module.exports = function (grunt) {
                 cssDir: '<%= yeoman.app %>/styles',
                 imagesDir: '<%= yeoman.app %>/img',
                 javascriptsDir: '<%= yeoman.app %>/scripts',
-                //fontsDir: '<%= yeoman.app %>/font',
                 importPath: '<%= yeoman.app %>/styles',
                 relativeAssets: true
             },
@@ -160,22 +150,53 @@ module.exports = function (grunt) {
         concat: {
             dist: {
                 files: {
-                    '<%= yeoman.dist %>/scripts/scripts.js': [
-                        '.tmp/scripts/{,*/}*.js',
-                        '<%= yeoman.app %>/scripts/{,*/}*.js'
+                    '<%= yeoman.dist %>/scripts/combined-head.js': [
+                        '<%= yeoman.app %>/components/modernizr/modernizr.js'
+                    ],
+                    '<%= yeoman.dist %>/scripts/combined-ie.js': [
+                        '<%= yeoman.app %>/components/es5-shim/es5-shim.js',
+                        '<%= yeoman.app %>/components/json3/lib/json3.js'
+                    ],
+                    '<%= yeoman.dist %>/scripts/combined.js': [
+                        '<%= yeoman.app %>/components/base64/base64.js',
+                        '<%= yeoman.app %>/components/jquery/jquery.js',
+                        '<%= yeoman.app %>/components/angular/angular.js',
+                        '<%= yeoman.app %>/components/angular-cookies/angular-cookies.js',
+                        '<%= yeoman.app %>/components/angular-resource/angular-resource.js',
+                        '<%= yeoman.app %>/components/angular-bootstrap/ui-bootstrap-tpls.js',
+                        '<%= yeoman.app %>/components/pines-notify/jquery.pnotify.js',
+                        '<%= yeoman.app %>/components/js-md5/js/md5.js',
+                        '<%= yeoman.app %>/components/ngstorage/ngStorage.js'
+                    ],
+                    '<%= yeoman.dist %>/scripts/mobbr-core.js': [
+                        '<%= yeoman.app %>/scripts/services{,*/}*.js'
+                    ],
+                    '<%= yeoman.dist %>/scripts/mobbr-www.js': [
+                        '<%= ngtemplates.dist.dest %>',
+                        '<%= yeoman.app %>/scripts/controllers{,*/}*.js',
+                        '<%= yeoman.app %>/scripts/directives.js',
+                        '<%= yeoman.app %>/scripts/app.js'
+                    ],
+                    '<%= yeoman.dist %>/scripts/mobbr-lightbox.js': [
+                        '<%= yeoman.app %>/lightbox/scripts/controllers{,*/}*.js',
+                        '<%= yeoman.app %>/lightbox/scripts/services{,*/}*.js',
+                        '<%= yeoman.app %>/lightbox/scripts/app.js'
                     ]
                 }
             }
         },
         useminPrepare: {
-            html: '<%= yeoman.app %>/index.html',
+            html: [ '<%= yeoman.app %>/index.html', '<%= yeoman.app %>/lightbox/index.html' ],
             options: {
                 dest: '<%= yeoman.dist %>'
             }
         },
         usemin: {
             html: ['<%= yeoman.dist %>/{,*/}*.html'],
-            css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
+            css: [
+                '<%= yeoman.dist %>/styles/{,*/}*.css',
+                '<%= yeoman.app %>/components/pines-notify/jquery.pnotify.default.css'
+            ],
             options: {
                 dirs: ['<%= yeoman.dist %>']
             }
@@ -193,10 +214,48 @@ module.exports = function (grunt) {
         cssmin: {
             dist: {
                 files: {
-                    '<%= yeoman.dist %>/styles/styles.css': [
-                        '.tmp/styles/{,*/}*.css',
-                        '<%= yeoman.app %>/styles/{,*/}*.css'
+                    '<%= yeoman.dist %>/styles/style.css': [
+                        '<%= yeoman.app %>/styles/style.css',
+                        '<%= yeoman.app %>/components/pines-notify/jquery.pnotify.default.css'
+                    ],
+                    '<%= yeoman.dist %>/styles/style-lightbox.css': [
+                        '<%= yeoman.app %>/styles/style-lightbox.css',
+                        '<%= yeoman.app %>/components/pines-notify/jquery.pnotify.default.css'
                     ]
+                }
+            }
+        },
+        ngtemplates: {
+            dist: {
+                src:      [ '<%= yeoman.app %>/views/*.html', '<%= yeoman.app %>/directives/*.html'],
+                dest:     '<%= yeoman.app %>/scripts/templates.js',
+                options: {
+                    htmlmin: {
+                        collapseBooleanAttributes:      true,
+                        collapseWhitespace:             true,
+                        removeAttributeQuotes:          true,
+                        removeComments:                 true, // Only if you don't use comment directives!
+                        removeEmptyAttributes:          true,
+                        removeRedundantAttributes:      true,
+                        removeScriptTypeAttributes:     true,
+                        removeStyleLinkTypeAttributes:  true
+                    }
+                }
+            },
+            server: {
+                src:      [ '<%= yeoman.app %>/views/*.html', '<%= yeoman.app %>/directives/*.html'],
+                dest:     '<%= yeoman.app %>/scripts/templates.js',
+                options: {
+                    htmlmin: {
+                        collapseBooleanAttributes:      true,
+                        collapseWhitespace:             true,
+                        removeAttributeQuotes:          true,
+                        removeComments:                 true, // Only if you don't use comment directives!
+                        removeEmptyAttributes:          true,
+                        removeRedundantAttributes:      true,
+                        removeScriptTypeAttributes:     true,
+                        removeStyleLinkTypeAttributes:  true
+                    }
                 }
             }
         },
@@ -204,8 +263,6 @@ module.exports = function (grunt) {
             dist: {
                 options: {
                       removeCommentsFromCDATA: true,
-                     // https://github.com/yeoman/grunt-usemin/issues/44
-                     //collapseWhitespace: true,
                      collapseBooleanAttributes: true,
                      removeAttributeQuotes: true,
                      removeRedundantAttributes: true,
@@ -216,16 +273,11 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     cwd: '<%= yeoman.app %>',
-                    src: ['*.html', 'views/*.html'],
+                    src: ['index.html'/*, 'lightbox/index.html'*/],
                     dest: '<%= yeoman.dist %>'
                 }]
             }
         },
-        /*cdnify: {
-            dist: {
-                html: ['<%= yeoman.dist %>/*.html']
-            }
-        },*/
         ngmin: {
             dist: {
                 files: [{
@@ -239,8 +291,14 @@ module.exports = function (grunt) {
         uglify: {
             dist: {
                 files: {
-                    '<%= yeoman.dist %>/scripts/scripts.js': [
-                        '<%= yeoman.dist %>/scripts/scripts.js'
+                    '<%= yeoman.dist %>/scripts/mobbr-www.js': [
+                        '<%= yeoman.dist %>/scripts/mobbr-www.js'
+                    ],
+                    '<%= yeoman.dist %>/scripts/mobbr-core.js': [
+                        '<%= yeoman.dist %>/scripts/mobbr-core.js'
+                    ],
+                    '<%= yeoman.dist %>/scripts/mobbr-lightbox.js': [
+                        '<%= yeoman.dist %>/scripts/mobbr-lightbox.js'
                     ]
                 }
             }
@@ -251,8 +309,7 @@ module.exports = function (grunt) {
                     src: [
                         '<%= yeoman.dist %>/scripts/{,*/}*.js',
                         '<%= yeoman.dist %>/styles/{,*/}*.css',
-                        '<%= yeoman.dist %>/img/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-                        '<%= yeoman.dist %>/font/*'
+                        '<%= yeoman.dist %>/img/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
                     ]
                 }
             }
@@ -265,15 +322,8 @@ module.exports = function (grunt) {
                     cwd: '<%= yeoman.app %>',
                     dest: '<%= yeoman.dist %>',
                     src: [
-                        '*.{ico,txt}',
-                        '.htaccess',
-                        'components/**/*',
-                        'img/{,*/}*.{gif,webp}',
-                        'font/*',
-                        'scripts/vendor/**/*',
-                        'styles/*.css',
-                        //'images/**/*',
-                        'directives/*'
+                        '*.{ico,txt,js}',
+                        '.htaccess'
                     ]
                 }]
             }
@@ -302,19 +352,18 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build', [
         'clean:dist',
-        'preprocess',
-//      'test',
+        'compass:dist',
         'useminPrepare',
         'imagemin',
-        'cssmin',
+        'cssmin:dist',
         'htmlmin',
-        'concat',
+        'ngtemplates',
+        'concat:dist',
         'copy',
-        'cdnify',
         'ngmin',
-        'usemin',
         'uglify',
-        'rev'
+        'rev',
+        'usemin'
     ]);
 
     grunt.registerTask('default', ['build']);
