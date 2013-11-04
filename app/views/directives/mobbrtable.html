@@ -32,7 +32,7 @@
                 <img ng-switch-when=".gravatar"
                      ng-src="http://www.gravatar.com/avatar/{{ entry['.gravatar'] }}?s=50&default=https://mobbr.com/img/default-gravatar.png">
                 <span ng-switch-when="amount" ng-class="{ 'text-error': entry.amount < 0 }" ng-bind="parseAmount(entry.currency_iso, entry.amount)"></span>
-                <span ng-switch-when=".percentage" ng-bind="(entry['.percentage'] | number) + '%'"></span>
+                <span ng-switch-when=".percentage" ng-bind="(entry['.percentage'] | number:0) + '%'"></span>
                 <span ng-switch-default ng-bind="entry[column]"></span>
             </td>
         </tr>
