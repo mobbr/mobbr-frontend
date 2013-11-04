@@ -162,26 +162,6 @@ table th {
   opacity: 1;
 }
 
-.accordion-toggle:before {
-  display: inline-block;
-  width: 0;
-  height: 0;
-  vertical-align: top;
-  border-top:   4px solid $black;
-  border-right: 4px solid transparent;
-  border-left:  4px solid transparent;
-  content: "";
-  margin: 8px 8px 0 0;
-}
-
-.closed.accordion-toggle:before {
-  border-top:   4px solid transparent;
-  border-bottom: 4px solid transparent;
-  border-left:  4px solid $black;
-  border-right: 0px;
-  margin-top: 6px;
-}
-
 .join {
   margin-right: 19px;
 }
