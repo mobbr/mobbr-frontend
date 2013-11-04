@@ -123,7 +123,7 @@
                                     <strong ng-show="!isOpen" ng-bind="urlData.meta_data.title"></strong>
                                 </accordion-heading>
                                 <h2 ng-bind="urlData.meta_data.title"></h2>
-                                <img ng-src="urlData.meta_data.image" class="pull-left">
+                                <img ng-src="{{ urlData.meta_data.image }}" class="pull-left" width="100">
                                 <div ng-bind="urlData.meta_data.description"></div>
                             </accordion-group>
                             <accordion-group ng-show="$parent.urlData.meta_data.participants.length > 0" is-open="false">
