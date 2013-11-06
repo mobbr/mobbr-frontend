@@ -28,7 +28,7 @@ angular.module('mobbr.services.mbr-api', [
             deletePayment: {method: 'POST',params: {action: 'delete_payments'}},
             withdraw: {method: 'POST',params: {action: 'send_external_payment'}},
             paymentservices: {method: 'GET',params: {action: 'available_payment_services'}},
-            getCurrencies: {method: 'GET',params: { action: 'currencies'},isArray:false},
+            getCurrencies: {method: 'GET',params: { action: 'currencies'},isArray:false}
         });
 
     }).factory('Domain', function ($resource) {
@@ -82,7 +82,7 @@ angular.module('mobbr.services.mbr-api', [
 
         return $resource(api_url + '/api/url/:action',{},{
             getLocations: {method: 'GET',params: {action: 'locations'},isArray:false},
-            fullData: {method: 'GET',params: {url:'url',action: 'full_url_data'},isArray:false},
+            fullData: {method: 'GET',params: {action: 'full_url_data'},isArray:false},
             balances: {method: 'GET',params: {url:'url',action: 'balances'},isArray:false},
             personPayments: {method: 'GET',params: {url:'url',action: 'person_payments'},isArray:false}
         });
@@ -115,7 +115,9 @@ angular.module('mobbr.services.mbr-api', [
 
         return $resource(api_url + '/api/gateway/:action', {}, {
             getPayment: {method: 'GET', params : { action: 'get_payment' }},
-            registerPayment: {method: 'PUT', params : { action: 'register_payment' }}
+            registerPayment: {method: 'PUT', params : { action: 'register_payment' }},
+            performPayment: {method: 'PUT', params : { action: 'perform_payment' }},
+            analyzePayment: {method: 'POST', params : { action: 'analyze_payment' }}
         });
 
     }
