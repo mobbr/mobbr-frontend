@@ -81,8 +81,6 @@
                 // we set a new cookie with the userdata cookie value
                 // if the user is logged in and we get a logout message we remove the cookie by setting days to -1
 
-                console.log(e);
-
                 logout = e.data === 'logout' && (cookie && cookie !== 'deleted');
                 login = e.data !== 'logout' && e.data !== cookie;
 
@@ -154,303 +152,7 @@
  For specification see: https://mobbr.com/protocol
  */
 
-var mobbr = mobbr || (function() {
-    var api_url = 'https://api.mobbr.com';
-    var ui_url  = 'https://mobbr.com';
-    var mobbrDiv = createMobbrDiv();
-    var mobbrFrame;
-    var buttons_shown = 0;
-    var mobbr_object = new mobbrObject();
-    var originalHref = window.location.href;
-    var originalHash = window.location.hash;
-    var divAdded = false;
-    var lastButton;
-
-    window.onload = function () {
-        document.body.appendChild(mobbrDiv);
-        divAdded = true;
-    }
-
-    function createMobbrDiv() {
-        var div = document.createElement('div');
-        div.setAttribute('id', 'mobbr_div');
-        div.setAttribute('name', 'mobbr_div');
-        div.style.cssText = 'opacity:0.95;filter:alpha(opacity=95); display:none; position: fixed; border: 4px solid #999; background: none repeat scroll 0% 0% #fff; top: 8px; right: 8px; padding:15px 0px 0px 0px; width: 492px; height: 338px; z-index: 2147483647; border-radius: 10px; -moz-border-radius: 15px; -webkit-border-radius: 15px; -khtml-border-radius: 15px;';
-
-        var a = document.createElement('a');
-        a.style.cssText = 'float:right; position:relative; top:-17px; right:5px; text-decoration:none; font-size:7pt; color:black;font-family: Arial, Helvetica, sans-serif;';
-        a.onclick = function () {
-            mobbr.hide_mobbr_div();
-        }
-        a.innetText = '[close window] ';
-
-        var img = document.createElement('img');
-        img.style.cssText = 'position:relative;top:5px;width: 24px;height: 24px';
-        img.src = 'https://mobbr.com/img/frame_closebutton.png';
-        img.alt = 'Close button';
-
-        mobbrFrame = document.createElement('iframe');
-        mobbrFrame.setAttribute('name', 'mobbr_frame');
-        mobbrFrame.setAttribute('frameborder', '0');
-        mobbrFrame.style.cssText = 'position:relative;top:-10px;left:0;right:0;bottom:0;opacity:1;filter:alpha(opacity=100); width: 100%; height: 315px; padding:0; margin:0;';
-        mobbrFrame.src = ui_url + '/lightbox/#/';
-
-        mobbrFrame.onload = function() {
-            //mobbrFrame.src = 'http://www.mobbr.com/lightbox/#/';
-            /*if (mobbrFrame.src == 'undefined') {
-                mobbrFrame.src = 'https://mobbr.com/loader';
-            }*/
-        }
-
-        a.appendChild(img);
-        div.appendChild(a);
-        div.appendChild(mobbrFrame);
-
-        return div;
-    }
-
-    function is_hash(str)
-    {
-        var reg = /^[a-fA-F0-9]{32}$/;
-        if (typeof(str)!='string') return false;
-        if (reg.test(str)) return true;
-        return false;
-    }
-
-    function is_url(str)
-    {
-        var reg = /^https?:\/\/.*/;
-        if (typeof(str)!='string') return false;
-        if (reg.test(str)) return true;
-        return false;
-    }
-
-    function mobbrObject()
-    {
-        this.incrementButtonsShown = function()
-        {
-            buttons_shown++;
-            return buttons_shown;
-        }
-
-        this.drawButton = function(data, button_type, curr, target, position)
-        {
-            var buttonTypes=["slim","icon","flat","small","large","medium","icongs","flatgs","smallgs","largegs","mediumgs","badgeMedium","badgeWide"];
-            if (!in_array(button_type, buttonTypes)) button_type = 'medium';
-            var currency = curr !== undefined && curr || false;
-
-            var buttonSizes={
-                "slim" : {"width" : 110, "height" : 20},
-                "icon" : {"width" : 16, "height" : 16},
-                "flat" : {"width" : 120, "height" : 21},
-                "small" : {"width" : 32, "height" : 32},
-                "large" : {"width" : 64, "height" : 64},
-                "medium" : {"width" : 50, "height" : 60},
-                "icongs" : {"width" : 16, "height" : 16},
-                "flatgs" : {"width" : 120, "height" : 21},
-                "smallgs" : {"width" : 32, "height" : 32},
-                "largegs" : {"width" : 64, "height" : 64},
-                "mediumgs" : {"width" : 50, "height" : 60},
-                "badgeMedium" : {"width" : 53, "height" : 65},
-                "badgeWide" : {"width" : 150, "height" : 20}
-            };
-            var badge = (button_type === 'badgeMedium' || button_type === 'badgeWide') && true || false;
-            var button_size = buttonSizes[button_type];
-            var full_image_url;
-
-            if (!badge) {
-
-                var md5_hash = '';
-
-                if (is_url(data))
-                {
-                    md5_hash = hex_md5(data.replace(/\/$/, ""));
-                }
-                else if (is_url(data.url))
-                {
-                    md5_hash = hex_md5(data.url.replace(/\/$/, ""));
-                }
-
-
-                full_image_url = api_url + '/button/' + md5_hash + '/' + button_type;
-                this.incrementButtonsShown();
-
-            } else {
-
-                var urlparts;
-                var badgeurl;
-                var type = button_type.replace('badge', '').toLowerCase();
-
-                if (is_url(data))
-                {
-                    urlparts = data.split("://");
-                }
-                else
-                {
-                    urlparts = data.url.split("://");
-                }
-                badgeurl = urlparts[0] + '://' + urlparts[1];
-                full_image_url = api_url + '/badge/' + urlparts[0] + '/' + urlparts[1] + '/' + type;
-            }
-
-            if (currency) {
-                full_image_url += '/' + currency.toUpperCase();
-            }
-
-            // Create a temporary form to commit to the iframe
-            //var mobbr_frm = this.createMobbrForm();
-            //document.body.appendChild(mobbr_frm);
-            //this.addFormElement(mobbr_frm, "ref_uri", document.location.href.replace(/\/$/, ""));
-            //this.addFormElement(mobbr_frm, "using_lightbox", "true");
-            //this.addFormElement(mobbr_frm, "data", "");
-
-            // Add the Mobbr button
-            var img = document.createElement('img');
-            img.style.cssText = 'cursor: pointer; cursor: hand; width: '+button_size.width+'px !important; height: '+button_size.height+'px !important';
-            img.className = 'mobbr_button';
-            //img.setAttribute('onclick', 'mobbr.show_mobbr_div(' + buttons_shown + '); return false;');
-            img.onclick = function (e) {
-                if (!badge) {
-                    //mobbr.show_mobbr_div(buttons_shown, data);
-                    mobbr.makePayment(data, e.target);
-                    return false;
-                } else {
-                    window.open(ui_url + '/#/domain/' + rstr2b64(badgeurl) + '=', '_blank');
-                }
-            }
-            img.src = full_image_url;
-            img.alt = 'Mobbr button';
-            img.title = 'Click to see payment info';
-
-            if (typeof(target) != 'undefined') {
-                var target_obj = target;
-                if (typeof(target) == 'string') {
-                    target_obj = document.getElementById(target);
-                }
-                switch(position) {
-                    case 'before':
-                        target_obj.parentNode.insertBefore(img, target_obj);
-                        break;
-                    case 'replace':
-                        target_obj.parentNode.replaceChild(img, target_obj);
-                        break;
-                    case 'append':
-                    default:
-                        target_obj.appendChild(img);
-                        break;
-                }
-            } else {
-                // Add it next to the last script tag (should be current script tag in most cases)
-                var scripts = document.getElementsByTagName('script');
-                var this_script = scripts[scripts.length - 1];
-                this_script.parentNode.insertBefore(img, this_script);
-            }
-
-            // we add the iframe on init
-
-            //if (buttons_shown == 1) // only insert iframe for first button
-            //{
-            //    document.body.appendChild(mobbrDiv);
-            //    divAdded = true;
-            //}
-        }
-
-        this.showButton = function(data, button_type, curr)
-        {
-            var url = '';
-            if (is_url(data))
-            {
-                url = data;
-            }
-            else if (data && data.url)
-            {
-                url = data.url;
-            }
-            if (!url)
-            {
-                var links = document.getElementsByTagName("link");
-                for (var i = 0; i < links.length; i ++)
-                {
-                    if (links[i].getAttribute("rel").toLowerCase().replace(/^\s+|\s+$/g,"") === "canonical")
-                    {
-                        url = links[i].getAttribute("href").replace(/^\s+|\s+$/g,"").replace(/\/$/, "");
-                        break;
-                    }
-                }
-            }
-            if (!url)
-            {
-                var metas = document.getElementsByTagName("meta");
-                for (var i = 0; i < metas.length; i ++)
-                {
-                    if (metas[i].getAttribute("property")) {
-                        if (metas[i].getAttribute("property").toLowerCase().replace(/^\s+|\s+$/g,'') === "og:url")
-                        {
-                            url = metas[i].getAttribute("content").replace(/^\s+|\s+$/g,'').replace(/\/$/, "");
-                            break;
-                        }
-                    }
-                }
-            }
-            if (!url)
-            {
-                url = window.location.toString();
-            }
-            url = url.replace(/([^:])(\/\/+)/g, '$1/').replace(/[#\?\/]+$/, '');
-            if (!data)
-            {
-                data = url;
-            }
-            if (is_url(data))
-            {
-                this.drawButton(data, button_type, curr);
-                //var mobbr_frm = document.getElementById('mobbr_frm_' + buttons_shown);
-                //mobbr_frm.data.value = '{"url":"'+data[0]+'"}';
-            }
-            else
-            {
-                if(!data.url) data.url = url;
-                var string_data = JSON.stringify(data);
-                this.drawButton(data, button_type, curr);
-                //var mobbr_frm = document.getElementById('mobbr_frm_' + buttons_shown);
-                //if (mobbr_frm && mobbr_frm.data) mobbr_frm.data.value = string_data;
-            }
-        }
-
-        /*this.createMobbrForm = function()
-        {
-            var mobbr_frm = document.createElement("form");
-            mobbr_frm.method = "POST";
-            mobbr_frm.id = "mobbr_frm_" + buttons_shown;
-            mobbr_frm.target = "mobbr_frame";
-            mobbr_frm.action = api + "/gateway/";
-            mobbr_frm.onsubmit = "return false;";
-            mobbr_frm.style.display = "none";
-            return mobbr_frm;
-        }*/
-
-        //helper function to add elements to the form
-        this.addFormElement = function(inputForm, elementName, elementValue)
-        {
-            var newElement = document.createElement("input");
-            newElement.type = "hidden";
-            newElement.name = elementName;
-            newElement.value = elementValue;
-            inputForm.appendChild(newElement);
-            return newElement;
-        }
-
-    }
-
-    function in_array(obj, array) {
-        var i = array.length;
-        while (i--) {
-            if (array[i] === obj) {
-                return true;
-            }
-        }
-        return false;
-    }
+var mobbr = mobbr || (function () {
 
     /* Minified version of http://www.JSON.org/json2.js */
     var JSON;if(!JSON){JSON={};}
@@ -561,81 +263,293 @@ var mobbr = mobbr || (function() {
     function bit_rol(num,cnt)
     {return(num<<cnt)|(num>>>(32-cnt));}
 
-    return { // public interface
-
-        button: function(data, curr) { mobbr_object.showButton(data, 'medium', curr); },
-        buttonFlat: function(data, curr) { mobbr_object.showButton(data, 'flat', curr); },
-        buttonSmall: function(data, curr) { mobbr_object.showButton(data, 'small', curr); },
-        buttonLarge: function(data, curr) { mobbr_object.showButton(data, 'large', curr); },
-        buttonMedium: function(data, curr) { mobbr_object.showButton(data, 'medium', curr); },
-        buttonFlatGS: function(data, curr) { mobbr_object.showButton(data, 'flatgs', curr); },
-        buttonSmallGS: function(data, curr) { mobbr_object.showButton(data, 'smallgs', curr); },
-        buttonLargeGS: function(data, curr) { mobbr_object.showButton(data, 'largegs', curr); },
-        buttonMediumGS: function(data, curr) { mobbr_object.showButton(data, 'mediumgs', curr); },
-        buttonSlim: function(data, curr) { mobbr_object.showButton(data, 'slim', curr); },
-        buttonIcon: function(data, curr) { mobbr_object.showButton(data, 'icon', curr); },
-        badgeMedium: function(data, curr) { mobbr_object.showButton(data, 'badgeMedium', curr); },
-        badgeWide: function(data, curr) { mobbr_object.showButton(data, 'badgeWide', curr); },
-
-        incrementButtonsShown: function () {
-            return mobbr_object.incrementButtonsShown();
-        },
-
-        hide_mobbr_div: function () {
-
-            var buttonsrc;
-
-            if (lastButton) {
-                buttonsrc = lastButton.src;
-                lastButton.src = '';
-                lastButton.src = buttonsrc + '#' + new Date().getTime();
+    function in_array(obj, array) {
+        var i = array.length;
+        while (i--) {
+            if (array[i] === obj) {
+                return true;
             }
-
-            mobbrFrame.src = ui_url + '/lightbox/#/';
-            mobbrDiv.style.display = 'none';
-        },
-
-        getMobbrDiv: function () {
-            return mobbrDiv;
-        },
-
-        show: function (data, target) {
-            lastButton = target;
-            mobbrDiv.style.display = 'block';
-        },
-
-        makePayment: function (data, target) {
-
-            var r = new XMLHttpRequest(),
-                jsonResponse,
-                message;
-
-            this.show(data, target);
-            r.open('POST', api_url + '/api/gateway/analyze_payment', true);
-            r.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-
-            r.onreadystatechange = function () {
-                if (r.readyState != 4) return;
-                if (r.status == 201) {
-                    jsonResponse = JSON.parse(r.responseText);
-                    mobbrFrame.src = ui_url + '/lightbox/#/?hash=' + jsonResponse.result;
-                } else if (r.status == 400) {
-                    jsonResponse = JSON.parse(r.responseText),
-                    message = jsonResponse.message && jsonResponse.message.text || 'Error';
-                    mobbrFrame.src = ui_url + '/lightbox/#/?error=' + message;
-                }
-            };
-
-            r.send(JSON.stringify({ referrer: document.referrer, data: data }));
-        },
-
-        login: function () {
-            mobbrFrame.src = ui_url + '/lightbox/#/?login=true';
-            this.show();
-        },
-
-        logout: function () {
-            mobbrFrame.src = ui_url + '/lightbox/#/?logout=true';
         }
+        return false;
+    }
+
+    function is_url(str) {
+        var reg = /^https?:\/\/.*/;
+        if (typeof(str)!='string') return false;
+        if (reg.test(str)) return true;
+        return false;
+    }
+
+    var api_url = 'https://api.mobbr.com',
+        ui_url  = 'https://mobbr.com',
+        mobbrDiv = createMobbrDiv(),
+        mobbrFrame,
+        buttonSizes={
+            slim: [ 110, 20 ],
+            icon: [ 16, 16 ],
+            flat: [ 120, 21 ],
+            small: [ 32, 32 ],
+            large: [ 64, 64 ],
+            medium: [ 50, 60 ],
+            icongs: [ 16, 16 ],
+            flatgs: [ 120, 21 ],
+            smallgs: [ 32, 32 ],
+            largegs: [ 64, 64 ],
+            mediumgs: [ 50, 60 ],
+            badgeMedium: [ 53, 65 ],
+            badgeWide: [150, 20 ]
+        },
+        buttonTypes = [
+            'slim',
+            'icon',
+            'flat',
+            'small',
+            'large',
+            'medium',
+            'icongs',
+            'flatgs',
+            'smallgs',
+            'largegs',
+            'mediumgs',
+            'badgeMedium',
+            'badgeWide'
+        ];
+
+    window.onload = function () {
+        document.body.appendChild(mobbrDiv);
+    }
+
+    function createMobbrDiv() {
+        var div = document.createElement('div');
+        div.setAttribute('id', 'mobbr_div');
+        div.setAttribute('name', 'mobbr_div');
+        div.style.cssText = 'opacity:0.95;filter:alpha(opacity=95); display:none; position: fixed; border: 4px solid #999; background: none repeat scroll 0% 0% #fff; top: 8px; right: 8px; padding:15px 0px 0px 0px; width: 492px; height: 338px; z-index: 2147483647; border-radius: 10px; -moz-border-radius: 15px; -webkit-border-radius: 15px; -khtml-border-radius: 15px;';
+
+        var a = document.createElement('a');
+        a.style.cssText = 'float:right; position:relative; top:-17px; right:5px; text-decoration:none; font-size:7pt; color:black;font-family: Arial, Helvetica, sans-serif;';
+        a.onclick = hide;
+        a.innetText = '[close window] ';
+
+        var img = document.createElement('img');
+        img.style.cssText = 'position:relative;top:5px;width: 24px;height: 24px';
+        img.src = 'https://mobbr.com/img/frame_closebutton.png';
+        img.alt = 'Close button';
+
+        mobbrFrame = document.createElement('iframe');
+        mobbrFrame.setAttribute('name', 'mobbr_frame');
+        mobbrFrame.setAttribute('frameborder', '0');
+        mobbrFrame.style.cssText = 'position:relative;top:-10px;left:0;right:0;bottom:0;opacity:1;filter:alpha(opacity=100); width: 100%; height: 315px; padding:0; margin:0;';
+        mobbrFrame.src = ui_url + '/lightbox/#/';
+
+        a.appendChild(img);
+        div.appendChild(a);
+        div.appendChild(mobbrFrame);
+
+        return div;
+    }
+
+    function createButtonImage(url, onClick, button_type, currency) {
+
+        var img = document.createElement('img');
+        var button_size = buttonSizes[button_type];
+
+        if (currency) {
+            url += '/' + currency.toUpperCase();
+        }
+
+        img.style.cssText = 'cursor: pointer; cursor: hand; width: '+button_size.width+'px !important; height: '+button_size.height+'px !important';
+        img.className = 'mobbr_button';
+        img.onclick = onClick;
+        img.onclick = function (e) {
+            if (!badge) {
+                mobbr.makePayment(data, e.target);
+                return false;
+            } else {
+                window.open(badgeurls[1], '_blank');
+            }
+        }
+        img.src = url;
+        img.alt = 'Mobbr button';
+        img.title = 'Click to see payment info';
+
+        return img;
+    }
+
+    function createButton(data, button_type, currency) {
+
+        var md5_hash = '';
+
+        if (is_url(data)) {
+            md5_hash = hex_md5(data.replace(/\/$/, ""));
+        } else if (is_url(data.url)) {
+            md5_hash = hex_md5(data.url.replace(/\/$/, ""));
+        }
+
+        return createButtonImage(
+            api_url + '/button/' + md5_hash + '/' + button_type,
+            function (e) {
+                mobbr.makePayment(data, e.target);
+                return false;
+            },
+            button_type,
+            currency
+        );
+    }
+
+    function createBadge(data, button_type, currency) {
+
+        var urlparts,
+            type = button_type.replace('badge', '').toLowerCase();
+
+        if (is_url(data)) {
+            urlparts = data.split("://");
+        } else {
+            urlparts = data.url.split("://");
+        }
+
+        return createButtonImage(
+            api_url + '/badge/' + urlparts[0] + '/' + urlparts[1] + '/' + type,
+            function () {
+                window.open(ui_url + '/#/domain/' + rstr2b64(urlparts[0] + '://' + urlparts[1]) + '=', '_blank');
+            },
+            button_type,
+            currency
+        );
+    }
+
+    function drawButton(data, button_type, currency, target, position) {
+
+        var badge = (button_type === 'badgeMedium' || button_type === 'badgeWide') && true || false,
+            img,
+            target_obj,
+            scripts,
+            this_script;
+
+        data = checkData(data);
+
+        if (!badge) {
+            img = createButton(data, button_type, currency);
+        } else {
+            img = createBadge(data, button_type, currency);
+        }
+
+        if (typeof(target) != 'undefined') {
+            target_obj = target;
+            if (typeof(target) == 'string') {
+                target_obj = document.getElementById(target);
+            }
+            switch(position) {
+                case 'before':
+                    target_obj.parentNode.insertBefore(img, target_obj);
+                    break;
+                case 'replace':
+                    target_obj.parentNode.replaceChild(img, target_obj);
+                    break;
+                case 'append':
+                default:
+                    target_obj.appendChild(img);
+                    break;
+            }
+        } else {
+            // Add it next to the last script tag (should be current script tag in most cases)
+            scripts = document.getElementsByTagName('script');
+            this_script = scripts[scripts.length - 1];
+            this_script.parentNode.insertBefore(img, this_script);
+        }
+    }
+
+    function checkData(data) {
+
+        var url, links, metas, i;
+
+        if (is_url(data)) {
+            url = data;
+        } else if (data && data.url) {
+            url = data.url;
+        }
+
+        if (!url) {
+            links = document.getElementsByTagName("link");
+            for (i = 0; i < links.length; i++) {
+                if (links[i].getAttribute("rel").toLowerCase().replace(/^\s+|\s+$/g,"") === "canonical") {
+                    url = links[i].getAttribute("href").replace(/^\s+|\s+$/g,"").replace(/\/$/, "");
+                    break;
+                }
+            }
+        }
+
+        if (!url) {
+            metas = document.getElementsByTagName("meta");
+            for (i = 0; i < metas.length; i++) {
+                if (metas[i].getAttribute("property")) {
+                    if (metas[i].getAttribute("property").toLowerCase().replace(/^\s+|\s+$/g,'') === "og:url") {
+                        url = metas[i].getAttribute("content").replace(/^\s+|\s+$/g,'').replace(/\/$/, "");
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (!url) {
+            url = window.location.toString();
+        }
+
+        url = url.replace(/([^:])(\/\/+)/g, '$1/').replace(/[#\?\/]+$/, '');
+
+        if (!data) {
+            data = url;
+        }
+
+        if (!is_url(data) && !data.url) {
+            data.url = url
+        }
+
+        return data;
+    }
+
+    function setUrl(url) {
+        mobbrFrame.src = ui_url + '/lightbox/#/' + url ;
+    }
+
+    function hide() {
+        setUrl();
+        mobbrDiv.style.display = 'none';
+    }
+
+    function show(url, target) {
+        setUrl(url || '');
+        mobbrDiv.style.display = 'block';
+    }
+
+    return {
+
+        button: function (data, currency, button_type, target, positioning) {
+            currency = currency || false;
+            if (!in_array(button_type, buttonTypes)) {
+                button_type = 'medium';
+            }
+            drawButton(data, button_type, currency, target, positioning);
+        },
+
+        /**
+         * TODO: All calls below are not needed, everything can be called with button(), remove if calls are changed accordingly
+         */
+
+        buttonFlat: function(data, curr) { drawButton(data, 'flat', curr); },
+        buttonSmall: function(data, curr) { drawButton(data, 'small', curr); },
+        buttonLarge: function(data, curr) { drawButton(data, 'large', curr); },
+        buttonMedium: function(data, curr) { drawButton(data, 'medium', curr); },
+        buttonFlatGS: function(data, curr) { drawButton(data, 'flatgs', curr); },
+        buttonSmallGS: function(data, curr) { drawButton(data, 'smallgs', curr); },
+        buttonLargeGS: function(data, curr) { drawButton(data, 'largegs', curr); },
+        buttonMediumGS: function(data, curr) { drawButton(data, 'mediumgs', curr); },
+        buttonSlim: function(data, curr) { drawButton(data, 'slim', curr); },
+        buttonIcon: function(data, curr) { drawButton(data, 'icon', curr); },
+        badgeMedium: function(data, curr) { drawButton(data, 'badgeMedium', curr); },
+        badgeWide: function(data, curr) { drawButton(data, 'badgeWide', curr); },
+        hide: hide,
+        makePayment: function (data, target) { show('?hash=' + rstr2b64(data), target); },
+        login: function () { show('?login=true'); },
+        logout: function () { show('?logout=true'); }
     };
 })();
