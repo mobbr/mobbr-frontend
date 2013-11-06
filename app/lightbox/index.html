@@ -92,15 +92,39 @@
                 <h2 style="margin: 0 0 15px 0" ng-show="dologin" ng-bind="userSession.authenticated && 'Logged in as: ' + userSession.user.username || 'Login to Fast Moving Crowdwork'" + ></h2>
                 <div ng-show="!(dologin && userSession.authenticated)" id="login_form">
                     <form name="login_form" autocomplete="off" class="form-inline lightboxform">
-                        <p class="loginerror" ng-show="loginerror">
+                        <p class="loginerror alert alert-error" ng-show="loginerror">
                             Wrong email/password
                         </p>
-                        <span ng-show="marked != false && !userSession.authenticated">
+                        <p class="loginerror alert alert-error" ng-show="customerror" ng-bind="customerror"></p>
+                        <p id="newuser" ng-show="dologin || marked == undefined && !userSession.authenticated">
+                            New user or forgotten password? &rarr; <a href="/#/join" target="_blank">Go here</a>
+                        </p>
+                        <p ng-show="marked != false && !userSession.authenticated">
                             <input ng-model="email" type="email" name="email" placeholder="email address" autocomplete="off" class="input-medium">
                             <input ng-model="password" type="password" name="password" placeholder="password" autocomplete="off" class="input-medium">
+                        </p>
+                        <span ng-show="!dologin && marked == undefined">
+                            <select class="input-small"
+                                    ng-show="userSession.authenticated"
+                                    ng-model="currency"
+                                    ng-options="currenciesMap[value.currency_iso] for value in userCurrencies"
+                                    ng-change="paymentChanged(payment)"></select>
+                            <select class="input-small"
+                                    ng-show="!userSession.authenticated"
+                                    ng-model="currency"
+                                    ng-options="key as value for (key, value) in currenciesMap"
+                                    ng-change="paymentChanged(payment)"></select>
+                            <input class="input-small"
+                                   type="number"
+                                   ng-model="amount"
+                                   step="any"
+                                   min="0"
+                                   max="1000000000">
+                            <button ng-click="performPayment(login_form)" ng-show="!dologin" class="btn btn-primary">Pay now</button>
+                            <span> or </span>
                         </span>
                         <button ng-click="dologin && login(login_form, true, false) || !dologin && registerPayment(login_form)"
-                                ng-bind="urlData.meta_data.participants.length > 0 && 'Pay/donate' || 'Pledge'"
+                                ng-bind="urlData.meta_data.participants.length > 0 && 'Pay later' || 'Pledge'"
                                 ng-show="!dologin && marked == undefined || dologin == true"
                                 class="btn btn-success"
                                 title="Register this URL for payment. To actually pay, go to your dashboard">
@@ -108,9 +132,6 @@
                         <span ng-show="userSession.authenticated && marked == undefined" style="color:#666">
                             &larr; Will be placed on dashboard as 'pending'
                         </span>
-                        <div id="newuser" ng-show="dologin || marked == undefined && !userSession.authenticated">
-                            New user or forgotten password? &rarr; <a href="/#/join" target="_blank">Go here</a>
-                        </div>
                     </form>
                 </div>
                 <div ng-switch on="marked">
