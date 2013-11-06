@@ -68,7 +68,13 @@ angular.module('mobbr.controllers')
         }
 
         function perform() {
-            Gateway.performPayment({ referrer: document.referrer || 'http://zaplog.nl', hash: hash }, function (response) {
+            var currency = $scope.currency.currency_iso || $scope.currency;
+            Gateway.performPayment({
+                referrer: document.referrer || 'http://zaplog.nl',
+                currency: currency,
+                amount: $scope.amount,
+                hash: hash
+            }, function (response) {
                 $scope.marked = true;
             }, function (response) {
                 $scope.customerror = response.data.message.text;
