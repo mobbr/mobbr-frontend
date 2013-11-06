@@ -107,12 +107,12 @@
                             <select class="input-small"
                                     ng-show="userSession.authenticated"
                                     ng-model="currency"
-                                    ng-options="currenciesMap[value.currency_iso] for value in userCurrencies"
+                                    ng-options="value.currency_iso for value in userCurrencies"
                                     ng-change="paymentChanged(payment)"></select>
                             <select class="input-small"
                                     ng-show="!userSession.authenticated"
                                     ng-model="currency"
-                                    ng-options="key as value for (key, value) in currenciesMap"
+                                    ng-options="key as key for (key, value) in currenciesMap"
                                     ng-change="paymentChanged(payment)"></select>
                             <input class="input-small"
                                    type="number"

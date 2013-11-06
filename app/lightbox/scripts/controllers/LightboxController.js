@@ -59,7 +59,7 @@ angular.module('mobbr.controllers')
         }
 
         function register() {
-            Gateway.registerPayment({ referrer: 'https://mobbr.com/'/*document.referrer*/ || 'http://zaplog.nl', hash: hash }, function (response) {
+            Gateway.registerPayment({ referrer: document.referrer || 'http://zaplog.nl', hash: hash }, function (response) {
                 $scope.marked = true;
             }, function (response) {
                 $scope.errormessage = response.data && response.data.message && response.data.message.text;
@@ -68,7 +68,7 @@ angular.module('mobbr.controllers')
         }
 
         function perform() {
-            Gateway.performPayment({ referrer: 'https://mobbr.com/'/*document.referrer*/ || 'http://zaplog.nl', hash: hash }, function (response) {
+            Gateway.performPayment({ referrer: document.referrer || 'http://zaplog.nl', hash: hash }, function (response) {
                 $scope.marked = true;
             }, function (response) {
                 $scope.customerror = response.data.message.text;
