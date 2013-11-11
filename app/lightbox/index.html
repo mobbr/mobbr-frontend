@@ -100,7 +100,7 @@
                             <p ng-show="marked != false && !userSession.authenticated">
                                 <input ng-model="email" ng-disabled="userSession.authenticated" required type="email" name="email" placeholder="email address" autocomplete="off" class="input-medium">
                                 <input ng-model="password" ng-disabled="userSession.authenticated" required type="password" name="password" placeholder="password" autocomplete="off" class="input-medium">
-                                <button ng-disabled="!email || !password" ng-click="login(login_form, true, false)" ng-show="dologin" type="submit" class="btn btn-success">
+                                <button ng-disabled="!email || !password" ng-click="login(login_form, true, false)" ng-show="dologin" class="btn btn-success">
                                     Login
                                 </button>
                             </p>
