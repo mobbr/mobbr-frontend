@@ -86,7 +86,7 @@
 
                 if (login || logout) {
                     cookie = createCookie('mobbr-auth', login && e.data || 'deleted', logout && -1 || undefined);
-                    window.location.reload(true);
+                    //window.location.reload(true);
                 }
             }
 
