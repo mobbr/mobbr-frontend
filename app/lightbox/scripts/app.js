@@ -2,6 +2,7 @@
 
 angular.module('mobbr.controllers', []);
 angular.module('mobbr.directives', []);
+angular.module('mobbr.filters', []);
 
 angular.module('mobbr-lightbox', [
         'ui.bootstrap',
@@ -10,7 +11,8 @@ angular.module('mobbr-lightbox', [
         'mobbr.services.msg',
         'mobbr.services.mbr-api',
         'mobbr.services.storage',
-        'mobbr.services.user'
+        'mobbr.services.user',
+        'mobbr.filters'
     ]).run([
 
         '$http',

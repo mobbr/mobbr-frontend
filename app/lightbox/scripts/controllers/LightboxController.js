@@ -54,6 +54,7 @@ angular.module('mobbr.controllers')
             if (userSession.authenticated) {
                 Balances.balance(function (response) {
                     $scope.userCurrencies = response.result;
+                    $scope.currency = $scope.userCurrencies[0];
                 });
             }
         }
@@ -61,14 +62,16 @@ angular.module('mobbr.controllers')
         function register() {
             Gateway.registerPayment({ referrer: document.referrer || 'http://zaplog.nl', hash: hash }, function (response) {
                 $scope.marked = true;
+                $scope.laterpaying = undefined;
             }, function (response) {
                 $scope.errormessage = response.data && response.data.message && response.data.message.text;
                 $scope.marked = false;
+                $scope.laterpaying = undefined;
             });
         }
 
         function perform() {
-            var currency = $scope.currency.currency_iso || $scope.currency;
+            var currency = $scope.currency && $scope.currency.currency_iso || $scope.currency;
             Gateway.performPayment({
                 referrer: document.referrer || 'http://zaplog.nl',
                 currency: currency,
@@ -76,8 +79,10 @@ angular.module('mobbr.controllers')
                 hash: hash
             }, function (response) {
                 $scope.marked = true;
+                $scope.nowpaying = undefined;
             }, function (response) {
                 $scope.customerror = response.data.message.text;
+                $scope.nowpaying = undefined;
                 $timeout.cancel(logintimeout);
                 customtimeout = $timeout(function () {
                     $scope.customerror = undefined;
@@ -88,6 +93,7 @@ angular.module('mobbr.controllers')
         $scope.$on('$locationChangeSuccess', check);
 
         $scope.registerPayment = function (data) {
+            $scope.laterpaying = true;
             if (!userSession.authenticated) {
                 $scope.login(data, false, true);
             } else {
@@ -96,6 +102,8 @@ angular.module('mobbr.controllers')
         }
 
         $scope.performPayment = function (data) {
+            $scope.nowpaying = true;
+            console.log($scope.nowpaying);
             if (!userSession.authenticated) {
                 $scope.login(data, false, false, true);
             } else {
@@ -120,6 +128,7 @@ angular.module('mobbr.controllers')
             });
         }
 
+        $scope.currency = userSession.currency_iso;
         $scope.loading = true;
         $scope.userSession = userSession;
         //$scope.same_domain = strcmp( parse_url( $json['url'], PHP_URL_HOST), parse_url( $referrer, PHP_URL_HOST) ) == 0;

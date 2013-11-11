@@ -530,6 +530,10 @@ var mobbr = mobbr || (function () {
             }
             drawButton(data, button_type, currency, target, positioning);
         },
+        hide: hide,
+        makePayment: function (data, target) { show('?hash=' + rstr2b64(data), target); },
+        login: function () { show('?login=true'); },
+        logout: function () { show('?logout=true'); },
 
         /**
          * TODO: All calls below are not needed, everything can be called with button(), remove if calls are changed accordingly
@@ -546,10 +550,6 @@ var mobbr = mobbr || (function () {
         buttonSlim: function(data, curr) { drawButton(data, 'slim', curr); },
         buttonIcon: function(data, curr) { drawButton(data, 'icon', curr); },
         badgeMedium: function(data, curr) { drawButton(data, 'badgeMedium', curr); },
-        badgeWide: function(data, curr) { drawButton(data, 'badgeWide', curr); },
-        hide: hide,
-        makePayment: function (data, target) { show('?hash=' + rstr2b64(data), target); },
-        login: function () { show('?login=true'); },
-        logout: function () { show('?logout=true'); }
+        badgeWide: function(data, curr) { drawButton(data, 'badgeWide', curr); }
     };
 })();

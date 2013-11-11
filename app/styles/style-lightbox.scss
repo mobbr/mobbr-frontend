@@ -31,7 +31,7 @@
 @import "../components/sass-bootstrap/lib/_tables";
 
 // Components: common
-//@import "../components/sass-bootstrap/lib/_sprites";
+@import "../components/sass-bootstrap/lib/_sprites";
 //@import "../components/sass-bootstrap/lib/_dropdowns";
 @import "../components/sass-bootstrap/lib/_wells";
 @import "../components/sass-bootstrap/lib/_component-animations";
@@ -43,8 +43,8 @@
 @import "../components/sass-bootstrap/lib/_alerts"; // Note: alerts share common CSS with buttons and thus have styles in buttons
 
 // Components: Nav
-//@import "../../components/sass-bootstrap/lib/_navs";
-//@import "../../components/sass-bootstrap/lib/_navbar";
+//@import "../components/sass-bootstrap/lib/_navs";
+//@import "../components/sass-bootstrap/lib/_navbar";
 //@import "../../components/sass-bootstrap/lib/_breadcrumbs";
 //@import "../../components/sass-bootstrap/lib/_pagination";
 //@import "../../components/sass-bootstrap/lib/_pager";
