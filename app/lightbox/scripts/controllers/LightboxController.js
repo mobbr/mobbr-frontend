@@ -124,10 +124,10 @@ angular.module('mobbr.controllers')
                 }
             }, function (response) {
                 $scope.loginerror = true;
-                $timeout.cancel(logintimeout);
+                /*$timeout.cancel(logintimeout);
                 logintimeout = $timeout(function () {
                     $scope.loginerror = undefined;
-                }, 5000);
+                }, 5000);*/
             });
         }
 
