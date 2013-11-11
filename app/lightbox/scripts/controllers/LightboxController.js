@@ -31,7 +31,6 @@ angular.module('mobbr.controllers')
                         $scope.urlData = response.result;
                         $scope.noscript = $scope.urlData.meta_data['.scripts_found'] === undefined || $scope.urlData.meta_data['.scripts_found'].length === 0;
                         $scope.noparticipants = $scope.urlData.meta_data['participants'] === undefined || $scope.urlData.meta_data['participants'].length === 0;
-                        console.log($scope.noscript, $scope.noparticipants);
                         $scope.loading = false;
                     });
                 });
