@@ -360,14 +360,6 @@ var mobbr = mobbr || (function () {
         img.style.cssText = 'cursor: pointer; cursor: hand; width: '+button_size.width+'px !important; height: '+button_size.height+'px !important';
         img.className = 'mobbr_button';
         img.onclick = onClick;
-        img.onclick = function (e) {
-            if (!badge) {
-                mobbr.makePayment(data, e.target);
-                return false;
-            } else {
-                window.open(badgeurls[1], '_blank');
-            }
-        }
         img.src = url;
         img.alt = 'Mobbr button';
         img.title = 'Click to see payment info';
