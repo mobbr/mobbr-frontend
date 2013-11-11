@@ -111,3 +111,7 @@ $btnPrimaryBackgroundHighlight:     darken($mobbrblue, 5%);
 .accordion-toggle:hover {
   text-decoration: none;
 }
+
+.special.well {
+  background: whitesmoke url(../img/mobbr-ripple.png) no-repeat top right;
+}
