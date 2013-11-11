@@ -30,6 +30,7 @@ angular.module('mobbr.controllers')
                     Url.fullData({ hash: hash }, function (response) {
                         $scope.urlData = response.result;
                         $scope.noscript = $scope.urlData['participants'] === undefined || $scope.urlData['participants'].length === 0;
+                        $scope.noparticipants = $scope.urlData['participants'] === undefined || $scope.urlData['participants'].length === 0
                         $scope.loading = false;
                     });
                 });
