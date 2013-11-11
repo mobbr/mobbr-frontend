@@ -15,12 +15,12 @@ angular.module('mobbr.services.storage', [
                 authorization = $localStorage.authorization;
                 user = $localStorage.user;
                 setAuthorization();
-                $rootScope.$emit('userStorage:login-external', user);
                 console.log('external login');
+                $rootScope.$emit('userStorage:login-external', user);
             } else if (!value && authorization) {
                 clear();
-                $rootScope.$emit('userStorage:logout-external');
                 console.log('external logout');
+                $rootScope.$emit('userStorage:logout-external');
             }
         }
 
@@ -32,8 +32,8 @@ angular.module('mobbr.services.storage', [
                 $localStorage.authorization = authorization;
                 setAuthorization();
             }
-            $rootScope.$emit('userStorage:saved');
             console.log('storage save');
+            $rootScope.$emit('userStorage:saved');
         }
 
         function clear() {
@@ -42,8 +42,8 @@ angular.module('mobbr.services.storage', [
             delete $localStorage.authorization;
             delete $localStorage.user;
             delete $sessionStorage.user;
-            $rootScope.$emit('userStorage:cleared');
             console.log('storage clear');
+            $rootScope.$emit('userStorage:cleared');
         }
 
         function setAuthorization() {
@@ -68,6 +68,7 @@ angular.module('mobbr.services.storage', [
 
         if (!$localStorage.user) {
             if ($window.parent && $window.parent.postMessage) {
+                console.log('post logout message');
                 $window.parent.postMessage('logout', '*');
             }
         }

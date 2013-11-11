@@ -16,8 +16,8 @@ angular.module('mobbr.services.user', [
 
                 userSession.authenticated = true;
                 userSession.user = user;
-                $rootScope.$emit('userSession:login', user);
                 console.log('user login');
+                $rootScope.$emit('userSession:login', user);
 
                 if (notifyParent) {
                     // if we are in an iframe we let our parent know we are logged in
@@ -32,15 +32,19 @@ angular.module('mobbr.services.user', [
                 var $route = $injector.get('$route'),
                     route = $route.current && $route.current.$route;
 
+                console.log('authenticate user');
+
                 if (route && route.authsettings && route.authsettings.authenticated !== this.authenticated) {
 
                     route.authsettings.redirectTo && $location.path(route.authsettings.redirectTo);
                     if (this.authenticated === false) Msg.addNotification('Please login at the account menu');
+                    console.log('user not authenticated');
 
                     return false;
 
                 } else {
 
+                    console.log('user authenticated');
                     return true;
                 }
             }
@@ -50,8 +54,8 @@ angular.module('mobbr.services.user', [
 
             userSession.user = undefined;
             userSession.authenticated = false;
-            $rootScope.$emit('userSession:logout');
             console.log('user logout');
+            $rootScope.$emit('userSession:logout');
 
             if (notifyParent) {
                 // if we are in an iframe we let our parent know we are logged in
@@ -62,6 +66,7 @@ angular.module('mobbr.services.user', [
         }
 
         function reload() {
+            console.log('reload route');
             $injector.get('$route').reload();
         }
 
