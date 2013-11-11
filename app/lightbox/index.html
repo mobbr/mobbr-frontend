@@ -153,7 +153,7 @@
                                 <img ng-src="{{ urlData.meta_data.image }}" class="pull-left" width="100">
                                 <div ng-bind="urlData.meta_data.description"></div>
                             </accordion-group>
-                            <accordion-group class="nowrap-header" ng-show="$parent.urlData.meta_data.participants.length > 0" is-open="false">
+                            <accordion-group class="nowrap-header" ng-show="!noscript && !noparticipants" is-open="false">
                                 <accordion-heading>
                                     <span class="headlabel">Participants:</span>
                                     <ul class="inline gravatar-heading">
@@ -165,7 +165,7 @@
                                 <mobbrtable entries="urlData.meta_data.participants"
                                             columns="['.gravatar','.x-id','role','.percentage']"></mobbrtable>
                             </accordion-group>
-                            <accordion-group is-open="false">
+                            <accordion-group is-open="false" ng-show="!noscript">
                                 <accordion-heading>
                                     <span class="headlabel" ng-bind="(urlData.meta_data.participants.length > 0 && 'History' || 'Pledged') + ':'"></span>
                                     <ul class="inline gravatar-heading">
