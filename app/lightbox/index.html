@@ -91,7 +91,7 @@
             <div>
                 <h2 style="margin: 0 0 15px 0" ng-show="dologin" ng-bind="userSession.authenticated && 'Logged in as: ' + userSession.user.username || 'Login to Fast Moving Crowdwork'" + ></h2>
                 <div ng-show="!(dologin && userSession.authenticated)" id="login_form">
-                    <form ng-submit="performPayment(login_form)" name="login_form" autocomplete="off" class="form-inline lightboxform">
+                    <form name="login_form" autocomplete="off" class="form-inline lightboxform">
                         <fieldset ng-disabled="laterpaying || nowpaying">
                             <p class="loginerror alert alert-error" ng-show="loginerror">
                                 Wrong email/password
@@ -100,6 +100,9 @@
                             <p ng-show="marked != false && !userSession.authenticated">
                                 <input ng-model="email" ng-disabled="userSession.authenticated" required type="email" name="email" placeholder="email address" autocomplete="off" class="input-medium">
                                 <input ng-model="password" ng-disabled="userSession.authenticated" required type="password" name="password" placeholder="password" autocomplete="off" class="input-medium">
+                                <button ng-disabled="!email || !password" ng-click="login(login_form, true, false)" ng-show="dologin" type="submit" class="btn btn-success">
+                                    Login
+                                </button>
                             </p>
                             <p id="newuser" ng-show="dologin || marked == undefined && !userSession.authenticated">
                                 New user or forgotten password? &rarr; <a href="/#/join" target="_blank">Go here</a>
@@ -124,26 +127,29 @@
                                    step="any"
                                    min="0"
                                    max="1000000000">
-                            <button ng-disabled="nowpaying || laterpaying" ng-show="!dologin" type="submit" class="btn btn-primary">
-                                <span ng-bind="!noscript && noparticipants && 'Pledge now' || 'Pay now'"></span>
-                                <i class="icon-white mobbrloader" ng-show="nowpaying"></i>
+                            <button ng-disabled="nowpaying || laterpaying || (!userSession.authenticated && (!email || !password))"
+                                    ng-show="!dologin"
+                                    ng-click="performPayment(login_form)"
+                                    ng-class="{ 'btn-success': !noscript && noparticipants, 'btn-primary': !noparticipants  }"
+                                    class="btn">
+                                <span ng-bind="!noscript && noparticipants && 'Pledge' || 'Pay'"></span>
                             </button>
                             <span> &nbsp;&nbsp;or&nbsp;&nbsp; </span>
                         </span>
-                            <button ng-click="dologin && login(login_form, true, false) || !dologin && registerPayment(login_form)"
-                                    ng-show="!dologin && marked == undefined || dologin == true"
-                                    ng-disabled="amount || nowpaying || laterpaying"
-                                    class="btn btn-success"
+                            <button ng-click="!dologin && registerPayment(login_form)"
+                                    ng-show="!dologin && marked == undefined"
+                                    ng-disabled="amount || nowpaying || laterpaying || (!userSession.authenticated && (!email || !password))"
+                                    ng-class="{ 'btn-success': !noscript && noparticipants, 'btn-primary': !noparticipants  }"
+                                    class="btn"
                                     title="Register this URL for payment. To actually pay, go to your dashboard">
-                                <span ng-bind="!noscript && noparticipants && 'Pledge later' || 'Pay later'"></span>
-                                <i class="icon-white mobbrloader" ng-show="laterpaying"></i>
+                                Save for later
                             </button>
                         </fieldset>
                     </form>
                 </div>
-                <div ng-switch on="marked">
+                <div ng-switch on="marked" ng-show="!dologin">
                     <div ng-switch-when="undefined">
-                        <div class="well" ng-bind="urlData.meta_data.message"></div>
+                        <div class="well" ng-bind="urlData.meta_data.message || urlData.meta_data.description"></div>
                         <accordion close-others="true">
                             <accordion-group is-open="false">
                                 <accordion-heading>
@@ -153,7 +159,7 @@
                                 <img ng-src="{{ urlData.meta_data.image }}" class="pull-left" width="100">
                                 <div ng-bind="urlData.meta_data.description"></div>
                             </accordion-group>
-                            <accordion-group class="nowrap-header" ng-show="urlData.meta_data['participants'].length > 0" is-open="false">
+                            <accordion-group class="nowrap-header" ng-show="!$parent.noscript && !$parent.noparticipants" is-open="false">
                                 <accordion-heading>
                                     <span class="headlabel">Participants:</span>
                                     <ul class="inline gravatar-heading">
