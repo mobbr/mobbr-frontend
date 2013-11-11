@@ -149,7 +149,7 @@
                 </div>
                 <div ng-switch on="marked" ng-show="!dologin">
                     <div ng-switch-when="undefined">
-                        <div class="well" ng-bind="urlData.meta_data.message || urlData.meta_data.description"></div>
+                        <div class="well special" ng-bind="urlData.meta_data.message || urlData.meta_data.description"></div>
                         <accordion close-others="true">
                             <accordion-group is-open="false">
                                 <accordion-heading>
