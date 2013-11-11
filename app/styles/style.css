@@ -39,6 +39,11 @@
   text-decoration: none;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-variables\.scss}line{font-family:\00003115}}
+.special.well {
+  background: whitesmoke url(../img/mobbr-ripple.png) no-repeat top right;
+}
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/components\/sass-bootstrap\/lib\/_reset\.scss}line{font-family:\0000319}}
 article,
 aside,
@@ -6943,56 +6948,51 @@ table th {
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003104}}
-.special.well {
-  background: whitesmoke url(../img/mobbr-ripple.png) no-repeat top right;
-}
-
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003108}}
 .payments .alert {
   margin: 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003112}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003108}}
 .pusher {
   background: white url(../img/mobbr-ripple.jpg) no-repeat left -65px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003116}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003112}}
 .labelwidth {
   width: 120px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003120}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003116}}
 .privacy-settings .control-group:after {
   clear: none;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003124}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003120}}
 .privacy-settings .well {
   height: 22em;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003128}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003124}}
 .accordion-inner {
   border-top: 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003132}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003128}}
 .use-cases .well h6 {
   margin: 0 1em 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003136}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003132}}
 .use-cases .well p {
   margin: 0 2em;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003140}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003136}}
 .mobbr_button {
   cursor: pointer;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003144}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003140}}
 .receipt h6 {
   float: left;
   width: 100px;
@@ -7000,52 +7000,52 @@ table th {
   text-align: right;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003151}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003147}}
 .customicon {
   height: 16px;
   opacity: .6;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003156}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003152}}
 .customicon:hover {
   opacity: 1;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003160}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003156}}
 .join {
   margin-right: 19px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003164}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003160}}
 .hero-unit .lead {
   padding: 15px 0;
   color: #999999;
   font-family: "Open Sans", sans-serif;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003170}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003166}}
 .apitable {
   color: #009ee0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003174}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003170}}
 h1, h2, h3 {
   font-family: "Open Sans Condensed", sans-serif;
   font-weight: normal;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003179}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003175}}
 .hero-unit h1 {
   font-size: 4em;
   line-height: 1.2em;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003184}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003180}}
 .bookmarklet {
   color: #009ee0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003188}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003184}}
 .home-button {
   display: inline-block;
   width: 103px;
@@ -7055,39 +7055,39 @@ h1, h2, h3 {
   color: #333333;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003197}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003193}}
 .home-button:hover {
   text-decoration: none;
   color: #333333;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003202}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003198}}
 .tagline {
   color: #999999;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003206}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003202}}
 .tagline p {
   font-size: 1.3em;
   font-family: "Open Sans", sans-serif;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003211}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003207}}
 .introtext p {
   color: #555555;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003215}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003211}}
 pre {
   font-size: .8em;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003219}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003215}}
 .navbar-fixed-top .navbar-inner {
   box-shadow: 0 2px 0 0 #000;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003223}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003219}}
 .atlwdg-trigger {
   left: auto !important;
   top: auto !important;
@@ -7100,13 +7100,13 @@ pre {
   -o-transform: none;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003238}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003234}}
 .top-urls .domain-image,
 .top-urls .mobbr_button {
   max-height: 40px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003243}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003239}}
 #mobbr_div {
   opacity: 0.95;
   position: fixed;
@@ -7118,27 +7118,27 @@ pre {
   z-index: 2147483647;
   border-radius: 10px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003254}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003250}}
 #mobbr_div.small {
   width: 492px;
   height: 338px;
   bottom: auto;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003259}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003255}}
 #mobbr_div.small iframe {
   height: 315px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003264}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003260}}
 #mobbr_div.full {
   width: 760px;
   height: 550px;
   bottom: auto;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003269}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003265}}
 #mobbr_div.full iframe {
   height: 527px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003274}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003270}}
 #mobbr_div .close {
   float: right;
   position: relative;
@@ -7149,14 +7149,14 @@ pre {
   color: black;
   font-family: Arial,Helvetica,sans-serif;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003284}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003280}}
 #mobbr_div .close img {
   position: relative;
   top: 5px;
   width: 24px;
   height: 24px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003292}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003288}}
 #mobbr_div iframe {
   position: relative;
   top: -10px;
@@ -7169,34 +7169,34 @@ pre {
   margin: 0px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003309}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003305}}
 .ng-cloak {
   display: none;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003313}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003309}}
 .balancesub span {
   text-transform: none;
   font-weight: normal;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003318}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003314}}
 .tab-content {
   min-height: 400px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003322}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003318}}
 .mobbrloader {
   background-image: url(../img/mobbrloader.gif);
   background-size: cover;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003327}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003323}}
 .ui-pnotify-history-container {
   display: none;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003331}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003327}}
 .ui-pnotify {
   left: 10px;
   top: 80px;
