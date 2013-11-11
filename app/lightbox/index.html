@@ -91,47 +91,51 @@
             <div>
                 <h2 style="margin: 0 0 15px 0" ng-show="dologin" ng-bind="userSession.authenticated && 'Logged in as: ' + userSession.user.username || 'Login to Fast Moving Crowdwork'" + ></h2>
                 <div ng-show="!(dologin && userSession.authenticated)" id="login_form">
-                    <form name="login_form" autocomplete="off" class="form-inline lightboxform">
-                        <p class="loginerror alert alert-error" ng-show="loginerror">
-                            Wrong email/password
-                        </p>
-                        <p class="loginerror alert alert-error" ng-show="customerror" ng-bind="customerror"></p>
-                        <p id="newuser" ng-show="dologin || marked == undefined && !userSession.authenticated">
-                            New user or forgotten password? &rarr; <a href="/#/join" target="_blank">Go here</a>
-                        </p>
-                        <p ng-show="marked != false && !userSession.authenticated">
-                            <input ng-model="email" type="email" name="email" placeholder="email address" autocomplete="off" class="input-medium">
-                            <input ng-model="password" type="password" name="password" placeholder="password" autocomplete="off" class="input-medium">
-                        </p>
+                    <form ng-submit="performPayment(login_form)" name="login_form" autocomplete="off" class="form-inline lightboxform">
+                        <fieldset ng-disabled="laterpaying || nowpaying">
+                            <p class="loginerror alert alert-error" ng-show="loginerror">
+                                Wrong email/password
+                            </p>
+                            <p class="loginerror alert alert-error" ng-show="customerror" ng-bind="customerror"></p>
+                            <p id="newuser" ng-show="dologin || marked == undefined && !userSession.authenticated">
+                                New user or forgotten password? &rarr; <a href="/#/join" target="_blank">Go here</a>
+                            </p>
+                            <p ng-show="marked != false && !userSession.authenticated">
+                                <input ng-model="email" ng-disabled="userSession.authenticated" required type="email" name="email" placeholder="email address" autocomplete="off" class="input-medium">
+                                <input ng-model="password" ng-disabled="userSession.authenticated" required type="password" name="password" placeholder="password" autocomplete="off" class="input-medium">
+                            </p>
                         <span ng-show="!dologin && marked == undefined">
                             <select class="input-small"
+                                    required
                                     ng-show="userSession.authenticated"
                                     ng-model="currency"
                                     ng-options="value.currency_iso for value in userCurrencies"
                                     ng-change="paymentChanged(payment)"></select>
                             <select class="input-small"
+                                    required
                                     ng-show="!userSession.authenticated"
                                     ng-model="currency"
                                     ng-options="key as key for (key, value) in currenciesMap"
                                     ng-change="paymentChanged(payment)"></select>
                             <input class="input-small"
+                                   required
                                    type="number"
                                    ng-model="amount"
                                    step="any"
                                    min="0"
                                    max="1000000000">
-                            <button ng-click="performPayment(login_form)" ng-show="!dologin" class="btn btn-primary">Pay now</button>
-                            <span> or </span>
+                            <button ng-disabled="nowpaying || laterpaying" ng-show="!dologin" type="submit" class="btn btn-primary">Pay now  <i class="icon-white mobbrloader" ng-show="nowpaying"></i></button>
+                            <span> &nbsp;&nbsp;&nbsp;or&nbsp;&nbsp;&nbsp; </span>
                         </span>
-                        <button ng-click="dologin && login(login_form, true, false) || !dologin && registerPayment(login_form)"
-                                ng-bind="urlData.meta_data.participants.length > 0 && 'Pay later' || 'Pledge'"
-                                ng-show="!dologin && marked == undefined || dologin == true"
-                                class="btn btn-success"
-                                title="Register this URL for payment. To actually pay, go to your dashboard">
-        \                </button>
-                        <span ng-show="userSession.authenticated && marked == undefined" style="color:#666">
-                            &larr; Will be placed on dashboard as 'pending'
-                        </span>
+                            <button ng-click="dologin && login(login_form, true, false) || !dologin && registerPayment(login_form)"
+                                    ng-show="!dologin && marked == undefined || dologin == true"
+                                    ng-disabled="amount || nowpaying || laterpaying"
+                                    class="btn btn-success"
+                                    title="Register this URL for payment. To actually pay, go to your dashboard">
+                                <span ng-bind="urlData.meta_data.participants.length > 0 && 'Pay later' || 'Pledge'"></span>
+                                <i class="icon-white mobbrloader" ng-show="laterpaying"></i>
+                            </button>
+                        </fieldset>
                     </form>
                 </div>
                 <div ng-switch on="marked">
@@ -141,7 +145,7 @@
                             <accordion-group is-open="false">
                                 <accordion-heading>
                                     <span class="headlabel">Item:</span>
-                                    <strong ng-show="!isOpen" ng-bind="urlData.meta_data.title"></strong>
+                                    <strong ng-show="!isOpen" ng-bind="urlData.meta_data.title" class="itemtitle"></strong>
                                 </accordion-heading>
                                 <img ng-src="{{ urlData.meta_data.image }}" class="pull-left" width="100">
                                 <div ng-bind="urlData.meta_data.description"></div>
@@ -202,6 +206,7 @@
         <!-- endbuild -->
         <!-- build:js ../scripts/mobbr-lightbox.js -->
         <script src="scripts/app.js"></script>
+        <script src="../scripts/filters/mobbrcurrency.js"></script>
         <script src="../scripts/directives/decorateAmount.js"></script>
         <script src="../scripts/directives/placeholder.js"></script>
         <script src="../scripts/directives/mobbrtable.js"></script>

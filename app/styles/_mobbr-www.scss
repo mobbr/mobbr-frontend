@@ -89,11 +89,6 @@ table th {
   margin: 1em 0 0 0;
 }
 
-.mobbrloader {
-  background: url(../img/mobbrloader.gif);
-  background-size: cover;
-}
-
 .accordion-toggle.muted {
   cursor: default;
 }
@@ -322,4 +317,9 @@ pre {
 
 .tab-content {
   min-height: 400px;
+}
+
+.mobbrloader {
+  background-image: url(../img/mobbrloader.gif);
+  background-size: cover;
 }
