@@ -106,7 +106,6 @@ angular.module('mobbr.controllers')
 
         $scope.performPayment = function (data) {
             $scope.nowpaying = true;
-            console.log($scope.nowpaying);
             if (!userSession.authenticated) {
                 $scope.login(data, false, false, true);
             } else {
