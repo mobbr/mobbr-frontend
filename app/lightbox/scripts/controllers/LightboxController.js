@@ -123,6 +123,8 @@ angular.module('mobbr.controllers')
                 }
             }, function (response) {
                 $scope.loginerror = true;
+                $scope.laterpaying = undefined;
+                $scope.nowpaying = undefined;
                 /*$timeout.cancel(logintimeout);
                 logintimeout = $timeout(function () {
                     $scope.loginerror = undefined;
