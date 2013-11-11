@@ -29,8 +29,9 @@ angular.module('mobbr.controllers')
                     hash = response.result;
                     Url.fullData({ hash: hash }, function (response) {
                         $scope.urlData = response.result;
-                        $scope.noscript = $scope.urlData['participants'] === undefined || $scope.urlData['participants'].length === 0;
-                        $scope.noparticipants = $scope.urlData['participants'] === undefined || $scope.urlData['participants'].length === 0
+
+                        $scope.noscript = $scope.urlData['.scripts_found'] === undefined || $scope.urlData['.scripts_found'].length === 0;
+                        $scope.noparticipants = !$scope.noscript && ($scope.urlData['participants'] === undefined || $scope.urlData['participants'].length === 0);
                         $scope.loading = false;
                     });
                 });

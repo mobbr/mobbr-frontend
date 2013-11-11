@@ -124,7 +124,10 @@
                                    step="any"
                                    min="0"
                                    max="1000000000">
-                            <button ng-disabled="nowpaying || laterpaying" ng-show="!dologin" type="submit" class="btn btn-primary">Pay now  <i class="icon-white mobbrloader" ng-show="nowpaying"></i></button>
+                            <button ng-disabled="nowpaying || laterpaying" ng-show="!dologin" type="submit" class="btn btn-primary">
+                                <span ng-bind="!noscript && noparticipants && 'Pledge now' || 'Pay now'"></span>
+                                <i class="icon-white mobbrloader" ng-show="nowpaying"></i>
+                            </button>
                             <span> &nbsp;&nbsp;&nbsp;or&nbsp;&nbsp;&nbsp; </span>
                         </span>
                             <button ng-click="dologin && login(login_form, true, false) || !dologin && registerPayment(login_form)"
@@ -132,7 +135,7 @@
                                     ng-disabled="amount || nowpaying || laterpaying"
                                     class="btn btn-success"
                                     title="Register this URL for payment. To actually pay, go to your dashboard">
-                                <span ng-bind="urlData.meta_data.participants.length > 0 && 'Pay later' || 'Pledge'"></span>
+                                <span ng-bind="!noscript && noparticipants && 'Pledge later' || 'Pay later'"></span>
                                 <i class="icon-white mobbrloader" ng-show="laterpaying"></i>
                             </button>
                         </fieldset>
@@ -140,7 +143,7 @@
                 </div>
                 <div ng-switch on="marked">
                     <div ng-switch-when="undefined">
-                        <div class="well" ng-show="!(urlData.meta_data.participants.length > 0)" ng-bind="urlData.meta_data.message"></div>
+                        <div class="well" ng-bind="urlData.meta_data.message"></div>
                         <accordion close-others="true">
                             <accordion-group is-open="false">
                                 <accordion-heading>
