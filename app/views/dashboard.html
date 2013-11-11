@@ -193,9 +193,9 @@
                     <tr ng-repeat="balance in balances | orderBy:sortEntries:sortOrderBalance | filter:searchBalanceEntries"  ng-class-odd="'odd'" ng-class-even="'even'">
                         <td ng-bind="currencyDescription(balance.currency_iso)"></td>
                         <td ng-bind="balance.currency_iso" class="currency"></td>
-                        <td ng-bind="balance.amount | number:4" class="amount decorate-amount"></td>
-                        <td ng-bind="balance.fee | number:4" class="amount decorate-amount"></td>
-                        <td ng-bind="balance.spendable | number:4" class="amount decorate-amount"></td>
+                        <td ng-bind="balance.amount" class="amount decorate-amount"></td>
+                        <td ng-bind="balance.fee" class="amount decorate-amount"></td>
+                        <td ng-bind="balance.spendable" class="amount decorate-amount"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -219,7 +219,7 @@
                         <td ng-bind="mutation.paiddatetime || mutation.announceddatetime" class="datetime {{ !mutation.paiddatetime && 'muted' }}"></td>
                         <td ng-bind="mutation.payment_service"></td>
                         <td ng-bind="mutation.currency_iso" class="currency"></td>
-                        <td ng-bind="mutation.amount | number:4" class="amount decorate-amount"></td>
+                        <td ng-bind="mutation.amount" class="amount decorate-amount"></td>
                         <td class="amount"></td>
                         <td class="amount"></td>
                     </tr>

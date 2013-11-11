@@ -1,22 +1,24 @@
 <div>
-    <form ng-show="hasSearch && entries.length > 0" class="form-inline">
-        <label for="search">Search: </label>
-        <input ng-model="searchEntries" class="search-query" type="search" id="search">
-    </form>
-
     <div ng-show="noEntries && entries.length == 0"
          ng-bind="noEntries || 'No entries found'"
          class="alert alert-info" ></div>
 
-    <div ng-show="entries.length > 10" class="pull-right">
-        <label for="show">Entries: </label>
-        <select ng-model="showEntries" class="input-small" id="show">
-            <option value="10">10</option>
-            <option value="25">25</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
-        </select>
+    <div class="pull-right">
+        <div ng-show="hasSearch && entries.length > 0">
+            <input ng-model="searchEntries" placeholder="Search" class="search-query" type="search" id="search">
+        </div>
+        <div ng-show="entries.length > 10" class="pull-right">
+            <label for="show">Entries: </label>
+            <select ng-model="showEntries" class="input-small" id="show">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
+        </div>
     </div>
+
+
 
     <table ng-show="entries.length > 0" class="table table-striped">
         <thead>
@@ -25,7 +27,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="entry in entries | orderBy:sortEntries:sortOrder | filter:searchEntries">
+        <tr ng-repeat="entry in entries | orderBy:sortEntries:sortOrder | limitTo:showEntries | filter:searchEntries">
             <td ng-repeat="column in columns" type="column" ng-switch on="column">
                 <img ng-switch-when="gravatar"
                      ng-src="https://secure.gravatar.com/avatar/{{ entry.gravatar }}?s=50&default=https://mobbr.com/img/default-gravatar.png"
@@ -33,7 +35,7 @@
                 <img ng-switch-when=".gravatar"
                      ng-src="https://secure.gravatar.com/avatar/{{ entry['.gravatar'] }}?s=30&default=https://mobbr.com/img/default-gravatar.png"
                      class="gravatar img-rounded">
-                <span ng-switch-when="amount" ng-class="{ 'text-error': entry.amount < 0 }" class="nowrap" ng-bind="parseAmount(entry.currency_iso, entry.amount)"></span>
+                <span ng-switch-when="amount" ng-bind="entry.amount | mobbrcurrency:entry.currency_iso" ng-class="{ 'text-error': entry.amount < 0 }" class="nowrap"></span>
                 <span ng-switch-when=".percentage" ng-bind="(entry['.percentage'] | number:0) + '%'"></span>
                 <span ng-switch-default ng-bind="entry[column]"></span>
             </td>

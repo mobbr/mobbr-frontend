@@ -2,6 +2,7 @@
 
 angular.module('mobbr.controllers', []);
 angular.module('mobbr.directives', []);
+angular.module('mobbr.filters', []);
 
 /**
  * Prevent the dropdown from closing when an input is clicked, fix this nicer, perhaps make a push request to angular ui team
@@ -57,6 +58,7 @@ angular.module('mobbr', [
         'mobbr.services.user',
         'mobbr.services.storage',
         'mobbr.directives',
+        'mobbr.filters',
         'ngCookies'
 
     ]).config([

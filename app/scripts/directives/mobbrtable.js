@@ -36,18 +36,9 @@ angular.module('mobbr.directives').directive('mobbrtable', function factory(user
             $scope.labels = labels;
             $scope.sortables = sortables;
             $scope.sortOrder = false;
+            $scope.showEntries = 10;
             $scope.hasSearch = $scope.$eval($attrs.hasSearch) === false && false || true;
             $scope.columns = $scope.$eval($attrs.columns);
-
-            $scope.parseAmount = function (currency, amount) {
-                var negative;
-                amount = parseFloat(amount);
-                negative = amount < 0;
-                amount = Math.abs(amount);
-                if (amount.toLocaleString !== undefined) {
-                    return (negative ? '-' : '') + currency + ('' + Math.abs(amount).toFixed(2));
-                }
-            }
 
             $scope.sort = function (column) {
                 if (sortables[column]) {
