@@ -57,6 +57,8 @@ angular.module('mobbr.controllers')
                     $scope.userCurrencies = response.result;
                     $scope.currency = $scope.userCurrencies[0];
                 });
+            } else {
+                $scope.currency = 'EUR';
             }
         }
 
