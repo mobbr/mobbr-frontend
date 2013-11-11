@@ -7191,6 +7191,17 @@ pre {
   background-size: cover;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003327}}
+.ui-pnotify-history-container {
+  display: none;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003331}}
+.ui-pnotify {
+  left: 10px;
+  top: 80px;
+}
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/components\/sass-bootstrap\/lib\/_utilities\.scss}line{font-family:\000037}}
 .pull-right {
   float: right;
