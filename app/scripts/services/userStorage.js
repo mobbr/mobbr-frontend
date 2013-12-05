@@ -54,6 +54,7 @@ angular.module('mobbr.services.storage', [
         $rootScope.$watch('$storage.authorization', sync);
         $rootScope.$on('userSession:login', save);
         $rootScope.$on('userSession:logout', clear);
+        $rootScope.$on('userSession:update', save);
 
         /*
 

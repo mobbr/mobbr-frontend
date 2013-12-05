@@ -12,9 +12,13 @@ angular.module('mobbr.services.user', [
         var userSession = {
             authenticated: false,
             user: undefined,
+            update: function (user) {
+                userSession.user = user;
+                console.log('user update');
+                $rootScope.$emit('userSession:update', user);
+            },
             doLogin: function (user, notifyParent) {
 
-                console.log(user);
                 userSession.authenticated = true;
                 userSession.user = user;
                 console.log('user login');
@@ -31,7 +35,7 @@ angular.module('mobbr.services.user', [
             authenticate: function () {
 
                 var $route = $injector.get('$route'),
-                    route = $route.current && $route.current.$route;
+                    route = $route.current && $route.current.$$route;
 
                 console.log('authenticate user');
 
