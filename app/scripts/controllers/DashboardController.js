@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('DashboardController', function ($scope, $rootScope, Balances,userSession, Util, Dashboard, Msg, PaymentNetwork, $window, $routeParams) {
+angular.module('mobbr.controllers').controller('DashboardController', function ($scope, $rootScope, Balances,userSession, Util, Dashboard, Msg, PaymentNetwork, $window, $routeParams, $location) {
 
     $scope.searchentries;                // filter on search criteria
     //$scope.searchentriesAllPayments;                // filter on search criteria
@@ -93,7 +93,9 @@ angular.module('mobbr.controllers').controller('DashboardController', function (
     }*/
 
     if ($routeParams.transactionId) {
-        PaymentNetwork.confirmDeposit({ trx_id: $routeParams.transactionId }, $scope.reloadBalances);
+        PaymentNetwork.confirmDeposit({ trx_id: $routeParams.transactionId }, function () {
+            $location.search('transactionId', null);
+        });
     }
 
     $scope.networks = {
