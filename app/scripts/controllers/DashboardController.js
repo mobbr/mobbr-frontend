@@ -92,7 +92,26 @@ angular.module('mobbr.controllers').controller('DashboardController', function (
         });
     }*/
 
-    PaymentNetwork.networks(function (response) {
+    $scope.networks = {
+        btc: {
+            name: 'Bitcoin',
+            currencies: [ 'BTC' ],
+            default_currency: 'BTC'
+        },
+        iban: {
+            name: 'IBAN',
+            currencies: [ 'USD', 'GBP', 'CHF', 'SEK', 'NOK', 'DKK', 'EUR', 'PLN' ],
+            default_currency: 'EUR'
+        }
+    };
+
+    $scope.$watch('network_method', function (oldval, newval) {
+        $scope.withdraw_currency = $scope.network_method.default_currency;
+    }, true);
+
+    $scope.network_method = $scope.networks['iban'];
+
+    /*PaymentNetwork.networks(function (response) {
 
         var i = 0,
             l = response.result.length;
@@ -134,7 +153,7 @@ angular.module('mobbr.controllers').controller('DashboardController', function (
             $scope.waitingwithdraw = false;
             Msg.setResponseMessage('error', 'Could not send payment', response);
         });
-    }
+    }*/
 
     /*$scope.getAddresses = function (network) {
         return PaymentNetwork.accountAddresses({ network: network });

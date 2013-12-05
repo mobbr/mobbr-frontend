@@ -1,6 +1,6 @@
 
     <tabs>
-        <pane heading="Account settings">
+        <pane heading="Account">
             <form name="changeemail" class="form-horizontal" novalidate>
 
                 <div class="control-group">
@@ -89,19 +89,64 @@
                     </div>
                 </div>
             </form>
+            <form user-settings name="profile" class="form-horizontal">
+                 <img class="gravatar" ng-src="{{userSession.user.thumbnail}}">
+                 We use gravatars, linked to your email address. Create your profile <a href="http://gravatar.com">here</a>
+            </form>
         </pane>
 
-        <pane heading="Payment settings">
+        <pane heading="Legal">
             <form name="security" class="form-horizontal">
 
                 <div class="control-group">
-
                     <div class="control-label">
-                        <label for="bitcoin_address">Bitcoin address</label>
+                        <label for="firstname">First name</label>
                     </div>
 
                     <div class="controls">
-                        <input ng-model="user.bitcoin_address" name="bitcoin_address" type="text" id="bitcoin_address" placeholder="bitcoin hash">
+                        <input ng-model="user.firstname" name="firstname" type="text" id="firstname" placeholder="e.g. Patrick">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <div class="control-label">
+                        <label for="lastname">Last name</label>
+                    </div>
+
+                    <div class="controls">
+                        <input ng-model="user.lastname" name="lastname" type="text" id="lastname" placeholder="e.g. Savalle">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <div class="control-label">
+                        <label for="birthday">Birth day</label>
+                    </div>
+
+                    <div class="controls">
+                        <input ng-model="user.birthday" name="birthday" type="date" id="birthday">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <div class="control-label">
+                        <label for="country_of_residence">Country of residence</label>
+                    </div>
+
+                    <div class="controls">
+                        <select id="country_of_residence" name="country_of_residence" ng-model="user.country_of_residence"
+                                ng-options="value as key for (value,key) in countriesMap"></select>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <div class="control-label">
+                        <label for="nationality">Nationality</label>
+                    </div>
+
+                    <div class="controls">
+                        <select id="nationality" name="nationality" ng-model="user.nationality"
+                                ng-options="value as key for (value,key) in countriesMap"></select>
                     </div>
                 </div>
 
@@ -109,14 +154,14 @@
                     <div class="controls">
                         <button ng-disabled="waitingsettings" ng-click="submitSettings()" class="btn btn-success">
                             <i class="icon-white mobbrloader" ng-show="waitingsettings"></i>
-                            Save
+                            <span ng-bind="user.kyc_level == 'none' && 'Enable FIAT currencies' || 'Update'"></span>
                         </button>
                     </div>
                 </div>
             </form>
         </pane>
 
-        <pane heading="Display settings">
+        <pane heading="Display">
             <form name="security" class="form-horizontal">
 
                 <div class="control-group">
@@ -178,7 +223,7 @@
             </form>
         </pane>
 
-        <pane heading="Privacy settings" class="privacy-settings">
+        <pane heading="Privacy" class="privacy-settings">
             <form name="primary" class="form-horizontal">
 
                 <div class="special well labelwidth pull-left"></div>
@@ -201,10 +246,6 @@
             </form>
         </pane>
 
-        <pane heading="Public profile">
-            <form user-settings name="profile" class="form-horizontal">
-                <img class="gravatar" ng-src="{{userSession.user.thumbnail}}">
-                We use gravatars, linked to your email address. Create your profile <a href="http://gravatar.com">here</a>
-            </form>
+        <pane heading="Notifications" class="notification-settings">
         </pane>
     </tabs>
