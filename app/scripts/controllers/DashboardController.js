@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('DashboardController', function ($scope, $rootScope, Balances,userSession, Util, Dashboard, Msg, PaymentNetwork) {
+angular.module('mobbr.controllers').controller('DashboardController', function ($scope, $rootScope, Balances,userSession, Util, Dashboard, Msg, PaymentNetwork, $window, $routeParams) {
 
     $scope.searchentries;                // filter on search criteria
     //$scope.searchentriesAllPayments;                // filter on search criteria
@@ -92,6 +92,10 @@ angular.module('mobbr.controllers').controller('DashboardController', function (
         });
     }*/
 
+    if ($routeParams.transactionId) {
+        PaymentNetwork.confirmDeposit({ trx_id: $routeParams.transactionId }, $scope.reloadBalances);
+    }
+
     $scope.networks = {
         btc: {
             name: 'Bitcoin',
@@ -117,9 +121,9 @@ angular.module('mobbr.controllers').controller('DashboardController', function (
             currency: $scope.deposit_currency,
             amount: $scope.deposit_amount,
             note: $scope.deposit_note,
-            return_url: 'https://mobbr.com'
+            return_url: $window.location.href
         }, function (data) {
-            console.log(data);
+            $window.location.href = data.result;
         });
     }
 
