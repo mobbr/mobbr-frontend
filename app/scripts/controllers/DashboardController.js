@@ -105,9 +105,9 @@ angular.module('mobbr.controllers').controller('DashboardController', function (
         }
     };
 
-    $scope.$watch('network_method', function (oldval, newval) {
-        $scope.withdraw_currency = $scope.network_method.default_currency;
-    }, true);
+    $scope.$watch('network_method.name', function (oldval, newval) {
+        $scope.network_method.send = { currency: $scope.network_method.default_currency };
+    }, false);
 
     $scope.deposit_currency = $scope.networks['iban'].default_currency;
     $scope.network_method = $scope.networks['iban'];
@@ -119,6 +119,12 @@ angular.module('mobbr.controllers').controller('DashboardController', function (
             note: $scope.deposit_note,
             return_url: 'https://mobbr.com'
         }, function (data) {
+            console.log(data);
+        });
+    }
+
+    $scope.send = function () {
+        PaymentNetwork.sendPayment($scope.network_method.send, function (data) {
             console.log(data);
         });
     }
