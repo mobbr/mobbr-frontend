@@ -14,6 +14,7 @@ angular.module('mobbr.services.user', [
             user: undefined,
             doLogin: function (user, notifyParent) {
 
+                console.log(user);
                 userSession.authenticated = true;
                 userSession.user = user;
                 console.log('user login');

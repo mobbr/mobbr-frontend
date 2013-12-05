@@ -5,6 +5,7 @@ angular.module('mobbr.directives', []);
 angular.module('mobbr.filters', []);
 
 angular.module('mobbr-lightbox', [
+
         'ui.bootstrap',
         'mobbr.directives',
         'mobbr.controllers',
@@ -13,17 +14,12 @@ angular.module('mobbr-lightbox', [
         'mobbr.services.storage',
         'mobbr.services.user',
         'mobbr.filters'
+
     ]).run([
 
         '$http',
         '$rootScope',
         'Util',
-        '$location',
-        'userSession',
-        'Msg',
-        '$window',
-        '$anchorScroll',
-        '$routeParams',
         function ($http, $rootScope, Util) {
 
             $rootScope.currenciesMap = {};
@@ -35,6 +31,12 @@ angular.module('mobbr-lightbox', [
                 }
                 $rootScope.currenciesMap['MBR'] = 'Mobbr';
             });
+        }
+    ]).config([
+
+        '$httpProvider',
+        function ($httpProvider) {
+            delete $httpProvider.defaults.headers.common['X-Requested-With'];
         }
     ]
 );

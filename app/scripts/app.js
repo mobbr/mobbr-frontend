@@ -173,8 +173,7 @@ angular.module('mobbr', [
         'Msg',
         '$window',
         '$anchorScroll',
-        '$routeParams',
-        function ($http,$rootScope, Util, $location, userSession, Msg, $window, $anchorScroll, $routeParams) {
+        function ($http, $rootScope, Util, $location, userSession, Msg, $window, $anchorScroll) {
 
             // TODO: check what code should actually be here and move everything else to the services they belong to
 
@@ -200,6 +199,12 @@ angular.module('mobbr', [
                 if (response.result != null) {
                     $rootScope.languagesMap = response.result;
                     $rootScope.languagesMap[''] = 'No language';
+                }
+            });
+
+            Util.countries(function (response) {
+                if (response.result != null) {
+                    $rootScope.countriesMap = response.result;
                 }
             });
 

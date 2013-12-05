@@ -92,7 +92,8 @@ angular.module('mobbr.services.mbr-api', [
         return $resource(api_url + '/api/util/:action',{},{
              currencies: {method: 'GET',params: { action: 'currencies'},isArray:false},
              languages: {method: 'GET',params: { action: 'languages'},isArray:false},
-             timezones: {method: 'GET',params: { action: 'timezones'},isArray:false}
+             timezones: {method: 'GET',params: { action: 'timezones'},isArray:false},
+             countries: {method: 'GET',params: { action: 'countries'},isArray:false}
         });
 
     }).factory('Api', function ($resource) {
