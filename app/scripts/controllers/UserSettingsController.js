@@ -12,7 +12,8 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
         $scope.waitingsettings = true;
         User.save({user: $scope.user}, function (response) {
             $scope.waitingsettings = false;
-            if (response.result === true) {
+            if (response.result) {
+                userSession.update(response.result);
                 Msg.setResponseMessage('info', 'Settings saved', response);
             } else {
                 Msg.setResponseMessage('error', 'Could not save settings', response);
