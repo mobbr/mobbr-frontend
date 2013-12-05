@@ -109,7 +109,8 @@ angular.module('mobbr.services.mbr-api', [
             accountAddresses: {method: 'GET', params: { action: 'account_addresses'}},
             newAccountAddress: {method: 'PUT', params: { action: 'new_account_address'}},
             supportedCurrencies: {method: 'GET', params: { action: 'supported_currencies'}},
-            sendPayment: {method: 'POST', params: { action: 'send_payment'}}
+            sendPayment: {method: 'POST', params: { action: 'send_payment'}},
+            prepareDeposit: {method: 'GET', params: { action: 'prepare_deposit'}}
         });
 
     }).factory('Gateway', function ($resource) {

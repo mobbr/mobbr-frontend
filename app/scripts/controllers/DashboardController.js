@@ -109,7 +109,19 @@ angular.module('mobbr.controllers').controller('DashboardController', function (
         $scope.withdraw_currency = $scope.network_method.default_currency;
     }, true);
 
+    $scope.deposit_currency = $scope.networks['iban'].default_currency;
     $scope.network_method = $scope.networks['iban'];
+
+    $scope.deposit = function () {
+        PaymentNetwork.prepareDeposit({
+            currency: $scope.deposit_currency,
+            amount: $scope.deposit_amount,
+            note: $scope.deposit_note,
+            return_url: 'https://mobbr.com'
+        }, function (data) {
+            console.log(data);
+        });
+    }
 
     /*PaymentNetwork.networks(function (response) {
 

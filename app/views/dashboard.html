@@ -44,7 +44,7 @@
 
         <div class="pull-right btn-toolbar" style="margin: 0;">
             <div class="btn-group">
-                <button class="btn dropdown-toggle" data-toggle="dropdown">Receive <span class="caret"></span></button>
+                <!--<button class="btn dropdown-toggle" data-toggle="dropdown">Receive <span class="caret"></span></button>
                 <ul class="dropdown-menu pull-right">
                     <li>
                         <div class="clearfix">
@@ -103,6 +103,31 @@
                                 </li>
                             </ul>
                         </div>
+                    </li>
+                </ul>-->
+            </div>
+            <div class="btn-group">
+                <button class="btn dropdown-toggle" data-toggle="dropdown">Deposit <span class="caret"></span></button>
+                <ul class="dropdown-menu pull-right">
+                    <li class="nav-header">Currency and amount</li>
+                    <li class="nav-header">
+                        <select class="input-small"
+                                ng-model="$parent.$parent.deposit_currency"
+                                ng-options="currency for currency in $parent.$parent.networks['iban'].currencies">
+                        </select>
+                        <input name="deposit_amount" class="input-small" ng-model="$parent.$parent.deposit_amount"
+                               required type="number" step="any" min="0" max="1000000000">
+                    </li>
+                    <li class="nav-header">Note</li>
+                    <li class="nav-header">
+                        <textarea name="deposit_note" ng-model="$parent.$parent.deposit_note"></textarea>
+                    </li>
+                    <li class="nav-header">
+                        <button class="btn btn-success"
+                                ng-click="deposit()">
+                            <i class="icon-white mobbrloader" ng-show="waitingwithdraw"></i>
+                            Deposit
+                        </button>
                     </li>
                 </ul>
             </div>
