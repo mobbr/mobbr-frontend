@@ -95,8 +95,12 @@ angular.module('mobbr.controllers').controller('DashboardController', function (
 
 
     if ($routeParams.transactionId) {
-        PaymentNetwork.confirmDeposit({ trx_id: $routeParams.transactionId }, function () {
+        PaymentNetwork.confirmDeposit({ trx_id: $routeParams.transactionId }, function (response) {
             $location.search('transactionId', null);
+            console.log(response);
+            Msg.setResponseMessage('info', response.message.text, response);
+        }, function (response) {
+            Msg.setResponseMessage('error', response.data.message.text, response);
         });
     } else if (window.location.search.indexOf('?transactionId=') !== -1) {
         window.location.href = [
@@ -139,8 +143,11 @@ angular.module('mobbr.controllers').controller('DashboardController', function (
     }
 
     $scope.send = function () {
-        PaymentNetwork.sendPayment($scope.network_method.send, function (data) {
-            console.log(data);
+        PaymentNetwork.sendPayment($scope.network_method.send, function (response) {
+            $scope.network_method.send = {};
+            Msg.setResponseMessage('info', response.message.text, response);
+        }, function (response) {
+            Msg.setResponseMessage('error', response.data.message.text, response);
         });
     }
 
