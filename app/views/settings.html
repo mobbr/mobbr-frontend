@@ -135,7 +135,7 @@
 
                     <div class="controls">
                         <select id="country_of_residence" name="country_of_residence" ng-model="user.country_of_residence"
-                                ng-options="value as key for (value,key) in countriesMap"></select>
+                                ng-options="value as key for (value, key) in countriesMap"></select>
                     </div>
                 </div>
 
@@ -146,7 +146,7 @@
 
                     <div class="controls">
                         <select id="nationality" name="nationality" ng-model="user.nationality"
-                                ng-options="key as key for (value,key) in countriesMap"></select>
+                                ng-options="value for (value, key) in countriesMap"></select>
                     </div>
                 </div>
 
