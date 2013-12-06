@@ -92,10 +92,19 @@ angular.module('mobbr.controllers').controller('DashboardController', function (
         });
     }*/
 
+
+
     if ($routeParams.transactionId) {
         PaymentNetwork.confirmDeposit({ trx_id: $routeParams.transactionId }, function () {
             $location.search('transactionId', null);
         });
+    } else if (window.location.search.indexOf('?transactionId=') !== -1) {
+        window.location.href = [
+            window.location.origin,
+            window.location.pathname,
+            window.location.hash,
+            window.location.search
+        ].join('');
     }
 
     $scope.networks = {
