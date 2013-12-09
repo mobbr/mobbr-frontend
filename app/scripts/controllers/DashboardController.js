@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('DashboardController', function ($scope, $rootScope, Balances,userSession, Util, Dashboard, Msg, PaymentNetwork, $window, $routeParams, $location) {
+angular.module('mobbr.controllers').controller('DashboardController', function ($scope, $rootScope, $timeout, Balances,userSession, Util, Dashboard, Msg, PaymentNetwork, $window, $routeParams, $location) {
 
     $scope.searchentries;                // filter on search criteria
     //$scope.searchentriesAllPayments;                // filter on search criteria
@@ -92,23 +92,23 @@ angular.module('mobbr.controllers').controller('DashboardController', function (
         });
     }*/
 
+    function resetLocation() {
+        $timeout(function () {
+            $window.location.href = $window.location.origin + '/' + $window.location.hash;
+        }, 3000);
+    }
 
-
-    if ($routeParams.transactionId) {
-        PaymentNetwork.confirmDeposit({ trx_id: $routeParams.transactionId }, function (response) {
-            $location.search('transactionId', null);
-            console.log(response);
-            Msg.setResponseMessage('info', response.message.text, response);
-        }, function (response) {
-            Msg.setResponseMessage('error', response.data.message.text, response);
-        });
-    } else if (window.location.search.indexOf('?transactionId=') !== -1) {
-        window.location.href = [
-            window.location.origin,
-            window.location.pathname,
-            window.location.hash,
-            window.location.search
-        ].join('');
+    if ($window.location.search.indexOf('?transactionId=') !== -1) {
+        PaymentNetwork.confirmDeposit({
+                trx_id: $window.location.search.replace('?transactionId=', '')
+            }, function (response) {
+                Msg.setResponseMessage('info', response.message.text, response);
+                resetLocation();
+            }, function (response) {
+                Msg.setResponseMessage('error', response.data.message.text, response);
+                resetLocation();
+            }
+        );
     }
 
     $scope.networks = {
