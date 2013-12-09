@@ -96,7 +96,15 @@
         </pane>
 
         <pane heading="Legal">
+            <iframe ng-show="user.kyc_level == 'none'" style="width: 100%;" class="eula" src="https://api.mobbr.com/mangopay-terms-of-use.txt"></iframe>
             <form name="security" class="form-horizontal">
+
+                <div ng-show="user.kyc_level == 'none'" style="padding-bottom: 25px; margin-bottom: 20px; border-bottom: 1px solid #009ee0; ">
+                    <label class="checkbox">
+                        <input type="checkbox" ng-model="accept_mango">
+                        I accept the terms
+                    </label>
+                </div>
 
                 <div class="control-group">
                     <div class="control-label">
@@ -152,7 +160,7 @@
 
                 <div class="control-group">
                     <div class="controls">
-                        <button ng-disabled="waitingsettings" ng-click="submitSettings()" class="btn btn-success">
+                        <button ng-disabled="waitingsettings || (user.kyc_level == 'none' && !accept_mango)" ng-click="submitSettings()" class="btn btn-success">
                             <i class="icon-white mobbrloader" ng-show="waitingsettings"></i>
                             <span ng-bind="user.kyc_level == 'none' && 'Enable FIAT currencies' || 'Update'"></span>
                         </button>
