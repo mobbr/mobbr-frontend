@@ -45,4 +45,7 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
             Msg.setResponseMessage('error', 'Could not change password', response);
         });
     }
+
+
+
 });

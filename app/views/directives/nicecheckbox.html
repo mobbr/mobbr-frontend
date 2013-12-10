@@ -1,0 +1,12 @@
+<div class="mobbr-checkbox">
+    <div class="mobbr-yesno">
+        <span ng-class="{selected:boolValue}" ng-click="toggleCheck()">
+            <input type="checkbox" ng-model="boolValue" title="{{getLabelFor(key)}}" id="{{key}}">
+            Yes
+        </span>
+        <span ng-class="{selected:!boolValue}" ng-click="toggleCheck()">No</span>
+    </div>
+
+    <label for="{{key}}">{{getLabelFor(key)}}</label>
+
+</div>
