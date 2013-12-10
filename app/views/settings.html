@@ -1,4 +1,36 @@
+     <style>
+         .mobbr-checkbox{
+             display: table-row;
+             overflow: hidden;
+         }
+         .mobbr-checkbox .mobbr-yesno {
+            display: table-cell;
+            border:1px solid #009EE0;
+            width:120px;
+         }
+         .mobbr-checkbox .mobbr-yesno span{
+             display: table-cell;
+             height: 40px;
+            line-height: 40px;
+             width:60px;
+             text-align: center;
+             border: 1px solid #009EE0;
+             background-color: #EEEEEE;
+         }
+         .mobbr-checkbox .mobbr-yesno span.selected{
+             background-color: #009EE0;
+             color:#fff;
+         }
+         .mobbr-checkbox .mobbr-yesno input{
+             left: -100px;
+             position: absolute;
+         }
+         .mobbr-checkbox label {
+             display: table-cell;
+             padding-left:10px;
+         }
 
+     </style>
     <tabs>
         <pane heading="Account">
             <form name="changeemail" class="form-horizontal" novalidate>
@@ -238,8 +270,7 @@
 
                 <div class="control-group" ng-repeat="(key, value) in user.setting">
                     <div class="controls">
-                        <label for="{{key}}">
-                            <input type="checkbox" ng-bind="value" id="{{key}}"> {{key}}</label>
+                        <nicecheckbox key="key" value="value" user="user"></nicecheckbox>
                     </div>
                 </div>
 
