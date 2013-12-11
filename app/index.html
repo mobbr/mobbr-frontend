@@ -95,6 +95,8 @@
                                 <li user-settings class="dropdown">
                                     <a class="dropdown-toggle"><span ng-bind="userSession.user.username"></span> <img ng-src="{{ userSession.user.thumbnail }}" style="height: 30px;" class="img-rounded user-thumb"> <b class="caret"></b></a>
                                     <ul class="dropdown-menu" ng-controller="LoginController">
+                                        <li><a href="#/dashboard"><i class="icon-inbox"></i> Wallet</a></li>
+                                        <!--<li><a href=""><i class="icon-eye-open"></i> Sourcing</a></li>-->
                                         <li><a href="#/settings"><i class="icon-wrench"></i> Settings</a></li>
                                         <li><a ng-click="logout()"><i class="icon-lock"></i> Log out</a></li>
                                     </ul>
@@ -108,7 +110,7 @@
             <section class="navbar navbar-inverse navbar-static-top">
                 <nav class="navbar-inner">
                     <ul class="nav">
-                        <li><a href="#/dashboard">Your wallet</a></li>
+                        <!--<li><a href="#/dashboard">Your wallet</a></li>-->
                         <li><a href="#/claimpayment">Claim payment</a></li>
                         <li><a href="#/generatebutton">Create button</a></li>
                         <li class="dropdown">
