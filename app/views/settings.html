@@ -8,6 +8,14 @@
              padding-left:10px;
          }
 
+         .unstyled::-webkit-inner-spin-button,
+         .unstyled::-webkit-calendar-picker-indicator {
+             display: none;
+             -webkit-appearance: none;
+         }
+
+
+
      </style>
     <tabs>
         <pane heading="Account">
@@ -142,7 +150,7 @@
                     </div>
 
                     <div class="controls">
-                        <input ng-model="user.birthday" name="birthday" type="date" id="birthday">
+                        <input ng-model="user.birthday" name="birthday" type="date" id="birthday" class="unstyled" >
                     </div>
                 </div>
 
