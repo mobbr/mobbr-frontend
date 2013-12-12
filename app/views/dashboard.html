@@ -336,27 +336,29 @@
     <pane heading="Addresses">
         <form class="form-horizontal">
             <div ng-repeat="(currency, properties) in supportedCurrencies">
-                <h3>{{currency}}</h3>
-                <div ng-repeat="(property,value) in properties" class="controls-row">
+                <accordion close-others="false">
+                    <accordion-group heading="{{currency}}" is-open="true">
+                        <div ng-repeat="(property,value) in properties" class="controls-row">
 
-                            <label ng-bind="property" class="control-label">
+                                    <label ng-bind="property" class="control-label">
 
-                            </label>
+                                    </label>
+                                    <div class="controls">
+                                        <input type="text" disabled="disabled" ng-model="value" class="input-xxlarge"/>
+                                    </div>
+
+
+                        </div>
+                        <div>
                             <div class="controls">
-                                <input type="text" disabled="disabled" ng-model="value" class="input-xxlarge"/>
+                                <input type="button" class="btn btn-primary" value="Generate a new Address" ng-click="generateAddress(currency)" ng-show="currency == 'BTC'"/>
                             </div>
 
+                        </div>
 
-                </div>
-                <div>
-                    <div class="controls">
-                        <input type="button" class="btn btn-primary" value="Generate a new Address" ng-click="generateAddress(currency)" ng-show="currency == 'BTC'"/>
-                    </div>
-
-                </div>
-
-            </div>
-
+                    </accordion-group>
+                </accordion>
+           </div>
         </form>
 
     </pane>
