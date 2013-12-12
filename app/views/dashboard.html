@@ -44,67 +44,6 @@
 
         <div class="pull-right btn-toolbar" style="margin: 0;">
             <div class="btn-group">
-                <!--<button class="btn dropdown-toggle" data-toggle="dropdown">Receive <span class="caret"></span></button>
-                <ul class="dropdown-menu pull-right">
-                    <li>
-                        <div class="clearfix">
-                            <select class="pull-right" ng-model="network_method" ng-options="n.name for n in networks"></select>
-                        </div>
-                        <div ng-switch="network_method.name">
-                            <ul ng-switch-when="bitcoin">
-                                <li class="nav-header">Send to one of these Bitcoin addresses</li>
-                                <li ng-show="network_method.addresses.result.length > 0" class="nav-header balancesub">
-                                    <ul class="no-style">
-                                        <li ng-repeat="address in network_method.addresses.result">
-                                            <a style="text-transform: none;" href="bitcoin:{{ address.address }}">{{ address.address }}</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li ng-show="network_method.addresses.result.length == 0"  class="nav-header balancesub">
-                                    <ul class="no-style">
-                                        <li>
-                                            <span>No addresses yet, click below to generate</span>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-header">
-                                    <button class="btn btn-primary" ng-click="newAccountAddress(network_method)">Generate new address</button>
-                                </li>
-                            </ul>
-                            <ul ng-switch-when="paypal">
-                                <li class="nav-header">Send to paypal address:</li>
-                                <li ng-show="network_method.addresses.result.length > 0" class="nav-header balancesub">
-                                    <ul class="no-style">
-                                        <li>
-                                            <span>paypal@mobbr.com</span>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-header">Place one of these tokens in the memo/note field of payment</li>
-                                <li ng-show="network_method.addresses.result.length > 0" class="nav-header balancesub">
-                                    <ul class="no-style">
-                                        <li ng-repeat="address in network_method.addresses.result">
-                                            <span>%{{ address.address }}%</span>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li ng-show="network_method.addresses.result.length == 0"  class="nav-header balancesub">
-                                    <ul class="no-style">
-                                        <li>
-                                            <span>No addresses yet, click below to generate</span>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-header">
-                                    <button ng-disabled="waitinggenerate" class="btn btn-primary" ng-click="newAccountAddress(network_method)">
-                                        <i class="icon-white mobbrloader" ng-show="waitinggenerate"></i>
-                                        Generate new token
-                                    </button>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>-->
             </div>
             <div class="btn-group">
                 <button class="btn dropdown-toggle" data-toggle="dropdown">Deposit <span class="caret"></span></button>
@@ -132,7 +71,7 @@
                 </ul>
             </div>
             <div class="btn-group">
-                <button class="btn dropdown-toggle" data-toggle="dropdown">Send <span class="caret"></span></button>
+                <button class="btn dropdown-toggle" data-toggle="dropdown">Withdraw <span class="caret"></span></button>
                 <ul class="dropdown-menu pull-right">
                     <li class="nav-header">Payment method</li>
                     <li class="nav-header">
@@ -149,7 +88,7 @@
                                ng-model="$parent.$parent.network_method.send.amount"
                                required type="number" step="any" min="0" max="1000000000">
                     </li>
-                    <li class="nav-header">Payment data</li>
+                    <li class="nav-header">External address</li>
                     <li class="nav-header" ng-show="$parent.$parent.network_method == networks['iban']">
                         <div class="controls">
                             <input type="text" pattern="[a-zA-Z]{2}[0-9]{2}[a-zA-Z0-9]{4}[0-9]{7}([a-zA-Z0-9]?){0,16}"
@@ -334,6 +273,11 @@
                   showexpiresdate="false"></payments>
     </pane>-->
     <pane heading="Addresses">
+        <div class="row-fluid">
+            <div class="well span12 special">
+                <small>Use these public addresses to receive money from external accounts / persons</small>
+            </div>
+        </div>
         <form class="form-horizontal">
             <div ng-repeat="(currency, properties) in supportedCurrencies">
                 <accordion close-others="false">
@@ -347,11 +291,17 @@
                                         <input type="text" disabled="disabled" ng-model="value" class="input-xxlarge"/>
                                     </div>
 
-
                         </div>
+
                         <div>
-                            <div class="controls">
-                                <input type="button" class="btn btn-primary" value="Generate a new Address" ng-click="generateAddress(currency)" ng-show="currency == 'BTC'"/>
+                            <div class="controls" style="padding-top:15px;">
+                                <button ng-click="generateAddress(currency)"
+                                        ng-disabled=""
+                                        type="submit"
+                                        class="btn btn-success">
+                                    <i class="icon-white mobbrloader" ng-show=""></i>
+                                    Generate extra address
+                                </button>
                             </div>
 
                         </div>
