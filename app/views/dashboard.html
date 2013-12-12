@@ -337,7 +337,7 @@
         <form class="form-horizontal">
             <div ng-repeat="(currency, properties) in supportedCurrencies">
                 <accordion close-others="false">
-                    <accordion-group heading="{{currency}}" is-open="true">
+                    <accordion-group heading="{{currency}}" is-open="false">
                         <div ng-repeat="(property,value) in properties" class="controls-row">
 
                                     <label ng-bind="property" class="control-label">
