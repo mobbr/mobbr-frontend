@@ -108,16 +108,21 @@ angular.module('mobbr.controllers').controller('DashboardController', function (
         });
     }
 
+    var getsupportedCurrencies = function(){
+        PaymentNetwork.supportedCurrencies(function (response){
+            $scope.supportedCurrencies = response.result;
+        }, function (response){
+            Msg.setResponseMessage('error', response.data.message.text, response);
+        });
+    }
+    getsupportedCurrencies();
 
-    PaymentNetwork.supportedCurrencies(function (response){
-        $scope.supportedCurrencies = response.result;
-    }, function (response){
-        Msg.setResponseMessage('error', response.data.message.text, response);
-    });
+
 
     $scope.generateAddress = function(currency){
         PaymentNetwork.newAccountAddress({'currency':currency},function(response){
            Msg.setResponseMessage('info',response.message.text,response);
+           getsupportedCurrencies();
         }, function (response){
             Msg.setResponseMessage('error', response.data.message.text, response);
         });
