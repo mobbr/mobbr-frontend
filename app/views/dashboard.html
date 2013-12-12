@@ -333,6 +333,33 @@
                   editable="false"
                   showexpiresdate="false"></payments>
     </pane>-->
+    <pane heading="Addresses">
+        <form class="form-horizontal">
+            <div ng-repeat="(currency, properties) in supportedCurrencies">
+                <h3>{{currency}}</h3>
+                <div ng-repeat="(property,value) in properties" class="controls-row">
+
+                            <label ng-bind="property" class="control-label">
+
+                            </label>
+                            <div class="controls">
+                                <input type="text" disabled="disabled" ng-model="value" class="input-xxlarge"/>
+                            </div>
+
+
+                </div>
+                <div>
+                    <div class="controls">
+                        <input type="button" class="btn btn-primary" value="Generate a new Address" ng-click="generateAddress()" ng-show="currency == 'BTC'"/>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </pane>
     <pane heading="Domains">
         <div ng-controller="SearchDomainController">
             <form ng-submit="searchDomain()">
