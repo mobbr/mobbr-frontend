@@ -107,13 +107,19 @@
                     </div>
                 </div>
             </form>
-            <form user-settings name="profile" class="form-horizontal">
-                 <img class="gravatar" ng-src="{{userSession.user.thumbnail}}">
-                 We use gravatars, linked to your email address. Create your profile <a href="http://gravatar.com">here</a>
-            </form>
         </pane>
 
-        <pane heading="Legal">
+        <pane heading="Access">
+            <div ng-show="user.kyc_level == 'none'" class="row-fluid">
+                <div class="well span12 special">
+                    <small>Without this information, you cannot use our FIAT-currencies (USD, GBP, CHF, SEK, NOK, DKK, EUR, PLN). These restriction do not apply to other currencies.</small>
+                </div>
+            </div>
+            <div ng-show="user.kyc_level != 'none'" class="row-fluid">
+                <div class="well span12 special">
+                    <small>This information gives you access to our FIAT-currencies (USD, GBP, CHF, SEK, NOK, DKK, EUR, PLN) in addition to BTC and virtual currencies.</small>
+                </div>
+            </div>
             <iframe ng-show="user.kyc_level == 'none'" style="width: 100%;" class="eula" src="https://api.mobbr.com/mangopay-terms-of-use.txt"></iframe>
             <form name="security" class="form-horizontal">
 
@@ -185,6 +191,15 @@
                     </div>
                 </div>
             </form>
+        </pane>
+
+        <pane heading="Limits">
+            <div class="row-fluid">
+                <div class="well span12 special">
+                    <small>Without this information, your account is limited to receive max. €2,500 (or equivalent) and/or send max. €1,000 (or equivalent), cumulated per legal year. These limits only apply to the USD, GBP, CHF, SEK, NOK, DKK, EUR, PLN currencies.</small>
+                </div>
+            </div>
+            Not yet implemented.
         </pane>
 
         <pane heading="Display">
@@ -293,4 +308,12 @@
             </form>
 
         </pane>
+        <pane heading="Avatar">
+            <div class="row-fluid">
+                <div class="well span12 special">
+                    <small>We use gravatars, linked to your email address. Create your profile <a href="http://gravatar.com">here</a>.</small>
+                </div>
+            </div>
+        </pane>
+
     </tabs>
