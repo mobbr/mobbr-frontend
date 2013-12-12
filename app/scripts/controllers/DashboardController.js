@@ -46,51 +46,8 @@ angular.module('mobbr.controllers').controller('DashboardController', function (
         $scope.sortOrderPayments = column;
     }
 
-    //$scope.$parent.withdraw_currency = '';
-    //$scope.$parent.withdraw_amount = '';
-    //$scope.$parent.withdraw_address = '';
-    //$scope.$parent.withdraw_note = '';
 
     $scope.$rootScope = $rootScope;
-
-    /*$scope.withdraw = function () {
-
-        Dashboard.withdraw({
-
-            currency: $rootScope.withdraw_currency,
-            amount: $rootScope.withdraw_amount,
-            address: $rootScope.withdraw_address,
-            service: 'bitcoin',
-            note: $rootScope.withdraw_note
-
-        }, function (response) {
-            Msg.setResponseMessage('success', 'Successful withdrawal', response);
-            $rootScope.withdraw_currency = '';
-            $rootScope.withdraw_amount = '';
-            $rootScope.withdraw_address = '';
-            $rootScope.withdraw_note = '';
-        }, function (response) {
-            Msg.setResponseMessage('error', '', response);
-        });
-    }
-
-    Dashboard.paymentservices(function (response) {
-        if(response.result != null){
-            $scope.withdraw_currencies = response.result.send_to;
-        }else if(response.message != null){
-            console.log('error loading currencies' + response.error.status);
-        }
-    });
-
-    Bitcoin.bitcoinaddresses(function (response) {
-        $scope.bitcoinaddresses = response.result;
-    });
-
-    $scope.newBitcoinaddress = function () {
-        Bitcoin.newBitcoinaddress(function (response) {
-            $scope.bitcoinaddresses.push(response.result);
-        });
-    }*/
 
     function resetLocation() {
         $timeout(function () {
@@ -151,52 +108,26 @@ angular.module('mobbr.controllers').controller('DashboardController', function (
         });
     }
 
-    /*PaymentNetwork.networks(function (response) {
 
-        var i = 0,
-            l = response.result.length;
-
-        $scope.networks = [];
-
-        for (; i < l; i++) {
-            $scope.networks.push({
-                name: response.result[i],
-                addresses: PaymentNetwork.accountAddresses({ network: response.result[i] }),
-                currencies: PaymentNetwork.supportedCurrencies({ network: response.result[i] })
-            });
-        }
-
-        $scope.network_method = $scope.networks[0];
+    PaymentNetwork.supportedCurrencies(function (response){
+        $scope.supportedCurrencies = response.result;
+    }, function (response){
+        Msg.setResponseMessage('error', response.data.message.text, response);
     });
 
-    $scope.newAccountAddress = function (network_method) {
-        $scope.waitinggenerate = true;
-        PaymentNetwork.newAccountAddress({ network: network_method.name }, function (response) {
-            $scope.waitinggenerate = false;
-            network_method.addresses = PaymentNetwork.accountAddresses({ network: network_method.name })
+    $scope.generateAddress = function(currency){
+        PaymentNetwork.newAccountAddress({'currency':currency},function(response){
+           Msg.setResponseMessage('info',response.message.text,response);
+        }, function (response){
+            Msg.setResponseMessage('error', response.data.message.text, response);
         });
     }
 
-    $scope.withdraw_currency = userSession.user.currency_iso;
+//    PaymentNetwork.accountAddresses(function (response){
+//       $scope.accountAddresses = response.address;
+//    }, function(response){
+//        Msg.setResponseMessage('error','could not load accountAddress');
+//    });
 
-    $scope.withdraw = function (form, network, currency, amount, to_address, note) {
-        $scope.waitingwithdraw = true;
-        PaymentNetwork.sendPayment({network: network, currency: currency, amount: amount, to_address: to_address, note: note}, function (response) {
-            $rootScope.reloadPayments = 'reloadpayments' +Math.random();
-            $scope.waitingwithdraw = false;
-            form.withdraw_note = '';
-            form.withdraw_address = '';
-            form.withdraw_amount = '';
-            Msg.setResponseMessage('success', 'Payment sent to paypal account', response);
-        }, function (response) {
-            $rootScope.reloadPayments = 'reloadpayments' +Math.random();
-            $scope.waitingwithdraw = false;
-            Msg.setResponseMessage('error', 'Could not send payment', response);
-        });
-    }*/
-
-    /*$scope.getAddresses = function (network) {
-        return PaymentNetwork.accountAddresses({ network: network });
-    }*/
 
 });
