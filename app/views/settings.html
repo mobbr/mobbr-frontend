@@ -3,28 +3,6 @@
              display: table-row;
              overflow: hidden;
          }
-         .mobbr-checkbox .mobbr-yesno {
-            display: table-cell;
-            border:1px solid #009EE0;
-            width:100px;
-         }
-         .mobbr-checkbox .mobbr-yesno span{
-             display: table-cell;
-             height: 25px;
-             line-height: 25px;
-             width:50px;
-             text-align: center;
-             border: 1px solid #009EE0;
-             background-color: #EEEEEE;
-         }
-         .mobbr-checkbox .mobbr-yesno span.selected{
-             background-color: #009EE0;
-             color:#fff;
-         }
-         .mobbr-checkbox .mobbr-yesno input{
-             left: -100px;
-             position: absolute;
-         }
          .mobbr-checkbox label {
              display: table-cell;
              padding-left:10px;
@@ -268,8 +246,8 @@
 
                 <div class="special well labelwidth pull-left"></div>
 
-                <div class="control-group" ng-repeat="(key, value) in user.setting">
-                    <div class="controls">
+                <div class="control-group" ng-repeat="(key, value) in user.setting" ng-show="key.indexOf('hide') == 0">
+                    <div class="controls" >
                         <nicecheckbox key="key" value="value" user="user"></nicecheckbox>
                     </div>
                 </div>
@@ -285,6 +263,26 @@
             </form>
         </pane>
 
-        <pane heading="Notifications" class="notification-settings">
+        <pane heading="Notifications" class="privacy-settings">
+            <form name="notifications" class="form-horizontal">
+
+                <div class="special well labelwidth pull-left"></div>
+
+                <div class="control-group" ng-repeat="(key, value) in user.setting" ng-show="key.indexOf('send') == 0">
+                    <div class="controls" >
+                        <nicecheckbox key="key" value="value" user="user"></nicecheckbox>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <div class="controls">
+                        <button ng-disabled="waitingsettings" ng-click="submitSettings()" class="btn btn-success">
+                            <i class="icon-white mobbrloader" ng-show="waitingsettings"></i>
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </form>
+
         </pane>
     </tabs>

@@ -21,12 +21,9 @@ angular.module('mobbr.directives').directive('nicecheckbox', function factory() 
 
             scope.$watch('boolValue',function(newValue){
                if(newValue === true){
-                   console.log('setting ' + scope.key + ' to 1' );
                    scope.value = '1';
                }else{
-                   console.log('setting ' + scope.key + ' to 0' );
                    scope.value = '0'
-
                }
             });
 
