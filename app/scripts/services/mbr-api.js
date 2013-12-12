@@ -106,7 +106,6 @@ angular.module('mobbr.services.mbr-api', [
 
         return $resource(api_url + '/api/payment_network/:action', {}, {
             networks: {method: 'GET',params: { action: 'networks'}},
-            accountAddresses: {method: 'GET', params: { action: 'account_addresses'}},
             newAccountAddress: {method: 'PUT', params: { action: 'new_account_address'}},
             supportedCurrencies: {method: 'GET', params: { action: 'supported_currencies'}},
             sendPayment: {method: 'POST', params: { action: 'send_payment'}},
