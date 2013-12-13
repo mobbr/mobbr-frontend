@@ -47,5 +47,55 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
     }
 
 
+    var settingsLabels = {
+        'hide_my_incoming_payments':'Hide my incoming payments',
+        'hide_my_items' : 'Hide my items',
+        'hide_my_outgoing_payments' : 'Hide my outgoing payments',
+        'send_json_mention_notification' : 'Send JSON mention notification',
+        'send_monthly_reports' : 'Send monthly reports' ,
+        'send_newsletter' : 'Send me newsletters to keep me informed' ,
+        'send_payment_expired_notification' : 'Send payment expire notifications',
+        'send_payment_received_notification' : 'Send payment recieved notifications'
+
+
+
+    };
+
+    $scope.getLabelFor = function(key){
+        var value = settingsLabels[key];
+        if(value === undefined){
+            return key;
+        } else{
+            return value;
+        }
+
+    }
+
+    var convertValueToBool = function (value) {
+        if(value != undefined && value.toString() === '1'){
+            return true;
+        }
+        return false;
+    }
+
+    $scope.settingsArray = [];
+    angular.forEach($scope.user.setting, function(value, key){
+        var value = convertValueToBool(value);
+        $scope.settingsArray.push({
+            'key': key,
+            'value' : value
+        });
+    });
+
+
+    $scope.updateSetting = function(model){
+        var value = 0;
+        if(model.value === true){
+            value = 1;
+        }
+        $scope.user.setting[model.key] = value;
+    }
+
+
 
 });

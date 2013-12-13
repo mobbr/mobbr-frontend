@@ -156,7 +156,7 @@
                     </div>
 
                     <div class="controls">
-                        <input ng-model="user.birthday" name="birthday" type="date" id="birthday" class="unstyled" >
+                        <input ng-model="user.birthday" name="birthday" type="text" id="birthday" class="unstyled" >
                     </div>
                 </div>
 
@@ -269,9 +269,14 @@
 
                 <div class="special well labelwidth pull-left"></div>
 
-                <div class="control-group" ng-repeat="(key, value) in user.setting" ng-show="key.indexOf('hide') == 0">
+                <div class="control-group" ng-repeat="model in settingsArray" ng-show="model.key.indexOf('hide') == 0">
                     <div class="controls" >
-                        <nicecheckbox key="key" value="value" user="user"></nicecheckbox>
+                        <div class="mobbr-checkbox">
+                            <input type="checkbox" ng-model="model.value" title="{{getLabelFor(model.key)}}" id="{{model.key}}" ng-click="updateSetting(model)" >
+
+                            <label for="{{model.key}}">{{getLabelFor(model.key)}}</label>
+
+                        </div>
                     </div>
                 </div>
 
@@ -291,9 +296,14 @@
 
                 <div class="special well labelwidth pull-left"></div>
 
-                <div class="control-group" ng-repeat="(key, value) in user.setting" ng-show="key.indexOf('send') == 0">
+                <div class="control-group" ng-repeat="model in settingsArray" ng-show="model.key.indexOf('send') == 0">
                     <div class="controls" >
-                        <nicecheckbox key="key" value="value" user="user"></nicecheckbox>
+                        <div class="mobbr-checkbox">
+                            <input type="checkbox" ng-model="model.value" title="{{getLabelFor(model.key)}}" id="{{model.key}}" ng-click="updateSetting(model)" >
+
+                            <label for="{{model.key}}">{{getLabelFor(model.key)}}</label>
+
+                        </div>
                     </div>
                 </div>
 
