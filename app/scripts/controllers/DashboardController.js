@@ -121,8 +121,10 @@ angular.module('mobbr.controllers').controller('DashboardController', function (
 
     $scope.generateAddress = function(currency){
         PaymentNetwork.newAccountAddress({'currency':currency},function(response){
-           Msg.setResponseMessage('info',response.message.text,response);
            getsupportedCurrencies();
+            if(response.message !== undefined && response.message !== null){
+                Msg.setResponseMessage('info',response.message.text,response);
+            }
         }, function (response){
             Msg.setResponseMessage('error', response.data.message.text, response);
         });
