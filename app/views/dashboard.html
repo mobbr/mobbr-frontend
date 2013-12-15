@@ -44,69 +44,6 @@
 
         <div class="pull-right btn-toolbar" style="margin: 0;">
             <div class="btn-group">
-                <!--<button class="btn dropdown-toggle" data-toggle="dropdown">Receive <span class="caret"></span></button>
-                <ul class="dropdown-menu pull-right">
-                    <li>
-                        <div class="clearfix">
-                            <select class="pull-right" ng-model="network_method" ng-options="n.name for n in networks"></select>
-                        </div>
-                        <div ng-switch="network_method.name">
-                            <ul ng-switch-when="bitcoin">
-                                <li class="nav-header">Send to one of these Bitcoin addresses</li>
-                                <li ng-show="network_method.addresses.result.length > 0" class="nav-header balancesub">
-                                    <ul class="no-style">
-                                        <li ng-repeat="address in network_method.addresses.result">
-                                            <a style="text-transform: none;" href="bitcoin:{{ address.address }}">{{ address.address }}</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li ng-show="network_method.addresses.result.length == 0"  class="nav-header balancesub">
-                                    <ul class="no-style">
-                                        <li>
-                                            <span>No addresses yet, click below to generate</span>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-header">
-                                    <button class="btn btn-primary" ng-click="newAccountAddress(network_method)">Generate new address</button>
-                                </li>
-                            </ul>
-                            <ul ng-switch-when="paypal">
-                                <li class="nav-header">Send to paypal address:</li>
-                                <li ng-show="network_method.addresses.result.length > 0" class="nav-header balancesub">
-                                    <ul class="no-style">
-                                        <li>
-                                            <span>paypal@mobbr.com</span>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-header">Place one of these tokens in the memo/note field of payment</li>
-                                <li ng-show="network_method.addresses.result.length > 0" class="nav-header balancesub">
-                                    <ul class="no-style">
-                                        <li ng-repeat="address in network_method.addresses.result">
-                                            <span>%{{ address.address }}%</span>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li ng-show="network_method.addresses.result.length == 0"  class="nav-header balancesub">
-                                    <ul class="no-style">
-                                        <li>
-                                            <span>No addresses yet, click below to generate</span>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-header">
-                                    <button ng-disabled="waitinggenerate" class="btn btn-primary" ng-click="newAccountAddress(network_method)">
-                                        <i class="icon-white mobbrloader" ng-show="waitinggenerate"></i>
-                                        Generate new token
-                                    </button>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>-->
-            </div>
-            <div class="btn-group">
                 <button class="btn dropdown-toggle" data-toggle="dropdown">Deposit <span class="caret"></span></button>
                 <ul class="dropdown-menu pull-right">
                     <li class="nav-header">Currency and amount</li>
@@ -198,64 +135,6 @@
                             Send
                         </button>
                     </li>
-
-                    <!--<div class="clearfix">
-                        <select class="pull-right" ng-model="network_method" ng-options="n.name for n in networks"></select>
-                    </div>
-                    <div ng-switch="network_method.name">
-                        <form name="bitcoinform">
-                            <ul ng-switch-when="bitcoin">
-                                <li class="nav-header">Curreny &amp; amount</li>
-                                <li class="nav-header">
-                                    <select class="input-small"
-                                            ng-model="$parent.$parent.$parent.withdraw_currency"
-                                            ng-options="currency for currency in network_method.currencies.result">
-                                    </select>
-                                    <input name="withdraw_amount" class="input-small" ng-model="withdraw_amount" required type="number" step="any" min="0" max="1000000000">
-                                </li>
-                                <li class="nav-header">Bitoin address</li>
-                                <li class="nav-header">
-                                    <input name="withdraw_address" type="text" ng-model="withdraw_address" required class="input-xlarge">
-                                </li>
-                                <li class="nav-header">Note</li>
-                                <li class="nav-header">
-                                    <textarea name="withdraw_note" class="input-xlarge" ng-model="withdraw_note"></textarea>
-                                </li>
-                                <li class="nav-header">
-                                    <button class="btn btn-success"
-                                            ng-click="withdraw(this, network_method.name, withdraw_currency, withdraw_amount, withdraw_address, withdraw_note)">
-                                        <i class="icon-white mobbrloader" ng-show="waitingwithdraw"></i>
-                                        Send
-                                    </button>
-                                </li>
-                            </ul>
-                        </form>
-                        <form name="paypalform">
-                            <ul ng-switch-when="paypal">
-                                <li class="nav-header">Curreny &amp; amount</li>
-                                <li class="nav-header">
-                                    <select class="input-small" ng-model="$parent.$parent.$parent.withdraw_currency" ng-options="currency for currency in network_method.currencies.result"></select>
-                                    <input name="withdraw_amount" class="input-small" ng-model="withdraw_amount" required type="number" step="any" min="0" max="1000000000">
-                                </li>
-                                <li class="nav-header">Email address</li>
-                                <li class="nav-header">
-                                    <input name="withdraw_address" type="email" ng-model="withdraw_address" required class="input-xlarge">
-                                </li>
-                                <li class="nav-header">Note</li>
-                                <li class="nav-header">
-                                    <textarea name="withdraw_note" class="input-xlarge" ng-model="withdraw_note"></textarea>
-                                </li>
-                                <li class="nav-header">
-                                    <button class="btn btn-success"
-                                            ng-disabled="waitingwithdraw"
-                                            ng-click="withdraw(this, network_method.name, withdraw_currency, withdraw_amount, withdraw_address, withdraw_note)">
-                                        <i class="icon-white mobbrloader" ng-show="waitingwithdraw"></i>
-                                        Send
-                                    </button>
-                                </li>
-                            </ul>
-                        </form>
-                    </div>-->
                 </ul>
             </div>
         </div>
@@ -345,7 +224,7 @@
                     <accordion close-others="false">
                         <accordion-group heading="{{currency}}" is-open="false">
                             <div ng-repeat="properties in addresses">
-                                <div ng-repeat="(property,value) in properties" class="controls-row">
+                                <div style="padding-bottom:10px;" ng-repeat="(property,value) in properties" class="controls-row">
 
                                             <label ng-bind="property" class="control-label">
 
@@ -356,7 +235,7 @@
 
                                 </div>
                             </div>
-                            <div class="controls" style="padding-top:15px;" ng-show="currency == 'BTC'">
+                            <div class="controls" ng-show="currency == 'BTC'">
                                 <button ng-click="generateAddress(currency)"
                                         ng-disabled=""
                                         type="submit"
