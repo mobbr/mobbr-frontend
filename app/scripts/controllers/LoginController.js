@@ -28,7 +28,7 @@ angular.module('mobbr.controllers').controller('LoginController', function ($sco
                     userSession.redirectAfterLoginIn = null;
 
                 } else if (redirect) {
-                    $location.path('/dashboard');
+                    $location.path('/wallet');
                 }
 
 
@@ -81,7 +81,7 @@ angular.module('mobbr.controllers').controller('LoginController', function ($sco
 
                     $scope.new_password = '';
 
-                    $location.path('/dashboard');
+                    $location.path('/wallet');
                 } else {
                     Msg.setResponseMessage('info', 'Could not log you in', response);
                 }

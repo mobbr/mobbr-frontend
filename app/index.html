@@ -95,7 +95,8 @@
                                 <li user-settings class="dropdown">
                                     <a class="dropdown-toggle"><span ng-bind="userSession.user.username"></span> <img ng-src="{{ userSession.user.thumbnail }}" style="height: 30px;" class="img-rounded user-thumb"> <b class="caret"></b></a>
                                     <ul class="dropdown-menu" ng-controller="LoginController">
-                                        <li><a href="#/dashboard"><i class="icon-inbox"></i> Wallet</a></li>
+                                        <li><a href="#/wallet"><i class="icon-inbox"></i> Wallet</a></li>
+                                        <li><a href="#/taskboard"><i class="icon-calendar"></i> Taskboard</a></li>
                                         <!--<li><a href=""><i class="icon-eye-open"></i> Sourcing</a></li>-->
                                         <li><a href="#/settings"><i class="icon-wrench"></i> Settings</a></li>
                                         <li><a ng-click="logout()"><i class="icon-lock"></i> Log out</a></li>
@@ -110,21 +111,19 @@
             <section class="navbar navbar-inverse navbar-static-top">
                 <nav class="navbar-inner">
                     <ul class="nav">
-                        <!--<li><a href="#/dashboard">Your wallet</a></li>-->
+                        <!--<li><a href="#/wallet">Your wallet</a></li>-->
+                        <li><a href="#/taskboard">Find work</a></li>
                         <li><a href="#/claimpayment">Claim payment</a></li>
                         <li><a href="#/generatebutton">Create button</a></li>
                         <li class="dropdown">
-                            <a class="dropdown-toggle">More <b class="caret"></b></a>
+                            <a class="dropdown-toggle">Information <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <!--<li><a target="_blank" href="http://blog.mobbr.com/2013/03/to-boldly-start-economy-that-no-one-has.html">Our manifesto →</a></li>-->
-                                <!--<li><a target="_blank" href="http://community.mobbr.com/">Together we are legion →</a></li>-->
-                                <li><a href="#/company">About us</a></li>
-                                <!--<li><a href="#/partnering">Partnering</a></li>-->
-                                <li><a href="#/consumers">Features</a></li>
-                                <li><a target="_blank" href="https://plus.google.com/communities/100962413817465214183/stream/fb4912df-cfe1-4506-a8f9-9ae5b1d6825a">Mobbr blog →</a></li>
+                                <li><a href="#/company">Company</a></li>
+                                <li><a href="#/features">Features</a></li>
+                                <li><a target="_blank" href="https://plus.google.com/communities/100962413817465214183/stream/fb4912df-cfe1-4506-a8f9-9ae5b1d6825a">Blog →</a></li>
                                 <li class="divider"></li>
-                                <li><a href="#/tools">Tools and plugins</a></li>
-                                <li><a href="#/buttons">Developers guide</a></li>
+                                <li><a href="#/tools">Tools</a></li>
+                                <li><a href="#/integration">Integration</a></li>
                                 <li><a target="_blank" href="https://api.mobbr.com">API →</a></li>
                                 <li><a target="_blank" href="/protocol.html">Script-syntax →</a></li>
                                 <!--<li class="divider"></li>-->
@@ -194,7 +193,7 @@
         <script src="scripts/controllers/CreateButtonController.js"></script>
         <script src="scripts/controllers/ClaimPaymentController.js"></script>
         <script src="scripts/controllers/MainController.js"></script>
-        <script src="scripts/controllers/DashboardController.js"></script>
+        <script src="scripts/controllers/WalletController.js"></script>
         <script src="scripts/controllers/LinkLoginController.js"></script>
         <script src="scripts/controllers/LoginController.js"></script>
         <script src="scripts/controllers/UserSettingsController.js"></script>
