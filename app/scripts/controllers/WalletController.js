@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('DashboardController', function ($scope, $rootScope, $timeout, Balances,userSession, Util, Dashboard, Msg, PaymentNetwork, $window, $routeParams, $location) {
+angular.module('mobbr.controllers').controller('WalletController', function ($scope, $rootScope, $timeout, Balances,userSession, Util, Dashboard, Msg, PaymentNetwork, $window, $routeParams, $location) {
 
     $scope.searchentries;                // filter on search criteria
     //$scope.searchentriesAllPayments;                // filter on search criteria

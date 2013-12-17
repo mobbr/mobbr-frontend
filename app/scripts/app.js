@@ -90,12 +90,12 @@ angular.module('mobbr', [
                 }).when('/login/:hash', {
                     templateUrl: 'views/link-login.html',
                     controller: 'LinkLoginController',
-                    authsettings: { authenticated: false, redirectTo: '/dashboard' },
+                    authsettings: { authenticated: false, redirectTo: '/wallet' },
                     resolve: resolver
                 }).when('/activate/:hash', {
                     templateUrl: 'views/activate.html',
                     controller: 'ActivateController',
-                    authsettings: { authenticated: false, redirectTo: '/dashboard' },
+                    authsettings: { authenticated: false, redirectTo: '/wallet' },
                     resolve: resolver
                 }).when('/email/:hash', {
                     templateUrl: 'views/update-email.html',
@@ -103,21 +103,21 @@ angular.module('mobbr', [
                 }).when('/recover', {
                     templateUrl: 'views/recover-password.html',
                     controller: 'ResetPasswordController',
-                    authsettings: { authenticated: false, redirectTo: '/dashboard' },
+                    authsettings: { authenticated: false, redirectTo: '/wallet' },
                     resolve: resolver
                 }).when('/join', {
                     templateUrl: 'views/join.html',
                     controller: 'JoinController',
-                    authsettings: { authenticated: false, redirectTo: '/dashboard' },
+                    authsettings: { authenticated: false, redirectTo: '/wallet' },
                     resolve: resolver
                 }).when('/settings', {
                     templateUrl: 'views/settings.html',
                     controller: 'UserSettingsController',
                     authsettings: { authenticated: true, redirectTo: '/' },
                     resolve: resolver
-                }).when('/dashboard', {
-                    templateUrl: 'views/dashboard.html',
-                    controller: 'DashboardController',
+                }).when('/wallet', {
+                    templateUrl: 'views/wallet.html',
+                    controller: 'WalletController',
                     authsettings: { authenticated: true, redirectTo: '/' },
                     resolve: resolver
                 }).when('/domain/:url', {
@@ -131,25 +131,19 @@ angular.module('mobbr', [
                     controller: 'CreateButtonController'
                 }).when('/exchangerate', {
                     templateUrl: 'views/exchangerate.html',
-                    controller: 'ExchangerateController'
-                }).when('/buttons', {
-                    templateUrl: 'views/buttons.html'
+                    controller: 'ExchangeRateController'
+                }).when('/integration', {
+                    templateUrl: 'views/integration.html'
                 }).when('/api', {
                     templateUrl: 'views/api.html'
                 }).when('/usecases', {
                     templateUrl: 'views/usecases.html'
                 }).when('/siteconnector', {
                     templateUrl: 'views/siteconnector.html'
-                }).when('/consumers', {
-                    templateUrl: 'views/consumers.html'
-                }).when('/webmasters', {
-                    templateUrl: 'views/webmasters.html'
-                }).when('/creators', {
-                    templateUrl: 'views/creators.html'
+                }).when('/features', {
+                    templateUrl: 'views/features.html'
                 }).when('/company', {
                     templateUrl: 'views/company.html'
-                }).when('/partnering', {
-                    templateUrl: 'views/partnering.html'
                 }).when('/validator', {
                     templateUrl: 'views/validator.html'
                 }).when('/payment/:id', {
