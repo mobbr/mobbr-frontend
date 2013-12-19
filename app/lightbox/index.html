@@ -83,7 +83,7 @@
                                 </br>&rarr; <a target="_blank" href="http://mobbr.com/protocol.html">http://mobbr.com/protocol.html</a>
                             </li>
                         </ul>
-                        Visit <a href="/#/buttons">the website</a> for instructions on using the buttons and widgets.
+                        Visit <a href="/#/integration">the website</a> for instructions on using the buttons and widgets.
                     </div>
                 </fieldset>
             </div>
@@ -187,16 +187,15 @@
                     </div>
                     <div ng-switch-when="true">
                         <div ng-show="nowpayed">
-                            <h2>Registered for payment!</h2>
+                            <h2>Payment was completed!</h2>
                             <p>
-                                All your payments are collected <a target="_blank" href="/#/dashboard">on your dashboard</a>.
-                                You can review them and make them final all at once every week or so. You may now close this window.
+                                The recipient will be notified. You may now close this window.
                             </p>
                         </div>
                         <div ng-show="laterpayed">
                             <h2>Registered for later payment!</h2>
                             <p>
-                                All your payments are collected <a target="_blank" href="/#/dashboard">on your dashboard</a>.
+                                These payments are collected <a target="_blank" href="/#/wallet">in your wallet</a>.
                                 You can review them and make them final all at once every week or so. You may now close this window.
                             </p>
                         </div>
