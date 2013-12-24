@@ -331,7 +331,10 @@ pre {
 
 .sitefooter {
   border-top: 1px solid $grayLight;
-  padding: 20px;
   background: $grayDark;
   color: $grayLight;
+}
+
+.sitefooter .row-fluid {
+  padding: 20px;
 }
