@@ -37,6 +37,10 @@ angular.module('mobbr.controllers')
                         $scope.marked = false;
                         $scope.loading = false;
                     });
+                }, function (response) {
+                    $scope.errormessage = response.data && response.data.message && response.data.message.text;
+                    $scope.marked = false;
+                    $scope.loading = false;
                 });
 
             } else if (dologin) {
