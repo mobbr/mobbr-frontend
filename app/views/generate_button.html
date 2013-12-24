@@ -128,7 +128,7 @@
                             <tr>
                                 <th title="The Mobbr username of the participant, or his/her email, gravatar profile URL or BTC address">
                                     User ID<br>
-                                    <small>Username / email / gravatar profile/ Bitcoin address</small>
+                                    <small>Username / email / gravatar profile</small>
                                 </th>
                                 <th title="Enter free text describing the participants role in the collaboration">
                                     Role / function<br>
@@ -181,7 +181,10 @@
         <form class="form-horizontal">
             <div class="control-group">
                 <div class="controls">
-                    <button class="btn btn-success" ng-click="chooseConfiguration('json')">Generate inline script</button>
+                    <button class="btn btn-success" ng-click="chooseConfiguration('json')">Inline script</button>
+                    <span class="help-inline" ng-hide="userSession.authenticated">
+                        script placed inside your pages: &lt;meta ...&gt;
+                    </span>
                 </div>
             </div>
 
@@ -189,7 +192,10 @@
                 <div class="controls">
                     <button class="btn btn-success" ng-click="chooseConfiguration('mobbr')" ng-disabled="!userSession.authenticated">Generate script link</button>
                     <span class="help-inline" ng-hide="userSession.authenticated">
-                        Login to be able to choose Link
+                        script on our servers, linked from your pages: &lt;link ...&gt;
+                    </span>
+                    <span class="help-inline" ng-hide="userSession.authenticated">
+                        (Login to choose this)
                     </span>
                 </div>
             </div>
