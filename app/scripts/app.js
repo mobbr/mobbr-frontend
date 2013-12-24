@@ -192,13 +192,16 @@ angular.module('mobbr', [
             Util.languages(function (response) {
                 if (response.result != null) {
                     $rootScope.languagesMap = response.result;
-                    $rootScope.languagesMap[''] = 'No language';
+                    $rootScope.languagesMap['leeg'] = 'No language';
                 }
             });
 
             Util.countries(function (response) {
                 if (response.result != null) {
-                    $rootScope.countriesMap = response.result;
+                    $rootScope.countriesMap = {'' :'No country'};
+                    angular.forEach(response.result, function(value, key){
+                        $rootScope.countriesMap[key] =  value;
+                    });
                 }
             });
 
