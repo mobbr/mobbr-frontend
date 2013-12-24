@@ -7265,3 +7265,10 @@ pre {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+
+.dropdown {
+    min-width: 160px;
+}
+.dropdown-toggle{
+    text-align: right;
+}
