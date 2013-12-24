@@ -25,11 +25,8 @@ angular.module('mobbr.controllers').controller('DomainController', function ($sc
     $scope.showExpiresDate = false;
 
     if (!$routeParams.url) {
-        console.log(refarray[0]);
         $location.path('/domain/' + $window.btoa(refarray[0] + '//' + refarray[2])).replace();
     }
-
-    console.log($routeParams.url);
 
     $scope.urlParam = {domain:$window.atob($routeParams.url)};
 
