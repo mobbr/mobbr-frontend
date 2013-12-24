@@ -177,9 +177,10 @@
                     <thead>
                     <tr>
                         <th ng-click="sortPayments('paiddatetime')">date</th>
-                        <th ng-click="sortPayments('payment_service')" >Payment network</th>
+                        <th ng-click="sortPayments('payment_service')" >Provider</th>
                         <th ng-click="sortPayments('currency_iso')">Currency</th>
-                        <th ng-click="sortPayments('amount')" colspan="3">Amount</th>
+                        <th ng-click="sortPayments('amount')">Amount</th>
+                        <th ng-click="sortPayments('receive_address')" colspan="2">Address</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -188,8 +189,7 @@
                         <td ng-bind="mutation.payment_service"></td>
                         <td ng-bind="mutation.currency_iso" class="currency"></td>
                         <td ng-bind="mutation.amount" class="amount decorate-amount"></td>
-                        <td class="amount"></td>
-                        <td class="amount"></td>
+                        <td ng-bind="mutation.receive_address" colspan="2"></td>
                     </tr>
                     </tbody>
                 </table>
