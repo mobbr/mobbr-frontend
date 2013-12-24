@@ -178,7 +178,7 @@ angular.module('mobbr', [
                 } else if (response.message != null) {
                     console.log('error loading currencies' + response.error.status);
                 }
-                $rootScope.currenciesMap['MBR'] = 'Mobbr';
+                // $rootScope.currenciesMap['MBR'] = 'Mobbr dummy money';
             });
 
             $rootScope.currencyDescription = function (iso) {
