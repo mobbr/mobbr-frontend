@@ -95,7 +95,10 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
             note: $scope.deposit_note,
             return_url: $window.location.href
         }, function (data) {
+            Msg.setResponseMessage('info', data.message.text, response);
             $window.location.href = data.result;
+        }, function(response){
+            Msg.setResponseMessage('error', response.data.message.text, response);
         });
     }
 
