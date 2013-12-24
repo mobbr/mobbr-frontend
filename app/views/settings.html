@@ -167,18 +167,22 @@
 
                     <div class="controls">
                         <select id="country_of_residence" name="country_of_residence" ng-model="user.country_of_residence"
-                                ng-options="value as key for (value, key) in countriesMap"></select>
+                                ng-options="value as key for (value, key) in countriesMap">
+                            <option value="">No country</option>
+                        </select>
                     </div>
                 </div>
 
                 <div class="control-group">
                     <div class="control-label">
-                        <label for="nationality">Nationality</label>
+                        <label for="nationality">Country of birth</label>
                     </div>
 
                     <div class="controls">
                         <select id="nationality" name="nationality" ng-model="user.nationality"
-                                ng-options="value as value for (value, key) in countriesMap"></select>
+                                ng-options="value as key for (value, key) in countriesMap">
+                            <option value="">No country</option>
+                        </select>
                     </div>
                 </div>
 

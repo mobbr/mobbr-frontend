@@ -198,10 +198,8 @@ angular.module('mobbr', [
 
             Util.countries(function (response) {
                 if (response.result != null) {
-                    $rootScope.countriesMap = {'' :'No country'};
-                    angular.forEach(response.result, function(value, key){
-                        $rootScope.countriesMap[key] =  value;
-                    });
+                    $rootScope.countriesMap = response.result;
+
                 }
             });
 
