@@ -182,7 +182,7 @@
             <div class="control-group">
                 <div class="controls">
                     <button class="btn btn-success" ng-click="chooseConfiguration('json')">Inline script</button>
-                    <span class="help-inline" ng-hide="userSession.authenticated">
+                    <span class="help-inline">
                         script placed inside your pages: &lt;meta ...&gt;
                     </span>
                 </div>
@@ -191,7 +191,7 @@
             <div class="control-group">
                 <div class="controls">
                     <button class="btn btn-success" ng-click="chooseConfiguration('mobbr')" ng-disabled="!userSession.authenticated">Generate script link</button>
-                    <span class="help-inline" ng-hide="userSession.authenticated">
+                    <span class="help-inline">
                         script on our servers, linked from your pages: &lt;link ...&gt;
                     </span>
                     <span class="help-inline" ng-hide="userSession.authenticated">
