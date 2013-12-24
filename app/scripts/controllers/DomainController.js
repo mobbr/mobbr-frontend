@@ -29,6 +29,8 @@ angular.module('mobbr.controllers').controller('DomainController', function ($sc
         $location.path('/domain/' + $window.btoa(refarray[0] + '//' + refarray[2])).replace();
     }
 
+    console.log($routeParams.url);
+
     $scope.urlParam = {domain:$window.atob($routeParams.url)};
 
     Domain.balances($scope.urlParam,function(response){
