@@ -7202,6 +7202,14 @@ pre {
   top: 80px;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003332}}
+.sitefooter {
+  border-top: 1px solid #999999;
+  padding: 20px;
+  background: #333333;
+  color: #999999;
+}
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/han\/mobbr-www\/app\/components\/sass-bootstrap\/lib\/_utilities\.scss}line{font-family:\000037}}
 .pull-right {
   float: right;
