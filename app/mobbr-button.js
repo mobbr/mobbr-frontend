@@ -405,7 +405,7 @@ var mobbr = mobbr || (function () {
         return createButtonImage(
             api_url + '/badge/' + urlparts[0] + '/' + urlparts[1] + '/' + type,
             function () {
-                window.open(ui_url + '/#/domain/' + window.btoa(urlparts[0] + '://' + urlparts[1]) + '=', '_blank');
+                window.open(ui_url + '/#/domain/' + window.btoa(urlparts[0] + '://' + urlparts[1]), '_blank');
             },
             button_type,
             currency
