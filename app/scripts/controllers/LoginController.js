@@ -13,7 +13,7 @@ angular.module('mobbr.controllers').controller('LoginController', function ($sco
         redirect = redirect === undefined && true || redirect;
         $scope.waiting = true;
         User.login({ email: $scope.email, password: $scope.password }, function (response) {
-            console.log('promise finished');
+
             $scope.waiting = false;
             if (response.result != undefined && response.result != null) {
 

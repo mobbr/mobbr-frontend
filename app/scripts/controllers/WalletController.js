@@ -34,7 +34,6 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
 
     $rootScope.$watch('reloadPayments', function(newValue, oldValue) {
         if(newValue != undefined){
-            console.log(' reloading payments from rootscope') ;
             $scope.reloadMutation();
             $scope.reloadBalances();
         }

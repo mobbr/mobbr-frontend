@@ -15,7 +15,6 @@ angular.module('mobbr.services.storage', [
                 authorization = $localStorage.authorization;
                 user = $localStorage.user;
                 setAuthorization();
-                console.log('external login');
                 $rootScope.$emit('userStorage:login-external', user);
             } else if (!value && authorization) {
                 clear();
