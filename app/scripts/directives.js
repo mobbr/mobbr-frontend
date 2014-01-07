@@ -400,4 +400,11 @@ angular.module('mobbr.directives', [
             }
         }
     }
-    ]);
+    ]).directive('autocomplete', function() {
+        return {
+            require: '^ngModel',
+            link: function(scope,element,attrs,ngModelCtrl){
+                ngModelCtrl.$setViewValue(element.val());
+            }
+        }
+    });

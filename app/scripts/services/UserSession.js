@@ -14,14 +14,14 @@ angular.module('mobbr.services.user', [
             user: undefined,
             update: function (user) {
                 userSession.user = user;
-                console.log('user update');
+
                 $rootScope.$emit('userSession:update', user);
             },
             doLogin: function (user, notifyParent) {
 
                 userSession.authenticated = true;
                 userSession.user = user;
-                console.log('user login');
+
                 $rootScope.$emit('userSession:login', user);
 
                 if (notifyParent) {
@@ -43,13 +43,11 @@ angular.module('mobbr.services.user', [
 
                     route.authsettings.redirectTo && $location.path(route.authsettings.redirectTo);
                     if (this.authenticated === false) Msg.addNotification('Please login at the account menu');
-                    console.log('user not authenticated');
 
                     return false;
 
                 } else {
 
-                    console.log('user authenticated');
                     return true;
                 }
             }
@@ -71,7 +69,6 @@ angular.module('mobbr.services.user', [
         }
 
         function reload() {
-            console.log('reload route');
             $injector.get('$route').reload();
         }
 
