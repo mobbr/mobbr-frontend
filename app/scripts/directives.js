@@ -400,11 +400,17 @@ angular.module('mobbr.directives', [
             }
         }
     }
-    ]).directive('autocomplete', function() {
+    ]).directive('autoFillSync', function($timeout) {
         return {
-            require: '^ngModel',
-            link: function(scope,element,attrs,ngModelCtrl){
-                ngModelCtrl.$setViewValue(element.val());
+            require: 'ngModel',
+            link: function(scope, elem, attrs) {
+                var origVal = elem.val();
+                $timeout(function () {
+                    var newVal = elem.val();
+                    if(ngModel.$pristine && origVal !== newVal) {
+                        ngModel.$setViewValue(newVal);
+                    }
+                }, 500);
             }
         }
     });
