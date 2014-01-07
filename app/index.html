@@ -88,8 +88,8 @@
                                 <li class="nav-header"></li>
                                 <li>
                                     <form ng-submit="login()" name="head-login" ng-controller="LoginController">
-                                        <input ng-model="email" type="email" name="email" placeholder="email address">
-                                        <input ng-model="password" type="password" name="password" placeholder="password">
+                                        <input ng-model="email" type="email" name="email" placeholder="email address" autocomplete>
+                                        <input ng-model="password" type="password" name="password" placeholder="password" autocomplete>
                                         <button ng-disabled="waiting" type="submit" class="btn"><i class="icon-white mobbrloader" ng-show="waiting"></i> Log in</button>
                                     </form>
                                 </li>
