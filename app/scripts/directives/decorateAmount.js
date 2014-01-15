@@ -14,7 +14,7 @@ angular.module('mobbr.directives').directive('decorateAmount',function factory(u
                     element.addClass('text-error');
                 }
                 if (value.toLocaleString !== undefined) {
-                    value = value.toLocaleString(settings.language_iso, {
+                    value = value.toLocaleString(settings && settings.language_iso || 'EUR', {
                         minimumFractionDigits: 4,
                         maximumFractionDigits: 4
                     });
