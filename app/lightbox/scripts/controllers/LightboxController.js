@@ -31,7 +31,7 @@ angular.module('mobbr.controllers')
                     $scope.noscript = $scope.urlData.script['.scripts_found'] === undefined || $scope.urlData.script['.scripts_found'].length === 0;
                     $scope.noparticipants = $scope.urlData.script['participants'] === undefined || $scope.urlData.script['participants'].length === 0;
                     $scope.loading = false;
-                    $scope.persons = Domain.getPersons({ url: response.url });
+                    $scope.persons = Domain.getPersons({ domain: response.url });
                 }, function (response) {
                     $scope.errormessage = response.data && response.data.message && response.data.message.text;
                     $scope.marked = false;
