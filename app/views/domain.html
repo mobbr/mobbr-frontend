@@ -20,14 +20,11 @@
     </div>
 </div>
 
-<div class="row-fluid">
-    <div class="span12">
+<tabs>
+    <pane heading="Top URL's">
         <mobbrtable entries="unclaimed.result"
                     columns="[ 'img_uri_link', 'title+description_link', 'mobbrbutton' ]"></mobbrtable>
-    </div>
-</div>
-
-<tabs>
+    </pane>
     <pane heading="Payments to this domain">
         <mobbrtable entries="payments.result"
                     has-search="true"

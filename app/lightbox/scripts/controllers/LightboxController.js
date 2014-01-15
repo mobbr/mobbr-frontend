@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mobbr.controllers')
-    .controller('LightboxController', function ($scope, $location, $timeout, Gateway, Url, userSession, User, Balances) {
+    .controller('LightboxController', function ($scope, $location, $timeout, Gateway, Url, userSession, User, Balances, Domain) {
 
         var hash,
             error,
@@ -31,6 +31,7 @@ angular.module('mobbr.controllers')
                     $scope.noscript = $scope.urlData.script['.scripts_found'] === undefined || $scope.urlData.script['.scripts_found'].length === 0;
                     $scope.noparticipants = $scope.urlData.script['participants'] === undefined || $scope.urlData.script['participants'].length === 0;
                     $scope.loading = false;
+                    $scope.persons = Domain.getPersons({ url: response.url });
                 }, function (response) {
                     $scope.errormessage = response.data && response.data.message && response.data.message.text;
                     $scope.marked = false;
