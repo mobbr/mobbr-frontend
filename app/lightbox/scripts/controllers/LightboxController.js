@@ -26,17 +26,11 @@ angular.module('mobbr.controllers')
             } else if (hash) {
                 $scope.dologin = false;
                 Gateway.analyzePayment({ data: window.atob(hash), referrer: document.referrer }, function (response) {
-                    hash = response.result;
-                    Url.fullData({ hash: hash }, function (response) {
-                        $scope.urlData = response.result;
-                        $scope.noscript = $scope.urlData.meta_data['.scripts_found'] === undefined || $scope.urlData.meta_data['.scripts_found'].length === 0;
-                        $scope.noparticipants = $scope.urlData.meta_data['participants'] === undefined || $scope.urlData.meta_data['participants'].length === 0;
-                        $scope.loading = false;
-                    }, function (response) {
-                        $scope.errormessage = response.data && response.data.message && response.data.message.text;
-                        $scope.marked = false;
-                        $scope.loading = false;
-                    });
+                    hash = response.result.hash;
+                    $scope.urlData = response.result;
+                    $scope.noscript = $scope.urlData.script['.scripts_found'] === undefined || $scope.urlData.script['.scripts_found'].length === 0;
+                    $scope.noparticipants = $scope.urlData.script['participants'] === undefined || $scope.urlData.script['participants'].length === 0;
+                    $scope.loading = false;
                 }, function (response) {
                     $scope.errormessage = response.data && response.data.message && response.data.message.text;
                     $scope.marked = false;
