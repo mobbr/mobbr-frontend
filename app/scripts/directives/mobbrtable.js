@@ -1,22 +1,30 @@
 'use strict';
 
-angular.module('mobbr.directives').directive('mobbrtable', function factory(userSession) {
+angular.module('mobbr.directives').directive('mobbrtable', function factory($rootScope) {
 
     var labels = {
             gravatar: '',
             '.gravatar': '',
             '.x-id': 'Person',
+            datetime: 'Date/time',
+            title: 'Title',
             username: 'Person',
             amount: 'Amount',
             share: 'Share',
             '.percentage': 'Share',
             role: 'Role',
-            roles: 'Roles'
+            roles: 'Roles',
+            url: 'URL',
+            senders: 'Semders',
+            receivers: 'Receivers'
         }, sortables = {
             '.x-id': 'x-id',
+            datetime: 'datetime',
             username: 'username',
             amount: 'amount',
             share: 'share',
+            title: 'title',
+            url: 'url',
             '.percentage': 'share',
             roles: 'roles',
             role: 'role'
@@ -28,8 +36,7 @@ angular.module('mobbr.directives').directive('mobbrtable', function factory(user
         transclude: true,
         templateUrl: '../../views/directives/mobbrtable.html',
         scope: {
-            entries: '=',
-            noEntries: '='
+            entries: '='
         },
         controller: function ($scope, $attrs) {
 
@@ -37,8 +44,25 @@ angular.module('mobbr.directives').directive('mobbrtable', function factory(user
             $scope.sortables = sortables;
             $scope.sortOrder = false;
             $scope.showEntries = 10;
-            $scope.hasSearch = $scope.$eval($attrs.hasSearch) === false && false || true;
+            $scope.hasSearch = $scope.$eval($attrs.hasSearch) === true && true || false;
+            $scope.hasHeader = $scope.$eval($attrs.hasHeader) === true && true || false;
+            $scope.hasLimiter = $scope.$eval($attrs.hasLimiter) === true && true || false;
+            $scope.canSort = $scope.$eval($attrs.canSort) === true && true || false;
+            $scope.noEntries = $scope.$eval($attrs.noEntriesMsg) === false && false || true;
+            $scope.noEntriesMsg = $scope.$eval($attrs.noEntriesMsg) || 'No entries found';
             $scope.columns = $scope.$eval($attrs.columns);
+
+            $scope.encodeuri = function (url) {
+                return window.btoa(url);
+            }
+
+            $scope.currencyDescription = function (iso) {
+                var currency = $rootScope.currenciesMap[iso];
+                if (!currency || 0 === currency.length) {
+                    return iso;
+                }
+                return currency;
+            }
 
             $scope.sort = function (column) {
                 if (sortables[column]) {

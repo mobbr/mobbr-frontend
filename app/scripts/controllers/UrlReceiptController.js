@@ -1,39 +1,31 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('UrlReceiptController', function ($scope,Url,$routeParams,$location,$window,Msg) {
+angular.module('mobbr.controllers').controller('UrlReceiptController', function ($scope, Url, Gateway, Domain, $routeParams, $location, $window, Msg) {
 
-    var url = document.referrer.replace(/[\/?#]*$/, "");
+    var urlParam, domainParam;
 
     if (!$routeParams.url) {
-        $location.path('/url/' + $window.btoa(url)).replace();;
+        $location.path('/url/' + $window.btoa(document.referrer)).replace();;
     }
 
-    $scope.url = $window.atob($routeParams.url);
-    $scope.payment = {};
-    $scope.urlParam = {url:$scope.url};
-    Url.fullData($scope.urlParam,function(response){
-        if(response.result != null && response.result != undefined){
-            $scope.payment = response.result;
-        }else{
-            Msg.setResponseMessage( 'error', 'URL info not found',response);
+    $scope.payment = Gateway.analyzePayment(
+        {
+            data: $window.atob($routeParams.url),
+            referrer: document.referrer
+        }, function (response) {
+            if (response.result === null || response.result === undefined) {
+                Msg.setResponseMessage('error', 'URL info not found', response);
+            } else {
+                urlParam = { url: response.result.url };
+                domainParam = { domain: response.result.url };
+                $scope.balances = Url.balances(urlParam);
+                $scope.personPayments = Url.personPayments(urlParam);
+                $scope.locations = Domain.getLocations(domainParam);
+                $scope.divisions = Domain.getPersons(domainParam);
+
+            }
+        }, function (response) {
+            Msg.setResponseMessage('error', 'URL info not found', response);
         }
-    },function(response){
-        Msg.setResponseMessage( 'error', 'URL info not found',response);
-    });
-
-    $scope.personPayments = [];
-    Url.personPayments($scope.urlParam,function(response){
-        if(response.result != null && response.result != undefined){
-            $scope.personPayments = response.result;
-        }else{
-            Msg.setResponseMessage( 'error', 'URL info not found',response);
-        }
-    },function(response){});
-
-
-    $scope.balances = [];
-    Url.balances($scope.urlParam,function(response){
-        $scope.balances = response.result;
-    },function(response){});
-
+    );
 });
