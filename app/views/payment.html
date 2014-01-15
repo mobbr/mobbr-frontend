@@ -1,7 +1,7 @@
 <div class="page-header">
     <h1>
-        Payment receipt #{{payment.meta_data.id}} <span ng-hide="payment.meta_data.paiddatetime">(pending)</span><br>
-        <small>{{payment.meta_data.title}}</small>
+        Payment receipt <span ng-hide="payment.meta_data.paiddatetime">(pending)</span><br>
+        <small>{{payment.meta_data.title}}</small><br>
     </h1>
 </div>
 
@@ -19,8 +19,6 @@
         <div class="clearfix">{{payment.meta_data.currency_iso}} <span class="amount">{{payment.meta_data.amount}}</span></div>
         <h6><small>Clicked</small></h6>
         <div class="clearfix"><span ng-bind="payment.meta_data.clickdatetime"></span></div>
-        <h6><small>Approved</small></h6>
-        <div class="clearfix"><span ng-bind="payment.meta_data.approveddatetime"></span></div>
         <h6><small>Paid</small></h6>
         <div class="clearfix"><span ng-bind="payment.meta_data.paiddatetime"></span></div>
     </div>
