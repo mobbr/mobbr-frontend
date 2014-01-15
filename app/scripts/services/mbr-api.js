@@ -84,7 +84,8 @@ angular.module('mobbr.services.mbr-api', [
         return $resource(api_url + '/api/url/:action',{},{
             getLocations: {method: 'GET',params: {action: 'locations'},isArray:false},
             balances: {method: 'GET',params: {url:'url',action: 'balances'},isArray:false},
-            personPayments: {method: 'GET',params: {url:'url',action: 'person_payments'},isArray:false}
+            personPayments: {method: 'GET',params: {url:'url',action: 'person_payments'},isArray:false},
+            payments: {method: 'GET',params: {url:'url',action: 'payments'},isArray:false}
         });
 
     }).factory('Util', function ($resource) {
