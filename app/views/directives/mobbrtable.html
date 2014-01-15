@@ -98,12 +98,12 @@
                       ng-bind="(entry['.percentage'] | number:0) + '%'"></span>
 
                 <div ng-switch-when="title+description">
-                    <h3 ng-bind="entry.title"></h3>
+                    <strong ng-bind="entry.title"></strong>
                     <small ng-bind="entry.description"></small>
                 </div>
 
                 <div ng-switch-when="title+description_link">
-                    <a href="{{ '/#/url/' + encodeuri(entry.uri) }}"><h3 ng-bind="entry.title"></h3></a>
+                    <a href="{{ '/#/url/' + encodeuri(entry.uri) }}"><strong ng-bind="entry.title"></strong></a><br>
                     <small ng-bind="entry.description"></small>
                 </div>
 
