@@ -32,7 +32,7 @@ angular.module('mobbr.controllers')
                     $scope.noparticipants = $scope.urlData.script['participants'] === undefined || $scope.urlData.script['participants'].length === 0;
                     $scope.loading = false;
                     $scope.persons = Url.persons({ url: response.result.url });
-                    $scope.balances = Url.balances(urlParam);
+                    $scope.balances = Url.balances({ url: response.result.url });
                 }, function (response) {
                     $scope.errormessage = response.data && response.data.message && response.data.message.text;
                     $scope.marked = false;
