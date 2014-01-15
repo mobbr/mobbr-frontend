@@ -87,7 +87,7 @@
                             <ul class="dropdown-menu">
                                 <li class="nav-header"></li>
                                 <li>
-                                    <form ng-submit="login()" name="head-login" ng-controller="LoginController">
+                                    <form ng-submit="login()" name="head-login" ng-controller="LoginController" form-autofill-fix>
                                         <input ng-model="email" type="email" name="email" placeholder="email address" auto-fill-sync>
                                         <input ng-model="password" type="password" name="password" placeholder="password" auto-fill-sync>
                                         <button ng-disabled="waiting" type="submit" class="btn"><i class="icon-white mobbrloader" ng-show="waiting"></i> Log in</button>
@@ -233,6 +233,7 @@
         <script src="scripts/directives/peoplepagesearch.js"></script>
         <script src="scripts/directives/placeholder.js"></script>
         <script src="scripts/directives/pwCheck.js"></script>
+        <script src="scripts/directives/formAutofillFix.js"></script>
         <script src="scripts/filters/mobbrcurrency.js"></script>
         <!-- endbuild -->
         <script src="/mobbr-button.js"></script>
