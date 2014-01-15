@@ -103,8 +103,8 @@
                 </div>
 
                 <div ng-switch-when="title+description_link">
-                    <a href="{{ '/#/url/' + encodeuri(entry.uri) }}"><strong ng-bind="entry.title"></strong></a><br>
-                    <small ng-bind="entry.description"></small>
+                    <a href="{{ '/#/url/' + encodeuri(entry.uri) }}"><strong ng-bind="entry.title"></strong></a>
+                    <div ng-bind="entry.description"></div>
                 </div>
 
                 <a ng-switch-when="url" href="{{ '/#/url/' + encodeuri(entry.url) }}" ng-bind="entry.url"></a>
