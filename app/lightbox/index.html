@@ -175,7 +175,7 @@
                                 <accordion-heading>
                                     <span class="headlabel" ng-bind="(urlData.script.participants.length > 0 && 'History' || 'Pledged') + ':'"></span>
                                     <ul class="inline gravatar-heading">
-                                        <li ng-repeat="balance in urlData.balances">
+                                        <li ng-repeat="balance in balances.result">
                                             <strong ng-bind="(balance.amount | currency:balance.currency_iso)"></strong>
                                         </li>
                                     </ul>
