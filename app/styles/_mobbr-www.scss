@@ -172,6 +172,42 @@ h1, h2, h3 {
   font-weight: normal;
 }
 
+.mobbrtable h3 {
+  font-size: 1.2em;
+  line-height: 1.6em;
+  margin: 0;
+}
+
+.mobbrtable .img_uri,
+.mobbrtable .gravatar {
+  max-width: none;
+  max-height: none;
+}
+
+.mobbrtable .img_uri {
+  width: 64px;
+  height: 64px;
+}
+
+.mobbrtable .gravatar {
+  width: 50px;
+  height: 50px;
+}
+
+.mobbrtable .gravatar.small {
+  width: 20px;
+  height: 20px;
+}
+
+.mobbrtable .gravatar.xsmall {
+  width: 20px;
+  height: 20px;
+}
+
+.mobbrtable .searchbox {
+  margin-right: 20px;
+}
+
 .hero-unit h1 {
   font-size: 4em;
   line-height: 1.2em;
