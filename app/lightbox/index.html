@@ -149,31 +149,31 @@
                 </div>
                 <div ng-switch on="marked" ng-show="!dologin">
                     <div ng-switch-when="undefined">
-                        <div class="well special" ng-bind="urlData.meta_data.message || urlData.meta_data.description"></div>
+                        <div class="well special" ng-bind="urlData.script.message || urlData.script.description"></div>
                         <accordion close-others="true">
                             <accordion-group is-open="false">
                                 <accordion-heading>
                                     <span class="headlabel">Item:</span>
-                                    <strong ng-show="!isOpen" ng-bind="urlData.meta_data.title" class="itemtitle"></strong>
+                                    <strong ng-show="!isOpen" ng-bind="urlData.script.title" class="itemtitle"></strong>
                                 </accordion-heading>
-                                <img ng-src="{{ urlData.meta_data.image }}" class="pull-left" width="100">
-                                <div ng-bind="urlData.meta_data.description"></div>
+                                <img ng-src="{{ urlData.script.image }}" class="pull-left" width="100">
+                                <div ng-bind="urlData.script.description"></div>
                             </accordion-group>
                             <accordion-group class="nowrap-header" ng-show="!$parent.noscript && !$parent.noparticipants" is-open="false">
                                 <accordion-heading>
                                     <span class="headlabel">Participants:</span>
                                     <ul class="inline gravatar-heading">
-                                        <li ng-repeat="participant in urlData.meta_data.participants">
+                                        <li ng-repeat="participant in urlData.script.participants">
                                             <img ng-src="http://www.gravatar.com/avatar/{{ participant['.gravatar'] }}?s=20&default=https://mobbr.com/img/default-gravatar.png" class="img-rounded-small">
                                         </li>
                                     </ul>
                                 </accordion-heading>
-                                <mobbrtable entries="urlData.meta_data.participants"
+                                <mobbrtable entries="urlData.script.participants"
                                             columns="['.gravatar','.org-id','role','.percentage']"></mobbrtable>
                             </accordion-group>
                             <accordion-group is-open="false" ng-show="!noscript">
                                 <accordion-heading>
-                                    <span class="headlabel" ng-bind="(urlData.meta_data.participants.length > 0 && 'History' || 'Pledged') + ':'"></span>
+                                    <span class="headlabel" ng-bind="(urlData.script.participants.length > 0 && 'History' || 'Pledged') + ':'"></span>
                                     <ul class="inline gravatar-heading">
                                         <li ng-repeat="balance in urlData.balances">
                                             <strong ng-bind="(balance.amount | currency:balance.currency_iso)"></strong>
