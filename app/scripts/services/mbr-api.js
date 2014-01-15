@@ -39,7 +39,8 @@ angular.module('mobbr.services.mbr-api', [
             getPersons: {method: 'GET',params: {action: 'persons'},isArray:false},
             isDomainOwner : {method: 'GET',params: {domain:'domain',action: 'is_domain_owner'},isArray:false},
             balances : {method: 'GET',params: {domain:'domain',action: 'balances'},isArray:false},
-            info : {method: 'GET',params: {domain:'domain',action: 'domain_info'},isArray:false}
+            info : {method: 'GET',params: {domain:'domain',action: 'domain_info'},isArray:false},
+            getUnclaimed: {method: 'GET',params: {domain:'domain',action: 'unclaimed_urls'},isArray:false}
         });
 
     }).factory('Claim', function ($resource) {
@@ -82,7 +83,6 @@ angular.module('mobbr.services.mbr-api', [
 
         return $resource(api_url + '/api/url/:action',{},{
             getLocations: {method: 'GET',params: {action: 'locations'},isArray:false},
-            fullData: {method: 'GET',params: {action: 'full_url_data'},isArray:false},
             balances: {method: 'GET',params: {url:'url',action: 'balances'},isArray:false},
             personPayments: {method: 'GET',params: {url:'url',action: 'person_payments'},isArray:false}
         });
@@ -119,7 +119,8 @@ angular.module('mobbr.services.mbr-api', [
             getPayment: {method: 'GET', params : { action: 'get_payment' }},
             registerPayment: {method: 'PUT', params : { action: 'register_payment' }},
             performPayment: {method: 'PUT', params : { action: 'perform_payment' }},
-            analyzePayment: {method: 'POST', params : { action: 'analyze_payment' }}
+            analyzePayment: {method: 'POST', params : { action: 'analyze_payment' }},
+            fullData: {method: 'GET',params: {action: 'full_url_data' },isArray:false}
         });
 
     }
