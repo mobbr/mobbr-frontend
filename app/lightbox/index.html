@@ -6,7 +6,7 @@
 <!--[if gt IE 9]><html xmlns:ng="http://angularjs.org"> <![endif]-->
 <!--[if !IE]><!--><html xmlns:ng="http://angularjs.org"> <!--<![endif]-->
     <head>
-        <script>var api_url = 'https://api.mobbr.com';</script>
+        <script>var api_url = 'https://test-api.mobbr.com';</script>
         <!-- build:js scripts/combined-head.js -->
         <script src="../components/modernizr/modernizr.js"></script>
         <!-- endbuild -->
@@ -164,7 +164,7 @@
                                     <span class="headlabel">Participants:</span>
                                     <ul class="inline gravatar-heading">
                                         <li ng-repeat="participant in urlData.script.participants">
-                                            <img ng-src="http://www.gravatar.com/avatar/{{ participant['.gravatar'] }}?s=20&default=https://mobbr.com/img/default-gravatar.png" class="img-rounded-small">
+                                            <img ng-src="https://secure.gravatar.com/avatar/{{ participant['.gravatar'] }}?s=20&default=https://mobbr.com/img/default-gravatar.png" class="img-rounded-small">
                                         </li>
                                     </ul>
                                 </accordion-heading>
