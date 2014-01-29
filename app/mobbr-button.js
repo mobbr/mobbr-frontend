@@ -212,7 +212,7 @@ function bit_rol(num,cnt)
     function postMessage(msg) {
 
         if (source && $window.parent && $window.parent.postMessage) {
-            source.postMessage(msg, 'http://mobbr.com');
+            source.postMessage(msg, 'https://mobbr.com');
             return true
         }
 
@@ -335,7 +335,7 @@ var mobbr = mobbr || (function () {
 
         var img = document.createElement('img');
         img.style.cssText = 'position:relative;top:5px;width: 24px;height: 24px';
-        img.src = 'https://mobbr.com/img/frame_closebutton.png';
+        img.src = ui_url + '/img/frame_closebutton.png';
         img.alt = 'Close button';
 
         mobbrFrame = document.createElement('iframe');
