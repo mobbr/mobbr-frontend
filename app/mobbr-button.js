@@ -1,3 +1,7 @@
+/* Where is our server? */
+var mobbr_api_url = 'https://api.mobbr.com';
+var mobbr_ui_url  = 'https://mobbr.com';
+
 /* base64 polyfill */
 (function(){function t(t){this.message=t}var e="undefined"!=typeof exports?exports:this,r="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";t.prototype=Error(),t.prototype.name="InvalidCharacterError",e.btoa||(e.btoa=function(e){for(var o,n,a=0,i=r,c="";e.charAt(0|a)||(i="=",a%1);c+=i.charAt(63&o>>8-8*(a%1))){if(n=e.charCodeAt(a+=.75),n>255)throw new t("'btoa' failed: The string to be encoded contains characters outside of the Latin1 range.");o=o<<8|n}return c}),e.atob||(e.atob=function(e){if(e=e.replace(/=+$/,""),1==e.length%4)throw new t("'atob' failed: The string to be decoded is not correctly encoded.");for(var o,n,a=0,i=0,c="";n=e.charAt(i++);~n&&(o=a%4?64*o+n:n,a++%4)?c+=String.fromCharCode(255&o>>(6&-2*a)):0)n=r.indexOf(n);return c})})();
 
@@ -187,7 +191,7 @@ function bit_rol(num,cnt)
 
             source = e.source;
 
-            if (e.origin === 'https://mobbr.com') {
+            if (e.origin === mobbr_ui_url) {
 
                 // If we don't get a logout message and our data is not the same
                 // we set a new cookie with the userdata cookie value
@@ -212,7 +216,7 @@ function bit_rol(num,cnt)
     function postMessage(msg) {
 
         if (source && $window.parent && $window.parent.postMessage) {
-            source.postMessage(msg, 'https://mobbr.com');
+            source.postMessage(msg, mobbr_ui_url);
             return true
         }
 
@@ -283,9 +287,7 @@ var mobbr = mobbr || (function () {
         return false;
     }
 
-    var api_url = 'https://api.mobbr.com',
-        ui_url  = 'https://mobbr.com',
-        mobbrDiv = createMobbrDiv(),
+    var mobbrDiv = createMobbrDiv(),
         mobbrFrame,
         buttonSizes={
             slim: [ 110, 20 ],
@@ -335,14 +337,14 @@ var mobbr = mobbr || (function () {
 
         var img = document.createElement('img');
         img.style.cssText = 'position:relative;top:5px;width: 24px;height: 24px';
-        img.src = ui_url + '/img/frame_closebutton.png';
+        img.src = mobbr_ui_url + '/img/frame_closebutton.png';
         img.alt = 'Close button';
 
         mobbrFrame = document.createElement('iframe');
         mobbrFrame.setAttribute('name', 'mobbr_frame');
         mobbrFrame.setAttribute('frameborder', '0');
         mobbrFrame.style.cssText = 'position:relative;top:-10px;left:0;right:0;bottom:0;opacity:1;filter:alpha(opacity=100); width: 100%; height: 315px; padding:0; margin:0;';
-        mobbrFrame.src = ui_url + '/lightbox/#/';
+        mobbrFrame.src = mobbr_ui_url + '/lightbox/#/';
 
         a.appendChild(img);
         div.appendChild(a);
@@ -381,7 +383,7 @@ var mobbr = mobbr || (function () {
         }
 
         return createButtonImage(
-            api_url + '/button/' + md5_hash + '/' + button_type,
+            mobbr_api_url + '/button/' + md5_hash + '/' + button_type,
             function (e) {
                 mobbr.makePayment(data, e.target);
                 return false;
@@ -403,9 +405,9 @@ var mobbr = mobbr || (function () {
         }
 
         return createButtonImage(
-            api_url + '/badge/' + urlparts[0] + '/' + urlparts[1] + '/' + type,
+            mobbr_api_url + '/badge/' + urlparts[0] + '/' + urlparts[1] + '/' + type,
             function () {
-                window.open(ui_url + '/#/domain/' + window.btoa(urlparts[0] + '://' + urlparts[1]), '_blank');
+                window.open(mobbr_ui_url + '/#/domain/' + window.btoa(urlparts[0] + '://' + urlparts[1]), '_blank');
             },
             button_type,
             currency
@@ -503,7 +505,7 @@ var mobbr = mobbr || (function () {
     }
 
     function setUrl(url) {
-        mobbrFrame.src = ui_url + '/lightbox/#/' + url ;
+        mobbrFrame.src = mobbr_ui_url + '/lightbox/#/' + url ;
     }
 
     function hide() {
