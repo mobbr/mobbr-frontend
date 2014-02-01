@@ -72,10 +72,10 @@ angular.module('mobbr.services.mbr-api', [
             exchangerates: { method: 'GET',params: { action: 'forex_rates' }, isArray:false }
         });
 
-    }).factory('PaymentReciept', function ($resource) {
+    }).factory('PaymentReceipt', function ($resource) {
 
         return $resource(api_url + '/api/payment/:action', {}, {
-            getPaymentReciept: {method: 'GET', params: { id: 'id', action: 'payment'}, isArray: false}
+            getPaymentReceipt: {method: 'GET', params: { id: 'id', action: 'payment'}, isArray: false}
         });
 
     }).factory('Url', function ($resource) {
