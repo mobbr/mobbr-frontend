@@ -1,10 +1,10 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('PaymentReceiptController', function ($scope,PaymentReciept,$routeParams,Msg) {
+angular.module('mobbr.controllers').controller('PaymentReceiptController', function ($scope,PaymentReceipt,$routeParams,Msg) {
     $scope.payment = {};
     $scope.searchentries;
 
-    PaymentReciept.getPaymentReciept({id:$routeParams.id},function(response){
+    PaymentReceipt.getPaymentReceipt({id:$routeParams.id},function(response){
         if(response.result != null && response.result != undefined){
             $scope.payment = response.result;
         }else{
