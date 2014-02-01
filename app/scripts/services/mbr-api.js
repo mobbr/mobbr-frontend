@@ -75,7 +75,7 @@ angular.module('mobbr.services.mbr-api', [
     }).factory('PaymentReciept', function ($resource) {
 
         return $resource(api_url + '/api/payment/:action', {}, {
-            getPaymentReciept: {method: 'GET', params: { id: 'id', action: 'full_payment_data'}, isArray: false}
+            getPaymentReciept: {method: 'GET', params: { id: 'id', action: 'payment'}, isArray: false}
         });
 
     }).factory('Url', function ($resource) {
