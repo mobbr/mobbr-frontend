@@ -67,7 +67,7 @@ angular.module('mobbr.controllers')
         }
 
         function register() {
-            Gateway.registerPayment({ referrer: document.referrer || 'http://zaplog.nl', hash: hash }, function (response) {
+            Gateway.registerPayment({ referrer: document.referrer, hash: hash }, function (response) {
                 $scope.marked = true;
                 $scope.laterpaying = undefined;
                 $scope.laterpayed = true;
@@ -82,7 +82,7 @@ angular.module('mobbr.controllers')
         function perform() {
             var currency = $scope.currency && $scope.currency.currency_iso || $scope.currency;
             Gateway.performPayment({
-                referrer: document.referrer || 'http://zaplog.nl',
+                referrer: document.referrer,
                 currency: currency,
                 amount: $scope.amount,
                 hash: hash
