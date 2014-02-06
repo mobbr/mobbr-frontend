@@ -23,7 +23,7 @@
         </div>
     </div>
 
-    <table ng-show="entries.length > 0" class="table table-striped">
+    <table ng-show="entries.length > 0" class="table table-striped pull-left">
         <thead ng-show="hasHeader">
         <tr>
             <th ng-repeat="column in columns" ng-bind="labels[column]" ng-click="canSort && sort(column)" type="column"></th>
