@@ -98,6 +98,7 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
         $scope.user.setting[model.key] = value;
     }
 
+    // workaround for select firefox problems
     function initLanguage(){
         for(var i = 0;i < $rootScope.languageArray.length; i ++){
             var language = $rootScope.languageArray[i];
@@ -129,6 +130,7 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
             }
         }
     }
+
 
     if($rootScope.currencieArray !== undefined){
         initCurrency();
