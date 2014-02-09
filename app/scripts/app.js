@@ -175,10 +175,12 @@ angular.module('mobbr', [
             Util.currencies(function (response) {
                 if (response.result != null) {
                     $rootScope.currenciesMap = response.result;
-                } else if (response.message != null) {
-
+                    $rootScope.currencieArray = [];
+                    angular.forEach($rootScope.currenciesMap, function (key, value){
+                        $rootScope.currencieArray.push({'description':key,'code': value});
+                    });
+                    $rootScope.$broadcast('currencie-array-ready');
                 }
-                // $rootScope.currenciesMap['MBR'] = 'Mobbr dummy money';
             });
 
             $rootScope.currencyDescription = function (iso) {
@@ -193,12 +195,18 @@ angular.module('mobbr', [
                 if (response.result != null) {
                     $rootScope.languagesMap = response.result;
                     $rootScope.languagesMap['leeg'] = 'No language';
+                    $rootScope.languageArray = [];
+                    angular.forEach($rootScope.languagesMap, function (key,value){
+                        $rootScope.languageArray.push({'description' :key, 'code':value});
+                    });
+                    $rootScope.$broadcast('language-array-ready');
                 }
             });
 
             Util.countries(function (response) {
                 if (response.result != null) {
                     $rootScope.countriesMap = response.result;
+
 
                 }
             });

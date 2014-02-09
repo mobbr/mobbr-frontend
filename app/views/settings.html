@@ -216,11 +216,15 @@
                     </div>
 
                     <div class="controls">
+
                         <select
-                                ng-model="user.currency_iso"
-                                ng-options="value as key for (value,key ) in currenciesMap"
+                                ng-model="formData.currencyIndex"
                                 name="currency_iso"
-                                title="the currency to which other currencies are converted when displayed"></select>
+                                ng-options="cur.description for cur in currencieArray"
+                                title="the currency to which other currencies are converted when displayed">
+
+
+                                </select>
                         <span class="help-inline"></span>
 
                     </div>
@@ -233,11 +237,11 @@
                     </div>
 
                     <div class="controls">
-                        <select
-                                ng-model="user.language_iso"
-                                ng-options="value as key for (value,key ) in languagesMap"
-                                name="language_iso"
-                                title="the available languages"></select>
+                        <select ng-options="lan.description for lan in languageArray"
+                                ng-model="formData.languageIndex"
+                                title="the available languages">
+                        </select>
+
                         <span class="help-inline"></span>
 
                     </div>
