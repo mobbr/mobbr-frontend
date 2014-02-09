@@ -1,8 +1,10 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('UserSettingsController', function ($scope, userSession, User, Msg) {
+angular.module('mobbr.controllers').controller('UserSettingsController', function ($scope,$rootScope, userSession, User, Msg) {
 
     $scope.user = userSession.user;
+    $scope.formData = {};
+
     $scope.new_email = $scope.user.email;
 
     $scope.waitingsettings = false;
@@ -96,6 +98,51 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
         $scope.user.setting[model.key] = value;
     }
 
+    function initLanguage(){
+        for(var i = 0;i < $rootScope.languageArray.length; i ++){
+            var language = $rootScope.languageArray[i];
+            if(language !== undefined && language.code === $scope.user.language_iso){
+                $scope.formData.languageIndex = language;
+            }
+        }
+    }
+
+    $rootScope.$on('language-array-ready', function(){
+         initLanguage();
+    });
+
+    if($rootScope.languageArray !== undefined){
+        initLanguage();
+    }
+
+    $scope.$watch('formData.languageIndex', function(newValue){
+        if(newValue !== undefined){
+            $scope.user.language_iso = newValue.code;
+        }
+    });
+
+    function initCurrency(){
+        for(var i = 0;i < $rootScope.currencieArray.length; i++){
+            var currency = $rootScope.currencieArray[i];
+            if(currency !== undefined && currency.code === $scope.user.currency_iso){
+                $scope.formData.currencyIndex = currency;
+            }
+        }
+    }
+
+    if($rootScope.currencieArray !== undefined){
+        initCurrency();
+    }
+
+    $rootScope.$on('currencie-array-ready', function() {
+        initCurrency();
+    });
+
+    $scope.$watch('formData.currencyIndex', function(newValue){
+       if(newValue !== undefined){
+           $scope.user.currency_iso = newValue.code;
+       }
+    });
 
 
 });
