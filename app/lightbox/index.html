@@ -49,7 +49,7 @@
         <link href="../components/pines-notify/jquery.pnotify.default.css" rel="stylesheet">
         <!-- endbuild -->
     </head>
-    <body ng-app="mobbr-lightbox" id="ng-app" class="ng-app:mobbr-lightbox" ng-class="{ loading: loading }" ng-controller="LightboxController" idle-timeout>
+    <body ng-app="mobbr-lightbox" id="ng-app" ng-class="{ 'mobbr-test': isTest() !== -1, 'ng-app': true, 'loading': loading }" ng-controller="LightboxController" idle-timeout>
         <!--[if lt IE 8]>
         <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser
             today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better
