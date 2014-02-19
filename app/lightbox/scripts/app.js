@@ -22,6 +22,10 @@ angular.module('mobbr-lightbox', [
         'Util',
         function ($http, $rootScope, Util) {
 
+            $rootScope.isTest = function () {
+                return window.location.href.search('test-www.mobbr.com');
+            }
+
             $rootScope.currenciesMap = {};
             Util.currencies(function (response) {
                 if (response.result != null) {

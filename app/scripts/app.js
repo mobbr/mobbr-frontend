@@ -169,6 +169,10 @@ angular.module('mobbr', [
         '$anchorScroll',
         function ($http, $rootScope, Util, $location, userSession, Msg, $window, $anchorScroll) {
 
+            $rootScope.isTest = function () {
+                return window.location.href.search('test-www.mobbr.com');
+            }
+
             // TODO: check what code should actually be here and move everything else to the services they belong to
 
             $rootScope.currenciesMap = {};
