@@ -225,6 +225,7 @@ module.exports = function (grunt) {
                 }
             }
         },
+      // TODO: should not be generated in a source folder
         ngtemplates: {
             dist: {
                 src:      [ '<%= yeoman.app %>/views/*.html', '<%= yeoman.app %>/directives/*.html'],
