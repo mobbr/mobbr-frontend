@@ -50,7 +50,7 @@ angular.module('ui.bootstrap.dropdownToggle', []).directive('dropdownToggle',
     }]);
 
 angular.module('mobbr', [
-
+        'ngRoute',
         'ui.bootstrap',
         'mobbr.controllers',
         'mobbr.services.msg',
