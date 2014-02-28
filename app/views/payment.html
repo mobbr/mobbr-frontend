@@ -12,18 +12,6 @@
             <img ng-src="{{payment.meta_data.img_url}}" class="gravatar receipt-thumb">
         </a>
 
-        <p>{{ payment.meta_data.description || payment.meta_data.note }}</p>
-    </div>
-
-    <div class="well special pull-right span4 receipt">
-        <h6><small>Amount</small></h6>
-        <div class="clearfix">{{payment.meta_data.currency_iso}} <span class="amount">{{payment.meta_data.amount}}</span></div>
-        <div ng-show="!external">
-            <h6><small>Clicked</small></h6>
-            <div class="clearfix"><span ng-bind="payment.meta_data.clickdatetime"></span></div>
-        </div>
-        <h6><small>Paid</small></h6>
-        <div class="clearfix"><span ng-bind="payment.meta_data.paiddatetime"></span></div>
         <div ng-show="external">
             <div ng-show="payment.meta_data.amount > 0">
                 <h6><small>Receive address</small></h6>
@@ -35,7 +23,21 @@
             </div>
             <h6><small>External transaction ID</small></h6>
             <div class="clearfix"><span ng-bind="payment.meta_data.ext_trx_id"></span></div>
+            <h6><small>Note</small></h6>
+            <div class="clearfix"><span ng-bind="payment.meta_data.note"></span></div>
         </div>
+        <p>{{ payment.meta_data.description }}</p>
+    </div>
+
+    <div class="well special pull-right span4 receipt">
+        <h6><small>Amount</small></h6>
+        <div class="clearfix">{{payment.meta_data.currency_iso}} <span class="amount">{{payment.meta_data.amount}}</span></div>
+        <div ng-show="!external">
+            <h6><small>Clicked</small></h6>
+            <div class="clearfix"><span ng-bind="payment.meta_data.clickdatetime"></span></div>
+        </div>
+        <h6><small>Paid</small></h6>
+        <div class="clearfix"><span ng-bind="payment.meta_data.paiddatetime"></span></div>
     </div>
 </div>
 
