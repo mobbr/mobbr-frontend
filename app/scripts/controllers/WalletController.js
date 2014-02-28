@@ -132,7 +132,7 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
   }
 
   $scope.openExternalPayment = function (id) {
-    $location.search('external', 'true').path('/payment/' + id);
+    $location.path('/x-payment/' + id);
   }
 
 //    PaymentNetwork.accountAddresses(function (response){
