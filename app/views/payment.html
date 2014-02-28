@@ -12,7 +12,7 @@
             <img ng-src="{{payment.meta_data.img_url}}" class="gravatar receipt-thumb">
         </a>
 
-        <p>{{ payment.meta_data.description }}</p>
+        <p>{{ payment.meta_data.description || payment.meta_data.note }}</p>
     </div>
 
     <div class="well special pull-right span4 receipt">
@@ -24,6 +24,18 @@
         </div>
         <h6><small>Paid</small></h6>
         <div class="clearfix"><span ng-bind="payment.meta_data.paiddatetime"></span></div>
+        <div ng-show="external">
+            <div ng-show="payment.meta_data.amount > 0">
+                <h6><small>Receive address</small></h6>
+                <div class="clearfix"><span ng-bind="payment.meta_data.receive_address"></span></div>
+            </div>
+            <div ng-show="payment.meta_data.amount < 0">
+                <h6><small>Send address</small></h6>
+                <div class="clearfix"><span ng-bind="payment.meta_data.send_address"></span></div>
+            </div>
+            <h6><small>External transaction ID</small></h6>
+            <div class="clearfix"><span ng-bind="payment.meta_data.ext_trx_id"></span></div>
+        </div>
     </div>
 </div>
 

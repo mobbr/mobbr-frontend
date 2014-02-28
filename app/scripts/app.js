@@ -151,6 +151,9 @@ angular.module('mobbr', [
         }).when('/payment/:id', {
           templateUrl: 'views/payment.html',
           controller: 'PaymentReceiptController'
+        }).when('/x-payment/:id', {
+          templateUrl: 'views/payment.html',
+          controller: 'PaymentReceiptController'
         }).when('/url/:url', {
           templateUrl: 'views/url.html',
           controller: 'UrlReceiptController'
