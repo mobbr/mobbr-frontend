@@ -31,6 +31,16 @@
                       editable="false"
                       showexpiresdate="false"></payments>
         </accordion-group>
+    </accordion>
+</pane>
+<pane heading="Pledges">
+
+    <div class="form-inline" style="margin-bottom: 20px;">
+        <label for="searchEntries{{paymenttype}}">Search: </label>
+        <input type="search" class="search-query" ng-model="searchentries" id="searchEntries{{paymenttype}}" >
+    </div>
+
+    <accordion close-others="false">
         <accordion-group heading="Pledges" is-open="true">
             <payments nodatatitle="No unclaimed payments"
                       paymenttype="unclaimed_payments"
