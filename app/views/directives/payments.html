@@ -21,7 +21,7 @@
                     <button class="btn"
                             ng-click="finalizePayments()"
                             ng-disabled="!canFinalize()"
-                            ng-show="editable">Finalize payments <i class="icon-white mobbrloader" ng-show="working"></i></button>
+                            ng-show="editable && paymenttype != 'unclaimed_payments'">Finalize payments <i class="icon-white mobbrloader" ng-show="working"></i></button>
 
                     <button class="btn"
                             ng-click="deletePayments()"
@@ -57,15 +57,15 @@
                     <td ng-click="openPayment(payment.id)">{{payment.title}}</td>
                     <td>
                         <select class="input-small"
-                                ng-show="editable"
+                                ng-show="editable && paymenttype != 'unclaimed_payments'"
                                 ng-model="payment.currency_iso"
                                 ng-options="cur.currency_code as cur.currency_code for cur in currencies"
                                 ng-change="paymentChanged(payment)"></select>
-                        <span ng-show="!editable" ng-bind="payment.currency_iso"></span>
+                        <span ng-show="!editable || paymenttype == 'unclaimed_payments'" ng-bind="payment.currency_iso"></span>
                     </td>
                     <td>
-                        <input class="input-small" type="number" ng-model="payment.amount" ng-show="editable" ng-change="paymentChanged(payment)" step="any" min="0" max="1000000000">
-                        <span class="amount decorate-amount" ng-show="!editable" ng-bind="payment.amount | number:4"></span>
+                        <input class="input-small" type="number" ng-model="payment.amount" ng-show="editable && paymenttype != 'unclaimed_payments'" ng-change="paymentChanged(payment)" step="any" min="0" max="1000000000">
+                        <span class="amount decorate-amount" ng-show="!editable || paymenttype == 'unclaimed_payments'" ng-bind="payment.amount | number:4"></span>
                     </td>
                 </tr>
                 </tbody>

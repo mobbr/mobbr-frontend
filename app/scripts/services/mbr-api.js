@@ -27,7 +27,8 @@ angular.module('mobbr.services.mbr-api', [
             savePayment: {method: 'PUT',params: {action: 'finalize_payments'}},
             deletePayment: {method: 'POST',params: {action: 'delete_payments'}},
             withdraw: {method: 'POST',params: {action: 'send_external_payment'}},
-            getCurrencies: {method: 'GET',params: { action: 'currencies'},isArray:false}
+            getCurrencies: {method: 'GET',params: { action: 'currencies'},isArray:false},
+            getExternalPaymentReceipt: {method: 'GET', params: { id: 'id', action: 'external_payment'}, isArray: false}
         });
 
     }).factory('Domain', function ($resource) {
