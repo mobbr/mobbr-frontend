@@ -21,7 +21,7 @@ angular.module('mobbr.controllers').controller('PaymentReceiptController', funct
   $scope.searchentries;
   $scope.external = false;
 
-  if ($location.path().indexOf('x-payment')) {
+  if ($location.path().indexOf('x-payment') !== -1) {
     $scope.external = true;
     Dashboard.getExternalPaymentReceipt(params, onSuccess, onError);
   } else {
