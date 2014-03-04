@@ -35,6 +35,12 @@
 </pane>
 <pane heading="Pledges">
 
+    <div class="row-fluid">
+        <div class="well span12 special">
+            <small>You can delete (revoke) a pledge you made. We will send every participant currently listed for the task an email informing them of this event.</small>
+        </div>
+    </div>
+
     <div class="form-inline" style="margin-bottom: 20px;">
         <label for="searchEntries{{paymenttype}}">Search: </label>
         <input type="search" class="search-query" ng-model="searchentries" id="searchEntries{{paymenttype}}" >
@@ -246,18 +252,6 @@
         </div>
         </div>
     </form>
-
-</pane>
-<pane heading="Domains">
-    <div ng-controller="SearchDomainController">
-        <form ng-submit="searchDomain()">
-            <label for="searchDomainInput">Enter domain to administer:</label>
-            <div class="input-append">
-                <input type="text" ng-model="searchDomainInput" id="searchDomainInput">
-                <button type="submit" class="btn">Go</button>
-            </div>
-        </form>
-    </div>
 
 </pane>
 </tabs>
