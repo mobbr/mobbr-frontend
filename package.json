@@ -27,6 +27,7 @@
     "grunt-google-cdn": "~0.1.1",
     "grunt-ngmin": "~0.0.2",
     "grunt-preprocess": "~2.3.0",
+    "grunt-ng-constant": "~0.4.8",
     "grunt-angular-templates": "~0.4.7"
   },
   "engines": {

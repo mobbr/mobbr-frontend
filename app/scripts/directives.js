@@ -325,13 +325,13 @@ angular.module('mobbr.directives', [
                 size:'@',
                 url:'@'
             },
-            controller: function ($scope, $rootScope) {
+            controller: function ($scope, $rootScope, apiUrl) {
 
 
                 $scope.createButtonUrl = function(size,url){
                     // temporary undefined urls fix, make sure the size is known here at all times
                     size = size || 'large';
-                    return api_url + '/button/' + md5(url) + '/' + size + '#' + $rootScope.uniqueButton;
+                    return apiUrl + '/button/' + md5(url) + '/' + size + '#' + $rootScope.uniqueButton;
                 }
                 $scope.submit = function ($event) {
                     mobbr.makePayment($scope.url, $event.target);
