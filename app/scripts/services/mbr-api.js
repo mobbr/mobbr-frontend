@@ -1,9 +1,7 @@
 'use strict';
 
 angular.module('mobbr.services.mbr-api', [
-
         'ngResource'
-
     ]).factory('User', function ($resource) {
 
         return $resource(api_url + '/api/user/:action',{},{
