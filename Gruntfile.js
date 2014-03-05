@@ -8,6 +8,9 @@ module.exports = function (grunt) {
   // load all grunt tasks
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
+  // Environment to be passed in via command line: grunt build --env=<dev | test | prod>
+  var env = grunt.option('env') || 'dev';
+
   // configurable paths
   var yeomanConfig = {
     app: 'app',
@@ -354,6 +357,30 @@ module.exports = function (grunt) {
           {src: 'dist/**'}
         ]
       }
+    },
+    ngconstant: {
+      test: [
+        {
+          dest: 'dist/scripts/config.js',
+          name: 'mobbr.config',
+          wrap: '(function() { \n return <%= __ngModule %> \n\n})();',
+          constants: {
+            'apiUrl': 'https://test-api.mobbr.com',
+            'environment': 'test'
+          }
+        }
+      ],
+      prod: [
+        {
+          dest: 'dist/scripts/config.js',
+          name: 'mobbr.config',
+          wrap: '(function() { \n return <%= __ngModule %> \n\n})();',
+          constants: {
+            'apiUrl': 'https://api.mobbr.com',
+            'environment': 'production'
+          }
+        }
+      ]
     }
   });
 
@@ -380,9 +407,11 @@ module.exports = function (grunt) {
   grunt.registerTask('build', [
     'clean:dist',
     'compass:dist',
+    'config',
     'useminPrepare',
     'imagemin',
     'cssmin:dist',
+    'ngconstant:' + env,
     'htmlmin',
     'ngtemplates',
     'concat:dist',

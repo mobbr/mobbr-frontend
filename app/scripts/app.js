@@ -3,6 +3,7 @@
 angular.module('mobbr.controllers', []);
 angular.module('mobbr.directives', []);
 angular.module('mobbr.filters', []);
+angular.module('mobbr.configuration', []);
 
 /**
  * Prevent the dropdown from closing when an input is clicked, fix this nicer, perhaps make a push request to angular ui team
@@ -57,6 +58,7 @@ angular.module('ui.bootstrap.dropdownToggle', []).directive('dropdownToggle',
 angular.module('mobbr', [
     'ngRoute',
     'ui.bootstrap',
+    'mobbr.config',
     'mobbr.controllers',
     'mobbr.services.msg',
     'mobbr.services.mbr-api',
