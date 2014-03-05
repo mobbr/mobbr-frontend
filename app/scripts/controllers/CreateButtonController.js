@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('CreateButtonController', function ($scope, $rootScope, CreateButton,Msg) {
+angular.module('mobbr.controllers').controller('CreateButtonController', function ($scope, $rootScope, CreateButton,Msg, apiUrl) {
 
     $scope.detectTitle = true;
     $scope.detectDescription = true;
@@ -27,11 +27,11 @@ angular.module('mobbr.controllers').controller('CreateButtonController', functio
     }
 
     $scope.buttons = [
-        {"id": "normal_button", "name": "Normal button", "function": "button", "url": api_url + "/images/buttons/mobbr_button50x60.png"},
-        {"id": "big_button", "name": "Big button", "function": "buttonLarge", "url": api_url + "/images/buttons/mobbr64.png"},
-        {"id": "slim_button", "name": "Slim button", "function": "buttonSlim", "url": api_url + "/images/buttons/mobbr_button110x20.png"},
-        {"id": "small_button", "name": "Small button", "function": "buttonSmall", "url": api_url + "/images/buttons/mobbr32.png"},
-        {"id": "flat_button", "name": "Flat button", "function": "buttonFlat", "url": api_url + "/images/buttons/mobbrrecht120x21.png"},
+        {"id": "normal_button", "name": "Normal button", "function": "button", "url": apiUrl + "/images/buttons/mobbr_button50x60.png"},
+        {"id": "big_button", "name": "Big button", "function": "buttonLarge", "url": apiUrl + "/images/buttons/mobbr64.png"},
+        {"id": "slim_button", "name": "Slim button", "function": "buttonSlim", "url": apiUrl + "/images/buttons/mobbr_button110x20.png"},
+        {"id": "small_button", "name": "Small button", "function": "buttonSmall", "url": apiUrl + "/images/buttons/mobbr32.png"},
+        {"id": "flat_button", "name": "Flat button", "function": "buttonFlat", "url": apiUrl + "/images/buttons/mobbrrecht120x21.png"},
         {"id": "NO_BUTTON", name: 'No button, only metadata','function':$scope.nobutton(),url:""}
     ];
 
