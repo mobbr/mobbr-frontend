@@ -177,9 +177,9 @@ angular.module('mobbr', [
       Util.currencies(function (response) {
         if (response.result != null) {
           $rootScope.currenciesMap = response.result;
-          $rootScope.currencieArray = [];
+          $rootScope.currencyArray = [];
           angular.forEach($rootScope.currenciesMap, function (key, value) {
-            $rootScope.currencieArray.push({'description': key, 'code': value});
+            $rootScope.currencyArray.push({'description': key, 'code': value});
           });
           $rootScope.$broadcast('currencie-array-ready');
         }
