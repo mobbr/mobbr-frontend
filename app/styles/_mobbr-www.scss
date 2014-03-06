@@ -311,7 +311,7 @@ pre {
     text-decoration: none;
     font-size: 7pt;
     color: black;
-    font-family: Arial,Helvetica,sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
 
     img {
       position: relative;
@@ -377,4 +377,20 @@ pre {
 
 .mobbr-test .pusher {
   background: #FF0 !important;
+}
+
+.mobbr-checkbox {
+  display: table-row;
+  overflow: hidden;
+}
+
+.mobbr-checkbox label {
+  display: table-cell;
+  padding-left: 10px;
+}
+
+.unstyled::-webkit-inner-spin-button,
+.unstyled::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
 }
