@@ -123,8 +123,8 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
     });
 
     function initCurrency(){
-        for(var i = 0;i < $rootScope.currencieArray.length; i++){
-            var currency = $rootScope.currencieArray[i];
+        for(var i = 0;i < $rootScope.currencyArray.length; i++){
+            var currency = $rootScope.currencyArray[i];
             if(currency !== undefined && currency.code === $scope.user.currency_iso){
                 $scope.formData.currencyIndex = currency;
             }
@@ -132,7 +132,7 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
     }
 
 
-    if($rootScope.currencieArray !== undefined){
+    if($rootScope.currencyArray !== undefined){
         initCurrency();
     }
 

@@ -6,7 +6,8 @@ module.exports = function (grunt) {
             yeoman: {
                 app: 'app',
                 dist: 'dist'
-            }
+            },
+            env: grunt.option('env') || 'dev'
         }
     });
 };
