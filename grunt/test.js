@@ -1,11 +1,9 @@
 module.exports = function(grunt) {
-    grunt.registerTask('server', [
+    grunt.registerTask('test', [
         'clean:server',
-        'coffee:dist',
-        'compass:server',
-        'livereload-start',
-        'connect:livereload',
-        'open',
-        'watch'
+        'coffee',
+        'compass',
+        'connect:test',
+        'karma'
     ]);
 }

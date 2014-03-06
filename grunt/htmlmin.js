@@ -13,7 +13,7 @@ module.exports = {
             {
                 expand: true,
                 cwd: '<%= yeoman.app %>',
-                src: ['index.html', 'lightbox/index.html'],
+                src: ['index.html'/*, 'lightbox/index.html'*/],
                 dest: '<%= yeoman.dist %>'
             }
         ]
