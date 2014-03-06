@@ -66,8 +66,8 @@ angular.module('mobbr', [
     'mobbr.services.storage',
     'mobbr.directives',
     'mobbr.filters',
-    'ngCookies'
-
+    'ngCookies',
+    'angularFileUpload'
   ]).config(function ($routeProvider, $parseProvider) {
 
       var resolver = {
@@ -210,8 +210,6 @@ angular.module('mobbr', [
       Util.countries(function (response) {
         if (response.result != null) {
           $rootScope.countriesMap = response.result;
-
-
         }
       });
 
@@ -248,6 +246,15 @@ angular.module('mobbr', [
         $location.hash(id);
         $anchorScroll();
       }
+
+      $rootScope.incomerangeMap = {
+        1: 'less than € 18000',
+        2: 'between € 18000 and € 30000',
+        3: 'between € 30000 and € 50000',
+        4: 'between € 50000 and € 80000',
+        5: 'between € 80000 and € 120000',
+        6: 'more than € 120000'
+      };
     }
   );
 
