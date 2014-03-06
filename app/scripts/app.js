@@ -3,6 +3,7 @@
 angular.module('mobbr.controllers', []);
 angular.module('mobbr.directives', []);
 angular.module('mobbr.filters', []);
+angular.module('mobbr.configuration', []);
 
 /**
  * Prevent the dropdown from closing when an input is clicked, fix this nicer, perhaps make a push request to angular ui team
@@ -57,6 +58,7 @@ angular.module('ui.bootstrap.dropdownToggle', []).directive('dropdownToggle',
 angular.module('mobbr', [
     'ngRoute',
     'ui.bootstrap',
+    'mobbr.config',
     'mobbr.controllers',
     'mobbr.services.msg',
     'mobbr.services.mbr-api',
@@ -177,9 +179,9 @@ angular.module('mobbr', [
       Util.currencies(function (response) {
         if (response.result != null) {
           $rootScope.currenciesMap = response.result;
-          $rootScope.currencieArray = [];
+          $rootScope.currencyArray = [];
           angular.forEach($rootScope.currenciesMap, function (key, value) {
-            $rootScope.currencieArray.push({'description': key, 'code': value});
+            $rootScope.currencyArray.push({'description': key, 'code': value});
           });
           $rootScope.$broadcast('currencie-array-ready');
         }
