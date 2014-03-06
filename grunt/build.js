@@ -1,10 +1,13 @@
 module.exports = function(grunt) {
+
     grunt.registerTask('build', [
         'clean:dist',
         'compass:dist',
+        //'config',
         'useminPrepare',
         'imagemin',
         'cssmin:dist',
+        'ngconstant:' + grunt.env,
         'htmlmin',
         'ngtemplates',
         'concat:dist',
@@ -15,5 +18,6 @@ module.exports = function(grunt) {
         'usemin',
         'compress'
     ]);
+
     grunt.registerTask('default', ['build']);
 }
