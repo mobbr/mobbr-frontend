@@ -1,0 +1,7 @@
+.idea
+node_modules
+.tmp
+.sass-cache
+.app/components
+dist
+dist.tar.gz
