@@ -144,7 +144,7 @@ angular.module('mobbr.directives').directive('payments', function factory() {
         }
       }
 
-      $scope.deletePledges = function () {
+      $scope.revokePledges = function () {
         var deletePaymentsArray = [];
         for (var i = 0; i < $scope.payments.length; i++) {
           var payment = $scope.payments[i];
@@ -155,7 +155,7 @@ angular.module('mobbr.directives').directive('payments', function factory() {
 
         if (deletePaymentsArray.length > 0) {
           $scope.working = true;
-          Dashboard.deletePledge({"ids": deletePaymentsArray}, function (response) {
+          Dashboard.revokePledge({"ids": deletePaymentsArray}, function (response) {
             $scope.working = false;
             if (response.result === true) {
               Msg.setResponseMessage('info', 'Deleted payments', response);
