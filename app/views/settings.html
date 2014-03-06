@@ -1,22 +1,3 @@
-<style>
-    .mobbr-checkbox{
-        display: table-row;
-        overflow: hidden;
-    }
-    .mobbr-checkbox label {
-        display: table-cell;
-        padding-left:10px;
-    }
-
-    .unstyled::-webkit-inner-spin-button,
-    .unstyled::-webkit-calendar-picker-indicator {
-        display: none;
-        -webkit-appearance: none;
-    }
-
-
-
-</style>
 <tabs>
 <pane heading="Account">
     <div class="row-fluid">
@@ -249,10 +230,19 @@
             </div>
 
             <div class="controls">
-                <input ng-model="user.mangopay_identity_proof_upload" name="identity_proof_upload" type="file" >
+                <input ng-model="user.mangopay_identity_proof_upload" name="identity_proof_upload" type="file"
+                       ng-file-select="uploadIdentityProof($files)">
             </div>
         </div>
 
+        <div class="control-group">
+            <div class="controls">
+                <button ng-click="submitSettings()" class="btn btn-success">
+                    <i class="icon-white mobbrloader" ng-show="waitingsettings"></i>
+                    Update
+                </button>
+            </div>
+        </div>
     </form>
 </pane>
 
