@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('UserSettingsController', function ($scope, $rootScope, userSession, $upload, apiUrl, User, Msg) {
+angular.module('mobbr.controllers').controller('UserSettingsController', function ($http, $scope, $rootScope, userSession, $upload, apiUrl, User, Msg) {
 
     $scope.user = userSession.user;
     $scope.formData = {};
@@ -14,8 +14,9 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
     $scope.uploadIdentityProof = function (files) {
       angular.forEach(files, function (file) {
         $upload.upload({
-          url: apiUrl + '/api/upload_identity_proof',
-          file: file
+          url: apiUrl + '/api/user/upload_identity_proof',
+          file: file,
+          method: 'POST'
         }).success(function (data) {
           });
       });
