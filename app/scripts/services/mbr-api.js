@@ -15,7 +15,8 @@ angular.module('mobbr.services.mbr-api', [
             logout: {method: 'DELETE',params :{action:'logout'}},
             updateEmail: {method: 'POST',params :{action:'update_email'}},
             confirmEmail: {method: 'POST',params :{action:'confirm_email'}},
-            updatePassword: {method: 'POST',params :{action:'update_password'}}
+            updatePassword: {method: 'POST',params :{action:'update_password'}},
+            uploadID: {method: 'PUT',params :{action:'upload_identity_proof'}}
         });
 
     }).factory('Dashboard', function ($resource, apiUrl) {
