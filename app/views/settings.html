@@ -224,6 +224,17 @@
         </div>
 
         <div class="control-group">
+            <div class="control-label">
+                <label for="identity_proof_upload">Upload scan of ID</label>
+            </div>
+
+            <div class="controls">
+                <input ng-model="user.mangopay_identity_proof_upload" id="identity_proof_upload" name="identity_proof_upload" type="file"
+                       ng-file-select="uploadIdentityProof($files)">
+            </div>
+        </div>
+
+        <div class="control-group">
             <div class="controls">
                 <button ng-click="submitSettings()" class="btn btn-success">
                     <i class="icon-white mobbrloader" ng-show="waitingsettings"></i>
@@ -235,25 +246,7 @@
 
     <form name="limits" class="form-horizontal">
 
-        <div class="control-group">
-            <div class="control-label">
-                <label for="identity_proof_upload">Upload scan of ID</label>
-            </div>
 
-            <div class="controls">
-                <input ng-model="user.mangopay_identity_proof_upload" name="identity_proof_upload" type="file"
-                       ng-file-select="uploadIdentityProof($files)">
-            </div>
-        </div>
-
-        <div class="control-group">
-            <div class="controls">
-                <button ng-click="submitSettings()" class="btn btn-success">
-                    <i class="icon-white mobbrloader" ng-show="waitingsettings"></i>
-                    Upload
-                </button>
-            </div>
-        </div>
     </form>
 </pane>
 
