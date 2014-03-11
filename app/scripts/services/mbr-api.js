@@ -9,7 +9,7 @@ angular.module('mobbr.services.mbr-api', [
             register: {method: 'PUT',params :{action:'register_user_send_login_link'}, isArray:false},
             recover: {method: 'GET',params :{email:'email',username:'username',action:'send_login_link'},isArray:false},
             login: {method: 'PUT',params : {action:'password_login'},isArray:false},
-            get: {method: 'GET',params :{action:'logged_in_user'},isArray:false},
+            get: {method: 'GET',params :{action:'ping'},isArray:false},
             save: {method: 'POST',params :{action:'update_user'}},
             linkLogin: {method: 'PUT',params :{action:'link_login'}},
             logout: {method: 'DELETE',params :{action:'logout'}},
