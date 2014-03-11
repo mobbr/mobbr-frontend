@@ -191,62 +191,59 @@
     </div>
     <form name="kyc_regular" class="form-horizontal">
 
-        <div class="control-group">
-            <div class="control-label">
-                <label for="identity_proof"></label>
+        <fieldset ng-disabled="$parent.user.kyc_level == 'none'">
+            <div class="control-group">
+                <div class="control-label">
+                    <label for="identity_proof"></label>
+                </div>
+
+                <div class="controls">
+                    <input ng-model="user.mangopay_identity_proof" name="identity_proof" type="text" ng-disabled="true">
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="control-label">
+                    <label for="occupation">Occupation</label>
+                </div>
+
+                <div class="controls">
+                    <input ng-model="user.occupation" name="occupation" type="text" id="occupation" placeholder="e.g. Web-designer">
+                </div>
             </div>
 
-            <div class="controls">
-                <input ng-model="user.mangopay_identity_proof" name="identity_proof" type="text" ng-disabled="true">
-            </div>
-        </div>
-        <div class="control-group">
-            <div class="control-label">
-                <label for="occupation">Occupation</label>
-            </div>
+            <div class="control-group">
+                <div class="control-label">
+                    <label for="income_range">Income range</label>
+                </div>
 
-            <div class="controls">
-                <input ng-model="user.occupation" name="occupation" type="text" id="occupation" placeholder="e.g. Web-designer">
-            </div>
-        </div>
-
-        <div class="control-group">
-            <div class="control-label">
-                <label for="income_range">Income range</label>
+                <div class="controls">
+                    <select id="income_range" name="income_range" ng-model="user.income_range"
+                            ng-options="value as key for (value, key) in incomerangeMap">
+                        <option value="">No range</option>
+                    </select>
+                </div>
             </div>
 
-            <div class="controls">
-                <select id="income_range" name="income_range" ng-model="user.income_range"
-                        ng-options="value as key for (value, key) in incomerangeMap">
-                    <option value="">No range</option>
-                </select>
-            </div>
-        </div>
+            <div class="control-group">
+                <div class="control-label">
+                    <label for="identity_proof_upload">Upload scan of ID</label>
+                </div>
 
-        <div class="control-group">
-            <div class="control-label">
-                <label for="identity_proof_upload">Upload scan of ID</label>
+                <div class="controls">
+                    <input ng-model="user.mangopay_identity_proof_upload" id="identity_proof_upload" name="identity_proof_upload" type="file"
+                           ng-file-select="uploadIdentityProof($files)">
+                </div>
             </div>
 
-            <div class="controls">
-                <input ng-model="user.mangopay_identity_proof_upload" id="identity_proof_upload" name="identity_proof_upload" type="file"
-                       ng-file-select="uploadIdentityProof($files)">
+            <div class="control-group">
+                <div class="controls">
+                    <button ng-click="submitSettings()" class="btn btn-success">
+                        <i class="icon-white mobbrloader" ng-show="waitingsettings"></i>
+                        Update
+                    </button>
+                </div>
             </div>
-        </div>
-
-        <div class="control-group">
-            <div class="controls">
-                <button ng-click="submitSettings()" class="btn btn-success">
-                    <i class="icon-white mobbrloader" ng-show="waitingsettings"></i>
-                    Update
-                </button>
-            </div>
-        </div>
-    </form>
-
-    <form name="limits" class="form-horizontal">
-
-
+        </fieldset>
     </form>
 </pane>
 
