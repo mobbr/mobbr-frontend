@@ -4,23 +4,96 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
 
     var date = new Date(),
         data = [
-            { id: 1, name: "Moroni", amount: 50, url: 'http://nu.nl' },
-            { id: 2, name: "Tiancum", amount: 43, url: 'http://whatfoodcando.com' },
-            { id: 3, name: "Jacob", amount: 27, url: 'http://nu.nl' },
-            { id: 4, name: "Nephi", amount: 29, url: 'http://whatfoodcando.com' },
-            { id: 5, name: "Enos", amount: 34, url: 'http://zaplog.nl' },
-            { id: 6, name: "Henk", amount: 43, url: 'http://zaplog.nl' },
-            { id: 7, name: "Bert", amount: 27, url: 'http://zaplog.nl' },
-            { id: 8, name: "Barry", amount: 29, url: 'http://nu.nl' },
-            { id: 9, name: "Ronny", amount: 34, url: 'http://nu.nl' },
-            { id: 10, name: "Darth Vader", amount: 43, url: 'http://zaplog.nl' },
-            { id: 11, name: "Obi Wan Kenobi", amount: 27, url: 'http://zaplog.nl' },
-            { id: 12, name: "Arno", amount: 29, url: 'http://whatfoodcando.com' },
-            { id: 13, name: "Achmed", amount: 34, url: 'http://whatfoodcando.com' },
-            { id: 14, name: "Mohammed", amount: 43, url: 'http://zaplog.nl' },
-            { id: 15, name: "Jan", amount: 27, url: 'http://nu.nl' },
-            { id: 16, name: "Kees", amount: 29, url: 'http://nu.nl' },
-            { id: 17, name: "Han", amount: 34, url: 'http://nu.nl' }
+            {
+                id: 1,
+                uri: 'http://nu.nl/stom-artikel',
+                description: 'Hier een stomme omschrijving',
+                img_uri: 'http://www.nu.nl/images/logo_nu_nl.gif',
+                paiddatetime: '2013-12-13',
+                contractor: 'Moroni',
+                currency_iso: 'EUR',
+                firstname: 'Moroni',
+                lastname: 'Jansen',
+                address: 'Pathmossingel 98',
+                country_of_residence: 'NL',
+                vat_number: '1234567890',
+                gravatar: '',
+                amount: 450,
+                roles: [
+                    {
+                        role: 'Developer',
+                        amount: 100
+                    },
+                    {
+                        role: 'Editor',
+                        amount: 50
+                    },
+                    {
+                        role: 'Chauffeur',
+                        amount: 300
+                    }
+                ]
+            },
+            {
+                id: 2,
+                uri: 'http://nu.nl/nog-een-stom-artikel',
+                description: 'Hier een nog stommere omschrijving',
+                img_uri: 'http://www.nu.nl/images/logo_nu_nl.gif',
+                paiddatetime: '2014-02-03',
+                contractor: 'Bert64',
+                currency_iso: 'EUR',
+                firstname: 'Bert',
+                lastname: 'Kuipers',
+                address: 'Zomaarstraat 103',
+                country_of_residence: 'NL',
+                vat_number: '1234567890',
+                amount: 450,
+                gravatar: '',
+                roles: [
+                    {
+                        role: 'Developer',
+                        amount: 100
+                    },
+                    {
+                        role: 'Editor',
+                        amount: 50
+                    },
+                    {
+                        role: 'Chauffeur',
+                        amount: 300
+                    }
+                ]
+            },
+            {
+                id: 3,
+                uri: 'http://nu.nl/stom-artikel',
+                description: 'Hier een stomme omschrijving',
+                img_uri: 'http://www.nu.nl/images/logo_nu_nl.gif',
+                paiddatetime: '2014-02-03',
+                contractor: 'Bert64',
+                currency_iso: 'EUR',
+                firstname: 'Bert',
+                lastname: 'Kuipers',
+                address: 'Zomaarstraat 103',
+                country_of_residence: 'NL',
+                vat_number: '1234567890',
+                amount: 450,
+                gravatar: '',
+                roles: [
+                    {
+                        role: 'Developer',
+                        amount: 100
+                    },
+                    {
+                        role: 'Editor',
+                        amount: 50
+                    },
+                    {
+                        role: 'Chauffeur',
+                        amount: 300
+                    }
+                ]
+            }
         ];
 
     $scope.invoiceParams = new ngTableParams(
@@ -29,7 +102,7 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
             count: data.length
         },
         {
-            groupBy: 'url',
+            groupBy: 'uri',
             total: data.length,
             getData: function ($defer, params) {
 
@@ -42,10 +115,19 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
         }
     );
 
-
     $scope.generateInvoices = function () {
-        alert('we are generating invoices for ' + $scope.numselected + ' records');
+        $scope.invoices = [];
+        angular.forEach($scope.users, function (item) {
+            if ($scope.checkboxes.items[item.id]) {
+                $scope.invoices.push(item);
+            }
+        });
     }
+
+    // watch the selected date, we need to reload the data on this
+    $scope.$watch('selectdate', function (oldvalue, newvalue) {
+        // we refresh the data here
+    }, true);
 
     // watch for check all checkbox
     $scope.$watch('checkboxes.checked', function (value) {
@@ -76,11 +158,6 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
 
         $scope.numselected = checked;
         angular.element(document.getElementById("select_all")).prop("indeterminate", (checked != 0 && unchecked != 0));
-    }, true);
-
-    // watch the selected date, we need to reload the data on this
-    $scope.$watch('selectdate', function (oldvalue, newvalue) {
-        console.log('we refresh the data here');
     }, true);
 
     $scope.checkboxes = { 'checked': false, items: {} };
