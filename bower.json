@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "dependencies": {
     "angular": "1.2.13",
-    "angular-route": "1.2.13",
+    "angular-route": "~1.2.14",
     "angular-cookies": "1.2.13",
     "angular-resource": "1.2.13",
     "js-md5": "~1.0.3",
@@ -16,7 +16,8 @@
     "es5-shim": "~2.1.0",
     "json3": "~3.2.5",
     "sass-bootstrap": "2.3.1",
-    "angularjs-file-upload": "~1.1.0"
+    "angularjs-file-upload": "~1.1.0",
+    "ng-table": "~0.3.1"
   },
   "ignore": [
     "**/.*",
