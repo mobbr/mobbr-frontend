@@ -61,7 +61,7 @@
                 <input type="checkbox" ng-model="checkboxes.items[user.id]" />
             </td>
             <td sortable="name" data-title="'Name'">
-                {{ user.name }}
+                {{ user.firstname }} {{ user.lastname }}
             </td>
             <td sortable="amount" data-title="'Amount'">
                 {{ user.amount }}
@@ -72,6 +72,61 @@
         <script type="text/ng-template" id="ng-table/headers/checkbox.html">
             <input type="checkbox" ng-model="checkboxes.checked" id="select_all" name="filter-checkbox" value="" />
         </script>
+        <div ng-repeat="invoice in invoices">
+            <dl class="contractor">
+                <dt>Username</dt>
+                <dd ng-bind="invoice.contractor"></dd>
+                <dt>Name</dt>
+                <dd ng-bind="invoice.firstname + ' ' + invoice.lastname"></dd>
+                <dt>Address</dt>
+                <dd ng-bind="invoice.address"></dd>
+                <dt>Country</dt>
+                <dd ng-bind="invoice.country_of_residence"></dd>
+            </dl>
+
+            <dl class="sourcer">
+                <dt>Username</dt>
+                <dd ng-bind="userSession.user.username"></dd>
+                <dt>Name</dt>
+                <dd ng-bind="userSession.user.firstname + ' ' + userSession.user.lastname"></dd>
+                <dt>Address</dt>
+                <dd ng-bind="userSession.user.address"></dd>
+                <dt>Country</dt>
+                <dd ng-bind="userSession.user.country_of_residence"></dd>
+            </dl>
+
+            <dl class="info">
+                <dt class="number">Invoice nr</dt>
+                <dd ng-bind="invoice.id"></dd>
+                <dt class="date">Invoice date</dt>
+                <dd ng-bind="invoice.paiddatetime"></dd>
+            </dl>
+
+            <div class="details">
+                <h1 ng-bind="invoice.description" class="title"></h1>
+                <h2 ng-bind="invoice.uri" class="url"></h2>
+            </div>
+
+            <ul class="roles">
+                <li ng-repeat="role in invoice.roles">
+                    <dl class="role">
+                        <dt>Role</dt>
+                        <dd ng-bind="role.role"></dd>
+                        <dt>Amount</dt>
+                        <dd ng-bind="role.amount"></dd>
+                    </dl>
+                </li>
+            </ul>
+
+            <dl class="contractor">
+                <dt>Subtotal</dt>
+                <dd ng-bind="invoice.subtotal"></dd>
+                <dt>VAT</dt>
+                <dd ng-bind="invoice.vat"></dd>
+                <dt>Total</dt>
+                <dd ng-bind="invoice.amount"></dd>
+            </dl>
+        </div>
     </pane>
     <pane heading="Statistics">
         <div class="row-fluid">
