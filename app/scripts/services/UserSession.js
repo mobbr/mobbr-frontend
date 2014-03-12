@@ -7,7 +7,7 @@ angular.module('mobbr.services.user', [
 
     // TODO: put notifyparent in a seperate service
 
-    ]).factory('userSession',function ($injector, $location, $window, $rootScope, userStorage, Msg, idleTimeout, User) {
+    ]).factory('userSession',function ($injector, $location, $window, $rootScope, userStorage, Msg, idleTimeout, User, $route) {
 
         var userSession = {
             authenticated: false,
@@ -69,7 +69,7 @@ angular.module('mobbr.services.user', [
         }
 
         function reload() {
-            $injector.get('$route').reload();
+            $route.reload();
         }
 
         function logout() {
@@ -78,7 +78,6 @@ angular.module('mobbr.services.user', [
 
         function login(event, user) {
             userSession.doLogin(user, true);
-            console.log(user);
             User.get();
         }
 
