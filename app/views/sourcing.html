@@ -61,10 +61,10 @@
                 <input type="checkbox" ng-model="checkboxes.items[user.id]" />
             </td>
             <td sortable="name" data-title="'Name'">
-                {{ user.firstname }} {{ user.lastname }}
+                {{ user.firstname }} {{ user.lastname }} {{ !(user.firstname && user.lastname) && user.contractor || '' }}
             </td>
             <td sortable="amount" data-title="'Amount'">
-                {{ user.amount }}
+                {{ user.currency_iso }} {{ user.amount }}
             </td>
         </tr>
         </tbody>

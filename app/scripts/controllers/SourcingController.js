@@ -112,17 +112,16 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
             groupBy: 'uri',
             total: data.length,
             getData: function ($defer, params) {
+                PaymentReceipt.getOverviewSender({ month: parseInt($scope.selectdate.month) + 1, year: $scope.selectdate.year }, function (response) {
 
-                // this should be the function returning all invoice data
-                PaymentReceipt.getOverviewSender({ month: 3, year: 2014 }, function (response) {
-                    console.log(response);
+                    var data = response.result,
+                        orderedData = params.sorting() ? $filter('orderBy')(data, $scope.invoiceParams.orderBy()) : data;
+
+                    $defer.resolve($scope.users = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                    console.log('de data voor de functie', response.result);
                 });
 
-                var orderedData = params.sorting() ?
-                    $filter('orderBy')(data, $scope.invoiceParams.orderBy()) :
-                    data;
 
-                $defer.resolve($scope.users = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
             }
         }
     );
@@ -158,7 +157,7 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
                         }
                     }
                 });
-                pdf.save();
+                pdf.save(item.id);
                 element.html('');
             });
 
