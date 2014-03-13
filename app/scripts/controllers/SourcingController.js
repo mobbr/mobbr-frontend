@@ -1,8 +1,10 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('SourcingController', function ($scope, $filter, ngTableParams) {
+angular.module('mobbr.controllers').controller('SourcingController', function ($scope, $filter, $http, $templateCache, $controller, $compile, $timeout, ngTableParams, PaymentReceipt) {
 
-    var date = new Date(),
+    var element,
+        template,
+        date = new Date(),
         data = [
             {
                 id: 1,
@@ -96,6 +98,11 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
             }
         ];
 
+    // we get the invoice template
+    $http.get('views/invoice.html', { cache: $templateCache }).then(function (response) {
+        template = response.data;
+    });
+
     $scope.invoiceParams = new ngTableParams(
         {
             page: 1,
@@ -105,6 +112,11 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
             groupBy: 'uri',
             total: data.length,
             getData: function ($defer, params) {
+
+                // this should be the function returning all invoice data
+                PaymentReceipt.getOverviewSender({ month: 3, year: 2014 }, function (response) {
+                    console.log(response);
+                });
 
                 var orderedData = params.sorting() ?
                     $filter('orderBy')(data, $scope.invoiceParams.orderBy()) :
@@ -116,17 +128,62 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
     );
 
     $scope.generateInvoices = function () {
-        $scope.invoices = [];
+
+        var invoices = [],
+            i = 0,
+            l;
+
+        function generatePDF() {
+
+            var item = invoices[i],
+                templateScope = $scope.$new(),
+                pdf = new jsPDF('p','mm', 'a4', true);
+
+            if (!element) {
+                element = angular.element(document.getElementById('invoice'));
+            }
+
+            i++;
+            templateScope.invoice = item;
+            element.html(template);
+            $compile(element.contents())(templateScope);
+
+            // we use this timeout to make sure the element is compiled, it's stupid, i know
+            $timeout(function () {
+                pdf.fromHTML(element.get(0), 20, 20, {
+                    width: 210,
+                    elementHandlers: {
+                        '#bypassme': function(element, renderer) {
+                            return true;
+                        }
+                    }
+                });
+                pdf.save();
+                element.html('');
+            });
+
+            // call the next pdf recursivly, we need to do this because else all pdf's will have only the first pdf content
+            if (i < l) {
+                $timeout(generatePDF);
+            }
+        }
+
+        // push all selected invoices to the array
         angular.forEach($scope.users, function (item) {
             if ($scope.checkboxes.items[item.id]) {
-                $scope.invoices.push(item);
+                invoices.push(item);
             }
         });
+
+        l = invoices.length;
+        generatePDF();
     }
 
     // watch the selected date, we need to reload the data on this
     $scope.$watch('selectdate', function (oldvalue, newvalue) {
-        // we refresh the data here
+        if (oldvalue !== newvalue) {
+            $scope.invoiceParams.reload();
+        }
     }, true);
 
     // watch for check all checkbox
