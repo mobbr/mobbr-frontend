@@ -62,7 +62,7 @@
         </tr>
         <tr ng-hide="group.$hideRows" ng-repeat="user in group.data">
             <td header="'ng-table/headers/checkbox.html'">
-                <input type="checkbox" ng-model="checkboxes.items[user.id]" />
+                <input type="checkbox" ng-model="checkboxes.items[user.invoice_id]" />
             </td>
             <td sortable="name" data-title="'Name'">
                 {{ user.firstname }} {{ user.lastname }} {{ !(user.firstname && user.lastname) && user.contractor || '' }}
