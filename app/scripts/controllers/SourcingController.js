@@ -119,7 +119,6 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
                         orderedData = params.sorting() ? $filter('orderBy')(data, $scope.invoiceParams.orderBy()) : data;
 
                     $defer.resolve($scope.users = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-                    console.log($scope.users);
                 });
 
 
