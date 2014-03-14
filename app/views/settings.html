@@ -281,26 +281,6 @@
         </div>
 
         <div class="control-group">
-
-            <div class="control-label">
-                <label>Invoice currency</label>
-            </div>
-
-            <div class="controls">
-
-                <select
-                        ng-model="formData.currencyIndex"
-                        name="currency_iso"
-                        ng-options="cur.description for cur in currencyArray"
-                        title="the currency in which you want to specify your invoices">
-                </select>
-
-                <span class="help-inline"></span>
-
-            </div>
-        </div>
-
-        <div class="control-group">
             <div class="control-label">
                 <label for="invoice-prefix">Invoice number prefix</label>
             </div>
@@ -326,7 +306,7 @@
             </div>
 
             <div class="controls">
-                <input value="PREFIX-23DgW-POSTFIX" name="invoice-number" id="invoice-number" type="text" ng-disabled="true">
+                <input ng-value="user.invoice_numbering_prefix + (user.invoice_numbering_prefix && '-' || '') + '23DgW' + (user.invoice_numbering_postfix && '-' || '') + user.invoice_numbering_postfix" name="invoice-number" id="invoice-number" type="text" ng-disabled="true">
             </div>
         </div>
 
