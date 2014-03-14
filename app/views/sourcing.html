@@ -22,11 +22,11 @@
                 <small>Your monthly invoices. We generate these on behalf of your crowdworkers.</small>
             </div>
         </div>
-        <div class="form-inline clearfix">
-            <div class="pull-left">
+        <form class="form-inline clearfix">
+            <fieldset class="pull-left">
                 <button class="btn btn-success" ng-click="generateInvoices()" ng-disabled="numselected == 0">Download</button>
-            </div>
-            <div class="pull-right">
+            </fieldset>
+            <fieldset class="pull-right">
                 <select ng-model="selectdate.month">
                     <option value="0">January</option>
                     <option value="1">February</option>
@@ -45,15 +45,19 @@
                     <option>2014</option>
                     <option>2013</option>
                 </select>
-            </div>
+            </fieldset>
+        </form>
+        <div class="alert" ng-show="users.length == 0">
+            No invoices available for the selected timeframe
         </div>
-        <table ng-table="invoiceParams">
+        <table ng-table="invoiceParams" ng-show="users.length > 0" class="table table-striped table-checkbox">
         <tbody ng-repeat="group in $groups">
         <tr class="ng-table-group">
             <td colspan="{{$columns.length}}">
-                <a ng-click="group.$hideRows = !group.$hideRows">
-                    <strong>{{ group.value }}</strong>
-                </a>
+                <div ng-click="group.$hideRows = !group.$hideRows">
+                    <span ng-class="{ 'icon-chevron-right': group.$hideRows, 'icon-chevron-down': !group.$hideRows }"></span>
+                    <span ng-bind="group.value"></span>
+                </div>
             </td>
         </tr>
         <tr ng-hide="group.$hideRows" ng-repeat="user in group.data">
@@ -61,10 +65,11 @@
                 <input type="checkbox" ng-model="checkboxes.items[user.id]" />
             </td>
             <td sortable="name" data-title="'Name'">
-                {{ user.firstname }} {{ user.lastname }}
+                {{ user.firstname }} {{ user.lastname }} {{ !(user.firstname && user.lastname) && user.contractor || '' }}
             </td>
-            <td sortable="amount" data-title="'Amount'">
-                {{ user.amount }}
+            <td sortable="roles" data-title="'Role'" ng-bind="user.roles" class="roles"></td>
+            <td sortable="amount" data-title="'Amount'" class="amount">
+                {{ user.currency_iso }} {{ user.amount }}
             </td>
         </tr>
         </tbody>
@@ -72,61 +77,7 @@
         <script type="text/ng-template" id="ng-table/headers/checkbox.html">
             <input type="checkbox" ng-model="checkboxes.checked" id="select_all" name="filter-checkbox" value="" />
         </script>
-        <div ng-repeat="invoice in invoices">
-            <dl class="contractor">
-                <dt>Username</dt>
-                <dd ng-bind="invoice.contractor"></dd>
-                <dt>Name</dt>
-                <dd ng-bind="invoice.firstname + ' ' + invoice.lastname"></dd>
-                <dt>Address</dt>
-                <dd ng-bind="invoice.address"></dd>
-                <dt>Country</dt>
-                <dd ng-bind="invoice.country_of_residence"></dd>
-            </dl>
-
-            <dl class="sourcer">
-                <dt>Username</dt>
-                <dd ng-bind="userSession.user.username"></dd>
-                <dt>Name</dt>
-                <dd ng-bind="userSession.user.firstname + ' ' + userSession.user.lastname"></dd>
-                <dt>Address</dt>
-                <dd ng-bind="userSession.user.address"></dd>
-                <dt>Country</dt>
-                <dd ng-bind="userSession.user.country_of_residence"></dd>
-            </dl>
-
-            <dl class="info">
-                <dt class="number">Invoice nr</dt>
-                <dd ng-bind="invoice.id"></dd>
-                <dt class="date">Invoice date</dt>
-                <dd ng-bind="invoice.paiddatetime"></dd>
-            </dl>
-
-            <div class="details">
-                <h1 ng-bind="invoice.description" class="title"></h1>
-                <h2 ng-bind="invoice.uri" class="url"></h2>
-            </div>
-
-            <ul class="roles">
-                <li ng-repeat="role in invoice.roles">
-                    <dl class="role">
-                        <dt>Role</dt>
-                        <dd ng-bind="role.role"></dd>
-                        <dt>Amount</dt>
-                        <dd ng-bind="role.amount"></dd>
-                    </dl>
-                </li>
-            </ul>
-
-            <dl class="contractor">
-                <dt>Subtotal</dt>
-                <dd ng-bind="invoice.subtotal"></dd>
-                <dt>VAT</dt>
-                <dd ng-bind="invoice.vat"></dd>
-                <dt>Total</dt>
-                <dd ng-bind="invoice.amount"></dd>
-            </dl>
-        </div>
+        <div id="invoice"></div>
     </pane>
     <pane heading="Statistics">
         <div class="row-fluid">
