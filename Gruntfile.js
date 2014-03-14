@@ -330,6 +330,27 @@ module.exports = function (grunt) {
           }
         }
       ]
+    },
+    sshconfig: {
+      "targethost": "test-www.mobbr.com"
+    },
+    sftp: {
+      copytar: {
+        files: {
+          "./": ['dist-' + env + '.tar.gz']
+        },
+        options: {
+          host: "targethost"
+        }
+      }
+    },
+    sshexec: {
+      unpack: {
+        command: "tar -xzf dist-" + env + ".tar.gz",
+        options: {
+          config: "targethost"
+        }
+      }
     }
   });
 
@@ -371,6 +392,12 @@ module.exports = function (grunt) {
     'rev',
     'usemin',
     'compress'
+  ]);
+
+  grunt.registerTask('deploy', [
+//    'build',
+    'sftp:copytar',
+    'sshexec:unpack'
   ]);
 
   grunt.registerTask('default', ['build']);
