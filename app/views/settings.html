@@ -101,9 +101,9 @@
             <small>Without this information, you cannot use our FIAT-currencies (USD, GBP, CHF, SEK, NOK, DKK, EUR, PLN). These restrictions do not apply to other currencies.</small>
         </div>
     </div>
-    <div ng-show="user.kyc_level != 'none'" class="row-fluid">
+    <div ng-show="user.kyc_level == 'regular'" class="row-fluid">
         <div class="well span12 special">
-            <small>This information gives you access to our FIAT-currencies (USD, GBP, CHF, SEK, NOK, DKK, EUR, PLN) in addition to BTC and virtual currencies.</small>
+            <small>This information can no longer be changed because you have a confirmed identity.</small>
         </div>
     </div>
     <iframe ng-show="user.kyc_level == 'none'" style="width: 99%;" class="eula" src="https://api.mobbr.com/mangopay-terms-of-use.txt"></iframe>
@@ -184,9 +184,14 @@
 </pane>
 
 <pane heading="Proof">
-    <div class="row-fluid">
+    <div ng-show="user.kyc_level != 'regular'" class="row-fluid">
         <div class="well span12 special">
             <small>Without this information, your account is limited to receive max. €2,500 (or equivalent) and/or send max. €1,000 (or equivalent), cumulated per legal year. These limits only apply to the USD, GBP, CHF, SEK, NOK, DKK, EUR, PLN currencies.</small>
+        </div>
+    </div>
+    <div ng-show="user.kyc_level == 'regular'" class="row-fluid">
+        <div class="well span12 special">
+            <small>This information can no longer be changed because you have a confirmed identity.</small>
         </div>
     </div>
     <form name="kyc_regular" class="form-horizontal">
