@@ -22,11 +22,11 @@
                 <small>Your monthly invoices. We generate these on behalf of your crowdworkers.</small>
             </div>
         </div>
-        <div class="form-inline clearfix">
-            <div class="pull-left">
+        <form class="form-inline clearfix">
+            <fieldset class="pull-left">
                 <button class="btn btn-success" ng-click="generateInvoices()" ng-disabled="numselected == 0">Download</button>
-            </div>
-            <div class="pull-right">
+            </fieldset>
+            <fieldset class="pull-right">
                 <select ng-model="selectdate.month">
                     <option value="0">January</option>
                     <option value="1">February</option>
@@ -45,15 +45,19 @@
                     <option>2014</option>
                     <option>2013</option>
                 </select>
-            </div>
+            </fieldset>
+        </form>
+        <div class="alert" ng-show="users.length == 0">
+            No invoices available for the selected timeframe
         </div>
-        <table ng-table="invoiceParams">
+        <table ng-table="invoiceParams" ng-show="users.length > 0" class="table table-striped table-checkbox">
         <tbody ng-repeat="group in $groups">
         <tr class="ng-table-group">
             <td colspan="{{$columns.length}}">
-                <a ng-click="group.$hideRows = !group.$hideRows">
-                    <strong>{{ group.value }}</strong>
-                </a>
+                <div ng-click="group.$hideRows = !group.$hideRows">
+                    <span ng-class="{ 'icon-chevron-right': group.$hideRows, 'icon-chevron-down': !group.$hideRows }"></span>
+                    <span ng-bind="group.value"></span>
+                </div>
             </td>
         </tr>
         <tr ng-hide="group.$hideRows" ng-repeat="user in group.data">
@@ -63,7 +67,8 @@
             <td sortable="name" data-title="'Name'">
                 {{ user.firstname }} {{ user.lastname }} {{ !(user.firstname && user.lastname) && user.contractor || '' }}
             </td>
-            <td sortable="amount" data-title="'Amount'">
+            <td sortable="roles" data-title="'Role'" ng-bind="user.roles" class="roles"></td>
+            <td sortable="amount" data-title="'Amount'" class="amount">
                 {{ user.currency_iso }} {{ user.amount }}
             </td>
         </tr>

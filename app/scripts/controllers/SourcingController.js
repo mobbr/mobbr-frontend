@@ -109,6 +109,7 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
             count: data.length
         },
         {
+            counts: [],
             groupBy: 'uri',
             total: data.length,
             getData: function ($defer, params) {
@@ -118,7 +119,7 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
                         orderedData = params.sorting() ? $filter('orderBy')(data, $scope.invoiceParams.orderBy()) : data;
 
                     $defer.resolve($scope.users = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-                    console.log('de data voor de functie', response.result);
+                    console.log($scope.users);
                 });
 
 
