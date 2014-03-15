@@ -31,29 +31,6 @@
         </accordion-group>
     </accordion>
 </pane>
-<pane heading="Pledges">
-
-    <div class="row-fluid">
-        <div class="well span12 special">
-            <small>You can revoke a pledge you made. We will send every participant currently listed for the task an email informing them of this event.</small>
-        </div>
-    </div>
-
-    <div class="form-inline" style="margin-bottom: 20px;">
-        <label for="searchEntries{{paymenttype}}">Search: </label>
-        <input type="search" class="search-query" ng-model="searchentries" id="searchEntries{{paymenttype}}" >
-    </div>
-
-    <accordion close-others="false">
-        <accordion-group heading="Pledges" is-open="true">
-            <payments nodatatitle="No unclaimed pledges"
-                      paymenttype="unclaimed_payments"
-                      editable="true"
-                      searchentries="searchentries"
-                      showexpiresdate="false"></payments>
-        </accordion-group>
-    </accordion>
-</pane>
 <pane heading="Balances">
     <div class="row-fluid">
         <div class="well span12 special">
