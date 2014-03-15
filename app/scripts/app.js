@@ -57,6 +57,7 @@ angular.module('ui.bootstrap.dropdownToggle', []).directive('dropdownToggle',
 
 angular.module('mobbr', [
     'ngRoute',
+    'ngTable',
     'ui.bootstrap',
     'mobbr.config',
     'mobbr.controllers',
@@ -122,6 +123,16 @@ angular.module('mobbr', [
         }).when('/wallet', {
           templateUrl: 'views/wallet.html',
           controller: 'WalletController',
+          authsettings: { authenticated: true, redirectTo: '/' },
+          resolve: resolver
+        }).when('/sourcing', {
+          templateUrl: 'views/sourcing.html',
+          controller: 'SourcingController',
+          authsettings: { authenticated: true, redirectTo: '/' },
+          resolve: resolver
+        }).when('/working', {
+          templateUrl: 'views/working.html',
+          controller: 'WorkingController',
           authsettings: { authenticated: true, redirectTo: '/' },
           resolve: resolver
         }).when('/domain/:url', {

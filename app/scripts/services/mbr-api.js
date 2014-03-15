@@ -76,7 +76,19 @@ angular.module('mobbr.services.mbr-api', [
     }).factory('PaymentReceipt', function ($resource, apiUrl) {
 
         return $resource(apiUrl + '/api/payment/:action', {}, {
-            getPaymentReceipt: {method: 'GET', params: { id: 'id', action: 'payment'}, isArray: false}
+            getPaymentReceipt: {method: 'GET', params: { id: 'id', action: 'payment' }, isArray: false}
+        });
+
+    }).factory('Sourcing', function ($resource, apiUrl) {
+
+        return $resource(apiUrl + '/api/sourcing/:action', {}, {
+            invoices: {method: 'GET', params: { action: 'monthly_invoices' }, isArray: false}
+        });
+
+    }).factory('Working', function ($resource, apiUrl) {
+
+        return $resource(apiUrl + '/api/working/:action', {}, {
+            invoices: {method: 'GET', params: { action: 'monthly_invoices' }, isArray: false}
         });
 
     }).factory('Url', function ($resource, apiUrl) {

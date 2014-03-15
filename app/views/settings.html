@@ -95,15 +95,15 @@
     </form>
 </pane>
 
-<pane heading="Access">
+<pane heading="Identity">
     <div ng-show="user.kyc_level == 'none'" class="row-fluid">
         <div class="well span12 special">
             <small>Without this information, you cannot use our FIAT-currencies (USD, GBP, CHF, SEK, NOK, DKK, EUR, PLN). These restrictions do not apply to other currencies.</small>
         </div>
     </div>
-    <div ng-show="user.kyc_level != 'none'" class="row-fluid">
+    <div ng-show="user.kyc_level == 'regular'" class="row-fluid">
         <div class="well span12 special">
-            <small>This information gives you access to our FIAT-currencies (USD, GBP, CHF, SEK, NOK, DKK, EUR, PLN) in addition to BTC and virtual currencies.</small>
+            <small>This information can no longer be changed because you have a confirmed identity.</small>
         </div>
     </div>
     <iframe ng-show="user.kyc_level == 'none'" style="width: 99%;" class="eula" src="https://api.mobbr.com/mangopay-terms-of-use.txt"></iframe>
@@ -148,6 +148,16 @@
 
         <div class="control-group">
             <div class="control-label">
+                <label for="address">Address</label>
+            </div>
+
+            <div class="controls">
+                <input ng-model="user.address" name="address" type="text" id="address" placeholder="e.g. Sesame Street">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="control-label">
                 <label for="country_of_residence">Country of residence</label>
             </div>
 
@@ -183,10 +193,15 @@
     </form>
 </pane>
 
-<pane heading="Limits">
-    <div class="row-fluid">
+<pane heading="Proof">
+    <div ng-show="user.kyc_level != 'regular'" class="row-fluid">
         <div class="well span12 special">
             <small>Without this information, your account is limited to receive max. €2,500 (or equivalent) and/or send max. €1,000 (or equivalent), cumulated per legal year. These limits only apply to the USD, GBP, CHF, SEK, NOK, DKK, EUR, PLN currencies.</small>
+        </div>
+    </div>
+    <div ng-show="user.kyc_level == 'regular'" class="row-fluid">
+        <div class="well span12 special">
+            <small>This information can no longer be changed because you have a confirmed identity.</small>
         </div>
     </div>
     <form name="kyc_regular" class="form-horizontal">
@@ -248,6 +263,72 @@
 </pane>
 
 <pane heading="Invoicing">
+    <div class="row-fluid">
+        <div class="well span12 special">
+            <small>We will generate invoices on your behalve, using this information. Make sure it is in compliance with your countries tax laws.</small>
+        </div>
+    </div>
+    <form name="invoicing" class="form-horizontal">
+
+        <div class="control-group">
+            <div class="control-label">
+                <label for="vat-number">VAT-number</label>
+            </div>
+
+            <div class="controls">
+                <input ng-model="user.vat_number" name="vat-number" type="text" id="vat-number" placeholder="e.g. NL001234567B01">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="control-label">
+                <label for="vat-rate">VAT-rate (%)</label>
+            </div>
+
+            <div class="controls">
+                <input ng-model="user.vat_rate" name="vat-rate" type="text" id="vat-rate" placeholder="e.g. 21">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="control-label">
+                <label for="invoice-prefix">Invoice number prefix</label>
+            </div>
+
+            <div class="controls">
+                <input ng-model="user.invoice_numbering_prefix" name="invoice-prefix" type="text" id="invoice-prefix" placeholder="e.g. COMPANY-">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="control-label">
+                <label for="invoice-postfix">Invoice number postfix</label>
+            </div>
+
+            <div class="controls">
+                <input ng-model="user.invoice_numbering_postfix" name="invoice-postfix" type="text" id="invoice-postfix" placeholder="">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="control-label">
+                <label for="invoice-number">Example invoice number</label>
+            </div>
+
+            <div class="controls">
+                <input ng-value="user.invoice_numbering_prefix + (user.invoice_numbering_prefix && '-' || '') + '23DgW' + (user.invoice_numbering_postfix && '-' || '') + user.invoice_numbering_postfix" name="invoice-number" id="invoice-number" type="text" ng-disabled="true">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <button ng-disabled="waitingsettings" ng-click="submitSettings()" class="btn btn-success">
+                    <i class="icon-white mobbrloader" ng-show="waitingsettings"></i>
+                    Save
+                </button>
+            </div>
+        </div>
+    </form>
 </pane>
 
 <pane heading="Display">
