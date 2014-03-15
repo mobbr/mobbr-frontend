@@ -25,10 +25,11 @@
                 <table ng-table="urlParams" class="mobbrtable table table-striped table-checkbox">
                     <tbody ng-repeat="group in $groups">
                     <tr class="ng-table-group">
-                        <td colspan="{{$columns.length}}">
+                        <td colspan="{{ $columns.length }}">
                             <div ng-click="group.$hideRows = !group.$hideRows">
                                 <span ng-class="{ 'icon-chevron-right': group.$hideRows, 'icon-chevron-down': !group.$hideRows }"></span>
                                 <span ng-bind="group.value"></span>
+                                (<a ng-click="openUrl(group.data[0].url)"><small ng-bind="group.data[0].url"></small></a>)
                             </div>
                         </td>
                     </tr>
@@ -42,7 +43,11 @@
                         <td sortable="username" data-title="'Userame'" ng-bind="user.username"></td>
                         <td sortable="datetime"><small ng-bind="user.datetime"></small></td>
                         <td sortable="roles" data-title="'Role'" ng-bind="user.roles" class="roles"></td>
-                        <td sortable="amount" data-title="'Amount'" class="amount" ng-bind="user.amount"></td>
+                        <td sortable="amount" data-title="'Amount'" class="amount">
+                            <span ng-bind="user.amount | mobbrcurrency : userSession.user.currency_iso"
+                                  ng-class="{ 'text-error': user.amount < 0 }"
+                                  class="nowrap"></span>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
@@ -56,7 +61,7 @@
             </div>
         </div>
         <mobbrtable entries="persons.result"
-                    columns="[ 'gravatar-xsmall', 'username', 'name', 'amount' ]"
+                    columns="[ 'gravatar-xsmall', 'username', 'roles', 'keywords', 'currency_iso', 'amount' ]"
                     has-search="true" has-header="true"></mobbrtable>
     </pane>
     <pane heading="Invoicing">

@@ -17,7 +17,8 @@ angular.module('mobbr.directives').directive('mobbrtable', function factory($roo
             url: 'URL',
             senders: 'Semders',
             receivers: 'Receivers',
-            name: 'Name'
+            name: 'Name',
+            keywords: 'Keywords'
         }, sortables = {
             '.x-id': 'x-id',
             datetime: 'datetime',
@@ -39,8 +40,9 @@ angular.module('mobbr.directives').directive('mobbrtable', function factory($roo
         scope: {
             entries: '='
         },
-        controller: function ($scope, $attrs) {
+        controller: function ($scope, $attrs, userSession) {
 
+            $scope.userSession = userSession
             $scope.labels = labels;
             $scope.sortables = sortables;
             $scope.sortOrder = false;
