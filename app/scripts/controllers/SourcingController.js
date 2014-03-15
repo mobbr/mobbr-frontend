@@ -1,8 +1,9 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('SourcingController', function ($scope, $filter, Sourcing, ngTableParams) {
+angular.module('mobbr.controllers').controller('SourcingController', function ($scope, $filter, $location, $window, Claim, Sourcing, ngTableParams) {
 
     $scope.persons = Sourcing.persons();
+    $scope.pledges = Claim.unclaimedPayments();
     $scope.urlParams = new ngTableParams(
         {
             page: 1,
@@ -10,7 +11,7 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
         },
         {
             counts: [],
-            groupBy: [ 'title' ],
+            groupBy: 'title',
             total: 0,
             getData: function ($defer, params) {
                 Sourcing.urls(function (response) {
@@ -24,4 +25,8 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
             }
         }
     );
+
+    $scope.openUrl = function (url) {
+        $location.path('/url/' + $window.btoa(url));
+    }
 });

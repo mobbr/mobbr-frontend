@@ -29,6 +29,7 @@
                             <div ng-click="group.$hideRows = !group.$hideRows">
                                 <span ng-class="{ 'icon-chevron-right': group.$hideRows, 'icon-chevron-down': !group.$hideRows }"></span>
                                 <span ng-bind="group.value"></span>
+                                (<a ng-click="openUrl(group.data[0].url)"><small ng-bind="group.data[0].url"></small></a>)
                             </div>
                         </td>
                     </tr>
