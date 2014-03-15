@@ -394,3 +394,13 @@ pre {
   display: none;
   -webkit-appearance: none;
 }
+
+.table tr.ng-table-group td {
+  background-color: $grayLighter !important;
+  font-weight: bold;
+}
+
+.table-checkbox tr th:first-child,
+.table-checkbox tr td:first-child {
+  width: 13px;
+}

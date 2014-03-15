@@ -7281,6 +7281,18 @@ pre {
   -webkit-appearance: none;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003398}}
+.table tr.ng-table-group td {
+  background-color: #eeeeee !important;
+  font-weight: bold;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003404}}
+.table-checkbox tr th:first-child,
+.table-checkbox tr td:first-child {
+  width: 13px;
+}
+
 @media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/components\/sass-bootstrap\/lib\/_utilities\.scss}line{font-family:\000037}}
 .pull-right {
   float: right;

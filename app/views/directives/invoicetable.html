@@ -1,0 +1,55 @@
+<div>
+    <form class="form-inline clearfix">
+        <fieldset class="pull-left">
+            <button class="btn btn-success" ng-click="generateInvoices()" ng-disabled="numselected == 0">Download</button>
+        </fieldset>
+        <fieldset class="pull-right">
+            <select ng-model="selectdate.month">
+                <option value="0">January</option>
+                <option value="1">February</option>
+                <option value="2">March</option>
+                <option value="3">April</option>
+                <option value="4">May</option>
+                <option value="5">June</option>
+                <option value="6">July</option>
+                <option value="7">August</option>
+                <option value="8">September</option>
+                <option value="9">October</option>
+                <option value="10">November</option>
+                <option value="11">December</option>
+            </select>
+            <select ng-model="selectdate.year">
+                <option>2014</option>
+                <option>2013</option>
+            </select>
+        </fieldset>
+    </form>
+    <div class="alert" ng-show="users.length == 0" ng-bind="empty_message"></div>
+    <table ng-table="invoiceParams" ng-show="users.length > 0" class="table table-striped table-checkbox">
+        <tbody ng-repeat="group in $groups">
+        <tr class="ng-table-group">
+            <td colspan="{{$columns.length}}">
+                <div ng-click="group.$hideRows = !group.$hideRows">
+                    <span ng-class="{ 'icon-chevron-right': group.$hideRows, 'icon-chevron-down': !group.$hideRows }"></span>
+                    <span ng-bind="group.value"></span>
+                </div>
+            </td>
+        </tr>
+        <tr ng-hide="group.$hideRows" ng-repeat="user in group.data">
+            <td header="'ng-table/headers/checkbox.html'">
+                <input type="checkbox" ng-model="checkboxes.items[user.invoice_id]" />
+            </td>
+            <td sortable="name" data-title="'Name'">
+                {{ user.firstname }} {{ user.lastname }} {{ !(user.firstname && user.lastname) && user.contractor || '' }}
+            </td>
+            <td sortable="roles" data-title="'Role'" ng-bind="user.roles" class="roles"></td>
+            <td sortable="amount" data-title="'Amount'" class="amount">
+                {{ user.currency_iso }} {{ user.amount }}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <script type="text/ng-template" id="ng-table/headers/checkbox.html">
+        <input type="checkbox" ng-model="checkboxes.checked" id="select_all" name="filter-checkbox" value="" />
+    </script>
+</div>
