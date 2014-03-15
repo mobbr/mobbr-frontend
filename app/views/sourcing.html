@@ -2,14 +2,29 @@
     The source board is empty because you are not logged in. To login or signup, go <a href="#/join">here</a>.
 </div>
 <tabs>
-    <pane heading="Tasks">
+    <pane heading="Pledges">
         <div class="row-fluid">
             <div class="well span12 special">
                 <small>Tasks to which you pledged or paid.</small>
             </div>
         </div>
+
+        <div class="form-inline" style="margin-bottom: 20px;">
+            <label for="searchEntries{{paymenttype}}">Search: </label>
+            <input type="search" class="search-query" ng-model="searchentries" id="searchEntries{{paymenttype}}" >
+        </div>
+
+        <accordion close-others="false">
+            <accordion-group heading="Pledges" is-open="true">
+                <payments nodatatitle="No unclaimed pledges"
+                          paymenttype="unclaimed_payments"
+                          editable="true"
+                          searchentries="searchentries"
+                          showexpiresdate="false"></payments>
+            </accordion-group>
+        </accordion>
     </pane>
-    <pane heading="Crowd">
+    <pane heading="Workers">
         <div class="row-fluid">
             <div class="well span12 special">
                 <small>People who worked on your tasks.</small>
@@ -23,13 +38,6 @@
             </div>
         </div>
         <invoicetable data="sourcing"></invoicetable>
-    </pane>
-    <pane heading="Statistics">
-        <div class="row-fluid">
-            <div class="well span12 special">
-                <small>Statistics on</small>
-            </div>
-        </div>
     </pane>
 </tabs>
 
