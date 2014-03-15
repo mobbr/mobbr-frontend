@@ -22,7 +22,30 @@
                           showexpiresdate="false"></payments>
             </accordion-group>
             <accordion-group heading="Tasks" is-open="true">
-
+                <table ng-table="urlParams" class="mobbrtable table table-striped table-checkbox">
+                    <tbody ng-repeat="group in $groups">
+                    <tr class="ng-table-group">
+                        <td colspan="{{$columns.length}}">
+                            <div ng-click="group.$hideRows = !group.$hideRows">
+                                <span ng-class="{ 'icon-chevron-right': group.$hideRows, 'icon-chevron-down': !group.$hideRows }"></span>
+                                <span ng-bind="group.value"></span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr ng-hide="group.$hideRows" ng-repeat="user in group.data" title="{{ user.title }}">
+                        <td data-title="''">
+                            <img ng-src="https://secure.gravatar.com/avatar/{{ user['gravatar'] }}?s=20&default=https://mobbr.com/img/default-gravatar.png"
+                                 class="gravatar small img-rounded"
+                                 width="20"
+                                 height="20">
+                        </td>
+                        <td sortable="username" data-title="'Userame'" ng-bind="user.username"></td>
+                        <td sortable="datetime"><small ng-bind="user.datetime"></small></td>
+                        <td sortable="roles" data-title="'Role'" ng-bind="user.roles" class="roles"></td>
+                        <td sortable="amount" data-title="'Amount'" class="amount" ng-bind="user.amount"></td>
+                    </tr>
+                    </tbody>
+                </table>
             </accordion-group>
         </accordion>
     </pane>
