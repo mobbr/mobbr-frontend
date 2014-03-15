@@ -82,13 +82,13 @@ angular.module('mobbr.services.mbr-api', [
     }).factory('Sourcing', function ($resource, apiUrl) {
 
         return $resource(apiUrl + '/api/sourcing/:action', {}, {
-            getOverviewSender: {method: 'GET', params: { action: 'monthly_invoices' }, isArray: false}
+            invoices: {method: 'GET', params: { action: 'monthly_invoices' }, isArray: false}
         });
 
     }).factory('Working', function ($resource, apiUrl) {
 
         return $resource(apiUrl + '/api/working/:action', {}, {
-            getOverviewReceiver: {method: 'GET', params: { action: 'monthly_invoices' }, isArray: false}
+            invoices: {method: 'GET', params: { action: 'monthly_invoices' }, isArray: false}
         });
 
     }).factory('Url', function ($resource, apiUrl) {
