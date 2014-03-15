@@ -7,6 +7,7 @@ angular.module('mobbr.configuration', []);
 
 angular.module('mobbr-lightbox', [
 
+        'ngRoute',
         'ui.bootstrap',
         'mobbr.config',
         'mobbr.directives',
