@@ -9,18 +9,20 @@
             </div>
         </div>
 
-        <div class="form-inline" style="margin-bottom: 20px;">
-            <label for="searchEntries{{paymenttype}}">Search: </label>
-            <input type="search" class="search-query" ng-model="searchentries" id="searchEntries{{paymenttype}}" >
-        </div>
-
         <accordion close-others="false">
             <accordion-group heading="Pledges" is-open="true">
+                <div class="form-inline" style="margin-bottom: 20px;">
+                    <label for="searchEntries{{paymenttype}}">Search: </label>
+                    <input type="search" class="search-query" ng-model="searchentries" id="searchEntries{{paymenttype}}" >
+                </div>
                 <payments nodatatitle="No unclaimed pledges"
                           paymenttype="unclaimed_payments"
                           editable="true"
                           searchentries="searchentries"
                           showexpiresdate="false"></payments>
+            </accordion-group>
+            <accordion-group heading="Tasks" is-open="true">
+
             </accordion-group>
         </accordion>
     </pane>
@@ -30,6 +32,9 @@
                 <small>People who worked on your tasks.</small>
             </div>
         </div>
+        <mobbrtable entries="persons.result"
+                    columns="[ 'gravatar-xsmall', 'username', 'name', 'amount' ]"
+                    has-search="true" has-header="true"></mobbrtable>
     </pane>
     <pane heading="Invoicing">
         <div class="row-fluid">
