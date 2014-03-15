@@ -90,7 +90,9 @@ angular.module('mobbr.services.mbr-api', [
     }).factory('Working', function ($resource, apiUrl) {
 
         return $resource(apiUrl + '/api/working/:action', {}, {
-            invoices: {method: 'GET', params: { action: 'monthly_invoices' }, isArray: false}
+            invoices: {method: 'GET', params: { action: 'monthly_invoices' }, isArray: false},
+            urls: {method: 'GET', params: { action: 'urls' }, isArray: false},
+            persons: {method: 'GET', params: { action: 'persons' }, isArray: false}
         });
 
     }).factory('Url', function ($resource, apiUrl) {
