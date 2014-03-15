@@ -107,9 +107,16 @@
                     <div ng-bind="entry.description"></div>
                 </div>
 
+                <div ng-switch-when="name">
+                    <span ng-show="entry.firstname" ng-bind="entry.firstname"></span>
+                    <span ng-show="entry.lastname" ng-bind="entry.lasttname"></span>
+                </div>
+
                 <a ng-switch-when="url" href="{{ '/#/url/' + encodeuri(entry.url) }}" ng-bind="entry.url"></a>
 
-                <mobbrbutton ng-switch-when="mobbrbutton" url="{{ entry.uri }}"></mobbrbutton>
+                <div ng-switch-when="mobbrbutton">
+                    <mobbrbutton url="{{ entry.uri }}"></mobbrbutton>
+                </div>
 
                 <span ng-switch-default>{{ entry[column] }}</span>
             </td>
