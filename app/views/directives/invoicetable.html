@@ -24,9 +24,7 @@
             </select>
         </fieldset>
     </form>
-    <div class="alert" ng-show="users.length == 0">
-        No invoices available for the selected timeframe
-    </div>
+    <div class="alert" ng-show="users.length == 0" ng-bind="empty_message"></div>
     <table ng-table="invoiceParams" ng-show="users.length > 0" class="table table-striped table-checkbox">
         <tbody ng-repeat="group in $groups">
         <tr class="ng-table-group">
