@@ -8,7 +8,7 @@ angular.module('mobbr.directives').directive('mobbrtable', function factory($roo
             '.x-id': 'Person',
             datetime: 'Date/time',
             title: 'Title',
-            username: 'Person',
+            username: 'Username',
             amount: 'Amount',
             share: 'Share',
             '.percentage': 'Share',
@@ -16,7 +16,8 @@ angular.module('mobbr.directives').directive('mobbrtable', function factory($roo
             roles: 'Roles',
             url: 'URL',
             senders: 'Semders',
-            receivers: 'Receivers'
+            receivers: 'Receivers',
+            name: 'Name'
         }, sortables = {
             '.x-id': 'x-id',
             datetime: 'datetime',
