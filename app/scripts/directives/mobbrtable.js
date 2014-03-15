@@ -17,7 +17,8 @@ angular.module('mobbr.directives').directive('mobbrtable', function factory($roo
             url: 'URL',
             senders: 'Semders',
             receivers: 'Receivers',
-            name: 'Name'
+            name: 'Name',
+            keywords: 'Keywords'
         }, sortables = {
             '.x-id': 'x-id',
             datetime: 'datetime',
