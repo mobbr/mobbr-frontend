@@ -1,13 +1,9 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('WorkingController', function ($scope, $filter, Working, ngTableParams, userSession) {
+angular.module('mobbr.controllers').controller('WorkingController', function ($scope, $filter, Working, ngTableParams) {
 
-    console.log(userSession);
-
-    Working.urls(function (response) {
-        console.log(response);
-    });
-
+    $scope.urls = Working.urls();
+    console.log($scope.urls);
     $scope.personParams = new ngTableParams(
         {
             page: 1,
@@ -26,8 +22,6 @@ angular.module('mobbr.controllers').controller('WorkingController', function ($s
                     $scope.personParams.$params.count = data.length;
                     $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
                 });
-
-
             }
         }
     );
