@@ -31,7 +31,7 @@
         </thead>
         <tbody>
         <tr ng-repeat="entry in entries | orderBy: sortEntries: sortOrder | limitTo: hasLimiter && showEntries || entries.length | filter: searchEntries">
-            <td ng-repeat="column in columns" type="column" ng-switch on="column">
+            <td ng-repeat="column in columns" type="column" ng-switch on="column" title="{{ entry.description }}">
 
                 <time ng-switch-when="datetime"
                       datetime="{{ entry.datetime }}">
