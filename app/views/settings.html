@@ -138,11 +138,11 @@
 
         <div class="control-group">
             <div class="control-label">
-                <label for="birthday">Birth day (YYYY-MM-DD)</label>
+                <label for="birthday">Birth day</label>
             </div>
 
             <div class="controls">
-                <input ng-model="user.birthday" name="birthday" type="text" id="birthday" placeholder="e.g. 1966-08-17" class="unstyled" >
+                <input ng-model="user.birthday" name="birthday" type="date" id="birthday" placeholder="e.g. 1966-08-17" class="unstyled" >
             </div>
         </div>
 
@@ -152,7 +152,7 @@
             </div>
 
             <div class="controls">
-                <input ng-model="user.address" name="address" type="text" id="address" placeholder="e.g. Sesame Street">
+                <input ng-model="user.address" name="address" type="text" id="address" placeholder="e.g. Sesame Street, Manhattan">
             </div>
         </div>
 
@@ -316,7 +316,7 @@
             </div>
 
             <div class="controls">
-                <input ng-value="user.invoice_numbering_prefix + (user.invoice_numbering_prefix && '-' || '') + '23DgW' + (user.invoice_numbering_postfix && '-' || '') + user.invoice_numbering_postfix" name="invoice-number" id="invoice-number" type="text" ng-disabled="true">
+                <input ng-value="user.invoice_numbering_prefix + '23DgW' + user.invoice_numbering_postfix" name="invoice-number" id="invoice-number" type="text" ng-disabled="true">
             </div>
         </div>
 
