@@ -25,7 +25,7 @@
         </fieldset>
     </form>
     <div class="alert" ng-show="users.length == 0" ng-bind="empty_message"></div>
-    <table ng-table="invoiceParams" ng-show="users.length > 0" class="table table-striped table-checkbox">
+    <table ng-table="invoiceParams" ng-show="users.length > 0" class="mobbrtable table table-striped table-checkbox">
         <tbody ng-repeat="group in $groups">
         <tr class="ng-table-group">
             <td colspan="{{$columns.length}}">
@@ -43,8 +43,11 @@
                 {{ user.firstname }} {{ user.lastname }} {{ !(user.firstname && user.lastname) && user.contractor || '' }}
             </td>
             <td sortable="roles" data-title="'Role'" ng-bind="user.roles" class="roles"></td>
+            <td sortable="currency" data-title="'Currency'" ng-bind="userSession.user.currency_iso" class="currency"></td>
             <td sortable="amount" data-title="'Amount'" class="amount">
-                {{ user.currency_iso }} {{ user.amount }}
+                            <span ng-bind="user.amount | mobbrcurrency"
+                                  ng-class="{ 'text-error': user.amount < 0 }"
+                                  class="nowrap"></span>
             </td>
         </tr>
         </tbody>

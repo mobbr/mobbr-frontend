@@ -14,6 +14,7 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
             var date = new Date(),
                 Api = $attrs.data === 'sourcing' ? Sourcing : Working;
 
+            $scope.userSession = userSession;
             $scope.empty_message = $attrs.emptyMessage || 'No invoices available for the selected timeframe';
             $scope.invoiceParams = new ngTableParams(
                 {
@@ -22,7 +23,7 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
                 },
                 {
                     counts: [],
-                    groupBy: 'uri',
+                    groupBy: 'title',
                     total: 0,
                     getData: function ($defer, params) {
                         Api.invoices({ month: parseInt($scope.selectdate.month) + 1, year: $scope.selectdate.year }, function (response) {
