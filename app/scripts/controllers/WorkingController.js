@@ -11,7 +11,7 @@ angular.module('mobbr.controllers').controller('WorkingController', function ($s
         },
         {
             counts: [],
-            groupBy: 'url',
+            groupBy: 'title',
             total: 0,
             getData: function ($defer, params) {
                 Working.persons(function (response) {
