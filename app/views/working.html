@@ -38,8 +38,9 @@
                 <td sortable="username" data-title="'Userame'" ng-bind="user.username"></td>
                 <td sortable="datetime"><small ng-bind="user.datetime"></small></td>
                 <td sortable="roles" data-title="'Role'" ng-bind="user.roles" class="roles"></td>
+                <td sortable="currency" data-title="'Currency'" ng-bind="userSession.user.currency_iso" class="currency"></td>
                 <td sortable="amount" data-title="'Amount'" class="amount">
-                    <span ng-bind="user.amount | mobbrcurrency: userSession.user.currency_iso"
+                    <span ng-bind="user.amount | mobbrcurrency"
                           ng-class="{ 'text-error': user.amount < 0 }"
                           class="nowrap"></span>
                 </td>
