@@ -9,50 +9,73 @@
             </div>
         </div>
 
-        <accordion close-others="false">
-            <accordion-group heading="Pledges" is-open="true">
-                <div class="form-inline" style="margin-bottom: 20px;">
-                    <label for="searchEntries{{paymenttype}}">Search: </label>
-                    <input type="search" class="search-query" ng-model="searchentries" id="searchEntries{{paymenttype}}" >
-                </div>
-                <payments nodatatitle="No unclaimed pledges"
-                          paymenttype="unclaimed_payments"
-                          editable="true"
-                          searchentries="searchentries"
-                          showexpiresdate="false"></payments>
-            </accordion-group>
-            <accordion-group heading="Tasks" is-open="true">
-                <table ng-table="urlParams" class="mobbrtable table table-striped table-checkbox">
-                    <tbody ng-repeat="group in $groups">
-                    <tr class="ng-table-group">
-                        <td colspan="{{ $columns.length }}">
-                            <div ng-click="group.$hideRows = !group.$hideRows">
-                                <span ng-class="{ 'icon-chevron-right': group.$hideRows, 'icon-chevron-down': !group.$hideRows }"></span>
-                                <span ng-bind="group.value"></span>
-                                (<a ng-click="openUrl(group.data[0].url)"><small ng-bind="group.data[0].url"></small></a>)
-                            </div>
-                        </td>
-                    </tr>
-                    <tr ng-hide="group.$hideRows" ng-repeat="user in group.data" title="{{ user.title }}">
-                        <td data-title="''">
-                            <img ng-src="https://secure.gravatar.com/avatar/{{ user['gravatar'] }}?s=20&default=https://mobbr.com/img/default-gravatar.png"
-                                 class="gravatar small img-rounded"
-                                 width="20"
-                                 height="20">
-                        </td>
-                        <td sortable="username" data-title="'Userame'" ng-bind="user.username"></td>
-                        <td sortable="datetime"><small ng-bind="user.datetime"></small></td>
-                        <td sortable="roles" data-title="'Role'" ng-bind="user.roles" class="roles"></td>
-                        <td sortable="amount" data-title="'Amount'" class="amount">
-                            <span ng-bind="user.amount | mobbrcurrency : userSession.user.currency_iso"
-                                  ng-class="{ 'text-error': user.amount < 0 }"
+        <form class="form-inline clearfix">
+            <fieldset class="pull-left">
+                <button class="btn btn-danger" ng-click="deletePayments(selectedPledges)" ng-disabled="numSelected(selectedPledges) < 1">Remove pledges</button>
+            </fieldset>
+        </form>
+
+        <table ng-table="pledgesTable" class="mobbrtable table table-striped table-checkbox">
+            <tbody ng-repeat="group in $groups">
+            <tr class="ng-table-group">
+                <td colspan="{{ $columns.length }}">
+                    <div ng-click="group.$hideRows = !group.$hideRows">
+                        <span ng-class="{ 'icon-chevron-right': group.$hideRows, 'icon-chevron-down': !group.$hideRows }"></span>
+                        <span ng-bind="group.value"></span>
+                    </div>
+                </td>
+            </tr>
+            <tr ng-hide="group.$hideRows" ng-repeat="pledge in group.data" title="{{ user.title }}">
+                <td>
+                    <input type="checkbox" ng-model="selectedPledges[pledge.id]" />
+                </td>
+                <td sortable="url" data-title="'Task'">
+                    <div ng-bind="pledge.title"></div>
+                    <!--<a ng-click="openUrl(pledge.url)"><small ng-bind="pledge.url"></small></a>-->
+                </td>
+                <td sortable="currency" data-title="'Currency'" ng-bind="userSession.user.currency_iso" class="currency"></td>
+                <td sortable="amount" data-title="'Amount'" class="amount">
+                            <span ng-bind="pledge.amount | mobbrcurrency"
+                                  ng-class="{ 'text-error': pledge.amount < 0 }"
                                   class="nowrap"></span>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </accordion-group>
-        </accordion>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <script type="text/ng-template" id="ng-table/headers/checkbox.html">
+            <input type="checkbox" ng-model="checkboxes.checked" id="select_all" name="filter-checkbox" value="" />
+        </script>
+
+        <table ng-table="tasksTable" class="mobbrtable table table-striped table-checkbox">
+            <tbody ng-repeat="group in $groups">
+            <tr class="ng-table-group">
+                <td colspan="{{ $columns.length }}">
+                    <div ng-click="group.$hideRows = !group.$hideRows">
+                        <span ng-class="{ 'icon-chevron-right': group.$hideRows, 'icon-chevron-down': !group.$hideRows }"></span>
+                        <span ng-bind="group.value"></span>
+                        <!--<div><a ng-click="openUrl(group.data[0].url)"><small ng-bind="group.data[0].url"></small></a></div>-->
+                    </div>
+                </td>
+            </tr>
+            <tr ng-hide="group.$hideRows" ng-repeat="task in group.data" title="{{ user.title }}">
+                <td data-title="''">
+                    <img ng-src="https://secure.gravatar.com/avatar/{{ task['gravatar'] }}?s=20&default=https://mobbr.com/img/default-gravatar.png"
+                         class="gravatar small img-rounded"
+                         width="20"
+                         height="20">
+                </td>
+                <td sortable="username" data-title="'Username'" ng-bind="task.username"></td>
+                <td sortable="datetime" data-title="'Date'"><small ng-bind="task.datetime"></small></td>
+                <td sortable="roles" data-title="'Role'" ng-bind="task.roles" class="roles"></td>
+                <td sortable="currency" data-title="'Currency'" ng-bind="userSession.user.currency_iso" class="currency"></td>
+                <td sortable="amount" data-title="'Amount'" class="amount">
+                            <span ng-bind="task.amount | mobbrcurrency"
+                                  ng-class="{ 'text-error': task.amount < 0 }"
+                                  class="nowrap"></span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </pane>
     <pane heading="Workers">
         <div class="row-fluid">
