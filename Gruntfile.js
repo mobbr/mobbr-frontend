@@ -332,7 +332,13 @@ module.exports = function (grunt) {
       ]
     },
     sshconfig: {
-      "targethost": "test-www.mobbr.com"
+      testhost: {
+        host: 'test-www.mobbr.com',
+        username: 'keesdekooter',
+//        privateKey: grunt.file.read('/Users/kees/.ssh/id_rsa'),
+        agent: process.env.SSH_AUTH_SOCK,
+        showProgress: true
+      }
     },
     sftp: {
       copytar: {
@@ -340,17 +346,23 @@ module.exports = function (grunt) {
           "./": ['dist-' + env + '.tar.gz']
         },
         options: {
-          host: "targethost"
+          path: '/tmp/',
+          config: 'testhost'
         }
       }
     },
     sshexec: {
-      unpack: {
-        command: "tar -xzf dist-" + env + ".tar.gz",
+      deploy: {
+        command: [
+          'cd /tmp',
+          'tar -xzf dist-' + env + '.tar.gz'
+        ].join(' && '),
         options: {
-          config: "targethost"
+          config: 'testhost'
         }
-      }
+      },
+      move: {},
+      setpermissions: {}
     }
   });
 
@@ -378,7 +390,7 @@ module.exports = function (grunt) {
     'clean:dist',
     'bower-install-simple',
 //    'compass:dist',
-   // 'config',
+    // 'config',
     'useminPrepare',
     'imagemin',
     'cssmin:dist',
@@ -397,7 +409,7 @@ module.exports = function (grunt) {
   grunt.registerTask('deploy', [
 //    'build',
     'sftp:copytar',
-    'sshexec:unpack'
+    'sshexec:deploy'
   ]);
 
   grunt.registerTask('default', ['build']);
