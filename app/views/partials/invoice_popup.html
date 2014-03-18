@@ -1,10 +1,11 @@
 <div class="modal-header">
-    <h3>I'm a modal!</h3>
+    <h3>Confirm or adjust your invoicing data</h3>
+    <small>Defaults are taken from your <a hef="/#/settings">settings</a> panels<small>
 </div>
 <form name="invoicing" class="form-horizontal modal-body">
     <div class="control-group">
         <div class="control-label">
-            <label for="name">Customer name</label>
+            <label for="name">(Business) name</label>
         </div>
 
         <div class="controls">
@@ -14,17 +15,17 @@
 
     <div class="control-group">
         <div class="control-label">
-            <label for="name">Customer address</label>
+            <label for="name">Full address</label>
         </div>
 
         <div class="controls">
-            <input ng-model="invoice.address" name="address" type="text" id="address" placeholder="e.g. Sesame Street, Manhattan">
+            <input ng-model="invoice.address" name="address" type="text" id="address" placeholder="e.g. Sesame Street 3, Metropolis">
         </div>
     </div>
 
     <div class="control-group">
         <div class="control-label">
-            <label for="country">Customer country</label>
+            <label for="country">Country</label>
         </div>
 
         <div class="controls">
@@ -37,7 +38,7 @@
 
     <div class="control-group">
         <div class="control-label">
-            <label for="vat-number">Customer VAT-number</label>
+            <label for="vat-number">VAT-number</label>
         </div>
 
         <div class="controls">
@@ -47,17 +48,18 @@
 
     <div class="control-group">
         <div class="control-label">
-            <label for="vat-rate">Customer VAT-rate (%)</label>
+            <label for="vat-rate">Required VAT-rate (%)</label>
         </div>
 
         <div class="controls">
-            <input ng-model="invoice.vat_rate" name="vat_rate" type="text" id="vat-rate" placeholder="e.g. 21">
+            <input ng-model="invoice.vat_rate" name="vat_rate" type="text" id="vat-rate" placeholder="e.g. 21"><br/>
+            <small>Indicate the rate for this type of work in <b>your</b> country</small>
         </div>
     </div>
 
     <div class="control-group">
         <div class="control-label">
-            <label for="status">Customer status</label>
+            <label for="status">Legal entity</label>
         </div>
 
         <div class="controls">
