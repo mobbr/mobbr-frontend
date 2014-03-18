@@ -2,10 +2,97 @@
     The source board is empty because you are not logged in. To login or signup, go <a href="#/join">here</a>.
 </div>
 <tabs>
-    <pane heading="Pledges">
+    <pane heading="Request invoices">
         <div class="row-fluid">
             <div class="well span12 special">
-                <small>Tasks to which you pledged or paid.</small>
+                <small>Your monthly invoices. We generate these on behalf of your crowdworkers.</small>
+            </div>
+        </div>
+
+        <form name="invoicing" class="form-horizontal">
+
+            <div class="control-group">
+                <div class="control-label">
+                    <label for="customer-name">Customer name</label>
+                </div>
+
+                <div class="controls">
+                    <input ng-model="invoice.customer_name" name="customer_name" type="text" id="customer-name" placeholder="e.g. Google">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class="control-label">
+                    <label for="customer-name">Customer address</label>
+                </div>
+
+                <div class="controls">
+                    <input ng-model="invoice.customer_address" name="customer_address" type="text" id="customer-address" placeholder="e.g. Sesame Street, Manhattan">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class="control-label">
+                    <label for="customer-country">Customer country</label>
+                </div>
+
+                <div class="controls">
+                    <select id="customer-country" name="customer_country" ng-model="invoice.customer_country"
+                            ng-options="value as key for (value, key) in countriesMap">
+                        <option value="">No country</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class="control-label">
+                    <label for="customer-vat-number">Customer VAT-number</label>
+                </div>
+
+                <div class="controls">
+                    <input ng-model="invoice.customer_vat_number" name="customer_vat_number" type="text" id="customer-vat-number" placeholder="e.g. NL001234567B01">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class="control-label">
+                    <label for="customer-vat-rate">Customer VAT-rate (%)</label>
+                </div>
+
+                <div class="controls">
+                    <input ng-model="invoice.customer_vat_rate" name="customer_vat_rate" type="text" id="customer-vat-rate" placeholder="e.g. 21">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class="control-label">
+                    <label for="customer-status">Customer status</label>
+                </div>
+
+                <div class="controls">
+                    <select ng-model="invoice.customer_status" name="customer_status" type="text" id="customer-status">
+                        <option value="private">Private</option>
+                        <option value="enterprise">Enterprise</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+
+        <invoicetable data="sourcing" action="'monthly'" button-text="'Request invoices'" button-action="requestInvoices"></invoicetable>
+        <invoicetable data="sourcing" action="'requested'" button-text="'Cancel request'" button-action="cancelInvoices"></invoicetable>
+    </pane>
+    <pane heading="Download invoices">
+        <div class="row-fluid">
+            <div class="well span12 special">
+                <small>.</small>
+            </div>
+        </div>
+        <invoicetable data="sourcing" action="'reviewed'" button-text="'Download invoice'"></invoicetable>
+    </pane>
+    <pane heading="Pledges and tasks">
+        <div class="row-fluid">
+            <div class="well span12 special">
+                <small>Tasks to which you pledged or paid. Pledges can be revoked. We will notify every currently listed participant of this event.</small>
             </div>
         </div>
 
@@ -86,86 +173,6 @@
         <mobbrtable entries="persons.result"
                     columns="[ 'gravatar-xsmall', 'username', 'roles', 'keywords', 'currency_iso', 'amount' ]"
                     has-search="true" has-header="true"></mobbrtable>
-    </pane>
-    <pane heading="Invoicing">
-        <div class="row-fluid">
-            <div class="well span12 special">
-                <small>Your monthly invoices. We generate these on behalf of your crowdworkers.</small>
-            </div>
-        </div>
-
-        <form name="invoicing" class="form-horizontal">
-
-            <div class="control-group">
-                <div class="control-label">
-                    <label for="customer-name">Customer name</label>
-                </div>
-
-                <div class="controls">
-                    <input ng-model="invoice.customer_name" name="customer_name" type="text" id="customer-name" placeholder="e.g. Google">
-                </div>
-            </div>
-
-            <div class="control-group">
-                <div class="control-label">
-                    <label for="customer-name">Customer address</label>
-                </div>
-
-                <div class="controls">
-                    <input ng-model="invoice.customer_address" name="customer_address" type="text" id="customer-address" placeholder="e.g. Sesame Street, Manhattan">
-                </div>
-            </div>
-
-            <div class="control-group">
-                <div class="control-label">
-                    <label for="customer-country">Customer country</label>
-                </div>
-
-                <div class="controls">
-                    <select id="customer-country" name="customer_country" ng-model="invoice.customer_country"
-                            ng-options="value as key for (value, key) in countriesMap">
-                        <option value="">No country</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="control-group">
-                <div class="control-label">
-                    <label for="customer-vat-number">Customer VAT-number</label>
-                </div>
-
-                <div class="controls">
-                    <input ng-model="invoice.customer_vat_number" name="customer_vat_number" type="text" id="customer-vat-number" placeholder="e.g. NL001234567B01">
-                </div>
-            </div>
-
-            <div class="control-group">
-                <div class="control-label">
-                    <label for="customer-vat-rate">Customer VAT-rate (%)</label>
-                </div>
-
-                <div class="controls">
-                    <input ng-model="invoice.customer_vat_rate" name="customer_vat_rate" type="text" id="customer-vat-rate" placeholder="e.g. 21">
-                </div>
-            </div>
-
-            <div class="control-group">
-                <div class="control-label">
-                    <label for="customer-status">Customer status</label>
-                </div>
-
-                <div class="controls">
-                    <select ng-model="invoice.customer_status" name="customer_status" type="text" id="customer-status">
-                        <option value="private">Private</option>
-                        <option value="enterprise">Enterprise</option>
-                    </select>
-                </div>
-            </div>
-        </form>
-
-        <invoicetable data="sourcing" action="'monthly'" button-text="'Request invoices'" button-action="requestInvoices"></invoicetable>
-        <invoicetable data="sourcing" action="'requested'" button-text="'Cancel request'" button-action="cancelInvoices"></invoicetable>
-        <invoicetable data="sourcing" action="'reviewed'" button-text="'Download invoice'"></invoicetable>
     </pane>
 </tabs>
 
