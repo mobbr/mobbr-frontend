@@ -7,13 +7,17 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
         transclude: true,
         templateUrl: '../../views/directives/invoicetable.html',
         scope: {
-            data: '='
+            data: '=',
+            action: '=',
+            buttonText: '=',
+            buttonAction: '='
         },
         controller: function ($scope, $attrs, $filter, ngTableParams, PaymentReceipt, userSession, Working, Sourcing) {
 
             var date = new Date(),
                 Api = $attrs.data === 'sourcing' ? Sourcing : Working;
 
+            date.setMonth(date.getMonth() - 1);
             $scope.userSession = userSession;
             $scope.empty_message = $attrs.emptyMessage || 'No invoices available for the selected timeframe';
             $scope.invoiceParams = new ngTableParams(
@@ -26,7 +30,12 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
                     groupBy: 'title',
                     total: 0,
                     getData: function ($defer, params) {
-                        Api.invoices({ month: parseInt($scope.selectdate.month) + 1, year: $scope.selectdate.year }, function (response) {
+
+                        var reqParams = $scope.action == 'monthly' ?
+                                   { month: parseInt($scope.selectdate.month) + 1, year: $scope.selectdate.year } : {};
+
+                        reqParams.action = $scope.action + '_invoices';
+                        Api.invoices(reqParams, function (response) {
 
                             var data = response.result,
                                 orderedData = params.sorting() ? $filter('orderBy')(data, $scope.invoiceParams.orderBy()) : data;
@@ -95,7 +104,7 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
                         infodata: {
                             html: '<ul style="font-family: Helvetica"> \
                         <li> \
-                            <span>' + invoice.invoice_id + '</span> \
+                            <span>' + invoice.id + '</span> \
                         </li> \
                         <li> \
                             <span>' + invoice.paiddatetime + '</span> \
@@ -178,14 +187,14 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
                     });
                 });
 
-                pdf.save(invoice.invoice_id);
+                pdf.save(invoice.id);
 
             }
 
             $scope.generateInvoices = function () {
 
                 angular.forEach($scope.users, function (item) {
-                    if ($scope.checkboxes.items[item.invoice_id]) {
+                    if ($scope.checkboxes.items[item.id]) {
                         generatePDF(item);
                     }
                 });
@@ -201,7 +210,7 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
             // watch for check all checkbox
             $scope.$watch('checkboxes.checked', function (value) {
                 angular.forEach($scope.users, function (item) {
-                    $scope.checkboxes.items[item.invoice_id] = value;
+                    $scope.checkboxes.items[item.id] = value;
                 });
             });
 
@@ -217,8 +226,8 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
                     total = $scope.users.length;
 
                 angular.forEach($scope.users, function (item) {
-                    checked += ($scope.checkboxes.items[item.invoice_id]) || 0;
-                    unchecked += (!$scope.checkboxes.items[item.invoice_id]) || 0;
+                    checked += ($scope.checkboxes.items[item.id]) || 0;
+                    unchecked += (!$scope.checkboxes.items[item.id]) || 0;
                 });
 
                 if ((unchecked == 0) || (checked == 0)) {
@@ -228,6 +237,19 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
                 $scope.numselected = checked;
                 angular.element(document.getElementById("select_all")).prop("indeterminate", (checked != 0 && unchecked != 0));
             }, true);
+
+            $scope.getIds = function () {
+
+                var ids = [];
+
+                angular.forEach($scope.users, function (item) {
+                    if ($scope.checkboxes.items[item.id]) {
+                        ids.push(item.id);
+                    }
+                });
+
+                return ids;
+            }
 
             $scope.checkboxes = { 'checked': false, items: {} };
             $scope.numselected = 0;

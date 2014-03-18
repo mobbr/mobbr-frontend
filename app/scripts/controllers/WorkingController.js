@@ -1,9 +1,8 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('WorkingController', function ($scope, $filter, Working, ngTableParams) {
+angular.module('mobbr.controllers').controller('WorkingController', function ($scope, $filter, userSession, Working, ngTableParams) {
 
     $scope.urls = Working.urls();
-    console.log($scope.urls);
     $scope.personParams = new ngTableParams(
         {
             page: 1,
@@ -25,4 +24,19 @@ angular.module('mobbr.controllers').controller('WorkingController', function ($s
             }
         }
     );
+
+    $scope.invoice = {
+        worker_name: userSession.user.companyname || (userSession.user.firstname + ' ' + userSession.user.lastname),
+        worker_address: userSession.user.address,
+        worker_country: userSession.user.country_of_residence,
+        worker_vat_number: userSession.user.vat_number,
+        worker_vat_rate: userSession.user.vat_rate,
+        worker_status: userSession.user.companyname && 'enterprise' || 'private'
+    }
+
+    $scope.confirmInvoices = function (ids) {
+        var params = $scope.invoice;
+        params.ids = ids;
+        Working.confirmInvoices(params);
+    }
 });

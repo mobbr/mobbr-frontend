@@ -83,6 +83,17 @@ angular.module('mobbr.services.mbr-api', [
 
         return $resource(apiUrl + '/api/sourcing/:action', {}, {
             invoices: {method: 'GET', params: { action: 'monthly_invoices' }, isArray: false},
+            requestInvoices: {method: 'PUT', params: {
+                action: 'request_invoices',
+                customer_name: '',
+                customer_address: '',
+                customer_country: '',
+                customer_vat_number: '',
+                customer_vat_rate: '',
+                customer_status: '',
+                ids: []
+            }, isArray: false},
+            cancelInvoices: {method: 'DELETE', params: { action: 'cancel_invoices', ids: [] }, isArray: false},
             urls: {method: 'GET', params: { action: 'urls' }, isArray: false},
             persons: {method: 'GET', params: { action: 'persons' }, isArray: false}
         });
@@ -92,6 +103,16 @@ angular.module('mobbr.services.mbr-api', [
         return $resource(apiUrl + '/api/working/:action', {}, {
             invoices: {method: 'GET', params: { action: 'monthly_invoices' }, isArray: false},
             urls: {method: 'GET', params: { action: 'urls' }, isArray: false},
+            confirmInvoices: {method: 'PUT', params: {
+                action: 'confirm_invoices',
+                worker_name: '',
+                worker_address: '',
+                worker_country: '',
+                worker_vat_number: '',
+                worker_vat_rate: '',
+                worker_status: '',
+                ids: []
+            }, isArray: false},
             persons: {method: 'GET', params: { action: 'persons' }, isArray: false}
         });
 
