@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('SourcingController', function ($scope, $filter, $location, $window, Claim, Dashboard, Sourcing, ngTableParams) {
+angular.module('mobbr.controllers').controller('SourcingController', function ($scope, $filter, $location, $window, userSession, Claim, Dashboard, Sourcing, ngTableParams) {
 
     $scope.persons = Sourcing.persons();
     $scope.selectedPledges = {};
@@ -77,4 +77,23 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
             }
         }
     );
+
+    $scope.invoice = {
+        customer_name: userSession.user.companyname || (userSession.user.firstname + ' ' + userSession.user.lastname),
+        customer_address: userSession.user.address,
+        customer_country: userSession.user.country_of_residence,
+        customer_vat_number: userSession.user.vat_number,
+        customer_vat_rate: userSession.user.vat_rate,
+        customer_status: userSession.user.companyname && 'enterprise' || 'private'
+    }
+
+    $scope.requestInvoices = function (ids) {
+        var params = $scope.invoice;
+        params.ids = ids;
+        Sourcing.requestInvoices(params);
+    }
+
+    $scope.cancelInvoices = function (ids) {
+        Sourcing.cancelInvoices({ ids: ids });
+    }
 });
