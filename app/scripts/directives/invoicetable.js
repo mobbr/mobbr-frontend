@@ -45,9 +45,15 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
                             });
 
                             req_params.ids = getIds();
-                            Sourcing.requestInvoices(req_params, function () {
-                                dialog.close();
-                            });
+                            if ($attrs.data === 'working') {
+                               Working.confirmInvoices(req_params, function () {
+                                    dialog.close();
+                                });
+                            } else {
+                                Sourcing.requestInvoices(req_params, function () {
+                                    dialog.close();
+                                });
+                            }
                         }
                     }
                 });
@@ -66,9 +72,14 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
             }
 
             $scope.buttonAction = function () {
+                console.log($scope.action, $attrs.data);
                 switch($scope.action) {
                     case 'requested':
-                        Sourcing.cancelInvoices({ ids: getIds() });
+                        if ($attrs.data === 'working') {
+                            d.open();
+                        } else {
+                            Sourcing.cancelInvoices({ ids: getIds() });
+                        }
                         break;
                     case 'unrequested':
                         d.open();
