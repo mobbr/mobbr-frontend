@@ -73,6 +73,13 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
                     case 'unrequested':
                         d.open();
                         break;
+                    case 'reviewed':
+                        angular.forEach($scope.users, function (item) {
+                            if ($scope.checkboxes.items[item.id]) {
+                                generatePDF(item);
+                            }
+                        });
+                        break;
                 }
             }
 
@@ -241,15 +248,6 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
 
                 pdf.save(invoice.id);
 
-            }
-
-            $scope.generateInvoices = function () {
-
-                angular.forEach($scope.users, function (item) {
-                    if ($scope.checkboxes.items[item.id]) {
-                        generatePDF(item);
-                    }
-                });
             }
 
             // watch the selected date, we need to reload the data on this
