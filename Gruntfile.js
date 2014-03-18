@@ -332,10 +332,15 @@ module.exports = function (grunt) {
       ]
     },
     sshconfig: {
-      testhost: {
+      test: {
         host: 'test-www.mobbr.com',
         username: 'keesdekooter',
-//        privateKey: grunt.file.read('/Users/kees/.ssh/id_rsa'),
+        agent: process.env.SSH_AUTH_SOCK,
+        showProgress: true
+      },
+      prod: {
+        host: 'www.mobbr.com',
+        username: 'keesdekooter',
         agent: process.env.SSH_AUTH_SOCK,
         showProgress: true
       }
@@ -347,7 +352,7 @@ module.exports = function (grunt) {
         },
         options: {
           path: '/tmp/',
-          config: 'testhost'
+          config: env
         }
       }
     },
@@ -358,7 +363,7 @@ module.exports = function (grunt) {
           'tar -xzf dist-' + env + '.tar.gz'
         ].join(' && '),
         options: {
-          config: 'testhost'
+          config: env
         }
       },
       move: {},
