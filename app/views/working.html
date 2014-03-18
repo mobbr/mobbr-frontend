@@ -8,78 +8,14 @@
                 <small>A copy of the monthly invoices we sent on your behalf to the people who paid you.</small>
             </div>
         </div>
-
-        <form name="invoicing" class="form-horizontal">
-
-            <div class="control-group">
-                <div class="control-label">
-                    <label for="worker-name">Worker name</label>
-                </div>
-
-                <div class="controls">
-                    <input ng-model="invoice.worker_name" name="worker_name" type="text" id="worker-name" placeholder="e.g. Google">
-                </div>
-            </div>
-
-            <div class="control-group">
-                <div class="control-label">
-                    <label for="worker-name">Worker address</label>
-                </div>
-
-                <div class="controls">
-                    <input ng-model="invoice.worker_address" name="worker_address" type="text" id="worker-address" placeholder="e.g. Sesame Street, Manhattan">
-                </div>
-            </div>
-
-            <div class="control-group">
-                <div class="control-label">
-                    <label for="worker-country">Worker country</label>
-                </div>
-
-                <div class="controls">
-                    <select id="worker-country" name="worker_country" ng-model="invoice.worker_country"
-                            ng-options="value as key for (value, key) in countriesMap">
-                        <option value="">No country</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="control-group">
-                <div class="control-label">
-                    <label for="worker-vat-number">Worker VAT-number</label>
-                </div>
-
-                <div class="controls">
-                    <input ng-model="invoice.worker_vat_number" name="worker_vat_number" type="text" id="worker-vat-number" placeholder="e.g. NL001234567B01">
-                </div>
-            </div>
-
-            <div class="control-group">
-                <div class="control-label">
-                    <label for="worker-vat-rate">Worker VAT-rate (%)</label>
-                </div>
-
-                <div class="controls">
-                    <input ng-model="invoice.worker_vat_rate" name="worker_vat_rate" type="text" id="worker-vat-rate" placeholder="e.g. 21">
-                </div>
-            </div>
-
-            <div class="control-group">
-                <div class="control-label">
-                    <label for="worker-status">Worker status</label>
-                </div>
-
-                <div class="controls">
-                    <select ng-model="invoice.worker_status" name="worker_status" type="text" id="worker-status">
-                        <option value="private">Private</option>
-                        <option value="enterprise">Enterprise</option>
-                    </select>
-                </div>
-            </div>
-        </form>
-
-        <invoicetable data="working" action="'requested'" button-text="'Confirm invoices'" button-action="confirmInvoices"></invoicetable>
-        <invoicetable data="working" action="'reviewed'" button-text="'Download invoices'"></invoicetable>
+        <accordion close-others="false">
+            <accordion-group heading="Requested invoices" is-open="true">
+                <invoicetable data="working" action="'requested'" button-text="'Confirm invoices'"></invoicetable>
+            </accordion-group>
+            <accordion-group heading="Requested invoices" is-open="true">
+                <invoicetable data="working" action="'reviewed'" button-text="'Download invoices'"></invoicetable>
+            </accordion-group>
+        </accordion>
     </pane>
     <pane heading="Tasks">
         <div class="row-fluid">
