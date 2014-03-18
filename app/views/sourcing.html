@@ -5,15 +5,16 @@
     <pane heading="Request invoices">
         <div class="row-fluid">
             <div class="well span12 special">
-                <small>Your monthly invoices. We generate these on behalf of your crowdworkers.</small>
+                <small>Ask your crowdworkers for an invoice. They have 30 days to verify their data.
+                    After 30 days we either generate the invoice on their behalf or refund the payment.</small>
             </div>
         </div>
 
         <accordion close-others="false">
-            <accordion-group heading="Requested invoices" is-open="true">
+            <accordion-group heading="Invoices that await verification" is-open="true">
                 <invoicetable data="sourcing" action="'requested'" button-text="'Cancel request'"></invoicetable>
              </accordion-group>
-            <accordion-group heading="Requestable invoices" is-open="true">
+            <accordion-group heading="Payments for which an invoice can be requested" is-open="true">
                 <invoicetable data="sourcing" action="'unrequested'" button-text="'Request invoices'"></invoicetable>
             </accordion-group>
         </accordion>
@@ -21,20 +22,24 @@
     <pane heading="Download invoices">
         <div class="row-fluid">
             <div class="well span12 special">
-                <small>.</small>
+                <small>Your invoices. We generated these on behalf of your crowdworkers.</small>
             </div>
         </div>
-        <invoicetable data="sourcing" action="'reviewed'" button-text="'Download invoice'"></invoicetable>
+        <accordion close-others="false">
+            <accordion-group heading="Final invoices" is-open="true">
+                <invoicetable data="sourcing" action="'reviewed'" button-text="'Download invoice'"></invoicetable>
+            </accordion-group>
+        </accordion>
     </pane>
     <pane heading="Pledges and tasks">
         <div class="row-fluid">
             <div class="well span12 special">
-                <small>Tasks to which you pledged or paid. Pledges can be revoked. We will notify every currently listed participant of this event.</small>
+                <small>Tasks to which you pledged or paid. Pledges can be revoked but every currently listed participant to the taks will be notified which can hurt your reputation.</small>
             </div>
         </div>
 
         <accordion close-others="false">
-            <accordion-group heading="Pledges" is-open="true">
+            <accordion-group heading="Active pledges" is-open="true">
 
                 <form class="form-inline clearfix">
                     <fieldset class="pull-left">
@@ -73,7 +78,7 @@
                     <input type="checkbox" ng-model="checkboxes.checked" id="select_all" name="filter-checkbox" value="" />
                 </script>
             </accordion-group>
-            <accordion-group heading="Tasks" is-open="true">
+            <accordion-group heading="Historic tasks" is-open="true">
                 <table ng-table="tasksTable" class="mobbrtable table table-striped table-checkbox">
                     <tbody ng-repeat="group in $groups">
                     <tr class="ng-table-group">
@@ -113,9 +118,13 @@
                 <small>People who worked on your tasks.</small>
             </div>
         </div>
-        <mobbrtable entries="persons.result"
-                    columns="[ 'gravatar-xsmall', 'username', 'roles', 'keywords', 'currency_iso', 'amount' ]"
-                    has-search="true" has-header="true"></mobbrtable>
+        <accordion close-others="false">
+            <accordion-group heading="People you rewarded" is-open="true">
+                <mobbrtable entries="persons.result"
+                            columns="[ 'gravatar-xsmall', 'username', 'roles', 'keywords', 'currency_iso', 'amount' ]"
+                            has-search="true" has-header="true"></mobbrtable>
+            </accordion-group>
+        </accordion>
     </pane>
 </tabs>
 
