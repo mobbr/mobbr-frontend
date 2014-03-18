@@ -1,9 +1,13 @@
 <div>
     <form class="form-inline clearfix">
         <fieldset class="pull-left">
-            <button class="btn btn-success" ng-click="generateInvoices()" ng-disabled="numselected == 0">Download</button>
+            <button class="btn"
+                    ng-class="{ 'btn-danger': action == 'requested', 'btn-success': action != 'requested' }"
+                    ng-click="buttonAction(getIds())"
+                    ng-disabled="numselected == 0"
+                    ng-bind="buttonText"></button>
         </fieldset>
-        <fieldset class="pull-right">
+        <fieldset class="pull-right" ng-hide="action == 'requested'">
             <select ng-model="selectdate.month">
                 <option value="0">January</option>
                 <option value="1">February</option>
@@ -37,10 +41,10 @@
         </tr>
         <tr ng-hide="group.$hideRows" ng-repeat="user in group.data">
             <td header="'ng-table/headers/checkbox.html'">
-                <input type="checkbox" ng-model="checkboxes.items[user.invoice_id]" />
+                <input type="checkbox" ng-model="checkboxes.items[user.id]" />
             </td>
             <td sortable="name" data-title="'Name'">
-                {{ user.firstname }} {{ user.lastname }} {{ !(user.firstname && user.lastname) && user.contractor || '' }}
+                {{ user.firstname }} {{ user.lastname }} {{ !(user.firstname && user.lastname) && user.contractor || user.worker_name }}
             </td>
             <td sortable="roles" data-title="'Role'" ng-bind="user.roles" class="roles"></td>
             <td sortable="currency" data-title="'Currency'" ng-bind="userSession.user.currency_iso" class="currency"></td>
