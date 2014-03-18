@@ -26,7 +26,8 @@
     "grunt-preprocess": "~4.0.0",
     "grunt-ng-constant": "~0.4.8",
     "grunt-angular-templates": "~0.5.3",
-    "grunt-bower-install-simple": "0.9.1"
+    "grunt-bower-install-simple": "0.9.1",
+    "grunt-ssh": "0.10.0"
   },
   "engines": {
     "node": ">=0.8.0"
