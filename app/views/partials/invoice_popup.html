@@ -1,0 +1,74 @@
+<div class="modal-header">
+    <h3>I'm a modal!</h3>
+</div>
+<form name="invoicing" class="form-horizontal modal-body">
+    <div class="control-group">
+        <div class="control-label">
+            <label for="name">Customer name</label>
+        </div>
+
+        <div class="controls">
+            <input ng-model="invoice.name" name="name" type="text" id="name" placeholder="e.g. Google">
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="control-label">
+            <label for="name">Customer address</label>
+        </div>
+
+        <div class="controls">
+            <input ng-model="invoice.address" name="address" type="text" id="address" placeholder="e.g. Sesame Street, Manhattan">
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="control-label">
+            <label for="country">Customer country</label>
+        </div>
+
+        <div class="controls">
+            <select id="country" name="country" ng-model="invoice.country"
+                    ng-options="value as key for (value, key) in countriesMap">
+                <option value="">No country</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="control-label">
+            <label for="vat-number">Customer VAT-number</label>
+        </div>
+
+        <div class="controls">
+            <input ng-model="invoice.vat_number" name="vat_number" type="text" id="vat-number" placeholder="e.g. NL001234567B01">
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="control-label">
+            <label for="vat-rate">Customer VAT-rate (%)</label>
+        </div>
+
+        <div class="controls">
+            <input ng-model="invoice.vat_rate" name="vat_rate" type="text" id="vat-rate" placeholder="e.g. 21">
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="control-label">
+            <label for="status">Customer status</label>
+        </div>
+
+        <div class="controls">
+            <select ng-model="invoice.status" name="status" type="text" id="status">
+                <option value="private">Private</option>
+                <option value="enterprise">Enterprise</option>
+            </select>
+        </div>
+    </div>
+</form>
+<div class="modal-footer">
+    <button ng-click="confirm()" class="btn btn-success">Confirm</button>
+    <button ng-click="close()" class="btn btn-error">Cancel</button>
+</div>

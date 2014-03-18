@@ -9,15 +9,73 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
         scope: {
             data: '=',
             action: '=',
-            buttonText: '=',
-            buttonAction: '='
+            buttonText: '='
         },
-        controller: function ($scope, $attrs, $filter, ngTableParams, PaymentReceipt, userSession, Working, Sourcing) {
+        controller: function ($scope, $attrs, $filter, $dialog, ngTableParams, PaymentReceipt, userSession, Working, Sourcing) {
 
-            var date = new Date(),
-                Api = $attrs.data === 'sourcing' ? Sourcing : Working;
+            var Api = $attrs.data === 'sourcing' ? Sourcing : Working,
+                d = $dialog.dialog({
+                    backdrop: true,
+                    keyboard: true,
+                    backdropClick: false,
+                    templateUrl: 'views/partials/invoice_popup.html',
+                    controller: function ($scope, dialog) {
 
-            date.setMonth(date.getMonth() - 1);
+                        $scope.invoice = {
+                            name: userSession.user.companyname || (userSession.user.firstname + ' ' + userSession.user.lastname),
+                            address: userSession.user.address,
+                            country: userSession.user.country_of_residence,
+                            vat_number: userSession.user.vat_number,
+                            vat_rate: userSession.user.vat_rate,
+                            status: userSession.user.companyname && 'enterprise' || 'private'
+                        }
+
+                        $scope.close = function () {
+                            dialog.close();
+                        }
+
+                        $scope.confirm = function () {
+
+                            var params = $scope.invoice,
+                                req_params = {},
+                                prefix =  $attrs.data === 'sourcing' ? 'customer' : 'worker';
+
+                            angular.forEach(params, function (item, key) {
+                                req_params[prefix + '_' + key] = item;
+                            });
+
+                            req_params.ids = getIds();
+                            Sourcing.requestInvoices(req_params, function () {
+                                dialog.close();
+                            });
+                        }
+                    }
+                });
+
+            function getIds() {
+
+                var ids = [];
+
+                angular.forEach($scope.users, function (item) {
+                    if ($scope.checkboxes.items[item.id]) {
+                        ids.push(item.id);
+                    }
+                });
+
+                return ids;
+            }
+
+            $scope.buttonAction = function () {
+                switch($scope.action) {
+                    case 'requested':
+                        Sourcing.cancelInvoices({ ids: getIds() });
+                        break;
+                    case 'unrequested':
+                        d.open();
+                        break;
+                }
+            }
+
             $scope.userSession = userSession;
             $scope.empty_message = $attrs.emptyMessage || 'No invoices available for the selected timeframe';
             $scope.invoiceParams = new ngTableParams(
@@ -31,11 +89,7 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
                     total: 0,
                     getData: function ($defer, params) {
 
-                        var reqParams = $scope.action == 'monthly' ?
-                                   { month: parseInt($scope.selectdate.month) + 1, year: $scope.selectdate.year } : {};
-
-                        reqParams.action = $scope.action + '_invoices';
-                        Api.invoices(reqParams, function (response) {
+                        Api.invoices({ action: $scope.action + '_invoices' }, function (response) {
 
                             var data = response.result,
                                 orderedData = params.sorting() ? $filter('orderBy')(data, $scope.invoiceParams.orderBy()) : data;
@@ -43,8 +97,6 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
                             $scope.invoiceParams.$params.count = data.length;
                             $defer.resolve($scope.users = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
                         });
-
-
                     }
                 }
             );
@@ -238,24 +290,8 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
                 angular.element(document.getElementById("select_all")).prop("indeterminate", (checked != 0 && unchecked != 0));
             }, true);
 
-            $scope.getIds = function () {
-
-                var ids = [];
-
-                angular.forEach($scope.users, function (item) {
-                    if ($scope.checkboxes.items[item.id]) {
-                        ids.push(item.id);
-                    }
-                });
-
-                return ids;
-            }
-
             $scope.checkboxes = { 'checked': false, items: {} };
             $scope.numselected = 0;
-            $scope.selectdate = {};
-            $scope.selectdate.month = date.getMonth();
-            $scope.selectdate.year = date.getFullYear();
         }
     }
 });
