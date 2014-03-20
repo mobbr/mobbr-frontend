@@ -93,7 +93,7 @@ angular.module('mobbr.services.mbr-api', [
                 customer_status: '',
                 ids: []
             }, isArray: false},
-            cancelInvoices: {method: 'DELETE', params: { action: 'cancel_invoices', ids: [] }, isArray: false},
+            cancelInvoices: {method: 'POST', params: { action: 'cancel_invoices', ids: [] }, isArray: false},
             urls: {method: 'GET', params: { action: 'urls' }, isArray: false},
             persons: {method: 'GET', params: { action: 'persons' }, isArray: false}
         });
