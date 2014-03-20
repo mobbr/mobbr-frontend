@@ -16,45 +16,41 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
         controller: function ($scope, $attrs, $filter, ngTableParams, PaymentReceipt, userSession, Working, Sourcing) {
 
             var api = $scope.api,
-                Api = api === 'sourcing' ? Sourcing : Working,
-                invoiceTable = new ngTableParams(
-                    {
-                        page: 1,
-                        count: 0
-                    },
-                    {
-                        counts: [],
-                        groupBy: 'title',
-                        total: 0,
-                        getData: function ($defer, params) {
-
-                            Api.invoices({ action: $scope.action + '_invoices' }, function (response) {
-
-                                var data = response.result,
-                                    orderedData = params.sorting() ? $filter('orderBy')(data, invoiceTable.orderBy()) : data;
-
-                                invoiceTable.$params.count = data.length;
-                                $defer.resolve($scope.items = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-                            });
-                        }
-                    }
-                );
+                Api = api === 'sourcing' ? Sourcing : Working;
 
             $scope.selectedIds = [];
             $scope.selectedItems = [];
             $scope.userSession = userSession;
             $scope.empty_message = $scope.emptyMessage || 'No invoices available for the selected timeframe';
             $scope.checkboxes = { 'checked': false, items: {} };
-            $scope.numselected = 0;
-            $scope.invoiceTable = invoiceTable;
+            $scope.invoiceTable = new ngTableParams(
+                {
+                    page: 1,
+                    count: 0
+                },
+                {
+                    counts: [],
+                    groupBy: 'title',
+                    total: 0,
+                    getData: function ($defer, params) {
+
+                        Api.invoices({ action: $scope.action + '_invoices' }, function (response) {
+
+                            var data = response.result,
+                                orderedData = params.sorting() ? $filter('orderBy')(data, invoiceTable.orderBy()) : data;
+
+                            $scope.invoiceTable.$params.count = data.length;
+                            $defer.resolve($scope.items = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                        });
+                    }
+                }
+            );
 
             // wait for reload event
             $scope.$on('invoicetable', function (e, args) {
 
                 var broadcast_api = args[0],
                     broadcast_action = args[1];
-
-                console.log(broadcast_api, broadcast_action);
 
                 if (($scope.api === broadcast_api || broadcast_api === '*') && $scope.action === broadcast_action) {
                     console.log('we reload');
@@ -100,7 +96,6 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
                     $scope.checkboxes.checked = (checked == total);
                 }
 
-                $scope.numselected = checked;
                 angular.element(document.getElementById("select_all")).prop("indeterminate", (checked != 0 && unchecked != 0));
             }, true);
         }
