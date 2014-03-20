@@ -12,10 +12,10 @@
 
         <accordion close-others="false">
             <accordion-group heading="Invoices that await verification" is-open="true">
-                <invoicetable data="sourcing" action="'requested'" button-text="'Cancel request'"></invoicetable>
+                <invoicetable api="'sourcing'" action="'requested'" button-text="'Cancel request'" button-action="cancelInvoices"></invoicetable>
              </accordion-group>
             <accordion-group heading="Payments for which an invoice can be requested" is-open="true">
-                <invoicetable data="sourcing" action="'unrequested'" button-text="'Request invoices'"></invoicetable>
+                <invoicetable api="'sourcing'" action="'unrequested'" button-text="'Request invoices'" button-action="requestInvoices"></invoicetable>
             </accordion-group>
         </accordion>
     </pane>
@@ -27,7 +27,7 @@
         </div>
         <accordion close-others="false">
             <accordion-group heading="Final invoices" is-open="true">
-                <invoicetable data="sourcing" action="'reviewed'" button-text="'Download invoice'"></invoicetable>
+                <invoicetable api="'sourcing'" action="'reviewed'" button-text="'Download invoice'" button-action="downloadInvoices"></invoicetable>
             </accordion-group>
         </accordion>
     </pane>

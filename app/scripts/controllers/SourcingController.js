@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('SourcingController', function ($scope, $filter, $location, $window, $dialog, userSession, Claim, Dashboard, Sourcing, ngTableParams) {
+angular.module('mobbr.controllers').controller('SourcingController', function ($scope, $filter, $location, $window, userSession, Dashboard, Sourcing, ngTableParams, invoiceDialog, pdfGenerator, Msg) {
 
     $scope.persons = Sourcing.persons();
     $scope.selectedPledges = {};
@@ -31,6 +31,35 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
         Dashboard.deletePayment({ "ids": deleteArray}, function (response) {
             $scope.working = false;
             $scope.pledgesTable.reload();
+        });
+    }
+
+    $scope.cancelInvoices = function (ids) {
+        Sourcing.cancelInvoices({ ids: ids }, function (response) {
+            Msg.setResponseMessage('info', 'Invoice request successfully cancelled', response);
+            $scope.$broadcast('invoicetable', [ 'sourcing', 'requested' ]);
+            $scope.$broadcast('invoicetable', [ 'working', 'requested' ]);
+            $scope.$broadcast('invoicetable', [ 'sourcing', 'unrequested' ]);
+        }, function (response) {
+            Msg.setResponseMessage('error', 'Cannot cancel invoice request', response);
+        });
+    }
+
+    $scope.requestInvoices = function (ids) {
+        invoiceDialog('sourcing', 'requestInvoices', ids, function (dialog, response) {
+            Msg.setResponseMessage('info', 'Invoice successfully requested', response);
+            dialog.close();
+            $scope.$broadcast('invoicetable', [ 'sourcing', 'requested' ]);
+            $scope.$broadcast('invoicetable', [ 'working', 'requested' ]);
+            $scope.$broadcast('invoicetable', [ 'sourcing', 'unrequested' ]);
+        }, function (dialog, response) {
+            Msg.setResponseMessage('error', 'Cannot request invoice', response);
+        }).open();
+    }
+
+    $scope.downloadInvoices = function (ids, items) {
+        angular.forEach(items, function (item) {
+            pdfGenerator.generate(item);
         });
     }
 
