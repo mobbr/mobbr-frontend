@@ -37,7 +37,7 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
                         Api.invoices({ action: $scope.action + '_invoices' }, function (response) {
 
                             var data = response.result,
-                                orderedData = params.sorting() ? $filter('orderBy')(data, invoiceTable.orderBy()) : data;
+                                orderedData = params.sorting() ? $filter('orderBy')(data, $scope.invoiceTable.orderBy()) : data;
 
                             $scope.invoiceTable.$params.count = data.length;
                             $defer.resolve($scope.items = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
