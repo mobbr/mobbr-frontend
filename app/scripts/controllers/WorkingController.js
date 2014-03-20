@@ -1,9 +1,30 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('WorkingController', function ($scope, $filter, userSession, Working, ngTableParams, invoiceDialog, pdfGenerator, Msg) {
+angular.module('mobbr.controllers').controller('WorkingController', function ($scope, $filter, userSession, Working, Global, ngTableParams, invoiceDialog, pdfGenerator, Msg) {
 
-    $scope.urls = Working.urls();
-    $scope.personParams = new ngTableParams(
+    $scope.suggestedTasks = new ngTableParams(
+        {
+            page: 1,
+            count: 0
+        },
+        {
+            counts: [],
+            groupBy: 'domain',
+            total: 0,
+            getData: function ($defer, params) {
+                Global.pledges(function (response) {
+
+                    var data = response.result,
+                        orderedData = params.sorting() ? $filter('orderBy')(data, $scope.suggestedTasks.orderBy()) : data;
+
+                    $scope.suggestedTasks.$params.count = data.length;
+                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                });
+            }
+        }
+    );
+
+    $scope.historicTasks = new ngTableParams(
         {
             page: 1,
             count: 0
@@ -13,12 +34,12 @@ angular.module('mobbr.controllers').controller('WorkingController', function ($s
             groupBy: 'title',
             total: 0,
             getData: function ($defer, params) {
-                Working.persons(function (response) {
+                Working.urls(function (response) {
 
                     var data = response.result,
-                        orderedData = params.sorting() ? $filter('orderBy')(data, $scope.personParams.orderBy()) : data;
+                        orderedData = params.sorting() ? $filter('orderBy')(data, $scope.historicTasks.orderBy()) : data;
 
-                    $scope.personParams.$params.count = data.length;
+                    $scope.historicTasks.$params.count = data.length;
                     $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
                 });
             }
