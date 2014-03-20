@@ -1,5 +1,6 @@
 'use strict';
 var lrSnippet = require('grunt-contrib-livereload/lib/utils').livereloadSnippet;
+var moment = require('moment');
 var mountFolder = function (connect, dir) {
   return connect.static(require('path').resolve(dir));
 };
@@ -11,11 +12,20 @@ module.exports = function (grunt) {
   // Environment to be passed in via command line: grunt build --env=dev | test | prod>
   var env = grunt.option('env') || 'test';
 
+  var site;
+
+  if (env === 'test') {
+    site = 'test-www.mobbr.com';
+  } else {
+    site = "www.mobbr.com";
+  }
   // configurable paths
   var yeomanConfig = {
     app: 'app',
     dist: 'dist'
   };
+
+  var version = moment().format('YYYYMMDDHHmm');
 
   try {
     yeomanConfig.app = require('./bower.json').appPath || yeomanConfig.app;
@@ -290,7 +300,11 @@ module.exports = function (grunt) {
             dest: '<%= yeoman.dist %>',
             src: [
               '*.{ico,txt,js}',
-              '.htaccess'
+              '.htaccess',
+              'views/*',
+              'lightbox/*',
+              'widget/*',
+              'protocol.html'
             ]
           }
         ]
@@ -300,7 +314,7 @@ module.exports = function (grunt) {
       main: {
         options: {
           mode: 'tgz',
-          archive: 'dist-' + env + '.tar.gz'
+          archive: 'dist-' + env + '-' + version + '.tar.gz'
         },
         files: [
           {src: 'dist/**'}
@@ -348,7 +362,7 @@ module.exports = function (grunt) {
     sftp: {
       copytar: {
         files: {
-          "./": ['dist-' + env + '.tar.gz']
+          "./": ['dist-' + env + '-' + version + '.tar.gz']
         },
         options: {
           path: '/tmp/',
@@ -360,14 +374,20 @@ module.exports = function (grunt) {
       deploy: {
         command: [
           'cd /tmp',
-          'tar -xzf dist-' + env + '.tar.gz'
+          'rm -Rf dist/',
+          'tar -xzf dist-' + env + '-' + version + '.tar.gz',
+          'mkdir /var/www/' + env  + '-' + version,
+          'cp -R dist/* /var/www/' + env  + '-' + version,
+          'cd /var/www/',
+          'chgrp -R www-data ' + env  + '-' + version,
+          'rm -f ' + site,
+          'ln -s ' + env  + '-' + version + ' ' + site,
+          'chgrp -h www-data ' + site
         ].join(' && '),
         options: {
           config: env
         }
-      },
-      move: {},
-      setpermissions: {}
+      }
     }
   });
 
@@ -412,7 +432,7 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('deploy', [
-//    'build',
+    'build',
     'sftp:copytar',
     'sshexec:deploy'
   ]);
