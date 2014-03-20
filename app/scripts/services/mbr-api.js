@@ -161,6 +161,12 @@ angular.module('mobbr.services.mbr-api', [
             fullData: {method: 'GET',params: {action: 'full_url_data' },isArray:false}
         });
 
+    }).factory('Global', function ($resource, apiUrl) {
+
+        return $resource(apiUrl + '/api/global/:action',{},{
+            pledges: { method: 'GET', params: { action: 'pledges' }, isArray: false }
+        });
+
     }
 );
 
