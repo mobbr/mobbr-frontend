@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('WorkingController', function ($scope, $filter, userSession, Working, ngTableParams) {
+angular.module('mobbr.controllers').controller('WorkingController', function ($scope, $filter, userSession, Working, ngTableParams, invoiceDialog, pdfGenerator, Msg) {
 
     $scope.urls = Working.urls();
     $scope.personParams = new ngTableParams(
@@ -24,4 +24,22 @@ angular.module('mobbr.controllers').controller('WorkingController', function ($s
             }
         }
     );
+
+    $scope.confirmInvoices = function (ids) {
+        invoiceDialog('working', 'confirmInvoices', ids, function (dialog, response) {
+            Msg.setResponseMessage('info', 'Invoice request confirmed', response);
+            dialog.close();
+            $scope.$broadcast('invoicetable', [ 'working', 'requested' ]);
+            $scope.$broadcast('invoicetable', [ 'working', 'reviewed' ]);
+            $scope.$broadcast('invoicetable', [ 'sourcing', 'reviewed' ]);
+        }, function (dialog, response) {
+            Msg.setResponseMessage('error', 'Cannot confirm invoice request', response);
+        }).open();
+    }
+
+    $scope.downloadInvoices = function (ids, items) {
+        angular.forEach(items, function (item) {
+            pdfGenerator.generate(item);
+        });
+    }
 });

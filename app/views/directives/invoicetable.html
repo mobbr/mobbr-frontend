@@ -3,16 +3,16 @@
         <fieldset class="pull-left">
             <button class="btn"
                     ng-class="{ 'btn-danger': action == 'requested', 'btn-success': action != 'requested' }"
-                    ng-click="buttonAction()"
+                    ng-click="buttonAction(selectedIds, selectedItems)"
                     ng-disabled="numselected == 0"
                     ng-bind="buttonText"></button>
         </fieldset>
     </form>
-    <div class="alert" ng-show="users.length == 0" ng-bind="empty_message"></div>
-    <table ng-table="invoiceParams" ng-show="users.length > 0" class="mobbrtable table table-striped table-checkbox">
+    <div class="alert" ng-show="items.length == 0" ng-bind="empty_message"></div>
+    <table ng-table="invoiceTable" ng-show="items.length > 0" class="mobbrtable table table-striped table-checkbox">
         <tbody ng-repeat="group in $groups">
         <tr class="ng-table-group">
-            <td colspan="{{$columns.length}}">
+            <td colspan="{{ $columns.length }}">
                 <div ng-click="group.$hideRows = !group.$hideRows">
                     <span ng-class="{ 'icon-chevron-right': group.$hideRows, 'icon-chevron-down': !group.$hideRows }"></span>
                     <span ng-bind="group.value"></span>
@@ -29,9 +29,9 @@
             <td sortable="roles" data-title="'Role'" ng-bind="user.role" class="roles"></td>
             <td sortable="currency" data-title="'Currency'" ng-bind="userSession.user.currency_iso" class="currency"></td>
             <td sortable="amount" data-title="'Amount'" class="amount">
-                            <span ng-bind="user.amount | mobbrcurrency"
-                                  ng-class="{ 'text-error': user.amount < 0 }"
-                                  class="nowrap"></span>
+                <span ng-bind="user.amount | mobbrcurrency"
+                      ng-class="{ 'text-error': user.amount < 0 }"
+                      class="nowrap"></span>
             </td>
         </tr>
         </tbody>

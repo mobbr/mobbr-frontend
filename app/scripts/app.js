@@ -65,6 +65,8 @@ angular.module('mobbr', [
     'mobbr.services.mbr-api',
     'mobbr.services.user',
     'mobbr.services.storage',
+    'mobbr.services.invoice',
+    'mobbr.services.pdf',
     'mobbr.directives',
     'mobbr.filters',
     'ngCookies',
