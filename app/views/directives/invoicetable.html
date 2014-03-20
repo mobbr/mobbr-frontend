@@ -4,7 +4,7 @@
             <button class="btn"
                     ng-class="{ 'btn-danger': action == 'requested', 'btn-success': action != 'requested' }"
                     ng-click="buttonAction(selectedIds, selectedItems)"
-                    ng-disabled="numselected == 0"
+                    ng-disabled="selectedIds.length == 0"
                     ng-bind="buttonText"></button>
         </fieldset>
     </form>
