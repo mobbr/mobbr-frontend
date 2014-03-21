@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('WalletController', function ($scope, $rootScope, $timeout, Balances,userSession, Util, Dashboard, Msg, PaymentNetwork, $window, $routeParams, $location) {
+angular.module('mobbr.controllers').controller('WalletController', function ($scope, $rootScope, $timeout, $dialog, Balances, userSession, Util, Dashboard, Msg, PaymentNetwork, $window, $routeParams, $location) {
 
   $scope.searchentries;                // filter on search criteria
   //$scope.searchentriesAllPayments;                // filter on search criteria
@@ -87,19 +87,6 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
   $scope.deposit_currency = $scope.networks['iban'].default_currency;
   $scope.network_method = $scope.networks['iban'];
 
-  $scope.deposit = function () {
-    PaymentNetwork.prepareDeposit({
-      currency: $scope.deposit_currency,
-      amount: $scope.deposit_amount,
-      note: $scope.deposit_note,
-      return_url: $window.location.href
-    }, function (data) {
-      $window.location.href = data.result;
-    }, function(response){
-      Msg.setResponseMessage('error', response.data.message.text, response);
-    });
-  }
-
   $scope.send = function () {
     PaymentNetwork.sendPayment($scope.network_method.send, function (response) {
       $scope.network_method.send = {};
@@ -135,11 +122,91 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
     $location.path('/x-payment/' + id);
   }
 
-//    PaymentNetwork.accountAddresses(function (response){
-//       $scope.accountAddresses = response.address;
-//    }, function(response){
-//        Msg.setResponseMessage('error','could not load accountAddress');
-//    });
 
 
+    var depositDialog = $dialog.dialog({
+        backdrop: true,
+        keyboard: true,
+        backdropClick: false,
+        templateUrl: 'views/partials/deposit_popup.html',
+        controller: function ($scope, dialog) {
+
+            $scope.networks = {
+                btc: {
+                    name: 'Bitcoin',
+                    currencies: [ 'BTC' ],
+                    default_currency: 'BTC'
+                },
+                iban: {
+                    name: 'IBAN',
+                    currencies: [ 'USD', 'GBP', 'CHF', 'SEK', 'NOK', 'DKK', 'EUR', 'PLN' ],
+                    default_currency: 'EUR'
+                }
+            };
+
+            $scope.deposit_currency = $scope.networks['iban'].default_currency;
+
+            $scope.close = function () {
+                dialog.close();
+            }
+
+            $scope.confirm = function () {
+                PaymentNetwork.prepareDeposit({
+                    currency: $scope.deposit_currency,
+                    amount: $scope.deposit_amount,
+                    note: $scope.deposit_note,
+                    return_url: $window.location.href
+                }, function (data) {
+                    $window.location.href = data.result;
+                }, function(response){
+                    Msg.setResponseMessage('error', response.data.message.text, response);
+                });
+            }
+        }
+    });
+
+    var withdrawDialog = $dialog.dialog({
+        backdrop: true,
+        keyboard: true,
+        backdropClick: false,
+        templateUrl: 'views/partials/withdraw_popup.html',
+        controller: function ($scope, dialog) {
+
+            $scope.networks = {
+                btc: {
+                    name: 'Bitcoin',
+                    currencies: [ 'BTC' ],
+                    default_currency: 'BTC'
+                },
+                iban: {
+                    name: 'IBAN',
+                    currencies: [ 'USD', 'GBP', 'CHF', 'SEK', 'NOK', 'DKK', 'EUR', 'PLN' ],
+                    default_currency: 'EUR'
+                }
+            };
+
+            $scope.deposit_currency = $scope.networks['iban'].default_currency;
+            $scope.network_method = $scope.networks['iban'];
+
+            $scope.$watch('network_method.name', function (oldval, newval) {
+                $scope.network_method.send = { currency: $scope.network_method.default_currency };
+            }, false);
+
+            $scope.close = function () {
+                dialog.close();
+            }
+
+            $scope.confirm = function () {
+                PaymentNetwork.sendPayment($scope.network_method.send, function (response) {
+                    $scope.network_method.send = {};
+                    Msg.setResponseMessage('info', response.message.text, response);
+                }, function (response) {
+                    Msg.setResponseMessage('error', response.data.message.text, response);
+                });
+            }
+        }
+    });
+
+    $scope.depositDialog = depositDialog;
+    $scope.withdrawDialog = withdrawDialog;
 });
