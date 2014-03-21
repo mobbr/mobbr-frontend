@@ -1,0 +1,126 @@
+<form name="withdraw" class="form-horizontal" ng-submit="confirm()">
+    <div class="modal-header">
+        <h3>Withdraw money</h3>
+    </div>
+    <fieldset class="modal-body">
+        <div class="control-group">
+            <div class="control-label">
+                <label for="method">Payment method</label>
+            </div>
+
+            <div class="controls">
+                <select id="method"
+                        ng-model="network_method"
+                        ng-options="value.name for (key, value) in networks"></select>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="control-label">
+                <label for="currency">Currency</label>
+            </div>
+
+            <div class="controls">
+                <select id="currency"
+                        class="input-small"
+                        ng-model="network_method.send.currency"
+                        ng-options="currency for currency in network_method.currencies">
+                </select>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="control-label">
+                <label for="amount">Amount</label>
+            </div>
+
+            <div class="controls">
+                <input id="amount"
+                       name="withdraw_amount"
+                       class="input-small"
+                       ng-model="network_method.send.amount"
+                       required type="number" step="any" min="0" max="1000000000">
+            </div>
+        </div>
+
+        <fieldset ng-disabled="network_method != networks['iban']" ng-show="network_method == networks['iban']">
+            <div class="control-group">
+                <div class="control-label">
+                    <label for="country">IBAN</label>
+                </div>
+
+                <div class="controls">
+                    <input id="country"
+                           type="text" pattern="[a-zA-Z]{2}[0-9]{2}[a-zA-Z0-9]{4}[0-9]{7}([a-zA-Z0-9]?){0,16}"
+                           placeholder="ÏBAN"
+                           name="iban"
+                           ng-model="network_method.send.address.iban"
+                           required>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class="control-label">
+                    <label for="bic">BIC</label>
+                </div>
+
+                <div class="controls">
+                    <input id="bic"
+                           type="text" pattern="^[A-Z]{6}[A-Z0-9]{2}([A-Z0-9]{3})?$"
+                           placeholder="BIC"
+                           name="bic"
+                           ng-model="network_method.send.address.bic"
+                           required>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class="control-label">
+                    <label for="name">Name</label>
+                </div>
+
+                <div class="controls">
+                    <input id="name"
+                           type="text" name="name"
+                           placeholder="e.g. Patrick Savalle"
+                           ng-model="network_method.send.address.name"
+                           required>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class="control-label">
+                    <label for="address">Address</label>
+                </div>
+
+                <div class="controls">
+                    <input id="address"
+                           type="text" name="address"
+                           placeholder="e.g. ..."
+                           ng-model="network_method.send.address.address"
+                           required>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset ng-disabled="network_method != networks['btc']" ng-show="network_method == networks['btc']">
+            <div class="control-group">
+                <div class="control-label">
+                    <label for="btc_address">Address</label>
+                </div>
+
+                <div class="controls">
+                    <input id="btc_address"
+                           type="text" pattern="^[13][1-9A-Za-z][^OIl]{20,40}"
+                           placeholder="Bitcoin address"
+                           name="address"
+                           ng-model="network_method.send.address"
+                           required>
+                </div>
+            </div>
+        </fieldset>
+    </fieldset>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-success"><i class="icon-white mobbrloader" ng-show="waiting"></i> Confirm</button>
+        <button ng-click="close()" class="btn btn-error">Cancel</button>
+    </div>
+</form>
