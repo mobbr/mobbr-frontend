@@ -67,35 +67,6 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
     );
   }
 
-  $scope.networks = {
-    btc: {
-      name: 'Bitcoin',
-      currencies: [ 'BTC' ],
-      default_currency: 'BTC'
-    },
-    iban: {
-      name: 'IBAN',
-      currencies: [ 'USD', 'GBP', 'CHF', 'SEK', 'NOK', 'DKK', 'EUR', 'PLN' ],
-      default_currency: 'EUR'
-    }
-  };
-
-  $scope.$watch('network_method.name', function (oldval, newval) {
-    $scope.network_method.send = { currency: $scope.network_method.default_currency };
-  }, false);
-
-  $scope.deposit_currency = $scope.networks['iban'].default_currency;
-  $scope.network_method = $scope.networks['iban'];
-
-  $scope.send = function () {
-    PaymentNetwork.sendPayment($scope.network_method.send, function (response) {
-      $scope.network_method.send = {};
-      Msg.setResponseMessage('info', response.message.text, response);
-    }, function (response) {
-      Msg.setResponseMessage('error', response.data.message.text, response);
-    });
-  }
-
   var getsupportedCurrencies = function(){
     PaymentNetwork.supportedCurrencies(function (response){
       $scope.supportedCurrencies = response.result;
@@ -157,6 +128,7 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
                     note: $scope.deposit_note,
                     return_url: $window.location.href
                 }, function (data) {
+                    dialog.close();
                     $window.location.href = data.result;
                 }, function(response){
                     Msg.setResponseMessage('error', response.data.message.text, response);
@@ -179,9 +151,24 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
                     default_currency: 'BTC'
                 },
                 iban: {
-                    name: 'IBAN',
+                    name: 'IBAN/BIC',
                     currencies: [ 'USD', 'GBP', 'CHF', 'SEK', 'NOK', 'DKK', 'EUR', 'PLN' ],
                     default_currency: 'EUR'
+                },
+                uk: {
+                    name: 'UK',
+                    currencies: [ 'USD', 'GBP', 'CHF', 'SEK', 'NOK', 'DKK', 'EUR', 'PLN' ],
+                    default_currency: 'GBP'
+                },
+                us: {
+                    name: 'US',
+                    currencies: [ 'USD', 'GBP', 'CHF', 'SEK', 'NOK', 'DKK', 'EUR', 'PLN' ],
+                    default_currency: 'USD'
+                },
+                ca: {
+                    name: 'Canada',
+                    currencies: [ 'USD', 'GBP', 'CHF', 'SEK', 'NOK', 'DKK', 'EUR', 'PLN' ],
+                    default_currency: 'USD'
                 }
             };
 
@@ -199,6 +186,7 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
             $scope.confirm = function () {
                 PaymentNetwork.sendPayment($scope.network_method.send, function (response) {
                     $scope.network_method.send = {};
+                    dialog.close();
                     Msg.setResponseMessage('info', response.message.text, response);
                 }, function (response) {
                     Msg.setResponseMessage('error', response.data.message.text, response);
