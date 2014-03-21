@@ -5,10 +5,9 @@ angular.module('mobbr.controllers').controller('WorkingController', function ($s
     $scope.suggestedTasks = new ngTableParams(
         {
             page: 1,
-            count: 0
+            count: 10
         },
         {
-            counts: [],
             groupBy: 'domain',
             total: 0,
             getData: function ($defer, params) {
@@ -17,7 +16,7 @@ angular.module('mobbr.controllers').controller('WorkingController', function ($s
                     var data = response.result,
                         orderedData = params.sorting() ? $filter('orderBy')(data, $scope.suggestedTasks.orderBy()) : data;
 
-                    $scope.suggestedTasks.$params.count = data.length;
+                    $scope.suggestedTasks.total(data.length);
                     $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
                 });
             }
@@ -27,10 +26,9 @@ angular.module('mobbr.controllers').controller('WorkingController', function ($s
     $scope.historicTasks = new ngTableParams(
         {
             page: 1,
-            count: 0
+            count: 10
         },
         {
-            counts: [],
             groupBy: 'title',
             total: 0,
             getData: function ($defer, params) {
@@ -39,7 +37,7 @@ angular.module('mobbr.controllers').controller('WorkingController', function ($s
                     var data = response.result,
                         orderedData = params.sorting() ? $filter('orderBy')(data, $scope.historicTasks.orderBy()) : data;
 
-                    $scope.historicTasks.$params.count = data.length;
+                    $scope.historicTasks.total(data.length);
                     $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
                 });
             }
