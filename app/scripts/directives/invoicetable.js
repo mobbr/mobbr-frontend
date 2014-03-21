@@ -26,10 +26,9 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
             $scope.invoiceTable = new ngTableParams(
                 {
                     page: 1,
-                    count: 0
+                    count: 10
                 },
                 {
-                    counts: [],
                     groupBy: 'title',
                     total: 0,
                     getData: function ($defer, params) {
@@ -39,7 +38,7 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
                             var data = response.result,
                                 orderedData = params.sorting() ? $filter('orderBy')(data, $scope.invoiceTable.orderBy()) : data;
 
-                            $scope.invoiceTable.$params.count = data.length;
+                            $scope.invoiceTable.total(data.length);
                             $defer.resolve($scope.items = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
                         });
                     }

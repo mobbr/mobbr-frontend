@@ -9,7 +9,7 @@
         </fieldset>
     </form>
     <div class="alert" ng-show="items.length == 0" ng-bind="empty_message"></div>
-    <table ng-table="invoiceTable" ng-show="items.length > 0" class="mobbrtable table table-striped table-checkbox">
+    <table ng-table="invoiceTable" template-pagination="custom/pager" ng-show="items.length > 0" class="mobbrtable table table-striped table-checkbox">
         <tbody ng-repeat="group in $groups">
         <tr class="ng-table-group">
             <td colspan="{{ $columns.length }}">
@@ -23,9 +23,7 @@
             <td header="'ng-table/headers/checkbox.html'">
                 <input type="checkbox" ng-model="checkboxes.items[user.id]" />
             </td>
-            <td sortable="name" data-title="'Name'">
-                {{ user.firstname }} {{ user.lastname }} {{ !(user.firstname && user.lastname) && user.contractor || user.worker_name }}
-            </td>
+            <td sortable="username" data-title="'Name'" ng-bind="user.username"></td>
             <td sortable="roles" data-title="'Role'" ng-bind="user.role" class="roles"></td>
             <td sortable="currency" data-title="'Currency'" ng-bind="userSession.user.currency_iso" class="currency"></td>
             <td sortable="amount" data-title="'Amount'" class="amount">
@@ -38,5 +36,27 @@
     </table>
     <script type="text/ng-template" id="ng-table/headers/checkbox.html">
         <input type="checkbox" ng-model="checkboxes.checked" id="select_all" name="filter-checkbox" value="" />
+    </script>
+    <script type="text/ng-template" id="custom/pager">
+        <div class="ng-cloak">
+            <div ng-if="params.settings().counts.length" class="btn-group pull-right">
+                <button ng-repeat="count in params.settings().counts" type="button" ng-class="{ 'btn-primary': params.count() == count && pages.length > 1, 'disabled': pages.length < 2 || params.count() == count }" ng-click="params.count(count)" class="btn btn-mini">
+                    <span ng-bind="count"></span>
+                </button>
+            </div>
+            <div class="btn-group">
+                <button ng-class="{ 'disabled': !page.active, 'btn-primary': page.number == params.page() && page.type != 'prev' && page.type != 'next' && page.type != 'more' }"
+                        ng-repeat="page in pages"
+                        ng-switch="page.type"
+                        class="btn btn-mini">
+                    <span ng-switch-when="prev" ng-click="params.page(page.number)">&laquo;</span>
+                    <span ng-switch-when="first" ng-click="params.page(page.number)"><span ng-bind="page.number"></span></span>
+                    <span ng-switch-when="page" ng-click="params.page(page.number)"><span ng-bind="page.number"></span></span>
+                    <span ng-switch-when="more" ng-click="params.page(page.number)">&#8230;</span>
+                    <span ng-switch-when="last" ng-click="params.page(page.number)"><span ng-bind="page.number"></span></span>
+                    <span ng-switch-when="next" ng-click="params.page(page.number)">&raquo;</span>
+                </button>
+            </div>
+        </div>
     </script>
 </div>
