@@ -122,15 +122,18 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
             }
 
             $scope.confirm = function () {
+                $scope.waiting = true;
                 PaymentNetwork.prepareDeposit({
                     currency: $scope.deposit_currency,
                     amount: $scope.deposit_amount,
                     note: $scope.deposit_note,
                     return_url: $window.location.href
                 }, function (data) {
+                    $scope.waiting = false;
                     dialog.close();
                     $window.location.href = data.result;
                 }, function(response){
+                    $scope.waiting = false;
                     Msg.setResponseMessage('error', response.data.message.text, response);
                 });
             }
@@ -184,11 +187,14 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
             }
 
             $scope.confirm = function () {
+                $scope.waiting = true;
                 PaymentNetwork.sendPayment($scope.network_method.send, function (response) {
+                    $scope.waiting = false;
                     $scope.network_method.send = {};
                     dialog.close();
                     Msg.setResponseMessage('info', response.message.text, response);
                 }, function (response) {
+                    $scope.waiting = false;
                     Msg.setResponseMessage('error', response.data.message.text, response);
                 });
             }
