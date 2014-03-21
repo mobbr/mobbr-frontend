@@ -32,14 +32,17 @@ angular.module('mobbr.services.invoice', []).factory('invoiceDialog', function (
                             req_params = {},
                             prefix =  api === 'sourcing' ? 'customer' : 'worker';
 
+                        $scope.waiting = true;
                         angular.forEach(params, function (item, key) {
                             req_params[prefix + '_' + key] = item;
                         });
 
                         req_params.ids = ids;
                         Api[method](req_params, function (response) {
+                            $scope.waiting = false;
                             onSuccess(dialog, response);
                         }, function (response) {
+                            $scope.waiting = false;
                             onError(dialog, response);
                         });
                     }

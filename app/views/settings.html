@@ -184,7 +184,7 @@
 
         <div class="control-group">
             <div class="controls">
-                <button ng-disabled="waitingsettings || (user.kyc_level == 'none' && !accept_mango)" ng-click="submitSettings()" class="btn btn-success">
+                <button ng-disabled="waitingsettings || (user.kyc_level == 'none' && !accept_mango) || security.$pristine" ng-click="submitSettings()" class="btn btn-success">
                     <i class="icon-white mobbrloader" ng-show="waitingsettings"></i>
                     <span ng-bind="user.kyc_level == 'none' && 'Enable FIAT currencies' || 'Update'"></span>
                 </button>
@@ -252,7 +252,7 @@
 
             <div class="control-group">
                 <div class="controls">
-                    <button ng-click="submitSettings()" class="btn btn-success">
+                    <button ng-disabled="waitingsettings || kyc_regular.$pristine" ng-click="submitSettings()" class="btn btn-success">
                         <i class="icon-white mobbrloader" ng-show="waitingsettings"></i>
                         Update
                     </button>
@@ -332,7 +332,7 @@
 
         <div class="control-group">
             <div class="controls">
-                <button ng-disabled="waitingsettings" ng-click="submitSettings()" class="btn btn-success">
+                <button ng-disabled="waitingsettings || invoicing.$pristine" ng-click="submitSettings()" class="btn btn-success">
                     <i class="icon-white mobbrloader" ng-show="waitingsettings"></i>
                     Save
                 </button>
@@ -398,7 +398,7 @@
 
         <div class="control-group">
             <div class="controls">
-                <button ng-disabled="waitingsettings" ng-click="submitSettings()" class="btn btn-success">
+                <button ng-disabled="waitingsettings || security.$pristine" ng-click="submitSettings()" class="btn btn-success">
                     <i class="icon-white mobbrloader" ng-show="waitingsettings"></i>
                     Save
                 </button>
@@ -425,7 +425,7 @@
 
         <div class="control-group">
             <div class="controls">
-                <button ng-disabled="waitingsettings" ng-click="submitSettings()" class="btn btn-success">
+                <button ng-disabled="waitingsettings || primary.$pristine" ng-click="submitSettings()" class="btn btn-success">
                     <i class="icon-white mobbrloader" ng-show="waitingsettings"></i>
                     Save
                 </button>
@@ -452,7 +452,7 @@
 
         <div class="control-group">
             <div class="controls">
-                <button ng-disabled="waitingsettings" ng-click="submitSettings()" class="btn btn-success">
+                <button ng-disabled="waitingsettings || notifications.$pristine" ng-click="submitSettings()" class="btn btn-success">
                     <i class="icon-white mobbrloader" ng-show="waitingsettings"></i>
                     Save
                 </button>

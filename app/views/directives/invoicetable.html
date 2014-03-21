@@ -4,8 +4,10 @@
             <button class="btn"
                     ng-class="{ 'btn-danger': action == 'requested', 'btn-success': action != 'requested' }"
                     ng-click="buttonAction(selectedIds, selectedItems)"
-                    ng-disabled="selectedIds.length == 0"
-                    ng-bind="buttonText"></button>
+                    ng-disabled="selectedIds.length == 0">
+                <i class="icon-white mobbrloader" ng-show="waiting"></i>
+                <span ng-bind="buttonText"></span>
+            </button>
         </fieldset>
     </form>
     <div class="alert" ng-show="items.length == 0" ng-bind="empty_message"></div>
