@@ -11,8 +11,7 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
             action: '=',
             buttonText: '=',
             buttonAction: '=',
-            emptyMessage: '=',
-            waiting: '='
+            emptyMessage: '='
         },
         controller: function ($scope, $attrs, $filter, ngTableParams, PaymentReceipt, userSession, Working, Sourcing) {
 
