@@ -66,10 +66,9 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
     $scope.pledgesTable = new ngTableParams(
         {
             page: 1,
-            count: 0
+            count: 10
         },
         {
-            counts: [],
             groupBy: 'domain',
             total: 0,
             getData: function ($defer, params) {
@@ -78,7 +77,7 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
                     var data = response.result,
                         orderedData = params.sorting() ? $filter('orderBy')(data, $scope.pledgesTable.orderBy()) : data;
 
-                    $scope.pledgesTable.$params.count = data.length;
+                    $scope.pledgesTable.total(data.length);
                     $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
                 });
             }
@@ -88,10 +87,9 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
     $scope.tasksTable = new ngTableParams(
         {
             page: 1,
-            count: 0
+            count: 10
         },
         {
-            counts: [],
             groupBy: 'title',
             total: 0,
             getData: function ($defer, params) {
@@ -100,7 +98,7 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
                     var data = response.result,
                         orderedData = params.sorting() ? $filter('orderBy')(data, $scope.tasksTable.orderBy()) : data;
 
-                    $scope.tasksTable.$params.count = data.length;
+                    $scope.tasksTable.total(data.length);
                     $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
                 });
             }
