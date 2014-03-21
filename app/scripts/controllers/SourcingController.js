@@ -4,33 +4,37 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
 
     var ctrlscope = $scope,
         pledgesDialog = $dialog.dialog({
-        backdrop: true,
-        keyboard: true,
-        backdropClick: false,
-        templateUrl: 'views/partials/remove_pledges_popup.html',
-        controller: function ($scope, dialog) {
+            backdrop: true,
+            keyboard: true,
+            backdropClick: false,
+            templateUrl: 'views/partials/remove_pledges_popup.html',
+            controller: function ($scope, dialog) {
 
-            $scope.close = function () {
-                dialog.close();
-            }
-
-            $scope.confirm = function () {
-
-                var deleteArray = [];
-
-                angular.forEach(ctrlscope.selectedPledges, function (payment, id) {
-                    payment && deleteArray.push(id);
-                });
-
-                Dashboard.deletePayment({ "ids": deleteArray}, function (response) {
+                $scope.close = function () {
                     dialog.close();
-                    pledgesTable.reload();
-                }, function (response) {
-                    Msg.setResponseMessage('error', response.data.message.text, response);
-                });
+                }
+
+                $scope.confirm = function () {
+
+                    var deleteArray = [];
+
+                    $scope.waiting = true;
+                    angular.forEach(ctrlscope.selectedPledges, function (payment, id) {
+                        payment && deleteArray.push(id);
+                    });
+
+                    Dashboard.deletePayment({ "ids": deleteArray}, function (response) {
+                        $scope.waiting = false;
+                        dialog.close();
+                        pledgesTable.reload();
+                    }, function (response) {
+                        $scope.waiting = false;
+                        Msg.setResponseMessage('error', response.data.message.text, response);
+                    });
+                }
             }
         }
-    });
+    );
 
     $scope.pledgesDialog = pledgesDialog;
     $scope.persons = Sourcing.persons();
@@ -52,13 +56,16 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
     }
 
     $scope.cancelInvoices = function (ids) {
+        $scope.ciwaiting = true;
         Sourcing.cancelInvoices({ ids: ids }, function (response) {
             Msg.setResponseMessage('info', 'Invoice request successfully cancelled', response);
             $scope.$broadcast('invoicetable', [ 'sourcing', 'requested' ]);
             $scope.$broadcast('invoicetable', [ 'working', 'requested' ]);
             $scope.$broadcast('invoicetable', [ 'sourcing', 'unrequested' ]);
+            $scope.ciwaiting = false;
         }, function (response) {
             Msg.setResponseMessage('error', 'Cannot cancel invoice request', response);
+            $scope.ciwaiting = true;
         });
     }
 
