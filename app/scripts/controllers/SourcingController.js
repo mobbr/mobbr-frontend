@@ -1,7 +1,38 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('SourcingController', function ($scope, $filter, $location, $window, userSession, Dashboard, Sourcing, ngTableParams, invoiceDialog, pdfGenerator, Msg) {
+angular.module('mobbr.controllers').controller('SourcingController', function ($scope, $filter, $dialog, $location, $window, userSession, Dashboard, Sourcing, ngTableParams, invoiceDialog, pdfGenerator, Msg) {
 
+    var ctrlscope = $scope,
+        pledgesDialog = $dialog.dialog({
+        backdrop: true,
+        keyboard: true,
+        backdropClick: false,
+        templateUrl: 'views/partials/remove_pledges_popup.html',
+        controller: function ($scope, dialog) {
+
+            $scope.close = function () {
+                dialog.close();
+            }
+
+            $scope.confirm = function () {
+
+                var deleteArray = [];
+
+                angular.forEach(ctrlscope.selectedPledges, function (payment, id) {
+                    payment && deleteArray.push(id);
+                });
+
+                Dashboard.deletePayment({ "ids": deleteArray}, function (response) {
+                    dialog.close();
+                    pledgesTable.reload();
+                }, function (response) {
+                    Msg.setResponseMessage('error', response.data.message.text, response);
+                });
+            }
+        }
+    });
+
+    $scope.pledgesDialog = pledgesDialog;
     $scope.persons = Sourcing.persons();
     $scope.selectedPledges = {};
 
@@ -18,20 +49,6 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
         });
 
         return count;
-    }
-
-    $scope.deletePayments = function (payments) {
-
-        var deleteArray = [];
-
-        angular.forEach(payments, function (payment, id) {
-            payment && deleteArray.push(id);
-        });
-
-        Dashboard.deletePayment({ "ids": deleteArray}, function (response) {
-            $scope.working = false;
-            $scope.pledgesTable.reload();
-        });
     }
 
     $scope.cancelInvoices = function (ids) {
@@ -63,7 +80,7 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
         });
     }
 
-    $scope.pledgesTable = new ngTableParams(
+    var pledgesTable = new ngTableParams(
         {
             page: 1,
             count: 10
@@ -83,6 +100,8 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
             }
         }
     );
+
+    $scope.pledgesTable = pledgesTable;
 
     $scope.tasksTable = new ngTableParams(
         {
