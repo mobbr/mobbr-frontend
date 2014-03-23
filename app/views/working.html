@@ -33,7 +33,7 @@
             </div>
         </div>
         <accordion close-others="false">
-            <accordion-group heading="Suggested tasks" is-open="true">
+            <accordion-group heading="Tasks you can earn money on" is-open="true">
                 <table ng-table="suggestedTasks" class="mobbrtable table table-striped table-checkbox" template-pagination="custom/pager">
                     <tbody ng-repeat="group in $groups">
                     <tr class="ng-table-group">
@@ -49,9 +49,8 @@
 
                         </td>
                         <td sortable="title" data-title="'Title'" ng-bind="user.title"></td>
-                        <td sortable="datetime"><small ng-bind="user.datetime"></small></td>
                         <td sortable="currency" data-title="'Currency'" ng-bind="userSession.user.currency_iso" class="currency"></td>
-                        <td sortable="amount" data-title="'Amount'" class="amount">
+                        <td sortable="amount" data-title="'Pledge'" class="amount">
                             <span ng-bind="user.amount | mobbrcurrency"
                                   ng-class="{ 'text-error': user.amount < 0 }"
                                   class="nowrap"></span>
@@ -82,7 +81,7 @@
                     </div>
                 </script>
             </accordion-group>
-            <accordion-group heading="Historic tasks" is-open="true">
+            <accordion-group heading="Tasks you earned money on" is-open="true">
                 <table ng-table="historicTasks" class="mobbrtable table table-striped table-checkbox" template-pagination="custom/pager">
                     <tbody ng-repeat="group in $groups">
                     <tr class="ng-table-group">
@@ -100,8 +99,8 @@
                                  width="20"
                                  height="20">
                         </td>
-                        <td sortable="username" data-title="'Userame'" ng-bind="user.username"></td>
-                        <td sortable="datetime"><small ng-bind="user.datetime"></small></td>
+                        <td sortable="username" data-title="'Username'" ng-bind="user.username"></td>
+                        <td sortable="datetime" data-title="'Date'" ng-bind="user.datetime"></td>
                         <td sortable="roles" data-title="'Role'" ng-bind="user.roles" class="roles"></td>
                         <td sortable="currency" data-title="'Currency'" ng-bind="userSession.user.currency_iso" class="currency"></td>
                         <td sortable="amount" data-title="'Amount'" class="amount">
