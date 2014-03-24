@@ -401,7 +401,12 @@ pre {
   width: 13px;
 }*/
 
-.mobbrtable .check-box {
+.mobbrtable td {
+  font-size: .8em;
+}
+
+.mobbrtable .check-box,
+.mobbrtable .spacer {
   width: 13px;
 }
 
@@ -415,6 +420,29 @@ pre {
 }
 
 .mobbrtable .expiration,
-.mobbrtable .datetime {
+.mobbrtable .datetime,
+.mobbrtable .username {
   width: 120px;
+}
+
+.mobbrtable .icon-chevron-down {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  vertical-align: top;
+  border-top: 4px solid black;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+  margin: 8px 16px 0 0;
+}
+
+.mobbrtable .icon-chevron-right {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  vertical-align: top;
+  border-bottom: 4px solid transparent;
+  border-top: 4px solid transparent;
+  border-left: 4px solid black;
+  margin: 8px 16px 0 4px;
 }
