@@ -2,7 +2,6 @@
     <form class="form-inline clearfix">
         <fieldset class="pull-left">
             <button class="btn"
-                    ng-class="{ 'btn-danger': action == 'requested', 'btn-success': action != 'requested' }"
                     ng-click="buttonAction(selectedIds, selectedItems)"
                     ng-disabled="selectedIds.length == 0">
                 <i class="icon-white mobbrloader" ng-show="waiting"></i>
