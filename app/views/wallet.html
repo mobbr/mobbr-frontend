@@ -45,7 +45,7 @@
     <accordion close-others="false">
         <accordion-group heading="Total credit" is-open="true">
 
-            <table class="table table-striped" ng-show="balances.length > 0">
+            <table class="table table-striped mobbrtable" ng-show="balances.length > 0">
                 <thead>
                 <tr>
                     <th>Currency description</th>
@@ -71,7 +71,7 @@
             </div>
         </accordion-group>
         <accordion-group heading="Deposits and withdraws" is-open="true">
-            <table class="table table-striped" ng-show="mutations.length >0">
+            <table class="table table-striped mobbrtable" ng-show="mutations.length >0">
                 <thead>
                 <tr>
                     <th ng-click="sortPayments('paiddatetime')">date</th>
