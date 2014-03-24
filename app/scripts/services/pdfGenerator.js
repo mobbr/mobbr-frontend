@@ -152,7 +152,7 @@ angular.module('mobbr.services.pdf', []).factory('pdfGenerator', function (userS
                     });
                 });
 
-                pdf.save(invoice.id);
+                pdf.save(invoice.invoice_id);
             }
         }
     }
