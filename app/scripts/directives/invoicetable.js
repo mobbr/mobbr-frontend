@@ -31,13 +31,15 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
                 currency: 'Currency',
                 currency_iso: 'Currency',
                 amount: 'Amount',
-                expiration: 'Expiration days'
+                expiration: 'Expiration days',
+                datetime: 'Date/time',
+                title: 'Title'
             };
 
             $scope.selectallid = Math.floor(Math.random() * 1000000);
             $scope.selectedIds = [];
             $scope.selectedItems = [];
-            $scope.empty_message = $scope.emptyMessage || 'No invoices available for the selected timeframe';
+            $scope.empty_message = $scope.emptyMessage || 'No items available';
             $scope.checkboxes = { 'checked': false, items: {} };
             $scope.userSession = userSession;
             $scope.invoiceTable = new ngTableParams(

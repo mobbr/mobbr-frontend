@@ -27,10 +27,19 @@
             </td>
         </tr>
         <tr ng-hide="group.$hideRows" ng-repeat="item in group.data">
-            <td ng-if="selectable">
+            <td ng-if="selectable" class="checkbox">
                 <input type="checkbox" ng-model="checkboxes.items[item.id]" />
             </td>
             <td ng-repeat="column in columns" ng-switch on="column" class="{{ column }}">
+                <img ng-switch-when="gravatar"
+                     ng-src="https://secure.gravatar.com/avatar/{{ item[column] }}?s=20&default=https://mobbr.com/img/default-gravatar.png"
+                     class="gravatar xsmall img-rounded"
+                     width="20"
+                     height="20">
+                <time ng-switch-when="datetime"
+                      datetime="{{ entry.datetime }}">
+                    <small>{{ entry.datetime }}</small>
+                </time>
                 <span ng-switch-when="currency" ng-bind="item[column] || userSession.user.currency_iso"></span>
                 <span ng-switch-when="amount"
                       ng-bind="item[column] | mobbrcurrency"
@@ -42,12 +51,19 @@
         </tbody>
         <tbody ng-if="!$groups">
         <tr ng-repeat="item in $data">
+            <td ng-if="selectable" class="checkbox">
+                <input type="checkbox" ng-model="checkboxes.items[item.id]" />
+            </td>
             <td ng-repeat="column in columns" ng-switch on="column" class="{{ column }}">
                 <img ng-switch-when="gravatar"
                      ng-src="https://secure.gravatar.com/avatar/{{ item[column] }}?s=20&default=https://mobbr.com/img/default-gravatar.png"
                      class="gravatar xsmall img-rounded"
                      width="20"
                      height="20">
+                <time ng-switch-when="datetime"
+                      datetime="{{ item[column] }}">
+                    <small>{{ item[column] }}</small>
+                </time>
                 <span ng-switch-when="currency" ng-bind="item[column] || userSession.user.currency_iso"></span>
                 <span ng-switch-when="amount"
                       ng-bind="item[column] | mobbrcurrency"

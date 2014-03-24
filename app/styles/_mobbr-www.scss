@@ -396,9 +396,17 @@ pre {
   font-weight: bold;
 }
 
-.table-checkbox tr th:first-child,
+/*.table-checkbox tr th:first-child,
 .table-checkbox tr td:first-child {
   width: 13px;
+}*/
+
+.mobbrtable .checkbox {
+  width: 13px;
+}
+
+.mobbrtable .gravatar {
+  width: 20px;
 }
 
 .mobbrtable .currency,
@@ -406,6 +414,7 @@ pre {
   width: 70px;
 }
 
-.mobbrtable .expiration {
+.mobbrtable .expiration,
+.mobbrtable .datetime {
   width: 120px;
 }
