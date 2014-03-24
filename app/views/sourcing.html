@@ -14,17 +14,21 @@
             <accordion-group heading="Invoices that await verification" is-open="true">
                 <invoicetable columns="[ 'username', 'role', 'expiration', 'currency', 'amount' ]"
                               waiting="ciwaiting"
-                              api="'sourcing'"
-                              action="'requested'"
+                              api="Sourcing.invoices"
+                              action="'requested_invoices'"
+                              group-by="'title'"
                               button-text="'Cancel request'"
-                              button-action="cancelInvoices"></invoicetable>
+                              button-action="cancelInvoices"
+                              selectable="1"></invoicetable>
              </accordion-group>
             <accordion-group heading="Payments for which an invoice can be requested" is-open="true">
                 <invoicetable columns="[ 'username', 'role', 'currency', 'amount' ]"
-                              api="'sourcing'"
-                              action="'unrequested'"
+                              api="Sourcing.invoices"
+                              action="'unrequested_invoices'"
+                              group-by="'title'"
                               button-text="'Request invoices'"
-                              button-action="requestInvoices"></invoicetable>
+                              button-action="requestInvoices"
+                              selectable="1"></invoicetable>
             </accordion-group>
         </accordion>
     </pane>
@@ -37,10 +41,12 @@
         <accordion close-others="false">
             <accordion-group heading="Final invoices" is-open="true">
                 <invoicetable columns="[ 'worker_username', 'role', 'currency', 'amount' ]"
-                              api="'sourcing'"
-                              action="'reviewed'"
+                              api="Sourcing.invoices"
+                              action="'reviewed_invoices'"
+                              group-by="'title'"
                               button-text="'Download invoice'"
-                              button-action="downloadInvoices"></invoicetable>
+                              button-action="downloadInvoices"
+                              selectable="1"></invoicetable>
             </accordion-group>
         </accordion>
     </pane>
@@ -155,9 +161,8 @@
         </div>
         <accordion close-others="false">
             <accordion-group heading="People you rewarded" is-open="true">
-                <mobbrtable entries="persons.result"
-                            columns="[ 'gravatar-xsmall', 'username', 'roles', 'keywords', 'currency_iso', 'amount' ]"
-                            has-search="true" has-header="true"></mobbrtable>
+                <invoicetable columns="[ 'gravatar', 'username', 'roles', 'keywords', 'currency', 'amount' ]"
+                              api="Sourcing.persons"></invoicetable>
             </accordion-group>
         </accordion>
     </pane>

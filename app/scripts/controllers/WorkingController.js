@@ -2,6 +2,8 @@
 
 angular.module('mobbr.controllers').controller('WorkingController', function ($scope, $filter, userSession, Working, Global, ngTableParams, invoiceDialog, pdfGenerator, Msg) {
 
+    $scope.Working = Working;
+
     $scope.suggestedTasks = new ngTableParams(
         {
             page: 1,

@@ -1,5 +1,5 @@
 <div>
-    <form class="form-inline clearfix">
+    <form class="form-inline clearfix" ng-if="buttonAction">
         <fieldset class="pull-left">
             <button class="btn"
                     ng-click="buttonAction(selectedIds, selectedItems)"
@@ -10,10 +10,10 @@
         </fieldset>
     </form>
     <div class="alert" ng-show="items.length == 0" ng-bind="empty_message"></div>
-    <table ng-table="invoiceTable" template-pagination="custom/pager" ng-show="items.length > 0" class="mobbrtable table table-striped table-checkbox ng-table">
+    <table ng-table="invoiceTable" ng-show="items.length > 0" class="mobbrtable table table-striped table-checkbox ng-table">
         <thead>
         <tr>
-            <th><input type="checkbox" ng-model="select_all"></th>
+            <th ng-if="selectable"><input id="{{ selectallid }}" type="checkbox" ng-model="$parent.$parent.select_all"></th>
             <th ng-repeat="column in columns" ng-bind="labels[column]"></th>
         </tr>
         </thead>
@@ -27,7 +27,7 @@
             </td>
         </tr>
         <tr ng-hide="group.$hideRows" ng-repeat="item in group.data">
-            <td header="'ng-table/headers/checkbox.html'">
+            <td ng-if="selectable">
                 <input type="checkbox" ng-model="checkboxes.items[item.id]" />
             </td>
             <td ng-repeat="column in columns" ng-switch on="column" class="{{ column }}">
@@ -40,30 +40,45 @@
             </td>
         </tr>
         </tbody>
+        <tbody ng-if="!$groups">
+        <tr ng-repeat="item in $data">
+            <td ng-repeat="column in columns" ng-switch on="column" class="{{ column }}">
+                <img ng-switch-when="gravatar"
+                     ng-src="https://secure.gravatar.com/avatar/{{ item[column] }}?s=20&default=https://mobbr.com/img/default-gravatar.png"
+                     class="gravatar xsmall img-rounded"
+                     width="20"
+                     height="20">
+                <span ng-switch-when="currency" ng-bind="item[column] || userSession.user.currency_iso"></span>
+                <span ng-switch-when="amount"
+                      ng-bind="item[column] | mobbrcurrency"
+                      ng-class="{ 'text-error': item.amount < 0 }"
+                      class="nowrap"></span>
+                <span ng-switch-default ng-bind="item[column]"></span>
+            </td>
+        </tr>
+        </tbody>
     </table>
-    <script type="text/ng-template" id="ng-table/headers/checkbox.html">
-        <input type="checkbox" ng-model="checkboxes.checked" id="select_all" name="filter-checkbox" value="" />
-    </script>
-    <script type="text/ng-template" id="custom/pager">
-        <div class="ng-cloak">
-            <div ng-if="params.settings().counts.length" class="btn-group pull-right">
-                <button ng-repeat="count in params.settings().counts" type="button" ng-class="{ 'btn-primary': params.count() == count && pages.length > 1, 'disabled': pages.length < 2 || params.count() == count }" ng-click="params.count(count)" class="btn btn-mini">
-                    <span ng-bind="count"></span>
-                </button>
-            </div>
-            <div class="btn-group">
-                <button ng-class="{ 'disabled': !page.active, 'btn-primary': page.number == params.page() && page.type != 'prev' && page.type != 'next' && page.type != 'more' }"
-                        ng-repeat="page in pages"
-                        ng-switch="page.type"
-                        class="btn btn-mini">
-                    <span ng-switch-when="prev" ng-click="params.page(page.number)">&laquo;</span>
-                    <span ng-switch-when="first" ng-click="params.page(page.number)"><span ng-bind="page.number"></span></span>
-                    <span ng-switch-when="page" ng-click="params.page(page.number)"><span ng-bind="page.number"></span></span>
-                    <span ng-switch-when="more" ng-click="params.page(page.number)">&#8230;</span>
-                    <span ng-switch-when="last" ng-click="params.page(page.number)"><span ng-bind="page.number"></span></span>
-                    <span ng-switch-when="next" ng-click="params.page(page.number)">&raquo;</span>
-                </button>
-            </div>
+    <div>
+        <div ng-if="invoiceTable.settings().counts.length" class="btn-group pull-right">
+            <button ng-repeat="count in invoiceTable.settings().counts"
+                    type="button"
+                    ng-class="{ 'btn-primary': invoiceTable.count() == count && invoiceTable.settings().$scope.pages.length > 1, 'disabled': invoiceTable.settings().$scope.pages.length < 2 || invoiceTable.count() == count }"
+                    ng-click="invoiceTable.count(count)" class="btn btn-mini">
+                <span ng-bind="count"></span>
+            </button>
         </div>
-    </script>
+        <div class="btn-group">
+            <button ng-repeat="page in invoiceTable.settings().$scope.pages"
+                    ng-class="{ 'disabled': !page.active, 'btn-primary': page.number == invoiceTable.page() && page.type != 'prev' && page.type != 'next' && page.type != 'more' }"
+                    ng-switch="page.type"
+                    class="btn btn-mini">
+                <span ng-switch-when="prev" ng-click="invoiceTable.page(page.number)">&laquo;</span>
+                <span ng-switch-when="first" ng-click="invoiceTable.page(page.number)"><span ng-bind="page.number"></span></span>
+                <span ng-switch-when="page" ng-click="invoiceTable.page(page.number)"><span ng-bind="page.number"></span></span>
+                <span ng-switch-when="more" ng-click="invoiceTable.page(page.number)">&#8230;</span>
+                <span ng-switch-when="last" ng-click="invoiceTable.page(page.number)"><span ng-bind="page.number"></span></span>
+                <span ng-switch-when="next" ng-click="invoiceTable.page(page.number)">&raquo;</span>
+            </button>
+        </div>
+    </div>
 </div>

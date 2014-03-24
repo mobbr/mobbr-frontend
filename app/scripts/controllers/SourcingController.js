@@ -39,6 +39,7 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
     $scope.pledgesDialog = pledgesDialog;
     $scope.persons = Sourcing.persons();
     $scope.selectedPledges = {};
+    $scope.Sourcing = Sourcing;
 
     $scope.openUrl = function (url) {
         $location.path('/url/' + $window.btoa(url));

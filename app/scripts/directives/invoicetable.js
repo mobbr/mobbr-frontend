@@ -12,22 +12,29 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
             buttonText: '=',
             buttonAction: '=',
             emptyMessage: '=',
-            columns: '='
+            columns: '=',
+            groupBy: '=',
+            selectable: '='
         },
-        controller: function ($scope, $attrs, $filter, ngTableParams, PaymentReceipt, userSession, Working, Sourcing) {
+        controller: function ($scope, $attrs, $filter, ngTableParams, PaymentReceipt, userSession) {
 
-            var api = $scope.api,
-                Api = api === 'sourcing' ? Sourcing : Working;
+            var reqparams = {};
+
+            if ($scope.action) {
+                reqparams.action = $scope.action;
+            }
 
             $scope.labels = {
                 username: 'Name',
                 worker_username: 'Name',
                 role: 'Role',
                 currency: 'Currency',
+                currency_iso: 'Currency',
                 amount: 'Amount',
                 expiration: 'Expiration days'
             };
 
+            $scope.selectallid = Math.floor(Math.random() * 1000000);
             $scope.selectedIds = [];
             $scope.selectedItems = [];
             $scope.empty_message = $scope.emptyMessage || 'No invoices available for the selected timeframe';
@@ -39,11 +46,11 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
                     count: 10
                 },
                 {
-                    groupBy: 'title',
+                    groupBy: $scope.groupBy,
                     total: 0,
                     getData: function ($defer, params) {
 
-                        Api.invoices({ action: $scope.action + '_invoices' }, function (response) {
+                        $scope.api(reqparams, function (response) {
 
                             var data = response.result,
                                 orderedData = params.sorting() ? $filter('orderBy')(data, $scope.invoiceTable.orderBy()) : data;
@@ -54,6 +61,8 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
                     }
                 }
             );
+
+            //console.log($scope.invoiceTable.settings().$scope.pages);
 
             // wait for reload event
             $scope.$on('invoicetable', function (e, args) {
@@ -67,7 +76,7 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
             });
 
             // watch for check all checkbox
-            $scope.$watch('checkboxes.checked', function (value) {
+            $scope.$watch('select_all', function (value) {
                 angular.forEach($scope.items, function (item) {
                     $scope.checkboxes.items[item.id] = value;
                 });
@@ -104,8 +113,7 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
                     $scope.checkboxes.checked = (checked == total);
                 }
 
-                // this is not working with multiple tables, find a solution
-                //angular.element(document.getElementById("select_all")).prop("indeterminate", (checked != 0 && unchecked != 0));
+                angular.element(document.getElementById($scope.selectallid)).prop("indeterminate", (checked != 0 && unchecked != 0));
             }, true);
         }
     }
