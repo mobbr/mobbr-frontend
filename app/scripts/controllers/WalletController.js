@@ -93,7 +93,7 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
     $location.path('/x-payment/' + id);
   }
 
-
+    $scope.Dashboard = Dashboard;
 
     var depositDialog = $dialog.dialog({
         backdrop: true,
