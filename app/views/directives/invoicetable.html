@@ -17,7 +17,7 @@
     <table ng-table="invoiceTable" ng-show="items.length > 0" class="mobbrtable table table-striped table-checkbox ng-table">
         <thead>
         <tr>
-            <th ng-if="selectable"><input id="{{ selectallid }}" type="checkbox" ng-model="$parent.$parent.select_all"></th>
+            <th ng-if="selectable" class="check-box"><input id="{{ selectallid }}" type="checkbox" ng-model="$parent.$parent.select_all"></th>
             <th ng-repeat="column in columns" ng-click="sortTableBy(column)">
                 <span ng-bind="labels[column]"></span>
             </th>
@@ -32,9 +32,17 @@
                 </div>
             </td>
         </tr>
+        <tr ng-hide="group.$hideRows" class="ng-table-group">
+            <td>
+                <!--<input type="checkbox" ng-model="checkboxes.items[item.id]">-->
+            </td>
+            <td colspan="{{ columns.length }}">
+                <a href="{{ group.data[0].uri || group.data[0].url }}" ng-bind="group.data[0].uri || group.data[0].url"></a>
+            </td>
+        </tr>
         <tr ng-hide="group.$hideRows" ng-repeat="item in group.data">
             <td ng-if="selectable" class="check-box">
-                <input type="checkbox" ng-model="checkboxes.items[item.id]" />
+                <input type="checkbox" ng-model="checkboxes.items[item.id]">
             </td>
             <td ng-repeat="column in columns" ng-switch on="column" class="{{ column }}">
                 <img ng-switch-when="gravatar"

@@ -1,20 +1,17 @@
 'use strict';
 
-angular.module('mobbr.services.pdf', []).factory('pdfGenerator', function (userSession) {
+angular.module('mobbr.services.pdf', []).factory('pdfGenerator', function (userSession, $rootScope) {
 
         return {
             generate: function (invoice) {
-
-                console.log(invoice);
 
                 var pdf = new jsPDF('p','mm', 'a4', true),
                     data = {
                         contractor: {
                             html: '<ul style="font-family: Helvetica"> \
                             <li><strong>' + invoice.customer_name + '</strong></li> \
-                            <li>' + invoice.customer_username + '</li> \
                             <li>' + invoice.customer_address + '</li> \
-                            <li>' + invoice.customer_country + '</li> \
+                            <li>' + $rootScope.countriesMap[invoice.customer_country] + '</li> \
                         </ul>',
                             width: 70,
                             position: {
@@ -24,8 +21,8 @@ angular.module('mobbr.services.pdf', []).factory('pdfGenerator', function (userS
                         },
                         contractor_vat: {
                             html: '<ul style="font-family: Helvetica"> \
-                                <li><strong>VAT number</strong></li> \
-                                <li>' + invoice.customer_vat_number + '</li> \
+                                <li><strong>VAT: </strong>' + invoice.customer_vat_number + '</li> \
+                                <li><strong>Mobbr: </strong>' + invoice.customer_username + '</li> \
                             </ul>',
                             width: 70,
                             position: {
@@ -35,24 +32,41 @@ angular.module('mobbr.services.pdf', []).factory('pdfGenerator', function (userS
                         },
                         sourcer: {
                             html: '<ul style="font-family: Helvetica"> \
-                            <li><strong>' + invoice.worker_name + '</strong></li> \
-                            <li>' + invoice.worker_username + '</li> \
+                            <li>' + invoice.worker_name + '</li> \
                             <li>' + invoice.worker_address + '</li> \
-                            <li>' + invoice.worker_country + '</li> \
+                            <li>' + $rootScope.countriesMap[invoice.customer_country] + '</li> \
                         </ul>',
                             width: 70,
                             position: {
                                 x: 10,
-                                y: 55
+                                y: 75
+                            }
+                        },
+                        sourceraccount: {
+                            html: '<ul style="font-family: Helvetica"> \
+                            <li><strong>Mobbr: </strong>' + invoice.worker_username + '</li> \
+                        </ul>',
+                            width: 70,
+                            position: {
+                                x: 10,
+                                y: 91
+                            }
+                        },
+                        detaillabel: {
+                            html: '<small style="font-family: Helvetica"><strong>Task / item</strong></small>',
+                            width: 70,
+                            position: {
+                                x: 10,
+                                y: 142
                             }
                         },
                         infolabels: {
                             html: '<ul style="font-family: Helvetica"> \
                             <li> \
-                                <strong>Invoice ID</strong> \
+                                <strong>Invoice: </strong>' + invoice.invoice_id + ' \
                             </li> \
                             <li> \
-                                <strong>Invoice date</strong> \
+                                <strong>Date: </strong>' + invoice.paiddatetime + ' (paid) \
                             </li> \
                         </ul>',
                             width: 70,
@@ -61,30 +75,16 @@ angular.module('mobbr.services.pdf', []).factory('pdfGenerator', function (userS
                                 y: 120
                             }
                         },
-                        infodata: {
-                            html: '<ul style="font-family: Helvetica"> \
-                            <li> \
-                                <span>' + invoice.invoice_id + '</span> \
-                            </li> \
-                            <li> \
-                                <span>' + invoice.paiddatetime + '</span> \
-                            </li> \
-                        </ul>',
-                            width: 100,
-                            position: {
-                                x: 40,
-                                y: 120
-                            }
-                        },
                         details: {
                             html: '<div style="font-family: Helvetica"> \
-                            <h2>' + invoice.description + '</h1> \
-                            <h3>' + invoice.uri + '</h2> \
+                            <strong>' + invoice.description + '</strong> \
+                            <div>' + invoice.title + '</div> \
+                            <small>' + invoice.uri + '</small> \
                         </div>',
                             width: 190,
                             position: {
                                 x: 10,
-                                y: 133
+                                y: 153
                             }
                         },
                         roles: {
@@ -99,44 +99,56 @@ angular.module('mobbr.services.pdf', []).factory('pdfGenerator', function (userS
                             html: '<ul style="font-family: Helvetica"> \
                             <li> \
                                 <strong>Subtotal</strong> \
-                            </li>' +
-                                (
-                                    invoice.vat_number &&
-                                        '<li> \
-                                            <strong>' + invoice.vat_rate + '% VAT</strong> \
-                                </li>' || ''
-                                    ) +
-                                '<li> \
-                                    <strong>Total</strong> \
-                                </li> \
-                            </ul>',
+                            </li> \
+                            <li> \
+                                <strong>' + (invoice.vat_rate || '0.00') + '% VAT</strong> \
+                            </li> \
+                            <li> \
+                                <strong>Total</strong> \
+                            </li> \
+                        </ul>',
                             width: 100,
                             position: {
                                 x: 145,
-                                y: 205
+                                y: 174
                             }
                         },
                         totals: {
                             html: '<ul style="font-family: Helvetica"> \
                             <li> \
                                 <span>' + invoice.currency_iso + ' ' + invoice.net_amount + '</span> \
-                            </li>' +
-                                (
-                                    invoice.vat_number &&
-                                        '<li> \
-                                            <span>' + invoice.currency_iso + ' ' + invoice.vat_amount + '</span> \
-                                </li>' || ''
-                                    ) +
-                                '<li> \
-                                    <span>' + invoice.currency_iso + ' ' + invoice.amount + '</span> \
+                            </li> \
+                            <li> \
+                                <span>' + invoice.currency_iso + ' ' + (invoice.vat_amount || '0.00') + '</span> \
+                            </li> \
+                            <li> \
+                                <span>' + invoice.currency_iso + ' ' + invoice.amount + '</span> \
                             </li> \
                         </ul>',
                             width: 70,
                             position: {
                                 x: 170,
-                                y: 205
+                                y: 174
+                            }
+                        },
+                        reverse: {
+                            html: '<span style="font-family: Helvetica">VAT reverse charged, needs to be paid by <strong>`' + invoice.worker_username + '`</strong></span>',
+                            width: 210,
+                            position: {
+                                x: 10,
+                                y: 178
+                            }
+                        },
+                        hasbeenpayed: {
+                            html: '<small style="font-family: Helvetica">Invoice has already been paid using <strong>Mobbr crowdpayments</strong></small>',
+                            width: 210,
+                            position: {
+                                x: 10,
+                                y: 282
                             }
                         }
+
+
                     };
 
                 pdf.setFont("helvetica");
@@ -151,6 +163,12 @@ angular.module('mobbr.services.pdf', []).factory('pdfGenerator', function (userS
                         }
                     });
                 });
+
+                console.log(invoice);
+
+                pdf.setLineWidth(.1);
+                pdf.line(5, 150, 205, 150);
+                pdf.line(5, 171, 205, 171);
 
                 pdf.save(invoice.invoice_id);
             }
