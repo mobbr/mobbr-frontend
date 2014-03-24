@@ -69,6 +69,38 @@
             </select>
         </div>
     </div>
+
+    <div ng-show="api == 'working'">
+        <div class="control-group">
+            <div class="control-label">
+                <label for="invoice-prefix">Invoice number prefix</label>
+            </div>
+
+            <div class="controls">
+                <input ng-model="invoice.invoice_prefix" name="invoice-prefix" type="text" id="invoice-prefix" placeholder="e.g. COMPANY-">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="control-label">
+                <label for="invoice-postfix">Invoice number postfix</label>
+            </div>
+
+            <div class="controls">
+                <input ng-model="invoice.invoice_postfix" name="invoice-postfix" type="text" id="invoice-postfix" placeholder="">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="control-label">
+                <label for="invoice-number">Example invoice number</label>
+            </div>
+
+            <div class="controls">
+                <input ng-value="invoice.invoice_prefix + '23DgW' + invoice.invoice_postfix" name="invoice-number" id="invoice-number" type="text" ng-disabled="true">
+            </div>
+        </div>
+    </div>
 </form>
 <div class="modal-footer">
     <button ng-click="confirm()" class="btn btn-success"><i class="icon-white mobbrloader" ng-show="waiting"></i> Confirm</button>
