@@ -10,7 +10,11 @@
         </div>
         <accordion close-others="false">
             <accordion-group heading="Invoices that need verification" is-open="true">
-                <invoicetable api="'working'" action="'requested'" button-text="'Confirm invoices'" button-action="confirmInvoices"></invoicetable>
+                <invoicetable columns="[ 'worker_username', 'role', 'expiration', 'currency', 'amount' ]"
+                              api="'working'"
+                              action="'requested'"
+                              button-text="'Confirm invoices'"
+                              button-action="confirmInvoices"></invoicetable>
             </accordion-group>
         </accordion>
     </pane>
@@ -22,7 +26,11 @@
         </div>
         <accordion close-others="false">
             <accordion-group heading="Invoices generated on your behalf" is-open="true">
-                <invoicetable api="'working'" action="'reviewed'" button-text="'Download invoices'" button-action="downloadInvoices"></invoicetable>
+                <invoicetable columns="[ 'worker_username', 'role', 'currency', 'amount' ]"
+                              api="'working'"
+                              action="'reviewed'"
+                              button-text="'Download invoices'"
+                              button-action="downloadInvoices"></invoicetable>
             </accordion-group>
         </accordion>
     </pane>
