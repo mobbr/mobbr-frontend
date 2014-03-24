@@ -25,7 +25,7 @@
             <td header="'ng-table/headers/checkbox.html'">
                 <input type="checkbox" ng-model="checkboxes.items[user.id]" />
             </td>
-            <td sortable="username" data-title="'Name'" ng-bind="user.username || user.customer_name"></td>
+            <td sortable="username" data-title="'Name'" ng-bind="user.username || user.worker_username"></td>
             <td sortable="roles" data-title="'Role'" ng-bind="user.role" class="roles"></td>
             <td sortable="currency" data-title="'Currency'" ng-bind="userSession.user.currency_iso" class="currency"></td>
             <td sortable="amount" data-title="'Amount'" class="amount">
