@@ -14,11 +14,21 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
             emptyMessage: '=',
             columns: '=',
             groupBy: '=',
-            selectable: '='
+            selectable: '=',
+            sortBy: '=',
+            sortOrder: '='
         },
         controller: function ($scope, $attrs, $filter, ngTableParams, PaymentReceipt, userSession) {
 
-            var reqparams = {};
+            var reqparams = {},
+                sorting = {};
+
+
+            if (!$scope.sortBy) {
+                $scope.sortBy = 'datetime';
+            }
+
+            sorting[$scope.sortBy] = $scope.sortOrder || 'desc';
 
             if ($scope.action) {
                 reqparams.action = $scope.action;
@@ -36,6 +46,12 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
                 title: 'Title'
             };
 
+            $scope.sortTableBy = function (column) {
+                sorting = {};
+                sorting[column] = $scope.invoiceTable.isSortBy(column, 'asc') ? 'desc' : 'asc';
+                $scope.invoiceTable.sorting(sorting);
+            }
+
             $scope.selectallid = Math.floor(Math.random() * 1000000);
             $scope.selectedIds = [];
             $scope.selectedItems = [];
@@ -45,7 +61,9 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
             $scope.invoiceTable = new ngTableParams(
                 {
                     page: 1,
-                    count: 10
+                    count: 10,
+                    sorting: sorting,
+                    filter: ''
                 },
                 {
                     groupBy: $scope.groupBy,
@@ -55,16 +73,19 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
                         $scope.api(reqparams, function (response) {
 
                             var data = response.result,
-                                orderedData = params.sorting() ? $filter('orderBy')(data, $scope.invoiceTable.orderBy()) : data;
+                                filteredData = $scope.invoiceTable.filter() ?
+                                    $filter('filter')(data, $scope.invoiceTable.filter()) :
+                                    data,
+                                orderedData = $scope.invoiceTable.sorting() ?
+                                    $filter('orderBy')(filteredData, $scope.invoiceTable.orderBy()) :
+                                    filteredData;
 
-                            $scope.invoiceTable.total(data.length);
+                            $scope.invoiceTable.total(orderedData.length);
                             $defer.resolve($scope.items = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
                         });
                     }
                 }
             );
-
-            //console.log($scope.invoiceTable.settings().$scope.pages);
 
             // wait for reload event
             $scope.$on('invoicetable', function (e, args) {

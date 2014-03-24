@@ -9,21 +9,20 @@
         </div>
     </div>
 
-    <div class="form-inline" style="margin-bottom: 20px;">
-        <label for="searchEntries{{paymenttype}}">Search: </label>
-        <input type="search" class="search-query" ng-model="searchentries" id="searchEntries{{paymenttype}}" >
-    </div>
-
     <accordion close-others="false">
         <accordion-group heading="Since last logout" is-open="true">
             <invoicetable columns="[ 'datetime', 'title', 'currency', 'amount' ]"
                           api="Dashboard.getPayments"
-                          action="'new_payments'"></invoicetable>
+                          action="'new_payments'"
+                          sort-by="'datetime'"
+                          sort-order="'desc'"></invoicetable>
         </accordion-group>
         <accordion-group heading="Historic payments" is-open="true">
             <invoicetable columns="[ 'datetime', 'title', 'currency', 'amount' ]"
                           api="Dashboard.getPayments"
-                          action="'payments'"></invoicetable>
+                          action="'payments'"
+                          sort-by="'datetime'"
+                          sort-order="'desc'"></invoicetable>
         </accordion-group>
     </accordion>
 </pane>
@@ -41,11 +40,6 @@
         <div class="btn-group">
             <button class="btn" ng-click="withdrawDialog.open()">Withdraw</button>
         </div>
-    </div>
-
-    <div class="form-inline" class="pull-left" style="margin-bottom: 20px;">
-        <label for="searchBalanceEntries">Search: </label>
-        <input type="search" class="search-query" ng-model="searchBalanceEntries" id="searchBalanceEntries" >
     </div>
 
     <accordion close-others="false">
