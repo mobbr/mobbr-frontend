@@ -52,7 +52,6 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
                     broadcast_action = args[1];
 
                 if (($scope.api === broadcast_api || broadcast_api === '*') && $scope.action === broadcast_action) {
-                    console.log('we reload');
                     $scope.invoiceTable.reload();
                 }
             });
@@ -87,7 +86,7 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
                     } else {
                         unchecked++;
                         indexId !== -1 && $scope.selectedIds.splice(indexId, 1);
-                        indexItem !== -1 && $scope.selectedIds.splice(indexItem, 1);
+                        indexItem !== -1 && $scope.selectedItems.splice(indexItem, 1);
                     }
                 });
 
@@ -95,7 +94,8 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
                     $scope.checkboxes.checked = (checked == total);
                 }
 
-                angular.element(document.getElementById("select_all")).prop("indeterminate", (checked != 0 && unchecked != 0));
+                // this is not working with multiple tables, find a solution
+                //angular.element(document.getElementById("select_all")).prop("indeterminate", (checked != 0 && unchecked != 0));
             }, true);
         }
     }
