@@ -28,6 +28,9 @@
                       paymenttype="payments"
                       editable="false"
                       showexpiresdate="false"></payments>
+            <invoicetable columns="[ 'datetime', 'title', 'currency', 'amount' ]"
+                          api="Dashboard.getPayments"
+                          action="'payments'"></invoicetable>
         </accordion-group>
     </accordion>
 </pane>
