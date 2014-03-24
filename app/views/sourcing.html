@@ -59,97 +59,18 @@
 
         <accordion close-others="false">
             <accordion-group heading="Active pledges" is-open="true">
-
-                <form class="form-inline clearfix">
-                    <fieldset class="pull-left">
-                        <button class="btn btn-danger" ng-click="pledgesDialog.open()" ng-disabled="numSelected(selectedPledges) < 1">Remove pledges</button>
-                    </fieldset>
-                </form>
-
-                <table ng-table="pledgesTable" class="mobbrtable table table-striped table-checkbox" template-pagination="custom/pager">
-                    <tbody ng-repeat="group in $groups">
-                    <tr class="ng-table-group">
-                        <td colspan="{{ $columns.length }}">
-                            <div ng-click="group.$hideRows = !group.$hideRows">
-                                <span ng-class="{ 'icon-chevron-right': group.$hideRows, 'icon-chevron-down': !group.$hideRows }"></span>
-                                <span ng-bind="group.value"></span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr ng-hide="group.$hideRows" ng-repeat="pledge in group.data" title="{{ user.title }}">
-                        <td>
-                            <input type="checkbox" ng-model="selectedPledges[pledge.id]" />
-                        </td>
-                        <td sortable="url" data-title="'Task'">
-                            <div ng-bind="pledge.title"></div>
-                            <!--<a ng-click="openUrl(pledge.url)"><small ng-bind="pledge.url"></small></a>-->
-                        </td>
-                        <td sortable="currency" data-title="'Currency'" ng-bind="userSession.user.currency_iso" class="currency"></td>
-                        <td sortable="amount" data-title="'Amount'" class="amount">
-                            <span ng-bind="pledge.amount | mobbrcurrency"
-                                  ng-class="{ 'text-error': pledge.amount < 0 }"
-                                  class="nowrap"></span>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                <script type="text/ng-template" id="ng-table/headers/checkbox.html">
-                    <input type="checkbox" ng-model="checkboxes.checked" id="select_all" name="filter-checkbox" value="" />
-                </script>
-                <script type="text/ng-template" id="custom/pager">
-                    <div class="ng-cloak">
-                        <div ng-if="params.settings().counts.length" class="btn-group pull-right">
-                            <button ng-repeat="count in params.settings().counts" type="button" ng-class="{ 'btn-primary': params.count() == count && pages.length > 1, 'disabled': pages.length < 2 || params.count() == count }" ng-click="params.count(count)" class="btn btn-mini">
-                                <span ng-bind="count"></span>
-                            </button>
-                        </div>
-                        <div class="btn-group">
-                            <button ng-class="{ 'disabled': !page.active, 'btn-primary': page.number == params.page() && page.type != 'prev' && page.type != 'next' && page.type != 'more' }"
-                                    ng-repeat="page in pages"
-                                    ng-switch="page.type"
-                                    class="btn btn-mini">
-                                <span ng-switch-when="prev" ng-click="params.page(page.number)">&laquo;</span>
-                                <span ng-switch-when="first" ng-click="params.page(page.number)"><span ng-bind="page.number"></span></span>
-                                <span ng-switch-when="page" ng-click="params.page(page.number)"><span ng-bind="page.number"></span></span>
-                                <span ng-switch-when="more" ng-click="params.page(page.number)">&#8230;</span>
-                                <span ng-switch-when="last" ng-click="params.page(page.number)"><span ng-bind="page.number"></span></span>
-                                <span ng-switch-when="next" ng-click="params.page(page.number)">&raquo;</span>
-                            </button>
-                        </div>
-                    </div>
-                </script>
+                <invoicetable columns="[ 'title', 'currency', 'amount' ]"
+                              api="Dashboard.getPayments"
+                              action="'unclaimed_payments'"
+                              group-by="'title'"
+                              button-text="'Remove pledges'"
+                              button-action="removePledgesDialog"
+                              selectable="1"></invoicetable>
             </accordion-group>
             <accordion-group heading="Historic tasks" is-open="true">
-                <table ng-table="tasksTable" class="mobbrtable table table-striped table-checkbox" template-pagination="custom/pager">
-                    <tbody ng-repeat="group in $groups">
-                    <tr class="ng-table-group">
-                        <td colspan="{{ $columns.length }}">
-                            <div ng-click="group.$hideRows = !group.$hideRows">
-                                <span ng-class="{ 'icon-chevron-right': group.$hideRows, 'icon-chevron-down': !group.$hideRows }"></span>
-                                <span ng-bind="group.value"></span>
-                                <!--<div><a ng-click="openUrl(group.data[0].url)"><small ng-bind="group.data[0].url"></small></a></div>-->
-                            </div>
-                        </td>
-                    </tr>
-                    <tr ng-hide="group.$hideRows" ng-repeat="task in group.data" title="{{ user.title }}">
-                        <td data-title="''">
-                            <img ng-src="https://secure.gravatar.com/avatar/{{ task['gravatar'] }}?s=20&default=https://mobbr.com/img/default-gravatar.png"
-                                 class="gravatar small img-rounded"
-                                 width="20"
-                                 height="20">
-                        </td>
-                        <td sortable="username" data-title="'Username'" ng-bind="task.username"></td>
-                        <td sortable="datetime" data-title="'Date'"><small ng-bind="task.datetime"></small></td>
-                        <td sortable="roles" data-title="'Role'" ng-bind="task.roles" class="roles"></td>
-                        <td sortable="currency" data-title="'Currency'" ng-bind="userSession.user.currency_iso" class="currency"></td>
-                        <td sortable="amount" data-title="'Amount'" class="amount">
-                            <span ng-bind="task.amount | mobbrcurrency"
-                                  ng-class="{ 'text-error': task.amount < 0 }"
-                                  class="nowrap"></span>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                <invoicetable columns="[ 'gravatar', 'username', 'datetime', 'role', 'currency', 'amount' ]"
+                              api="Sourcing.urls"
+                              group-by="'title'"></invoicetable>
             </accordion-group>
         </accordion>
     </pane>

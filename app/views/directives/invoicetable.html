@@ -1,6 +1,6 @@
 <div>
-    <form class="form-inline clearfix" ng-if="buttonAction">
-        <fieldset class="pull-left">
+    <form class="form-inline clearfix">
+        <fieldset ng-if="buttonAction" class="pull-left">
             <button class="btn"
                     ng-click="buttonAction(selectedIds, selectedItems)"
                     ng-disabled="selectedIds.length == 0">
@@ -8,13 +8,19 @@
                 <span ng-bind="buttonText"></span>
             </button>
         </fieldset>
+
+        <fieldset class="pull-right searchbox">
+            <input ng-model="invoiceTable.$params.filter" placeholder="Search" class="search-query" type="search" id="search">
+        </fieldset>
     </form>
     <div class="alert" ng-show="items.length == 0" ng-bind="empty_message"></div>
     <table ng-table="invoiceTable" ng-show="items.length > 0" class="mobbrtable table table-striped table-checkbox ng-table">
         <thead>
         <tr>
             <th ng-if="selectable"><input id="{{ selectallid }}" type="checkbox" ng-model="$parent.$parent.select_all"></th>
-            <th ng-repeat="column in columns" ng-bind="labels[column]"></th>
+            <th ng-repeat="column in columns" ng-click="sortTableBy(column)">
+                <span ng-bind="labels[column]"></span>
+            </th>
         </tr>
         </thead>
         <tbody ng-repeat="group in $groups">
@@ -27,7 +33,7 @@
             </td>
         </tr>
         <tr ng-hide="group.$hideRows" ng-repeat="item in group.data">
-            <td ng-if="selectable" class="checkbox">
+            <td ng-if="selectable" class="check-box">
                 <input type="checkbox" ng-model="checkboxes.items[item.id]" />
             </td>
             <td ng-repeat="column in columns" ng-switch on="column" class="{{ column }}">
@@ -37,7 +43,7 @@
                      width="20"
                      height="20">
                 <time ng-switch-when="datetime"
-                      datetime="{{ entry.datetime }}">
+                      datetime="{{ item[column] }}">
                     <small>{{ entry.datetime }}</small>
                 </time>
                 <span ng-switch-when="currency" ng-bind="item[column] || userSession.user.currency_iso"></span>
@@ -74,7 +80,7 @@
         </tr>
         </tbody>
     </table>
-    <div>
+    <div ng-if="items.length > 0">
         <div ng-if="invoiceTable.settings().counts.length" class="btn-group pull-right">
             <button ng-repeat="count in invoiceTable.settings().counts"
                     type="button"
