@@ -44,7 +44,7 @@
                      height="20">
                 <time ng-switch-when="datetime"
                       datetime="{{ item[column] }}">
-                    <small>{{ entry.datetime }}</small>
+                    <small>{{ item[column] }}</small>
                 </time>
                 <span ng-switch-when="currency" ng-bind="item[column] || userSession.user.currency_iso"></span>
                 <span ng-switch-when="amount"
