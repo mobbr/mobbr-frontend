@@ -13,13 +13,17 @@ angular.module('mobbr.services.invoice', []).factory('invoiceDialog', function (
                 templateUrl: 'views/partials/invoice_popup.html',
                 controller: function ($scope, dialog) {
 
+                    $scope.api = api;
+
                     $scope.invoice = {
                         name: userSession.user.companyname || (userSession.user.firstname + ' ' + userSession.user.lastname),
                         address: userSession.user.address,
                         country: userSession.user.country_of_residence,
                         vat_number: userSession.user.vat_number,
                         vat_rate: userSession.user.vat_rate,
-                        status: userSession.user.companyname && 'enterprise' || 'private'
+                        status: userSession.user.companyname && 'enterprise' || 'private',
+                        invoice_prefix: userSession.user.invoice_numbering_prefix,
+                        invoice_postfix: userSession.user.invoice_numbering_postfix
                     }
 
                     $scope.close = function () {
