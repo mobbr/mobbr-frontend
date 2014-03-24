@@ -10,27 +10,33 @@
         </fieldset>
     </form>
     <div class="alert" ng-show="items.length == 0" ng-bind="empty_message"></div>
-    <table ng-table="invoiceTable" template-pagination="custom/pager" ng-show="items.length > 0" class="mobbrtable table table-striped table-checkbox">
+    <table ng-table="invoiceTable" template-pagination="custom/pager" ng-show="items.length > 0" class="mobbrtable table table-striped table-checkbox ng-table">
+        <thead>
+        <tr>
+            <th><input type="checkbox" ng-model="select_all"></th>
+            <th ng-repeat="column in columns" ng-bind="labels[column]"></th>
+        </tr>
+        </thead>
         <tbody ng-repeat="group in $groups">
         <tr class="ng-table-group">
-            <td colspan="{{ $columns.length }}">
+            <td colspan="{{ columns.length + 1 }}">
                 <div ng-click="group.$hideRows = !group.$hideRows">
                     <span ng-class="{ 'icon-chevron-right': group.$hideRows, 'icon-chevron-down': !group.$hideRows }"></span>
                     <span ng-bind="group.value"></span>
                 </div>
             </td>
         </tr>
-        <tr ng-hide="group.$hideRows" ng-repeat="user in group.data">
+        <tr ng-hide="group.$hideRows" ng-repeat="item in group.data">
             <td header="'ng-table/headers/checkbox.html'">
-                <input type="checkbox" ng-model="checkboxes.items[user.id]" />
+                <input type="checkbox" ng-model="checkboxes.items[item.id]" />
             </td>
-            <td sortable="username" data-title="'Name'" ng-bind="user.username || user.worker_username"></td>
-            <td sortable="roles" data-title="'Role'" ng-bind="user.role" class="roles"></td>
-            <td sortable="currency" data-title="'Currency'" ng-bind="userSession.user.currency_iso" class="currency"></td>
-            <td sortable="amount" data-title="'Amount'" class="amount">
-                <span ng-bind="user.amount | mobbrcurrency"
-                      ng-class="{ 'text-error': user.amount < 0 }"
+            <td ng-repeat="column in columns" ng-switch on="column" class="{{ column }}">
+                <span ng-switch-when="currency" ng-bind="item[column] || userSession.user.currency_iso"></span>
+                <span ng-switch-when="amount"
+                      ng-bind="item[column] | mobbrcurrency"
+                      ng-class="{ 'text-error': item.amount < 0 }"
                       class="nowrap"></span>
+                <span ng-switch-default ng-bind="item[column]"></span>
             </td>
         </tr>
         </tbody>

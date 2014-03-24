@@ -11,18 +11,28 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
             action: '=',
             buttonText: '=',
             buttonAction: '=',
-            emptyMessage: '='
+            emptyMessage: '=',
+            columns: '='
         },
         controller: function ($scope, $attrs, $filter, ngTableParams, PaymentReceipt, userSession, Working, Sourcing) {
 
             var api = $scope.api,
                 Api = api === 'sourcing' ? Sourcing : Working;
 
+            $scope.labels = {
+                username: 'Name',
+                worker_username: 'Name',
+                role: 'Role',
+                currency: 'Currency',
+                amount: 'Amount',
+                expiration: 'Expiration days'
+            };
+
             $scope.selectedIds = [];
             $scope.selectedItems = [];
-            $scope.userSession = userSession;
             $scope.empty_message = $scope.emptyMessage || 'No invoices available for the selected timeframe';
             $scope.checkboxes = { 'checked': false, items: {} };
+            $scope.userSession = userSession;
             $scope.invoiceTable = new ngTableParams(
                 {
                     page: 1,
