@@ -40,6 +40,7 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
     $scope.persons = Sourcing.persons();
     $scope.selectedPledges = {};
     $scope.Sourcing = Sourcing;
+    $scope.Dashboard = Dashboard;
 
     $scope.openUrl = function (url) {
         $location.path('/url/' + $window.btoa(url));
@@ -88,30 +89,11 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
         });
     }
 
-    var pledgesTable = new ngTableParams(
-        {
-            page: 1,
-            count: 10
-        },
-        {
-            groupBy: 'domain',
-            total: 0,
-            getData: function ($defer, params) {
-                Dashboard.getPayments({ action: 'unclaimed_payments' }, function (response) {
+    $scope.removePledgesDialog = function () {
+        pledgesDialog.open();
+    }
 
-                    var data = response.result,
-                        orderedData = params.sorting() ? $filter('orderBy')(data, $scope.pledgesTable.orderBy()) : data;
-
-                    $scope.pledgesTable.total(data.length);
-                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-                });
-            }
-        }
-    );
-
-    $scope.pledgesTable = pledgesTable;
-
-    $scope.tasksTable = new ngTableParams(
+   $scope.tasksTable = new ngTableParams(
         {
             page: 1,
             count: 10
