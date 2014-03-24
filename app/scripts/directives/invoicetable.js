@@ -15,20 +15,15 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
             columns: '=',
             groupBy: '=',
             selectable: '=',
-            sortBy: '=',
-            sortOrder: '='
+            sort: '=',
+            order: '='
         },
         controller: function ($scope, $attrs, $filter, ngTableParams, PaymentReceipt, userSession) {
 
             var reqparams = {},
                 sorting = {};
 
-
-            if (!$scope.sortBy) {
-                $scope.sortBy = 'datetime';
-            }
-
-            sorting[$scope.sortBy] = $scope.sortOrder || 'desc';
+            sorting[$scope.sort || 'datetime'] = $scope.order || 'desc';
 
             if ($scope.action) {
                 reqparams.action = $scope.action;
