@@ -406,10 +406,11 @@ pre {
   width: 13px;
 }
 
-.mobbrtable .currency {
+.mobbrtable .currency,
+.mobbrtable .amount {
   width: 70px;
 }
 
-.mobbrtable .amount {
-  width: 70px;
+.mobbrtable .expiration {
+  width: 120px;
 }
