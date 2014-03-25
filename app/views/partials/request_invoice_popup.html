@@ -9,7 +9,7 @@
         </div>
 
         <div class="controls">
-            <input ng-model="invoice.name" name="name" type="text" id="name" placeholder="e.g. Google">
+            <input ng-model="invoice.customer_name" name="name" type="text" id="name" placeholder="e.g. Google">
         </div>
     </div>
 
@@ -19,7 +19,7 @@
         </div>
 
         <div class="controls">
-            <input ng-model="invoice.address" name="address" type="text" id="address" placeholder="e.g. Sesame Street 3, Metropolis">
+            <input ng-model="invoice.customer_address" name="address" type="text" id="address" placeholder="e.g. Sesame Street 3, Metropolis">
         </div>
     </div>
 
@@ -29,7 +29,7 @@
         </div>
 
         <div class="controls">
-            <select id="country" name="country" ng-model="invoice.country"
+            <select id="country" name="country" ng-model="invoice.customer_country"
                     ng-options="value as key for (value, key) in countriesMap">
                 <option value="">No country</option>
             </select>
@@ -42,7 +42,7 @@
         </div>
 
         <div class="controls">
-            <input ng-model="invoice.vat_number" name="vat_number" type="text" id="vat-number" placeholder="e.g. NL001234567B01">
+            <input ng-model="invoice.customer_vat_number" name="vat_number" type="text" id="vat-number" placeholder="e.g. NL001234567B01">
         </div>
     </div>
 
@@ -52,7 +52,7 @@
         </div>
 
         <div class="controls">
-            <input ng-model="invoice.vat_rate" name="vat_rate" type="text" id="vat-rate" placeholder="e.g. 21"><br/>
+            <input ng-model="invoice.customer_vat_rate" name="vat_rate" type="text" id="vat-rate" placeholder="e.g. 21"><br/>
             <small>Indicate the rate for this type of work in <b>your</b> country</small>
         </div>
     </div>
@@ -63,7 +63,7 @@
         </div>
 
         <div class="controls">
-            <select ng-model="invoice.status" name="status" type="text" id="status">
+            <select ng-model="invoice.customer_status" name="status" type="text" id="status">
                 <option value="private">Private</option>
                 <option value="enterprise">Enterprise</option>
             </select>
@@ -77,7 +77,7 @@
             </div>
 
             <div class="controls">
-                <input ng-model="invoice.invoice_prefix" name="invoice-prefix" type="text" id="invoice-prefix" placeholder="e.g. COMPANY-">
+                <input ng-model="invoice.customer_invoice_prefix" name="invoice-prefix" type="text" id="invoice-prefix" placeholder="e.g. COMPANY-">
             </div>
         </div>
 
@@ -87,7 +87,7 @@
             </div>
 
             <div class="controls">
-                <input ng-model="invoice.invoice_postfix" name="invoice-postfix" type="text" id="invoice-postfix" placeholder="">
+                <input ng-model="invoice.customer_invoice_postfix" name="invoice-postfix" type="text" id="invoice-postfix" placeholder="">
             </div>
         </div>
 
@@ -97,7 +97,7 @@
             </div>
 
             <div class="controls">
-                <input ng-value="invoice.invoice_prefix + '23DgW' + invoice.invoice_postfix" name="invoice-number" id="invoice-number" type="text" ng-disabled="true">
+                <input ng-value="invoice.customer_invoice_prefix + '23DgW' + invoice.customer_invoice_postfix" name="invoice-number" id="invoice-number" type="text" ng-disabled="true">
             </div>
         </div>
     </div>

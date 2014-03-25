@@ -2,7 +2,7 @@
     <form class="form-inline clearfix">
         <fieldset ng-if="buttonAction" class="pull-left">
             <button class="btn"
-                    ng-click="buttonAction(selectedIds, selectedItems)"
+                    ng-click="buttonAction(selectedIds, selectedItems, invoiceTable)"
                     ng-disabled="selectedIds.length == 0">
                 <i class="icon-white mobbrloader" ng-show="waiting"></i>
                 <span ng-bind="buttonText"></span>
