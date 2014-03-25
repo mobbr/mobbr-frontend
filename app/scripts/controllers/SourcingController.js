@@ -1,9 +1,13 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('SourcingController', function ($scope, $dialog, $location, $window, userSession, Dashboard, Sourcing, ngTableParams, invoiceDialog, pdfGenerator, Msg) {
+angular.module('mobbr.controllers').controller('SourcingController', function ($scope, $dialog, $location, userSession, Dashboard, Sourcing, invoiceDialog, pdfGenerator, Msg) {
 
     $scope.Sourcing = Sourcing;
     $scope.Dashboard = Dashboard;
+
+    $scope.openPayment = function (id) {
+        $location.path('/payment/' + id);
+    }
 
     $scope.cancelInvoices = function (ids, items, table) {
         $scope.ciwaiting = true;
