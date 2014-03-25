@@ -3,7 +3,6 @@
 
 angular.module('mobbr.controllers').controller('JoinController', function ($scope, User, Msg) {
 
-    $scope.api_url = apiUrl;
     $scope.waiting = false;
     $scope.email = $routeParams.email;
     $scope.register = function () {
