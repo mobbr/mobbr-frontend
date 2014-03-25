@@ -12,7 +12,8 @@
 
         <accordion close-others="false">
             <accordion-group heading="Invoices that await verification" is-open="true">
-                <invoicetable columns="[ 'username', 'role', 'expiration', 'currency', 'amount' ]"
+                <invoicetable id="sourcing_requested_invoices"
+                              columns="[ 'username', 'role', 'expiration', 'currency', 'amount' ]"
                               waiting="ciwaiting"
                               api="Sourcing.invoices"
                               action="'requested_invoices'"
@@ -22,7 +23,8 @@
                               selectable="1"></invoicetable>
              </accordion-group>
             <accordion-group heading="Payments for which an invoice can be requested" is-open="true">
-                <invoicetable columns="[ 'username', 'role', 'currency', 'amount' ]"
+                <invoicetable id="sourcing_unrequested_invoices"
+                              columns="[ 'username', 'role', 'currency', 'amount' ]"
                               api="Sourcing.invoices"
                               action="'unrequested_invoices'"
                               group-by="'title'"
@@ -40,7 +42,8 @@
         </div>
         <accordion close-others="false">
             <accordion-group heading="Final invoices" is-open="true">
-                <invoicetable columns="[ 'worker_username', 'role', 'currency', 'amount' ]"
+                <invoicetable id="sourcing_reviewed_invoices"
+                              columns="[ 'worker_username', 'role', 'currency', 'amount' ]"
                               api="Sourcing.invoices"
                               action="'reviewed_invoices'"
                               group-by="'title'"
@@ -59,7 +62,8 @@
 
         <accordion close-others="false">
             <accordion-group heading="Active pledges" is-open="true">
-                <invoicetable columns="[ 'title', 'currency', 'amount' ]"
+                <invoicetable id="sourcing_pledges"
+                              columns="[ 'title', 'currency', 'amount' ]"
                               api="Dashboard.getPayments"
                               action="'unclaimed_payments'"
                               group-by="'title'"
@@ -68,7 +72,8 @@
                               selectable="1"></invoicetable>
             </accordion-group>
             <accordion-group heading="Historic tasks" is-open="true">
-                <invoicetable columns="[ 'gravatar', 'username', 'datetime', 'role', 'currency', 'amount' ]"
+                <invoicetable id="sourcing_tasks"
+                              columns="[ 'gravatar', 'username', 'datetime', 'role', 'currency', 'amount' ]"
                               api="Sourcing.urls"
                               group-by="'title'"></invoicetable>
             </accordion-group>
@@ -82,7 +87,8 @@
         </div>
         <accordion close-others="false">
             <accordion-group heading="People you rewarded" is-open="true">
-                <invoicetable columns="[ 'gravatar', 'username', 'roles', 'keywords', 'currency', 'amount' ]"
+                <invoicetable id="sourcing_workers"
+                              columns="[ 'gravatar', 'username', 'roles', 'keywords', 'currency', 'amount' ]"
                               api="Sourcing.persons"></invoicetable>
             </accordion-group>
         </accordion>
