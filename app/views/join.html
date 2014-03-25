@@ -4,7 +4,7 @@
 
 <iframe style="width: 100%;" class="eula" src="https://api.mobbr.com/mobbr-terms-of-use.txt"></iframe>
 
-<form style="" user-register name="register" class="form-horizontal">
+<form style="" name="register" class="form-horizontal">
 
     <div style="padding-bottom: 25px; margin-bottom: 20px; border-bottom: 1px solid #009ee0; ">
         <label class="checkbox">
@@ -51,7 +51,7 @@
 
     <div class="control-group">
         <div class="controls">
-            <button ng-click="register()" class="btn btn-primary" type="submit" ng-disabled="!accept_eula || waiting"><i class="icon-white mobbrloader" ng-show="waiting"></i> Join</button>
+            <button ng-click="registerUser()" class="btn btn-primary" ng-disabled="!accept_eula || waiting"><i class="icon-white mobbrloader" ng-show="waiting"></i> Join</button>
         </div>
     </div>
 </form>

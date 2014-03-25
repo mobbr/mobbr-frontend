@@ -5,7 +5,7 @@ angular.module('mobbr.controllers').controller('JoinController', function ($scop
 
     $scope.waiting = false;
     $scope.email = $routeParams.email;
-    $scope.register = function () {
+    $scope.registerUser = function () {
         var user = {'email': $scope.email, 'username': $scope.username, 'password': $scope.password, 'password_control': $scope.password_control};
         $scope.waiting = true;
 
