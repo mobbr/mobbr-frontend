@@ -51,13 +51,15 @@
                 <invoicetable id="working_tasks"
                               columns="[ 'spacer', 'title', 'currency', 'amount' ]"
                               api="Global.pledges"
-                              group-by="'title'"></invoicetable>
+                              group-by="'title'"
+                              click-row="openPayment"></invoicetable>
             </accordion-group>
             <accordion-group heading="Tasks you earned money on" is-open="true">
                 <invoicetable id="working_historic_tasks"
                               columns="[ 'gravatar', 'username', 'datetime', 'role', 'currency', 'amount' ]"
                               api="Working.urls"
-                              group-by="'title'"></invoicetable>
+                              group-by="'title'"
+                              click-row="openPayment"></invoicetable>
             </accordion-group>
         </accordion>
     </pane>

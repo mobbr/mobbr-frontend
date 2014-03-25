@@ -1,9 +1,13 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('WorkingController', function ($scope, $filter, userSession, Working, Global, ngTableParams, invoiceDialog, pdfGenerator, Msg) {
+angular.module('mobbr.controllers').controller('WorkingController', function ($scope, $location, $filter, userSession, Working, Global, invoiceDialog, pdfGenerator, Msg) {
 
     $scope.Working = Working;
     $scope.Global = Global;
+
+    $scope.openPayment = function (id) {
+        $location.path('/payment/' + id);
+    }
 
     $scope.confirmInvoices = function (ids, items, table) {
         invoiceDialog(
