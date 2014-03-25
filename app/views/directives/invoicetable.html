@@ -40,7 +40,7 @@
                 <a href="{{ group.data[0].uri || group.data[0].url }}" ng-bind="group.data[0].uri || group.data[0].url"></a>
             </td>
         </tr>
-        <tr ng-hide="group.$hideRows" ng-repeat="item in group.data">
+        <tr ng-hide="group.$hideRows" ng-repeat="item in group.data" ng-click="clickRow(item.id)">
             <td ng-if="selectable" class="check-box">
                 <input type="checkbox" ng-model="checkboxes.items[item.id]">
             </td>
@@ -64,7 +64,7 @@
         </tr>
         </tbody>
         <tbody ng-if="!$groups">
-        <tr ng-repeat="item in $data">
+        <tr ng-repeat="item in $data" ng-click="clickRow(item.id)">
             <td ng-if="selectable" class="checkbox">
                 <input type="checkbox" ng-model="checkboxes.items[item.id]" />
             </td>
