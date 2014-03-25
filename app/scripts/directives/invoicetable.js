@@ -7,6 +7,7 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
         transclude: true,
         templateUrl: '../../views/directives/invoicetable.html',
         scope: {
+            id: '@id',
             api: '=',
             action: '=',
             buttonText: '=',
@@ -23,6 +24,8 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
 
             var reqparams = {},
                 sorting = {};
+
+            console.log($scope.id);
 
             sorting[$scope.sort || 'datetime'] = $scope.order || 'desc';
 
@@ -84,14 +87,8 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
             );
 
             // wait for reload event
-            $scope.$on('invoicetable', function (e, args) {
-
-                var broadcast_api = args[0],
-                    broadcast_action = args[1];
-
-                if (($scope.api === broadcast_api || broadcast_api === '*') && $scope.action === broadcast_action) {
-                    $scope.invoiceTable.reload();
-                }
+            $scope.$on('invoicetable', function (e, id) {
+                $scope.id === id && $scope.invoiceTable.reload();
             });
 
             // watch for check all checkbox

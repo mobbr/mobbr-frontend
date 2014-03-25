@@ -11,7 +11,8 @@
 
     <accordion close-others="false">
         <accordion-group heading="Since last logout" is-open="true">
-            <invoicetable columns="[ 'datetime', 'title', 'currency', 'amount' ]"
+            <invoicetable id="wallet_new"
+                          columns="[ 'datetime', 'title', 'currency', 'amount' ]"
                           api="Dashboard.getPayments"
                           action="'new_payments'"
                           sort-by="'datetime'"
@@ -19,7 +20,8 @@
                           click-row="openPayment"></invoicetable>
         </accordion-group>
         <accordion-group heading="Historic payments" is-open="true">
-            <invoicetable columns="[ 'datetime', 'title', 'currency', 'amount' ]"
+            <invoicetable id="wallet_historic"
+                          columns="[ 'datetime', 'title', 'currency', 'amount' ]"
                           api="Dashboard.getPayments"
                           action="'payments'"
                           sort-by="'datetime'"
