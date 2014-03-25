@@ -15,14 +15,16 @@
                           api="Dashboard.getPayments"
                           action="'new_payments'"
                           sort-by="'datetime'"
-                          sort-order="'desc'"></invoicetable>
+                          sort-order="'desc'"
+                          click-row="openPayment"></invoicetable>
         </accordion-group>
         <accordion-group heading="Historic payments" is-open="true">
             <invoicetable columns="[ 'datetime', 'title', 'currency', 'amount' ]"
                           api="Dashboard.getPayments"
                           action="'payments'"
                           sort-by="'datetime'"
-                          sort-order="'desc'"></invoicetable>
+                          sort-order="'desc'"
+                          click-row="openPayment"></invoicetable>
         </accordion-group>
     </accordion>
 </pane>
