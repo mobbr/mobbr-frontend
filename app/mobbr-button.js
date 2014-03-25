@@ -343,7 +343,7 @@ var mobbr = mobbr || (function () {
         mobbrFrame = document.createElement('iframe');
         mobbrFrame.setAttribute('name', 'mobbr_frame');
         mobbrFrame.setAttribute('frameborder', '0');
-        mobbrFrame.style.cssText = 'position:relative;top:-10px;left:0;right:0;bottom:0;opacity:1;filter:alpha(opacity=100); width: 100%; height: 315px; padding:0; margin:0;';
+        mobbrFrame.style.cssText = 'position:relative;top:-10px;left:0;right:0;bottom:0;opacity:1;filter:alpha(opacity=100); width: 100%; height: 292px; padding:0; margin:0;';
         mobbrFrame.src = mobbr_ui_url + '/lightbox/#/';
 
         a.appendChild(img);
