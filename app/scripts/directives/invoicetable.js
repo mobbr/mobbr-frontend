@@ -16,7 +16,8 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
             groupBy: '=',
             selectable: '=',
             sort: '=',
-            order: '='
+            order: '=',
+            clickRow: '='
         },
         controller: function ($scope, $attrs, $filter, ngTableParams, PaymentReceipt, userSession) {
 

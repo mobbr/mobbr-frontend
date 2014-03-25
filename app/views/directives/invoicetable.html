@@ -40,7 +40,7 @@
                 <a href="{{ group.data[0].uri || group.data[0].url }}" ng-bind="group.data[0].uri || group.data[0].url"></a>
             </td>
         </tr>
-        <tr ng-hide="group.$hideRows" ng-repeat="item in group.data">
+        <tr ng-hide="group.$hideRows" ng-repeat="item in group.data" ng-click="clickRow(item.id)">
             <td ng-if="selectable" class="check-box">
                 <input type="checkbox" ng-model="checkboxes.items[item.id]">
             </td>
@@ -54,7 +54,7 @@
                       datetime="{{ item[column] }}">
                     <small>{{ item[column] }}</small>
                 </time>
-                <span ng-switch-when="currency" ng-bind="item[column] || userSession.user.currency_iso"></span>
+                <span ng-switch-when="currency" ng-bind="item['currency'] || item['currency_iso'] || userSession.user.currency_iso"></span>
                 <span ng-switch-when="amount"
                       ng-bind="item[column] | mobbrcurrency"
                       ng-class="{ 'text-error': item.amount < 0 }"
@@ -64,7 +64,7 @@
         </tr>
         </tbody>
         <tbody ng-if="!$groups">
-        <tr ng-repeat="item in $data">
+        <tr ng-repeat="item in $data" ng-click="clickRow(item.id)">
             <td ng-if="selectable" class="checkbox">
                 <input type="checkbox" ng-model="checkboxes.items[item.id]" />
             </td>
@@ -78,7 +78,7 @@
                       datetime="{{ item[column] }}">
                     <small>{{ item[column] }}</small>
                 </time>
-                <span ng-switch-when="currency" ng-bind="item[column] || userSession.user.currency_iso"></span>
+                <span ng-switch-when="currency" ng-bind="item['currency'] || item['currency_iso'] || userSession.user.currency_iso"></span>
                 <span ng-switch-when="amount"
                       ng-bind="item[column] | mobbrcurrency"
                       ng-class="{ 'text-error': item.amount < 0 }"

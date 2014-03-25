@@ -201,6 +201,10 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
         }
     });
 
+    $scope.openPayment = function (id) {
+        $location.path('/payment/' + id);
+    }
+
     $scope.depositDialog = depositDialog;
     $scope.withdrawDialog = withdrawDialog;
 });
