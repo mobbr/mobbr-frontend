@@ -130,7 +130,7 @@
                                         ng-show="!dologin"
                                         ng-click="performPayment(login_form)"
                                         class="btn btn-success">
-                                    <span ng-bind="!noscript && noparticipants && 'Pledge' || 'Pay'"></span>
+                                    <span ng-bind="urlData.script.type"></span>
                                 </button>
                             </span>
                         </fieldset>
