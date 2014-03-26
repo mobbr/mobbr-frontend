@@ -27,7 +27,7 @@ angular.module('mobbr.controllers').controller('WorkingController', function ($s
             function (dialog, response) {
                 Msg.setResponseMessage('info', 'Invoice request confirmed', response);
                 dialog.close();
-                table.reload()
+                $scope.$broadcast('invoicetable', 'working_requested_invoices');
                 $scope.$broadcast('invoicetable', 'working_reviewed_invoices');
                 $scope.$broadcast('invoicetable', 'sourcing_reviewed_invoices');
             },
