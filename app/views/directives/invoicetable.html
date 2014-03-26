@@ -40,11 +40,11 @@
                 <a href="{{ group.data[0].uri || group.data[0].url }}" ng-bind="group.data[0].uri || group.data[0].url"></a>
             </td>
         </tr>
-        <tr ng-hide="group.$hideRows" ng-repeat="item in group.data" ng-click="clickRow(item.id)">
+        <tr ng-hide="group.$hideRows" ng-repeat="item in group.data">
             <td ng-if="selectable" class="check-box">
                 <input type="checkbox" ng-model="checkboxes.items[item.id]">
             </td>
-            <td ng-repeat="column in columns" ng-switch on="column" class="{{ column }}">
+            <td ng-repeat="column in columns" ng-switch on="column" class="{{ column }}" ng-click="clickRow(item)">
                 <img ng-switch-when="gravatar"
                      ng-src="https://secure.gravatar.com/avatar/{{ item[column] }}?s=20&default=https://mobbr.com/img/default-gravatar.png"
                      class="gravatar xsmall img-rounded"
@@ -64,11 +64,11 @@
         </tr>
         </tbody>
         <tbody ng-if="!$groups">
-        <tr ng-repeat="item in $data" ng-click="clickRow(item.id)">
+        <tr ng-repeat="item in $data">
             <td ng-if="selectable" class="checkbox">
                 <input type="checkbox" ng-model="checkboxes.items[item.id]" />
             </td>
-            <td ng-repeat="column in columns" ng-switch on="column" class="{{ column }}">
+            <td ng-repeat="column in columns" ng-switch on="column" class="{{ column }}" ng-click="clickRow(item)">
                 <img ng-switch-when="gravatar"
                      ng-src="https://secure.gravatar.com/avatar/{{ item[column] }}?s=20&default=https://mobbr.com/img/default-gravatar.png"
                      class="gravatar xsmall img-rounded"

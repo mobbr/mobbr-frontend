@@ -5,8 +5,8 @@ angular.module('mobbr.controllers').controller('WorkingController', function ($s
     $scope.Working = Working;
     $scope.Global = Global;
 
-    $scope.openPayment = function (id) {
-        $location.path('/payment/' + id);
+    $scope.openPayment = function (item) {
+        $location.path('/payment/' + (item.payment_id || item.id));
     }
 
     $scope.confirmInvoices = function (ids, items, table) {
