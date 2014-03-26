@@ -20,7 +20,8 @@
                               group-by="'title'"
                               button-text="'Cancel request'"
                               button-action="cancelInvoices"
-                              selectable="1"></invoicetable>
+                              selectable="1"
+                              click-row="openPayment"></invoicetable>
              </accordion-group>
             <accordion-group heading="Payments for which an invoice can be requested" is-open="true">
                 <invoicetable id="sourcing_unrequested_invoices"
@@ -30,7 +31,8 @@
                               group-by="'title'"
                               button-text="'Request invoices'"
                               button-action="requestInvoices"
-                              selectable="1"></invoicetable>
+                              selectable="1"
+                              click-row="openPayment"></invoicetable>
             </accordion-group>
         </accordion>
     </pane>
@@ -49,7 +51,8 @@
                               group-by="'title'"
                               button-text="'Download invoice'"
                               button-action="downloadInvoices"
-                              selectable="1"></invoicetable>
+                              selectable="1"
+                              click-row="openPayment"></invoicetable>
             </accordion-group>
         </accordion>
     </pane>
@@ -69,7 +72,8 @@
                               group-by="'title'"
                               button-text="'Remove pledges'"
                               button-action="removePledgesDialog"
-                              selectable="1"></invoicetable>
+                              selectable="1"
+                              click-row="openPayment"></invoicetable>
             </accordion-group>
             <accordion-group heading="Historic tasks" is-open="true">
                 <invoicetable id="sourcing_tasks"

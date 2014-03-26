@@ -201,8 +201,9 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
         }
     });
 
-    $scope.openPayment = function (id) {
-        $location.path('/payment/' + id);
+    $scope.openPayment = function (item) {
+        console.log(item);
+        $location.path('/payment/' + item.id);
     }
 
     $scope.depositDialog = depositDialog;
