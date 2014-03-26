@@ -6,7 +6,6 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
     $scope.Dashboard = Dashboard;
 
     $scope.openPayment = function (item) {
-        console.log(item);
         $location.path('/payment/' + (item.payment_id || item.id));
     }
 
@@ -14,7 +13,7 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
         $scope.ciwaiting = true;
         Sourcing.cancelInvoices({ ids: ids }, function (response) {
             Msg.setResponseMessage('info', 'Invoice request successfully cancelled', response);
-            table.reload();
+            $scope.$broadcast('invoicetable', 'sourcing_requested_invoices');
             $scope.$broadcast('invoicetable', 'working_requested_invoices');
             $scope.$broadcast('invoicetable', 'sourcing_unrequested_invoices');
             $scope.ciwaiting = false;
@@ -44,7 +43,7 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
                 dialog.close();
                 $scope.$broadcast('invoicetable', 'sourcing_requested_invoices');
                 $scope.$broadcast('invoicetable', 'working_requested_invoices');
-                table.reload();
+                $scope.$broadcast('invoicetable', 'sourcing_unrequested_invoices');
             },
             function (dialog, response) {
                 Msg.setResponseMessage('error', 'Cannot request invoice', response);
@@ -66,7 +65,7 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
             function (dialog, response) {
                 Msg.setResponseMessage('info', 'Pledges succesfully deleted', response);
                 dialog.close();
-                table.reload();
+                $scope.$broadcast('invoicetable', 'sourcing_pledges');
             },
             function (dialog, response) {
                 Msg.setResponseMessage('error', response.data.message.text, response);
