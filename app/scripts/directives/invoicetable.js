@@ -86,7 +86,12 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
 
             // wait for reload event
             $scope.$on('invoicetable', function (e, id) {
-                $scope.id === id && $scope.invoiceTable.reload();
+                if ($scope.id === id) {
+                    angular.forEach($scope.checkboxes.items, function (item, key) {
+                        $scope.checkboxes.items[key] = false;
+                    });
+                    $scope.invoiceTable.reload();
+                }
             });
 
             // watch for check all checkbox
