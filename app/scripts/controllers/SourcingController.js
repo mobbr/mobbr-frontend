@@ -59,7 +59,7 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
 
     $scope.removePledgesDialog = function (ids, items, table) {
         invoiceDialog(
-            Dashboard.deletePayment,
+            Dashboard.revokePledge,
             'remove_pledges_popup',
             { ids: ids },
             function (dialog, response) {
