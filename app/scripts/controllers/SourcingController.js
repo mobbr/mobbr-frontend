@@ -5,8 +5,9 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
     $scope.Sourcing = Sourcing;
     $scope.Dashboard = Dashboard;
 
-    $scope.openPayment = function (id) {
-        $location.path('/payment/' + id);
+    $scope.openPayment = function (item) {
+        console.log(item);
+        $location.path('/payment/' + (item.payment_id || item.id));
     }
 
     $scope.cancelInvoices = function (ids, items, table) {

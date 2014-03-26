@@ -17,7 +17,8 @@
                               button-text="'Confirm invoices'"
                               button-action="confirmInvoices"
                               group-by="'title'"
-                              selectable="1"></invoicetable>
+                              selectable="1"
+                              click-row="openPayment"></invoicetable>
             </accordion-group>
         </accordion>
     </pane>
@@ -36,7 +37,8 @@
                               button-text="'Download invoices'"
                               button-action="downloadInvoices"
                               group-by="'title'"
-                              selectable="1"></invoicetable>
+                              selectable="1"
+                              click-row="openPayment"></invoicetable>
             </accordion-group>
         </accordion>
     </pane>
@@ -58,8 +60,7 @@
                 <invoicetable id="working_historic_tasks"
                               columns="[ 'gravatar', 'username', 'datetime', 'role', 'currency', 'amount' ]"
                               api="Working.urls"
-                              group-by="'title'"
-                              click-row="openPayment"></invoicetable>
+                              group-by="'title'"></invoicetable>
             </accordion-group>
         </accordion>
     </pane>

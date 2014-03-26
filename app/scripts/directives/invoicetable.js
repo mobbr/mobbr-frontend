@@ -25,8 +25,6 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
             var reqparams = {},
                 sorting = {};
 
-            console.log($scope.id);
-
             sorting[$scope.sort || 'datetime'] = $scope.order || 'desc';
 
             if ($scope.action) {
