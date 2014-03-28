@@ -159,6 +159,8 @@ angular.module('mobbr', [
           templateUrl: 'views/siteconnector.html'
         }).when('/features', {
           templateUrl: 'views/features.html'
+        }).when('/gettingstarted', {
+          templateUrl: 'views/gettingstarted.html'
         }).when('/company', {
           templateUrl: 'views/company.html'
         }).when('/validator', {
