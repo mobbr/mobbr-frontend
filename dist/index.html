@@ -6,8 +6,8 @@
 <!--[if gt IE 9]><html xmlns:ng="http://angularjs.org"> <![endif]-->
 <!--[if !IE]><!--><html xmlns:ng=http://angularjs.org> <!--<![endif]-->
     <head>
-        <script>var api_url = 'https://api.mobbr.com';</script>
-        <script src="scripts/4e29b6c3.combined-head.js"></script>
+
+        <script src="scripts/8cc92118.combined-head.js"></script>
         <!--[if lte IE 8]>
         <script>
             document.createElement('ng-include');
@@ -42,16 +42,26 @@
         <meta name=description content="Welcome to MOBBR, the world's first crowdpayment system. Start sharing rewards and donations in bitcoin, XRP, social currencies and FIAT currencies.">
         <link href="//fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700" rel=stylesheet>
         <link href="//fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel=stylesheet>
-        <link rel="stylesheet" href="styles/302af113.style.css"/>
+        <link rel="stylesheet" href="styles/f6c3c9bc.style.css"/>
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-46675002-1', 'mobbr.com');
+          ga('send', 'pageview');
+
+        </script>
     
-    <body ng-app=mobbr id=ng-app class=ng-app:mobbr idle-timeout="">
-        <!--[if lt IE 8]>
+    <body ng-app=mobbr id=ng-app idle-timeout="" ng-class="{ 'mobbr-test': isTest() !== -1, 'ng-app': true, 'loading': loading }">
+        <!--[if lt IE 10]>
         <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser
             today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better
             experience this site. {{showMobbrFrame}}</p>
         <![endif]-->
         <!--[if lt IE 9]>
-        <script src="scripts/d93194e2.combined-ie.js"></script>
+        <script src="scripts/434069b2.combined-ie.js"></script>
         <![endif]-->
         <div class=pusher>
             <!--<div class="beta">
@@ -60,7 +70,7 @@
             <header class="navbar navbar-fixed-top">
                 <nav class=navbar-inner>
                     <ul class=nav>
-                        <li><a href=#/><img src=img/logo-mobbr.png></a></li>
+                        <li><a href="#/"><img src=img/logo-mobbr.png></a></li>
                     </ul>
 
                     <ul class="nav pull-right ng-cloak" ng-switch="" on=userSession.authenticated ng-show=true>
@@ -69,16 +79,16 @@
                             <ul class=dropdown-menu>
                                 <li class=nav-header></li>
                                 <li>
-                                    <form ng-submit=login() name=head-login ng-controller=LoginController autocomplete=off>
-                                        <input ng-model=email type=email name=email placeholder="email address" autocomplete=off>
-                                        <input ng-model=password type=password name=password placeholder=password autocomplete=off>
+                                    <form ng-submit=login() name=head-login ng-controller=LoginController form-autofill-fix="">
+                                        <input ng-model=email type=email name=email placeholder="email address" auto-fill-sync="">
+                                        <input ng-model=password type=password name=password placeholder=password auto-fill-sync="">
                                         <button ng-disabled=waiting type=submit class=btn><i class="icon-white mobbrloader" ng-show=waiting></i> Log in</button>
                                     </form>
                                 </li>
                                 <li class=divider></li>
                                 <li><a class=nav-header href=#/join>Register / new user</a></li>
                                 <li class=divider></li>
-                                <li><a class=nav-header href=#/recover>Recover password</a></li>
+                                <li><a class=nav-header href=#/recover>Password forgotten</a></li>
                             </ul>
                         </li>
 
@@ -87,6 +97,9 @@
                                 <li user-settings="" class=dropdown>
                                     <a class=dropdown-toggle><span ng-bind=userSession.user.username></span> <img ng-src="{{ userSession.user.thumbnail }}" style="height: 30px" class="img-rounded user-thumb"> <b class=caret></b></a>
                                     <ul class=dropdown-menu ng-controller=LoginController>
+                                        <li><a href=#/wallet><i class=icon-inbox></i> Wallet</a></li>
+                                        <li><a href=#/taskboard><i class=icon-calendar></i> Taskboard</a></li>
+                                        <!--<li><a href=""><i class="icon-eye-open"></i> Sourcing</a></li>-->
                                         <li><a href=#/settings><i class=icon-wrench></i> Settings</a></li>
                                         <li><a ng-click=logout()><i class=icon-lock></i> Log out</a></li>
                                     </ul>
@@ -100,19 +113,18 @@
             <section class="navbar navbar-inverse navbar-static-top">
                 <nav class=navbar-inner>
                     <ul class=nav>
-                        <li><a href=#/dashboard>Your wallet</a></li>
+                        <!--<li><a href="#/taskboard">Find work</a></li>-->
                         <li><a href=#/claimpayment>Claim payment</a></li>
                         <li><a href=#/generatebutton>Create button</a></li>
-                        <li class=dropdown>
-                            <a class=dropdown-toggle>More <b class=caret></b></a>
+                        <li class=dropdown style="min-width: 0">
+                            <a class=dropdown-toggle>Information <b class=caret></b></a>
                             <ul class=dropdown-menu>
-                                <!--<li><a target="_blank" href="http://blog.mobbr.com/2013/03/to-boldly-start-economy-that-no-one-has.html">Our manifesto →</a></li>-->
-                                <!--<li><a target="_blank" href="http://community.mobbr.com/">Together we are legion →</a></li>-->
-                                <li><a href=#/company>About us</a></li>
-                                <!--<li><a href="#/partnering">Partnering</a></li>-->
-                                <li><a href=#/consumers>Using Mobbr</a></li>
+                                <li><a href=#/company>Company</a></li>
+                                <li><a href=#/features>Features</a></li>
+                                <li><a target=_blank href=https://plus.google.com/communities/100962413817465214183>Community →</a></li>
                                 <li class=divider></li>
-                                <li><a href=#/buttons>Developers guide</a></li>
+                                <li><a href=#/tools>Tools</a></li>
+                                <li><a href=#/integration>Integration</a></li>
                                 <li><a target=_blank href=https://api.mobbr.com>API →</a></li>
                                 <li><a target=_blank href=/protocol.html>Script-syntax →</a></li>
                                 <!--<li class="divider"></li>-->
@@ -124,8 +136,8 @@
                             </ul>
                         </li>
                         <li><a target=_blank href=https://twitter.com/mobbrcom><img class=customicon src=img/icon-twitter.png></a></li>
-                        <li><a target=_blank href=https://plus.google.com/communities/100962413817465214183><img class=customicon src=img/icon-gplus.png></a></li>
-                        <!--<li><a target="_blank" href="http://blog.mobbr.com/"><img class="customicon" src="img/4cc4472f.icon-rss.png"></a></li>-->
+                        <li><a target=_blank href=https://plus.google.com/+Mobbrcom><img class=customicon src=img/icon-gplus.png></a></li>
+                        <li><a target=_blank href=http://blog.mobbr.com><img class=customicon src=img/icon-rss.png></a></li>
                     </ul>
 
                     <div ng-controller=MobbrNowController>
@@ -142,17 +154,28 @@
             <div class="container main">
                 <div ng-view="" id=wrapper class=row-fluid></div>
             </div>
-        </div>
 
-        <form ng-show=false action={{api_url}}/gateway/ target=mobbr_frame id=mobbr_frm_1 method=POST>
-            <input value=true name=using_lightbox type=hidden>
-            <input value={{location}} name=data type=hidden>
-        </form>
+            <footer class=sitefooter>
+<!--                <div class="container">
+                    <div class="row-fluid">
+                        <div class="span4">
+                            Logo's
+                        </div>
+                        <div class="span4">
+                            Logo's
+                        </div>
+                        <div class="span4">
+                            en nog meer logo's
+                        </div>
+                    </div>
+               </div>-->
+            </footer>
+        </div>
 
         <!--<script type="text/javascript" src="https://jira.mobbr.com/s/en_US-v1z3lw-418945332/854/4/1.2.9/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?collectorId=cf50ef21"></script>-->
 
-        <script src="scripts/a3269f1a.combined.js"></script>
-        <script src="scripts/5fbd118d.mobbr-core.js"></script>
-        <script src="scripts/24abde4b.mobbr-www.js"></script>
+        <script src="scripts/a865e05e.combined.js"></script>
+        <script src="scripts/54b37e7f.mobbr-core.js"></script>
+        <script src="scripts/889aff6a.mobbr-www.js"></script>
         <script src=/mobbr-button.js></script>
     

@@ -1,337 +1,461 @@
-     <style>
-         .mobbr-checkbox{
-             display: table-row;
-             overflow: hidden;
-         }
-         .mobbr-checkbox label {
-             display: table-cell;
-             padding-left:10px;
-         }
+<tabs>
+<pane heading="Account">
+    <div class="row-fluid">
+        <div class="well span12 special">
+            <small>We use gravatars, linked to your email address. Create your profile <a target="_blank" href="http://gravatar.com">here</a>.</small>
+        </div>
+    </div>
+    <form name="changeemail" class="form-horizontal" novalidate>
 
-         .unstyled::-webkit-inner-spin-button,
-         .unstyled::-webkit-calendar-picker-indicator {
-             display: none;
-             -webkit-appearance: none;
-         }
+        <div class="control-group">
 
+            <div class="control-label">
+                <label>Username</label>
+            </div>
 
+            <div class="controls">
+                <input ng-model="user.username" name="username" type="text" ng-disabled="true">
+            </div>
+        </div>
 
-     </style>
-    <tabs>
-        <pane heading="Account">
-            <form name="changeemail" class="form-horizontal" novalidate>
+        <div class="control-group">
 
-                <div class="control-group">
+            <div class="control-label">
+                <label>E-mail address</label>
+            </div>
 
-                    <div class="control-label">
-                        <label>Username</label>
-                    </div>
+            <div class="controls">
+                <input ng-model="new_email" name="email" type="email" required>
+                <span ng-show="changeemail.email.$dirty && changeemail.email.$error.required" class="help-inline">Enter a email address.</span>
+                <span ng-show="changeemail.email.$dirty && changeemail.email.$error.email" class="help-inline">Enter a valid email address.</span>
+            </div>
+        </div>
 
-                    <div class="controls">
-                        <input ng-model="user.username" name="username" type="text" ng-disabled="true">
-                    </div>
+        <div class="control-group">
+            <div class="controls">
+                <button ng-click="submitEmail(changeemail)"
+                        ng-disabled="waitingemail || !changeemail.$valid || user.email == new_email"
+                        type="submit"
+                        class="btn btn-success">
+                    <i class="icon-white mobbrloader" ng-show="waitingemail"></i>
+                    Change email address
+                </button>
+            </div>
+        </div>
+    </form>
+    <form name="changepassword" class="form-horizontal" novalidate>
+        <div class="control-group">
+
+            <div class="control-label">
+                <label for="new_password">New password</label>
+            </div>
+
+            <div class="controls">
+                <input ng-model="new_password" id="new_password" name="new_password" type="password" required ng-pattern="/^.*(?=.{8,})(?=.*\d)(?=.*[a-z]).*$/">
+                <span ng-show="changepassword.new_password.$dirty && changepassword.new_password.$error.required" class="help-inline">Enter a new password</span>
+                <span ng-show="changepassword.new_password.$dirty && changepassword.new_password.$error.pattern" class="help-inline">Minimal 8 charactes, uppercase, lowercase and numbers</span>
+            </div>
+        </div>
+
+        <div class="control-group">
+
+            <div class="control-label">
+                <label for="new_password2">New password again</label>
+            </div>
+
+            <div class="controls">
+                <input name="new_password2" id="new_password2" ng-model="new_password_control" type="password" required pw-check="new_password">
+                <span ng-show="changepassword.new_password2.$dirty && changepassword.new_password2.$error.pwmatch" class="help-inline">Passwords do not match</span>
+            </div>
+        </div>
+
+        <!--<div class="control-group">
+
+            <div class="control-label">
+                <label for="password">Your current password</label>
+            </div>
+
+            <div class="controls">
+                <input ng-model="password" id="password" name="current_password" type="password" required>
+                <span ng-show="changepassword.current_password.$dirty && changepassword.password.$error.required" class="help-inline">Enter your current password</span>
+            </div>
+        </div>-->
+
+        <div class="control-group">
+            <div class="controls">
+                <button ng-click="submitPassword(changepassword)"
+                        ng-disabled="!changepassword.$valid || waitingpassword"
+                        type="submit"
+                        class="btn btn-success">
+                    <i class="icon-white mobbrloader" ng-show="waitingpassword"></i>
+                    Change password
+                </button>
+            </div>
+        </div>
+    </form>
+</pane>
+
+<pane heading="Identity">
+    <div ng-show="user.kyc_level == 'none'" class="row-fluid">
+        <div class="well span12 special">
+            <small>Without this information, you cannot use our FIAT-currencies (USD, GBP, CHF, SEK, NOK, DKK, EUR, PLN). These restrictions do not apply to other currencies.</small>
+        </div>
+    </div>
+    <div ng-show="user.kyc_level == 'regular'" class="row-fluid">
+        <div class="well span12 special">
+            <small>This information can no longer be changed because you have a confirmed identity.</small>
+        </div>
+    </div>
+    <iframe ng-show="user.kyc_level == 'none'" style="width: 99%;" class="eula" src="https://api.mobbr.com/mangopay-terms-of-use.txt"></iframe>
+    <form name="security" class="form-horizontal">
+
+        <div ng-show="user.kyc_level == 'none'" style="padding-bottom: 25px; margin-bottom: 20px; border-bottom: 1px solid #009ee0; ">
+            <label class="checkbox">
+                <input type="checkbox" ng-model="accept_mango">
+                I accept these terms
+            </label>
+        </div>
+
+        <div class="control-group">
+            <div class="control-label">
+                <label for="firstname">First name</label>
+            </div>
+
+            <div class="controls">
+                <input ng-model="user.firstname" name="firstname" type="text" id="firstname" placeholder="e.g. John">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="control-label">
+                <label for="lastname">Last name</label>
+            </div>
+
+            <div class="controls">
+                <input ng-model="user.lastname" name="lastname" type="text" id="lastname" placeholder="e.g. Smith">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="control-label">
+                <label for="birthday">Birth day</label>
+            </div>
+
+            <div class="controls">
+                <input ng-model="user.birthday" name="birthday" type="date" id="birthday" placeholder="e.g. 1966-08-17" class="unstyled" >
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="control-label">
+                <label for="address">Address</label>
+            </div>
+
+            <div class="controls">
+                <input ng-model="user.address" name="address" type="text" id="address" placeholder="e.g. Sesame Street, Manhattan">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="control-label">
+                <label for="country_of_residence">Country of residence</label>
+            </div>
+
+            <div class="controls">
+                <select id="country_of_residence" name="country_of_residence" ng-model="user.country_of_residence"
+                        ng-options="value as key for (value, key) in countriesMap | orderBy: 'key'">
+                    <option value="">No country</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="control-label">
+                <label for="nationality">Country of birth</label>
+            </div>
+
+            <div class="controls">
+                <select id="nationality" name="nationality" ng-model="user.nationality"
+                        ng-options="value as key for (value, key) in countriesMap">
+                    <option value="">No country</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <button ng-disabled="waitingsettings || (user.kyc_level == 'none' && !accept_mango) || security.$pristine" ng-click="submitSettings()" class="btn btn-success">
+                    <i class="icon-white mobbrloader" ng-show="waitingsettings"></i>
+                    <span ng-bind="user.kyc_level == 'none' && 'Enable FIAT currencies' || 'Update'"></span>
+                </button>
+            </div>
+        </div>
+    </form>
+</pane>
+
+<pane heading="Proof">
+    <div ng-show="user.kyc_level != 'regular'" class="row-fluid">
+        <div class="well span12 special">
+            <small>Without this information, your account is limited to receive max. €2,500 (or equivalent) and/or send max. €1,000 (or equivalent), cumulated per legal year. These limits only apply to the USD, GBP, CHF, SEK, NOK, DKK, EUR, PLN currencies.</small>
+        </div>
+    </div>
+    <div ng-show="user.kyc_level == 'regular'" class="row-fluid">
+        <div class="well span12 special">
+            <small>This information can no longer be changed because you have a confirmed identity.</small>
+        </div>
+    </div>
+    <form name="kyc_regular" class="form-horizontal">
+
+        <fieldset ng-disabled="$parent.user.kyc_level == 'none'">
+            <div class="control-group">
+                <div class="control-label">
+                    <label for="identity_proof"></label>
                 </div>
 
-                <div class="control-group">
-
-                    <div class="control-label">
-                        <label>E-mail address</label>
-                    </div>
-
-                    <div class="controls">
-                        <input ng-model="new_email" name="email" type="email" required>
-                        <span ng-show="changeemail.email.$dirty && changeemail.email.$error.required" class="help-inline">Enter a email address.</span>
-                        <span ng-show="changeemail.email.$dirty && changeemail.email.$error.email" class="help-inline">Enter a valid email address.</span>
-                    </div>
-                </div>
-
-                <div class="control-group">
-                    <div class="controls">
-                        <button ng-click="submitEmail(changeemail)"
-                                ng-disabled="waitingemail || !changeemail.$valid || user.email == new_email"
-                                type="submit"
-                                class="btn btn-success">
-                            <i class="icon-white mobbrloader" ng-show="waitingemail"></i>
-                            Change email address
-                        </button>
-                    </div>
-                </div>
-            </form>
-            <form name="changepassword" class="form-horizontal" novalidate>
-                <div class="control-group">
-
-                    <div class="control-label">
-                        <label for="new_password">New password</label>
-                    </div>
-
-                    <div class="controls">
-                        <input ng-model="new_password" id="new_password" name="new_password" type="password" required ng-pattern="/^.*(?=.{8,})(?=.*\d)(?=.*[a-z]).*$/">
-                        <span ng-show="changepassword.new_password.$dirty && changepassword.new_password.$error.required" class="help-inline">Enter a new password</span>
-                        <span ng-show="changepassword.new_password.$dirty && changepassword.new_password.$error.pattern" class="help-inline">Minimal 8 charactes, uppercase, lowercase and numbers</span>
-                    </div>
-                </div>
-
-                <div class="control-group">
-
-                    <div class="control-label">
-                        <label for="new_password2">New password again</label>
-                    </div>
-
-                    <div class="controls">
-                        <input name="new_password2" id="new_password2" ng-model="new_password_control" type="password" required pw-check="new_password">
-                        <span ng-show="changepassword.new_password2.$dirty && changepassword.new_password2.$error.pwmatch" class="help-inline">Passwords do not match</span>
-                    </div>
-                </div>
-
-                <!--<div class="control-group">
-
-                    <div class="control-label">
-                        <label for="password">Your current password</label>
-                    </div>
-
-                    <div class="controls">
-                        <input ng-model="password" id="password" name="current_password" type="password" required>
-                        <span ng-show="changepassword.current_password.$dirty && changepassword.password.$error.required" class="help-inline">Enter your current password</span>
-                    </div>
-                </div>-->
-
-                <div class="control-group">
-                    <div class="controls">
-                        <button ng-click="submitPassword(changepassword)"
-                                ng-disabled="!changepassword.$valid || waitingpassword"
-                                type="submit"
-                                class="btn btn-success">
-                            <i class="icon-white mobbrloader" ng-show="waitingpassword"></i>
-                            Change password
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </pane>
-
-        <pane heading="Access">
-            <div ng-show="user.kyc_level == 'none'" class="row-fluid">
-                <div class="well span12 special">
-                    <small>Without this information, you cannot use our FIAT-currencies (USD, GBP, CHF, SEK, NOK, DKK, EUR, PLN). These restrictions do not apply to other currencies.</small>
+                <div class="controls">
+                    <input ng-model="user.mangopay_identity_proof" name="identity_proof" id="identity_proof" type="text" ng-disabled="true">
                 </div>
             </div>
-            <div ng-show="user.kyc_level != 'none'" class="row-fluid">
-                <div class="well span12 special">
-                    <small>This information gives you access to our FIAT-currencies (USD, GBP, CHF, SEK, NOK, DKK, EUR, PLN) in addition to BTC and virtual currencies.</small>
+            <div class="control-group">
+                <div class="control-label">
+                    <label for="occupation">Occupation</label>
+                </div>
+
+                <div class="controls">
+                    <input ng-model="user.occupation" name="occupation" type="text" id="occupation" placeholder="e.g. Web-designer">
                 </div>
             </div>
-            <iframe ng-show="user.kyc_level == 'none'" style="width: 99%;" class="eula" src="https://api.mobbr.com/mangopay-terms-of-use.txt"></iframe>
-            <form name="security" class="form-horizontal">
 
-                <div ng-show="user.kyc_level == 'none'" style="padding-bottom: 25px; margin-bottom: 20px; border-bottom: 1px solid #009ee0; ">
-                    <label class="checkbox">
-                        <input type="checkbox" ng-model="accept_mango">
-                        I accept these terms
-                    </label>
+            <div class="control-group">
+                <div class="control-label">
+                    <label for="income_range">Income range</label>
                 </div>
 
-                <div class="control-group">
-                    <div class="control-label">
-                        <label for="firstname">First name</label>
-                    </div>
-
-                    <div class="controls">
-                        <input ng-model="user.firstname" name="firstname" type="text" id="firstname" placeholder="e.g. John">
-                    </div>
-                </div>
-
-                <div class="control-group">
-                    <div class="control-label">
-                        <label for="lastname">Last name</label>
-                    </div>
-
-                    <div class="controls">
-                        <input ng-model="user.lastname" name="lastname" type="text" id="lastname" placeholder="e.g. Smith">
-                    </div>
-                </div>
-
-                <div class="control-group">
-                    <div class="control-label">
-                        <label for="birthday">Birth day (YYYY-MM-DD)</label>
-                    </div>
-
-                    <div class="controls">
-                        <input ng-model="user.birthday" name="birthday" type="text" id="birthday" placeholder="e.g. 1966-08-17" class="unstyled" >
-                    </div>
-                </div>
-
-                <div class="control-group">
-                    <div class="control-label">
-                        <label for="country_of_residence">Country of residence</label>
-                    </div>
-
-                    <div class="controls">
-                        <select id="country_of_residence" name="country_of_residence" ng-model="user.country_of_residence"
-                                ng-options="value as key for (value, key) in countriesMap">
-                            <option value="">No country</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="control-group">
-                    <div class="control-label">
-                        <label for="nationality">Country of birth</label>
-                    </div>
-
-                    <div class="controls">
-                        <select id="nationality" name="nationality" ng-model="user.nationality"
-                                ng-options="value as key for (value, key) in countriesMap">
-                            <option value="">No country</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="control-group">
-                    <div class="controls">
-                        <button ng-disabled="waitingsettings || (user.kyc_level == 'none' && !accept_mango)" ng-click="submitSettings()" class="btn btn-success">
-                            <i class="icon-white mobbrloader" ng-show="waitingsettings"></i>
-                            <span ng-bind="user.kyc_level == 'none' && 'Enable FIAT currencies' || 'Update'"></span>
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </pane>
-
-        <pane heading="Limits">
-            <div class="row-fluid">
-                <div class="well span12 special">
-                    <small>Without this information, your account is limited to receive max. €2,500 (or equivalent) and/or send max. €1,000 (or equivalent), cumulated per legal year. These limits only apply to the USD, GBP, CHF, SEK, NOK, DKK, EUR, PLN currencies.</small>
+                <div class="controls">
+                    <select id="income_range" name="income_range" ng-model="user.income_range"
+                            ng-options="value as key for (value, key) in incomerangeMap">
+                        <option value="">No range</option>
+                    </select>
                 </div>
             </div>
-            Not yet implemented.
-        </pane>
 
-        <pane heading="Display">
-            <form name="security" class="form-horizontal">
-
-                <div class="control-group">
-
-                    <div class="control-label">
-                        <label>Default currency</label>
-                    </div>
-
-                    <div class="controls">
-
-                        <select
-                                ng-model="formData.currencyIndex"
-                                name="currency_iso"
-                                ng-options="cur.description for cur in currencieArray"
-                                title="the currency to which other currencies are converted when displayed">
-
-
-                                </select>
-                        <span class="help-inline"></span>
-
-                    </div>
+            <div class="control-group">
+                <div class="control-label">
+                    <label for="identity_proof_upload">Upload scan of ID</label>
                 </div>
 
-                <div class="control-group">
-
-                    <div class="control-label">
-                        <label>Language</label>
-                    </div>
-
-                    <div class="controls">
-                        <select ng-options="lan.description for lan in languageArray"
-                                ng-model="formData.languageIndex"
-                                title="the available languages">
-                        </select>
-
-                        <span class="help-inline"></span>
-
-                    </div>
-                </div>
-
-                <div class="control-group">
-
-                    <div class="control-label">
-                        <label for="timezone">Timezone</label>
-                    </div>
-
-                    <div class="controls">
-                        <select ng-model="user.timezone" name="timezone" id="timezone"
-                                ng-options="value as key for (value,key ) in timezones">
-
-                        </select>
-                    </div>
-                </div>
-
-                <div class="control-group">
-                    <div class="controls">
-                        <button ng-disabled="waitingsettings" ng-click="submitSettings()" class="btn btn-success">
-                            <i class="icon-white mobbrloader" ng-show="waitingsettings"></i>
-                            Save
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </pane>
-
-        <pane heading="Privacy" class="privacy-settings">
-            <form name="primary" class="form-horizontal">
-
-                <div class="special well labelwidth pull-left"></div>
-
-                <div class="control-group" ng-repeat="model in settingsArray" ng-show="model.key.indexOf('hide') == 0">
-                    <div class="controls" >
-                        <div class="mobbr-checkbox">
-                            <input type="checkbox" ng-model="model.value" title="{{getLabelFor(model.key)}}" id="{{model.key}}" ng-click="updateSetting(model)" >
-
-                            <label for="{{model.key}}">{{getLabelFor(model.key)}}</label>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="control-group">
-                    <div class="controls">
-                        <button ng-disabled="waitingsettings" ng-click="submitSettings()" class="btn btn-success">
-                            <i class="icon-white mobbrloader" ng-show="waitingsettings"></i>
-                            Save
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </pane>
-
-        <pane heading="Notifications" class="privacy-settings">
-            <form name="notifications" class="form-horizontal">
-
-                <div class="special well labelwidth pull-left"></div>
-
-                <div class="control-group" ng-repeat="model in settingsArray" ng-show="model.key.indexOf('send') == 0">
-                    <div class="controls" >
-                        <div class="mobbr-checkbox">
-                            <input type="checkbox" ng-model="model.value" title="{{getLabelFor(model.key)}}" id="{{model.key}}" ng-click="updateSetting(model)" >
-
-                            <label for="{{model.key}}">{{getLabelFor(model.key)}}</label>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="control-group">
-                    <div class="controls">
-                        <button ng-disabled="waitingsettings" ng-click="submitSettings()" class="btn btn-success">
-                            <i class="icon-white mobbrloader" ng-show="waitingsettings"></i>
-                            Save
-                        </button>
-                    </div>
-                </div>
-            </form>
-
-        </pane>
-        <pane heading="Avatar">
-            <div class="row-fluid">
-                <div class="well span12 special">
-                    <small>We use gravatars, linked to your email address. Create your profile <a href="http://gravatar.com">here</a>.</small>
+                <div class="controls">
+                    <input ng-model="user.mangopay_identity_proof_upload" id="identity_proof_upload" name="identity_proof_upload" type="file"
+                           ng-file-select="uploadIdentityProof($files)">
                 </div>
             </div>
-        </pane>
 
-    </tabs>
+            <div class="control-group">
+                <div class="controls">
+                    <button ng-disabled="waitingsettings || kyc_regular.$pristine" ng-click="submitSettings()" class="btn btn-success">
+                        <i class="icon-white mobbrloader" ng-show="waitingsettings"></i>
+                        Update
+                    </button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</pane>
+
+<pane heading="Invoicing">
+    <div class="row-fluid">
+        <div class="well span12 special">
+            <small>We will generate invoices on your behalve, using this information. Make sure it is in compliance with your countries tax laws.</small>
+        </div>
+    </div>
+    <form name="invoicing" class="form-horizontal">
+
+        <div class="control-group">
+            <div class="control-label">
+                <label for="company-name">Company name</label>
+            </div>
+
+            <div class="controls">
+                <input ng-model="user.companyname" name="companyname" type="text" id="company-name" placeholder="e.g. Google">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="control-label">
+                <label for="vat-number">VAT-number</label>
+            </div>
+
+            <div class="controls">
+                <input ng-model="user.vat_number" name="vat-number" type="text" id="vat-number" placeholder="e.g. NL001234567B01">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="control-label">
+                <label for="vat-rate">VAT-rate (%)</label>
+            </div>
+
+            <div class="controls">
+                <input ng-model="user.vat_rate" name="vat-rate" type="text" id="vat-rate" placeholder="e.g. 21">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="control-label">
+                <label for="invoice-prefix">Invoice number prefix</label>
+            </div>
+
+            <div class="controls">
+                <input ng-model="user.invoice_numbering_prefix" name="invoice-prefix" type="text" id="invoice-prefix" placeholder="e.g. COMPANY-">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="control-label">
+                <label for="invoice-postfix">Invoice number postfix</label>
+            </div>
+
+            <div class="controls">
+                <input ng-model="user.invoice_numbering_postfix" name="invoice-postfix" type="text" id="invoice-postfix" placeholder="">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="control-label">
+                <label for="invoice-number">Example invoice number</label>
+            </div>
+
+            <div class="controls">
+                <input ng-value="user.invoice_numbering_prefix + '23580' + user.invoice_numbering_postfix" name="invoice-number" id="invoice-number" type="text" ng-disabled="true">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <button ng-disabled="waitingsettings || invoicing.$pristine" ng-click="submitSettings()" class="btn btn-success">
+                    <i class="icon-white mobbrloader" ng-show="waitingsettings"></i>
+                    Save
+                </button>
+            </div>
+        </div>
+    </form>
+</pane>
+
+<pane heading="Display">
+    <form name="security" class="form-horizontal">
+
+        <div class="control-group">
+
+            <div class="control-label">
+                <label>Default currency</label>
+            </div>
+
+            <div class="controls">
+
+                <select
+                        ng-model="formData.currencyIndex"
+                        name="currency_iso"
+                        ng-options="cur.description for cur in currencyArray"
+                        title="the currency to which other currencies are converted when displayed">
+
+
+                </select>
+                <span class="help-inline"></span>
+
+            </div>
+        </div>
+
+        <div class="control-group">
+
+            <div class="control-label">
+                <label>Language</label>
+            </div>
+
+            <div class="controls">
+                <select ng-options="lan.description for lan in languageArray"
+                        ng-model="formData.languageIndex"
+                        title="the available languages">
+                </select>
+
+                <span class="help-inline"></span>
+
+            </div>
+        </div>
+
+        <div class="control-group">
+
+            <div class="control-label">
+                <label for="timezone">Timezone</label>
+            </div>
+
+            <div class="controls">
+                <select ng-model="user.timezone" name="timezone" id="timezone"
+                        ng-options="value as key for (value,key ) in timezones">
+
+                </select>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <button ng-disabled="waitingsettings || security.$pristine" ng-click="submitSettings()" class="btn btn-success">
+                    <i class="icon-white mobbrloader" ng-show="waitingsettings"></i>
+                    Save
+                </button>
+            </div>
+        </div>
+    </form>
+</pane>
+
+<pane heading="Privacy" class="privacy-settings">
+    <form name="primary" class="form-horizontal">
+
+        <div class="special well labelwidth pull-left"></div>
+
+        <div class="control-group" ng-repeat="model in settingsArray" ng-show="model.key.indexOf('hide') == 0">
+            <div class="controls" >
+                <div class="mobbr-checkbox">
+                    <input type="checkbox" ng-model="model.value" title="{{ settingsLabels[model.key] }}" id="{{ model.key }}" ng-click="updateSetting(model)" >
+                    <label for="{{ model.key }}">{{ settingsLabels[model.key] }}</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <button ng-disabled="waitingsettings || primary.$pristine" ng-click="submitSettings()" class="btn btn-success">
+                    <i class="icon-white mobbrloader" ng-show="waitingsettings"></i>
+                    Save
+                </button>
+            </div>
+        </div>
+    </form>
+</pane>
+
+<pane heading="Notifications" class="privacy-settings">
+    <form name="notifications" class="form-horizontal">
+
+        <div class="special well labelwidth pull-left"></div>
+
+        <div class="control-group" ng-repeat="model in settingsArray" ng-show="model.key.indexOf('send') == 0">
+            <div class="controls" >
+                <div class="mobbr-checkbox">
+                    <input type="checkbox" ng-model="model.value" title="{{ settingsLabels[model.key] }}" id="{{model.key}}" ng-click="updateSetting(model)" >
+                    <label for="{{ model.key }}">{{ settingsLabels[model.key] }}</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <button ng-disabled="waitingsettings || notifications.$pristine" ng-click="submitSettings()" class="btn btn-success">
+                    <i class="icon-white mobbrloader" ng-show="waitingsettings"></i>
+                    Save
+                </button>
+            </div>
+        </div>
+    </form>
+
+</pane>
+
+</tabs>

@@ -1,38 +1,39 @@
 'use strict';
 
 angular.module('mobbr.services.mbr-api', [
-
         'ngResource'
+    ]).factory('User', function ($resource, apiUrl) {
 
-    ]).factory('User', function ($resource) {
-
-        return $resource(api_url + '/api/user/:action',{},{
+        return $resource(apiUrl + '/api/user/:action',{},{
             setPassword: {method: 'POST',params : {action:'update_password'},isArray:false},
             register: {method: 'PUT',params :{action:'register_user_send_login_link'}, isArray:false},
             recover: {method: 'GET',params :{email:'email',username:'username',action:'send_login_link'},isArray:false},
             login: {method: 'PUT',params : {action:'password_login'},isArray:false},
-            get: {method: 'GET',params :{action:'logged_in_user'},isArray:false},
+            get: {method: 'GET',params :{action:'ping'},isArray:false},
             save: {method: 'POST',params :{action:'update_user'}},
             linkLogin: {method: 'PUT',params :{action:'link_login'}},
             logout: {method: 'DELETE',params :{action:'logout'}},
             updateEmail: {method: 'POST',params :{action:'update_email'}},
             confirmEmail: {method: 'POST',params :{action:'confirm_email'}},
-            updatePassword: {method: 'POST',params :{action:'update_password'}}
+            updatePassword: {method: 'POST',params :{action:'update_password'}},
+            uploadID: {method: 'PUT',params :{action:'upload_identity_proof'}}
         });
 
-    }).factory('Dashboard', function ($resource) {
+    }).factory('Dashboard', function ($resource, apiUrl) {
 
-        return $resource(api_url + '/api/dashboard/:action',{},{
+        return $resource(apiUrl + '/api/dashboard/:action',{},{
             getPayments: {method: 'GET',params: { action: 'type'},isArray:false},
             savePayment: {method: 'PUT',params: {action: 'finalize_payments'}},
             deletePayment: {method: 'POST',params: {action: 'delete_payments'}},
+            revokePledge: {method: 'POST',params: {action: 'delete_pledges'}},
             withdraw: {method: 'POST',params: {action: 'send_external_payment'}},
-            getCurrencies: {method: 'GET',params: { action: 'currencies'},isArray:false}
+            getCurrencies: {method: 'GET',params: { action: 'currencies'},isArray:false},
+            getExternalPaymentReceipt: {method: 'GET', params: { id: 'id', action: 'external_payment'}, isArray: false}
         });
 
-    }).factory('Domain', function ($resource) {
+    }).factory('Domain', function ($resource, apiUrl) {
 
-        return $resource(api_url + '/api/domain/:action',{},{
+        return $resource(apiUrl + '/api/domain/:action',{},{
             getPayments: {method: 'GET',params: { action: 'payments'},isArray:false},
             getLocations: {method: 'GET',params: {action: 'locations'},isArray:false},
             getPersons: {method: 'GET',params: {action: 'persons'},isArray:false},
@@ -42,69 +43,106 @@ angular.module('mobbr.services.mbr-api', [
             getUnclaimed: {method: 'GET',params: {domain:'domain',action: 'unclaimed_urls'},isArray:false}
         });
 
-    }).factory('Claim', function ($resource) {
+    }).factory('Claim', function ($resource, apiUrl) {
 
-        return $resource(api_url + '/api/claim/:action',{},{
+        return $resource(apiUrl + '/api/claim/:action',{},{
             paymentDescription: {method: 'GET',params: {action: 'payment_script'},isArray:false},
             checkUrl: {method: 'GET',params: { action: 'check_url'},isArray:false},
             unclaimedPayments: {method: 'GET',params: {action: 'unclaimed_payments'},isArray:false},
             claim: {method: 'POST',params: {action: 'claim_url'}}
         });
 
-    }).factory('CreateButton', function ($resource) {
+    }).factory('CreateButton', function ($resource, apiUrl) {
 
-        return $resource(api_url + '/api/script/:action',{},{
+        return $resource(apiUrl + '/api/script/:action',{},{
             checkUrl: { method: 'GET',params: { url:'url', action: 'retrieve_script' }},
             storeJson: { method: 'PUT',params: { action: 'store_script'}},
             validateJson: { method: 'GET',params: {json:'json', action: 'validate_script' }}
         });
 
-    }).factory('Balances', function ($resource) {
+    }).factory('Balances', function ($resource, apiUrl) {
 
-        return $resource(api_url + '/api/dashboard/:action',{},{
+        return $resource(apiUrl + '/api/dashboard/:action',{},{
             balance: {method: 'GET',params: { action: 'balance_totals' }, isArray:false },
             payments: {method: 'GET',params: { action: 'external_payments' }, isArray:false }
         });
 
-    }).factory('ExchangeRates', function ($resource) {
+    }).factory('ExchangeRates', function ($resource, apiUrl) {
 
-        return $resource(api_url + '/api/util/:action',{},{
+        return $resource(apiUrl + '/api/util/:action',{},{
             exchangerates: { method: 'GET',params: { action: 'forex_rates' }, isArray:false }
         });
 
-    }).factory('PaymentReceipt', function ($resource) {
+    }).factory('PaymentReceipt', function ($resource, apiUrl) {
 
-        return $resource(api_url + '/api/payment/:action', {}, {
-            getPaymentReceipt: {method: 'GET', params: { id: 'id', action: 'payment'}, isArray: false}
+        return $resource(apiUrl + '/api/payment/:action', {}, {
+            getPaymentReceipt: {method: 'GET', params: { id: 'id', action: 'payment' }, isArray: false}
         });
 
-    }).factory('Url', function ($resource) {
+    }).factory('Sourcing', function ($resource, apiUrl) {
 
-        return $resource(api_url + '/api/url/:action',{},{
+        return $resource(apiUrl + '/api/sourcing/:action', {}, {
+            invoices: {method: 'GET', params: { action: 'monthly_invoices' }, isArray: false},
+            requestInvoices: {method: 'PUT', params: {
+                action: 'request_invoices',
+                customer_name: '',
+                customer_address: '',
+                customer_country: '',
+                customer_vat_number: '',
+                customer_vat_rate: '',
+                customer_status: '',
+                ids: []
+            }, isArray: false},
+            cancelInvoices: {method: 'POST', params: { action: 'cancel_invoices', ids: [] }, isArray: false},
+            urls: {method: 'GET', params: { action: 'urls' }, isArray: false},
+            persons: {method: 'GET', params: { action: 'persons' }, isArray: false}
+        });
+
+    }).factory('Working', function ($resource, apiUrl) {
+
+        return $resource(apiUrl + '/api/working/:action', {}, {
+            invoices: {method: 'GET', params: { action: 'monthly_invoices' }, isArray: false},
+            urls: {method: 'GET', params: { action: 'urls' }, isArray: false},
+            confirmInvoices: {method: 'PUT', params: {
+                action: 'confirm_invoices',
+                worker_name: '',
+                worker_address: '',
+                worker_country: '',
+                worker_vat_number: '',
+                worker_vat_rate: '',
+                worker_status: '',
+                ids: []
+            }, isArray: false},
+            persons: {method: 'GET', params: { action: 'persons' }, isArray: false}
+        });
+
+    }).factory('Url', function ($resource, apiUrl) {
+
+        return $resource(apiUrl + '/api/url/:action',{},{
             getLocations: {method: 'GET',params: {action: 'locations'},isArray:false},
             balances: {method: 'GET',params: {url:'url',action: 'balances'},isArray:false},
             personPayments: {method: 'GET',params: {url:'url',action: 'person_payments'},isArray:false},
             persons: {method: 'GET',params: {url:'url',action: 'persons'},isArray:false}
         });
 
-    }).factory('Util', function ($resource) {
+    }).factory('Util', function ($resource, apiUrl) {
 
-        return $resource(api_url + '/api/util/:action',{},{
+        return $resource(apiUrl + '/api/util/:action',{},{
              currencies: {method: 'GET',params: { action: 'currencies'},isArray:false},
              languages: {method: 'GET',params: { action: 'languages'},isArray:false},
              timezones: {method: 'GET',params: { action: 'timezones'},isArray:false},
              countries: {method: 'GET',params: { action: 'countries'},isArray:false}
         });
 
-    }).factory('Api', function ($resource) {
+    }).factory('Api', function ($resource, apiUrl) {
 
-        return $resource(api_url + '/api/api/:action',{},{
+        return $resource(apiUrl + '/api/api/:action',{},{
             list: {method: 'GET',params: { action: 'list'},isArray:false}
         });
 
-    }).factory('PaymentNetwork', function ($resource) {
+    }).factory('PaymentNetwork', function ($resource, apiUrl) {
 
-        return $resource(api_url + '/api/payment_network/:action', {}, {
+        return $resource(apiUrl + '/api/payment_network/:action', {}, {
             networks: {method: 'GET',params: { action: 'networks'}},
             newAccountAddress: {method: 'PUT', params: { action: 'new_account_address'}},
             supportedCurrencies: {method: 'GET', params: { action: 'supported_currencies'}},
@@ -113,14 +151,20 @@ angular.module('mobbr.services.mbr-api', [
             confirmDeposit: {method: 'PUT', params: { action: 'confirm_deposit'}}
         });
 
-    }).factory('Gateway', function ($resource) {
+    }).factory('Gateway', function ($resource, apiUrl) {
 
-        return $resource(api_url + '/api/gateway/:action', {}, {
+        return $resource(apiUrl + '/api/gateway/:action', {}, {
             getPayment: {method: 'GET', params : { action: 'get_payment' }},
             registerPayment: {method: 'PUT', params : { action: 'register_payment' }},
             performPayment: {method: 'PUT', params : { action: 'perform_payment' }},
             analyzePayment: {method: 'POST', params : { action: 'analyze_payment' }},
             fullData: {method: 'GET',params: {action: 'full_url_data' },isArray:false}
+        });
+
+    }).factory('Global', function ($resource, apiUrl) {
+
+        return $resource(apiUrl + '/api/global/:action',{},{
+            pledges: { method: 'GET', params: { action: 'pledges' }, isArray: false }
         });
 
     }

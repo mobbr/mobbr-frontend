@@ -7,7 +7,7 @@ angular.module('mobbr.services.user', [
 
     // TODO: put notifyparent in a seperate service
 
-    ]).factory('userSession',function ($injector, $location, $window, $rootScope, userStorage, Msg, idleTimeout) {
+    ]).factory('userSession',function ($injector, $location, $window, $rootScope, userStorage, Msg, idleTimeout, User, $route) {
 
         var userSession = {
             authenticated: false,
@@ -69,7 +69,7 @@ angular.module('mobbr.services.user', [
         }
 
         function reload() {
-            $injector.get('$route').reload();
+            $route.reload();
         }
 
         function logout() {
@@ -78,6 +78,7 @@ angular.module('mobbr.services.user', [
 
         function login(event, user) {
             userSession.doLogin(user, true);
+            User.get();
         }
 
         $rootScope.userSession = userSession;
@@ -97,6 +98,7 @@ angular.module('mobbr.services.user', [
                 var userSession = $injector.get('userSession');
 
                 if (response != null && response.status != null && (response.status === 401 || response.status === 0) && userSession.authenticated) {
+                    console.log('bam logout dan');
                     userSession.doLogout(true);
                 }
 
@@ -105,41 +107,7 @@ angular.module('mobbr.services.user', [
 
             return promise;
         }
-
     }).config(function ($httpProvider) {
-
         $httpProvider.responseInterceptors.push('HttpLoggedInInterceptor');
-
-    }).directive('userRegister',function (User, Msg,$routeParams) {
-
-        // TODO: Put this in join controller
-
-        return {
-
-            restrict: 'A',
-            scope: {},
-            link: function (scope, element, attrs) {
-
-                scope.waiting = false;
-                scope.email = $routeParams.email;
-                scope.register = function () {
-                    var user = {'email': scope.email, 'username': scope.username, 'password': scope.password, 'password_control': scope.password_control};
-                    scope.waiting = true;
-
-                    User.register(user, function (response) {
-                        Msg.setResponseMessage('info', '', response);
-                        scope.waiting = false;
-                        scope.email = '';
-                        scope.username = '';
-                        scope.password = '';
-                        scope.password_control = '';
-                    }, function (response) {
-                        Msg.setResponseMessage('error', 'Couldn\'t send information', response);
-                        scope.waiting = false;
-                    });
-                }
-            }
-        };
-
     }
 );

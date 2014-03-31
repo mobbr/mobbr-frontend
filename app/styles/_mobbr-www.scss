@@ -189,11 +189,6 @@ h1, h2, h3 {
   height: 64px;
 }
 
-.mobbrtable .gravatar {
-  width: 50px;
-  height: 50px;
-}
-
 .mobbrtable .gravatar.small {
   width: 20px;
   height: 20px;
@@ -311,7 +306,7 @@ pre {
     text-decoration: none;
     font-size: 7pt;
     color: black;
-    font-family: Arial,Helvetica,sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
 
     img {
       position: relative;
@@ -354,6 +349,7 @@ pre {
 .mobbrloader {
   background-image: url(../img/mobbrloader.gif);
   background-size: cover;
+  background-position: 0 0;
 }
 
 .ui-pnotify-history-container {
@@ -377,4 +373,76 @@ pre {
 
 .mobbr-test .pusher {
   background: #FF0 !important;
+}
+
+.mobbr-checkbox {
+  display: table-row;
+  overflow: hidden;
+}
+
+.mobbr-checkbox label {
+  display: table-cell;
+  padding-left: 10px;
+}
+
+.unstyled::-webkit-inner-spin-button,
+.unstyled::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+}
+
+.table tr.ng-table-group td {
+  background-color: $grayLighter !important;
+  font-weight: bold;
+}
+
+/*.table-checkbox tr th:first-child,
+.table-checkbox tr td:first-child {
+  width: 13px;
+}*/
+
+.mobbrtable td {
+  font-size: .9em;
+}
+
+.mobbrtable .check-box,
+.mobbrtable .spacer {
+  width: 13px;
+}
+
+.mobbrtable .gravatar {
+  width: 20px;
+}
+
+.mobbrtable .currency,
+.mobbrtable .amount {
+  width: 70px;
+}
+
+.mobbrtable .expiration,
+.mobbrtable .datetime,
+.mobbrtable .username {
+  width: 120px;
+}
+
+.mobbrtable .icon-chevron-down {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  vertical-align: top;
+  border-top: 4px solid black;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+  margin: 8px 16px 0 0;
+}
+
+.mobbrtable .icon-chevron-right {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  vertical-align: top;
+  border-bottom: 4px solid transparent;
+  border-top: 4px solid transparent;
+  border-left: 4px solid black;
+  margin: 8px 16px 0 4px;
 }

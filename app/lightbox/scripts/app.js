@@ -3,10 +3,13 @@
 angular.module('mobbr.controllers', []);
 angular.module('mobbr.directives', []);
 angular.module('mobbr.filters', []);
+angular.module('mobbr.configuration', []);
 
 angular.module('mobbr-lightbox', [
 
+        'ngRoute',
         'ui.bootstrap',
+        'mobbr.config',
         'mobbr.directives',
         'mobbr.controllers',
         'mobbr.services.msg',
