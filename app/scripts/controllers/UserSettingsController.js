@@ -61,7 +61,7 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
     }
 
 
-    var settingsLabels = {
+    $scope.settingsLabels = {
       'hide_my_incoming_payments': 'Hide my incoming payments',
       'hide_my_items': 'Hide my items',
       'hide_my_outgoing_payments': 'Hide my outgoing payments',
@@ -70,12 +70,9 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
       'send_newsletter': 'Send me newsletters to keep me informed',
       'send_payment_expired_notification': 'Send payment expire notifications',
       'send_payment_received_notification': 'Send payment recieved notifications'
-
-
-
     };
 
-    $scope.getLabelFor = function (key) {
+   /* $scope.getLabelFor = function (key) {
       var value = settingsLabels[key];
       if (value === undefined) {
         return key;
@@ -83,7 +80,7 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
         return value;
       }
 
-    }
+    }*/
 
     var convertValueToBool = function (value) {
       if (value != undefined && value.toString() === '1') {
