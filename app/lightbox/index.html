@@ -6,7 +6,6 @@
 <!--[if gt IE 9]><html xmlns:ng="http://angularjs.org"> <![endif]-->
 <!--[if !IE]><!--><html xmlns:ng="http://angularjs.org"> <!--<![endif]-->
     <head>
-        <script>var api_url = 'https://test-api.mobbr.com';</script>
         <!-- build:js scripts/combined-head.js -->
         <script src="../components/modernizr/modernizr.js"></script>
         <!-- endbuild -->
@@ -89,7 +88,7 @@
             </div>
 
             <div>
-                <h2 style="margin: 0 0 15px 0" ng-show="dologin" ng-bind="userSession.authenticated && 'Logged in as: ' + userSession.user.username || 'Login to Fast Moving Crowdwork'" + ></h2>
+                <h2 style="margin: 0 0 15px 0" ng-show="dologin" ng-bind="userSession.authenticated && 'Logged in as: ' + userSession.user.username || 'Login to Fast Moving Crowdwork'"></h2>
                 <div ng-show="!(dologin && userSession.authenticated)" id="login_form">
                     <form name="login_form" autocomplete="off" class="form-inline lightboxform">
                         <fieldset ng-disabled="laterpaying || nowpaying">
@@ -107,43 +106,33 @@
                             <p id="newuser" ng-show="dologin || marked == undefined && !userSession.authenticated">
                                 New user or forgotten password? &rarr; <a href="/#/join" target="_blank">Go here</a>
                             </p>
-                        <span ng-show="!dologin && marked == undefined">
-                            <select class="input-small"
-                                    required
-                                    ng-show="userSession.authenticated"
-                                    ng-model="currency"
-                                    ng-options="value.currency_iso for value in userCurrencies"
-                                    ng-change="paymentChanged(payment)"></select>
-                            <select class="input-small"
-                                    required
-                                    ng-show="!userSession.authenticated"
-                                    ng-model="currency"
-                                    ng-options="key as key for (key, value) in currenciesMap"
-                                    ng-change="paymentChanged(payment)"></select>
-                            <input class="input-small"
-                                   required
-                                   type="number"
-                                   ng-model="amount"
-                                   step="any"
-                                   min="0"
-                                   max="1000000000">
-                            <button ng-disabled="nowpaying || laterpaying || (!userSession.authenticated && (!email || !password))"
-                                    ng-show="!dologin"
-                                    ng-click="performPayment(login_form)"
-                                    ng-class="{ 'btn-success': !noscript && noparticipants, 'btn-primary': !noparticipants  }"
-                                    class="btn">
-                                <span ng-bind="!noscript && noparticipants && 'Pledge' || 'Pay'"></span>
-                            </button>
-                            <span> &nbsp;&nbsp;or&nbsp;&nbsp; </span>
-                        </span>
-                            <button ng-click="!dologin && registerPayment(login_form)"
-                                    ng-show="!dologin && marked == undefined"
-                                    ng-disabled="amount || nowpaying || laterpaying || (!userSession.authenticated && (!email || !password))"
-                                    ng-class="{ 'btn-success': !noscript && noparticipants, 'btn-primary': !noparticipants  }"
-                                    class="btn"
-                                    title="Register this URL for payment. To actually pay, go to your dashboard">
-                                Save for later
-                            </button>
+                            <span ng-show="!dologin && marked == undefined">
+                                <select class="input-small"
+                                        required
+                                        ng-show="userSession.authenticated"
+                                        ng-model="currency"
+                                        ng-options="value.currency_iso for value in userCurrencies"
+                                        ng-change="paymentChanged(payment)"></select>
+                                <select class="input-small"
+                                        required
+                                        ng-show="!userSession.authenticated"
+                                        ng-model="currency"
+                                        ng-options="key as key for (key, value) in currenciesMap"
+                                        ng-change="paymentChanged(payment)"></select>
+                                <input class="input-small"
+                                       required
+                                       type="number"
+                                       ng-model="amount"
+                                       step="any"
+                                       min="0"
+                                       max="1000000000">
+                                <button ng-disabled="nowpaying || laterpaying || (!userSession.authenticated && (!email || !password))"
+                                        ng-show="!dologin"
+                                        ng-click="performPayment(login_form)"
+                                        class="btn btn-success">
+                                    <span ng-bind="urlData.script.type"></span>
+                                </button>
+                            </span>
                         </fieldset>
                     </form>
                 </div>
@@ -189,7 +178,13 @@
                         <div ng-show="nowpayed">
                             <h2>Payment was completed!</h2>
                             <p>
-                                The recipient will be notified. You may now close this window.
+                                All payments are including VAT. Invoices and receipts for payments can be found at your Mobbr account.
+                            </p>
+                            <p>
+                                The recipient(s) will be notified. You may now close this window.
+                            </p>
+                            <p>
+                                The buttons will be updated in a few minutes.
                             </p>
                         </div>
                         <div ng-show="laterpayed">
@@ -210,9 +205,11 @@
         <script src="../components/angular-cookies/angular-cookies.js"></script>
         <script src="../components/angular-resource/angular-resource.js"></script>
         <script src="../components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+        <script src="../components/angular-route/angular-route.js"></script>
         <script src="../components/pines-notify/jquery.pnotify.js"></script>
         <script src="../components/js-md5/js/md5.js"></script>
         <script src="../components/ngstorage/ngStorage.js"></script>
+        <script src="../scripts/config.js"></script>
         <!-- endbuild -->
         <!-- build:js ../scripts/mobbr-core.js -->
         <script src="../scripts/services/msg.js"></script>

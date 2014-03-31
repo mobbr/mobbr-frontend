@@ -8,7 +8,7 @@ angular.module('mobbr.directives').directive('mobbrtable', function factory($roo
             '.x-id': 'Person',
             datetime: 'Date/time',
             title: 'Title',
-            username: 'Person',
+            username: 'Username',
             amount: 'Amount',
             share: 'Share',
             '.percentage': 'Share',
@@ -16,7 +16,9 @@ angular.module('mobbr.directives').directive('mobbrtable', function factory($roo
             roles: 'Roles',
             url: 'URL',
             senders: 'Semders',
-            receivers: 'Receivers'
+            receivers: 'Receivers',
+            name: 'Name',
+            keywords: 'Keywords'
         }, sortables = {
             '.x-id': 'x-id',
             datetime: 'datetime',
@@ -38,8 +40,9 @@ angular.module('mobbr.directives').directive('mobbrtable', function factory($roo
         scope: {
             entries: '='
         },
-        controller: function ($scope, $attrs) {
+        controller: function ($scope, $attrs, userSession) {
 
+            $scope.userSession = userSession
             $scope.labels = labels;
             $scope.sortables = sortables;
             $scope.sortOrder = false;
