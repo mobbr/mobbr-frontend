@@ -19,7 +19,7 @@
             <label for="username">Username</label>
         </div>
         <div class="controls">
-            <input type="text" ng-model="username" placeholder="e.g. _super-man_" id="username">
+            <input type="text" name="username" ng-model="username" placeholder="e.g. _super-man_" id="username">
         </div>
     </div>
 
@@ -28,7 +28,7 @@
             <label for="email">Email</label>
         </div>
         <div class="controls">
-            <input ng-model="email" type="email" name="email" placeholder="e.g. example@mail.com" required id="email">
+            <input ng-model="email" name="email" type="email" name="email" placeholder="e.g. example@mail.com" required id="email">
         </div>
     </div>
 
@@ -37,7 +37,7 @@
             <label for="password">Password</label>
         </div>
         <div class="controls">
-            <input ng-model="password" id="password" type="password" required placeholder="min. 8 alfanum positions">
+            <input ng-model="password" name="password" id="password" type="password" required placeholder="min. 8 alfanum positions">
         </div>
     </div>
     <div class="control-group">
@@ -45,13 +45,15 @@
            <label for="password_control">Confirm password</label>
         </div>
         <div class="controls">
-            <input ng-model="password_control" id="password_control" type="password" required placeholder="confirm password">
+            <input ng-model="password_control" name="password_control" id="password_control" type="password" required placeholder="confirm password">
         </div>
     </div>
 
     <div class="control-group">
         <div class="controls">
-            <button ng-click="registerUser()" class="btn btn-primary" ng-disabled="!accept_eula || waiting"><i class="icon-white mobbrloader" ng-show="waiting"></i> Join</button>
+            <button ng-click="registerUser(username, email, password, password_control)" class="btn btn-primary" ng-disabled="!accept_eula || waiting">
+                <i class="icon-white mobbrloader" ng-show="waiting"></i> Join
+            </button>
         </div>
     </div>
 </form>
