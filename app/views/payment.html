@@ -1,3 +1,9 @@
+<div class="row-fluid">
+    <div class="well span12 special">
+        <small>This URL is publicly accessible but made secret. Be carefully with whom you share it.</small>
+    </div>
+</div>
+
 <div class="page-header">
     <h1>
         Payment receipt <span ng-hide="payment.meta_data.paiddatetime">(pending)</span><br>
@@ -32,11 +38,7 @@
     <div class="well special pull-right span4 receipt">
         <h6><small>Amount</small></h6>
         <div class="clearfix">{{payment.meta_data.currency_iso}} <span class="amount">{{payment.meta_data.amount}}</span></div>
-        <div ng-show="!external">
-            <h6><small>Clicked</small></h6>
-            <div class="clearfix"><span ng-bind="payment.meta_data.clickdatetime"></span></div>
-        </div>
-        <h6><small>Paid</small></h6>
+        <h6><small>Date</small></h6>
         <div class="clearfix"><span ng-bind="payment.meta_data.paiddatetime"></span></div>
     </div>
 </div>
