@@ -1,7 +1,8 @@
 <div class="page-header">
     <h1>
         Payment receipt <span ng-hide="payment.meta_data.paiddatetime">(pending)</span><br>
-        <small>{{payment.meta_data.title}}</small><br>
+        <small ng-show="!external">{{ payment.meta_data.title }}</small>
+        <small ng-show="external">Payment service: {{ payment.meta_data.payment_service }}</small><br>
     </h1>
 </div>
 
@@ -11,48 +12,67 @@
             <img ng-src="{{payment.meta_data.img_url}}" class="gravatar receipt-thumb">
         </a>
 
-        <p>{{payment.meta_data.description}}</p>
+        <div ng-show="external">
+            <div ng-show="payment.meta_data.amount > 0">
+                <h6><small>Receive address</small></h6>
+                <div class="clearfix"><span ng-bind="payment.meta_data.receive_address"></span></div>
+            </div>
+            <div ng-show="payment.meta_data.amount < 0">
+                <h6><small>Send address</small></h6>
+                <div class="clearfix"><span ng-bind="payment.meta_data.send_address"></span></div>
+            </div>
+            <h6><small>External transaction ID</small></h6>
+            <div class="clearfix"><span ng-bind="payment.meta_data.ext_trx_id"></span></div>
+            <h6><small>Note</small></h6>
+            <div class="clearfix"><span ng-bind="payment.meta_data.note"></span></div>
+        </div>
+        <p>{{ payment.meta_data.description }}</p>
     </div>
 
     <div class="well special pull-right span4 receipt">
         <h6><small>Amount</small></h6>
         <div class="clearfix">{{payment.meta_data.currency_iso}} <span class="amount">{{payment.meta_data.amount}}</span></div>
-        <h6><small>Clicked</small></h6>
-        <div class="clearfix"><span ng-bind="payment.meta_data.clickdatetime"></span></div>
+        <div ng-show="!external">
+            <h6><small>Clicked</small></h6>
+            <div class="clearfix"><span ng-bind="payment.meta_data.clickdatetime"></span></div>
+        </div>
         <h6><small>Paid</small></h6>
         <div class="clearfix"><span ng-bind="payment.meta_data.paiddatetime"></span></div>
     </div>
 </div>
 
-<tabs class="clearfix">
-    <pane heading="Receivers">
+<div ng-show="!external">
+    <tabs class="clearfix">
+        <pane heading="Receivers">
 
-        <form class="form-inline">
-            <label for="searchEntriesDirective">Search: </label>
-            <input class="search-query" type="search" ng-model="searchentries" id="searchEntriesDirective">
-        </form>
+            <form class="form-inline">
+                <label for="searchEntriesDirective">Search: </label>
+                <input class="search-query" type="search" ng-model="searchentries" id="searchEntriesDirective">
+            </form>
 
-        <peoplepagesearch people="payment.receivers"
-                          nodatatitle=""
-                          persontitle="Username / id"
-                          searchentries="searchentries"
-                          showamount="true"
-                          ownsearch="false"></peoplepagesearch>
-    </pane>
+            <peoplepagesearch people="payment.receivers"
+                              nodatatitle=""
+                              persontitle="Username / id"
+                              searchentries="searchentries"
+                              showamount="true"
+                              ownsearch="false"></peoplepagesearch>
+        </pane>
 
-    <pane heading="Senders">
+        <pane heading="Senders">
 
-        <form class="form-inline">
-            <label for="searchEntriesDirective2">Search: </label>
-            <input class="search-query" type="search" ng-model="searchentries" id="searchEntriesDirective2">
-        </form>
+            <form class="form-inline">
+                <label for="searchEntriesDirective2">Search: </label>
+                <input class="search-query" type="search" ng-model="searchentries" id="searchEntriesDirective2">
+            </form>
 
-        <peoplepagesearch people="payment.senders"
-                          nodatatitle=""
-                          persontitle="Username / id"
-                          searchentries="searchentries"
-                          showamount="true"
-                          ownsearch="false"></peoplepagesearch>
-    </pane>
-</tabs>
+            <peoplepagesearch people="payment.senders"
+                              nodatatitle=""
+                              persontitle="Username / id"
+                              searchentries="searchentries"
+                              showamount="true"
+                              ownsearch="false"></peoplepagesearch>
+        </pane>
+    </tabs>
 
+
+</div>

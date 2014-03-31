@@ -6,7 +6,7 @@
 <!--[if gt IE 9]><html xmlns:ng="http://angularjs.org"> <![endif]-->
 <!--[if !IE]><!--><html xmlns:ng="http://angularjs.org"> <!--<![endif]-->
     <head>
-        <script>var api_url = 'https://api.mobbr.com';</script>
+
         <!-- build:js scripts/combined-head.js -->
         <script src="components/modernizr/modernizr.js"></script>
         <!-- endbuild -->
@@ -106,7 +106,8 @@
                                     <a class="dropdown-toggle"><span ng-bind="userSession.user.username"></span> <img ng-src="{{ userSession.user.thumbnail }}" style="height: 30px;" class="img-rounded user-thumb"> <b class="caret"></b></a>
                                     <ul class="dropdown-menu" ng-controller="LoginController">
                                         <li><a href="#/wallet"><i class="icon-inbox"></i> Wallet</a></li>
-                                        <li><a href="#/taskboard"><i class="icon-calendar"></i> Taskboard</a></li>
+                                        <li><a href="#/sourcing"><i class="icon-bullhorn"></i> Hire people</a></li>
+                                        <li><a href="#/working"><i class="icon-cog"></i> Do work </a></li>
                                         <!--<li><a href=""><i class="icon-eye-open"></i> Sourcing</a></li>-->
                                         <li><a href="#/settings"><i class="icon-wrench"></i> Settings</a></li>
                                         <li><a ng-click="logout()"><i class="icon-lock"></i> Log out</a></li>
@@ -176,14 +177,9 @@
                             en nog meer logo's
                         </div>
                     </div>
--->                </div>
+               </div>-->
             </footer>
         </div>
-
-        <form ng-show="false" action="{{api_url}}/gateway/" target="mobbr_frame" id="mobbr_frm_1" method="POST">
-            <input value="true" name="using_lightbox" type="hidden">
-            <input value="{{location}}" name="data" type="hidden">
-        </form>
 
         <!--<script type="text/javascript" src="https://jira.mobbr.com/s/en_US-v1z3lw-418945332/854/4/1.2.9/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?collectorId=cf50ef21"></script>-->
 
@@ -191,12 +187,24 @@
         <script src="components/base64/base64.js"></script>
         <script src="components/jquery/jquery.js"></script>
         <script src="components/angular/angular.js"></script>
+        <script src="components/angular-route/angular-route.js"></script>
         <script src="components/angular-cookies/angular-cookies.js"></script>
         <script src="components/angular-resource/angular-resource.js"></script>
         <script src="components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
         <script src="components/pines-notify/jquery.pnotify.js"></script>
         <script src="components/js-md5/js/md5.js"></script>
         <script src="components/ngstorage/ngStorage.js"></script>
+        <script src="components/angularjs-file-upload/angular-file-upload.js"></script>
+        <script src="components/ng-table/ng-table.src.js"></script>
+        <script src="components/jspdf/libs/Deflate/deflate.js"></script>
+        <script src="components/jspdf/libs/Deflate/adler32cs.js"></script>
+        <script src="components/file-saver/FileSaver.js"></script>
+        <script src="components/jspdf/jspdf.js"></script>
+        <script src="components/jspdf/jspdf.plugin.standard_fonts_metrics.js"></script>
+        <script src="components/jspdf/jspdf.plugin.split_text_to_size.js"></script>
+        <script src="components/jspdf/jspdf.plugin.from_html.js"></script>
+        <script src="components/jspdf/jspdf.plugin.addimage.js"></script>
+        <script src="scripts/config.js"></script>
         <!-- endbuild -->
         <!-- build:js scripts/mobbr-core.js -->
         <script src="scripts/services/msg.js"></script>
@@ -204,6 +212,8 @@
         <script src="scripts/services/idleTimeout.js"></script>
         <script src="scripts/services/userStorage.js"></script>
         <script src="scripts/services/UserSession.js"></script>
+        <script src="scripts/services/pdfGenerator.js"></script>
+        <script src="scripts/services/invoiceDialog.js"></script>
         <!-- endbuild -->
         <!-- build:js scripts/mobbr-www.js -->
         <script src="scripts/app.js"></script>
@@ -225,6 +235,8 @@
         <script src="scripts/controllers/RecoverPasswordController.js"></script>
         <script src="scripts/controllers/UpdateEmailController.js"></script>
         <script src="scripts/controllers/JoinController.js"></script>
+        <script src="scripts/controllers/SourcingController.js"></script>
+        <script src="scripts/controllers/WorkingController.js"></script>
         <script src="scripts/directives/decorateAmount.js"></script>
         <script src="scripts/directives/mobbrbutton.js"></script>
         <script src="scripts/directives/mobbrtable.js"></script>
@@ -235,6 +247,7 @@
         <script src="scripts/directives/placeholder.js"></script>
         <script src="scripts/directives/pwCheck.js"></script>
         <script src="scripts/directives/formAutofillFix.js"></script>
+        <script src="scripts/directives/invoicetable.js"></script>
         <script src="scripts/filters/mobbrcurrency.js"></script>
         <!-- endbuild -->
         <script src="/mobbr-button.js"></script>
