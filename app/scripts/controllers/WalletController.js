@@ -151,27 +151,62 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
                 btc: {
                     name: 'Bitcoin',
                     currencies: [ 'BTC' ],
-                    default_currency: 'BTC'
+                    default_currency: 'BTC',
+                    send: {
+                        address: {
+                            type: 'OTHER'
+                        }
+                    }
                 },
                 iban: {
                     name: 'IBAN/BIC',
                     currencies: [ 'USD', 'GBP', 'CHF', 'SEK', 'NOK', 'DKK', 'EUR', 'PLN' ],
-                    default_currency: 'EUR'
+                    default_currency: 'EUR',
+                    send: {
+                        address: {
+                            type: 'IBAN'
+                        }
+                    }
                 },
                 uk: {
-                    name: 'UK',
+                    name: 'GB',
                     currencies: [ 'USD', 'GBP', 'CHF', 'SEK', 'NOK', 'DKK', 'EUR', 'PLN' ],
-                    default_currency: 'GBP'
+                    default_currency: 'GBP',
+                    send: {
+                        address: {
+                            type: 'GB'
+                        }
+                    }
                 },
                 us: {
                     name: 'US',
                     currencies: [ 'USD', 'GBP', 'CHF', 'SEK', 'NOK', 'DKK', 'EUR', 'PLN' ],
-                    default_currency: 'USD'
+                    default_currency: 'USD',
+                    send: {
+                        address: {
+                            type: 'US'
+                        }
+                    }
                 },
                 ca: {
                     name: 'Canada',
                     currencies: [ 'USD', 'GBP', 'CHF', 'SEK', 'NOK', 'DKK', 'EUR', 'PLN' ],
-                    default_currency: 'USD'
+                    default_currency: 'USD',
+                    send: {
+                        address: {
+                            type: 'CA'
+                        }
+                    }
+                },
+                other: {
+                    name: 'Other',
+                    currencies: [ 'USD', 'GBP', 'CHF', 'SEK', 'NOK', 'DKK', 'EUR', 'PLN' ],
+                    default_currency: 'EUR',
+                    send: {
+                        address: {
+                            type: 'OTHER'
+                        }
+                    }
                 }
             };
 
