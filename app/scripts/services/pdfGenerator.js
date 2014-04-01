@@ -6,8 +6,8 @@ angular.module('mobbr.services.pdf', []).factory('pdfGenerator', function (userS
             generate: function (invoice) {
 
                 var pdf = new jsPDF('p','mm', 'a4', true),
-                    marginVertical = 10,
-                    marginHorizontal = 5,
+                    marginVertical = 20,
+                    marginHorizontal = 20,
                     lineHeight = marginVertical;
 
                 function textSize(text) {
@@ -17,26 +17,6 @@ angular.module('mobbr.services.pdf', []).factory('pdfGenerator', function (userS
                 function singlelineText(text, x, y) {
                     pdf.text(text, x, y);
                     return pdf.internal.getFontSize() / pdf.internal.scaleFactor;
-                }
-
-                function multilineText(text, x, y, width) {
-
-                    var strline = '',
-                        lineWidth = 0,
-                        totalHeight = 0;
-
-                    angular.forEach(text, function (part) {
-                        lineWidth += textSize(part);
-                        if (lineWidth > width) {
-                            totalHeight += singlelineText(strline, x, y + totalHeight);
-                            strline = '';
-                            lineWidth = 0;
-                        }
-                        strline += part;
-                    });
-
-                    totalHeight += singlelineText(strline, x, y + totalHeight);
-                    return totalHeight;
                 }
 
                 function alignRight(text) {
@@ -50,9 +30,9 @@ angular.module('mobbr.services.pdf', []).factory('pdfGenerator', function (userS
                     i;
 
                 pdf.setFont('Helvetica', 'Bold');
-                pdf.setFontSize(80);
+                pdf.setFontSize(100);
                 pdf.setTextColor(200, 200, 200);
-                pdf.text('PAYED', 65, 180, {}, 30);
+                pdf.text('PAID', 72, 190, {}, 30);
                 pdf.setTextColor(0, 0, 0);
                 pdf.setFontSize(14);
                 lineHeight += singlelineText(invoice.customer_name, alignRight(invoice.customer_name), lineHeight);
@@ -68,11 +48,11 @@ angular.module('mobbr.services.pdf', []).factory('pdfGenerator', function (userS
                 pdf.setFont('Helvetica', 'Bold');
                 lineHeight += singlelineText('Mobbr', alignRight(invoice.customer_username) - textWidth, lineHeight);
                 pdf.setFont('Helvetica', '');
-                lineHeight += singlelineText(invoice.worker_name, marginHorizontal, lineHeight, 200);
+                lineHeight += singlelineText(invoice.worker_name, marginHorizontal, lineHeight);
                 for (i = 0; i < worker_address.length; i++) {
                     lineHeight += singlelineText(worker_address[i], marginHorizontal, lineHeight);
                 }
-                lineHeight += singlelineText($rootScope.countriesMap[invoice.worker_country], 5, lineHeight);
+                lineHeight += singlelineText($rootScope.countriesMap[invoice.worker_country], marginHorizontal, lineHeight);
                 lineHeight += singlelineText(invoice.worker_vat_number, marginHorizontal, lineHeight);
                 pdf.setFont('Helvetica', 'Bold');
                 singlelineText('Mobbr ', marginHorizontal, lineHeight);
@@ -101,7 +81,7 @@ angular.module('mobbr.services.pdf', []).factory('pdfGenerator', function (userS
                 lineHeight += singlelineText(invoice.title, marginHorizontal, lineHeight);
                 pdf.setFont('Helvetica', '');
                 pdf.setFontSize(10);
-                descr_lines = pdf.splitTextToSize(invoice.description, 200);
+                descr_lines = pdf.splitTextToSize(invoice.description, 170);
                 for (i = 0; i < descr_lines.length; i++) {
                     lineHeight += singlelineText(descr_lines[i], marginHorizontal, lineHeight);
                 }
@@ -114,14 +94,14 @@ angular.module('mobbr.services.pdf', []).factory('pdfGenerator', function (userS
                 lineHeight += singlelineText(invoice.role, marginHorizontal + textWidth, lineHeight);
                 pdf.line(marginHorizontal, lineHeight, pdf.internal.pageSize.width - marginHorizontal, lineHeight);
                 lineHeight += 7;
-                singlelineText(invoice.currency_iso + ' ' + invoice.net_amount, alignRight(invoice.currency_iso + ' ' + invoice.net_amount), lineHeight);
+                singlelineText(invoice.currency_iso + ' ' + parseFloat(invoice.net_amount).toFixed(2), alignRight(invoice.currency_iso + ' ' + parseFloat(invoice.net_amount).toFixed(2)), lineHeight);
                 pdf.setFont('Helvetica', 'Bold');
-                lineHeight += singlelineText('Subtotal', pdf.internal.pageSize.width - 80, lineHeight);
-                lineHeight += singlelineText('VAT reverse charged', pdf.internal.pageSize.width - 80, lineHeight);
+                lineHeight += singlelineText('Subtotal', pdf.internal.pageSize.width - 85, lineHeight);
+                lineHeight += singlelineText('VAT reverse charged', pdf.internal.pageSize.width - 85, lineHeight);
                 pdf.setFont('Helvetica', '');
-                singlelineText(invoice.currency_iso + ' ' + invoice.amount, alignRight(invoice.currency_iso + ' ' + invoice.amount), lineHeight);
+                singlelineText(invoice.currency_iso + ' ' + parseFloat(invoice.amount).toFixed(2), alignRight(invoice.currency_iso + ' ' + parseFloat(invoice.amount).toFixed(2)), lineHeight);
                 pdf.setFont('Helvetica', 'Bold');
-                singlelineText('Total ',  pdf.internal.pageSize.width - 80, lineHeight);
+                singlelineText('Total ',  pdf.internal.pageSize.width - 85, lineHeight);
                 pdf.setFont('Helvetica', '');
                 pdf.save(invoice.invoice_id);
 
