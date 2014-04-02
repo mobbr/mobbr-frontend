@@ -7,7 +7,7 @@
 <div class="page-header">
     <h1>
         Payment receipt <span ng-hide="payment.meta_data.paiddatetime">(pending)</span><br>
-        <small ng-show="!external">{{ payment.meta_data.title }}</small>
+        <small ng-show="!external"><a href="{{ payment.meta_data.url }}">{{ payment.meta_data.title }}</a></small>
         <small ng-show="external">Payment service: {{ payment.meta_data.payment_service }}</small><br>
     </h1>
 </div>
