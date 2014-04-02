@@ -183,7 +183,7 @@ angular.module('mobbr', [
 
       $parseProvider.logPromiseWarnings(true);
     }
-  ).run(function ($http, $rootScope, Util, $location, userSession, Msg, $window, $anchorScroll) {
+  ).run(function ($http, $rootScope, MobbrApi, $location, userSession, Msg, $window, $anchorScroll) {
 
       $rootScope.isTest = function () {
         return window.location.href.search('test-www.mobbr.com');
@@ -192,7 +192,7 @@ angular.module('mobbr', [
       // TODO: check what code should actually be here and move everything else to the services they belong to
 
       $rootScope.currenciesMap = {};
-      Util.currencies(function (response) {
+      MobbrApi.forexCurrencies(function (response) {
         if (response.result != null) {
           $rootScope.currenciesMap = response.result;
           $rootScope.currencyArray = [];
@@ -211,7 +211,7 @@ angular.module('mobbr', [
         return currency;
       }
 
-      Util.languages(function (response) {
+      MobbrApi.isoLanguages(function (response) {
         if (response.result != null) {
           $rootScope.languagesMap = response.result;
           $rootScope.languagesMap['leeg'] = 'No language';
@@ -223,7 +223,7 @@ angular.module('mobbr', [
         }
       });
 
-      Util.countries(function (response) {
+      MobbrApi.isoCountries(function (response) {
         if (response.result != null) {
           $rootScope.countriesMap = response.result;
         }
@@ -238,7 +238,7 @@ angular.module('mobbr', [
       }
 
       $rootScope.timezones = {};
-      Util.timezones(function (response) {
+      MobbrApi.isoTimezones(function (response) {
         if (response.result != null) {
           for (var key in response.result) {
             var value = response.result[key];

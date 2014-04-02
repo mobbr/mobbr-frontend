@@ -1,10 +1,10 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('ExchangeRateController', function ($scope, ExchangeRates, Msg) {
+angular.module('mobbr.controllers').controller('ExchangeRateController', function ($scope, MobbrApi, Msg) {
 
     $scope.exchangerates = []
 
-    ExchangeRates.exchangerates(function(response){
+    MobbrApi.forexRates(function(response){
         if(response.result != undefined && response.result != null){
             $scope.exchangerates = response.result;
         }else{

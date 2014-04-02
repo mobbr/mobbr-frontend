@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('PaymentReceiptController', function ($scope, PaymentReceipt, Dashboard, $routeParams, Msg, $location) {
+angular.module('mobbr.controllers').controller('PaymentReceiptController', function ($scope, MobbrPayment, MobbrXPayment, $routeParams, Msg, $location) {
 
   var params = { id: $routeParams.id };
 
@@ -23,9 +23,9 @@ angular.module('mobbr.controllers').controller('PaymentReceiptController', funct
 
   if ($location.path().indexOf('x-payment') !== -1) {
     $scope.external = true;
-    Dashboard.getExternalPaymentReceipt(params, onSuccess, onError);
+    MobbrXPayment.info(params, onSuccess, onError);
   } else {
-    PaymentReceipt.getPaymentReceipt(params, onSuccess, onError);
+    MobbrPayment.info(params, onSuccess, onError);
   }
 
 });

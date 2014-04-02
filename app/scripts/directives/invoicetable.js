@@ -20,7 +20,7 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
             order: '=',
             clickRow: '='
         },
-        controller: function ($scope, $attrs, $filter, ngTableParams, PaymentReceipt, userSession) {
+        controller: function ($scope, $attrs, $filter, ngTableParams, userSession) {
 
             var reqparams = {},
                 sorting = {};
