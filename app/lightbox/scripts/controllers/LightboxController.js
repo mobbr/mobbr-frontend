@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mobbr.controllers')
-    .controller('LightboxController', function ($scope, $location, $timeout, Gateway, Url, userSession, User, Balances, Domain) {
+    .controller('LightboxController', function ($scope, $location, $timeout, MobbrPayment, userSession, User, MobbrBalance, MobbrPerson) {
 
         var hash,
             error,
@@ -25,14 +25,14 @@ angular.module('mobbr.controllers')
                 $scope.marked = false;
             } else if (hash) {
                 $scope.dologin = false;
-                Gateway.analyzePayment({ data: window.atob(hash), referrer: document.referrer }, function (response) {
+                MobbrPayment.preview({ data: window.atob(hash), referrer: document.referrer }, function (response) {
                     hash = response.result.hash;
                     $scope.urlData = response.result;
                     $scope.noscript = $scope.urlData.script['.scripts_found'] === undefined || $scope.urlData.script['.scripts_found'].length === 0;
                     $scope.noparticipants = $scope.urlData.script['participants'] === undefined || $scope.urlData.script['participants'].length === 0;
                     $scope.loading = false;
-                    $scope.persons = Url.persons({ url: response.result.url });
-                    $scope.balances = Url.balances({ url: response.result.url });
+                    $scope.persons = MobbrPerson.url({ url: response.result.url });
+                    $scope.balances = MobbrBalance.uri({ url: response.result.url });
                 }, function (response) {
                     $scope.errormessage = response.data && response.data.message && response.data.message.text;
                     $scope.marked = false;
@@ -57,7 +57,7 @@ angular.module('mobbr.controllers')
 
         function checkLogin() {
             if (userSession.authenticated) {
-                Balances.balance(function (response) {
+                MobbrBalance.user(function (response) {
                     $scope.userCurrencies = response.result;
                     $scope.currency = $scope.userCurrencies[0];
                 });
@@ -66,7 +66,7 @@ angular.module('mobbr.controllers')
             }
         }
 
-        function register() {
+        /*function register() {
             Gateway.registerPayment({ referrer: document.referrer, hash: hash }, function (response) {
                 $scope.marked = true;
                 $scope.laterpaying = undefined;
@@ -77,11 +77,11 @@ angular.module('mobbr.controllers')
                 $scope.marked = false;
                 $scope.laterpaying = undefined;
             });
-        }
+        }*/
 
         function perform() {
             var currency = $scope.currency && $scope.currency.currency_iso || $scope.currency;
-            Gateway.performPayment({
+            MobbrPayment.confirm({
                 referrer: document.referrer,
                 currency: currency,
                 amount: $scope.amount,

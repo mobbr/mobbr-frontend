@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('CreateButtonController', function ($scope, $rootScope, CreateButton,Msg, apiUrl) {
+angular.module('mobbr.controllers').controller('CreateButtonController', function ($scope, $rootScope, CreateButton, MobbrScript, Msg, apiUrl) {
 
     $scope.detectTitle = true;
     $scope.detectDescription = true;
@@ -56,7 +56,7 @@ angular.module('mobbr.controllers').controller('CreateButtonController', functio
 
             // input is url so retrieve json
             $scope.workingRetrieveUrl = true;
-            CreateButton.checkUrl({'url':$scope.form.url},function(response){
+            MobbrScript.validate({'url':$scope.form.url},function(response){
                 $scope.workingRetrieveUrl = false;
                 if(response.result != null){
                     $scope.processJson(response.result);
@@ -273,7 +273,7 @@ angular.module('mobbr.controllers').controller('CreateButtonController', functio
         $scope.mobbrConfiguration = '';
         $scope.workingConfiguration = true;
         if(config === 'mobbr'){
-            CreateButton.storeJson({'json':$scope.generateContributeurJson()},function(response){
+            MobbrScript.save({'json':$scope.generateContributeurJson()},function(response){
                 $scope.workingConfiguration = false;
                 if(response.result != null && response.result.length > 0){
                     $scope.generatedHeaderLink = ''
@@ -294,7 +294,7 @@ angular.module('mobbr.controllers').controller('CreateButtonController', functio
             });
 
         }else{
-            CreateButton.validateJson({'json':$scope.generateContributeurJson()},function(response){
+            MobbrScript.validate({'json':$scope.generateContributeurJson()},function(response){
                 $scope.workingConfiguration = false;
                 if(response.result === true){
                     Msg.setResponseMessage( 'info','Payment script generated',response);
