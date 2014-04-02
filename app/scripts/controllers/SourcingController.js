@@ -34,9 +34,7 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
                 customer_country: userSession.user.country_of_residence,
                 customer_vat_number: userSession.user.vat_number,
                 customer_vat_rate: userSession.user.vat_rate,
-                customer_status: userSession.user.companyname && 'enterprise' || 'private',
-                customer_invoice_prefix: userSession.user.invoice_numbering_prefix,
-                customer_invoice_postfix: userSession.user.invoice_numbering_postfix
+                customer_status: userSession.user.companyname && 'enterprise' || 'private'
             },
             function (dialog, response) {
                 Msg.setResponseMessage('info', 'Invoice successfully requested', response);

@@ -1,8 +1,6 @@
 'use strict';
 
-angular.module('mobbr.services.mbr-api', [
-        'ngResource'
-    ]).factory('User', function ($resource, apiUrl) {
+angular.module('mobbr.services.mbr-api', [ 'ngResource' ]).factory('User', function ($resource, apiUrl) {
 
         return $resource(apiUrl + '/api/user/:action',{},{
             setPassword: {method: 'POST',params : {action:'update_password'},isArray:false},
