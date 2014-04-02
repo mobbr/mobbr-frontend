@@ -1,9 +1,11 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('SourcingController', function ($scope, $dialog, $location, userSession, Dashboard, Sourcing, invoiceDialog, pdfGenerator, Msg) {
+angular.module('mobbr.controllers').controller('SourcingController', function ($scope, $dialog, $location, userSession, MobbrInvoice, MobbrPayment, MobbrPerson, MobbrUri, invoiceDialog, pdfGenerator, Msg) {
 
-    $scope.Sourcing = Sourcing;
-    $scope.Dashboard = Dashboard;
+    $scope.MobbrInvoice = MobbrInvoice;
+    $scope.MobbrPayment = MobbrPayment;
+    $scope.MobbrPerson = MobbrPerson;
+    $scope.MobbrUri = MobbrUri;
 
     $scope.openPayment = function (item) {
         $location.path('/payment/' + (item.payment_id || item.id));
@@ -11,7 +13,7 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
 
     $scope.cancelInvoices = function (ids, items, table) {
         $scope.ciwaiting = true;
-        Sourcing.cancelInvoices({ ids: ids }, function (response) {
+        MobbrInvoice.cancel({ ids: ids }, function (response) {
             Msg.setResponseMessage('info', 'Invoice request successfully cancelled', response);
             $scope.$broadcast('invoicetable', 'sourcing_requested_invoices');
             $scope.$broadcast('invoicetable', 'working_requested_invoices');
@@ -25,7 +27,7 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
 
     $scope.requestInvoices = function (ids, items, table) {
         invoiceDialog(
-            Sourcing.requestInvoices,
+            MobbrInvoice.request,
             'request_invoice_popup',
             {
                 ids: ids,
@@ -57,7 +59,7 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
 
     $scope.removePledgesDialog = function (ids, items, table) {
         invoiceDialog(
-            Dashboard.revokePledge,
+            MobbrPayment.unpledge,
             'remove_pledges_popup',
             { ids: ids },
             function (dialog, response) {

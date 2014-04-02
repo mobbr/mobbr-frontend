@@ -19,7 +19,8 @@
     "angularjs-file-upload": "~1.1.0",
     "ng-table": "~0.3.1",
     "file-saver": "*",
-    "jspdf": "git://github.com/MrRio/jsPDF.git#a52028fe58f949a1bd32a7b5818a8e90ee954b3e"
+    "jspdf": "git://github.com/MrRio/jsPDF.git#a52028fe58f949a1bd32a7b5818a8e90ee954b3e",
+    "mobbr-api-angular": "git://github.com/mobbr/mobbr-api-angular"
   },
   "ignore": [
     "**/.*",
