@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('UserSettingsController', function ($http, $scope, $rootScope, userSession, $upload, apiUrl, User, Msg) {
+angular.module('mobbr.controllers').controller('UserSettingsController', function ($http, $scope, $rootScope, userSession, $upload, apiUrl, MobbrUser, Msg) {
 
     $scope.user = userSession.user;
     $scope.formData = {};
@@ -24,7 +24,7 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
 
     $scope.submitSettings = function () {
       $scope.waitingsettings = true;
-      User.save({user: $scope.user}, function (response) {
+      MobbrUser.updateUser({user: $scope.user}, function (response) {
         $scope.waitingsettings = false;
         if (response.result) {
           userSession.update(response.result);
@@ -40,7 +40,7 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
 
     $scope.submitEmail = function (form) {
       $scope.waitingemail = true;
-      User.updateEmail({ new_email: form.email.$modelValue }, function (response) {
+      MobbrUser.updateEmail({ new_email: form.email.$modelValue }, function (response) {
         $scope.waitingemail = false;
         Msg.setResponseMessage('info', 'New email address set', response);
       }, function (response) {
@@ -51,7 +51,7 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
 
     $scope.submitPassword = function (form) {
       $scope.waitingpassword = true;
-      User.updatePassword({ new_password: form.new_password.$modelValue }, function (response) {
+      MobbrUser.updatePassword({ new_password: form.new_password.$modelValue }, function (response) {
         $scope.waitingpassword = false;
         Msg.setResponseMessage('info', 'New password saved', response);
       }, function (response) {

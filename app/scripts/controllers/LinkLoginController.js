@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('mobbr.controllers')
-    .controller('LinkLoginController', function ($scope, $route, User, userSession, Msg, $location, $routeParams) {
+    .controller('LinkLoginController', function ($scope, $route, MobbrUser, userSession, Msg, $location, $routeParams) {
 
-        User.linkLogin({'login_token': $routeParams.hash},
+        MobbrUser.linkLogin({'login_token': $routeParams.hash},
             function (response) {
                 if (response.result != null) {
                     userSession.doLogin(response.result);
