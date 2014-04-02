@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('mobbr.controllers')
-    .controller('UpdateEmailController', function ($scope, User, userSession, Msg, $location, $routeParams) {
+    .controller('UpdateEmailController', function ($scope, MobbrUser, userSession, Msg, $location, $routeParams) {
 
-        User.confirmEmail({'update_token':$routeParams.hash}, function (response) {
+        MobbrUser.confirmEmail({'update_token':$routeParams.hash}, function (response) {
                 Msg.setResponseMessage('info', 'Updated your email address', response);
                 $location.path('/settings');
             },
