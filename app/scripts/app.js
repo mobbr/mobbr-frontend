@@ -59,6 +59,7 @@ angular.module('mobbr', [
     'ngRoute',
     'ngTable',
     'ui.bootstrap',
+    'mobbrApi',
     'mobbr.config',
     'mobbr.controllers',
     'mobbr.services.msg',

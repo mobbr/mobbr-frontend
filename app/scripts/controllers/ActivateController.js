@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('ActivateController', function ($scope, User, userSession, Msg, $location, $routeParams) {
+angular.module('mobbr.controllers').controller('ActivateController', function ($scope, MobbrUser, userSession, Msg, $location, $routeParams) {
 
-    User.linkLogin({ 'login_token': $routeParams.hash }, function (response) {
+    MobbrUser.linkLogin({ login_token: $routeParams.hash }, function (response) {
             if (response.result !== null && response.result != undefined) {
                 userSession.doLogin(response.result);
                 Msg.setResponseMessage('info', 'Activated your account', response);
