@@ -13,8 +13,7 @@
         <accordion-group heading="Since last logout" is-open="true">
             <invoicetable id="wallet_new"
                           columns="[ 'datetime', 'title', 'currency', 'amount' ]"
-                          api="Dashboard.getPayments"
-                          action="'new_payments'"
+                          api="MobbrPayment.historic"
                           sort-by="'datetime'"
                           sort-order="'desc'"
                           click-row="openPayment"></invoicetable>
@@ -22,8 +21,7 @@
         <accordion-group heading="Historic payments" is-open="true">
             <invoicetable id="wallet_historic"
                           columns="[ 'datetime', 'title', 'currency', 'amount' ]"
-                          api="Dashboard.getPayments"
-                          action="'payments'"
+                          api="MobbrPayment.new"
                           sort-by="'datetime'"
                           sort-order="'desc'"
                           click-row="openPayment"></invoicetable>

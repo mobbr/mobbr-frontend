@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('WalletController', function ($scope, $rootScope, $timeout, $dialog, Balances, userSession, Util, Dashboard, Msg, PaymentNetwork, $window, $routeParams, $location) {
+angular.module('mobbr.controllers').controller('WalletController', function ($scope, $rootScope, $timeout, $dialog, MobbrBalance, MobbrXPayment, userSession, MobbrPayment, Msg, $window, $routeParams, $location) {
 
   $scope.searchentries;                // filter on search criteria
   //$scope.searchentriesAllPayments;                // filter on search criteria
@@ -10,7 +10,7 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
   $scope.balances = [];
   $scope.reloadBalances = function () {
     if(userSession.authenticated){
-      Balances.balance(function(response){
+      MobbrBalance.user(function(response){
         $scope.balances = response.result;
       });
     }
@@ -25,7 +25,7 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
   $scope.mutations = [];
   $scope.reloadMutation =  function ( ) {
     if(userSession.authenticated){
-      Balances.payments(function(response){
+      MobbrXPayment.get(function(response){
         $scope.mutations = response.result;
       });
     }
@@ -55,7 +55,7 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
   }
 
   if ($window.location.search.indexOf('?transactionId=') !== -1) {
-    PaymentNetwork.confirmDeposit({
+    MobbrXPayment.confirmDeposit({
         trx_id: $window.location.search.replace('?transactionId=', '')
       }, function (response) {
         Msg.setResponseMessage('info', response.message.text, response);
@@ -68,7 +68,7 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
   }
 
   var getsupportedCurrencies = function(){
-    PaymentNetwork.supportedCurrencies(function (response){
+    MobbrXPayment.supportedCurrencies(function (response){
       $scope.supportedCurrencies = response.result;
     }, function (response){
       Msg.setResponseMessage('error', response.data.message.text, response);
@@ -79,7 +79,7 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
 
 
   $scope.generateAddress = function(currency){
-    PaymentNetwork.newAccountAddress({'currency':currency},function(response){
+    MobbrXPayment.newAccountAddress({'currency':currency},function(response){
       getsupportedCurrencies();
       if(response.message !== undefined && response.message !== null){
         Msg.setResponseMessage('info',response.message.text,response);
@@ -93,7 +93,7 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
     $location.path('/x-payment/' + id);
   }
 
-    $scope.Dashboard = Dashboard;
+    $scope.MobbrPayment = MobbrPayment;
 
     var depositDialog = $dialog.dialog({
         backdrop: true,
@@ -123,7 +123,7 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
 
             $scope.confirm = function () {
                 $scope.waiting = true;
-                PaymentNetwork.prepareDeposit({
+                MobbrXPayment.prepareDeposit({
                     currency: $scope.deposit_currency,
                     amount: $scope.deposit_amount,
                     note: $scope.deposit_note,
@@ -204,7 +204,7 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
 
             $scope.confirm = function () {
                 $scope.waiting = true;
-                PaymentNetwork.sendPayment($scope.network_method.send, function (response) {
+                MobbrXPayment.withdraw($scope.network_method.send, function (response) {
                     $scope.waiting = false;
                     $scope.network_method.send = {};
                     dialog.close();
