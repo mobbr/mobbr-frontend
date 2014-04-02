@@ -1,9 +1,10 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('WorkingController', function ($scope, $location, $filter, userSession, Working, Global, invoiceDialog, pdfGenerator, Msg) {
+angular.module('mobbr.controllers').controller('WorkingController', function ($scope, $location, $filter, userSession, MobbrInvoice, MobbrPayment, MobbrUri, invoiceDialog, pdfGenerator, Msg) {
 
-    $scope.Working = Working;
-    $scope.Global = Global;
+    $scope.MobbrInvoice = MobbrInvoice;
+    $scope.MobbrPayment = MobbrPayment;
+    $scope.MobbrUri = MobbrUri;
 
     $scope.openPayment = function (item) {
         $location.path('/payment/' + (item.payment_id || item.id));
@@ -11,7 +12,7 @@ angular.module('mobbr.controllers').controller('WorkingController', function ($s
 
     $scope.confirmInvoices = function (ids, items, table) {
         invoiceDialog(
-            Working.confirmInvoices,
+            MobbrInvoice.confirm,
             'confirm_invoice_popup',
             {
                 ids: ids,

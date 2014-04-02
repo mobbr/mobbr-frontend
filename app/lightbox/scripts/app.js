@@ -7,6 +7,7 @@ angular.module('mobbr.configuration', []);
 
 angular.module('mobbr-lightbox', [
 
+        'mobbrApi',
         'ngRoute',
         'ui.bootstrap',
         'mobbr.config',
@@ -22,15 +23,15 @@ angular.module('mobbr-lightbox', [
 
         '$http',
         '$rootScope',
-        'Util',
-        function ($http, $rootScope, Util) {
+        'MobbrApi',
+        function ($http, $rootScope, MobbrApi) {
 
             $rootScope.isTest = function () {
                 return window.location.href.search('test-www.mobbr.com');
             }
 
             $rootScope.currenciesMap = {};
-            Util.currencies(function (response) {
+            MobbrApi.forexCurrencies(function (response) {
                 if (response.result != null) {
                     $rootScope.currenciesMap = response.result;
                 } else if (response.message != null) {

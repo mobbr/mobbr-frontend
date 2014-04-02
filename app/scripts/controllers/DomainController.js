@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('DomainController', function ($scope, Domain ,Msg, $location, $routeParams, $window) {
+angular.module('mobbr.controllers').controller('DomainController', function ($scope, MobbrDomain, MobbrPerson, MobbrPayment, MobbrBalance, MobbrReferrer, Msg, $location, $routeParams, $window) {
 
     var refarray,
         urlParam;
@@ -11,12 +11,12 @@ angular.module('mobbr.controllers').controller('DomainController', function ($sc
     }
 
     urlParam = { domain: $window.atob($routeParams.url) };
-    $scope.balances = Domain.balances(urlParam);
-    $scope.info = Domain.info(urlParam);
-    $scope.locations = Domain.getLocations(urlParam);
-    $scope.persons = Domain.getPersons(urlParam);
-    $scope.unclaimed = Domain.getUnclaimed(urlParam);
-    $scope.payments = Domain.getPayments(
+    $scope.balances = MobbrBalance.domain(urlParam);
+    $scope.info = MobbrDomain.info(urlParam);
+    $scope.locations = MobbrReferrer.domain(urlParam);
+    $scope.persons = MobbrPerson.domain(urlParam);
+    $scope.unclaimed = MobbrPayment.unclaimed(urlParam);
+    $scope.payments = MobbrPayment.domain(
         urlParam,
         function (response) {
             if (response.result === null) {

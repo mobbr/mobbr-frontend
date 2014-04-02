@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('ClaimPaymentController', function ($scope, Claim, Msg,$location) {
+angular.module('mobbr.controllers').controller('ClaimPaymentController', function ($scope, MobbrPayment, MobbrScript, Msg, $location) {
 
     $scope.claimpayment = {url: ''};
 
@@ -51,7 +51,7 @@ angular.module('mobbr.controllers').controller('ClaimPaymentController', functio
         if ($scope.claimpayment.url != null && $scope.claimpayment.url.length > 0) {
             $scope.workingCheck = true;
             // determine if url is url of email
-            Claim.unclaimedPayments({url:$scope.claimpayment.url},function(response){
+            MobbrPayment.unclaimed({url:$scope.claimpayment.url},function(response){
                 $scope.workingCheck = false;
                 if(response.result != null && response.result.length > 0){
 
@@ -90,7 +90,7 @@ angular.module('mobbr.controllers').controller('ClaimPaymentController', functio
         if ($scope.claimpayment.url != null) {
             $scope.loadingPaymentDescription = true;
 
-            Claim.paymentDescription({url:$scope.claimpayment.url},function(response){
+            MobbrScript.get({url:$scope.claimpayment.url},function(response){
                     $scope.loadingPaymentDescription = false;
                     if(response.result !== null){
 
@@ -123,7 +123,7 @@ angular.module('mobbr.controllers').controller('ClaimPaymentController', functio
                 }
             }
 
-            Claim.claim({url:$scope.claimpayment.url},function(response){
+            MobbrPayment.claim({url:$scope.claimpayment.url},function(response){
                 $scope.claiming = false;
                 if(response.result === true){
                     $scope.claimpayment.url = '';
