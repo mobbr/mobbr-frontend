@@ -2,42 +2,14 @@
     The dashboard is empty because you are not logged in. To login or signup, go <a href="#/join">here</a>.
 </div>
 <tabs>
-<pane heading="Payments">
+<pane heading="Wallet">
+
     <div class="row-fluid">
         <div class="well span12 special">
-            <small>Overview of all payments you made or received.</small>
+            <small>Your credit and new payments since your last logout.</small>
         </div>
     </div>
-
-    <accordion close-others="false">
-        <accordion-group heading="Since last logout" is-open="true">
-            <invoicetable id="wallet_new"
-                          columns="[ 'datetime', 'title', 'currency', 'amount' ]"
-                          api="Dashboard.getPayments"
-                          action="'new_payments'"
-                          sort-by="'datetime'"
-                          sort-order="'desc'"
-                          click-row="openPayment"></invoicetable>
-        </accordion-group>
-        <accordion-group heading="Historic payments" is-open="true">
-            <invoicetable id="wallet_historic"
-                          columns="[ 'datetime', 'title', 'currency', 'amount' ]"
-                          api="Dashboard.getPayments"
-                          action="'payments'"
-                          sort-by="'datetime'"
-                          sort-order="'desc'"
-                          click-row="openPayment"></invoicetable>
-        </accordion-group>
-    </accordion>
-</pane>
-<pane heading="Balances">
-    <div class="row-fluid">
-        <div class="well span12 special">
-            <small>Your credit and external payments.</small>
-        </div>
-    </div>
-
-    <div class="pull-right btn-toolbar" style="margin: 0;">
+    <div class="btn-toolbar">
         <div class="btn-group">
             <button class="btn" ng-click="depositDialog.open()">Deposit</button>
         </div>
@@ -48,7 +20,6 @@
 
     <accordion close-others="false">
         <accordion-group heading="Total credit" is-open="true">
-
             <table class="table table-striped mobbrtable" ng-show="balances.length > 0">
                 <thead>
                 <tr>
@@ -69,7 +40,34 @@
                 </tr>
                 </tbody>
             </table>
+        </accordion-group>
+        <accordion-group heading="New payments" is-open="true">
+            <invoicetable id="wallet_new"
+                          columns="[ 'datetime', 'title', 'currency', 'amount' ]"
+                          api="Dashboard.getPayments"
+                          action="'new_payments'"
+                          sort-by="'datetime'"
+                          sort-order="'desc'"
+                          click-row="openPayment"></invoicetable>
+        </accordion-group>
+    </accordion>
+</pane>
+<pane heading="Historic">
+    <div class="row-fluid">
+        <div class="well span12 special">
+            <small>Overview of all payments you made or received.</small>
+        </div>
+    </div>
 
+    <accordion close-others="false">
+        <accordion-group heading="Payments" is-open="true">
+            <invoicetable id="wallet_historic"
+                          columns="[ 'datetime', 'title', 'currency', 'amount' ]"
+                          api="Dashboard.getPayments"
+                          action="'payments'"
+                          sort-by="'datetime'"
+                          sort-order="'desc'"
+                          click-row="openPayment"></invoicetable>
             <div ng-show="balances.length == 0">
                 No balances found
             </div>
@@ -101,7 +99,7 @@
         </accordion-group>
     </accordion>
 </pane>
-<pane heading="Addresses">
+<!--<pane heading="Addresses">
     <div class="row-fluid">
         <div class="well span12 special">
             <small>Use these public addresses to receive money from external accounts. Give these to anyone who needs to fund your Mobbr account.</small>
@@ -139,6 +137,6 @@
         </div>
     </form>
 
-</pane>
+</pane>-->
 </tabs>
 
