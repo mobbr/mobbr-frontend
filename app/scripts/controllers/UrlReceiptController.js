@@ -8,11 +8,11 @@ angular.module('mobbr.controllers').controller('UrlReceiptController', function 
         $location.path('/url/' + $window.btoa(document.referrer)).replace();;
     }
 
-    $scope.payment = MobbrPayment.preview(
-        {
+    $scope.payment = MobbrPayment.preview({
             data: $window.atob($routeParams.url),
             referrer: document.referrer
-        }, function (response) {
+        },
+        function (response) {
             if (response.result === null || response.result === undefined) {
                 Msg.setResponseMessage('error', 'URL info not found', response);
             } else {
@@ -24,7 +24,8 @@ angular.module('mobbr.controllers').controller('UrlReceiptController', function 
                 $scope.divisions = MobbrPerson.domain(domainParam);
 
             }
-        }, function (response) {
+        },
+        function (response) {
             Msg.setResponseMessage('error', 'URL info not found', response);
         }
     );
