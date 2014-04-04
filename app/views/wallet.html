@@ -20,7 +20,7 @@
 
     <accordion close-others="false">
         <accordion-group heading="Total credit" is-open="true">
-            <table class="table table-striped mobbrtable" ng-show="balances.length > 0">
+            <table class="table table-striped mobbrtable" ng-show="balances.result.length > 0">
                 <thead>
                 <tr>
                     <th>Currency description</th>
@@ -31,7 +31,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="balance in balances | orderBy:sortEntries:sortOrderBalance | filter:searchBalanceEntries"  ng-class-odd="'odd'" ng-class-even="'even'">
+                <tr ng-repeat="balance in balances.result | orderBy: sortEntries: sortOrderBalance | filter: searchBalanceEntries"  ng-class-odd="'odd'" ng-class-even="'even'">
                     <td ng-bind="currencyDescription(balance.currency_iso)"></td>
                     <td ng-bind="balance.currency_iso" class="currency"></td>
                     <td ng-bind="balance.amount" class="amount decorate-amount"></td>
@@ -71,7 +71,7 @@
             </div>
         </accordion-group>
         <accordion-group heading="Deposits and withdraws" is-open="true">
-            <table class="table table-striped mobbrtable" ng-show="mutations.length >0">
+            <table class="table table-striped mobbrtable" ng-show="mutations.result.length >0">
                 <thead>
                 <tr>
                     <th ng-click="sortPayments('paiddatetime')">date</th>
@@ -82,7 +82,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="mutation in mutations | orderBy:sortEntries:sortOrderPayments | filter:searchBalanceEntries"  ng-class-odd="'odd'" ng-class-even="'even'">
+                <tr ng-repeat="mutation in mutations.result | orderBy:sortEntries:sortOrderPayments | filter:searchBalanceEntries"  ng-class-odd="'odd'" ng-class-even="'even'">
                     <td ng-click="openExternalPayment(mutation.id)" ng-bind="mutation.paiddatetime || mutation.announceddatetime" class="datetime {{ !mutation.paiddatetime && 'muted' }}"></td>
                     <td ng-click="openExternalPayment(mutation.id)" ng-bind="mutation.payment_service"></td>
                     <td ng-bind="mutation.currency_iso" class="currency"></td>
@@ -104,7 +104,7 @@
         </div>
     </div>
     <form class="form-horizontal">
-        <div ng-repeat="(currency, addresses) in supportedCurrencies">
+        <div ng-repeat="(currency, addresses) in supportedCurrencies.result">
 
             <accordion close-others="false">
                 <accordion-group heading="{{currency}} / {{currencyDescription(currency)}}" is-open="false">
