@@ -1,101 +1,47 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('WalletController', function ($scope, $rootScope, $timeout, $dialog, MobbrBalance, MobbrXPayment, userSession, MobbrPayment, Msg, $window, $routeParams, $location) {
+angular.module('mobbr.controllers').controller('WalletController', function ($scope, $dialog, $window, $location, userSession, MobbrBalance, MobbrXPayment, MobbrPayment) {
 
-  $scope.searchentries;                // filter on search criteria
-  //$scope.searchentriesAllPayments;                // filter on search criteria
-  $scope.currencyDescription = function(iso){
-    return $rootScope.currencyDescription(iso);
-  }
-  $scope.balances = [];
-  $scope.reloadBalances = function () {
-    if(userSession.authenticated){
-      MobbrBalance.user(function(response){
-        $scope.balances = response.result;
-      });
+    if ($location.search().transactionId) {
+        MobbrXPayment.confirmDeposit({
+                trx_id: $location.search().transactionId
+            },
+            function () {
+                $location.search('transactionId');
+                reload();
+            }
+        );
     }
-  } ;
-  $scope.reloadBalances();
 
+    function reload() {
+        $scope.balances = MobbrBalance.user();
+        $scope.mutations = MobbrXPayment.get();
+        $scope.supportedCurrencies = MobbrXPayment.supportedCurrencies();
+    };
 
-  $scope.sortOrderBalance;
-  $scope.sortBalance = function (column) {
-    $scope.sortOrderBalance = column;
-  }
-  $scope.mutations = [];
-  $scope.reloadMutation =  function ( ) {
-    if(userSession.authenticated){
-      MobbrXPayment.get(function(response){
-        $scope.mutations = response.result;
-      });
+    $scope.sortBalance = function (column) {
+        $scope.sortOrderBalance = column;
     }
-  };
-  $scope.reloadMutation();
 
-  $rootScope.$watch('reloadPayments', function(newValue, oldValue) {
-    if(newValue != undefined){
-      $scope.reloadMutation();
-      $scope.reloadBalances();
+    $scope.generateAddress = function (currency) {
+        MobbrXPayment.newAccountAddress({
+                currency: currency
+            },
+            reload
+        );
     }
-  });
 
+    $scope.openExternalPayment = function (id) {
+        $location.path('/x-payment/' + id);
+    }
 
-  $scope.sortOrderPayments;
-  $scope.sortPayments = function (column) {
-    $scope.sortOrderPayments = column;
-  }
-
-
-  $scope.$rootScope = $rootScope;
-
-  function resetLocation() {
-    $timeout(function () {
-      $window.location.href = $window.location.origin + '/' + $window.location.hash;
-    }, 3000);
-  }
-
-  if ($window.location.search.indexOf('?transactionId=') !== -1) {
-    MobbrXPayment.confirmDeposit({
-        trx_id: $window.location.search.replace('?transactionId=', '')
-      }, function (response) {
-        Msg.setResponseMessage('info', response.message.text, response);
-        resetLocation();
-      }, function (response) {
-        Msg.setResponseMessage('error', response.data.message.text, response);
-        resetLocation();
-      }
-    );
-  }
-
-  var getsupportedCurrencies = function(){
-    MobbrXPayment.supportedCurrencies(function (response){
-      $scope.supportedCurrencies = response.result;
-    }, function (response){
-      Msg.setResponseMessage('error', response.data.message.text, response);
-    });
-  }
-  getsupportedCurrencies();
-
-
-
-  $scope.generateAddress = function(currency){
-    MobbrXPayment.newAccountAddress({'currency':currency},function(response){
-      getsupportedCurrencies();
-      if(response.message !== undefined && response.message !== null){
-        Msg.setResponseMessage('info',response.message.text,response);
-      }
-    }, function (response){
-      Msg.setResponseMessage('error', response.data.message.text, response);
-    });
-  }
-
-  $scope.openExternalPayment = function (id) {
-    $location.path('/x-payment/' + id);
-  }
+    $scope.openPayment = function (item) {
+        $location.path('/payment/' + item.id);
+    }
 
     $scope.MobbrPayment = MobbrPayment;
 
-    var depositDialog = $dialog.dialog({
+    $scope.depositDialog = $dialog.dialog({
         backdrop: true,
         keyboard: true,
         backdropClick: false,
@@ -134,13 +80,12 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
                     $window.location.href = data.result;
                 }, function(response){
                     $scope.waiting = false;
-                    Msg.setResponseMessage('error', response.data.message.text, response);
                 });
             }
         }
     });
 
-    var withdrawDialog = $dialog.dialog({
+    $scope.withdrawDialog = $dialog.dialog({
         backdrop: true,
         keyboard: true,
         backdropClick: false,
@@ -208,20 +153,13 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
                     $scope.waiting = false;
                     $scope.network_method.send = {};
                     dialog.close();
-                    Msg.setResponseMessage('info', response.message.text, response);
+                    reload();
                 }, function (response) {
                     $scope.waiting = false;
-                    Msg.setResponseMessage('error', response.data.message.text, response);
                 });
             }
         }
     });
 
-    $scope.openPayment = function (item) {
-        console.log(item);
-        $location.path('/payment/' + item.id);
-    }
-
-    $scope.depositDialog = depositDialog;
-    $scope.withdrawDialog = withdrawDialog;
+    reload();
 });

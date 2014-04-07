@@ -1,6 +1,5 @@
 'use strict';
 
-
 angular.module('mobbr.controllers').controller('JoinController', function ($scope, $routeParams, MobbrUser, Msg) {
 
     $scope.waiting = false;

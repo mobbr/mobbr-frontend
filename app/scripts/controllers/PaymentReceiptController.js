@@ -1,31 +1,15 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('PaymentReceiptController', function ($scope, MobbrPayment, MobbrXPayment, $routeParams, Msg, $location) {
+angular.module('mobbr.controllers').controller('PaymentReceiptController', function ($scope, $routeParams, $location, MobbrPayment, MobbrXPayment) {
 
-  var params = { id: $routeParams.id };
+    var params = { id: $routeParams.id };
 
-  function onSuccess(response) {
-    console.log(response);
-    if(response.result !== null && response.result !== undefined) {
-      $scope.payment = response.result;
+    $scope.external = false;
+
+    if ($location.path().indexOf('x-payment') !== -1) {
+        $scope.external = true;
+        $scope.payment = MobbrXPayment.info(params);
     } else {
-      Msg.setResponseMessage( 'error', 'Payment receipt not found',response);
+        $scope.payment = MobbrPayment.info(params);
     }
-  }
-
-  function onError(response) {
-    Msg.setResponseMessage( 'error', 'Payment receipt not found',response);
-  }
-
-  $scope.payment = {};
-  $scope.searchentries;
-  $scope.external = false;
-
-  if ($location.path().indexOf('x-payment') !== -1) {
-    $scope.external = true;
-    MobbrXPayment.info(params, onSuccess, onError);
-  } else {
-    MobbrPayment.info(params, onSuccess, onError);
-  }
-
 });

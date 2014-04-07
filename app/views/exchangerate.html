@@ -16,7 +16,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="exchangerate in exchangerates | orderBy:sortField:sortOrder">
+    <tr ng-repeat="exchangerate in exchangerates.result | orderBy: sortField: sortOrder">
         <td ng-bind="exchangerate.description"></td>
         <td>{{exchangerate.base_currency_iso}} 1.00</td>
         <td>≈</td>
