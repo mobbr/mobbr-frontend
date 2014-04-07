@@ -56,134 +56,150 @@ angular.module('ui.bootstrap.dropdownToggle', []).directive('dropdownToggle',
   }]);
 
 angular.module('mobbr', [
-    'ngRoute',
-    'ngTable',
-    'ui.bootstrap',
-    'mobbrApi',
-    'mobbr.config',
-    'mobbr.controllers',
-    'mobbr.services.msg',
-    'mobbr.services.mbr-api',
-    'mobbr.services.user',
-    'mobbr.services.storage',
-    'mobbr.services.invoice',
-    'mobbr.services.pdf',
-    'mobbr.directives',
-    'mobbr.filters',
-    'ngCookies',
-    'angularFileUpload'
-  ]).config(function ($routeProvider, $parseProvider) {
 
-      var resolver = {
-        authResolver: [
-          '$q',
-          'userSession',
-          function ($q, userSession) {
+        'ngRoute',
+        'ngTable',
+        'ui.bootstrap',
+        'mobbrApi',
+        'mobbr.config',
+        'mobbr.controllers',
+        'mobbr.services.msg',
+        'mobbr.services.mbr-api',
+        'mobbr.services.user',
+        'mobbr.services.storage',
+        'mobbr.services.invoice',
+        'mobbr.services.pdf',
+        'mobbr.directives',
+        'mobbr.filters',
+        'ngCookies',
+        'angularFileUpload'
 
-            var authenticated = userSession.authenticate(),
-              deferred = $q.defer();
+    ]).config(function ($routeProvider, $parseProvider) {
 
-            authenticated && deferred.resolve() || deferred.reject();
+        var resolver = {};
+
+        resolver.auth = function ($q, $rootScope, $route, $location) {
+
+            var deferred = $q.defer(),
+                route = $route.current && $route.current.$$route,
+                authenticated = $rootScope.$mobbrStorage.token && true || false;
+
+            if (route && route.authsettings && route.authsettings.authenticated !== authenticated) {
+                deferred.reject();
+                route.authsettings.redirectTo && $location.path(route.authsettings.redirectTo);
+            } else {
+                deferred.resolve();
+            }
 
             return deferred.promise;
-          }
-        ]
-      }
-
-      $routeProvider.when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainController'
-      }).when('/main_new', {
-          templateUrl: 'views/main_new.html'
-        }).when('/login/:hash', {
-          templateUrl: 'views/link-login.html',
-          controller: 'LinkLoginController',
-          authsettings: { authenticated: false, redirectTo: '/wallet' },
-          resolve: resolver
-        }).when('/activate/:hash', {
-          templateUrl: 'views/activate.html',
-          controller: 'ActivateController',
-          authsettings: { authenticated: false, redirectTo: '/wallet' },
-          resolve: resolver
-        }).when('/email/:hash', {
-          templateUrl: 'views/update-email.html',
-          controller: 'UpdateEmailController'
-        }).when('/recover', {
-          templateUrl: 'views/recover-password.html',
-          controller: 'ResetPasswordController',
-          authsettings: { authenticated: false, redirectTo: '/wallet' },
-          resolve: resolver
-        }).when('/join', {
-          templateUrl: 'views/join.html',
-          controller: 'JoinController',
-          authsettings: { authenticated: false, redirectTo: '/wallet' },
-          resolve: resolver
-        }).when('/settings', {
-          templateUrl: 'views/settings.html',
-          controller: 'UserSettingsController',
-          authsettings: { authenticated: true, redirectTo: '/' },
-          resolve: resolver
-        }).when('/wallet', {
-          templateUrl: 'views/wallet.html',
-          controller: 'WalletController',
-          authsettings: { authenticated: true, redirectTo: '/' },
-          resolve: resolver
-        }).when('/sourcing', {
-          templateUrl: 'views/sourcing.html',
-          controller: 'SourcingController',
-          authsettings: { authenticated: true, redirectTo: '/' },
-          resolve: resolver
-        }).when('/working', {
-          templateUrl: 'views/working.html',
-          controller: 'WorkingController',
-          authsettings: { authenticated: true, redirectTo: '/' },
-          resolve: resolver
-        }).when('/domain/:url', {
-          templateUrl: 'views/domain.html',
-          controller: 'DomainController'
-        }).when('/claimpayment', {
-          templateUrl: 'views/claim_payment.html',
-          controller: 'ClaimPaymentController'
-        }).when('/generatebutton', {
-          templateUrl: 'views/generate_button.html',
-          controller: 'CreateButtonController'
-        }).when('/exchangerate', {
-          templateUrl: 'views/exchangerate.html',
-          controller: 'ExchangeRateController'
-        }).when('/integration', {
-          templateUrl: 'views/integration.html'
-        }).when('/api', {
-          templateUrl: 'views/api.html'
-        }).when('/usecases', {
-          templateUrl: 'views/usecases.html'
-        }).when('/siteconnector', {
-          templateUrl: 'views/siteconnector.html'
-        }).when('/features', {
-          templateUrl: 'views/features.html'
-        }).when('/gettingstarted', {
-          templateUrl: 'views/gettingstarted.html'
-        }).when('/company', {
-          templateUrl: 'views/company.html'
-        }).when('/validator', {
-          templateUrl: 'views/validator.html'
-        }).when('/payment/:id', {
-          templateUrl: 'views/payment.html',
-          controller: 'PaymentReceiptController'
-        }).when('/x-payment/:id', {
-          templateUrl: 'views/payment.html',
-          controller: 'PaymentReceiptController'
-        }).when('/url/:url', {
-          templateUrl: 'views/url.html',
-          controller: 'UrlReceiptController'
-        }).otherwise({
-          redirectTo: '/'
         }
-      );
 
+        $routeProvider.when('/', {
+                templateUrl: 'views/main.html',
+                controller: 'MainController'
+            }).when('/login/:hash', {
+                templateUrl: 'views/link-login.html',
+                controller: 'LinkLoginController',
+                authsettings: { authenticated: false, redirectTo: '/wallet' },
+                resolve: resolver
+            }).when('/activate/:hash', {
+                templateUrl: 'views/activate.html',
+                controller: 'ActivateController',
+                authsettings: { authenticated: false, redirectTo: '/wallet' },
+                resolve: resolver
+            }).when('/email/:hash', {
+                templateUrl: 'views/update-email.html',
+                controller: 'UpdateEmailController'
+            }).when('/recover', {
+                templateUrl: 'views/recover-password.html',
+                controller: 'ResetPasswordController',
+                authsettings: { authenticated: false, redirectTo: '/wallet' },
+                resolve: resolver
+            }).when('/join', {
+                templateUrl: 'views/join.html',
+                controller: 'JoinController',
+                authsettings: { authenticated: false, redirectTo: '/wallet' },
+                resolve: resolver
+            }).when('/settings', {
+                templateUrl: 'views/settings.html',
+                controller: 'UserSettingsController',
+                authsettings: { authenticated: true, redirectTo: '/' },
+                resolve: resolver
+            }).when('/wallet', {
+                templateUrl: 'views/wallet.html',
+                controller: 'WalletController',
+                authsettings: { authenticated: true, redirectTo: '/' },
+                resolve: resolver
+            }).when('/sourcing', {
+                templateUrl: 'views/sourcing.html',
+                controller: 'SourcingController',
+                authsettings: { authenticated: true, redirectTo: '/' },
+                resolve: resolver
+            }).when('/working', {
+                templateUrl: 'views/working.html',
+                controller: 'WorkingController',
+                authsettings: { authenticated: true, redirectTo: '/' },
+                resolve: resolver
+            }).when('/domain/:url', {
+                templateUrl: 'views/domain.html',
+                controller: 'DomainController'
+            }).when('/claimpayment', {
+                templateUrl: 'views/claim_payment.html',
+                controller: 'ClaimPaymentController'
+            }).when('/generatebutton', {
+                templateUrl: 'views/generate_button.html',
+                controller: 'CreateButtonController'
+            }).when('/exchangerate', {
+                templateUrl: 'views/exchangerate.html',
+                controller: 'ExchangeRateController'
+            }).when('/integration', {
+                templateUrl: 'views/integration.html'
+            }).when('/api', {
+                templateUrl: 'views/api.html'
+            }).when('/usecases', {
+                templateUrl: 'views/usecases.html'
+            }).when('/siteconnector', {
+                templateUrl: 'views/siteconnector.html'
+            }).when('/features', {
+                templateUrl: 'views/features.html'
+            }).when('/gettingstarted', {
+                templateUrl: 'views/gettingstarted.html'
+            }).when('/company', {
+                templateUrl: 'views/company.html'
+            }).when('/validator', {
+                templateUrl: 'views/validator.html'
+            }).when('/payment/:id', {
+                templateUrl: 'views/payment.html',
+                controller: 'PaymentReceiptController'
+            }).when('/x-payment/:id', {
+                templateUrl: 'views/payment.html',
+                controller: 'PaymentReceiptController'
+            }).when('/url/:url', {
+                templateUrl: 'views/url.html',
+                controller: 'UrlReceiptController'
+            }).otherwise({
+                redirectTo: '/'
+            }
+        );
 
-      $parseProvider.logPromiseWarnings(true);
-    }
-  ).run(function ($http, $rootScope, MobbrApi, $location, userSession, Msg, $window, $anchorScroll) {
+    }).run(function ($http, $rootScope, $route, $location, $window, $anchorScroll, MobbrApi, MobbrUser) {
+
+        $rootScope.login = function (email, password) {
+            MobbrUser.passwordLogin({ email: email, password: password }, function () {
+                $location.path('/wallet');
+            });
+        };
+
+        $rootScope.logout = function () {
+            MobbrUser.logout();
+        }
+
+        $rootScope.$on('mobbrApi:authchange', function (user) {
+            $route.reload();
+            if ($window.parent && $window.parent.postMessage) {
+                $window.parent.postMessage(user && [ user.username, user.email ].join('|') || 'logout', '*');
+            }
+        });
 
       $rootScope.isTest = function () {
         return window.location.href.search('test-www.mobbr.com');

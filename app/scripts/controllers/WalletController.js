@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('WalletController', function ($scope, $dialog, $window, $location, userSession, MobbrBalance, MobbrXPayment, MobbrPayment) {
+angular.module('mobbr.controllers').controller('WalletController', function ($scope, $dialog, $window, $location, MobbrBalance, MobbrXPayment, MobbrPayment) {
 
     if ($location.search().transactionId) {
         MobbrXPayment.confirmDeposit({

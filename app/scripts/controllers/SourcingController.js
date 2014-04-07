@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('SourcingController', function ($scope, $dialog, $location, userSession, MobbrInvoice, MobbrPayment, MobbrPerson, MobbrUri, invoiceDialog, pdfGenerator, Msg) {
+angular.module('mobbr.controllers').controller('SourcingController', function ($scope, $dialog, $location, $rootScope, invoiceDialog, pdfGenerator, MobbrInvoice, MobbrPayment, MobbrPerson, MobbrUri) {
 
     $scope.MobbrInvoice = MobbrInvoice;
     $scope.MobbrPayment = MobbrPayment;
@@ -31,12 +31,12 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
             'request_invoice_popup',
             {
                 ids: ids,
-                customer_name: userSession.user.companyname || (userSession.user.firstname + ' ' + userSession.user.lastname),
-                customer_address: userSession.user.address,
-                customer_country: userSession.user.country_of_residence,
-                customer_vat_number: userSession.user.vat_number,
-                customer_vat_rate: userSession.user.vat_rate,
-                customer_status: userSession.user.companyname && 'enterprise' || 'private'
+                customer_name: $rootScope.$mobbrStorage.user.companyname || ($rootScope.$mobbrStorage.user.firstname + ' ' + $rootScope.$mobbrStorage.user.lastname),
+                customer_address: $rootScope.$mobbrStorage.user.address,
+                customer_country: $rootScope.$mobbrStorage.user.country_of_residence,
+                customer_vat_number: $rootScope.$mobbrStorage.user.vat_number,
+                customer_vat_rate: $rootScope.$mobbrStorage.user.vat_rate,
+                customer_status: $rootScope.$mobbrStorage.user.companyname && 'enterprise' || 'private'
             },
             function (dialog, response) {
                 Msg.setResponseMessage('info', 'Invoice successfully requested', response);
