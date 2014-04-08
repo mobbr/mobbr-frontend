@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mobbr.controllers')
-    .controller('LightboxController', function ($scope, $location, $timeout, MobbrPayment, userSession, User, MobbrBalance, MobbrPerson) {
+    .controller('LightboxController', function ($scope, $location, $timeout, $rootScope, MobbrPayment, MobbrUser, MobbrBalance, MobbrPerson) {
 
         var hash,
             error,
@@ -43,7 +43,7 @@ angular.module('mobbr.controllers')
                 $scope.dologin = true;
                 $scope.loading = false;
             } else if (logout) {
-                userSession.doLogout(true);
+                $rootScope.logout();
             } else {
                 $scope.dologin = false;
                 $scope.loading = true;
@@ -56,7 +56,7 @@ angular.module('mobbr.controllers')
         }
 
         function checkLogin() {
-            if (userSession.authenticated) {
+            if ($rootScope.$mobbrStorage.token) {
                 MobbrBalance.user(function (response) {
                     $scope.userCurrencies = response.result;
                     $scope.currency = $scope.userCurrencies[0];
@@ -65,19 +65,6 @@ angular.module('mobbr.controllers')
                 $scope.currency = 'EUR';
             }
         }
-
-        /*function register() {
-            Gateway.registerPayment({ referrer: document.referrer, hash: hash }, function (response) {
-                $scope.marked = true;
-                $scope.laterpaying = undefined;
-                $scope.laterpayed = true;
-                $scope.nowpayed = undefined;
-            }, function (response) {
-                $scope.errormessage = response.data && response.data.message && response.data.message.text;
-                $scope.marked = false;
-                $scope.laterpaying = undefined;
-            });
-        }*/
 
         function perform() {
             var currency = $scope.currency && $scope.currency.currency_iso || $scope.currency;
@@ -105,7 +92,7 @@ angular.module('mobbr.controllers')
 
         $scope.registerPayment = function (data) {
             $scope.laterpaying = true;
-            if (!userSession.authenticated) {
+            if (!$rootScope.$mobbrStorage.token) {
                 $scope.login(data, false, true);
             } else {
                 register();
@@ -114,7 +101,7 @@ angular.module('mobbr.controllers')
 
         $scope.performPayment = function (data) {
             $scope.nowpaying = true;
-            if (!userSession.authenticated) {
+            if (!$rootScope.$mobbrStorage.token) {
                 $scope.login(data, false, false, true);
             } else {
                 perform();
@@ -122,9 +109,8 @@ angular.module('mobbr.controllers')
         }
 
         $scope.login = function (data, notifyParent, do_register, do_perform) {
-            User.login({ email: data.email.$modelValue, password: data.password.$modelValue }, function (response) {
+            MobbrUser.login({ email: data.email.$modelValue, password: data.password.$modelValue }, function (response) {
                 if (response.result != undefined && response.result != null) {
-                    userSession.doLogin(response.result, notifyParent);
                     do_register && register();
                     do_perform && perform();
                     checkLogin();
@@ -133,16 +119,10 @@ angular.module('mobbr.controllers')
                 $scope.loginerror = true;
                 $scope.laterpaying = undefined;
                 $scope.nowpaying = undefined;
-                /*$timeout.cancel(logintimeout);
-                logintimeout = $timeout(function () {
-                    $scope.loginerror = undefined;
-                }, 5000);*/
             });
         }
 
-        $scope.currency = userSession.currency_iso;
+        $scope.currency = $rootScope.$mobbrStorage.user && $rootScope.$mobbrStorage.user.currency_iso || 'EUR';
         $scope.loading = true;
-        $scope.userSession = userSession;
-        //$scope.same_domain = strcmp( parse_url( $json['url'], PHP_URL_HOST), parse_url( $referrer, PHP_URL_HOST) ) == 0;
     }
 );

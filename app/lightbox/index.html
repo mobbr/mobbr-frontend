@@ -88,34 +88,34 @@
             </div>
 
             <div>
-                <h2 style="margin: 0 0 15px 0" ng-show="dologin" ng-bind="userSession.authenticated && 'Logged in as: ' + userSession.user.username || 'Login to Fast Moving Crowdwork'"></h2>
-                <div ng-show="!(dologin && userSession.authenticated)" id="login_form">
+                <h2 style="margin: 0 0 15px 0" ng-show="dologin" ng-bind="$mobbrStorage.token && 'Logged in as: ' + $mobbrStorage.user.username || 'Login to Fast Moving Crowdwork'"></h2>
+                <div ng-show="!(dologin && $mobbrStorage.token)" id="login_form">
                     <form name="login_form" autocomplete="off" class="form-inline lightboxform">
                         <fieldset ng-disabled="laterpaying || nowpaying">
                             <p class="loginerror alert alert-error" ng-show="loginerror">
                                 Wrong email/password
                             </p>
                             <p class="loginerror alert alert-error" ng-show="customerror" ng-bind="customerror"></p>
-                            <p ng-show="marked != false && !userSession.authenticated">
-                                <input ng-model="email" ng-disabled="userSession.authenticated" required type="email" name="email" placeholder="email address" autocomplete="off" class="input-medium">
-                                <input ng-model="password" ng-disabled="userSession.authenticated" required type="password" name="password" placeholder="password" autocomplete="off" class="input-medium">
+                            <p ng-show="marked != false && !$mobbrStorage.token">
+                                <input ng-model="email" ng-disabled="$mobbrStorage.token" required type="email" name="email" placeholder="email address" autocomplete="off" class="input-medium">
+                                <input ng-model="password" ng-disabled="$mobbrStorage.token" required type="password" name="password" placeholder="password" autocomplete="off" class="input-medium">
                                 <button ng-disabled="!email || !password" ng-click="login(login_form, true, false)" ng-show="dologin" class="btn btn-success">
                                     Login
                                 </button>
                             </p>
-                            <p id="newuser" ng-show="dologin || marked == undefined && !userSession.authenticated">
+                            <p id="newuser" ng-show="dologin || marked == undefined && !$mobbrStorage.token">
                                 New user or forgotten password? &rarr; <a href="/#/join" target="_blank">Go here</a>
                             </p>
                             <span ng-show="!dologin && marked == undefined">
                                 <select class="input-small"
                                         required
-                                        ng-show="userSession.authenticated"
+                                        ng-show="$mobbrStorage.token"
                                         ng-model="currency"
                                         ng-options="value.currency_iso for value in userCurrencies"
                                         ng-change="paymentChanged(payment)"></select>
                                 <select class="input-small"
                                         required
-                                        ng-show="!userSession.authenticated"
+                                        ng-show="!$mobbrStorage.token"
                                         ng-model="currency"
                                         ng-options="key as key for (key, value) in currenciesMap"
                                         ng-change="paymentChanged(payment)"></select>
@@ -126,7 +126,7 @@
                                        step="any"
                                        min="0"
                                        max="1000000000">
-                                <button ng-disabled="nowpaying || laterpaying || (!userSession.authenticated && (!email || !password))"
+                                <button ng-disabled="nowpaying || laterpaying || (!$mobbrStorage.token && (!email || !password))"
                                         ng-show="!dologin"
                                         ng-click="performPayment(login_form)"
                                         class="btn btn-success">
@@ -214,10 +214,7 @@
         <!-- endbuild -->
         <!-- build:js ../scripts/mobbr-core.js -->
         <script src="../scripts/services/msg.js"></script>
-        <script src="../scripts/services/mbr-api.js"></script>
         <script src="../scripts/services/idleTimeout.js"></script>
-        <script src="../scripts/services/userStorage.js"></script>
-        <script src="../scripts/services/UserSession.js"></script>
         <!-- endbuild -->
         <!-- build:js ../scripts/mobbr-lightbox.js -->
         <script src="scripts/app.js"></script>
