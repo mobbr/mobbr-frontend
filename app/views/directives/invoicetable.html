@@ -54,7 +54,7 @@
                       datetime="{{ item[column] }}">
                     <small>{{ item[column] }}</small>
                 </time>
-                <span ng-switch-when="currency" ng-bind="item['currency'] || item['currency_iso'] || userSession.user.currency_iso"></span>
+                <span ng-switch-when="currency" ng-bind="item['currency'] || item['currency_iso'] || $mobbrStorage.user.currency_iso"></span>
                 <span ng-switch-when="amount"
                       ng-bind="item[column] | mobbrcurrency"
                       ng-class="{ 'text-error': item.amount < 0 }"
@@ -78,7 +78,7 @@
                       datetime="{{ item[column] }}">
                     <small>{{ item[column] }}</small>
                 </time>
-                <span ng-switch-when="currency" ng-bind="item['currency'] || item['currency_iso'] || userSession.user.currency_iso"></span>
+                <span ng-switch-when="currency" ng-bind="item['currency'] || item['currency_iso'] || $mobbrStorage.user.currency_iso"></span>
                 <span ng-switch-when="amount"
                       ng-bind="item[column] | mobbrcurrency"
                       ng-class="{ 'text-error': item.amount < 0 }"
