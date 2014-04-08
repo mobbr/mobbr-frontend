@@ -20,7 +20,7 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
             order: '=',
             clickRow: '='
         },
-        controller: function ($scope, $attrs, $filter, ngTableParams, userSession) {
+        controller: function ($scope, $attrs, $filter, ngTableParams) {
 
             var reqparams = {},
                 sorting = {};
@@ -54,7 +54,6 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
             $scope.selectedItems = [];
             $scope.empty_message = $scope.emptyMessage || 'No items available';
             $scope.checkboxes = { 'checked': false, items: {} };
-            $scope.userSession = userSession;
             $scope.invoiceTable = new ngTableParams(
                 {
                     page: 1,

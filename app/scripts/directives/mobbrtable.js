@@ -40,9 +40,8 @@ angular.module('mobbr.directives').directive('mobbrtable', function factory($roo
         scope: {
             entries: '='
         },
-        controller: function ($scope, $attrs, userSession) {
+        controller: function ($scope, $attrs) {
 
-            $scope.userSession = userSession
             $scope.labels = labels;
             $scope.sortables = sortables;
             $scope.sortOrder = false;

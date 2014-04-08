@@ -12,7 +12,7 @@ angular.module('mobbr.services.timeout', [
             idletime = 0,
             running = false;
 
-        function resetIdleTime(event) {
+        function resetIdleTime() {
             $sessionStorage.idletime = 0;
         }
 
@@ -40,8 +40,9 @@ angular.module('mobbr.services.timeout', [
             $timeout.cancel(timer);
         }
 
-        $rootScope.$on('userSession:login', start);
-        $rootScope.$on('userSession:logout', stop);
+        $rootScope.$on('mobbrApi:authchange', function (user) {
+            user && start() || stop();
+        });
 
         return {
             start: start,
