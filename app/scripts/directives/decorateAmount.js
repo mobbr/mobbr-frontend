@@ -1,14 +1,14 @@
 'use strict';
 
-angular.module('mobbr.directives').directive('decorateAmount',function factory(userSession) {
+angular.module('mobbr.directives').directive('decorateAmount',function factory($rootScope) {
     return {
         restrict: 'C',
         scope: true,
         link: function (scope, element, attrs) {
-            setTimeout(function () {
-                var settings = userSession.user;
+            //setTimeout(function () {
 
-                var value = parseFloat(element.text());
+                var settings = $rootScope.$mobbrStorage.user,
+                    value = parseFloat(element.text());
 
                 if (value < 0) {
                     element.addClass('text-error');
@@ -20,7 +20,7 @@ angular.module('mobbr.directives').directive('decorateAmount',function factory(u
                     });
                     element.text(value);
                 }
-            });
+            //});
         }
     }
 });

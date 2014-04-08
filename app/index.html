@@ -81,15 +81,15 @@
                         <li><a href="#/"><img src="img/logo-mobbr.png"></a></li>
                     </ul>
 
-                    <ul class="nav pull-right ng-cloak" ng-switch on="userSession.authenticated" ng-show="true">
-                        <li class="dropdown" ng-switch-when="false">
+                    <ul class="nav pull-right ng-cloak" ng-show="true">
+                        <li class="dropdown" ng-if="$mobbrStorage.token == undefined">
                             <a class="dropdown-toggle">Account <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li class="nav-header"></li>
                                 <li>
-                                    <form ng-submit="login()" name="head-login" ng-controller="LoginController" form-autofill-fix>
-                                        <input ng-model="email" type="email" name="email" placeholder="email address" auto-fill-sync>
-                                        <input ng-model="password" type="password" name="password" placeholder="password" auto-fill-sync>
+                                    <form ng-submit="login(email, password)" name="head-login" form-autofill-fix>
+                                        <input ng-model="email" type="email" name="email" placeholder="email address" auto-fill-sync required>
+                                        <input ng-model="password" type="password" name="password" placeholder="password" auto-fill-sync required>
                                         <button ng-disabled="waiting" type="submit" class="btn"><i class="icon-white mobbrloader" ng-show="waiting"></i> Log in</button>
                                     </form>
                                 </li>
@@ -100,11 +100,11 @@
                             </ul>
                         </li>
 
-                        <li class="dropdown ng-cloak" ng-switch-when="true" >
+                        <li class="dropdown ng-cloak" ng-if="$mobbrStorage.token != undefined">
                             <ul class="nav">
                                 <li user-settings class="dropdown">
-                                    <a class="dropdown-toggle"><span ng-bind="userSession.user.username"></span> <img ng-src="{{ userSession.user.thumbnail }}" style="height: 30px;" class="img-rounded user-thumb"> <b class="caret"></b></a>
-                                    <ul class="dropdown-menu" ng-controller="LoginController">
+                                    <a class="dropdown-toggle"><span ng-bind="$mobbrStorage.user.username"></span> <img ng-src="{{ $mobbrStorage.user.thumbnail }}" style="height: 30px;" class="img-rounded user-thumb"> <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
                                         <li><a href="#/wallet"><i class="icon-inbox"></i> Wallet</a></li>
                                         <li><a href="#/sourcing"><i class="icon-bullhorn"></i> Hire people</a></li>
                                         <li><a href="#/working"><i class="icon-cog"></i> Do work </a></li>
@@ -210,10 +210,7 @@
         <!-- endbuild -->
         <!-- build:js scripts/mobbr-core.js -->
         <script src="scripts/services/msg.js"></script>
-        <script src="scripts/services/mbr-api.js"></script>
         <script src="scripts/services/idleTimeout.js"></script>
-        <script src="scripts/services/userStorage.js"></script>
-        <script src="scripts/services/UserSession.js"></script>
         <script src="scripts/services/pdfGenerator.js"></script>
         <script src="scripts/services/invoiceDialog.js"></script>
         <!-- endbuild -->
@@ -231,7 +228,6 @@
         <script src="scripts/controllers/MainController.js"></script>
         <script src="scripts/controllers/WalletController.js"></script>
         <script src="scripts/controllers/LinkLoginController.js"></script>
-        <script src="scripts/controllers/LoginController.js"></script>
         <script src="scripts/controllers/UserSettingsController.js"></script>
         <script src="scripts/controllers/RecoverPasswordController.js"></script>
         <script src="scripts/controllers/UpdateEmailController.js"></script>

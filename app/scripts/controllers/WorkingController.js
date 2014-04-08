@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('WorkingController', function ($scope, $location, $filter, userSession, MobbrInvoice, MobbrPayment, MobbrUri, invoiceDialog, pdfGenerator, Msg) {
+angular.module('mobbr.controllers').controller('WorkingController', function ($scope, $location, $filter, $rootScope, MobbrInvoice, MobbrPayment, MobbrUri, invoiceDialog, pdfGenerator, Msg) {
 
     $scope.MobbrInvoice = MobbrInvoice;
     $scope.MobbrPayment = MobbrPayment;
@@ -16,14 +16,14 @@ angular.module('mobbr.controllers').controller('WorkingController', function ($s
             'confirm_invoice_popup',
             {
                 ids: ids,
-                worker_name: userSession.user.companyname || (userSession.user.firstname + ' ' + userSession.user.lastname),
-                worker_address: userSession.user.address,
-                worker_country: userSession.user.country_of_residence,
-                worker_vat_number: userSession.user.vat_number,
-                worker_vat_rate: userSession.user.vat_rate,
-                worker_status: userSession.user.companyname && 'enterprise' || 'private',
-                worker_invoice_prefix: userSession.user.invoice_numbering_prefix,
-                worker_invoice_postfix: userSession.user.invoice_numbering_postfix
+                worker_name: $rootScope.$mobbrStorage.user.companyname || ($rootScope.$mobbrStorage.user.firstname + ' ' + $rootScope.$mobbrStorage.user.lastname),
+                worker_address: $rootScope.$mobbrStorage.user.address,
+                worker_country: $rootScope.$mobbrStorage.user.country_of_residence,
+                worker_vat_number: $rootScope.$mobbrStorage.user.vat_number,
+                worker_vat_rate: $rootScope.$mobbrStorage.user.vat_rate,
+                worker_status: $rootScope.$mobbrStorage.user.companyname && 'enterprise' || 'private',
+                worker_invoice_prefix: $rootScope.$mobbrStorage.user.invoice_numbering_prefix,
+                worker_invoice_postfix: $rootScope.$mobbrStorage.user.invoice_numbering_postfix
             },
             function (dialog, response) {
                 Msg.setResponseMessage('info', 'Invoice request confirmed', response);
