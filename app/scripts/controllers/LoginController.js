@@ -1,7 +1,7 @@
 'use strict';
 
 
-angular.module('mobbr.controllers').controller('LoginController', function ($scope, $route, MobbrUser, userSession, Msg, $location, $http, $routeParams) {
+angular.module('mobbr.controllers').controller('LoginController', function ($scope, $route, User, userSession, Msg, $location, $http, $routeParams) {
 
     setTimeout(function () {
         $scope.$apply(function () {
@@ -12,7 +12,7 @@ angular.module('mobbr.controllers').controller('LoginController', function ($sco
     $scope.login = function (redirect) {
         redirect = redirect === undefined && true || redirect;
         $scope.waiting = true;
-        MobbrUser.passwordLogin({ email: $scope.email, password: $scope.password }, function (response) {
+        User.login({ email: $scope.email, password: $scope.password }, function (response) {
 
             $scope.waiting = false;
             if (response.result != undefined && response.result != null) {
@@ -49,7 +49,7 @@ angular.module('mobbr.controllers').controller('LoginController', function ($sco
 
     $scope.logout = function () {
 
-        MobbrUser.logout({'session_token': $http.defaults.headers.common['Authorization']}, function (response) {
+        User.logout({'session_token': $http.defaults.headers.common['Authorization']}, function (response) {
 
             Msg.setResponseMessage('info', 'Logged you out', response);
 
@@ -70,7 +70,7 @@ angular.module('mobbr.controllers').controller('LoginController', function ($sco
 
         $scope.waiting = true;
 
-        MobbrUser.updatePassword({'session_token': $routeParams.hash, password: $scope.new_password, password_control: $scope.new_password_control},
+        User.resetPasswordForHash({'session_token': $routeParams.hash, password: $scope.new_password, password_control: $scope.new_password_control},
             function (response) {
                 $scope.waiting = false;
                 if (response.result != null) {
