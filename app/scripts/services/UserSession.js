@@ -7,7 +7,7 @@ angular.module('mobbr.services.user', [
 
     // TODO: put notifyparent in a seperate service
 
-    ]).factory('userSession',function ($injector, $location, $window, $rootScope, userStorage, Msg, idleTimeout, MobbrUser, $route) {
+    ]).factory('userSession',function ($injector, $location, $window, $rootScope, userStorage, Msg, idleTimeout, User, $route) {
 
         var userSession = {
             authenticated: false,
@@ -78,7 +78,7 @@ angular.module('mobbr.services.user', [
 
         function login(event, user) {
             userSession.doLogin(user, true);
-            MobbrUser.ping();
+            User.get();
         }
 
         $rootScope.userSession = userSession;
