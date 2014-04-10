@@ -8,12 +8,7 @@ angular.module('mobbr.services.pdf', []).factory('pdfGenerator', function (userS
                 var pdf = new jsPDF('p','mm', 'a4', true),
                     marginVertical = 20,
                     marginHorizontal = 20,
-                    lineHeight = marginVertical,
-                    customer_address = invoice.customer_address.split(', '),
-                    worker_address = invoice.worker_address.split(', '),
-                    descr_lines,
-                    textWidth,
-                    i;
+                    lineHeight = marginVertical;
 
                 function textSize(text) {
                     return pdf.getStringUnitWidth(text) * pdf.internal.getFontSize() / pdf.internal.scaleFactor
@@ -27,6 +22,12 @@ angular.module('mobbr.services.pdf', []).factory('pdfGenerator', function (userS
                 function alignRight(text) {
                     return pdf.internal.pageSize.width - textSize(text) - marginHorizontal;
                 }
+
+                var customer_address = invoice.customer_address.split(', '),
+                    worker_address = invoice.worker_address.split(', '),
+                    descr_lines,
+                    textWidth,
+                    i;
 
                 pdf.setFont('Helvetica', 'Bold');
                 pdf.setFontSize(100);
@@ -103,6 +104,8 @@ angular.module('mobbr.services.pdf', []).factory('pdfGenerator', function (userS
                 singlelineText('Total ',  pdf.internal.pageSize.width - 85, lineHeight);
                 pdf.setFont('Helvetica', '');
                 pdf.save(invoice.invoice_id);
+
+                console.log();
             }
         }
     }

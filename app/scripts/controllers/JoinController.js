@@ -1,7 +1,7 @@
 'use strict';
 
 
-angular.module('mobbr.controllers').controller('JoinController', function ($scope, $routeParams, MobbrUser, Msg) {
+angular.module('mobbr.controllers').controller('JoinController', function ($scope, $routeParams, User, Msg) {
 
     $scope.waiting = false;
     $scope.email = $routeParams.email;
@@ -9,7 +9,7 @@ angular.module('mobbr.controllers').controller('JoinController', function ($scop
 
         $scope.waiting = true;
 
-        MobbrUser.register({
+        User.register({
             username: username,
             email: email,
             password: password,

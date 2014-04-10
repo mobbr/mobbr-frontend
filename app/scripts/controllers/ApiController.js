@@ -1,12 +1,12 @@
 'use strict';
 
 
-angular.module('mobbr.controllers').controller('apiController', function ($rootScope, MobbrApi) {
+angular.module('mobbr.controllers').controller('apiController', function ($rootScope, Api) {
 
     if ($rootScope['apiCalls'] == null) {
         $rootScope.apiCalls = [];
 
-        MobbrApi.query(
+        Api.list(
             function (response) {
                 if (response != null) {
                     $rootScope.apiCalls = response.result;
