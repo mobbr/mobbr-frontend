@@ -2,7 +2,7 @@
 
 angular.module('mobbr.controllers').controller('UserSettingsController', function ($http, $scope, $rootScope, $upload, apiUrl, MobbrUser) {
 
-    $scope.new_email = $scope.userSession.user.email;
+    $scope.new_email = $rootScope.$mobbrStorage.user.email;
 
     $scope.settingsLabels = {
         hide_my_incoming_payments: 'Hide my incoming payments',

@@ -65,12 +65,10 @@ angular.module('mobbr', [
         'mobbrSession',
         'mobbr.config',
         'mobbr.controllers',
-        'mobbr.services.msg',
         'mobbr.services.invoice',
         'mobbr.services.pdf',
         'mobbr.directives',
         'mobbr.filters',
-        'ngCookies',
         'angularFileUpload'
 
     ]).config(function ($routeProvider) {
@@ -85,7 +83,6 @@ angular.module('mobbr', [
             if (route && route.authsettings && route.authsettings.authenticated !== mobbrSession.isAuthorized()) {
                 deferred.reject();
                 route.authsettings.redirectTo && $location.path(route.authsettings.redirectTo);
-                mobbrMsg.messages.push({ msg: 'Please login at the account menu' });
             } else {
                 deferred.resolve();
             }
