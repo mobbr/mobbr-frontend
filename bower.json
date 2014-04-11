@@ -5,30 +5,22 @@
     "angular": "1.2.15",
     "angular-route": "~1.2.14",
     "angular-resource": "1.2.13",
-    "js-md5": "~1.0.3",
     "ngstorage": "~0.2.3",
     "angular-bootstrap": "~0.3.0",
-    "base64": "~0.2.0",
     "modernizr": "~2.6.2",
     "es5-shim": "~2.1.0",
-    "json3": "~3.2.5",
     "sass-bootstrap": "2.3.1",
     "angularjs-file-upload": "~1.1.0",
     "ng-table": "~0.3.1",
     "file-saver": "*",
     "jspdf": "git://github.com/MrRio/jsPDF.git#a52028fe58f949a1bd32a7b5818a8e90ee954b3e",
-    "mobbr-api-angular": "git://github.com/mobbr/mobbr-api-angular"
+    "mobbr-api-angular": "git://github.com/mobbr/mobbr-api-angular",
+    "mobbr-button": "git@bitbucket.org:handijk/mobbr-button.git"
   },
   "ignore": [
     "**/.*",
     "node_modules",
     "app/components"
   ],
-  "main": "app/index.html",
-  "resolutions": {
-    "jquery": "~1.10.2"
-  },
-  "devDependencies": {
-    "jspdf": "master"
-  }
+  "main": "app/index.html"
 }
