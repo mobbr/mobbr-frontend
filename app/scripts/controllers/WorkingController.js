@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('WorkingController', function ($scope, $location, $filter, $rootScope, MobbrInvoice, MobbrPayment, MobbrUri, invoiceDialog, pdfGenerator, Msg) {
+angular.module('mobbr.controllers').controller('WorkingController', function ($scope, $location, $filter, $rootScope, MobbrInvoice, MobbrPayment, MobbrUri, invoiceDialog, pdfGenerator) {
 
     $scope.MobbrInvoice = MobbrInvoice;
     $scope.MobbrPayment = MobbrPayment;
@@ -26,14 +26,10 @@ angular.module('mobbr.controllers').controller('WorkingController', function ($s
                 worker_invoice_postfix: $rootScope.$mobbrStorage.user.invoice_numbering_postfix
             },
             function (dialog, response) {
-                Msg.setResponseMessage('info', 'Invoice request confirmed', response);
                 dialog.close();
                 $scope.$broadcast('invoicetable', 'working_requested_invoices');
                 $scope.$broadcast('invoicetable', 'working_reviewed_invoices');
                 $scope.$broadcast('invoicetable', 'sourcing_reviewed_invoices');
-            },
-            function (dialog, response) {
-                Msg.setResponseMessage('error', 'Cannot confirm invoice request', response);
             }
         ).open();
     }

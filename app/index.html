@@ -164,6 +164,9 @@
             </section>
 
             <div class="container main">
+                <div class="ng-cloak messaging">
+                    <alert ng-repeat="alert in mobbrMsg.messages" type="alert.type" close="mobbrMsg.close($index)">{{ alert.msg }}</alert>
+                </div>
                 <div ng-view id="wrapper" class="row-fluid"></div>
             </div>
 
@@ -193,7 +196,9 @@
         <script src="components/angular-route/angular-route.js"></script>
         <script src="components/angular-cookies/angular-cookies.js"></script>
         <script src="components/angular-resource/angular-resource.js"></script>
-        <script src="components/mobbr-api-angular/mobbr-api-angular.src.js"></script>
+        <script src="components/mobbr-api-angular/mobbr-api.src.js"></script>
+        <script src="components/mobbr-api-angular/mobbr-api-msg.src.js"></script>
+        <script src="components/mobbr-api-angular/mobbr-api-session.src.js"></script>
         <script src="components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
         <script src="components/pines-notify/jquery.pnotify.js"></script>
         <script src="components/js-md5/js/md5.js"></script>

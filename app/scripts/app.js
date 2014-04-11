@@ -61,6 +61,8 @@ angular.module('mobbr', [
         'ngTable',
         'ui.bootstrap',
         'mobbrApi',
+        'mobbrMsg',
+        'mobbrSession',
         'mobbr.config',
         'mobbr.controllers',
         'mobbr.services.msg',
@@ -71,19 +73,19 @@ angular.module('mobbr', [
         'ngCookies',
         'angularFileUpload'
 
-    ]).config(function ($routeProvider, $parseProvider) {
+    ]).config(function ($routeProvider) {
 
         var resolver = {};
 
-        resolver.auth = function ($q, $rootScope, $route, $location) {
+        resolver.auth = function ($q, $route, $location, mobbrMsg, mobbrSession) {
 
             var deferred = $q.defer(),
-                route = $route.current && $route.current.$$route,
-                authenticated = $rootScope.$mobbrStorage.token && true || false;
+                route = $route.current && $route.current.$$route;
 
-            if (route && route.authsettings && route.authsettings.authenticated !== authenticated) {
+            if (route && route.authsettings && route.authsettings.authenticated !== mobbrSession.isAuthorized()) {
                 deferred.reject();
                 route.authsettings.redirectTo && $location.path(route.authsettings.redirectTo);
+                mobbrMsg.messages.push({ msg: 'Please login at the account menu' });
             } else {
                 deferred.resolve();
             }
@@ -179,7 +181,7 @@ angular.module('mobbr', [
             }
         );
 
-    }).run(function ($http, $rootScope, $route, $location, $window, $anchorScroll, MobbrApi, MobbrUser) {
+    }).run(function ($http, $rootScope, $route, $location, $window, $anchorScroll, MobbrApi, MobbrUser, mobbrMsg) {
 
         $rootScope.login = function (email, password) {
             MobbrUser.passwordLogin({ email: email, password: password }, function () {
@@ -197,6 +199,8 @@ angular.module('mobbr', [
                 $window.parent.postMessage(user && [ user.username, user.email ].join('|') || 'logout', '*');
             }
         });
+
+        $rootScope.mobbrMsg = mobbrMsg;
 
       $rootScope.isTest = function () {
         return window.location.href.search('test-www.mobbr.com');

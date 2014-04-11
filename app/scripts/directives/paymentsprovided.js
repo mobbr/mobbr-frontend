@@ -9,7 +9,7 @@ angular.module('mobbr.directives').directive('paymentsprovided', function factor
         scope: {
             payments:'='
         },
-        controller: function ($scope, $attrs,$rootScope,$location,Msg,userSession) {
+        controller: function ($scope, $attrs,$rootScope,$location) {
 
             $scope.showentries = 10;             // filter the number of entries
             $scope.sortEntries;                  // sort on column

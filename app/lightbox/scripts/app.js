@@ -8,6 +8,8 @@ angular.module('mobbr.configuration', []);
 angular.module('mobbr-lightbox', [
 
         'mobbrApi',
+        'mobbrMsg',
+        'mobbrSession',
         'ngRoute',
         'ui.bootstrap',
         'mobbr.config',

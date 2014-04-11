@@ -14,13 +14,11 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
     $scope.cancelInvoices = function (ids, items, table) {
         $scope.ciwaiting = true;
         MobbrInvoice.cancel({ ids: ids }, function (response) {
-            Msg.setResponseMessage('info', 'Invoice request successfully cancelled', response);
             $scope.$broadcast('invoicetable', 'sourcing_requested_invoices');
             $scope.$broadcast('invoicetable', 'working_requested_invoices');
             $scope.$broadcast('invoicetable', 'sourcing_unrequested_invoices');
             $scope.ciwaiting = false;
         }, function (response) {
-            Msg.setResponseMessage('error', 'Cannot cancel invoice request', response);
             $scope.ciwaiting = true;
         });
     }
@@ -39,14 +37,10 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
                 customer_status: $rootScope.$mobbrStorage.user.companyname && 'enterprise' || 'private'
             },
             function (dialog, response) {
-                Msg.setResponseMessage('info', 'Invoice successfully requested', response);
                 dialog.close();
                 $scope.$broadcast('invoicetable', 'sourcing_requested_invoices');
                 $scope.$broadcast('invoicetable', 'working_requested_invoices');
                 $scope.$broadcast('invoicetable', 'sourcing_unrequested_invoices');
-            },
-            function (dialog, response) {
-                Msg.setResponseMessage('error', 'Cannot request invoice', response);
             }
         ).open();
     }
@@ -63,12 +57,8 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
             'remove_pledges_popup',
             { ids: ids },
             function (dialog, response) {
-                Msg.setResponseMessage('info', 'Pledges succesfully deleted', response);
                 dialog.close();
                 $scope.$broadcast('invoicetable', 'sourcing_pledges');
-            },
-            function (dialog, response) {
-                Msg.setResponseMessage('error', response.data.message.text, response);
             }
         ).open();
     }
