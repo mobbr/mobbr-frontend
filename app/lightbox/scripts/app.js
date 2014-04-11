@@ -15,7 +15,6 @@ angular.module('mobbr-lightbox', [
         'mobbr.config',
         'mobbr.directives',
         'mobbr.controllers',
-        'mobbr.services.msg',
         'mobbr.filters'
 
     ]).run(function ($http, $rootScope, $route, $location, $window, MobbrApi, MobbrUser) {
