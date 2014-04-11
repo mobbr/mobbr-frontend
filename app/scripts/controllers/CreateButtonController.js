@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('CreateButtonController', function ($scope, $rootScope, CreateButton, MobbrScript, Msg, apiUrl) {
+angular.module('mobbr.controllers').controller('CreateButtonController', function ($scope, $rootScope, CreateButton, MobbrScript, apiUrl) {
 
     $scope.detectTitle = true;
     $scope.detectDescription = true;
@@ -60,14 +60,9 @@ angular.module('mobbr.controllers').controller('CreateButtonController', functio
                 $scope.workingRetrieveUrl = false;
                 if(response.result != null){
                     $scope.processJson(response.result);
-
-                    Msg.setResponseMessage( 'info','Checked URL for payment script',response);
-                }else{
-                    Msg.setResponseMessage( 'error', 'Error checking URL for payment script',response);
                 }
             },function(response){
                 $scope.workingRetrieveUrl = false;
-                Msg.setResponseMessage( 'error', 'Error checking url for payment script',response);
             });
 
         }
@@ -282,30 +277,19 @@ angular.module('mobbr.controllers').controller('CreateButtonController', functio
                     }
                     $scope.generatedHeaderLink += '<link rel="participation" href="' +response.result+ '"/>';
                     $scope.mobbrConfiguration = config;
-
-                    Msg.setResponseMessage( 'info','Stored payment script',response);
-
-                }  else{
-                    Msg.setResponseMessage( 'info','Could not store payment script',response);
                 }
             },function(response){
                 $scope.workingConfiguration = false;
-                Msg.setResponseMessage( 'error', 'Could not store payment script',response);
             });
 
         }else{
             MobbrScript.validate({'json':$scope.generateContributeurJson()},function(response){
                 $scope.workingConfiguration = false;
                 if(response.result === true){
-                    Msg.setResponseMessage( 'info','Payment script generated',response);
-
                     $scope.mobbrConfiguration = config;
-                }else{
-                    Msg.setResponseMessage( 'info','Invalid payment script',response);
                 }
             },function(response){
                 $scope.workingConfiguration = false;
-                Msg.setResponseMessage( 'error', 'Invalid payment script',response);
             });
 
         }

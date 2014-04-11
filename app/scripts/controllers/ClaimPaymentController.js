@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('ClaimPaymentController', function ($scope, MobbrPayment, MobbrScript, Msg, $location) {
+angular.module('mobbr.controllers').controller('ClaimPaymentController', function ($scope, MobbrPayment, MobbrScript, $location) {
 
     $scope.claimpayment = {url: ''};
 
@@ -57,17 +57,8 @@ angular.module('mobbr.controllers').controller('ClaimPaymentController', functio
 
                     $scope.unclaimedPayments = response.result;
                     $scope.toggleCheckPayments();
-
-                    Msg.setResponseMessage( 'info','Found unclaimed payments for ' + $scope.claimpayment.url,response);
-
-                }else if(response.result != null && response.result.length == 0){
-                    Msg.setResponseMessage( 'info','We found no payments for ' + $scope.claimpayment.url,response);
-                }
-                else{
-                    Msg.setResponseMessage( 'info','Error fetching unclaimed payments', response);
                 }
             },function(response){
-                Msg.setResponseMessage( 'error', 'Error fetching unclaimed payments',response);
                 $scope.workingCheck = false;
             });
 
@@ -96,13 +87,8 @@ angular.module('mobbr.controllers').controller('ClaimPaymentController', functio
 
                         $scope.paymentDescription = angular.toJson(response.result);
                         $scope.paymentDescriptionJson = response.result;
-                        Msg.setResponseMessage( 'info','Loaded payment script',response);
-
-                    }else{
-                        Msg.setResponseMessage( 'error', 'No payment script found',response);
                     }
                 },function(respone){
-                    Msg.setResponseMessage( 'error', 'No payment script found');
                     $scope.loadingPaymentDescription = false;
                 }
 
@@ -129,15 +115,9 @@ angular.module('mobbr.controllers').controller('ClaimPaymentController', functio
                     $scope.claimpayment.url = '';
                     $scope.unclaimedPayments = null;
                     $scope.paymentDescription = '';
-                    Msg.setResponseMessage( 'info','Claim successful',response);
-                    $scope.step
-
-                }else{
-                    Msg.setResponseMessage( 'error', 'Could not claim payments',response);
                 }
             },function(response){
                 $scope.claiming = false;
-                Msg.setResponseMessage( 'error', 'Could not claim payments',response);
             });
         }
     }
