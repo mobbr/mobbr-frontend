@@ -45,7 +45,6 @@
         <link href="//fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
         <!-- build:css ../styles/style-lightbox.css -->
         <link href="../styles/style-lightbox.css" rel="stylesheet">
-        <link href="../components/pines-notify/jquery.pnotify.default.css" rel="stylesheet">
         <!-- endbuild -->
     </head>
     <body ng-app="mobbr-lightbox" id="ng-app" ng-class="{ 'mobbr-test': isTest() !== -1, 'ng-app': true, 'loading': loading }" ng-controller="LightboxController" idle-timeout>
@@ -200,22 +199,18 @@
         </div>
         <!-- build:js ../scripts/combined.js -->
         <script src="../components/base64/base64.js"></script>
-        <script src="../components/jquery/jquery.js"></script>
         <script src="../components/angular/angular.js"></script>
-        <script src="../components/angular-cookies/angular-cookies.js"></script>
         <script src="../components/angular-resource/angular-resource.js"></script>
         <script src="../components/mobbr-api-angular/mobbr-api.src.js"></script>
         <script src="../components/mobbr-api-angular/mobbr-api-msg.src.js"></script>
         <script src="../components/mobbr-api-angular/mobbr-api-session.src.js"></script>
         <script src="../components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
         <script src="../components/angular-route/angular-route.js"></script>
-        <script src="../components/pines-notify/jquery.pnotify.js"></script>
         <script src="../components/js-md5/js/md5.js"></script>
         <script src="../components/ngstorage/ngStorage.js"></script>
         <script src="../scripts/config.js"></script>
         <!-- endbuild -->
         <!-- build:js ../scripts/mobbr-core.js -->
-        <script src="../scripts/services/msg.js"></script>
         <script src="../scripts/services/idleTimeout.js"></script>
         <!-- endbuild -->
         <!-- build:js ../scripts/mobbr-lightbox.js -->
