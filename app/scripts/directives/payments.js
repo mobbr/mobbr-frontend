@@ -9,7 +9,7 @@ angular.module('mobbr.directives').directive('payments', function factory() {
     scope: {
       searchentries: '='
     },
-    controller: function ($scope, $attrs, Dashboard, $rootScope, $location, Msg, userSession) {
+    controller: function ($scope, $attrs, Dashboard, $rootScope, $location, userSession) {
 
       $scope.showentries = 10;             // filter the number of entries
       $scope.sortEntries;                  // sort on column
@@ -50,9 +50,6 @@ angular.module('mobbr.directives').directive('payments', function factory() {
               $scope.payments = response.result;
             } else {
               $scope.payments = [];
-
-              Msg.setResponseMessage('info', 'Could not load payments', response);
-
             }
           }, function (response) {
             $scope.initializing = false;
@@ -97,13 +94,9 @@ angular.module('mobbr.directives').directive('payments', function factory() {
             $scope.working = false;
             if (response.result === true) {
               $rootScope.reloadPayments = 'reloadpayments' + Math.random();
-              Msg.setResponseMessage('info', 'Finalized payments', response);
-            } else {
-              Msg.setResponseMessage('info', 'could not finalize payments', response);
             }
           }, function (response) {
             $scope.working = false;
-            Msg.setResponseMessage('error', 'Could not finalize payments', response);
           });
 
         } else {
@@ -133,13 +126,10 @@ angular.module('mobbr.directives').directive('payments', function factory() {
             if (response.result === true) {
               Msg.setResponseMessage('info', 'Deleted payments', response);
               $rootScope.reloadPayments = 'reloadpayments' + Math.random();
-            } else {
-              Msg.setResponseMessage('info', 'Could not delete payments: ', response);
             }
 
           }, function (response) {
             $scope.working = false;
-            Msg.setResponseMessage('error', 'Could not delete payments', response);
           });
         }
       }
@@ -158,15 +148,11 @@ angular.module('mobbr.directives').directive('payments', function factory() {
           Dashboard.revokePledge({"ids": deletePaymentsArray}, function (response) {
             $scope.working = false;
             if (response.result === true) {
-              Msg.setResponseMessage('info', 'Deleted payments', response);
               $rootScope.reloadPayments = 'reloadpayments' + Math.random();
-            } else {
-              Msg.setResponseMessage('info', 'Could not delete payments: ', response);
             }
 
           }, function (response) {
             $scope.working = false;
-            Msg.setResponseMessage('error', 'Could not delete payments', response);
           });
         }
       }
