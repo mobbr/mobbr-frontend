@@ -1,3 +1,10 @@
-'use strict';
+(function() { 
+ return angular.module("mobbr.config", [])
 
-angular.module('mobbr.config', []).constant('apiUrl', 'http://api.mobbr.dev').constant('environment', 'test');
+.constant("apiUrl", "http://api.mobbr.dev")
+
+.constant("environment", "development")
+
+; 
+
+})();
