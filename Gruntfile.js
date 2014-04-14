@@ -16,6 +16,8 @@ module.exports = function (grunt) {
 
   if (env === 'test') {
     site = 'test-www.mobbr.com';
+  } else if (env === 'dev') {
+    site = 'api.mobbr.dev';
   } else {
     site = "www.mobbr.com";
   }
@@ -102,54 +104,9 @@ module.exports = function (grunt) {
         '<%= yeoman.app %>/scripts/{,*/}*.js'
       ]
     },
-    karma: {
-      unit: {
-        configFile: 'karma.conf.js',
-        singleRun: true
-      },
-      e2e: {
-        configFile: 'karma-e2e.conf.js'
-      }
-    },
     concat: {
       options: {
         separator: ';'
-      },
-      dist: {
-        files: {
-          '<%= yeoman.dist %>/scripts/combined-head.js': [
-            '<%= yeoman.app %>/components/modernizr/modernizr.js'
-          ],
-          '<%= yeoman.dist %>/scripts/combined-ie.js': [
-            '<%= yeoman.app %>/components/es5-shim/es5-shim.js',
-            '<%= yeoman.app %>/components/json3/lib/json3.js'
-          ],
-          '<%= yeoman.dist %>/scripts/combined.js': [
-            '<%= yeoman.app %>/components/base64/base64.js',
-            '<%= yeoman.app %>/components/jquery/jquery.js',
-            '<%= yeoman.app %>/components/angular/angular.js',
-            '<%= yeoman.app %>/components/angular-cookies/angular-cookies.js',
-            '<%= yeoman.app %>/components/angular-resource/angular-resource.js',
-            '<%= yeoman.app %>/components/angular-bootstrap/ui-bootstrap-tpls.js',
-            '<%= yeoman.app %>/components/pines-notify/jquery.pnotify.js',
-            '<%= yeoman.app %>/components/js-md5/js/md5.js',
-            '<%= yeoman.app %>/components/ngstorage/ngStorage.js'
-          ],
-          '<%= yeoman.dist %>/scripts/mobbr-core.js': [
-            '<%= yeoman.app %>/scripts/services{,*/}*.js'
-          ],
-          '<%= yeoman.dist %>/scripts/mobbr-www.js': [
-            '<%= ngtemplates.dist.dest %>',
-            '<%= yeoman.app %>/scripts/controllers{,*/}*.js',
-            '<%= yeoman.app %>/scripts/directives.js',
-            '<%= yeoman.app %>/scripts/app.js'
-          ],
-          '<%= yeoman.dist %>/scripts/mobbr-lightbox.js': [
-            '<%= yeoman.app %>/lightbox/scripts/controllers{,*/}*.js',
-            '<%= yeoman.app %>/lightbox/scripts/services{,*/}*.js',
-            '<%= yeoman.app %>/lightbox/scripts/app.js'
-          ]
-        }
       }
     },
     useminPrepare: {
@@ -161,8 +118,7 @@ module.exports = function (grunt) {
     usemin: {
       html: ['<%= yeoman.dist %>/{,*/}*.html'],
       css: [
-        '<%= yeoman.dist %>/styles/{,*/}*.css',
-        '<%= yeoman.app %>/components/pines-notify/jquery.pnotify.default.css'
+        '<%= yeoman.dist %>/styles/{,*/}*.css'
       ],
       options: {
         dirs: ['<%= yeoman.dist %>']
@@ -184,37 +140,17 @@ module.exports = function (grunt) {
       dist: {
         files: {
           '<%= yeoman.dist %>/styles/style.css': [
-            '<%= yeoman.app %>/styles/style.css',
-            '<%= yeoman.app %>/components/pines-notify/jquery.pnotify.default.css'
-          ],
-          '<%= yeoman.dist %>/styles/style-lightbox.css': [
-            '<%= yeoman.app %>/styles/style-lightbox.css',
-            '<%= yeoman.app %>/components/pines-notify/jquery.pnotify.default.css'
+            '.tmp/styles/style.css'
           ]
         }
       }
     },
     ngtemplates: {
       dist: {
-        src: [ '<%= yeoman.app %>/views/*.html', '<%= yeoman.app %>/directives/*.html'],
-        dest: '<%= yeoman.dist %>/scripts/templates.js',
+        src: [ '<%= yeoman.app %>/views/*.html', '<%= yeoman.app %>/views/directives/*.html', '<%= yeoman.app %>/views/partials/*.html'],
+        dest: '.tmp/templates.js',
         options: {
-          htmlmin: {
-            collapseBooleanAttributes: true,
-            collapseWhitespace: true,
-            removeAttributeQuotes: true,
-            removeComments: true, // Only if you don't use comment directives!
-            removeEmptyAttributes: true,
-            removeRedundantAttributes: true,
-            removeScriptTypeAttributes: true,
-            removeStyleLinkTypeAttributes: true
-          }
-        }
-      },
-      server: {
-        src: [ '<%= yeoman.app %>/views/*.html', '<%= yeoman.app %>/directives/*.html'],
-        dest: '<%= yeoman.app %>/scripts/templates.js',
-        options: {
+          usemin: '<%= yeoman.dist %>/scripts/mobbr-www.js',
           htmlmin: {
             collapseBooleanAttributes: true,
             collapseWhitespace: true,
@@ -264,12 +200,6 @@ module.exports = function (grunt) {
         files: {
           '<%= yeoman.dist %>/scripts/mobbr-www.js': [
             '<%= yeoman.dist %>/scripts/mobbr-www.js'
-          ],
-          '<%= yeoman.dist %>/scripts/mobbr-core.js': [
-            '<%= yeoman.dist %>/scripts/mobbr-core.js'
-          ],
-          '<%= yeoman.dist %>/scripts/mobbr-lightbox.js': [
-            '<%= yeoman.dist %>/scripts/mobbr-lightbox.js'
           ]
         }
       }
@@ -284,9 +214,28 @@ module.exports = function (grunt) {
         files: {
           src: [
             '<%= yeoman.dist %>/scripts/{,*/}*.js',
-            '<%= yeoman.dist %>/styles/{,*/}*.css',
-            '<%= yeoman.dist %>/img/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+            '<%= yeoman.dist %>/styles/{,*/}*.css'
           ]
+        }
+      }
+    },
+    compass: {
+      options: {
+        sassDir: '<%= yeoman.app %>/styles',
+        cssDir: '<%= yeoman.app %>/styles',
+        imagesDir: '<%= yeoman.app %>/img',
+        javascriptsDir: '<%= yeoman.app %>/scripts',
+        importPath: '<%= yeoman.app %>/styles',
+        relativeAssets: true
+      },
+      dist: {
+        options: {
+          cssDir: '.tmp/styles'
+        }
+      },
+      server: {
+        options: {
+          debugInfo: true
         }
       }
     },
@@ -300,11 +249,7 @@ module.exports = function (grunt) {
             dest: '<%= yeoman.dist %>',
             src: [
               '*.{ico,txt,js}',
-              '.htaccess',
-              'views/*',
-              'lightbox/*',
-              'widget/*',
-              'protocol.html'
+              '.htaccess'
             ]
           }
         ]
@@ -324,7 +269,7 @@ module.exports = function (grunt) {
     ngconstant: {
       test: [
         {
-          dest: 'dist/scripts/config.js',
+          dest: '<%= yeoman.app %>/scripts/config.js',
           name: 'mobbr.config',
           wrap: '(function() { \n return <%= __ngModule %> \n\n})();',
           constants: {
@@ -335,12 +280,23 @@ module.exports = function (grunt) {
       ],
       prod: [
         {
-          dest: 'dist/scripts/config.js',
+          dest: '<%= yeoman.app %>/scripts/config.js',
           name: 'mobbr.config',
           wrap: '(function() { \n return <%= __ngModule %> \n\n})();',
           constants: {
             'apiUrl': 'https://api.mobbr.com',
             'environment': 'production'
+          }
+        }
+      ],
+      dev: [
+        {
+          dest: '<%= yeoman.app %>/scripts/config.js',
+          name: 'mobbr.config',
+          wrap: '(function() { \n return <%= __ngModule %> \n\n})();',
+          constants: {
+            'apiUrl': 'http://api.mobbr.dev',
+            'environment': 'development'
           }
         }
       ]
@@ -395,38 +351,29 @@ module.exports = function (grunt) {
 
   grunt.registerTask('server', [
     'clean:server',
-    'coffee:dist',
-//    'compass:server',
+    'compass:server',
+    'ngconstant:' + env,
     'livereload-start',
     'connect:livereload',
     'open',
     'watch'
   ]);
 
-  grunt.registerTask('test', [
-    'clean:server',
-    'coffee',
-    'compass',
-    'connect:test',
-    'karma'
-  ]);
-
   grunt.registerTask('build', [
     'clean:dist',
     'bower-install-simple',
-//    'compass:dist',
-    // 'config',
+    'compass:dist',
     'useminPrepare',
+    'ngtemplates',
     'imagemin',
     'cssmin:dist',
     'ngconstant:' + env,
     'concat',
-    'htmlmin',
-//    'ngtemplates',
     'copy',
     'ngmin',
-//    'uglify',
+    'uglify',
     'rev',
+    'htmlmin',
     'usemin',
     'compress'
   ]);
@@ -438,11 +385,4 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('default', ['build']);
-
-  grunt.registerTask('e2e', [
-    'clean:server',
-    'livereload-start',
-    'connect:livereload',
-    'karma:e2e'
-  ]);
 };
