@@ -37,7 +37,7 @@
                 <!--<input type="checkbox" ng-model="checkboxes.items[item.id]">-->
             </td>
             <td colspan="{{ columns.length }}">
-                <a href="{{ group.data[0].uri || group.data[0].url }}" ng-bind="group.data[0].uri || group.data[0].url"></a>
+                <a href="{{ $rootScope.linkUrl(group.data[0].uri || group.data[0].url) }}" ng-bind="group.data[0].uri || group.data[0].url"></a>
             </td>
         </tr>
         <tr ng-hide="group.$hideRows" ng-repeat="item in group.data">
