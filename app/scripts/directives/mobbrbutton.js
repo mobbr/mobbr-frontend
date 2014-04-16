@@ -5,7 +5,7 @@ angular.module('mobbr.directives').directive('mobbrbutton', function factory() {
         restrict: 'E',
         replace: true,
         transclude:true,
-        templateUrl: '../../views/directives/mobbrbutton.html',
+        templateUrl: 'views/directives/mobbrbutton.html',
         scope: {
             size:'@',
             url:'@'

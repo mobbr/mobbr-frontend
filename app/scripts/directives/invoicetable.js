@@ -5,7 +5,7 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
         restrict: 'E',
         replace: true,
         transclude: true,
-        templateUrl: '../../views/directives/invoicetable.html',
+        templateUrl: 'views/directives/invoicetable.html',
         scope: {
             id: '@id',
             api: '=',
