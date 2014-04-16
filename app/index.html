@@ -81,7 +81,7 @@
                     </ul>
 
                     <ul class="nav pull-right ng-cloak" ng-show="true">
-                        <li class="dropdown" ng-if="$mobbrStorage.token == undefined">
+                        <li class="dropdown" ng-if="!mobbrSession.isAuthorized()">
                             <a class="dropdown-toggle">Account <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li class="nav-header"></li>
@@ -99,7 +99,7 @@
                             </ul>
                         </li>
 
-                        <li class="dropdown ng-cloak" ng-if="$mobbrStorage.token != undefined">
+                        <li class="dropdown ng-cloak" ng-if="mobbrSession.isAuthorized()">
                             <ul class="nav">
                                 <li user-settings class="dropdown">
                                     <a class="dropdown-toggle"><span ng-bind="$mobbrStorage.user.username"></span> <img ng-src="{{ $mobbrStorage.user.thumbnail }}" style="height: 30px;" class="img-rounded user-thumb"> <b class="caret"></b></a>
