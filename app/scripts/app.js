@@ -178,7 +178,7 @@ angular.module('mobbr', [
             }
         );
 
-    }).run(function ($http, $rootScope, $route, $location, $window, $anchorScroll, MobbrApi, MobbrUser, mobbrMsg, apiUrl, environment) {
+    }).run(function ($http, $rootScope, $route, $location, $window, $anchorScroll, MobbrApi, MobbrUser, mobbrMsg, mobbrSession, apiUrl, environment) {
 
         $window.mobbr.setApiUrl(apiUrl);
         if (environment !== 'production') {
@@ -204,10 +204,15 @@ angular.module('mobbr', [
         });
 
         $rootScope.mobbrMsg = mobbrMsg;
+        $rootScope.mobbrSession = mobbrSession;
 
-      $rootScope.isTest = function () {
-        return !window.location.href.search('mobbr.com');
-      }
+        $rootScope.isTest = function () {
+            return !window.location.href.search('mobbr.com');
+        }
+
+        $rootScope.linkUrl = function (url) {
+            return '/#/url/' + window.btoa(url);
+        }
 
       // TODO: check what code should actually be here and move everything else to the services they belong to
 
