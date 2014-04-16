@@ -36,7 +36,7 @@ angular.module('mobbr.directives').directive('mobbrtable', function factory($roo
         restrict: 'E',
         replace: true,
         transclude: true,
-        templateUrl: '../../views/directives/mobbrtable.html',
+        templateUrl: 'views/directives/mobbrtable.html',
         scope: {
             entries: '='
         },
