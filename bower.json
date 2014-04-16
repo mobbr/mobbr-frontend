@@ -15,7 +15,7 @@
     "file-saver": "*",
     "jspdf": "git://github.com/MrRio/jsPDF.git#a52028fe58f949a1bd32a7b5818a8e90ee954b3e",
     "mobbr-api-angular": "git://github.com/mobbr/mobbr-api-angular",
-    "mobbr-button": "git@bitbucket.org:mobbr/mobbr-button.git"
+    "mobbr-button": "https://handijk@bitbucket.org/mobbr/mobbr-button.git"
   },
   "ignore": [
     "**/.*",

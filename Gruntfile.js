@@ -150,7 +150,9 @@ module.exports = function (grunt) {
         src: [ '<%= yeoman.app %>/views/*.html', '<%= yeoman.app %>/views/directives/*.html', '<%= yeoman.app %>/views/partials/*.html'],
         dest: '.tmp/templates.js',
         options: {
+          url: function(url) { return url.replace('app/', ''); },
           usemin: '<%= yeoman.dist %>/scripts/mobbr-www.js',
+          module: 'mobbr',
           htmlmin: {
             collapseBooleanAttributes: true,
             collapseWhitespace: true,
@@ -188,21 +190,18 @@ module.exports = function (grunt) {
         files: [
           {
             expand: true,
-            cwd: '<%= yeoman.dist %>/scripts',
-            src: '*.js',
-            dest: '<%= yeoman.dist %>/scripts'
+            cwd: '.tmp/concat/scripts',
+            src: '{,*/}*.js',
+            dest: '.tmp/concat/scripts'
           }
         ]
       }
     },
     uglify: {
-      dist: {
-        files: {
-          '<%= yeoman.dist %>/scripts/mobbr-www.js': [
-            '<%= yeoman.dist %>/scripts/mobbr-www.js'
-          ]
-        }
-      }
+      options: {
+        mangle: false
+      },
+      dist: {}
     },
     rev: {
       options: {

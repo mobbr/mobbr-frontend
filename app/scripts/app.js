@@ -178,7 +178,13 @@ angular.module('mobbr', [
             }
         );
 
-    }).run(function ($http, $rootScope, $route, $location, $window, $anchorScroll, MobbrApi, MobbrUser, mobbrMsg) {
+    }).run(function ($http, $rootScope, $route, $location, $window, $anchorScroll, MobbrApi, MobbrUser, mobbrMsg, apiUrl, environment) {
+
+        $window.mobbr.setApiUrl(apiUrl);
+        if (environment !== 'production') {
+            $window.mobbr.setUiUrl('https://test-www.mobbr.com');
+        }
+        $window.mobbr.createDiv();
 
         $rootScope.login = function (email, password) {
             MobbrUser.passwordLogin({ email: email, password: password }, function () {
@@ -200,7 +206,7 @@ angular.module('mobbr', [
         $rootScope.mobbrMsg = mobbrMsg;
 
       $rootScope.isTest = function () {
-        return window.location.href.search('test-www.mobbr.com');
+        return !window.location.href.search('mobbr.com');
       }
 
       // TODO: check what code should actually be here and move everything else to the services they belong to
