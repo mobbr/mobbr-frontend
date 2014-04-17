@@ -100,9 +100,7 @@ angular.module('mobbr', [
                 resolve: resolver
             }).when('/activate/:hash', {
                 templateUrl: 'views/activate.html',
-                controller: 'ActivateController',
-                authsettings: { authenticated: false, redirectTo: '/wallet' },
-                resolve: resolver
+                controller: 'ActivateController'
             }).when('/email/:hash', {
                 templateUrl: 'views/update-email.html',
                 controller: 'UpdateEmailController'
