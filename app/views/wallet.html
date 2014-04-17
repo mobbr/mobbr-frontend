@@ -52,7 +52,7 @@
         </accordion-group>
     </accordion>
 </pane>
-<pane heading="Historic">
+<pane heading="Payments">
     <div class="row-fluid">
         <div class="well span12 special">
             <small>Overview of all payments you made or received.</small>
@@ -71,33 +71,43 @@
                 No balances found
             </div>
         </accordion-group>
-        <accordion-group heading="Deposits and withdraws" is-open="true">
-            <table class="table table-striped mobbrtable" ng-show="mutations.result.length >0">
-                <thead>
-                <tr>
-                    <th ng-click="sortPayments('paiddatetime')">date</th>
-                    <th ng-click="sortPayments('payment_service')" >Provider</th>
-                    <th ng-click="sortPayments('currency_iso')">Currency</th>
-                    <th ng-click="sortPayments('amount')">Amount</th>
-                    <th ng-click="sortPayments('receive_address')" colspan="2">Address</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="mutation in mutations.result | orderBy:sortEntries:sortOrderPayments | filter:searchBalanceEntries"  ng-class-odd="'odd'" ng-class-even="'even'">
-                    <td ng-click="openExternalPayment(mutation.id)" ng-bind="mutation.paiddatetime || mutation.announceddatetime" class="datetime {{ !mutation.paiddatetime && 'muted' }}"></td>
-                    <td ng-click="openExternalPayment(mutation.id)" ng-bind="mutation.payment_service"></td>
-                    <td ng-bind="mutation.currency_iso" class="currency"></td>
-                    <td ng-bind="mutation.amount | mobbrcurrency" class="amount decorate-amount"></td>
-                    <td ng-bind="mutation.receive_address" colspan="2"></td>
-                </tr>
-                </tbody>
-            </table>
-            <div ng-show="mutations.length == 0">
-                No transactions found
-            </div>
-        </accordion-group>
     </accordion>
 </pane>
+    <pane heading="Deposits and withdraws">
+        <div class="row-fluid">
+            <div class="well span12 special">
+                <small>Overview of all payments you made or received.</small>
+            </div>
+        </div>
+
+        <accordion close-others="false">
+            <accordion-group heading="Deposits and withdraws" is-open="true">
+                <table class="table table-striped mobbrtable" ng-show="mutations.result.length >0">
+                    <thead>
+                    <tr>
+                        <th ng-click="sortPayments('paiddatetime')">date</th>
+                        <th ng-click="sortPayments('payment_service')" >Provider</th>
+                        <th ng-click="sortPayments('currency_iso')">Currency</th>
+                        <th ng-click="sortPayments('amount')">Amount</th>
+                        <th ng-click="sortPayments('receive_address')" colspan="2">Address</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="mutation in mutations.result | orderBy:sortEntries:sortOrderPayments | filter:searchBalanceEntries"  ng-class-odd="'odd'" ng-class-even="'even'">
+                        <td ng-click="openExternalPayment(mutation.id)" ng-bind="mutation.paiddatetime || mutation.announceddatetime" class="datetime {{ !mutation.paiddatetime && 'muted' }}"></td>
+                        <td ng-click="openExternalPayment(mutation.id)" ng-bind="mutation.payment_service"></td>
+                        <td ng-bind="mutation.currency_iso" class="currency"></td>
+                        <td ng-bind="mutation.amount | mobbrcurrency" class="amount decorate-amount"></td>
+                        <td ng-bind="mutation.receive_address" colspan="2"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div ng-show="mutations.length == 0">
+                    No transactions found
+                </div>
+            </accordion-group>
+        </accordion>
+    </pane>
 <pane heading="Addresses">
     <div class="row-fluid">
         <div class="well span12 special">
