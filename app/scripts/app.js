@@ -95,9 +95,7 @@ angular.module('mobbr', [
                 controller: 'MainController'
             }).when('/login/:hash', {
                 templateUrl: 'views/link-login.html',
-                controller: 'LinkLoginController',
-                authsettings: { authenticated: false, redirectTo: '/wallet' },
-                resolve: resolver
+                controller: 'LinkLoginController'
             }).when('/activate/:hash', {
                 templateUrl: 'views/activate.html',
                 controller: 'ActivateController'
