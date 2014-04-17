@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('ClaimPaymentController', function ($scope, MobbrPayment, MobbrScript, $location) {
+angular.module('mobbr.controllers').controller('ClaimPaymentController', function ($scope, MobbrPayment, MobbrScript, mobbrMsg) {
 
     $scope.claimpayment = {url: ''};
 
@@ -51,12 +51,13 @@ angular.module('mobbr.controllers').controller('ClaimPaymentController', functio
         if ($scope.claimpayment.url != null && $scope.claimpayment.url.length > 0) {
             $scope.workingCheck = true;
             // determine if url is url of email
-            MobbrPayment.unclaimed({ url_or_email: $scope.claimpayment.url },function(response){
+            MobbrPayment.unclaimed({ url_or_email: $scope.claimpayment.url }, function (response){
                 $scope.workingCheck = false;
-                if(response.result != null && response.result.length > 0){
-
+                if(response.result.length > 0){
                     $scope.unclaimedPayments = response.result;
                     $scope.toggleCheckPayments();
+                } else {
+                    mobbrMsg.add({ msg: 'No unclaimed payments found' });
                 }
             },function(response){
                 $scope.workingCheck = false;
