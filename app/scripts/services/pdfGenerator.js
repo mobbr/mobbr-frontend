@@ -91,11 +91,13 @@ angular.module('mobbr.services.pdf', []).factory('pdfGenerator', function ($root
                 }
                 pdf.setFont('Helvetica', 'Oblique');
                 lineHeight += singlelineText(invoice.uri, marginHorizontal, lineHeight);
-                pdf.setFont('Helvetica', 'Bold');
-                singlelineText('Role ', marginHorizontal, lineHeight);
-                textWidth = textSize('Role ');
-                pdf.setFont('Helvetica', '');
-                lineHeight += singlelineText(invoice.role, marginHorizontal + textWidth, lineHeight);
+                if (invoice.role) {
+                    pdf.setFont('Helvetica', 'Bold');
+                    singlelineText('Role ', marginHorizontal, lineHeight);
+                    textWidth = textSize('Role ');
+                    pdf.setFont('Helvetica', '');
+                    lineHeight += singlelineText(invoice.role, marginHorizontal + textWidth, lineHeight);
+                }
                 pdf.line(marginHorizontal, lineHeight, pdf.internal.pageSize.width - marginHorizontal, lineHeight);
                 lineHeight += 7;
                 singlelineText(invoice.currency_iso + ' ' + parseFloat(invoice.net_amount).toFixed(2), alignRight(invoice.currency_iso + ' ' + parseFloat(invoice.net_amount).toFixed(2)), lineHeight);
