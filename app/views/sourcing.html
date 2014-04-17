@@ -11,6 +11,27 @@
         </div>
 
         <accordion close-others="false">
+            <accordion-group heading="Payments for which an invoice can be requested" is-open="true">
+                <invoicetable id="sourcing_unrequested_invoices"
+                              columns="[ 'username', 'role', 'currency', 'amount' ]"
+                              api="MobbrInvoice.requestable"
+                              group-by="'title'"
+                              button-text="'Request invoices'"
+                              button-action="requestInvoices"
+                              selectable="1"
+                              click-row="openPayment"></invoicetable>
+            </accordion-group>
+        </accordion>
+    </pane>
+    <pane heading="Pending invoices">
+        <div class="row-fluid">
+            <div class="well span12 special">
+                <small>Ask your crowdworkers for an invoice. They have 30 days to verify their data.
+                    After 30 days we either generate the invoice on their behalf or refund the payment.</small>
+            </div>
+        </div>
+
+        <accordion close-others="false">
             <accordion-group heading="Invoices that await verification" is-open="true">
                 <invoicetable id="sourcing_requested_invoices"
                               columns="[ 'username', 'role', 'expiration', 'currency', 'amount' ]"
@@ -19,16 +40,6 @@
                               group-by="'title'"
                               button-text="'Cancel request'"
                               button-action="cancelInvoices"
-                              selectable="1"
-                              click-row="openPayment"></invoicetable>
-             </accordion-group>
-            <accordion-group heading="Payments for which an invoice can be requested" is-open="true">
-                <invoicetable id="sourcing_unrequested_invoices"
-                              columns="[ 'username', 'role', 'currency', 'amount' ]"
-                              api="MobbrInvoice.requestable"
-                              group-by="'title'"
-                              button-text="'Request invoices'"
-                              button-action="requestInvoices"
                               selectable="1"
                               click-row="openPayment"></invoicetable>
             </accordion-group>
@@ -53,7 +64,7 @@
             </accordion-group>
         </accordion>
     </pane>
-    <pane heading="Pledges and tasks">
+    <pane heading="Pledges">
         <div class="row-fluid">
             <div class="well span12 special">
                 <small>Tasks to which you pledged or paid. Pledges can be revoked but every currently listed participant to the taks will be notified which can hurt your reputation.</small>
@@ -71,6 +82,16 @@
                               selectable="1"
                               click-row="openPayment"></invoicetable>
             </accordion-group>
+        </accordion>
+    </pane>
+    <pane heading="Tasks">
+        <div class="row-fluid">
+            <div class="well span12 special">
+                <small>Tasks to which you pledged or paid. Pledges can be revoked but every currently listed participant to the taks will be notified which can hurt your reputation.</small>
+            </div>
+        </div>
+
+        <accordion close-others="false">
             <accordion-group heading="Historic tasks" is-open="true">
                 <invoicetable id="sourcing_tasks"
                               columns="[ 'gravatar', 'username', 'datetime', 'role', 'currency', 'amount' ]"
