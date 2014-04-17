@@ -84,7 +84,7 @@
         <div class="control-group">
             <div class="controls">
                 <button ng-click="submitPassword(changepassword)"
-                        ng-disabled="!changepassword.$valid || waitingpassword"
+                        ng-disabled="!changepassword.$valid || waitingpassword || !changepassword.$dirty"
                         type="submit"
                         class="btn btn-success">
                     <i class="icon-white mobbrloader" ng-show="waitingpassword"></i>
@@ -95,6 +95,7 @@
     </form>
 </pane>
 
+<form name="settings" class="form-horizontal">
 <pane heading="Identity">
     <div ng-show="$mobbrStorage.user.kyc_level == 'none'" class="row-fluid">
         <div class="well span12 special">
@@ -107,7 +108,6 @@
         </div>
     </div>
     <iframe ng-show="$mobbrStorage.user.kyc_level == 'none'" style="width: 99%;" class="eula" src="https://api.mobbr.com/mangopay-terms-of-use.txt"></iframe>
-    <form name="security" class="form-horizontal">
 
         <div ng-show="$mobbrStorage.user.kyc_level == 'none'" style="padding-bottom: 25px; margin-bottom: 20px; border-bottom: 1px solid #009ee0; ">
             <label class="checkbox">
@@ -184,13 +184,12 @@
 
         <div class="control-group">
             <div class="controls">
-                <button ng-disabled="waitingsettings || ($mobbrStorage.user.kyc_level == 'none' && !accept_mango) || security.$pristine" ng-click="submitSettings()" class="btn btn-success">
+                <button ng-disabled="waitingsettings || ($mobbrStorage.user.kyc_level == 'none' && !accept_mango) || settings.$pristine" ng-click="submitSettings(settings)" class="btn btn-success">
                     <i class="icon-white mobbrloader" ng-show="waitingsettings"></i>
                     <span ng-bind="$mobbrStorage.user.kyc_level == 'none' && 'Enable FIAT currencies' || 'Update'"></span>
                 </button>
             </div>
         </div>
-    </form>
 </pane>
 
 <pane heading="Proof">
@@ -204,7 +203,6 @@
             <small>This information can no longer be changed because you have a confirmed identity.</small>
         </div>
     </div>
-    <form name="kyc_regular" class="form-horizontal">
 
         <fieldset ng-disabled="$parent.$mobbrStorage.user.kyc_level == 'none'">
             <div class="control-group">
@@ -252,14 +250,13 @@
 
             <div class="control-group">
                 <div class="controls">
-                    <button ng-disabled="waitingsettings || kyc_regular.$pristine" ng-click="submitSettings()" class="btn btn-success">
+                    <button ng-disabled="waitingsettings || settings.$pristine" ng-click="submitSettings(settings)" class="btn btn-success">
                         <i class="icon-white mobbrloader" ng-show="waitingsettings"></i>
                         Update
                     </button>
                 </div>
             </div>
         </fieldset>
-    </form>
 </pane>
 
 <pane heading="Invoicing">
@@ -268,7 +265,6 @@
             <small>We will generate invoices on your behalve, using this information. Make sure it is in compliance with your countries tax laws.</small>
         </div>
     </div>
-    <form name="invoicing" class="form-horizontal">
 
         <div class="control-group">
             <div class="control-label">
@@ -332,17 +328,15 @@
 
         <div class="control-group">
             <div class="controls">
-                <button ng-disabled="waitingsettings || invoicing.$pristine" ng-click="submitSettings()" class="btn btn-success">
+                <button ng-disabled="waitingsettings || settings.$pristine" ng-click="submitSettings(settings)" class="btn btn-success">
                     <i class="icon-white mobbrloader" ng-show="waitingsettings"></i>
                     Save
                 </button>
             </div>
         </div>
-    </form>
 </pane>
 
 <pane heading="Display">
-    <form name="security" class="form-horizontal">
 
         <div class="control-group">
 
@@ -397,17 +391,15 @@
 
         <div class="control-group">
             <div class="controls">
-                <button ng-disabled="waitingsettings || security.$pristine" ng-click="submitSettings()" class="btn btn-success">
+                <button ng-disabled="waitingsettings || settings.$pristine" ng-click="submitSettings(settings)" class="btn btn-success">
                     <i class="icon-white mobbrloader" ng-show="waitingsettings"></i>
                     Save
                 </button>
             </div>
         </div>
-    </form>
 </pane>
 
 <pane heading="Privacy" class="privacy-settings">
-    <form name="primary" class="form-horizontal">
 
         <div class="special well labelwidth pull-left"></div>
 
@@ -422,17 +414,15 @@
 
         <div class="control-group">
             <div class="controls">
-                <button ng-disabled="waitingsettings || primary.$pristine" ng-click="submitSettings()" class="btn btn-success">
+                <button ng-disabled="waitingsettings || settings.$pristine" ng-click="submitSettings(settings)" class="btn btn-success">
                     <i class="icon-white mobbrloader" ng-show="waitingsettings"></i>
                     Save
                 </button>
             </div>
         </div>
-    </form>
 </pane>
 
 <pane heading="Notifications" class="privacy-settings">
-    <form name="notifications" class="form-horizontal">
 
         <div class="special well labelwidth pull-left"></div>
 
@@ -447,14 +437,12 @@
 
         <div class="control-group">
             <div class="controls">
-                <button ng-disabled="waitingsettings || primary.$pristine" ng-click="submitSettings()" class="btn btn-success">
+                <button ng-disabled="waitingsettings || settings.$pristine" ng-click="submitSettings(settings)" class="btn btn-success">
                     <i class="icon-white mobbrloader" ng-show="waitingsettings"></i>
                     Save
                 </button>
             </div>
         </div>
-    </form>
-
 </pane>
-
+</form>
 </tabs>
