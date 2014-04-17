@@ -2,6 +2,37 @@
     The work board is empty because you are not logged in. To login or signup, go <a href="#/join">here</a>.
 </div>
 <tabs>
+    <pane heading="Work">
+        <div class="row-fluid">
+            <div class="well span12 special">
+                <small>Tasks to which you can contribute.</small>
+            </div>
+        </div>
+        <accordion close-others="false">
+            <accordion-group heading="Tasks you can earn money on" is-open="true">
+                <invoicetable id="working_tasks"
+                              columns="[ 'spacer', 'title', 'currency', 'amount' ]"
+                              api="MobbrUri.unclaimed"
+                              group-by="'title'"
+                              click-row="openPayment"></invoicetable>
+            </accordion-group>
+        </accordion>
+    </pane>
+    <pane heading="Tasks">
+        <div class="row-fluid">
+            <div class="well span12 special">
+                <small>Tasks to which you contributed.</small>
+            </div>
+        </div>
+        <accordion close-others="false">
+            <accordion-group heading="Tasks you earned money on" is-open="true">
+                <invoicetable id="working_historic_tasks"
+                              columns="[ 'gravatar', 'username', 'datetime', 'role', 'currency', 'amount' ]"
+                              api="MobbrUri.earned"
+                              group-by="'title'"></invoicetable>
+            </accordion-group>
+        </accordion>
+    </pane>
     <pane heading="Confirm invoices">
         <div class="row-fluid">
             <div class="well span12 special">
@@ -37,28 +68,6 @@
                               group-by="'title'"
                               selectable="1"
                               click-row="openPayment"></invoicetable>
-            </accordion-group>
-        </accordion>
-    </pane>
-    <pane heading="Tasks">
-        <div class="row-fluid">
-            <div class="well span12 special">
-                <small>Tasks to which you can or did contribute.</small>
-            </div>
-        </div>
-        <accordion close-others="false">
-            <accordion-group heading="Tasks you can earn money on" is-open="true">
-                <invoicetable id="working_tasks"
-                              columns="[ 'spacer', 'title', 'currency', 'amount' ]"
-                              api="MobbrUri.unclaimed"
-                              group-by="'title'"
-                              click-row="openPayment"></invoicetable>
-            </accordion-group>
-            <accordion-group heading="Tasks you earned money on" is-open="true">
-                <invoicetable id="working_historic_tasks"
-                              columns="[ 'gravatar', 'username', 'datetime', 'role', 'currency', 'amount' ]"
-                              api="MobbrUri.earned"
-                              group-by="'title'"></invoicetable>
             </accordion-group>
         </accordion>
     </pane>
