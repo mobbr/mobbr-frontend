@@ -98,14 +98,14 @@
         </accordion-group>
     </accordion>
 </pane>
-<!--<pane heading="Addresses">
+<pane heading="Addresses">
     <div class="row-fluid">
         <div class="well span12 special">
             <small>Use these public addresses to receive money from external accounts. Give these to anyone who needs to fund your Mobbr account.</small>
         </div>
     </div>
     <form class="form-horizontal">
-        <div ng-repeat="(currency, addresses) in supportedCurrencies">
+        <div ng-repeat="(currency, addresses) in supportedCurrencies.result">
 
             <accordion close-others="false">
                 <accordion-group heading="{{currency}} / {{currencyDescription(currency)}}" is-open="false">
@@ -136,6 +136,6 @@
         </div>
     </form>
 
-</pane>-->
+</pane>
 </tabs>
 
