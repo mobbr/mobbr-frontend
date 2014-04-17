@@ -82,7 +82,7 @@
 
                     <ul class="nav pull-right ng-cloak" ng-show="true">
                         <li class="dropdown" ng-if="!mobbrSession.isAuthorized()">
-                            <a class="dropdown-toggle">Account <b class="caret"></b></a>
+                            <a class="dropdown-toggle account-button">Account <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li class="nav-header"></li>
                                 <li>
@@ -102,7 +102,7 @@
                         <li class="dropdown ng-cloak" ng-if="mobbrSession.isAuthorized()">
                             <ul class="nav">
                                 <li user-settings class="dropdown">
-                                    <a class="dropdown-toggle"><span ng-bind="$mobbrStorage.user.username"></span> <img ng-src="{{ $mobbrStorage.user.thumbnail }}" style="height: 30px;" class="img-rounded user-thumb"> <b class="caret"></b></a>
+                                    <a class="dropdown-toggle account-button"><span ng-bind="$mobbrStorage.user.username"></span> <img ng-src="{{ $mobbrStorage.user.thumbnail }}" style="height: 30px;" class="img-rounded user-thumb"> <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="#/wallet"><i class="icon-inbox"></i> Wallet</a></li>
                                         <li><a href="#/sourcing"><i class="icon-bullhorn"></i> Hire people</a></li>
