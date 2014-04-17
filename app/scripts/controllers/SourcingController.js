@@ -13,7 +13,7 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
 
     $scope.cancelInvoices = function (ids, items, table) {
         $scope.ciwaiting = true;
-        MobbrInvoice.cancel({ ids: ids }, function (response) {
+        MobbrInvoice.unrequest({ ids: ids }, function (response) {
             $scope.$broadcast('invoicetable', 'sourcing_requested_invoices');
             $scope.$broadcast('invoicetable', 'working_requested_invoices');
             $scope.$broadcast('invoicetable', 'sourcing_unrequested_invoices');
