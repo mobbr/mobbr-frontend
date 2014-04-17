@@ -1,4 +1,4 @@
-<div class="alert alert-info" ng-hide="userSession.authenticated">
+<div class="alert alert-info" ng-hide="$mobbrStorage.token">
     The source board is empty because you are not logged in. To login or signup, go <a href="#/join">here</a>.
 </div>
 <tabs>
@@ -15,8 +15,7 @@
                 <invoicetable id="sourcing_requested_invoices"
                               columns="[ 'username', 'role', 'expiration', 'currency', 'amount' ]"
                               waiting="ciwaiting"
-                              api="Sourcing.invoices"
-                              action="'requested_invoices'"
+                              api="MobbrInvoice.requested"
                               group-by="'title'"
                               button-text="'Cancel request'"
                               button-action="cancelInvoices"
@@ -26,8 +25,7 @@
             <accordion-group heading="Payments for which an invoice can be requested" is-open="true">
                 <invoicetable id="sourcing_unrequested_invoices"
                               columns="[ 'username', 'role', 'currency', 'amount' ]"
-                              api="Sourcing.invoices"
-                              action="'unrequested_invoices'"
+                              api="MobbrInvoice.requestable"
                               group-by="'title'"
                               button-text="'Request invoices'"
                               button-action="requestInvoices"
@@ -46,8 +44,7 @@
             <accordion-group heading="Final invoices" is-open="true">
                 <invoicetable id="sourcing_reviewed_invoices"
                               columns="[ 'worker_username', 'role', 'currency', 'amount' ]"
-                              api="Sourcing.invoices"
-                              action="'reviewed_invoices'"
+                              api="MobbrInvoice.returned"
                               group-by="'title'"
                               button-text="'Download invoice'"
                               button-action="downloadInvoices"
@@ -67,8 +64,7 @@
             <accordion-group heading="Active pledges" is-open="true">
                 <invoicetable id="sourcing_pledges"
                               columns="[ 'title', 'currency', 'amount' ]"
-                              api="Dashboard.getPayments"
-                              action="'unclaimed_payments'"
+                              api="MobbrPayment.pledged"
                               group-by="'title'"
                               button-text="'Remove pledges'"
                               button-action="removePledgesDialog"
@@ -78,7 +74,7 @@
             <accordion-group heading="Historic tasks" is-open="true">
                 <invoicetable id="sourcing_tasks"
                               columns="[ 'gravatar', 'username', 'datetime', 'role', 'currency', 'amount' ]"
-                              api="Sourcing.urls"
+                              api="MobbrUri.paid"
                               group-by="'title'"></invoicetable>
             </accordion-group>
         </accordion>
@@ -93,7 +89,7 @@
             <accordion-group heading="People you rewarded" is-open="true">
                 <invoicetable id="sourcing_workers"
                               columns="[ 'gravatar', 'username', 'roles', 'keywords', 'currency', 'amount' ]"
-                              api="Sourcing.persons"></invoicetable>
+                              api="MobbrPerson.paid"></invoicetable>
             </accordion-group>
         </accordion>
     </pane>

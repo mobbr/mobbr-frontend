@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.services.pdf', []).factory('pdfGenerator', function (userSession, $rootScope) {
+angular.module('mobbr.services.pdf', []).factory('pdfGenerator', function ($rootScope) {
 
         return {
             generate: function (invoice) {
