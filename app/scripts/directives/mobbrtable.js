@@ -36,13 +36,12 @@ angular.module('mobbr.directives').directive('mobbrtable', function factory($roo
         restrict: 'E',
         replace: true,
         transclude: true,
-        templateUrl: '../../views/directives/mobbrtable.html',
+        templateUrl: 'views/directives/mobbrtable.html',
         scope: {
             entries: '='
         },
-        controller: function ($scope, $attrs, userSession) {
+        controller: function ($scope, $attrs) {
 
-            $scope.userSession = userSession
             $scope.labels = labels;
             $scope.sortables = sortables;
             $scope.sortOrder = false;

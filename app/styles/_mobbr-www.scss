@@ -55,11 +55,16 @@ table th {
   font-size: 11px;
 }
 
+.messaging {
+  position: fixed;
+  z-index: 9999;
+  top: -3px;
+  width: 940px;
+}
+
 #wrapper {
   background: rgba(255, 255, 255, .9);
-  padding: 20px;
   @include border-radius($baseBorderRadius);
-  padding: 10px 20px 20px 20px;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;

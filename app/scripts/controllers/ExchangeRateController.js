@@ -1,19 +1,8 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('ExchangeRateController', function ($scope, ExchangeRates, Msg) {
+angular.module('mobbr.controllers').controller('ExchangeRateController', function ($scope, MobbrApi) {
 
-    $scope.exchangerates = []
-
-    ExchangeRates.exchangerates(function(response){
-        if(response.result != undefined && response.result != null){
-            $scope.exchangerates = response.result;
-        }else{
-            Msg.setResponseMessage( 'error', 'Could not load exchange rates',response);
-        }
-    },function (response){
-        Msg.setResponseMessage( 'error', 'Could not load exchange rates',response);
-    });
-
+    $scope.exchangerates = MobbrApi.forexRates();
     $scope.sortField = 'currency_iso';
     $scope.sortOrder = false;
 
@@ -25,5 +14,4 @@ angular.module('mobbr.controllers').controller('ExchangeRateController', functio
             $scope.sortOrder = false;
         }
     }
-
 });

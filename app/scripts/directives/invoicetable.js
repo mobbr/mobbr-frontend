@@ -5,7 +5,7 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
         restrict: 'E',
         replace: true,
         transclude: true,
-        templateUrl: '../../views/directives/invoicetable.html',
+        templateUrl: 'views/directives/invoicetable.html',
         scope: {
             id: '@id',
             api: '=',
@@ -20,10 +20,12 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
             order: '=',
             clickRow: '='
         },
-        controller: function ($scope, $attrs, $filter, ngTableParams, PaymentReceipt, userSession) {
+        controller: function ($scope, $attrs, $rootScope, $filter, ngTableParams) {
 
             var reqparams = {},
                 sorting = {};
+
+            $scope.$rootScope = $rootScope;
 
             sorting[$scope.sort || 'datetime'] = $scope.order || 'desc';
 
@@ -54,7 +56,6 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
             $scope.selectedItems = [];
             $scope.empty_message = $scope.emptyMessage || 'No items available';
             $scope.checkboxes = { 'checked': false, items: {} };
-            $scope.userSession = userSession;
             $scope.invoiceTable = new ngTableParams(
                 {
                     page: 1,
