@@ -26,6 +26,7 @@ angular.module('mobbr.services.pdf', []).factory('pdfGenerator', function ($root
                 var customer_address = invoice.customer_address.split(', '),
                     worker_address = invoice.worker_address.split(', '),
                     descr_lines,
+                    title_lines,
                     textWidth,
                     i;
 
@@ -78,7 +79,10 @@ angular.module('mobbr.services.pdf', []).factory('pdfGenerator', function ($root
                 lineHeight += 7;
                 pdf.setFont('Helvetica', 'Bold');
                 pdf.setFontSize(14);
-                lineHeight += singlelineText(invoice.title, marginHorizontal, lineHeight);
+                title_lines = pdf.splitTextToSize(invoice.title, 170);
+                for (i = 0; i < title_lines.length; i++) {
+                    lineHeight += singlelineText(title_lines[i], marginHorizontal, lineHeight);
+                }
                 pdf.setFont('Helvetica', '');
                 pdf.setFontSize(10);
                 descr_lines = pdf.splitTextToSize(invoice.description, 170);
