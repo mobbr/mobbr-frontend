@@ -1,10 +1,25 @@
 'use strict';
 
-angular.module('mobbr.filters').filter('mobbrcurrency', function () {
+angular.module('mobbr.filters').filter('mobbrcurrency', function ($rootScope) {
     return function(amount, currency) {
-        var negative;
+
+        var negative,
+            localestring;
+
         amount = parseFloat(amount);
-        negative = amount < 0;
-        return (negative ? '-' : '') + (currency || '') + ('' + Math.abs(amount).toFixed(4));
+
+        if (amount.toLocaleString) {
+            localestring = (currency || '') + amount.toLocaleString($rootScope.$mobbrStorage.user.language_iso, {
+                minimumFractionDigits: 4,
+                maximumFractionDigits: 4
+            });
+        }
+
+        if (!localestring) {
+            negative = amount < 0;
+            localestring = (negative ? '-' : '') + (currency || '') + ('' + Math.abs(amount).toFixed(4));
+        }
+
+        return localestring;
     }
 });
