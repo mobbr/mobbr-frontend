@@ -51,7 +51,7 @@ angular.module('mobbr.controllers').controller('ClaimPaymentController', functio
         if ($scope.claimpayment.url != null && $scope.claimpayment.url.length > 0) {
             $scope.workingCheck = true;
             // determine if url is url of email
-            MobbrPayment.unclaimed({url:$scope.claimpayment.url},function(response){
+            MobbrPayment.unclaimed({ url_or_email: $scope.claimpayment.url },function(response){
                 $scope.workingCheck = false;
                 if(response.result != null && response.result.length > 0){
 
