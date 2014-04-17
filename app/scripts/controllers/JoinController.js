@@ -1,7 +1,6 @@
 'use strict';
 
-
-angular.module('mobbr.controllers').controller('JoinController', function ($scope, $routeParams, User, Msg) {
+angular.module('mobbr.controllers').controller('JoinController', function ($scope, $routeParams, MobbrUser) {
 
     $scope.waiting = false;
     $scope.email = $routeParams.email;
@@ -9,20 +8,18 @@ angular.module('mobbr.controllers').controller('JoinController', function ($scop
 
         $scope.waiting = true;
 
-        User.register({
+        MobbrUser.register({
             username: username,
             email: email,
             password: password,
             password_control: password_control
         }, function (response) {
-            Msg.setResponseMessage('info', '', response);
             $scope.waiting = false;
             $scope.email = '';
             $scope.username = '';
             $scope.password = '';
             $scope.password_control = '';
         }, function (response) {
-            Msg.setResponseMessage('error', 'Couldn\'t send information', response);
             $scope.waiting = false;
         });
     }

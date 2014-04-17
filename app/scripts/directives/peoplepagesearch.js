@@ -5,7 +5,7 @@ angular.module('mobbr.directives').directive('peoplepagesearch', function factor
         restrict: 'E',
         replace: true,
         transclude:true,
-        templateUrl: '../../views/directives/people.html',
+        templateUrl: 'views/directives/people.html',
         scope: {
             people:'=',
             searchentries:'=',

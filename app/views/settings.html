@@ -14,7 +14,7 @@
             </div>
 
             <div class="controls">
-                <input ng-model="user.username" name="username" type="text" ng-disabled="true">
+                <input ng-model="$mobbrStorage.user.username" name="username" type="text" ng-disabled="true">
             </div>
         </div>
 
@@ -34,7 +34,7 @@
         <div class="control-group">
             <div class="controls">
                 <button ng-click="submitEmail(changeemail)"
-                        ng-disabled="waitingemail || !changeemail.$valid || user.email == new_email"
+                        ng-disabled="waitingemail || !changeemail.$valid || $mobbrStorage.user.email == new_email"
                         type="submit"
                         class="btn btn-success">
                     <i class="icon-white mobbrloader" ng-show="waitingemail"></i>
@@ -96,20 +96,20 @@
 </pane>
 
 <pane heading="Identity">
-    <div ng-show="user.kyc_level == 'none'" class="row-fluid">
+    <div ng-show="$mobbrStorage.user.kyc_level == 'none'" class="row-fluid">
         <div class="well span12 special">
             <small>Without this information, you cannot use our FIAT-currencies (USD, GBP, CHF, SEK, NOK, DKK, EUR, PLN). These restrictions do not apply to other currencies.</small>
         </div>
     </div>
-    <div ng-show="user.kyc_level == 'regular'" class="row-fluid">
+    <div ng-show="$mobbrStorage.user.kyc_level == 'regular'" class="row-fluid">
         <div class="well span12 special">
             <small>This information can no longer be changed because you have a confirmed identity.</small>
         </div>
     </div>
-    <iframe ng-show="user.kyc_level == 'none'" style="width: 99%;" class="eula" src="https://api.mobbr.com/mangopay-terms-of-use.txt"></iframe>
+    <iframe ng-show="$mobbrStorage.user.kyc_level == 'none'" style="width: 99%;" class="eula" src="https://api.mobbr.com/mangopay-terms-of-use.txt"></iframe>
     <form name="security" class="form-horizontal">
 
-        <div ng-show="user.kyc_level == 'none'" style="padding-bottom: 25px; margin-bottom: 20px; border-bottom: 1px solid #009ee0; ">
+        <div ng-show="$mobbrStorage.user.kyc_level == 'none'" style="padding-bottom: 25px; margin-bottom: 20px; border-bottom: 1px solid #009ee0; ">
             <label class="checkbox">
                 <input type="checkbox" ng-model="accept_mango">
                 I accept these terms
@@ -122,7 +122,7 @@
             </div>
 
             <div class="controls">
-                <input ng-model="user.firstname" name="firstname" type="text" id="firstname" placeholder="e.g. John">
+                <input ng-model="$mobbrStorage.user.firstname" name="firstname" type="text" id="firstname" placeholder="e.g. John">
             </div>
         </div>
 
@@ -132,7 +132,7 @@
             </div>
 
             <div class="controls">
-                <input ng-model="user.lastname" name="lastname" type="text" id="lastname" placeholder="e.g. Smith">
+                <input ng-model="$mobbrStorage.user.lastname" name="lastname" type="text" id="lastname" placeholder="e.g. Smith">
             </div>
         </div>
 
@@ -142,7 +142,7 @@
             </div>
 
             <div class="controls">
-                <input ng-model="user.birthday" name="birthday" type="date" id="birthday" placeholder="e.g. 1966-08-17" class="unstyled" >
+                <input ng-model="$mobbrStorage.user.birthday" name="birthday" type="date" id="birthday" placeholder="e.g. 1966-08-17" class="unstyled" >
             </div>
         </div>
 
@@ -152,7 +152,7 @@
             </div>
 
             <div class="controls">
-                <input ng-model="user.address" name="address" type="text" id="address" placeholder="e.g. Sesame Street, Manhattan">
+                <input ng-model="$mobbrStorage.user.address" name="address" type="text" id="address" placeholder="e.g. Sesame Street, Manhattan">
             </div>
         </div>
 
@@ -162,7 +162,7 @@
             </div>
 
             <div class="controls">
-                <select id="country_of_residence" name="country_of_residence" ng-model="user.country_of_residence"
+                <select id="country_of_residence" name="country_of_residence" ng-model="$mobbrStorage.user.country_of_residence"
                         ng-options="value as key for (value, key) in countriesMap | orderBy: 'key'">
                     <option value="">No country</option>
                 </select>
@@ -175,7 +175,7 @@
             </div>
 
             <div class="controls">
-                <select id="nationality" name="nationality" ng-model="user.nationality"
+                <select id="nationality" name="nationality" ng-model="$mobbrStorage.user.nationality"
                         ng-options="value as key for (value, key) in countriesMap">
                     <option value="">No country</option>
                 </select>
@@ -184,9 +184,9 @@
 
         <div class="control-group">
             <div class="controls">
-                <button ng-disabled="waitingsettings || (user.kyc_level == 'none' && !accept_mango) || security.$pristine" ng-click="submitSettings()" class="btn btn-success">
+                <button ng-disabled="waitingsettings || ($mobbrStorage.user.kyc_level == 'none' && !accept_mango) || security.$pristine" ng-click="submitSettings()" class="btn btn-success">
                     <i class="icon-white mobbrloader" ng-show="waitingsettings"></i>
-                    <span ng-bind="user.kyc_level == 'none' && 'Enable FIAT currencies' || 'Update'"></span>
+                    <span ng-bind="$mobbrStorage.user.kyc_level == 'none' && 'Enable FIAT currencies' || 'Update'"></span>
                 </button>
             </div>
         </div>
@@ -194,26 +194,26 @@
 </pane>
 
 <pane heading="Proof">
-    <div ng-show="user.kyc_level != 'regular'" class="row-fluid">
+    <div ng-show="$mobbrStorage.user.kyc_level != 'regular'" class="row-fluid">
         <div class="well span12 special">
             <small>Without this information, your account is limited to receive max. €2,500 (or equivalent) and/or send max. €1,000 (or equivalent), cumulated per legal year. These limits only apply to the USD, GBP, CHF, SEK, NOK, DKK, EUR, PLN currencies.</small>
         </div>
     </div>
-    <div ng-show="user.kyc_level == 'regular'" class="row-fluid">
+    <div ng-show="$mobbrStorage.user.kyc_level == 'regular'" class="row-fluid">
         <div class="well span12 special">
             <small>This information can no longer be changed because you have a confirmed identity.</small>
         </div>
     </div>
     <form name="kyc_regular" class="form-horizontal">
 
-        <fieldset ng-disabled="$parent.user.kyc_level == 'none'">
+        <fieldset ng-disabled="$parent.$mobbrStorage.user.kyc_level == 'none'">
             <div class="control-group">
                 <div class="control-label">
                     <label for="identity_proof"></label>
                 </div>
 
                 <div class="controls">
-                    <input ng-model="user.mangopay_identity_proof" name="identity_proof" id="identity_proof" type="text" ng-disabled="true">
+                    <input ng-model="$mobbrStorage.user.mangopay_identity_proof" name="identity_proof" id="identity_proof" type="text" ng-disabled="true">
                 </div>
             </div>
             <div class="control-group">
@@ -222,7 +222,7 @@
                 </div>
 
                 <div class="controls">
-                    <input ng-model="user.occupation" name="occupation" type="text" id="occupation" placeholder="e.g. Web-designer">
+                    <input ng-model="$mobbrStorage.user.occupation" name="occupation" type="text" id="occupation" placeholder="e.g. Web-designer">
                 </div>
             </div>
 
@@ -232,7 +232,7 @@
                 </div>
 
                 <div class="controls">
-                    <select id="income_range" name="income_range" ng-model="user.income_range"
+                    <select id="income_range" name="income_range" ng-model="$mobbrStorage.user.income_range"
                             ng-options="value as key for (value, key) in incomerangeMap">
                         <option value="">No range</option>
                     </select>
@@ -245,7 +245,7 @@
                 </div>
 
                 <div class="controls">
-                    <input ng-model="user.mangopay_identity_proof_upload" id="identity_proof_upload" name="identity_proof_upload" type="file"
+                    <input ng-model="$mobbrStorage.user.mangopay_identity_proof_upload" id="identity_proof_upload" name="identity_proof_upload" type="file"
                            ng-file-select="uploadIdentityProof($files)">
                 </div>
             </div>
@@ -276,7 +276,7 @@
             </div>
 
             <div class="controls">
-                <input ng-model="user.companyname" name="companyname" type="text" id="company-name" placeholder="e.g. Google">
+                <input ng-model="$mobbrStorage.user.companyname" name="companyname" type="text" id="company-name" placeholder="e.g. Google">
             </div>
         </div>
 
@@ -286,7 +286,7 @@
             </div>
 
             <div class="controls">
-                <input ng-model="user.vat_number" name="vat-number" type="text" id="vat-number" placeholder="e.g. NL001234567B01">
+                <input ng-model="$mobbrStorage.user.vat_number" name="vat-number" type="text" id="vat-number" placeholder="e.g. NL001234567B01">
             </div>
         </div>
 
@@ -296,7 +296,7 @@
             </div>
 
             <div class="controls">
-                <input ng-model="user.vat_rate" name="vat-rate" type="text" id="vat-rate" placeholder="e.g. 21">
+                <input ng-model="$mobbrStorage.user.vat_rate" name="vat-rate" type="text" id="vat-rate" placeholder="e.g. 21">
             </div>
         </div>
 
@@ -306,7 +306,7 @@
             </div>
 
             <div class="controls">
-                <input ng-model="user.invoice_numbering_prefix" name="invoice-prefix" type="text" id="invoice-prefix" placeholder="e.g. COMPANY-">
+                <input ng-model="$mobbrStorage.user.invoice_numbering_prefix" name="invoice-prefix" type="text" id="invoice-prefix" placeholder="e.g. COMPANY-">
             </div>
         </div>
 
@@ -316,7 +316,7 @@
             </div>
 
             <div class="controls">
-                <input ng-model="user.invoice_numbering_postfix" name="invoice-postfix" type="text" id="invoice-postfix" placeholder="">
+                <input ng-model="$mobbrStorage.user.invoice_numbering_postfix" name="invoice-postfix" type="text" id="invoice-postfix" placeholder="">
             </div>
         </div>
 
@@ -326,7 +326,7 @@
             </div>
 
             <div class="controls">
-                <input ng-value="user.invoice_numbering_prefix + '23580' + user.invoice_numbering_postfix" name="invoice-number" id="invoice-number" type="text" ng-disabled="true">
+                <input ng-value="($mobbrStorage.user.invoice_numbering_prefix || '') + '23580' + ($mobbrStorage.user.invoice_numbering_postfix || '')" name="invoice-number" id="invoice-number" type="text" ng-disabled="true">
             </div>
         </div>
 
@@ -352,10 +352,9 @@
 
             <div class="controls">
 
-                <select
-                        ng-model="formData.currencyIndex"
+                <select ng-model="$mobbrStorage.user.currency_iso"
                         name="currency_iso"
-                        ng-options="cur.description for cur in currencyArray"
+                        ng-options="value as key for (value, key) in currenciesMap | orderBy: 'value'"
                         title="the currency to which other currencies are converted when displayed">
 
 
@@ -372,8 +371,8 @@
             </div>
 
             <div class="controls">
-                <select ng-options="lan.description for lan in languageArray"
-                        ng-model="formData.languageIndex"
+                <select ng-options="value as key for (value, key) in languagesMap | orderBy: 'value'"
+                        ng-model="$mobbrStorage.user.language_iso"
                         title="the available languages">
                 </select>
 
@@ -389,7 +388,7 @@
             </div>
 
             <div class="controls">
-                <select ng-model="user.timezone" name="timezone" id="timezone"
+                <select ng-model="$mobbrStorage.user.timezone" name="timezone" id="timezone"
                         ng-options="value as key for (value,key ) in timezones">
 
                 </select>
@@ -412,11 +411,11 @@
 
         <div class="special well labelwidth pull-left"></div>
 
-        <div class="control-group" ng-repeat="model in settingsArray" ng-show="model.key.indexOf('hide') == 0">
-            <div class="controls" >
+        <div class="control-group" ng-repeat="(key, value) in $mobbrStorage.user.setting" ng-if="key.indexOf('send') != 0">
+            <div class="controls">
                 <div class="mobbr-checkbox">
-                    <input type="checkbox" ng-model="model.value" title="{{ settingsLabels[model.key] }}" id="{{ model.key }}" ng-click="updateSetting(model)" >
-                    <label for="{{ model.key }}">{{ settingsLabels[model.key] }}</label>
+                    <input type="checkbox" ng-model="$mobbrStorage.user.setting[key]" ng-true-value="1" ng-false-value="0" title="{{ settingsLabels[key] }}" id="{{ key }}">
+                    <label for="{{ key }}">{{ settingsLabels[key] }}</label>
                 </div>
             </div>
         </div>
@@ -437,18 +436,18 @@
 
         <div class="special well labelwidth pull-left"></div>
 
-        <div class="control-group" ng-repeat="model in settingsArray" ng-show="model.key.indexOf('send') == 0">
-            <div class="controls" >
+        <div class="control-group" ng-repeat="(key, value) in $mobbrStorage.user.setting" ng-if="key.indexOf('send') == 0">
+            <div class="controls">
                 <div class="mobbr-checkbox">
-                    <input type="checkbox" ng-model="model.value" title="{{ settingsLabels[model.key] }}" id="{{model.key}}" ng-click="updateSetting(model)" >
-                    <label for="{{ model.key }}">{{ settingsLabels[model.key] }}</label>
+                    <input type="checkbox" ng-model="$mobbrStorage.user.setting[key]" ng-true-value="1" ng-false-value="0" title="{{ settingsLabels[key] }}" id="{{ key }}">
+                    <label for="{{ key }}">{{ settingsLabels[key] }}</label>
                 </div>
             </div>
         </div>
 
         <div class="control-group">
             <div class="controls">
-                <button ng-disabled="waitingsettings || notifications.$pristine" ng-click="submitSettings()" class="btn btn-success">
+                <button ng-disabled="waitingsettings || primary.$pristine" ng-click="submitSettings()" class="btn btn-success">
                     <i class="icon-white mobbrloader" ng-show="waitingsettings"></i>
                     Save
                 </button>

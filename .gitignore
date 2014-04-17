@@ -4,4 +4,3 @@ node_modules
 .sass-cache
 .app/components
 dist
-dist.tar.gz
