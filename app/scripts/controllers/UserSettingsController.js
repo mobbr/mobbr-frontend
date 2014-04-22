@@ -26,19 +26,19 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
     };
 
     $scope.submitSettings = function (form) {
-        MobbrUser.updateUser({ user: $rootScope.$mobbrStorage.user }, function () {
+        $scope.waitingsettings = MobbrUser.updateUser({ user: $rootScope.$mobbrStorage.user }, function () {
             form.$setPristine();
         });
     }
 
     $scope.submitEmail = function (form) {
-        MobbrUser.updateEmail({ new_email: form.email.$modelValue }, function () {
+        $scope.waitingemail = MobbrUser.updateEmail({ new_email: form.email.$modelValue }, function () {
             form.$setPristine();
         });
     }
 
     $scope.submitPassword = function (form) {
-        MobbrUser.updatePassword({ new_password: form.new_password.$modelValue }, function () {
+        $scope.waitingpassword = MobbrUser.updatePassword({ new_password: form.new_password.$modelValue }, function () {
             form.$setPristine();
         });
     }

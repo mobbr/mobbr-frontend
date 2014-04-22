@@ -183,7 +183,7 @@ angular.module('mobbr', [
         $window.mobbr.createDiv();
 
         $rootScope.login = function (email, password) {
-            MobbrUser.passwordLogin({ email: email, password: password }, function () {
+            $rootScope.authenticating = MobbrUser.passwordLogin({ email: email, password: password }, function () {
                 $location.path('/wallet');
             });
         };
