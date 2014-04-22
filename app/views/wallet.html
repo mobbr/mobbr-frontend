@@ -14,12 +14,9 @@
 
     <div class="row-fluid">
         <div class="well span12 special">
-            <small>Your credit and new payments since your last logout.</small>
+            <small>Your credit. Fees will be transfered and reset at the beginning of each month</small>
         </div>
     </div>
-
-    <accordion close-others="false">
-        <accordion-group heading="Total credit" is-open="true">
 
             <table class="table table-striped mobbrtable" ng-show="balances.result.length > 0">
                 <thead>
@@ -41,16 +38,21 @@
                 </tr>
                 </tbody>
             </table>
-        </accordion-group>
-        <accordion-group heading="New payments" is-open="true">
+</pane>
+<pane heading="New payments">
+
+    <div class="row-fluid">
+        <div class="well span12 special">
+            <small>Payments since your last logout.</small>
+        </div>
+    </div>
+
             <invoicetable id="wallet_new"
                           columns="[ 'datetime', 'title', 'currency', 'amount' ]"
                           api="MobbrPayment.new"
                           sort-by="'datetime'"
                           sort-order="'desc'"
                           click-row="openPayment"></invoicetable>
-        </accordion-group>
-    </accordion>
 </pane>
 <pane heading="Payments">
     <div class="row-fluid">
@@ -59,8 +61,6 @@
         </div>
     </div>
 
-    <accordion close-others="false">
-        <accordion-group heading="Payments" is-open="true">
             <invoicetable id="wallet_historic"
                           columns="[ 'datetime', 'title', 'currency', 'amount' ]"
                           api="MobbrPayment.historic"
@@ -70,18 +70,14 @@
             <div ng-show="balances.length == 0">
                 No balances found
             </div>
-        </accordion-group>
-    </accordion>
 </pane>
     <pane heading="Deposits and withdraws">
         <div class="row-fluid">
             <div class="well span12 special">
-                <small>Overview of all payments you made or received.</small>
+                <small>Overview of all payments you made or received to and from external accounts.</small>
             </div>
         </div>
 
-        <accordion close-others="false">
-            <accordion-group heading="Deposits and withdraws" is-open="true">
                 <table class="table table-striped mobbrtable" ng-show="mutations.result.length >0">
                     <thead>
                     <tr>
@@ -105,8 +101,6 @@
                 <div ng-show="mutations.length == 0">
                     No transactions found
                 </div>
-            </accordion-group>
-        </accordion>
     </pane>
 <pane heading="Addresses">
     <div class="row-fluid">
