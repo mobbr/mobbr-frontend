@@ -210,6 +210,21 @@ angular.module('mobbr', [
             return '/#/url/' + window.btoa(url);
         }
 
+        $rootScope.$watch('mobbrMsg.messages', function () {
+
+            var msg = mobbrMsg.messages[mobbrMsg.messages.length - 1];
+
+            if (msg) {
+                console.log(msg);
+                new PNotify({
+                    title: '',
+                    text: msg.msg,
+                    type: msg.type || 'info',
+                    styling: 'bootstrap3'
+                });
+            }
+        }, true);
+
       // TODO: check what code should actually be here and move everything else to the services they belong to
 
       $rootScope.currenciesMap = {};

@@ -45,6 +45,7 @@
         <link href="//fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
         <!-- build:css styles/style.css -->
         <link href="styles/style.css" rel="stylesheet">
+        <link href="components/pines-notify/pnotify.core.css" rel="stylesheet">
         <!-- endbuild -->
         <script>
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -163,9 +164,9 @@
             </section>
 
             <div class="container main">
-                <div class="ng-cloak messaging">
+                <!--<div class="ng-cloak messaging">
                     <alert ng-repeat="alert in mobbrMsg.messages" type="alert.type" close="mobbrMsg.close($index)">{{ alert.msg }}</alert>
-                </div>
+                </div>-->
                 <div ng-view id="wrapper" class="row-fluid"></div>
             </div>
 
@@ -190,6 +191,7 @@
 
         <!-- build:js scripts/combined.js -->
         <script src="components/jquery/jquery.js"></script>
+        <script src="components/pines-notify/pnotify.core.js"></script>
         <script src="components/angular/angular.js"></script>
         <script src="components/angular-route/angular-route.js"></script>
         <script src="components/angular-resource/angular-resource.js"></script>
