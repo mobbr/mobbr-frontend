@@ -89,7 +89,7 @@
                                     <form ng-submit="login(email, password)" name="head-login" form-autofill-fix>
                                         <input ng-model="email" type="email" name="email" placeholder="email address" auto-fill-sync required>
                                         <input ng-model="password" type="password" name="password" placeholder="password" auto-fill-sync required>
-                                        <button ng-disabled="waiting" type="submit" class="btn"><i class="icon-white mobbrloader" ng-show="waiting"></i> Log in</button>
+                                        <button ng-disabled="authenticating && !authenticating.$resolved" type="submit" class="btn"><i class="icon-white mobbrloader" ng-show="authenticating && !authenticating.$resolved"></i> Log in</button>
                                     </form>
                                 </li>
                                 <li class="divider"></li>

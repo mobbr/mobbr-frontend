@@ -127,10 +127,10 @@
                     </div>
                     <div class="controls" ng-show="currency == 'BTC'">
                         <button ng-click="generateAddress(currency)"
-                                ng-disabled=""
+                                ng-disabled="generating && !generating.$resolved"
                                 type="submit"
                                 class="btn btn-success">
-                            <i class="icon-white mobbrloader" ng-show=""></i>
+                            <i class="icon-white mobbrloader" ng-show="generating && !generating.$resolved"></i>
                             Generate extra address
                         </button>
                     </div>
