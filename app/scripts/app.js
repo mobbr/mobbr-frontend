@@ -6,54 +6,14 @@ angular.module('mobbr.filters', []);
 angular.module('mobbr.configuration', []);
 
 /**
- * Prevent the dropdown from closing when an input is clicked, fix this nicer, perhaps make a push request to angular ui team
+ * Prevent the dropdown from closing when an input is clicked
  */
 
-angular.module('ui.bootstrap.dropdownToggle', []).directive('dropdownToggle',
-  ['$document', '$location', '$window', function ($document, $location, $window) {
-    var openElement = null,
-      closeMenu = angular.noop;
-    return {
-      restrict: 'CA',
-      link: function (scope, element, attrs) {
-        scope.$watch('$location.path', function () {
-          closeMenu();
-        });
-        element.parent().bind('click', function (event) {
-          closeMenu(event);
-        });
-        element.bind('click', function (event) {
-          event.preventDefault();
-          event.stopPropagation();
-          var elementWasOpen = (element === openElement);
-          if (!!openElement) {
-            closeMenu();
-          }
-          if (!elementWasOpen) {
-            element.parent().addClass('open');
-            openElement = element;
-            closeMenu = function (event) {
-              if ((event && event.toElement
-                && event.toElement.tagName !== 'INPUT'
-                && event.toElement.tagName !== 'SELECT'
-                && event.toElement.tagName !== 'TEXTAREA'
-                && event.toElement.tagName !== 'BUTTON') || !event) {
-                if (event && event.toElement.tagName !== 'A' && event.toElement.tagName !== 'IMG') {
-                  event.preventDefault();
-                  event.stopPropagation();
-                }
-                $document.unbind('click', closeMenu);
-                element.parent().removeClass('open');
-                closeMenu = angular.noop;
-                openElement = null;
-              }
-            };
-            $document.bind('click', closeMenu);
-          }
-        });
-      }
-    };
-  }]);
+$(function () {
+   $('.dropdown input').click(function (e) {
+       e.stopPropagation();
+   });
+});
 
 angular.module('mobbr', [
 
@@ -208,6 +168,10 @@ angular.module('mobbr', [
 
         $rootScope.linkUrl = function (url) {
             return '/#/url/' + window.btoa(url);
+        }
+
+        $rootScope.mobbrNow = function (mobbrNow) {
+            $window.mobbr.makePayment(mobbrNow);
         }
 
       // TODO: check what code should actually be here and move everything else to the services they belong to

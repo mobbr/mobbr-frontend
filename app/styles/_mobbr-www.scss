@@ -1,7 +1,11 @@
 body {
   background: whitesmoke;
   border-bottom: 1px solid #e3e3e3;
-  margin-top: $navbarHeight + 2;
+  margin-top: $navbar-height + 2;
+}
+
+.user-thumb {
+  margin: -5px 0;
 }
 
 .navbar-fixed-top > .navbar-inner {
@@ -20,10 +24,6 @@ body {
       margin-top: 0;
       width: 100%;
     }
-  }
-
-  .user-thumb {
-    margin: -5px 0;
   }
 }
 
@@ -64,10 +64,7 @@ table th {
 
 #wrapper {
   background: rgba(255, 255, 255, .9);
-  @include border-radius($baseBorderRadius);
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
+  border-radius: $border-radius-base;
 }
 
 #wrapper > .page-header {
