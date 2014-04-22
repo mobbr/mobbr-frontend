@@ -1,95 +1,55 @@
-/*!
- * Bootstrap v2.3.1
- *
- * Copyright 2012 Twitter, Inc
- * Licensed under the Apache License v2.0
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Designed and built with all the love in the world @twitter by @mdo and @fat.
- */
-
 // Core variables and mixins
-@import "../components/sass-bootstrap/lib/_variables"; // Modify this for custom colors, font-sizes, etc
+@import "../components/sass-bootstrap/lib/variables";
+@import "../components/sass-bootstrap/lib/mixins";
 
 // mobbr variable overrides
 @import "_mobbr-variables";
 
-@import "../components/sass-bootstrap/lib/_mixins";
+// Reset
+@import "../components/sass-bootstrap/lib/normalize";
+@import "../components/sass-bootstrap/lib/print";
 
-// CSS Reset
-@import "../components/sass-bootstrap/lib/_reset";
+// Core CSS
+@import "../components/sass-bootstrap/lib/scaffolding";
+@import "../components/sass-bootstrap/lib/type";
+@import "../components/sass-bootstrap/lib/code";
+@import "../components/sass-bootstrap/lib/grid";
+@import "../components/sass-bootstrap/lib/tables";
+@import "../components/sass-bootstrap/lib/forms";
+@import "../components/sass-bootstrap/lib/buttons";
 
-// Grid system and page structure
-@import "../components/sass-bootstrap/lib/_scaffolding";
-@import "../components/sass-bootstrap/lib/_grid";
-@import "../components/sass-bootstrap/lib/_layouts";
+// Components
+@import "../components/sass-bootstrap/lib/component-animations";
+@import "../components/sass-bootstrap/lib/glyphicons";
+@import "../components/sass-bootstrap/lib/dropdowns";
+@import "../components/sass-bootstrap/lib/button-groups";
+@import "../components/sass-bootstrap/lib/input-groups";
+@import "../components/sass-bootstrap/lib/navs";
+@import "../components/sass-bootstrap/lib/navbar";
+@import "../components/sass-bootstrap/lib/breadcrumbs";
+@import "../components/sass-bootstrap/lib/pagination";
+@import "../components/sass-bootstrap/lib/pager";
+@import "../components/sass-bootstrap/lib/labels";
+@import "../components/sass-bootstrap/lib/badges";
+@import "../components/sass-bootstrap/lib/jumbotron";
+@import "../components/sass-bootstrap/lib/thumbnails";
+@import "../components/sass-bootstrap/lib/alerts";
+@import "../components/sass-bootstrap/lib/progress-bars";
+@import "../components/sass-bootstrap/lib/media";
+@import "../components/sass-bootstrap/lib/list-group";
+@import "../components/sass-bootstrap/lib/panels";
+@import "../components/sass-bootstrap/lib/wells";
+@import "../components/sass-bootstrap/lib/close";
 
-// Base CSS
-@import "../components/sass-bootstrap/lib/_type";
-@import "../components/sass-bootstrap/lib/_code";
-@import "../components/sass-bootstrap/lib/_forms";
-@import "../components/sass-bootstrap/lib/_tables";
-
-// Components: common
-@import "../components/sass-bootstrap/lib/_sprites";
-@import "../components/sass-bootstrap/lib/_dropdowns";
-@import "../components/sass-bootstrap/lib/_wells";
-@import "../components/sass-bootstrap/lib/_component-animations";
-@import "../components/sass-bootstrap/lib/_close";
-
-// Components: Buttons & Alerts
-@import "../components/sass-bootstrap/lib/_buttons";
-@import "../components/sass-bootstrap/lib/_button-groups";
-@import "../components/sass-bootstrap/lib/_alerts"; // Note: alerts share common CSS with buttons and thus have styles in buttons
-
-// Components: Nav
-@import "../components/sass-bootstrap/lib/_navs";
-@import "../components/sass-bootstrap/lib/_navbar";
-@import "../components/sass-bootstrap/lib/_breadcrumbs";
-@import "../components/sass-bootstrap/lib/_pagination";
-@import "../components/sass-bootstrap/lib/_pager";
-
-// Components: Popovers
-@import "../components/sass-bootstrap/lib/_modals";
-//@import "_tooltip.scss";
-//@import "_popovers.scss";
-
-// Components: Misc
-@import "../components/sass-bootstrap/lib/_thumbnails";
-@import "../components/sass-bootstrap/lib/_media";
-//@import "_labels-badges.scss";
-//@import "_progress-bars.scss";
-@import "../components/sass-bootstrap/lib/_accordion";
-//@import "_carousel.scss";
-//@import "_hero-unit.scss";
-
-// RESPONSIVE CLASSES
-// ------------------
-
-@import "../components/sass-bootstrap/lib/_responsive-utilities";
-
-
-// MEDIA QUERIES
-// ------------------
-
-// Large desktops
-//@import "_responsive-1200px-min.scss";
-
-// Tablets to regular desktops
-@import "../components/sass-bootstrap/lib/_responsive-768px-979px";
-
-// Phones to portrait tablets and narrow desktops
-@import "../components/sass-bootstrap/lib/_responsive-767px-max";
-
-
-// RESPONSIVE NAVBAR
-// ------------------
-
-// From 979px and below, show a button to toggle navbar contents
-@import "../components/sass-bootstrap/lib/_responsive-navbar";
+// Components w/ JavaScript
+@import "../components/sass-bootstrap/lib/modals";
+//@import "../components/sass-bootstrap/lib/tooltip";
+@import "../components/sass-bootstrap/lib/popovers";
+//@import "../components/sass-bootstrap/lib/carousel";
 
 // include mobbr styles
 @import "_mobbr-www";
 
 // Utility classes
-@import "../components/sass-bootstrap/lib/_utilities"; // Has to be last to override when necessary
+@import "../components/sass-bootstrap/lib/utilities";
+@import "../components/sass-bootstrap/lib/responsive-utilities";
