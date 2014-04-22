@@ -61,35 +61,66 @@
     </head>
     <body ng-app="mobbr" id="ng-app" idle-timeout ng-class="{ 'mobbr-test': isTest() !== -1, 'ng-app': true, 'loading': loading }">
         <!--[if lt IE 10]>
-        <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser
+        <p class="chromeframe">
+            You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser
             today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better
-            experience this site. {{showMobbrFrame}}</p>
+            experience this site.
+        </p>
         <![endif]-->
-        <!-- build:js scripts/combined-ie.js -->
         <!--[if lt IE 9]>
+        <!-- build:js scripts/combined-ie.js -->
         <script src="components/es5-shim/es5-shim.js"></script>
-        <![endif]-->
         <!-- endbuild -->
+        <![endif]-->
         <div class="pusher">
-            <!--<div class="beta">
-                Advanced prototype for demonstration purposes. Dummy money only. Login / sign-up and try the worlds first crowdpayment system.
-            </div>-->
-            <header class="navbar navbar-fixed-top">
-                <nav class="navbar-inner">
-                    <ul class="nav">
-                        <li><a href="#/"><img src="img/logo-mobbr.png"></a></li>
-                    </ul>
+            <header class="navbar navbar-fixed-top navbar-default" role="navigation">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#/">
+                            <img src="img/logo-mobbr.png">
+                        </a>
+                    </div>
 
-                    <ul class="nav pull-right ng-cloak" ng-show="true">
-                        <li class="dropdown" ng-if="!mobbrSession.isAuthorized()">
-                            <a class="dropdown-toggle account-button">Account <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown">
+                                <img ng-if="$mobbrStorage.user.thumbnail" ng-src="{{ $mobbrStorage.user.thumbnail }}" class="img-rounded user-thumb">
+                                <span ng-bind="$mobbrStorage.user.username || 'Account'"></span>
+                                <b class="caret"></b>
+                            </a>
+
+                            <ul class="dropdown-menu" ng-if="!mobbrSession.isAuthorized()">
                                 <li class="nav-header"></li>
                                 <li>
-                                    <form ng-submit="login(email, password)" name="head-login" form-autofill-fix>
-                                        <input ng-model="email" type="email" name="email" placeholder="email address" auto-fill-sync required>
-                                        <input ng-model="password" type="password" name="password" placeholder="password" auto-fill-sync required>
-                                        <button ng-disabled="waiting" type="submit" class="btn"><i class="icon-white mobbrloader" ng-show="waiting"></i> Log in</button>
+                                    <form ng-submit="login(email, password)"
+                                          form-autofill-fix
+                                          class="col-lg-12"
+                                          name="head-login">
+                                        <div class="form-group">
+                                            <input ng-model="email"
+                                                   auto-fill-sync
+                                                   class="form-control"
+                                                   type="email"
+                                                   name="email"
+                                                   placeholder="email address"
+                                                   required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input ng-model="password"
+                                                   auto-fill-sync
+                                                   class="form-control"
+                                                   type="password"
+                                                   name="password"
+                                                   placeholder="password"
+                                                   required>
+                                        </div>
+                                        <div class="form-group">
+                                            <button ng-disabled="waiting"
+                                                    type="submit"
+                                                    class="btn btn-block">
+                                                Log in
+                                            </button>
+                                        </div>
                                     </form>
                                 </li>
                                 <li class="divider"></li>
@@ -97,69 +128,120 @@
                                 <li class="divider"></li>
                                 <li><a class="nav-header" href="#/recover">Password forgotten</a></li>
                             </ul>
-                        </li>
 
-                        <li class="dropdown ng-cloak" ng-if="mobbrSession.isAuthorized()">
-                            <ul class="nav">
-                                <li user-settings class="dropdown">
-                                    <a class="dropdown-toggle account-button"><span ng-bind="$mobbrStorage.user.username"></span> <img ng-src="{{ $mobbrStorage.user.thumbnail }}" style="height: 30px;" class="img-rounded user-thumb"> <b class="caret"></b></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#/wallet"><i class="icon-inbox"></i> Wallet</a></li>
-                                        <li><a href="#/sourcing"><i class="icon-bullhorn"></i> Hire/sourcing</a></li>
-                                        <li><a href="#/working"><i class="icon-cog"></i> Work/tasking</a></li>
-                                        <!--<li><a href=""><i class="icon-eye-open"></i> Sourcing</a></li>-->
-                                        <li><a href="#/settings"><i class="icon-wrench"></i> Settings</a></li>
-                                        <li><a ng-click="logout()"><i class="icon-lock"></i> Log out</a></li>
-                                    </ul>
+                            <ul class="dropdown-menu" ng-if="mobbrSession.isAuthorized()">
+                                <li>
+                                    <a href="#/wallet">
+                                        <span class="glyphicon glyphicon-inbox"></span>
+                                        Wallet
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#/sourcing">
+                                        <span class="glyphicon glyphicon-bullhorn"></span>
+                                        Hire/sourcing
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#/working">
+                                        <span class="glyphicon glyphicon-cog"></span>
+                                        Work/tasking
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#/settings">
+                                        <span class="glyphicon glyphicon-wrench"></span>
+                                        Settings
+                                    </a>
+                                </li>
+                                <li>
+                                    <a ng-click="logout()">
+                                        <span class="glyphicon glyphicon-lock"></span>
+                                        Log out
+                                    </a>
                                 </li>
                             </ul>
                         </li>
                     </ul>
-                </nav>
+                </div>
             </header>
 
             <section class="navbar navbar-inverse navbar-static-top">
-                <nav class="navbar-inner">
-                    <ul class="nav">
-                        <!--<li><a href="#/taskboard">Find work</a></li>-->
+                <div class="container-fluid">
+                    <ul class="nav navbar-nav">
                         <li><a href="#/features">Features</a></li>
                         <li><a target="_blank" href="https://docs.mobbr.com">Getting started</a></li>
                         <li><a href="#/claimpayment">Claim payment</a></li>
-                        <!--<li><a href="#/generatebutton">Create button</a></li>-->
-                        <li class="dropdown" style="min-width: 0">
-                            <a class="dropdown-toggle">More <b class="caret"></b></a>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                More
+                                <b class="caret"></b>
+                            </a>
                             <ul class="dropdown-menu">
-                                <li><a target="_blank" href="http://blog.mobbr.com">Blog →</a></li>
-                                <li><a target="_blank" href="https://plus.google.com/communities/100962413817465214183">Community →</a></li>
-                                <li><a target="_blank" href="https://ask.mobbr.com">Help &amp; support →</a></li>
+                                <li>
+                                    <a target="_blank" href="http://blog.mobbr.com">
+                                        Blog →
+                                    </a>
+                                </li>
+                                <li>
+                                    <a target="_blank" href="https://plus.google.com/communities/100962413817465214183">
+                                        Community →
+                                    </a>
+                                </li>
+                                <li>
+                                    <a target="_blank" href="https://ask.mobbr.com">
+                                        Help &amp; support →
+                                    </a>
+                                </li>
                                 <li class="divider"></li>
-                                <li><a href="#/company">About us</a></li>
+                                <li>
+                                    <a href="#/company">
+                                        About us
+                                    </a>
+                                </li>
                                 <li class="divider"></li>
-                                <li><a href="#/integration">Documentation</a></li>
-                                <!--<li><a target="_blank" href="https://api.mobbr.com">API →</a></li>
-                                <li><a target="_blank" href="/protocol.html">Script-syntax →</a></li>-->
-                                <!--<li class="divider"></li>-->
-                                <!--<li class="nav-header">Stay up-to-date</li>-->
-                                <!--<li><a target="_blank" href="http://blog.mobbr.com/">Mobbr blog →</a></li>
-                                <li><a target="_blank" href="https://twitter.com/#%21/mobbrcom">Mobbr on Twitter →</a></li>
-                                <li><a target="_blank" href="https://plus.google.com/communities/100962413817465214183">Mobbr on Google+ →</a></li>-->
-                                <!--<li><a href="#/exchangerate">Currency exchange rates</a></li>-->
+                                <li>
+                                    <a href="#/integration">
+                                        Documentation
+                                    </a>
+                                </li>
                             </ul>
                         </li>
-                        <li><a target="_blank" href="https://twitter.com/mobbrcom"><img class="customicon" src="img/icon-twitter.png"></a></li>
-                        <li><a target="_blank" href="https://plus.google.com/+Mobbrcom"><img class="customicon" src="img/icon-gplus.png"></a></li>
-                        <li><a target="_blank" href="http://blog.mobbr.com"><img class="customicon" src="img/icon-rss.png"></a></li>
+                        <li>
+                            <a target="_blank" href="https://twitter.com/mobbrcom">
+                                <img class="customicon" src="img/icon-twitter.png">
+                            </a>
+                        </li>
+                        <li>
+                            <a target="_blank" href="https://plus.google.com/+Mobbrcom">
+                                <img class="customicon" src="img/icon-gplus.png">
+                            </a>
+                        </li>
+                        <li>
+                            <a target="_blank" href="http://blog.mobbr.com">
+                                <img class="customicon" src="img/icon-rss.png">
+                            </a>
+                        </li>
                     </ul>
 
-                    <div ng-controller="MobbrNowController">
-                        <form class="navbar-form pull-right" title="Do a direct payment to an URL or email address" id="mobbrform" name="mobbrform" ng-submit="submit()">
-                            <div class="input-append">
-                                <input name="data" title="Enter the URL, Mobbr-account, email-address you want to send money to" placeholder="Enter recipient address" size="35" maxlength="512" type="text" ng-model="mobbrnowInput">
-                                <button name="go" class="btn" type="submit">Do a direct payment</button>
-                            </div>
-                        </form>
-                    </div>
-                </nav>
+                    <form class="navbar-form navbar-right"
+                          title="Do a direct payment to an URL or email address">
+                        <div class="form-group">
+                            <input class="form-control"
+                                   name="mobbrinput"
+                                   title="Enter the URL, Mobbr-account, email-address you want to send money to"
+                                   placeholder="Enter recipient address"
+                                   size="35"
+                                   maxlength="512"
+                                   type="text"
+                                   ng-model="mobbrNowInput"
+                                   required>
+                        </div>
+                        <button name="go" class="btn" type="submit" ng-click="mobbrNow(mobbrNowInput)">
+                            Do a direct payment
+                        </button>
+                    </form>
+                </div>
             </section>
 
             <div class="container main">
@@ -168,28 +250,10 @@
                 </div>
                 <div ng-view id="wrapper" class="row-fluid"></div>
             </div>
-
-            <footer class="sitefooter">
-<!--                <div class="container">
-                    <div class="row-fluid">
-                        <div class="span4">
-                            Logo's
-                        </div>
-                        <div class="span4">
-                            Logo's
-                        </div>
-                        <div class="span4">
-                            en nog meer logo's
-                        </div>
-                    </div>
-               </div>-->
-            </footer>
         </div>
 
-        <!--<script type="text/javascript" src="https://jira.mobbr.com/s/en_US-v1z3lw-418945332/854/4/1.2.9/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?collectorId=cf50ef21"></script>-->
-
         <!-- build:js scripts/combined.js -->
-        <script src="components/jquery/jquery.js"></script>
+        <script src="components/jquery/dist/jquery.js"></script>
         <script src="components/angular/angular.js"></script>
         <script src="components/angular-route/angular-route.js"></script>
         <script src="components/angular-resource/angular-resource.js"></script>
@@ -199,7 +263,7 @@
         <script src="components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
         <script src="components/ngstorage/ngStorage.js"></script>
         <script src="components/angularjs-file-upload/angular-file-upload.js"></script>
-        <script src="components/ng-table/ng-table.src.js"></script>
+        <script src="components/ng-table/ng-table.js"></script>
         <script src="components/jspdf/libs/Deflate/deflate.js"></script>
         <script src="components/jspdf/libs/Deflate/adler32cs.js"></script>
         <script src="components/file-saver/FileSaver.js"></script>
@@ -212,7 +276,6 @@
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/ApiController.js"></script>
         <script src="scripts/controllers/ActivateController.js"></script>
-        <script src="scripts/controllers/MobbrNowController.js"></script>
         <script src="scripts/controllers/UrlReceiptController.js"></script>
         <script src="scripts/controllers/PaymentReceiptController.js"></script>
         <script src="scripts/controllers/ExchangeRateController.js"></script>
