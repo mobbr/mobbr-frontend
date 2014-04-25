@@ -6,6 +6,11 @@ angular.module('mobbr.controllers').controller('WorkingController', function ($s
     $scope.MobbrPayment = MobbrPayment;
     $scope.MobbrUri = MobbrUri;
 
+    $scope.unclaimed = MobbrUri.unclaimed();
+    $scope.earned = MobbrUri.earned();
+    $scope.confirmable = MobbrInvoice.confirmable();
+    $scope.confirmed = MobbrInvoice.confirmed();
+
     $scope.openPayment = function (item) {
         $location.path('/payment/' + (item.payment_id || item.id));
     }

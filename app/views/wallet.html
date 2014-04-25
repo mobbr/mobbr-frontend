@@ -1,151 +1,36 @@
-<div class="alert alert-info" ng-hide="mobbrSession.isAuthorized()">
-    The dashboard is empty because you are not logged in. To login or signup, go <a href="#/join">here</a>.
+<div class="row">
+    <div class="col-md-3">
+        <ul class="nav nav-pills nav-stacked">
+            <li ng-class="{ active: $state.includes('wallet.credit') }">
+                <a href="/#/wallet">
+                    Credit
+                    <span ng-repeat="balance in balances.result"
+                          ng-if="balance.spendable > 0"
+                          ng-bind="balance.currency_iso + ' ' + (balance.spendable | mobbrcurrency)"
+                          class="badge pull-right"></span>
+                </a>
+            </li>
+            <li ng-class="{ disabled: newPayments.result.length == 0, active: $state.includes('wallet.new') }">
+                <a ng-href="{{ newPayments.result.length > 0 && '/#/wallet/new' || '' }}">
+                    New payments
+                    <span class='badge pull-right' ng-bind="newPayments.result.length"></span>
+                </a>
+            </li>
+            <li ng-class="{ active: $state.includes('wallet.payments') }">
+                <a href="/#/wallet/payments">
+                    Payments
+                    <span class='badge pull-right' ng-bind="historicPayments.result.length"></span>
+                </a>
+            </li>
+            <li ng-class="{ active: $state.includes('wallet.xpayments') }">
+                <a href="/#/wallet/xpayments">
+                    Deposits and withdraws
+                    <span class='badge pull-right' ng-bind="mutations.result.length"></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-9">
+        <div ui-view class="container-fluid"></div>
+    </div>
 </div>
-<div class="pull-right">
-    <div class="btn-group">
-        <button class="btn" ng-click="depositDialog.open()">Deposit</button>
-    </div>
-    <div class="btn-group">
-        <button class="btn" ng-click="withdrawDialog.open()">Withdraw</button>
-    </div>
-</div>
-<tabs>
-<pane heading="Wallet">
-
-    <div class="row-fluid">
-        <div class="well span12 special">
-            <small>Your credit and new payments since your last logout.</small>
-        </div>
-    </div>
-
-    <accordion close-others="false">
-        <accordion-group heading="Total credit" is-open="true">
-
-            <table class="table table-striped mobbrtable" ng-show="balances.result.length > 0">
-                <thead>
-                <tr>
-                    <th>Currency description</th>
-                    <th ng-click="sortBalance('currency_iso')">Currency</th>
-                    <th ng-click="sortBalance('amount')">Total</th>
-                    <th ng-click="sortBalance('fee')">Fee</th>
-                    <th ng-click="sortBalance('spendable')">Spendable</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="balance in balances.result | orderBy:sortEntries:sortOrderBalance | filter:searchBalanceEntries"  ng-class-odd="'odd'" ng-class-even="'even'">
-                    <td ng-bind="currencyDescription(balance.currency_iso)"></td>
-                    <td ng-bind="balance.currency_iso" class="currency"></td>
-                    <td ng-bind="balance.amount | mobbrcurrency" class="amount decorate-amount"></td>
-                    <td ng-bind="balance.fee | mobbrcurrency" class="amount decorate-amount"></td>
-                    <td ng-bind="balance.spendable | mobbrcurrency" class="amount decorate-amount"></td>
-                </tr>
-                </tbody>
-            </table>
-        </accordion-group>
-        <accordion-group heading="New payments" is-open="true">
-            <invoicetable id="wallet_new"
-                          columns="[ 'datetime', 'title', 'currency', 'amount' ]"
-                          api="MobbrPayment.new"
-                          sort-by="'datetime'"
-                          sort-order="'desc'"
-                          click-row="openPayment"></invoicetable>
-        </accordion-group>
-    </accordion>
-</pane>
-<pane heading="Payments">
-    <div class="row-fluid">
-        <div class="well span12 special">
-            <small>Overview of all payments you made or received.</small>
-        </div>
-    </div>
-
-    <accordion close-others="false">
-        <accordion-group heading="Payments" is-open="true">
-            <invoicetable id="wallet_historic"
-                          columns="[ 'datetime', 'title', 'currency', 'amount' ]"
-                          api="MobbrPayment.historic"
-                          sort-by="'datetime'"
-                          sort-order="'desc'"
-                          click-row="openPayment"></invoicetable>
-            <div ng-show="balances.length == 0">
-                No balances found
-            </div>
-        </accordion-group>
-    </accordion>
-</pane>
-    <pane heading="Deposits and withdraws">
-        <div class="row-fluid">
-            <div class="well span12 special">
-                <small>Overview of all payments you made or received.</small>
-            </div>
-        </div>
-
-        <accordion close-others="false">
-            <accordion-group heading="Deposits and withdraws" is-open="true">
-                <table class="table table-striped mobbrtable" ng-show="mutations.result.length >0">
-                    <thead>
-                    <tr>
-                        <th ng-click="sortPayments('paiddatetime')">date</th>
-                        <th ng-click="sortPayments('payment_service')" >Provider</th>
-                        <th ng-click="sortPayments('currency_iso')">Currency</th>
-                        <th ng-click="sortPayments('amount')">Amount</th>
-                        <th ng-click="sortPayments('receive_address')" colspan="2">Address</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="mutation in mutations.result | orderBy:sortEntries:sortOrderPayments | filter:searchBalanceEntries"  ng-class-odd="'odd'" ng-class-even="'even'">
-                        <td ng-click="openExternalPayment(mutation.id)" ng-bind="mutation.paiddatetime || mutation.announceddatetime" class="datetime {{ !mutation.paiddatetime && 'muted' }}"></td>
-                        <td ng-click="openExternalPayment(mutation.id)" ng-bind="mutation.payment_service"></td>
-                        <td ng-bind="mutation.currency_iso" class="currency"></td>
-                        <td ng-bind="mutation.amount | mobbrcurrency" class="amount decorate-amount"></td>
-                        <td ng-bind="mutation.receive_address" colspan="2"></td>
-                    </tr>
-                    </tbody>
-                </table>
-                <div ng-show="mutations.length == 0">
-                    No transactions found
-                </div>
-            </accordion-group>
-        </accordion>
-    </pane>
-<pane heading="Addresses">
-    <div class="row-fluid">
-        <div class="well span12 special">
-            <small>Use these public addresses to receive money from external accounts. Give these to anyone who needs to fund your Mobbr account.</small>
-        </div>
-    </div>
-    <form class="form-horizontal">
-        <div ng-repeat="(currency, addresses) in supportedCurrencies.result">
-
-            <accordion close-others="false">
-                <accordion-group heading="{{currency}} / {{currencyDescription(currency)}}" is-open="false">
-                    <div ng-repeat="properties in addresses">
-                        <div style="padding-bottom:10px;" ng-repeat="(property,value) in properties" class="controls-row">
-
-                            <label ng-bind="property" class="control-label">
-
-                            </label>
-                            <div class="controls">
-                                <input type="text" disabled="disabled" ng-model="value" class="input-xxlarge"/>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="controls" ng-show="currency == 'BTC'">
-                        <button ng-click="generateAddress(currency)"
-                                ng-disabled=""
-                                type="submit"
-                                class="btn btn-success">
-                            <i class="icon-white mobbrloader" ng-show=""></i>
-                            Generate extra address
-                        </button>
-                    </div>
-                </accordion-group>
-            </accordion>
-        </div>
-        </div>
-    </form>
-
-</pane>
-</tabs>
-

@@ -1,9 +1,9 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('JoinController', function ($scope, $routeParams, MobbrUser) {
+angular.module('mobbr.controllers').controller('JoinController', function ($scope, $stateParams, MobbrUser) {
 
     $scope.waiting = false;
-    $scope.email = $routeParams.email;
+    $scope.email = $stateParams.email;
     $scope.registerUser = function (username, email, password, password_control) {
 
         $scope.waiting = true;

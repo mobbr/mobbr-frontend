@@ -1,15 +1,15 @@
 'use strict';
 
-angular.module('mobbr.services.invoice', []).factory('invoiceDialog', function ($dialog) {
+angular.module('mobbr.services.invoice', []).factory('invoiceDialog', function ($modal) {
 
         return function (method, template, params, onSuccess, onError) {
 
-            return $dialog.dialog({
+            var modalInstance = $modal.open({
                 backdrop: true,
                 keyboard: true,
                 backdropClick: false,
                 templateUrl: 'views/partials/' + template + '.html',
-                controller: function ($scope, dialog) {
+                controller: function ($scope) {
 
                     $scope.invoice = {};
 
@@ -18,23 +18,29 @@ angular.module('mobbr.services.invoice', []).factory('invoiceDialog', function (
                     });
 
                     $scope.close = function () {
-                        dialog.close();
+                        modalInstance.dismiss('cancel');
                     }
 
                     $scope.confirm = function () {
-
-                        $scope.waiting = true;
-
-                        method($scope.invoice, function (response) {
-                            $scope.waiting = false;
-                            onSuccess && onSuccess(dialog, response);
-                        }, function (response) {
-                            $scope.waiting = false;
-                            onError && onError(dialog, response);
-                        });
+                        modalInstance.close($scope);
                     }
                 }
             });
+
+            modalInstance.result.then(function ($scope) {
+
+                $scope.waiting = true;
+
+                method($scope.invoice, function (response) {
+                    $scope.waiting = false;
+                    onSuccess && onSuccess(modalInstance, response);
+                }, function (response) {
+                    $scope.waiting = false;
+                    onError && onError(modalInstance, response);
+                });
+            });
+
+            return modalInstance;
         }
     }
 );

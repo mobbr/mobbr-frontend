@@ -1,0 +1,42 @@
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="btn-group pull-right form-group">
+            <button class="btn" ng-click="openDepositDialog()">Deposit</button>
+            <button class="btn" ng-click="openWithdrawDialog()">Withdraw</button>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-7">
+        <invoicetable has-search="false"
+                      id="balances"
+                      columns="[ 'currency_description', 'currency', 'amount', 'fee', 'spendable' ]"
+                      show-search="false"
+                      api="balances"></invoicetable>
+    </div>
+    <div class="col-md-5">
+        <alert>
+            Use these public addresses to receive money from external accounts. Give these to anyone who needs to fund your Mobbr account.
+        </alert>
+        <accordion>
+            <accordion-group ng-repeat="(currency, addresses) in supportedCurrencies.result"
+                             heading="{{currency}} / {{currencyDescription(currency)}}"
+                             is-open="false">
+                <form ng-repeat="properties in addresses">
+                    <fieldset ng-repeat="(property, value) in properties" class="form-group">
+                        <label ng-if="property" ng-bind="property"></label>
+                        <input type="text" disabled="disabled" ng-model="value" class="form-control">
+                    </fieldset>
+                    <button ng-if="currency == 'BTC'"
+                            ng-click="generating = generateAddress(currency)"
+                            type="submit"
+                            class="btn btn-success">
+                        <i class="icon-white mobbrloader" ng-show="generating && !generating.$resolved"></i>
+                        Generate extra address
+                    </button>
+                </form>
+            </accordion-group>
+        </accordion>
+    </div>
+</div>

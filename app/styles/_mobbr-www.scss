@@ -1,70 +1,35 @@
 body {
-  background: whitesmoke;
-  border-bottom: 1px solid #e3e3e3;
-  margin-top: $navbar-height + 2;
+  margin-top: $navbar-height;
+}
+
+.main {
+  margin: 20px;
 }
 
 .user-thumb {
   margin: -5px 0;
 }
 
-.navbar-fixed-top > .navbar-inner {
-
-  border-bottom: 2px solid #fff;
-
-  .dropdown-menu > li {
-
-    > form,
-    > .btn-group,
-    > .btn {
-      padding: 0 20px;
-    }
-
-    > form > .btn {
-      margin-top: 0;
-      width: 100%;
-    }
-  }
-}
-
-.navbar-inverse {
-
-  > .navbar-inner {
-    padding-left: 0;
-    padding-right: 15px;
-    padding-top: 2px;
-  }
-
-  .input-append {
-    margin-bottom: 0;
-  }
-}
-
-.main {
-  margin-top: 20px;
-}
-
-.well h6 {
-  margin-top: 0;
-}
-
-h6 small,
+h6,
 table th {
   text-transform: uppercase;
   font-weight: bold;
   font-size: 11px;
 }
 
-.messaging {
+.page-header {
+  border-bottom: 1px solid $mobbrblue;
+}
+
+.well {
+  background: whitesmoke url(../img/mobbr-ripple.png) no-repeat top right;
+}
+
+/*.messaging {
   position: fixed;
   z-index: 9999;
   top: -3px;
   width: 940px;
-}
-
-#wrapper {
-  background: rgba(255, 255, 255, .9);
-  border-radius: $border-radius-base;
 }
 
 #wrapper > .page-header {
@@ -89,7 +54,7 @@ table th {
 
 .generate-button .json-generator {
   margin: 1em 0 0 0;
-}
+}*/
 
 .accordion-toggle.muted {
   cursor: default;
@@ -107,10 +72,6 @@ table th {
   margin: 0;
 }
 
-.pusher {
-  background: #fff url(../img/mobbr-ripple.jpg) no-repeat left -65px;
-}
-
 .labelwidth {
   width: 120px;
 }
@@ -125,14 +86,6 @@ table th {
 
 .accordion-inner {
   border-top: 0;
-}
-
-.use-cases .well h6 {
-  margin: 0 1em 0;
-}
-
-.use-cases .well p {
-  margin: 0 2em;
 }
 
 .mobbr_button {
@@ -232,13 +185,14 @@ h1, h2, h3 {
   color: $grayLight;
 }
 
-.tagline p {
-  font-size: 1.3em;
-  font-family: $mobbrFontFamily;
+.banner {
+  position: relative;
 }
 
-.introtext p {
-  color: $gray;
+.introtext {
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
 
 pre {
@@ -373,8 +327,8 @@ pre {
   padding: 20px;
 }
 
-.mobbr-test .pusher {
-  background: #FF0 !important;
+.mobbr-test {
+  /*background-color: #9F9 !important;*/
 }
 
 .mobbr-checkbox {
@@ -424,7 +378,7 @@ pre {
 .mobbrtable .expiration,
 .mobbrtable .datetime,
 .mobbrtable .username {
-  width: 120px;
+  width: 180px;
 }
 
 .mobbrtable .icon-chevron-down {

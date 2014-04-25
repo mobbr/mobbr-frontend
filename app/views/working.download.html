@@ -1,0 +1,11 @@
+<alert>
+    Your invoices. We generated these on request of your clients.
+</alert>
+<invoicetable id="working_reviewed_invoices"
+              columns="[ 'worker_username', 'role', 'currency', 'amount' ]"
+              api="confirmed"
+              button-text="'Download invoices'"
+              button-action="downloadInvoices"
+              group-by="'title'"
+              selectable="1"
+              click-row="openPayment"></invoicetable>

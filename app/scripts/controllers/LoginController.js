@@ -1,7 +1,7 @@
 'use strict';
 
 
-angular.module('mobbr.controllers').controller('LoginController', function ($scope, $route, User, userSession, Msg, $location, $http, $routeParams) {
+angular.module('mobbr.controllers').controller('LoginController', function ($scope, $route, User, userSession, Msg, $location, $http, $stateParams) {
 
     setTimeout(function () {
         $scope.$apply(function () {
@@ -70,7 +70,7 @@ angular.module('mobbr.controllers').controller('LoginController', function ($sco
 
         $scope.waiting = true;
 
-        User.resetPasswordForHash({'session_token': $routeParams.hash, password: $scope.new_password, password_control: $scope.new_password_control},
+        User.resetPasswordForHash({'session_token': $stateParams.hash, password: $scope.new_password, password_control: $scope.new_password_control},
             function (response) {
                 $scope.waiting = false;
                 if (response.result != null) {

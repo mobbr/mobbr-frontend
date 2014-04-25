@@ -1,75 +1,33 @@
-<div class="alert alert-info" ng-hide="$mobbrStorage.token">
-    The work board is empty because you are not logged in. To login or signup, go <a href="#/join">here</a>.
+<div class="row">
+    <div class="col-md-3">
+        <ul class="nav nav-pills nav-stacked">
+            <li ng-class="{ active: $state.includes('working.new'), disabled: unclaimed.result.length == 0 }">
+                <a ng-href="{{ unclaimed.result.length > 0 && '/#/working' || '' }}">
+                    New
+                    <span class='badge pull-right' ng-bind="unclaimed.result.length"></span>
+                </a>
+            </li>
+            <li ng-class="{ active: $state.includes('working.tasks'), disabled: earned.result.length == 0 }">
+                <a ng-href="{{ earned.result.length > 0 && '/#/working/tasks' || '' }}">
+                    Tasks
+                    <span class='badge pull-right' ng-bind="earned.result.length"></span>
+                </a>
+            </li>
+            <li ng-class="{ active: $state.includes('working.confirm'), disabled: confirmable.result.length == 0 }">
+                <a ng-href="{{ confirmable.result.length > 0 && '/#/working/confirm' || '' }}">
+                    Confirm invoices
+                    <span class='badge pull-right' ng-bind="confirmable.result.length"></span>
+                </a>
+            </li>
+            <li ng-class="{ active: $state.includes('working.download'), disabled: confirmed.result.length == 0 }">
+                <a ng-href="{{ confirmed.result.length > 0 && '/#/working/download' || '' }}">
+                    Download invoices
+                    <span class='badge pull-right' ng-bind="confirmed.result.length"></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-9">
+        <div ui-view class="container-fluid"></div>
+    </div>
 </div>
-<tabs>
-    <pane heading="Work">
-        <div class="row-fluid">
-            <div class="well span12 special">
-                <small>Tasks to which you can contribute.</small>
-            </div>
-        </div>
-        <accordion close-others="false">
-            <accordion-group heading="Tasks you can earn money on" is-open="true">
-                <invoicetable id="working_tasks"
-                              columns="[ 'spacer', 'title', 'currency', 'amount' ]"
-                              api="MobbrUri.unclaimed"
-                              group-by="'title'"
-                              click-row="openPayment"></invoicetable>
-            </accordion-group>
-        </accordion>
-    </pane>
-    <pane heading="Tasks">
-        <div class="row-fluid">
-            <div class="well span12 special">
-                <small>Tasks to which you contributed.</small>
-            </div>
-        </div>
-        <accordion close-others="false">
-            <accordion-group heading="Tasks you earned money on" is-open="true">
-                <invoicetable id="working_historic_tasks"
-                              columns="[ 'gravatar', 'username', 'datetime', 'role', 'currency', 'amount' ]"
-                              api="MobbrUri.earned"
-                              group-by="'title'"></invoicetable>
-            </accordion-group>
-        </accordion>
-    </pane>
-    <pane heading="Confirm invoices">
-        <div class="row-fluid">
-            <div class="well span12 special">
-                <small>Confirm the data on the invoices your clients request. After 30 days if possible an invoice using your default data will be generated else the payment will be refunded.</small>
-            </div>
-        </div>
-        <accordion close-others="false">
-            <accordion-group heading="Invoices that need verification" is-open="true">
-                <invoicetable id="working_requested_invoices"
-                              columns="[ 'worker_username', 'role', 'expiration', 'currency', 'amount' ]"
-                              api="MobbrInvoice.confirmable"
-                              button-text="'Confirm invoices'"
-                              button-action="confirmInvoices"
-                              group-by="'title'"
-                              selectable="1"
-                              click-row="openPayment"></invoicetable>
-            </accordion-group>
-        </accordion>
-    </pane>
-    <pane heading="Download invoices">
-        <div class="row-fluid">
-            <div class="well span12 special">
-                <small>Your invoices. We generated these on request of your clients.</small>
-            </div>
-        </div>
-        <accordion close-others="false">
-            <accordion-group heading="Invoices generated on your behalf" is-open="true">
-                <invoicetable id="working_reviewed_invoices"
-                              columns="[ 'worker_username', 'role', 'currency', 'amount' ]"
-                              api="MobbrInvoice.confirmed"
-                              button-text="'Download invoices'"
-                              button-action="downloadInvoices"
-                              group-by="'title'"
-                              selectable="1"
-                              click-row="openPayment"></invoicetable>
-            </accordion-group>
-        </accordion>
-    </pane>
-</tabs>
-
