@@ -215,7 +215,6 @@ angular.module('mobbr', [
             var msg = mobbrMsg.messages[mobbrMsg.messages.length - 1];
 
             if (msg) {
-                console.log(msg);
                 new PNotify({
                     title: '',
                     text: msg.msg,
