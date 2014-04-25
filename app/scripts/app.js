@@ -177,13 +177,15 @@ angular.module('mobbr', [
     }).run(function ($http, $rootScope, $route, $location, $window, $anchorScroll, MobbrApi, MobbrUser, mobbrMsg, mobbrSession, apiUrl, environment) {
 
         $window.mobbr.setApiUrl(apiUrl);
-        if (environment !== 'production') {
+        if (environment === 'stage') {
+            $window.mobbr.setUiUrl('https://stage-www.mobbr.com');
+        } else if (environment === 'test' || environment === 'development') {
             $window.mobbr.setUiUrl('https://test-www.mobbr.com');
         }
         $window.mobbr.createDiv();
 
         $rootScope.login = function (email, password) {
-            MobbrUser.passwordLogin({ email: email, password: password }, function () {
+            $rootScope.authenticating = MobbrUser.passwordLogin({ email: email, password: password }, function () {
                 $location.path('/wallet');
             });
         };
@@ -203,12 +205,26 @@ angular.module('mobbr', [
         $rootScope.mobbrSession = mobbrSession;
 
         $rootScope.isTest = function () {
-            return !window.location.href.search('mobbr.com');
+            return environment !== 'production';
         }
 
         $rootScope.linkUrl = function (url) {
             return '/#/url/' + window.btoa(url);
         }
+
+        $rootScope.$watch('mobbrMsg.messages', function () {
+
+            var msg = mobbrMsg.messages[mobbrMsg.messages.length - 1];
+
+            if (msg) {
+                new PNotify({
+                    title: '',
+                    text: msg.msg,
+                    type: msg.type || 'info',
+                    styling: 'bootstrap3'
+                });
+            }
+        }, true);
 
       // TODO: check what code should actually be here and move everything else to the services they belong to
 

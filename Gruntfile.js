@@ -9,13 +9,15 @@ module.exports = function (grunt) {
   // load all grunt tasks
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
-  // Environment to be passed in via command line: grunt build --env=dev | test | prod>
+  // Environment to be passed in via command line: grunt build --env=dev | test | stage | production>
   var env = grunt.option('env') || 'test';
 
   var site;
 
   if (env === 'test') {
     site = 'test-www.mobbr.com';
+  } else if (env === 'stage') {
+    site = 'stage-www.mobbr.com';
   } else if (env === 'dev') {
     site = 'api.mobbr.dev';
   } else {
@@ -267,17 +269,28 @@ module.exports = function (grunt) {
     },
     ngconstant: {
       test: [
+            {
+                dest: '<%= yeoman.app %>/scripts/config.js',
+                name: 'mobbr.config',
+                wrap: '(function() { \n return <%= __ngModule %> \n\n})();',
+                constants: {
+                    'apiUrl': 'https://test-api.mobbr.com',
+                    'environment': 'test'
+                }
+            }
+        ],
+      stage: [
         {
           dest: '<%= yeoman.app %>/scripts/config.js',
           name: 'mobbr.config',
           wrap: '(function() { \n return <%= __ngModule %> \n\n})();',
           constants: {
-            'apiUrl': 'https://test-api.mobbr.com',
-            'environment': 'test'
+            'apiUrl': 'https://stage-api.mobbr.com',
+            'environment': 'stage'
           }
         }
       ],
-      prod: [
+      production: [
         {
           dest: '<%= yeoman.app %>/scripts/config.js',
           name: 'mobbr.config',
@@ -303,13 +316,19 @@ module.exports = function (grunt) {
     sshconfig: {
       test: {
         host: 'test-www.mobbr.com',
-        username: 'keesdekooter',
+        username: 'handijk',
         agent: process.env.SSH_AUTH_SOCK,
         showProgress: true
       },
-      prod: {
-        host: 'www.mobbr.com',
-        username: 'keesdekooter',
+      production: {
+        host: 'mobbr.com',
+        username: 'handijk',
+        agent: process.env.SSH_AUTH_SOCK,
+        showProgress: true
+      },
+      stage: {
+        host: 'mobbr.com',
+        username: 'handijk',
         agent: process.env.SSH_AUTH_SOCK,
         showProgress: true
       }
@@ -331,13 +350,13 @@ module.exports = function (grunt) {
           'cd /tmp',
           'rm -Rf dist/',
           'tar -xzf dist-' + env + '-' + version + '.tar.gz',
-          'mkdir /var/www/' + env  + '-' + version,
-          'cp -R dist/* /var/www/' + env  + '-' + version,
+          'mkdir /var/www/' + env  + '-www-' + version,
+          'cp -R dist/* /var/www/' + env  + '-www-' + version,
           'cd /var/www/',
-          'chgrp -R www-data ' + env  + '-' + version,
+          //'chgrp -R www-data ' + 'www-' + env  + '-' + version,
           'rm -f ' + site,
-          'ln -s ' + env  + '-' + version + ' ' + site,
-          'chgrp -h www-data ' + site
+          'ln -s ' + env  + '-www-' + version + ' ' + site
+          //'chgrp -h www-data ' + site
         ].join(' && '),
         options: {
           config: env
