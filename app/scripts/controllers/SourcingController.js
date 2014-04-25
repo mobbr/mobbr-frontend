@@ -1,9 +1,11 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('SourcingController', function ($scope, $dialog, $location, userSession, Dashboard, Sourcing, invoiceDialog, pdfGenerator, Msg) {
+angular.module('mobbr.controllers').controller('SourcingController', function ($scope, $dialog, $location, $rootScope, invoiceDialog, pdfGenerator, MobbrInvoice, MobbrPayment, MobbrPerson, MobbrUri) {
 
-    $scope.Sourcing = Sourcing;
-    $scope.Dashboard = Dashboard;
+    $scope.MobbrInvoice = MobbrInvoice;
+    $scope.MobbrPayment = MobbrPayment;
+    $scope.MobbrPerson = MobbrPerson;
+    $scope.MobbrUri = MobbrUri;
 
     $scope.openPayment = function (item) {
         $location.path('/payment/' + (item.payment_id || item.id));
@@ -11,42 +13,34 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
 
     $scope.cancelInvoices = function (ids, items, table) {
         $scope.ciwaiting = true;
-        Sourcing.cancelInvoices({ ids: ids }, function (response) {
-            Msg.setResponseMessage('info', 'Invoice request successfully cancelled', response);
+        MobbrInvoice.unrequest({ ids: ids }, function (response) {
             $scope.$broadcast('invoicetable', 'sourcing_requested_invoices');
             $scope.$broadcast('invoicetable', 'working_requested_invoices');
             $scope.$broadcast('invoicetable', 'sourcing_unrequested_invoices');
             $scope.ciwaiting = false;
         }, function (response) {
-            Msg.setResponseMessage('error', 'Cannot cancel invoice request', response);
             $scope.ciwaiting = true;
         });
     }
 
     $scope.requestInvoices = function (ids, items, table) {
         invoiceDialog(
-            Sourcing.requestInvoices,
+            MobbrInvoice.request,
             'request_invoice_popup',
             {
                 ids: ids,
-                customer_name: userSession.user.companyname || (userSession.user.firstname + ' ' + userSession.user.lastname),
-                customer_address: userSession.user.address,
-                customer_country: userSession.user.country_of_residence,
-                customer_vat_number: userSession.user.vat_number,
-                customer_vat_rate: userSession.user.vat_rate,
-                customer_status: userSession.user.companyname && 'enterprise' || 'private',
-                customer_invoice_prefix: userSession.user.invoice_numbering_prefix,
-                customer_invoice_postfix: userSession.user.invoice_numbering_postfix
+                customer_name: $rootScope.$mobbrStorage.user.companyname || ($rootScope.$mobbrStorage.user.firstname + ' ' + $rootScope.$mobbrStorage.user.lastname),
+                customer_address: $rootScope.$mobbrStorage.user.address,
+                customer_country: $rootScope.$mobbrStorage.user.country_of_residence,
+                customer_vat_number: $rootScope.$mobbrStorage.user.vat_number,
+                customer_vat_rate: $rootScope.$mobbrStorage.user.vat_rate,
+                customer_status: $rootScope.$mobbrStorage.user.companyname && 'enterprise' || 'private'
             },
             function (dialog, response) {
-                Msg.setResponseMessage('info', 'Invoice successfully requested', response);
                 dialog.close();
                 $scope.$broadcast('invoicetable', 'sourcing_requested_invoices');
                 $scope.$broadcast('invoicetable', 'working_requested_invoices');
                 $scope.$broadcast('invoicetable', 'sourcing_unrequested_invoices');
-            },
-            function (dialog, response) {
-                Msg.setResponseMessage('error', 'Cannot request invoice', response);
             }
         ).open();
     }
@@ -59,16 +53,12 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
 
     $scope.removePledgesDialog = function (ids, items, table) {
         invoiceDialog(
-            Dashboard.revokePledge,
+            MobbrPayment.unpledge,
             'remove_pledges_popup',
             { ids: ids },
             function (dialog, response) {
-                Msg.setResponseMessage('info', 'Pledges succesfully deleted', response);
                 dialog.close();
                 $scope.$broadcast('invoicetable', 'sourcing_pledges');
-            },
-            function (dialog, response) {
-                Msg.setResponseMessage('error', response.data.message.text, response);
             }
         ).open();
     }

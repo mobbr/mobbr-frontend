@@ -1,7 +1,6 @@
 <div class="page-header">
-    <h1>
-        {{ payment.result.script.title }}<br>
-    </h1>
+    <h1 ng-bind="payment.result.script.title"></h1>
+    <a target="_blank" href="{{ payment.result.url }}" ng-bind="payment.result.url"></a>
 </div>
 
 <div class="row-fluid">

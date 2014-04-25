@@ -87,7 +87,7 @@
                       class="nowrap"></span>
 
                 <span ng-switch-when="currency_iso"
-                      ng-bind="entry.currency_iso || userSession.user.currency_iso"
+                      ng-bind="entry.currency_iso || $mobbrStorage.user.currency_iso"
                       class="nowrap"></span>
 
                 <span ng-switch-when="currency_description"
