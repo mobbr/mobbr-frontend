@@ -5,7 +5,7 @@
 <accordion class="generate-button" close-others="false">
     <accordion-group heading="1/6: Choose button" is-open="step() >= 1" is-active="step() >= 1">
 
-        <div class="span2 button-type" ng-repeat="button in buttons">
+        <div class="col-md-2 button-type" ng-repeat="button in buttons">
             <input id="{{button.name}}" type="radio" ng-model="form.button" value="{{button.function}}" name="{{button.name}}">
             <label for="{{button.name}}">
                 <span ng-show="!button.url" ng-bind="button.name"></span>

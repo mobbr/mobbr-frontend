@@ -1,58 +1,56 @@
-<div class="page-header">
-    <h1>Claim payment<br><small>Check if someone already rewarded your url or email</small></h1>
-</div>
+<div class="container">
 
-<accordion class="claim-payment" close-others="false">
-    <accordion-group heading="1/{{isUrl() && 5 || 3}}: Enter url or email address" is-open="step() >= 1" is-active="step() >= 1">
+    <div class="page-header">
+        <h1>Claim payment<br><small>Check if someone already rewarded your url or email</small></h1>
+    </div>
 
-        <form class="input-append" ng-submit="retrieveUnclaimedPaynents()">
-            <div ng-bind="claimpayment.checkurlresult.message"></div>
-            <input type="text" placeholder="http://site.com or your@email.com" ng-model="claimpayment.url" maxlength="2048" id="url" name="url">
-            <button class="btn" ng-click="retrieveUrl()">Check <i class="icon-white mobbrloader" ng-show="workingCheck"></i></button>
-        </form>
+    <accordion class="claim-payment" close-others="false">
+        <accordion-group heading="1/{{isUrl() && 3 || 2}}: Enter url or email address" is-open="step() == 1">
 
-    </accordion-group>
-    <accordion-group heading="2/{{isUrl() && 5 || 3}}: Select unclaimed payments" is-open="step() >= 2" is-active="step() >= 2">
-
-        <div ng-show="unclaimedPayments.length > 0">
-            <form class="form-inline">
-                <label for="searchEntries">Search: </label>
-                <input type="search" class="search-query" ng-model="searchEntries" id="searchEntries">
-                <div class="pull-right">
-                    <label for="showEntries">Entries: </label>
-                    <select class="input-small" ng-model="showEntries" id="showEntries">
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                        <option value="">All</option>
-                    </select>
-                </div>
+            <form class="input-group" ng-submit="retrieveUnclaimedPaynents()">
+                <input class="form-control" type="text" placeholder="http://site.com or your@email.com" ng-model="claimpayment.url" maxlength="2048" id="url" name="url">
+                <span class="input-group-btn">
+                    <button class="btn" ng-click="retrieveUrl()">Check <i class="icon-white mobbrloader" ng-show="workingCheck"></i></button>
+                </span>
             </form>
 
-            <table class="unclaimed-payments table">
-                <thead>
-                <tr>
-                    <th ng-click="sortPayments('url')">URL</th>
-                    <th ng-click="sortPayments('title')">Title</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="payment in unclaimedPayments | filter:searchEntries | limitTo:showEntries | orderBy:sortEntries:sortOrder">
-                    <td><a href="{{payment.url}}">{{payment.url}}</a></td>
-                    <td ng-bind="payment.title"></td>
-                </tr>
-                </tbody>
-            </table>
-            <div ng-show="unclaimedPayments.length > showEntries">
-                showing {{showEntries}} from {{unclaimedPayments.length}} unclaimed payments
+        </accordion-group>
+        <accordion-group heading="2/3: Place payment information" ng-if="step() >= 3 && isUrl()" is-open="step() == 3">
+
+            <div ng-show="unclaimedPayments.length > 0">
+                <form class="form-inline">
+                    <label for="searchEntries">Search: </label>
+                    <input type="search" class="search-query" ng-model="searchEntries" id="searchEntries">
+                    <div class="pull-right">
+                        <label for="showEntries">Entries: </label>
+                        <select class="input-small" ng-model="showEntries" id="showEntries">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="">All</option>
+                        </select>
+                    </div>
+                </form>
+
+                <table class="unclaimed-payments table">
+                    <thead>
+                    <tr>
+                        <th ng-click="sortPayments('url')">URL</th>
+                        <th ng-click="sortPayments('title')">Title</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="payment in unclaimedPayments | filter:searchEntries | limitTo:showEntries | orderBy:sortEntries:sortOrder">
+                        <td><a href="{{payment.url}}">{{payment.url}}</a></td>
+                        <td ng-bind="payment.title"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div ng-show="unclaimedPayments.length > showEntries">
+                    showing {{showEntries}} from {{unclaimedPayments.length}} unclaimed payments
+                </div>
             </div>
-        </div>
-
-    </accordion-group>
-    <div ng-show="isUrl()">
-
-        <accordion-group heading="3/5: Place payment information" is-open="step() >= 3" is-active="step() >= 3">
 
             <p>
                 Place a <a href="#/integration#metadata">metatag</a> or <a href="#/integration#metalink">metalink</a>
@@ -67,13 +65,10 @@
             </button>
 
         </accordion-group>
-        <accordion-group heading="4/5: Verify payment information" is-open="step() >= 4" is-active="step() >= 4">
+        <accordion-group heading="3/3: Verify payment information" ng-if="step() >= 4 && isUrl()" is-open="step() >= 4">
 
             <p>Mobbr found the following payment information on your URL: </p>
             <pre class="prettyprint pre-scrollable" ng-bind="paymentDescription"></pre>
-
-        </accordion-group>
-        <accordion-group heading="5/5: Claim payments" is-open="step() >= 4" is-active="step() >= 4">
 
             <button class="btn btn-success" ng-disabled="!paymentDescription || claiming" ng-click="claim()">
                 Claim my URL's
@@ -81,12 +76,45 @@
             </button>
 
         </accordion-group>
-    </div>
-    <div ng-show="!isUrl()">
-        <accordion-group heading="3/3: Claim payments" is-open="step() >= 4" is-active="step() >= 4">
+        <accordion-group heading="2/2: Claim payments" ng-if="step() >= 4 && !isUrl()" is-open="step() == 4">
+
+            <div ng-show="unclaimedPayments.length > 0">
+                <form class="form-inline">
+                    <label for="searchEntries">Search: </label>
+                    <input type="search" class="search-query" ng-model="searchEntries" id="searchEntries">
+                    <div class="pull-right">
+                        <label for="showEntries">Entries: </label>
+                        <select class="input-small" ng-model="showEntries" id="showEntries">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="">All</option>
+                        </select>
+                    </div>
+                </form>
+
+                <table class="unclaimed-payments table">
+                    <thead>
+                    <tr>
+                        <th ng-click="sortPayments('url')">URL</th>
+                        <th ng-click="sortPayments('title')">Title</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="payment in unclaimedPayments | filter:searchEntries | limitTo:showEntries | orderBy:sortEntries:sortOrder">
+                        <td><a href="{{payment.url}}">{{payment.url}}</a></td>
+                        <td ng-bind="payment.title"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div ng-show="unclaimedPayments.length > showEntries">
+                    showing {{showEntries}} from {{unclaimedPayments.length}} unclaimed payments
+                </div>
+            </div>
 
             To claim these payments, <a href="/#/join">create an account</a> with this same email address.
 
         </accordion-group>
-    </div>
-</accordion>
+    </accordion>
+</div>

@@ -1,0 +1,45 @@
+<form name="display" class="form-horizontal">
+    <fieldset class="form-group">
+        <label class="control-label col-md-2">Default currency</label>
+        <div class="col-md-4">
+            <select class="form-control"
+                    ng-model="$mobbrStorage.user.currency_iso"
+                    name="currency_iso"
+                    ng-options="value as key for (value, key) in currenciesMap | orderBy: 'value'"
+                    title="the currency to which other currencies are converted when displayed">
+            </select>
+        </div>
+    </fieldset>
+
+    <fieldset class="form-group">
+        <label class="control-label col-md-2">Language</label>
+        <div class="col-md-4">
+            <select class="form-control"
+                    ng-options="value as key for (value, key) in languagesMap | orderBy: 'value'"
+                    ng-model="$mobbrStorage.user.language_iso"
+                    title="the available languages">
+            </select>
+        </div>
+    </fieldset>
+
+    <fieldset class="form-group">
+        <label class="control-label col-md-2" for="timezone">Timezone</label>
+        <div class="col-md-4">
+            <select ng-model="$mobbrStorage.user.timezone"
+                    class="form-control"
+                    name="timezone"
+                    id="timezone"
+                    ng-options="value as key for (value,key ) in timezones">
+            </select>
+        </div>
+    </fieldset>
+
+    <fieldset class="form-group">
+        <div class="col-md-offset-2 col-md-4">
+            <button ng-disabled="(waitingsettings && !waitingsettings.$resolved) || display.$pristine" ng-click="submitSettings(settings)" class="btn btn-success">
+                <i class="icon-white mobbrloader" ng-show="waitingsettings && !waitingsettings.$resolved"></i>
+                Save
+            </button>
+        </div>
+    </fieldset>
+</form>

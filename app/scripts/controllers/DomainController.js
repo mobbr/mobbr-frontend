@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('DomainController', function ($scope, $routeParams, $window, MobbrDomain, MobbrPerson, MobbrPayment, MobbrBalance, MobbrReferrer, MobbrUri) {
+angular.module('mobbr.controllers').controller('DomainController', function ($scope, $stateParams, $window, MobbrDomain, MobbrPerson, MobbrPayment, MobbrBalance, MobbrReferrer, MobbrUri) {
 
-    var urlParam = { domain: $window.atob($routeParams.url) };
+    var urlParam = { domain: $window.atob($stateParams.url) };
 
     $scope.balances = MobbrBalance.domain(urlParam);
     $scope.info = MobbrDomain.info(urlParam);

@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('PaymentReceiptController', function ($scope, $routeParams, $location, MobbrPayment, MobbrXPayment) {
+angular.module('mobbr.controllers').controller('PaymentReceiptController', function ($scope, $stateParams, $location, MobbrPayment, MobbrXPayment) {
 
-    var params = { id: $routeParams.id };
+    var params = { id: $stateParams.id };
 
     $scope.external = false;
 

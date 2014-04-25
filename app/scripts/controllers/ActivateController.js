@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('ActivateController', function ($scope, $routeParams, MobbrUser) {
+angular.module('mobbr.controllers').controller('ActivateController', function ($scope, $stateParams, MobbrUser) {
 
-    MobbrUser.linkLogin({ login_token: $routeParams.hash });
+    MobbrUser.linkLogin({ login_token: $stateParams.hash });
 });

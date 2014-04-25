@@ -1,11 +1,13 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('SourcingController', function ($scope, $dialog, $location, $rootScope, invoiceDialog, pdfGenerator, MobbrInvoice, MobbrPayment, MobbrPerson, MobbrUri) {
+angular.module('mobbr.controllers').controller('SourcingController', function ($scope, $location, $rootScope, invoiceDialog, pdfGenerator, MobbrInvoice, MobbrPayment, MobbrPerson) {
 
-    $scope.MobbrInvoice = MobbrInvoice;
-    $scope.MobbrPayment = MobbrPayment;
-    $scope.MobbrPerson = MobbrPerson;
-    $scope.MobbrUri = MobbrUri;
+
+    $scope.requestableInvoices = MobbrInvoice.requestable();
+    $scope.requestedInvoices = MobbrInvoice.requested();
+    $scope.confirmedInvoices = MobbrInvoice.confirmed();
+    $scope.pledged = MobbrPayment.pledged();
+    $scope.workers = MobbrPerson.paid();
 
     $scope.openPayment = function (item) {
         $location.path('/payment/' + (item.payment_id || item.id));
