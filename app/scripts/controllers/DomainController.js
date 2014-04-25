@@ -1,29 +1,13 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('DomainController', function ($scope, Domain ,Msg, $location, $routeParams, $window) {
+angular.module('mobbr.controllers').controller('DomainController', function ($scope, $routeParams, $window, MobbrDomain, MobbrPerson, MobbrPayment, MobbrBalance, MobbrReferrer, MobbrUri) {
 
-    var refarray,
-        urlParam;
+    var urlParam = { domain: $window.atob($routeParams.url) };
 
-    if (!$routeParams.url) {
-        refarray = document.referrer.split('/');
-        $location.path('/domain/' + $window.btoa(refarray[0] + '//' + refarray[2]));
-    }
-
-    urlParam = { domain: $window.atob($routeParams.url) };
-    $scope.balances = Domain.balances(urlParam);
-    $scope.info = Domain.info(urlParam);
-    $scope.locations = Domain.getLocations(urlParam);
-    $scope.persons = Domain.getPersons(urlParam);
-    $scope.unclaimed = Domain.getUnclaimed(urlParam);
-    $scope.payments = Domain.getPayments(
-        urlParam,
-        function (response) {
-            if (response.result === null) {
-                Msg.setResponseMessage( 'error', 'Could not get payments', response);
-            }
-        }, function (response) {
-            Msg.setResponseMessage( 'error', 'Could not get payments', response);
-        }
-    );
+    $scope.balances = MobbrBalance.domain(urlParam);
+    $scope.info = MobbrDomain.info(urlParam);
+    $scope.locations = MobbrReferrer.domain(urlParam);
+    $scope.persons = MobbrPerson.domain(urlParam);
+    $scope.unclaimed = MobbrUri.unclaimed(urlParam);
+    $scope.payments = MobbrPayment.domain(urlParam);
 });

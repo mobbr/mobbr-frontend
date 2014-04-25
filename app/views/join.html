@@ -32,12 +32,38 @@
         </div>
     </div>
 
+    <!--<div class="control-group">
+
+        <div class="control-label">
+            <label for="new_password">New password</label>
+        </div>
+
+        <div class="controls">
+            <input ng-model="new_password" id="new_password" name="new_password" type="password" required ng-pattern="/^.*(?=.{8,})(?=.*\d)(?=.*[a-z]).*$/">
+            <span ng-show="changepassword.new_password.$dirty && changepassword.new_password.$error.required" class="help-inline">Enter a new password</span>
+            <span ng-show="changepassword.new_password.$dirty && changepassword.new_password.$error.pattern" class="help-inline">Minimal 8 charactes, uppercase, lowercase and numbers</span>
+        </div>
+    </div>
+
+    <div class="control-group">
+
+        <div class="control-label">
+            <label for="new_password2">New password again</label>
+        </div>
+
+        <div class="controls">
+            <input name="new_password2" id="new_password2" ng-model="new_password_control" type="password" required pw-check="new_password">
+            <span ng-show="changepassword.new_password2.$dirty && changepassword.new_password2.$error.pwmatch" class="help-inline">Passwords do not match</span>
+        </div>
+    </div>-->
+
     <div class="control-group">
         <div class="control-label">
             <label for="password">Password</label>
         </div>
         <div class="controls">
-            <input ng-model="password" name="password" id="password" type="password" required placeholder="min. 8 alfanum positions">
+            <input ng-model="password" name="password" id="password" type="password" required ng-pattern="/^.*(?=.{8,})(?=.*\d)(?=.*[a-z]).*$/" placeholder="min. 8 alfanum positions">
+            <span ng-show="register.password.$dirty && register.password.$error.pattern" class="help-inline">Minimal 8 charactes, uppercase, lowercase and numbers</span>
         </div>
     </div>
     <div class="control-group">
@@ -45,7 +71,8 @@
            <label for="password_control">Confirm password</label>
         </div>
         <div class="controls">
-            <input ng-model="password_control" name="password_control" id="password_control" type="password" required placeholder="confirm password">
+            <input ng-model="password_control" name="password_control" id="password_control" type="password" required pw-check="password" placeholder="confirm password">
+            <span ng-show="register.password_control.$dirty && register.password_control.$error.pwmatch" class="help-inline">Passwords do not match</span>
         </div>
     </div>
 
