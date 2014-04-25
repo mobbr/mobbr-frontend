@@ -1,0 +1,26 @@
+<form name="notifications">
+    <fieldset class="form-group">
+        <div class="col-sm-offset-2 col-sm-10" ng-repeat="(key, value) in $mobbrStorage.user.setting" ng-if="key.indexOf('send') == 0">
+            <div class="checkbox">
+                <label for="{{ key }}">
+                    <input type="checkbox"
+                           ng-model="$mobbrStorage.user.setting[key]"
+                           ng-true-value="1"
+                           ng-false-value="0"
+                           title="{{ settingsLabels[key] }}"
+                           id="{{ key }}">
+                    {{ settingsLabels[key] }}
+                </label>
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset class="form-group">
+        <div class="col-md-offset-2 col-md-4">
+            <button ng-disabled="(waitingsettings && !waitingsettings.$resolved) || notifications.$pristine" ng-click="submitSettings(settings)" class="btn btn-success">
+                <i class="icon-white mobbrloader" ng-show="waitingsettings && !waitingsettings.$resolved"></i>
+                Save
+            </button>
+        </div>
+    </fieldset>
+</form>

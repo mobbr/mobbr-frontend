@@ -1,0 +1,9 @@
+<invoicetable id="sourcing_requested_invoices"
+              columns="[ 'username', 'role', 'expiration', 'currency', 'amount' ]"
+              waiting="ciwaiting"
+              api="requestedInvoices"
+              group-by="'title'"
+              button-text="'Cancel request'"
+              button-action="cancelInvoices"
+              selectable="1"
+              click-row="openPayment"></invoicetable>

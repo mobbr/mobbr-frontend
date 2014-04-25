@@ -1,0 +1,49 @@
+<form name="invoicing" class="form-horizontal">
+    <alert>
+        We will generate invoices on your behalve, using this information. Make sure it is in compliance with your countries tax laws.
+    </alert>
+
+    <fieldset class="form-group">
+        <label class="control-label col-md-2" for="company-name">Company name</label>
+        <div class="col-md-4">
+            <input class="form-control" ng-model="$mobbrStorage.user.companyname" name="companyname" type="text" id="company-name" placeholder="e.g. Google">
+        </div>
+    </fieldset>
+
+    <fieldset class="form-group">
+        <label class="control-label col-md-2" for="vat-number">VAT-number</label>
+        <div class="col-md-4">
+            <input class="form-control" ng-model="$mobbrStorage.user.vat_number" name="vat-number" type="text" id="vat-number" placeholder="e.g. NL001234567B01">
+        </div>
+    </fieldset>
+
+    <fieldset class="form-group">
+        <label class="control-label col-md-2" for="invoice-prefix">Invoice number prefix</label>
+        <div class="col-md-4">
+            <input class="form-control" ng-model="$mobbrStorage.user.invoice_numbering_prefix" name="invoice-prefix" type="text" id="invoice-prefix" placeholder="e.g. COMPANY-">
+        </div>
+    </fieldset>
+
+    <fieldset class="form-group">
+        <label class="control-label col-md-2" for="invoice-postfix">Invoice number postfix</label>
+        <div class="col-md-4">
+            <input class="form-control" ng-model="$mobbrStorage.user.invoice_numbering_postfix" name="invoice-postfix" type="text" id="invoice-postfix" placeholder="">
+        </div>
+    </fieldset>
+
+    <fieldset class="form-group">
+        <label class="control-label col-md-2" for="invoice-number">Example invoice number</label>
+        <div class="col-md-4">
+            <input class="form-control" ng-value="($mobbrStorage.user.invoice_numbering_prefix || '') + '23580' + ($mobbrStorage.user.invoice_numbering_postfix || '')" name="invoice-number" id="invoice-number" type="text" ng-disabled="true">
+        </div>
+    </fieldset>
+
+    <fieldset class="form-group">
+        <div class="col-md-offset-2 col-md-4">
+            <button ng-disabled="(waitingsettings && !waitingsettings.$resolved) || invoicing.$pristine" ng-click="submitSettings(settings)" class="btn btn-success">
+                <i class="icon-white mobbrloader" ng-show="waitingsettings && !waitingsettings.$resolved"></i>
+                Save
+            </button>
+        </div>
+    </fieldset>
+</form>

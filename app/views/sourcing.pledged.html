@@ -1,0 +1,12 @@
+<alert>
+    Tasks to which you pledged or paid. Pledges can be revoked but every currently listed participant to the taks will be notified which can hurt your reputation.
+</alert>
+
+<invoicetable id="sourcing_pledges"
+              columns="[ 'title', 'currency', 'amount' ]"
+              api="pledged"
+              group-by="'title'"
+              button-text="'Remove pledges'"
+              button-action="removePledgesDialog"
+              selectable="1"
+              click-row="openPayment"></invoicetable>

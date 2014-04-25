@@ -20,6 +20,7 @@ angular.module('mobbr', [
         'ngRoute',
         'ngTable',
         'ui.bootstrap',
+        'ui.router',
         'mobbrApi',
         'mobbrMsg',
         'mobbrSession',
@@ -31,7 +32,7 @@ angular.module('mobbr', [
         'mobbr.filters',
         'angularFileUpload'
 
-    ]).config(function ($routeProvider) {
+    ]).config(function ($stateProvider, $urlRouterProvider) {
 
         var resolver = {};
 
@@ -50,97 +51,180 @@ angular.module('mobbr', [
             return deferred.promise;
         }
 
-        $routeProvider.when('/', {
+        $stateProvider.state('main', {
+                url: '/',
                 templateUrl: 'views/main.html',
                 controller: 'MainController'
-            }).when('/login/:hash', {
+            }).state('login', {
+                url: '/login/:hash',
                 templateUrl: 'views/link-login.html',
                 controller: 'LinkLoginController'
-            }).when('/activate/:hash', {
+            }).state('activate', {
+                url: '/activate/:hash',
                 templateUrl: 'views/activate.html',
                 controller: 'ActivateController'
-            }).when('/email/:hash', {
+            }).state('email', {
+                url: '/email/:hash',
                 templateUrl: 'views/update-email.html',
                 controller: 'UpdateEmailController'
-            }).when('/recover', {
+            }).state('recover', {
+                url: '/recover',
                 templateUrl: 'views/recover-password.html',
                 controller: 'ResetPasswordController',
                 authsettings: { authenticated: false, redirectTo: '/wallet' },
                 resolve: resolver
-            }).when('/join', {
+            }).state('join', {
+                url: '/join',
                 templateUrl: 'views/join.html',
                 controller: 'JoinController',
                 authsettings: { authenticated: false, redirectTo: '/wallet' },
                 resolve: resolver
-            }).when('/settings', {
+            }).state('settings', {
                 templateUrl: 'views/settings.html',
                 controller: 'UserSettingsController',
                 authsettings: { authenticated: true, redirectTo: '/' },
                 resolve: resolver
-            }).when('/wallet', {
+            }).state('settings.account', {
+                url: '/settings',
+                templateUrl: 'views/settings.account.html'
+            }).state('settings.identity', {
+                url: '/settings/identity',
+                templateUrl: 'views/settings.identity.html'
+            }).state('settings.proof', {
+                url: '/settings/proof',
+                templateUrl: 'views/settings.proof.html'
+            }).state('settings.invoicing', {
+                url: '/settings/invoicing',
+                templateUrl: 'views/settings.invoicing.html'
+            }).state('settings.display', {
+                url: '/settings/display',
+                templateUrl: 'views/settings.display.html'
+            }).state('settings.privacy', {
+                url: '/settings/privacy',
+                templateUrl: 'views/settings.privacy.html'
+            }).state('settings.notifications', {
+                url: '/settings/notifications',
+                templateUrl: 'views/settings.notifications.html'
+            }).state('wallet', {
                 templateUrl: 'views/wallet.html',
                 controller: 'WalletController',
                 authsettings: { authenticated: true, redirectTo: '/' },
                 resolve: resolver
-            }).when('/sourcing', {
+            }).state('wallet.credit', {
+                url: '/wallet',
+                templateUrl: 'views/wallet.credit.html'
+            }).state('wallet.new', {
+                url: '/wallet/new',
+                templateUrl: 'views/wallet.new.html'
+            }).state('wallet.payments', {
+                url: '/wallet/payments',
+                templateUrl: 'views/wallet.payments.html'
+            }).state('wallet.xpayments', {
+                url: '/wallet/xpayments',
+                templateUrl: 'views/wallet.xpayments.html'
+            }).state('sourcing', {
                 templateUrl: 'views/sourcing.html',
                 controller: 'SourcingController',
                 authsettings: { authenticated: true, redirectTo: '/' },
                 resolve: resolver
-            }).when('/working', {
+            }).state('sourcing.request', {
+                url: '/sourcing',
+                templateUrl: 'views/sourcing.request.html'
+            }).state('sourcing.pending', {
+                url: '/sourcing/pending',
+                templateUrl: 'views/sourcing.pending.html'
+            }).state('sourcing.download', {
+                url: '/sourcing/download',
+                templateUrl: 'views/sourcing.download.html'
+            }).state('sourcing.pledged', {
+                url: '/sourcing/pledged',
+                templateUrl: 'views/sourcing.pledged.html'
+            }).state('sourcing.workers', {
+                url: '/sourcing/workers',
+                templateUrl: 'views/sourcing.workers.html'
+            }).state('working', {
                 templateUrl: 'views/working.html',
                 controller: 'WorkingController',
                 authsettings: { authenticated: true, redirectTo: '/' },
                 resolve: resolver
-            }).when('/domain/:url', {
+            }).state('working.new', {
+                url: '/working',
+                templateUrl: 'views/working.new.html'
+            }).state('working.tasks', {
+                url: '/working/tasks',
+                templateUrl: 'views/working.tasks.html'
+            }).state('working.confirm', {
+                url: '/working/confirm',
+                templateUrl: 'views/working.confirm.html'
+            }).state('working.download', {
+                url: '/working/download',
+                templateUrl: 'views/working.download.html'
+            }).state('domain', {
+                url: '/domain/:url',
                 templateUrl: 'views/domain.html',
                 controller: 'DomainController'
-            }).when('/claimpayment', {
+            }).state('claimpayment', {
+                url: '/claimpayment',
                 templateUrl: 'views/claim_payment.html',
                 controller: 'ClaimPaymentController'
-            }).when('/generatebutton', {
+            }).state('generatebutton', {
+                url: '/generatebutton',
                 templateUrl: 'views/generate_button.html',
                 controller: 'CreateButtonController'
-            }).when('/exchangerate', {
+            }).state('exchangerate', {
+                url: '/exchangerate',
                 templateUrl: 'views/exchangerate.html',
                 controller: 'ExchangeRateController'
-            }).when('/integration', {
+            }).state('integration', {
+                url: '/integration',
                 templateUrl: 'views/integration.html'
-            }).when('/api', {
+            }).state('api', {
+                url: '/api',
                 templateUrl: 'views/api.html'
-            }).when('/usecases', {
+            }).state('usecases', {
+                url: '/usecases',
                 templateUrl: 'views/usecases.html'
-            }).when('/siteconnector', {
+            }).state('siteconnector', {
+                url: '/siteconnector',
                 templateUrl: 'views/siteconnector.html'
-            }).when('/features', {
+            }).state('features', {
+                url: '/features',
                 templateUrl: 'views/features.html'
-            }).when('/gettingstarted', {
+            }).state('gettingstarted', {
+                url: '/gettingstarted',
                 templateUrl: 'views/gettingstarted.html'
-            }).when('/company', {
+            }).state('company', {
+                url: '/company',
                 templateUrl: 'views/company.html'
-            }).when('/validator', {
+            }).state('validator', {
+                url: '/validator',
                 templateUrl: 'views/validator.html'
-            }).when('/payment/:id', {
+            }).state('payment', {
+                url: '/payment/:id',
                 templateUrl: 'views/payment.html',
                 controller: 'PaymentReceiptController'
-            }).when('/x-payment/:id', {
+            }).state('x-payment', {
+                url: '/x-payment/:id',
                 templateUrl: 'views/payment.html',
                 controller: 'PaymentReceiptController'
-            }).when('/url/:url', {
+            }).state('url', {
+                url: '/url/:url',
                 templateUrl: 'views/url.html',
                 controller: 'UrlReceiptController'
-            }).otherwise({
-                redirectTo: '/'
             }
         );
 
-    }).run(function ($http, $rootScope, $route, $location, $window, $anchorScroll, MobbrApi, MobbrUser, mobbrMsg, mobbrSession, apiUrl, environment) {
+        $urlRouterProvider.otherwise('/');
+
+    }).run(function ($http, $rootScope, $route, $state, $location, $window, $anchorScroll, MobbrApi, MobbrUser, mobbrMsg, mobbrSession, apiUrl, environment) {
 
         $window.mobbr.setApiUrl(apiUrl);
         if (environment !== 'production') {
             $window.mobbr.setUiUrl('https://test-www.mobbr.com');
         }
         $window.mobbr.createDiv();
+
+        $rootScope.$state = $state;
 
         $rootScope.login = function (email, password) {
             MobbrUser.passwordLogin({ email: email, password: password }, function () {
@@ -158,6 +242,14 @@ angular.module('mobbr', [
                 $window.parent.postMessage(user && [ user.username, user.email ].join('|') || 'logout', '*');
             }
         });
+
+        $rootScope.openExternalPayment = function (item) {
+            $location.path('/x-payment/' + item.id);
+        }
+
+        $rootScope.openPayment = function (item) {
+            $location.path('/payment/' + item.id);
+        }
 
         $rootScope.mobbrMsg = mobbrMsg;
         $rootScope.mobbrSession = mobbrSession;
@@ -257,7 +349,33 @@ angular.module('mobbr', [
         6: 'more than € 120000'
       };
     }
-  );
+).config(function($routeProvider, $provide) {
+
+        /**
+         * overwrite angular's directive ngSwitchWhen
+         * can handle ng-switch-when="value1 || value2 || value3"
+         */
+
+        $provide.decorator('ngSwitchWhenDirective', function($delegate) {
+            $delegate[0].compile = function(element, attrs, transclude) {
+                return function(scope, element, attr, ctrl) {
+                    var subCases = [attrs.ngSwitchWhen];
+                    if(attrs.ngSwitchWhen && attrs.ngSwitchWhen.length > 0 && attrs.ngSwitchWhen.indexOf('||') != -1) {
+                        subCases = attrs.ngSwitchWhen.split('||');
+                    }
+                    var i=0;
+                    var casee;
+                    var len = subCases.length;
+                    while(i<len) {
+                        casee = $.trim(subCases[i++]);
+                        ctrl.cases['!' + casee] = (ctrl.cases['!' + casee] || []);
+                        ctrl.cases['!' + casee].push({ transclude: transclude, element: element });
+                    }
+                }
+            }
+            return $delegate;
+        });
+    });;
 
 /* TODO: Check if functions below are really needed, if not remove them
  */
