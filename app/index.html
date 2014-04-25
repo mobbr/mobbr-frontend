@@ -59,7 +59,7 @@
         <script src="components/mobbr-button/mobbr.js"></script>
         <!-- endbuild -->
     </head>
-    <body ng-app="mobbr" id="ng-app" idle-timeout ng-class="{ 'mobbr-test': isTest() !== -1, 'ng-app': true, 'loading': loading }">
+    <body ng-app="mobbr" id="ng-app" idle-timeout ng-class="{ 'mobbr-test': isTest(), 'ng-app': true, 'loading': loading }">
         <!--[if lt IE 10]>
         <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser
             today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better
@@ -89,7 +89,7 @@
                                     <form ng-submit="login(email, password)" name="head-login" form-autofill-fix>
                                         <input ng-model="email" type="email" name="email" placeholder="email address" auto-fill-sync required>
                                         <input ng-model="password" type="password" name="password" placeholder="password" auto-fill-sync required>
-                                        <button ng-disabled="waiting" type="submit" class="btn"><i class="icon-white mobbrloader" ng-show="waiting"></i> Log in</button>
+                                        <button ng-disabled="authenticating && !authenticating.$resolved" type="submit" class="btn"><i class="icon-white mobbrloader" ng-show="authenticating && !authenticating.$resolved"></i> Log in</button>
                                     </form>
                                 </li>
                                 <li class="divider"></li>
@@ -163,9 +163,9 @@
             </section>
 
             <div class="container main">
-                <div class="ng-cloak messaging">
+                <!--<div class="ng-cloak messaging">
                     <alert ng-repeat="alert in mobbrMsg.messages" type="alert.type" close="mobbrMsg.close($index)">{{ alert.msg }}</alert>
-                </div>
+                </div>-->
                 <div ng-view id="wrapper" class="row-fluid"></div>
             </div>
 
@@ -190,6 +190,7 @@
 
         <!-- build:js scripts/combined.js -->
         <script src="components/jquery/jquery.js"></script>
+        <script src="components/pines-notify/pnotify.core.js"></script>
         <script src="components/angular/angular.js"></script>
         <script src="components/angular-route/angular-route.js"></script>
         <script src="components/angular-resource/angular-resource.js"></script>
@@ -199,7 +200,7 @@
         <script src="components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
         <script src="components/ngstorage/ngStorage.js"></script>
         <script src="components/angularjs-file-upload/angular-file-upload.js"></script>
-        <script src="components/ng-table/ng-table.src.js"></script>
+        <script src="components/ng-table/ng-table.js"></script>
         <script src="components/jspdf/libs/Deflate/deflate.js"></script>
         <script src="components/jspdf/libs/Deflate/adler32cs.js"></script>
         <script src="components/file-saver/FileSaver.js"></script>
