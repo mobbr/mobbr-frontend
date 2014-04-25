@@ -1,10 +1,8 @@
 'use strict';
 
-angular.module('mobbr.services.invoice', []).factory('invoiceDialog', function ($dialog, userSession, Sourcing, Working) {
+angular.module('mobbr.services.invoice', []).factory('invoiceDialog', function ($dialog) {
 
         return function (method, template, params, onSuccess, onError) {
-
-            //var Api = api === 'sourcing' ? Sourcing : Working;
 
             return $dialog.dialog({
                 backdrop: true,
@@ -29,10 +27,10 @@ angular.module('mobbr.services.invoice', []).factory('invoiceDialog', function (
 
                         method($scope.invoice, function (response) {
                             $scope.waiting = false;
-                            onSuccess(dialog, response);
+                            onSuccess && onSuccess(dialog, response);
                         }, function (response) {
                             $scope.waiting = false;
-                            onError(dialog, response);
+                            onError && onError(dialog, response);
                         });
                     }
                 }

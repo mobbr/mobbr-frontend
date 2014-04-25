@@ -55,11 +55,16 @@ table th {
   font-size: 11px;
 }
 
+.messaging {
+  position: fixed;
+  z-index: 9999;
+  top: -3px;
+  width: 940px;
+}
+
 #wrapper {
   background: rgba(255, 255, 255, .9);
-  padding: 20px;
   @include border-radius($baseBorderRadius);
-  padding: 10px 20px 20px 20px;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
@@ -357,8 +362,8 @@ pre {
 }
 
 .ui-pnotify {
-  left: 10px;
-  top: 80px;
+  left: 10px !important;
+  top: 80px !important;
 }
 
 .sitefooter {
@@ -445,4 +450,66 @@ pre {
   border-top: 4px solid transparent;
   border-left: 4px solid black;
   margin: 8px 16px 0 4px;
+}
+
+.account-button {
+  min-width: 130px;
+  text-align: right;
+}
+
+/*
+Author  : Hunter Perrin
+Version : 2.0.0
+Link    : http://sciactive.com/pnotify/
+*/
+/* -- Notice */
+.ui-pnotify {
+  top: 25px;
+  right: 25px;
+  position: absolute;
+  height: auto;
+  /* Ensures notices are above everything */
+  z-index: 9999;
+}
+/* Hides position: fixed from IE6 */
+html > body > .ui-pnotify {
+  position: fixed;
+}
+.ui-pnotify .ui-pnotify-shadow {
+  -webkit-box-shadow: 0px 2px 10px rgba(50, 50, 50, 0.5);
+  -moz-box-shadow: 0px 2px 10px rgba(50, 50, 50, 0.5);
+  box-shadow: 0px 2px 10px rgba(50, 50, 50, 0.5);
+}
+.ui-pnotify-container {
+  background-position: 0 0;
+  padding: .8em;
+  height: 100%;
+  margin: 0;
+}
+.ui-pnotify-sharp {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+.ui-pnotify-title {
+  display: block;
+  margin-bottom: .4em;
+  margin-top: 0;
+}
+.ui-pnotify-text {
+  display: block;
+}
+.ui-pnotify-icon, .ui-pnotify-icon span {
+  display: block;
+  float: left;
+  margin-right: .2em;
+}
+/* Alternate stack initial positioning. */
+.ui-pnotify.stack-topleft, .ui-pnotify.stack-bottomleft {
+  left: 25px;
+  right: auto;
+}
+.ui-pnotify.stack-bottomright, .ui-pnotify.stack-bottomleft {
+  bottom: 25px;
+  top: auto;
 }

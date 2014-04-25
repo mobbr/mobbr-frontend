@@ -4,30 +4,24 @@
   "dependencies": {
     "angular": "1.2.15",
     "angular-route": "~1.2.14",
-    "angular-cookies": "1.2.13",
     "angular-resource": "1.2.13",
-    "js-md5": "~1.0.3",
-    "jquery": "~1.10.2",
     "ngstorage": "~0.2.3",
-    "pines-notify": "~1.2.0",
     "angular-bootstrap": "~0.3.0",
-    "base64": "~0.2.0",
     "modernizr": "~2.6.2",
     "es5-shim": "~2.1.0",
-    "json3": "~3.2.5",
     "sass-bootstrap": "2.3.1",
     "angularjs-file-upload": "~1.1.0",
     "ng-table": "~0.3.1",
-    "jspdf": "~0.9.0",
-    "file-saver": "*"
+    "file-saver": "*",
+    "jspdf": "git://github.com/MrRio/jsPDF.git#a52028fe58f949a1bd32a7b5818a8e90ee954b3e",
+    "mobbr-api-angular": "git://github.com/mobbr/mobbr-api-angular#b26801aca836c425f18e403f64ff02b15e818b9a",
+    "mobbr-button": "https://handijk@bitbucket.org/mobbr/mobbr-button.git#73285ce0e2d1d5cb56dff85e5aa6d1082aa66f96",
+    "pines-notify": "~2.0.0"
   },
   "ignore": [
     "**/.*",
     "node_modules",
     "app/components"
   ],
-  "main": "app/index.html",
-  "resolutions": {
-    "jquery": "~1.10.2"
-  }
+  "main": "app/index.html"
 }

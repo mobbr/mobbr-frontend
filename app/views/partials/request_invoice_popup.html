@@ -46,7 +46,7 @@
         </div>
     </div>
 
-    <div class="control-group">
+    <!--<div class="control-group">
         <div class="control-label">
             <label for="vat-rate">Required VAT-rate (%)</label>
         </div>
@@ -55,7 +55,7 @@
             <input ng-model="invoice.customer_vat_rate" name="vat_rate" type="text" id="vat-rate" placeholder="e.g. 21"><br/>
             <small>Indicate the rate for this type of work in <b>your</b> country</small>
         </div>
-    </div>
+    </div>-->
 
     <div class="control-group">
         <div class="control-label">
@@ -67,38 +67,6 @@
                 <option value="private">Private</option>
                 <option value="enterprise">Enterprise</option>
             </select>
-        </div>
-    </div>
-
-    <div ng-show="api == 'working'">
-        <div class="control-group">
-            <div class="control-label">
-                <label for="invoice-prefix">Invoice number prefix</label>
-            </div>
-
-            <div class="controls">
-                <input ng-model="invoice.customer_invoice_prefix" name="invoice-prefix" type="text" id="invoice-prefix" placeholder="e.g. COMPANY-">
-            </div>
-        </div>
-
-        <div class="control-group">
-            <div class="control-label">
-                <label for="invoice-postfix">Invoice number postfix</label>
-            </div>
-
-            <div class="controls">
-                <input ng-model="invoice.customer_invoice_postfix" name="invoice-postfix" type="text" id="invoice-postfix" placeholder="">
-            </div>
-        </div>
-
-        <div class="control-group">
-            <div class="control-label">
-                <label for="invoice-number">Example invoice number</label>
-            </div>
-
-            <div class="controls">
-                <input ng-value="invoice.customer_invoice_prefix + '23DgW' + invoice.customer_invoice_postfix" name="invoice-number" id="invoice-number" type="text" ng-disabled="true">
-            </div>
         </div>
     </div>
 </form>

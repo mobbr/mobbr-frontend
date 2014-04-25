@@ -43,11 +43,11 @@
 
 <div class="row-fluid" style="padding: 45px 0;">
     <div class="well special clearfix" style="background-color: #fff;">
-        <div class="span6" style="height: 180px; overflow: scroll; overflow-y: scroll; overflow-x: hidden;" ng-controller="apiController">
+        <div class="span6" style="height: 180px; overflow: scroll; overflow-y: scroll; overflow-x: hidden;" ng-controller="ApiController">
             <table class="apitable" width="100%" style="font-size: .8em;">
                 <tbody>
 
-                    <tr ng-repeat="apiCall in apiCalls">
+                    <tr ng-repeat="apiCall in apiCalls.result">
                          <td ng-bind="apiCall.type"></td>
                          <td ng-bind="apiCall.endpoint"></td>
                          <td>
