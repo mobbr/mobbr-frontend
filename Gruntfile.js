@@ -1,5 +1,4 @@
 'use strict';
-var lrSnippet = require('grunt-contrib-livereload/lib/utils').livereloadSnippet;
 var moment = require('moment');
 var mountFolder = function (connect, dir) {
   return connect.static(require('path').resolve(dir));
@@ -38,50 +37,39 @@ module.exports = function (grunt) {
 
   grunt.initConfig({
     yeoman: yeomanConfig,
-    watch: {
-      livereload: {
-        files: [
-          '<%= yeoman.app %>/{,*/}*.html',
-          '{.tmp,<%= yeoman.app %>}/styles/{,*/}*.*',
-          '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
-          '<%= yeoman.app %>/img/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
-        ],
-        tasks: [ 'livereload', 'compass:server' ]
-      }
-    },
-    connect: {
-      options: {
-        port: 9000,
-        // Change this to '0.0.0.0' to access the server from outside.
-        hostname: '0.0.0.0'
-      },
-      livereload: {
-        options: {
-          middleware: function (connect) {
-            return [
-              lrSnippet,
-              mountFolder(connect, '.tmp'),
-              mountFolder(connect, yeomanConfig.app)
-            ];
+      watch: {
+          all: {
+              files: [
+                  '<%= yeoman.app %>/{,*/}*.html',
+                  '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js'
+              ],
+              tasks: [ ],
+              options: {
+                  livereload: 35728
+              }
+          },
+          css: {
+              files: [
+                  '{.tmp,<%= yeoman.app %>}/styles/{,*/}*.scss'
+              ],
+              tasks: [ 'compass:server' ]
           }
-        }
       },
-      test: {
-        options: {
-          middleware: function (connect) {
-            return [
-              mountFolder(connect, '.tmp'),
-              mountFolder(connect, 'test')
-            ];
+      connect: {
+          all: {
+              options: {
+                  port: 9001,
+                  hostname: '0.0.0.0',
+                  livereload: 35728,
+                  base: 'app'
+              }
           }
-        }
-      }
-    },
-    open: {
-      server: {
-        url: 'http://localhost:<%= connect.options.port %>'
-      }
-    },
+      },
+      open: {
+          all: {
+              url: 'http://mobbr.dev:<%= connect.all.options.port %>'
+          }
+      },
     clean: {
       dist: {
         files: [
@@ -274,8 +262,10 @@ module.exports = function (grunt) {
                 name: 'mobbr.config',
                 wrap: '(function() { \n return <%= __ngModule %> \n\n})();',
                 constants: {
-                    'apiUrl': 'https://test-api.mobbr.com',
-                    'environment': 'test'
+                    lightboxUrl: 'https://test-www.mobbr.com/lightbox/#',
+                    uiUrl: 'https://test-www.mobbr.com',
+                    apiUrl: 'https://test-api.mobbr.com',
+                    environment: 'test'
                 }
             }
         ],
@@ -285,8 +275,10 @@ module.exports = function (grunt) {
           name: 'mobbr.config',
           wrap: '(function() { \n return <%= __ngModule %> \n\n})();',
           constants: {
-            'apiUrl': 'https://stage-api.mobbr.com',
-            'environment': 'stage'
+            lightboxUrl: 'https://stage-www.mobbr.com/lightbox/#',
+            uiUrl: 'https://stage-www.mobbr.com',
+            apiUrl: 'https://stage-api.mobbr.com',
+            environment: 'stage'
           }
         }
       ],
@@ -296,8 +288,10 @@ module.exports = function (grunt) {
           name: 'mobbr.config',
           wrap: '(function() { \n return <%= __ngModule %> \n\n})();',
           constants: {
-            'apiUrl': 'https://api.mobbr.com',
-            'environment': 'production'
+            lightboxUrl: 'https://mobbr.com/lightbox/#',
+            uiUrl: 'https://mobbr.com',
+            apiUrl: 'https://api.mobbr.com',
+            environment: 'production'
           }
         }
       ],
@@ -307,6 +301,8 @@ module.exports = function (grunt) {
           name: 'mobbr.config',
           wrap: '(function() { \n return <%= __ngModule %> \n\n})();',
           constants: {
+            'lightboxUrl': 'http://mobbr.dev:9000/#',
+            'uiUrl': 'http://mobbr.dev:9001',
             'apiUrl': 'http://api.mobbr.dev',
             'environment': 'development'
           }
@@ -365,15 +361,13 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.renameTask('regarde', 'watch');
-
   grunt.registerTask('server', [
     'clean:server',
+    'bower-install-simple',
     'compass:server',
     'ngconstant:' + env,
-    'livereload-start',
-    'connect:livereload',
     'open',
+    'connect',
     'watch'
   ]);
 
