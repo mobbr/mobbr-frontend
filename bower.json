@@ -15,7 +15,7 @@
     "file-saver": "*",
     "jspdf": "git://github.com/MrRio/jsPDF.git#a52028fe58f949a1bd32a7b5818a8e90ee954b3e",
     "mobbr-api-angular": "git://github.com/mobbr/mobbr-api-angular#b26801aca836c425f18e403f64ff02b15e818b9a",
-    "mobbr-button": "https://handijk@bitbucket.org/mobbr/mobbr-button.git#73285ce0e2d1d5cb56dff85e5aa6d1082aa66f96",
+    "mobbr-button": "https://handijk@bitbucket.org/mobbr/mobbr-button.git#f47a2b11242842efd93e51d78f36266242841ae6",
     "pines-notify": "~2.0.0"
   },
   "ignore": [
