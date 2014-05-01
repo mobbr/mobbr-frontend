@@ -1,39 +1,118 @@
-<div class="row">
-    <div class="col-md-3">
-        <ul class="nav nav-pills nav-stacked">
-            <li ng-class="{ active: $state.includes('sourcing.request'), disabled: requestableInvoices.result.length == 0 }">
-                <a ng-href="{{ requestableInvoices.result.length > 0 && '/#/sourcing' || '' }}">
-                    Request invoices
-                    <span class='badge pull-right' ng-bind="requestableInvoices.result.length"></span>
-                </a>
-            </li>
-            <li ng-class="{ active: $state.includes('sourcing.pending'), disabled: requestedInvoices.result.length == 0 }">
-                <a ng-href="{{ requestedInvoices.result.length > 0 && '/#/sourcing/pending' || '' }}">
-                    Pending invoices
-                    <span class='badge pull-right' ng-bind="requestedInvoices.result.length"></span>
-                </a>
-            </li>
-            <li ng-class="{ active: $state.includes('sourcing.download'), disabled: confirmedInvoices.result.length == 0 }">
-                <a ng-href="{{ confirmedInvoices.result.length > 0 && '/#/sourcing/download' || '' }}">
-                    Download invoices
-                    <span class='badge pull-right' ng-bind="confirmedInvoices.result.length"></span>
-                </a>
-            </li>
-            <li ng-class="{ active: $state.includes('sourcing.pledged'), disabled: pledged.result.length == 0 }">
-                <a ng-href="{{ pledged.result.length > 0 && '/#/sourcing/pledged' || '' }}">
-                    Pledged
-                    <span class='badge pull-right' ng-bind="pledged.result.length"></span>
-                </a>
-            </li>
-            <li ng-class="{ active: $state.includes('sourcing.workers'), disabled: workers.result.length == 0 }">
-                <a ng-href="{{ workers.result.length > 0 && '/#/sourcing/workers' || '' }}">
-                    Workers
-                    <span class='badge pull-right' ng-bind="workers.result.length"></span>
-                </a>
-            </li>
-        </ul>
-    </div>
-    <div class="col-md-9">
-        <div ui-view class="container-fluid"></div>
-    </div>
+<div class="alert alert-info" ng-hide="$mobbrStorage.token">
+    The source board is empty because you are not logged in. To login or signup, go <a href="#/join">here</a>.
 </div>
+<tabs>
+    <pane heading="Request invoices">
+        <div class="row-fluid">
+            <div class="well span12 special">
+                <small>Ask your crowdworkers for an invoice. They have 30 days to verify their data.
+                    After 30 days we either generate the invoice on their behalf or refund the payment.</small>
+            </div>
+        </div>
+
+        <accordion close-others="false">
+            <accordion-group heading="Payments for which an invoice can be requested" is-open="true">
+                <invoicetable id="sourcing_unrequested_invoices"
+                              columns="[ 'username', 'role', 'currency', 'amount' ]"
+                              api="MobbrInvoice.requestable"
+                              group-by="'title'"
+                              button-text="'Request invoices'"
+                              button-action="requestInvoices"
+                              selectable="1"
+                              click-row="openPayment"></invoicetable>
+            </accordion-group>
+        </accordion>
+    </pane>
+    <pane heading="Pending invoices">
+        <div class="row-fluid">
+            <div class="well span12 special">
+                <small>Ask your crowdworkers for an invoice. They have 30 days to verify their data.
+                    After 30 days we either generate the invoice on their behalf or refund the payment.</small>
+            </div>
+        </div>
+
+        <accordion close-others="false">
+            <accordion-group heading="Invoices that await verification" is-open="true">
+                <invoicetable id="sourcing_requested_invoices"
+                              columns="[ 'username', 'role', 'expiration', 'currency', 'amount' ]"
+                              waiting="ciwaiting"
+                              api="MobbrInvoice.requested"
+                              group-by="'title'"
+                              button-text="'Cancel request'"
+                              button-action="cancelInvoices"
+                              selectable="1"
+                              click-row="openPayment"></invoicetable>
+            </accordion-group>
+        </accordion>
+    </pane>
+    <pane heading="Download invoices">
+        <div class="row-fluid">
+            <div class="well span12 special">
+                <small>Your invoices. We generated these on behalf of your crowdworkers.</small>
+            </div>
+        </div>
+        <accordion close-others="false">
+            <accordion-group heading="Final invoices" is-open="true">
+                <invoicetable id="sourcing_reviewed_invoices"
+                              columns="[ 'worker_username', 'role', 'currency', 'amount' ]"
+                              api="MobbrInvoice.returned"
+                              group-by="'title'"
+                              button-text="'Download invoice'"
+                              button-action="downloadInvoices"
+                              selectable="1"
+                              click-row="openPayment"></invoicetable>
+            </accordion-group>
+        </accordion>
+    </pane>
+    <pane heading="Pledges">
+        <div class="row-fluid">
+            <div class="well span12 special">
+                <small>Tasks to which you pledged or paid. Pledges can be revoked but every currently listed participant to the taks will be notified which can hurt your reputation.</small>
+            </div>
+        </div>
+
+        <accordion close-others="false">
+            <accordion-group heading="Active pledges" is-open="true">
+                <invoicetable id="sourcing_pledges"
+                              columns="[ 'title', 'currency', 'amount' ]"
+                              api="MobbrPayment.pledged"
+                              group-by="'title'"
+                              button-text="'Remove pledges'"
+                              button-action="removePledgesDialog"
+                              selectable="1"
+                              click-row="openPayment"></invoicetable>
+            </accordion-group>
+        </accordion>
+    </pane>
+    <pane heading="Tasks">
+        <div class="row-fluid">
+            <div class="well span12 special">
+                <small>Tasks to which you pledged or paid. Pledges can be revoked but every currently listed participant to the taks will be notified which can hurt your reputation.</small>
+            </div>
+        </div>
+
+        <accordion close-others="false">
+            <accordion-group heading="Historic tasks" is-open="true">
+                <invoicetable id="sourcing_tasks"
+                              columns="[ 'gravatar', 'username', 'datetime', 'role', 'currency', 'amount' ]"
+                              api="MobbrUri.paid"
+                              group-by="'title'"></invoicetable>
+            </accordion-group>
+        </accordion>
+    </pane>
+    <pane heading="Workers">
+        <div class="row-fluid">
+            <div class="well span12 special">
+                <small>People who worked on your tasks.</small>
+            </div>
+        </div>
+        <accordion close-others="false">
+            <accordion-group heading="People you rewarded" is-open="true">
+                <invoicetable id="sourcing_workers"
+                              columns="[ 'gravatar', 'username', 'roles', 'keywords', 'currency', 'amount' ]"
+                              api="MobbrPerson.paid"></invoicetable>
+            </accordion-group>
+        </accordion>
+    </pane>
+</tabs>
+
