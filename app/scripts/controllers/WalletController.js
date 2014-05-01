@@ -14,9 +14,7 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
     }
 
     function reload() {
-        $scope.balances = MobbrBalance.user({}, function () {
-            console.log($scope.balances);
-        });
+        $scope.balances = MobbrBalance.user();
         $scope.mutations = MobbrXPayment.get();
         $scope.supportedCurrencies = MobbrXPayment.supportedCurrencies();
     }

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mobbr.services')
-    .factory('authResolver', function ($q, $state, mobbrSession) {
+    .factory('authResolver', function ($q, $state, $timeout, mobbrSession) {
 
         var deferred = $q.defer();
 
