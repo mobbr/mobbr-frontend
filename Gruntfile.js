@@ -9,7 +9,7 @@ module.exports = function (grunt) {
   // load all grunt tasks
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
-  // Environment to be passed in via command line: grunt build --env=dev | test | prod>
+  // Environment to be passed in via command line: grunt build --env=dev | test | stage | production>
   var env = grunt.option('env') || 'test';
 
   var site;
@@ -290,7 +290,7 @@ module.exports = function (grunt) {
           }
         }
       ],
-      prod: [
+      production: [
         {
           dest: '<%= yeoman.app %>/scripts/config.js',
           name: 'mobbr.config',
@@ -317,21 +317,18 @@ module.exports = function (grunt) {
       test: {
         host: 'test-www.mobbr.com',
         username: 'handijk',
-        //password: 'Faishood2a',
         agent: process.env.SSH_AUTH_SOCK,
         showProgress: true
       },
-      prod: {
+      production: {
         host: 'mobbr.com',
         username: 'handijk',
-        //password: 'Faishood2a',
         agent: process.env.SSH_AUTH_SOCK,
         showProgress: true
       },
       stage: {
         host: 'mobbr.com',
         username: 'handijk',
-        //password: 'Faishood2a',
         agent: process.env.SSH_AUTH_SOCK,
         showProgress: true
       }

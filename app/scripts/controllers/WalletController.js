@@ -22,7 +22,7 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
     }
 
     $scope.generateAddress = function (currency) {
-        return MobbrXPayment.newAccountAddress({
+        $scope.generating = MobbrXPayment.newAccountAddress({
                 currency: currency
             },
             reload

@@ -219,7 +219,9 @@ angular.module('mobbr', [
     }).run(function ($http, $rootScope, $route, $state, $location, $window, $anchorScroll, MobbrApi, MobbrUser, mobbrMsg, mobbrSession, apiUrl, environment) {
 
         $window.mobbr.setApiUrl(apiUrl);
-        if (environment !== 'production') {
+        if (environment === 'stage') {
+            $window.mobbr.setUiUrl('https://stage-www.mobbr.com');
+        } else if (environment === 'test' || environment === 'development') {
             $window.mobbr.setUiUrl('https://test-www.mobbr.com');
         }
         $window.mobbr.createDiv();
@@ -227,7 +229,7 @@ angular.module('mobbr', [
         $rootScope.$state = $state;
 
         $rootScope.login = function (email, password) {
-            MobbrUser.passwordLogin({ email: email, password: password }, function () {
+            $rootScope.authenticating = MobbrUser.passwordLogin({ email: email, password: password }, function () {
                 $location.path('/wallet');
             });
         };
@@ -255,7 +257,7 @@ angular.module('mobbr', [
         $rootScope.mobbrSession = mobbrSession;
 
         $rootScope.isTest = function () {
-            return !window.location.href.search('mobbr.com');
+            return environment !== 'production';
         }
 
         $rootScope.linkUrl = function (url) {
