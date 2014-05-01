@@ -25,13 +25,15 @@ table th {
   background: whitesmoke url(../img/mobbr-ripple.png) no-repeat top right;
 }
 
-/*.messaging {
+.messaging {
   position: fixed;
   z-index: 9999;
   top: -3px;
-  width: 940px;
+  width: 100%;
+  margin: 0 auto;
 }
 
+/*
 #wrapper > .page-header {
   padding-bottom: 9px;
   margin: 20px 0 30px;
