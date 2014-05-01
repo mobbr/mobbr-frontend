@@ -244,8 +244,10 @@
             </div>
         </section>
 
-        <div class="ng-cloak messaging row">
-            <alert ng-repeat="alert in mobbrMsg.messages" type="alert.type" close="mobbrMsg.close($index)">{{ alert.msg }}</alert>
+        <div class="ng-cloak messaging container-fluid">
+            <div class="container">
+                <alert ng-repeat="alert in mobbrMsg.messages" type="alert.type" close="mobbrMsg.close($index)">{{ alert.msg }}</alert>
+            </div>
         </div>
 
         <div class="container-fluid main" ui-view></div>
@@ -293,6 +295,7 @@
         <script src="scripts/services/idleTimeout.js"></script>
         <script src="scripts/services/pdfGenerator.js"></script>
         <script src="scripts/services/invoiceDialog.js"></script>
+        <script src="scripts/services/authResolver.js"></script>
         <script src="scripts/directives/decorateAmount.js"></script>
         <script src="scripts/directives/mobbrbutton.js"></script>
         <script src="scripts/directives/mobbrtable.js"></script>

@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('mobbr.controllers', []);
+angular.module('mobbr.services', []);
 angular.module('mobbr.directives', []);
 angular.module('mobbr.filters', []);
 angular.module('mobbr.configuration', []);
@@ -26,6 +27,7 @@ angular.module('mobbr', [
         'mobbrSession',
         'mobbr.config',
         'mobbr.controllers',
+        'mobbr.services',
         'mobbr.services.invoice',
         'mobbr.services.pdf',
         'mobbr.directives',
@@ -36,20 +38,7 @@ angular.module('mobbr', [
 
         var resolver = {};
 
-        resolver.auth = function ($q, $route, $location, mobbrMsg, mobbrSession) {
-
-            var deferred = $q.defer(),
-                route = $route.current && $route.current.$$route;
-
-            if (route && route.authsettings && route.authsettings.authenticated !== mobbrSession.isAuthorized()) {
-                deferred.reject();
-                route.authsettings.redirectTo && $location.path(route.authsettings.redirectTo);
-            } else {
-                deferred.resolve();
-            }
-
-            return deferred.promise;
-        }
+        resolver.auth = 'authResolver';
 
         $stateProvider.state('main', {
                 url: '/',
@@ -71,18 +60,18 @@ angular.module('mobbr', [
                 url: '/recover',
                 templateUrl: 'views/recover-password.html',
                 controller: 'ResetPasswordController',
-                authsettings: { authenticated: false, redirectTo: '/wallet' },
+                data: { authenticated: false, redirectTo: '/wallet' },
                 resolve: resolver
             }).state('join', {
                 url: '/join',
                 templateUrl: 'views/join.html',
                 controller: 'JoinController',
-                authsettings: { authenticated: false, redirectTo: '/wallet' },
+                data: { authenticated: false, redirectTo: '/wallet' },
                 resolve: resolver
             }).state('settings', {
                 templateUrl: 'views/settings.html',
                 controller: 'UserSettingsController',
-                authsettings: { authenticated: true, redirectTo: '/' },
+                data: { authenticated: true, redirectTo: '/' },
                 resolve: resolver
             }).state('settings.account', {
                 url: '/settings',
@@ -108,7 +97,7 @@ angular.module('mobbr', [
             }).state('wallet', {
                 templateUrl: 'views/wallet.html',
                 controller: 'WalletController',
-                authsettings: { authenticated: true, redirectTo: '/' },
+                data: { authenticated: true, redirectTo: 'main' },
                 resolve: resolver
             }).state('wallet.credit', {
                 url: '/wallet',
@@ -125,7 +114,7 @@ angular.module('mobbr', [
             }).state('sourcing', {
                 templateUrl: 'views/sourcing.html',
                 controller: 'SourcingController',
-                authsettings: { authenticated: true, redirectTo: '/' },
+                data: { authenticated: true, redirectTo: '/' },
                 resolve: resolver
             }).state('sourcing.request', {
                 url: '/sourcing',
@@ -145,7 +134,7 @@ angular.module('mobbr', [
             }).state('working', {
                 templateUrl: 'views/working.html',
                 controller: 'WorkingController',
-                authsettings: { authenticated: true, redirectTo: '/' },
+                data: { authenticated: true, redirectTo: '/' },
                 resolve: resolver
             }).state('working.new', {
                 url: '/working',
@@ -216,7 +205,7 @@ angular.module('mobbr', [
 
         $urlRouterProvider.otherwise('/');
 
-    }).run(function ($http, $rootScope, $route, $state, $location, $window, $anchorScroll, MobbrApi, MobbrUser, mobbrMsg, mobbrSession, apiUrl, environment) {
+    }).run(function ($http, $rootScope, $route, $state, $location, $window, $anchorScroll, MobbrApi, MobbrUser, mobbrMsg, mobbrSession, apiUrl, uiUrl, lightboxUrl, environment) {
 
         if (environment !== 'production') {
             $window.mobbr.setApiUrl(apiUrl);
