@@ -174,15 +174,14 @@ angular.module('mobbr', [
             }
         );
 
-    }).run(function ($http, $rootScope, $route, $location, $window, $anchorScroll, MobbrApi, MobbrUser, mobbrMsg, mobbrSession, apiUrl, environment) {
+    }).run(function ($http, $rootScope, $route, $location, $window, $anchorScroll, MobbrApi, MobbrUser, mobbrMsg, mobbrSession, apiUrl, environment, lightboxUrl, uiUrl) {
 
-        $window.mobbr.setApiUrl(apiUrl);
-        if (environment === 'stage') {
-            $window.mobbr.setUiUrl('https://stage-www.mobbr.com');
-        } else if (environment === 'test' || environment === 'development') {
-            $window.mobbr.setUiUrl('https://test-www.mobbr.com');
+        if (environment !== 'production') {
+            $window.mobbr.setApiUrl(apiUrl);
+            $window.mobbr.setUiUrl(uiUrl);
+            $window.mobbr.setLightboxUrl(lightboxUrl);
+            $window.mobbr.createDiv();
         }
-        $window.mobbr.createDiv();
 
         $rootScope.login = function (email, password) {
             $rootScope.authenticating = MobbrUser.passwordLogin({ email: email, password: password }, function () {
