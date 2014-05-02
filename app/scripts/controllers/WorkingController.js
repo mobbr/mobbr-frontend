@@ -21,7 +21,7 @@ angular.module('mobbr.controllers').controller('WorkingController', function ($s
             'confirm_invoice_popup',
             {
                 ids: ids,
-                worker_name: $rootScope.$mobbrStorage.user.companyname || ($rootScope.$mobbrStorage.user.firstname + ' ' + $rootScope.$mobbrStorage.user.lastname),
+                worker_name: $rootScope.$mobbrStorage.user.companyname || (($rootScope.$mobbrStorage.user.firstname || '') + ' ' + ($rootScope.$mobbrStorage.user.lastname || '')),
                 worker_address: $rootScope.$mobbrStorage.user.address,
                 worker_country: $rootScope.$mobbrStorage.user.country_of_residence,
                 worker_vat_number: $rootScope.$mobbrStorage.user.vat_number,
@@ -36,7 +36,7 @@ angular.module('mobbr.controllers').controller('WorkingController', function ($s
                 $scope.$broadcast('invoicetable', 'working_reviewed_invoices');
                 $scope.$broadcast('invoicetable', 'sourcing_reviewed_invoices');
             }
-        ).open();
+        );
     }
 
     $scope.downloadInvoices = function (ids, items) {

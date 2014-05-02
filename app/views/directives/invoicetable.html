@@ -86,7 +86,7 @@
                     </time>
                     <span ng-switch-when="username" ng-bind="item['username'] || item['.org-id']"></span>
                     <span ng-switch-when="percentage" ng-bind="((item['percentage'] || item['.percentage']) | mobbrcurrency) + '%'"></span>
-                    <span ng-switch-when="currency_description" ng-bind="$rootScope.currencyDescription(item['currency'] || item['currency_iso'])"></span>
+                    <span ng-switch-when="currency_description" ng-bind="$rootScope.currenciesMap.result[item['currency'] || item['currency_iso']]"></span>
                     <span ng-switch-when="currency" ng-bind="item['currency'] || item['currency_iso'] || $mobbrStorage.user.currency_iso"></span>
                     <span ng-switch-when="amount || fee || spendable"
                           ng-bind="item[column] | mobbrcurrency"

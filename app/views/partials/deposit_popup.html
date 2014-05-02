@@ -1,45 +1,60 @@
-<form ng-submit="confirm()" name="deposit" class="form-horizontal">
+<form name="deposit" ng-submit="confirm()">
     <div class="modal-header">
         <h3>Deposit money from external account</h3>
     </div>
-    <fieldset class="modal-body">
-        <div class="control-group">
-            <div class="control-label">
-                <label for="currency">Currency</label>
-            </div>
 
-            <div class="controls">
-                <select id="currency"
-                        class="input-small"
-                        ng-model="deposit_currency"
+    <div class="form-horizontal modal-body">
+        <fieldset class="form-group">
+            <label class="control-label col-md-4" for="currency">
+                Currency
+            </label>
+            <div class="col-md-8">
+                <select ng-model="$parent.deposit_currency"
+                        id="currency"
+                        class="form-control"
+                        name="deposit_currency"
                         ng-options="currency for currency in networks['iban'].currencies">
                 </select>
             </div>
-        </div>
+        </fieldset>
 
-        <div class="control-group">
-            <div class="control-label">
-                <label for="amount">Amount</label>
+        <fieldset class="form-group">
+            <label class="control-label col-md-4" for="amount">
+                Amount
+            </label>
+            <div class="col-md-8">
+                <input ng-model="$parent.deposit_amount"
+                       id="amount"
+                       class="form-control"
+                       name="deposit_amount"
+                       required
+                       type="number"
+                       step="any"
+                       min="0"
+                       max="1000000000">
             </div>
+        </fieldset>
 
-            <div class="controls">
-                <input id="amount" name="deposit_amount" class="input-small" ng-model="deposit_amount"
-                       required type="number" step="any" min="0" max="1000000000">
+        <fieldset class="form-group">
+            <label class="control-label col-md-4" for="country">
+                Note
+            </label>
+            <div class="col-md-8">
+                <textarea ng-model="$parent.deposit_note"
+                          class="form-control"
+                          id="country"
+                          name="deposit_note"></textarea>
             </div>
-        </div>
+        </fieldset>
+    </div>
 
-        <div class="control-group">
-            <div class="control-label">
-                <label for="country">Note</label>
-            </div>
-
-            <div class="controls">
-                <textarea id="country" name="deposit_note" ng-model="deposit_note"></textarea>
-            </div>
-        </div>
-    </fieldset>
     <div class="modal-footer">
-        <button type="submit" class="btn btn-success"><i class="icon-white mobbrloader" ng-show="waiting"></i> Confirm</button>
-        <button ng-click="close()" class="btn btn-error">Cancel</button>
+        <button type="submit" class="btn btn-success">
+            <i class="icon-white mobbrloader" ng-show="waiting"></i>
+            Confirm
+        </button>
+        <button ng-click="$dismiss()" class="btn btn-error">
+            Cancel
+        </button>
     </div>
 </form>

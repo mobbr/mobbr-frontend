@@ -101,6 +101,7 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
 
             // wait for reload event
             $scope.$on('invoicetable', function (e, id) {
+                console.log($scope.id, id);
                 if ($scope.id === id) {
                     angular.forEach($scope.checkboxes.items, function (item, key) {
                         $scope.checkboxes.items[key] = false;
