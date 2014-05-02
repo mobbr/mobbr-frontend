@@ -1,10 +1,12 @@
-<div class="modal-header">
-    <h3>Remove pledges</h3>
-</div>
-<form name="remove-pledges" class="form-horizontal modal-body" ng-submit="confirm()">
-    Are you sure? Pledges can be revoked but every currently listed participant to the task/url will be notified which can hurt your reputation as a crowdsourcing client.
+<form name="remove-pledges" ng-submit="confirm()">
+    <div class="modal-header">
+        <h3>Remove pledges</h3>
+    </div>
+    <div class="form-horizontal modal-body">
+        Are you sure? Pledges can be revoked but every currently listed participant to the task/url will be notified which can hurt your reputation as a crowdsourcing client.
+    </div>
+    <div class="modal-footer">
+        <button ng-click="confirm()" class="btn btn-success"><i class="icon-white mobbrloader" ng-show="waiting"></i> Confirm</button>
+        <button ng-click="close()" class="btn btn-error">Cancel</button>
+    </div>
 </form>
-<div class="modal-footer">
-    <button ng-click="confirm()" class="btn btn-success"><i class="icon-white mobbrloader" ng-show="waiting"></i> Confirm</button>
-    <button ng-click="close()" class="btn btn-error">Cancel</button>
-</div>

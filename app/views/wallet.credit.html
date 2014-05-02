@@ -21,7 +21,7 @@
         </alert>
         <accordion>
             <accordion-group ng-repeat="(currency, addresses) in supportedCurrencies.result"
-                             heading="{{currency}} / {{currencyDescription(currency)}}"
+                             heading="{{currency}} / {{currenciesMap.result[currency]}}"
                              is-open="false">
                 <form ng-repeat="properties in addresses">
                     <fieldset ng-repeat="(property, value) in properties" class="form-group">

@@ -53,7 +53,7 @@ angular.module('mobbr.services.pdf', []).factory('pdfGenerator', function ($root
                 for (i = 0; i < worker_address.length; i++) {
                     lineHeight += singlelineText(worker_address[i], marginHorizontal, lineHeight);
                 }
-                lineHeight += singlelineText($rootScope.countriesMap[invoice.worker_country], marginHorizontal, lineHeight);
+                lineHeight += singlelineText($rootScope.countriesMap.result[invoice.worker_country], marginHorizontal, lineHeight);
                 lineHeight += singlelineText(invoice.worker_vat_number, marginHorizontal, lineHeight);
                 pdf.setFont('Helvetica', 'Bold');
                 singlelineText('Mobbr ', marginHorizontal, lineHeight);
