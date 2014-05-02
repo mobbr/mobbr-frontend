@@ -58,14 +58,6 @@ angular.module('mobbr.directives').directive('mobbrtable', function factory($roo
                 return window.btoa(url);
             }
 
-            $scope.currencyDescription = function (iso) {
-                var currency = $rootScope.currenciesMap[iso];
-                if (!currency || 0 === currency.length) {
-                    return iso;
-                }
-                return currency;
-            }
-
             $scope.sort = function (column) {
                 if (sortables[column]) {
                     if ($scope.sortEntries !== column) {

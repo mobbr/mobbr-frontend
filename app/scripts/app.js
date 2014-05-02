@@ -176,6 +176,23 @@ angular.module('mobbr', [
 
     }).run(function ($http, $rootScope, $route, $location, $window, $anchorScroll, MobbrApi, MobbrUser, mobbrMsg, mobbrSession, apiUrl, environment, lightboxUrl, uiUrl) {
 
+        $rootScope.mobbrMsg = mobbrMsg;
+        $rootScope.uiUrl = uiUrl;
+        $rootScope.currenciesMap = MobbrApi.forexCurrencies();
+        $rootScope.languagesMap = MobbrApi.isoLanguages();
+        $rootScope.countriesMap = MobbrApi.isoCountries();
+        $rootScope.timezones = MobbrApi.isoTimezones();
+        $rootScope.host = $location.host();
+
+        $rootScope.incomerangeMap = {
+            1: 'less than € 18000',
+            2: 'between € 18000 and € 30000',
+            3: 'between € 30000 and € 50000',
+            4: 'between € 50000 and € 80000',
+            5: 'between € 80000 and € 120000',
+            6: 'more than € 120000'
+        };
+
         if (environment !== 'production') {
             $window.mobbr.setApiUrl(apiUrl);
             $window.mobbr.setUiUrl(uiUrl);
@@ -194,21 +211,17 @@ angular.module('mobbr', [
             $location.path('/');
         }
 
-        $rootScope.$on('mobbrApi:authchange', function (user) {
-            if ($window.parent && $window.parent.postMessage) {
-                $window.parent.postMessage(user && [ user.username, user.email ].join('|') || 'logout', '*');
-            }
-        });
-
-        $rootScope.mobbrMsg = mobbrMsg;
-        $rootScope.mobbrSession = mobbrSession;
-
         $rootScope.isTest = function () {
             return environment !== 'production';
         }
 
         $rootScope.linkUrl = function (url) {
             return '/#/url/' + window.btoa(url);
+        }
+
+        $rootScope.scrollToId = function (id) {
+            $location.hash(id);
+            $anchorScroll();
         }
 
         $rootScope.$watch('mobbrMsg.messages', function () {
@@ -224,101 +237,5 @@ angular.module('mobbr', [
                 });
             }
         }, true);
-
-      // TODO: check what code should actually be here and move everything else to the services they belong to
-
-      $rootScope.currenciesMap = {};
-      MobbrApi.forexCurrencies(function (response) {
-        if (response.result != null) {
-          $rootScope.currenciesMap = response.result;
-          $rootScope.currencyArray = [];
-          angular.forEach($rootScope.currenciesMap, function (key, value) {
-            $rootScope.currencyArray.push({'description': key, 'code': value});
-          });
-          $rootScope.$broadcast('currencie-array-ready');
-        }
-      });
-
-      $rootScope.currencyDescription = function (iso) {
-        var currency = $rootScope.currenciesMap[iso];
-        if (!currency || 0 === currency.length) {
-          return iso;
-        }
-        return currency;
-      }
-
-      MobbrApi.isoLanguages(function (response) {
-        if (response.result != null) {
-          $rootScope.languagesMap = response.result;
-          $rootScope.languagesMap['leeg'] = 'No language';
-          $rootScope.languageArray = [];
-          angular.forEach($rootScope.languagesMap, function (key, value) {
-            $rootScope.languageArray.push({'description': key, 'code': value});
-          });
-          $rootScope.$broadcast('language-array-ready');
-        }
-      });
-
-      MobbrApi.isoCountries(function (response) {
-        if (response.result != null) {
-          $rootScope.countriesMap = response.result;
-        }
-      });
-
-      $rootScope.languageDescription = function (iso) {
-        var language = $rootScope.languagesMap[iso];
-        if (!language || 0 === language.length) {
-          return iso;
-        }
-        return language;
-      }
-
-      $rootScope.timezones = {};
-      MobbrApi.isoTimezones(function (response) {
-        if (response.result != null) {
-          for (var key in response.result) {
-            var value = response.result[key];
-            $rootScope.timezones[value] = value;
-          }
-        }
-
-        $rootScope.timezones[''] = 'No timezone';
-      });
-
-      $rootScope.location = rtrim(rtrim($location.absUrl(), '/#/'), '/');
-      $rootScope.startLocation = $rootScope.location
-      $rootScope.host = $location.host();
-      $rootScope.uniqueButton = new Date().getTime();
-
-      $rootScope.generateButton = function () {
-        $location.path('/generatebutton').replace();
-      }
-
-      $rootScope.scrollToId = function (id) {
-        $location.hash(id);
-        $anchorScroll();
-      }
-
-      $rootScope.incomerangeMap = {
-        1: 'less than € 18000',
-        2: 'between € 18000 and € 30000',
-        3: 'between € 30000 and € 50000',
-        4: 'between € 50000 and € 80000',
-        5: 'between € 80000 and € 120000',
-        6: 'more than € 120000'
-      };
     }
-  );
-
-/* TODO: Check if functions below are really needed, if not remove them
- */
-
-function rtrim(str, chr) {
-  var rgxtrim = (!chr) ? new RegExp('\\s+$') : new RegExp(chr + '+$');
-  return str.replace(rgxtrim, '');
-}
-
-function validateEmail(email) {
-  var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(email);
-}
+);
