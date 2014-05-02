@@ -38,8 +38,6 @@ angular.module('mobbr', [
 
         var resolver = {};
 
-        resolver.auth = 'authResolver';
-
         $stateProvider.state('main', {
                 url: '/',
                 templateUrl: 'views/main.html',
