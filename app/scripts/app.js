@@ -177,6 +177,7 @@ angular.module('mobbr', [
     }).run(function ($http, $rootScope, $route, $location, $window, $anchorScroll, MobbrApi, MobbrUser, mobbrMsg, mobbrSession, apiUrl, environment, lightboxUrl, uiUrl) {
 
         $rootScope.mobbrMsg = mobbrMsg;
+        $rootScope.mobbrSession = mobbrSession;
         $rootScope.uiUrl = uiUrl;
         $rootScope.currenciesMap = MobbrApi.forexCurrencies();
         $rootScope.languagesMap = MobbrApi.isoLanguages();
