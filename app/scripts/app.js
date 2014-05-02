@@ -205,6 +205,23 @@ angular.module('mobbr', [
 
     }).run(function ($http, $rootScope, $route, $state, $location, $window, $anchorScroll, MobbrApi, MobbrUser, mobbrMsg, mobbrSession, apiUrl, uiUrl, lightboxUrl, environment) {
 
+        $rootScope.mobbrMsg = mobbrMsg;
+        $rootScope.uiUrl = uiUrl;
+        $rootScope.currenciesMap = MobbrApi.forexCurrencies();
+        $rootScope.languagesMap = MobbrApi.isoLanguages();
+        $rootScope.countriesMap = MobbrApi.isoCountries();
+        $rootScope.timezones = MobbrApi.isoTimezones();
+        $rootScope.host = $location.host();
+
+        $rootScope.incomerangeMap = {
+            1: 'less than € 18000',
+            2: 'between € 18000 and € 30000',
+            3: 'between € 30000 and € 50000',
+            4: 'between € 50000 and € 80000',
+            5: 'between € 80000 and € 120000',
+            6: 'more than € 120000'
+        };
+
         if (environment !== 'production') {
             $window.mobbr.setApiUrl(apiUrl);
             $window.mobbr.setUiUrl(uiUrl);
@@ -222,14 +239,8 @@ angular.module('mobbr', [
 
         $rootScope.logout = function () {
             MobbrUser.logout();
+            $location.path('/');
         }
-
-        $rootScope.$on('mobbrApi:authchange', function (user) {
-            $route.reload();
-            if ($window.parent && $window.parent.postMessage) {
-                $window.parent.postMessage(user && [ user.username, user.email ].join('|') || 'logout', '*');
-            }
-        });
 
         $rootScope.openExternalPayment = function (item) {
             $location.path('/x-payment/' + item.id);
@@ -238,9 +249,6 @@ angular.module('mobbr', [
         $rootScope.openPayment = function (item) {
             $location.path('/payment/' + item.id);
         }
-
-        $rootScope.mobbrMsg = mobbrMsg;
-        $rootScope.mobbrSession = mobbrSession;
 
         $rootScope.isTest = function () {
             return environment !== 'production';
