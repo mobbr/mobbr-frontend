@@ -42,7 +42,7 @@ angular.module('mobbr.services.pdf', []).factory('pdfGenerator', function ($root
                 for (i = 0; i < customer_address.length; i++) {
                     lineHeight += singlelineText(customer_address[i], alignRight(customer_address[i]), lineHeight);
                 }
-                lineHeight += singlelineText($rootScope.countriesMap[invoice.customer_country], alignRight($rootScope.countriesMap[invoice.customer_country]), lineHeight);
+                lineHeight += singlelineText($rootScope.countriesMap.result[invoice.customer_country], alignRight($rootScope.countriesMap.result[invoice.customer_country]), lineHeight);
                 lineHeight += singlelineText(invoice.customer_vat_number, alignRight(invoice.customer_vat_number), lineHeight);
                 singlelineText(' ' + invoice.customer_username, alignRight(' ' + invoice.customer_username), lineHeight);
                 textWidth = textSize(invoice.customer_username);
