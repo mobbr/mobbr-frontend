@@ -32,12 +32,12 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
 
     $scope.openDepositDialog = function () {
 
-        var depositDialog = $modal.open({
+        $modal.open({
             backdrop: true,
             keyboard: true,
             backdropClick: false,
             templateUrl: 'views/partials/deposit_popup.html',
-            controller: function ($scope) {
+            controller: function ($scope, $modalInstance) {
 
                 $scope.networks = {
                     btc: {
@@ -54,11 +54,8 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
 
                 $scope.deposit_currency = $scope.networks['iban'].default_currency;
 
-                $scope.close = function () {
-                    depositDialog.close();
-                }
-
                 $scope.confirm = function () {
+                    console.log($scope);
                     $scope.waiting = true;
                     MobbrXPayment.prepareDeposit({
                         currency: $scope.deposit_currency,
@@ -67,13 +64,14 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
                         return_url: $window.location.href
                     }, function (data) {
                         $scope.waiting = false;
-                        depositDialog.close();
-                        $window.location.href = data.result;
-                    }, function(response){
+                        $modalInstance.close(data.result);
+                    }, function (response) {
                         $scope.waiting = false;
                     });
                 }
             }
+        }).result.then(function (response) {
+            $window.location.href = response;
         });
     }
 
