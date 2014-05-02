@@ -191,10 +191,10 @@ angular.module('mobbr', [
 
         $rootScope.logout = function () {
             MobbrUser.logout();
+            $location.path('/');
         }
 
         $rootScope.$on('mobbrApi:authchange', function (user) {
-            $location.path('/');
             if ($window.parent && $window.parent.postMessage) {
                 $window.parent.postMessage(user && [ user.username, user.email ].join('|') || 'logout', '*');
             }
