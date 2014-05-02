@@ -5,6 +5,7 @@ angular.module('mobbr.services')
 
         var deferred = $q.defer();
 
+        // TOO: stupid timeout https://github.com/angular-ui/ui-router/issues/1059
         $timeout(function () {
 
             if ($state.current && $state.current.data && $state.current.data.authenticated !== mobbrSession.isAuthorized()) {
