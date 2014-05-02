@@ -194,7 +194,7 @@ angular.module('mobbr', [
         }
 
         $rootScope.$on('mobbrApi:authchange', function (user) {
-            $route.reload();
+            $location.path('/');
             if ($window.parent && $window.parent.postMessage) {
                 $window.parent.postMessage(user && [ user.username, user.email ].join('|') || 'logout', '*');
             }
