@@ -30,7 +30,7 @@
 
         <div class="controls">
             <select id="country" name="country" ng-model="invoice.worker_country"
-                    ng-options="value as key for (value, key) in countriesMap">
+                    ng-options="value as key for (value, key) in countriesMap.result">
                 <option value="">No country</option>
             </select>
         </div>
