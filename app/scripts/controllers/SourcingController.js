@@ -29,7 +29,7 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
             'request_invoice_popup',
             {
                 ids: ids,
-                customer_name: $rootScope.$mobbrStorage.user.companyname || ($rootScope.$mobbrStorage.user.firstname + ' ' + $rootScope.$mobbrStorage.user.lastname),
+                customer_name: $rootScope.$mobbrStorage.user.companyname || ((($rootScope.$mobbrStorage.user.firstname || '') && ' ') + ($rootScope.$mobbrStorage.user.lastname || '')),
                 customer_address: $rootScope.$mobbrStorage.user.address,
                 customer_country: $rootScope.$mobbrStorage.user.country_of_residence,
                 customer_vat_number: $rootScope.$mobbrStorage.user.vat_number,

@@ -96,7 +96,7 @@
         </div>
 
         <div class="controls">
-            <input ng-value="invoice.worker_invoice_prefix + '23DgW' + invoice.worker_invoice_postfix" name="invoice-number" id="invoice-number" type="text" ng-disabled="true">
+            <input ng-value="(invoice.worker_invoice_prefix || '') + '23DgW' + (invoice.worker_invoice_postfix || '')" name="invoice-number" id="invoice-number" type="text" ng-disabled="true">
         </div>
     </div>
 

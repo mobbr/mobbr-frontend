@@ -27,7 +27,7 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="balance in balances.result | orderBy:sortEntries:sortOrderBalance | filter:searchBalanceEntries"  ng-class-odd="'odd'" ng-class-even="'even'">
-                    <td ng-bind="currenciesMap[balance.currency_iso]"></td>
+                    <td ng-bind="currenciesMap.result[balance.currency_iso]"></td>
                     <td ng-bind="balance.currency_iso" class="currency"></td>
                     <td ng-bind="balance.amount | mobbrcurrency" class="amount decorate-amount"></td>
                     <td ng-bind="balance.fee | mobbrcurrency" class="amount decorate-amount"></td>
@@ -109,7 +109,7 @@
         <div ng-repeat="(currency, addresses) in supportedCurrencies.result">
 
             <accordion close-others="false">
-                <accordion-group heading="{{currency}} / {{currenciesMap[currency]}}" is-open="false">
+                <accordion-group heading="{{currency}} / {{currenciesMap.result[currency]}}" is-open="false">
                     <div ng-repeat="properties in addresses">
                         <div style="padding-bottom:10px;" ng-repeat="(property,value) in properties" class="controls-row">
 
