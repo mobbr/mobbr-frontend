@@ -79,7 +79,7 @@
             <button ng-disabled="(waitingsettings && !waitingsettings.$resolved) || ($mobbrStorage.user.kyc_level == 'none' && !accept_mango) || identity.$pristine"
                     ng-click="submitSettings(settings)"
                     class="btn btn-success">
-                <i class="icon-white mobbrloader" ng-show="waitingsettings && !waitingsettings.$resolved"></i>
+                <i class="glyphicon mobbrloader" ng-show="waitingsettings && !waitingsettings.$resolved"></i>
                 <span ng-bind="$mobbrStorage.user.kyc_level == 'none' && 'Enable FIAT currencies' || 'Update'"></span>
             </button>
         </div>
