@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('CreateButtonController', function ($scope, $rootScope, CreateButton, MobbrScript, apiUrl) {
+angular.module('mobbr.controllers').controller('CreateButtonController', function ($scope, $rootScope, MobbrScript, apiUrl) {
 
     $scope.detectTitle = true;
     $scope.detectDescription = true;
@@ -56,7 +56,7 @@ angular.module('mobbr.controllers').controller('CreateButtonController', functio
 
             // input is url so retrieve json
             $scope.workingRetrieveUrl = true;
-            MobbrScript.validate({'url':$scope.form.url},function(response){
+            MobbrScript.get({'url':$scope.form.url},function(response){
                 $scope.workingRetrieveUrl = false;
                 if(response.result != null){
                     $scope.processJson(response.result);
