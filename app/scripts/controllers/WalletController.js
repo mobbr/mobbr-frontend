@@ -2,14 +2,34 @@
 
 angular.module('mobbr.controllers').controller('WalletController', function ($scope, $modal, $window, $location, MobbrBalance, MobbrXPayment, MobbrPayment) {
 
+    var querystring = $window.location.search;
+
+    if (querystring) {
+        $window.location.href = $window.location.href.replace(querystring, '') + querystring;
+    }
+
+    function onConfirmDeposit() {
+        $location.search('transactionId', null);
+        reload();
+    }
+
+    var querystring = $window.location.search;
+
+    if (querystring) {
+        $window.location.href = $window.location.href.replace(querystring, '') + querystring;
+    }
+
+    function onConfirmDeposit() {
+        $location.search('transactionId', null);
+        reload();
+    }
+
     if ($location.search().transactionId) {
         MobbrXPayment.confirmDeposit({
                 trx_id: $location.search().transactionId
             },
-            function () {
-                $location.search('transactionId');
-                reload();
-            }
+            onConfirmDeposit,
+            onConfirmDeposit
         );
     }
 
