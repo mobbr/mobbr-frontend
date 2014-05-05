@@ -91,7 +91,7 @@
                       class="nowrap"></span>
 
                 <span ng-switch-when="currency_description"
-                      ng-bind="currencyDescription(entry.currency_iso)"
+                      ng-bind="currenciesMap[entry.currency_iso]"
                       class="nowrap"></span>
 
                 <span ng-switch-when=".percentage"
