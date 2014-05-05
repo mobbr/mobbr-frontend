@@ -2,6 +2,10 @@ body {
   margin-top: $navbar-height;
 }
 
+.mobbr-test {
+  /*background-color: #9F9 !important;*/
+}
+
 .main {
   margin: 20px;
 }
@@ -26,79 +30,20 @@ table th {
 }
 
 .messaging {
-  position: fixed;
   z-index: 9999;
+  position: fixed;
   top: -3px;
   width: 100%;
   margin: 0 auto;
+  height: 0;
 }
 
-/*
-#wrapper > .page-header {
-  padding-bottom: 9px;
-  margin: 20px 0 30px;
-  padding-top: 25px;
-  border-bottom: 1px solid #009ee0;
-  border-top: 1px solid #009ee0;
-}
-
-.generate-button .button-type {
-  text-align: center;
-}
-
-.generate-button .button-type label {
-  margin: 1em 0;
-}
-
-.generate-button .participants {
-  margin-bottom: 0;
-}
-
-.generate-button .json-generator {
-  margin: 1em 0 0 0;
-}*/
-
-.accordion-toggle.muted {
-  cursor: default;
-}
-
-.accordion-toggle.muted:hover {
-  text-decoration: none;
+.user-menu {
+  min-width: 315px;
 }
 
 .well form {
   margin: 0;
-}
-
-.payments .alert {
-  margin: 0;
-}
-
-.labelwidth {
-  width: 120px;
-}
-
-.privacy-settings .control-group:after {
-  clear: none;
-}
-
-.privacy-settings .well {
-  height: 22em;
-}
-
-.accordion-inner {
-  border-top: 0;
-}
-
-.mobbr_button {
-  cursor: pointer;
-}
-
-.receipt h6 {
-  float: left;
-  width: 100px;
-  padding: 0 20px 0 0;
-  text-align: right;
 }
 
 .customicon {
@@ -110,8 +55,9 @@ table th {
   opacity: 1;
 }
 
-.join {
-  margin-right: 19px;
+.hero-unit h1 {
+  font-size: 4em;
+  line-height: 1.2em;
 }
 
 .hero-unit .lead {
@@ -120,49 +66,9 @@ table th {
   font-family: $mobbrFontFamily;
 }
 
-.apitable {
-  color: $mobbrblue;
-}
-
 h1, h2, h3 {
   font-family: $mobbrHeadingsFontFamily;
   font-weight: normal;
-}
-
-.mobbrtable h3 {
-  font-size: 1.2em;
-  line-height: 1.6em;
-  margin: 0;
-}
-
-.mobbrtable .img_uri,
-.mobbrtable .gravatar {
-  max-width: none;
-  max-height: none;
-}
-
-.mobbrtable .img_uri {
-  width: 64px;
-  height: 64px;
-}
-
-.mobbrtable .gravatar.small {
-  width: 20px;
-  height: 20px;
-}
-
-.mobbrtable .gravatar.xsmall {
-  width: 20px;
-  height: 20px;
-}
-
-.mobbrtable .searchbox {
-  margin-right: 20px;
-}
-
-.hero-unit h1 {
-  font-size: 4em;
-  line-height: 1.2em;
 }
 
 .bookmarklet {
@@ -201,136 +107,15 @@ pre {
   font-size: .8em;
 }
 
-.navbar-fixed-top .navbar-inner {
-  box-shadow: 0 2px 0 0 #000;
-}
-
-.atlwdg-trigger {
-  left: auto !important;
-  top: auto !important;
-  right: 0 !important;
-  bottom: 0 !important;
-  transform: none;
-  -webkit-transform: none;
-  -moz-transform: none;
-  -ms-transform: none;
-  -o-transform: none;
-}
-
-.top-urls {
-
-  .domain-image,
-  .mobbr_button {
-    max-height: 40px;
-  }
-}
-
-#mobbr_div {
-  opacity: 0.95;
-  position: fixed;
-  border: 4px solid rgb(153, 153, 153);
-  background: none repeat scroll 0% 0% rgb(255, 255, 255);
-  top: 8px;
-  right: 8px;
-  padding: 15px 0px 0px;
-  z-index: 2147483647;
-  border-radius: 10px;
-
-  &.small {
-    width: 492px;
-    height: 338px;
-    bottom: auto;
-
-    iframe {
-      height: 315px;
-    }
-  }
-
-  &.full {
-    width: 760px;
-    height: 550px;
-    bottom: auto;
-
-    iframe {
-      height: 527px;
-    }
-  }
-
-  .close {
-    float: right;
-    position: relative;
-    top: -17px;
-    right: 5px;
-    text-decoration: none;
-    font-size: 7pt;
-    color: black;
-    font-family: Arial, Helvetica, sans-serif;
-
-    img {
-      position: relative;
-      top: 5px;
-      width: 24px;
-      height: 24px;
-    }
-  }
-
-  iframe {
-    position: relative;
-    top: -10px;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
-    opacity: 1;
-    width: 100%;
-    padding: 0px;
-    margin: 0px;
-  }
-}
-
-//#mobbr_div {
-//  display: none;
-//}
-
 .ng-cloak {
   display: none;
 }
 
-.balancesub span {
-  text-transform: none;
-  font-weight: normal;
-}
-
-.tab-content {
-  min-height: 400px;
-}
-
 .mobbrloader {
+  height: 14px;
   background-image: url(../img/mobbrloader.gif);
   background-size: cover;
   background-position: 0 0;
-}
-
-.ui-pnotify-history-container {
-  display: none;
-}
-
-.ui-pnotify {
-  left: 10px !important;
-  top: 80px !important;
-}
-
-.sitefooter {
-  border-top: 1px solid $grayLight;
-  background: $grayDark;
-  color: $grayLight;
-}
-
-.sitefooter .row-fluid {
-  padding: 20px;
-}
-
-.mobbr-test {
-  /*background-color: #9F9 !important;*/
 }
 
 .mobbr-checkbox {
@@ -354,10 +139,36 @@ pre {
   font-weight: bold;
 }
 
-/*.table-checkbox tr th:first-child,
-.table-checkbox tr td:first-child {
-  width: 13px;
-}*/
+.mobbrtable h3 {
+  font-size: 1.2em;
+  line-height: 1.6em;
+  margin: 0;
+}
+
+.mobbrtable .img_uri,
+.mobbrtable .gravatar {
+  max-width: none;
+  max-height: none;
+}
+
+.mobbrtable .img_uri {
+  width: 64px;
+  height: 64px;
+}
+
+.mobbrtable .gravatar.small {
+  width: 20px;
+  height: 20px;
+}
+
+.mobbrtable .gravatar.xsmall {
+  width: 20px;
+  height: 20px;
+}
+
+.mobbrtable .searchbox {
+  margin-right: 20px;
+}
 
 .mobbrtable td {
   font-size: .9em;
@@ -403,66 +214,4 @@ pre {
   border-top: 4px solid transparent;
   border-left: 4px solid black;
   margin: 8px 16px 0 4px;
-}
-
-.account-button {
-  min-width: 130px;
-  text-align: right;
-}
-
-/*
-Author  : Hunter Perrin
-Version : 2.0.0
-Link    : http://sciactive.com/pnotify/
-*/
-/* -- Notice */
-.ui-pnotify {
-  top: 25px;
-  right: 25px;
-  position: absolute;
-  height: auto;
-  /* Ensures notices are above everything */
-  z-index: 9999;
-}
-/* Hides position: fixed from IE6 */
-html > body > .ui-pnotify {
-  position: fixed;
-}
-.ui-pnotify .ui-pnotify-shadow {
-  -webkit-box-shadow: 0px 2px 10px rgba(50, 50, 50, 0.5);
-  -moz-box-shadow: 0px 2px 10px rgba(50, 50, 50, 0.5);
-  box-shadow: 0px 2px 10px rgba(50, 50, 50, 0.5);
-}
-.ui-pnotify-container {
-  background-position: 0 0;
-  padding: .8em;
-  height: 100%;
-  margin: 0;
-}
-.ui-pnotify-sharp {
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  border-radius: 0;
-}
-.ui-pnotify-title {
-  display: block;
-  margin-bottom: .4em;
-  margin-top: 0;
-}
-.ui-pnotify-text {
-  display: block;
-}
-.ui-pnotify-icon, .ui-pnotify-icon span {
-  display: block;
-  float: left;
-  margin-right: .2em;
-}
-/* Alternate stack initial positioning. */
-.ui-pnotify.stack-topleft, .ui-pnotify.stack-bottomleft {
-  left: 25px;
-  right: auto;
-}
-.ui-pnotify.stack-bottomright, .ui-pnotify.stack-bottomleft {
-  bottom: 25px;
-  top: auto;
 }

@@ -5,10 +5,10 @@
 <form name="invoicing" class="form-horizontal modal-body">
 
     <fieldset class="form-group">
-        <label class="control-label col-md-2" for="name">
+        <label class="control-label col-md-4" for="name">
             (Business) name
         </label>
-        <div class="col-md-4">
+        <div class="col-md-8">
             <input ng-model="invoice.customer_name"
                    name="name"
                    type="text"
@@ -19,10 +19,10 @@
     </fieldset>
 
     <fieldset class="form-group">
-        <label class="control-label col-md-2" for="address">
+        <label class="control-label col-md-4" for="address">
             Full address
         </label>
-        <div class="col-md-4">
+        <div class="col-md-8">
             <input ng-model="invoice.customer_address"
                    class="form-control"
                    name="address"
@@ -33,10 +33,10 @@
     </fieldset>
 
     <fieldset class="form-group">
-        <label class="control-label col-md-2" for="country">
+        <label class="control-label col-md-4" for="country">
             Country
         </label>
-        <div class="col-md-4">
+        <div class="col-md-8">
             <select ng-model="invoice.customer_country"
                     ng-options="value as key for (value, key) in countriesMap.result"
                     id="country"
@@ -48,10 +48,10 @@
     </fieldset>
 
     <fieldset class="form-group">
-        <label class="control-label col-md-2" for="vat-number">
+        <label class="control-label col-md-4" for="vat-number">
             VAT-number
         </label>
-        <div class="col-md-4">
+        <div class="col-md-8">
             <input ng-model="invoice.customer_vat_number"
                    name="vat_number"
                    type="text"
@@ -62,10 +62,10 @@
     </fieldset>
 
     <fieldset class="form-group">
-        <label class="control-label col-md-2" for="status">
+        <label class="control-label col-md-4" for="status">
             Legal entity
         </label>
-        <div class="col-md-4">
+        <div class="col-md-8">
             <select ng-model="invoice.customer_status"
                     name="status"
                     type="text"
@@ -79,7 +79,7 @@
 </form>
 <div class="modal-footer">
     <button ng-click="confirm()" class="btn btn-success">
-        <i class="icon-white mobbrloader" ng-show="waiting"></i> Confirm
+        <i class="glyphicon mobbrloader" ng-show="waiting"></i> Confirm
     </button>
     <button ng-click="close()" class="btn btn-error">
         Cancel

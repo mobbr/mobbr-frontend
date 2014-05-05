@@ -24,7 +24,7 @@
                     ng-disabled="(waitingemail && !waitingemail.$resolved) || !changeemail.$valid || $mobbrStorage.user.email == new_email"
                     type="submit"
                     class="btn btn-success">
-                <i class="icon-white mobbrloader" ng-show="waitingemail && !waitingemail.$resolved"></i>
+                <i class="glyphicon mobbrloader" ng-show="waitingemail && !waitingemail.$resolved"></i>
                 Change email address
             </button>
         </div>
@@ -54,7 +54,7 @@
                     ng-disabled="!changepassword.$valid || (waitingpassword && !waitingpassword.$resolved) || !changepassword.$dirty"
                     type="submit"
                     class="btn btn-success">
-                <i class="icon-white mobbrloader" ng-show="waitingpassword && !waitingpassword.$resolved"></i>
+                <i class="glyphicon mobbrloader" ng-show="waitingpassword && !waitingpassword.$resolved"></i>
                 Change password
             </button>
         </div>

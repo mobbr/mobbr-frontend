@@ -67,11 +67,12 @@
             experience this site.
         </p>
         <![endif]-->
-        <!--[if lt IE 9]>
-        <!-- build:js scripts/combined-ie.js -->
-        <script src="components/es5-shim/es5-shim.js"></script>
-        <!-- endbuild -->
-        <![endif]-->
+
+        <div class="ng-cloak messaging container-fluid">
+            <div class="container">
+                <alert ng-repeat="alert in mobbrMsg.messages" type="alert.type" close="mobbrMsg.close($index)">{{ alert.msg }}</alert>
+            </div>
+        </div>
 
         <header class="navbar navbar-fixed-top navbar-default" role="navigation">
             <div class="container-fluid">
@@ -89,7 +90,7 @@
                             <b class="caret"></b>
                         </a>
 
-                        <ul class="dropdown-menu" ng-if="!mobbrSession.isAuthorized()">
+                        <ul class="user-menu dropdown-menu" ng-show="!mobbrSession.isAuthorized()">
                             <li class="nav-header"></li>
                             <li>
                                 <form ng-submit="login(email, password)"
@@ -115,9 +116,10 @@
                                                required>
                                     </div>
                                     <div class="form-group">
-                                        <button ng-disabled="waiting"
+                                        <button ng-disabled="authenticating && !authenticating.$resolved"
                                                 type="submit"
                                                 class="btn btn-block">
+                                            <i class="glyphicon mobbrloader" ng-show="authenticating && !authenticating.$resolved"></i>
                                             Log in
                                         </button>
                                     </div>
@@ -129,7 +131,7 @@
                             <li><a class="nav-header" href="#/recover">Password forgotten</a></li>
                         </ul>
 
-                        <ul class="dropdown-menu" ng-if="mobbrSession.isAuthorized()">
+                        <ul class="dropdown-menu" ng-show="mobbrSession.isAuthorized()">
                             <li>
                                 <a href="#/wallet">
                                     <span class="glyphicon glyphicon-inbox"></span>
@@ -244,12 +246,6 @@
             </div>
         </section>
 
-        <div class="ng-cloak messaging container-fluid">
-            <div class="container">
-                <alert ng-repeat="alert in mobbrMsg.messages" type="alert.type" close="mobbrMsg.close($index)">{{ alert.msg }}</alert>
-            </div>
-        </div>
-
         <div class="container-fluid main" ui-view></div>
 
         <!-- build:js scripts/combined.js -->
@@ -285,6 +281,8 @@
         <script src="scripts/controllers/ClaimPaymentController.js"></script>
         <script src="scripts/controllers/MainController.js"></script>
         <script src="scripts/controllers/WalletController.js"></script>
+        <script src="scripts/controllers/DepositController.js"></script>
+        <script src="scripts/controllers/WithdrawController.js"></script>
         <script src="scripts/controllers/LinkLoginController.js"></script>
         <script src="scripts/controllers/UserSettingsController.js"></script>
         <script src="scripts/controllers/RecoverPasswordController.js"></script>
