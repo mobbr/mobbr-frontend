@@ -163,7 +163,7 @@
 
             <div class="controls">
                 <select id="country_of_residence" name="country_of_residence" ng-model="$mobbrStorage.user.country_of_residence"
-                        ng-options="value as key for (value, key) in countriesMap | orderBy: 'key'">
+                        ng-options="value as key for (value, key) in countriesMap.result | orderBy: 'key'">
                     <option value="">No country</option>
                 </select>
             </div>
@@ -176,7 +176,7 @@
 
             <div class="controls">
                 <select id="nationality" name="nationality" ng-model="$mobbrStorage.user.nationality"
-                        ng-options="value as key for (value, key) in countriesMap">
+                        ng-options="value as key for (value, key) in countriesMap.result">
                     <option value="">No country</option>
                 </select>
             </div>
@@ -348,7 +348,7 @@
 
                 <select ng-model="$mobbrStorage.user.currency_iso"
                         name="currency_iso"
-                        ng-options="value as key for (value, key) in currenciesMap | orderBy: 'value'"
+                        ng-options="value as key for (value, key) in currenciesMap.result | orderBy: 'value'"
                         title="the currency to which other currencies are converted when displayed">
 
 
@@ -365,7 +365,7 @@
             </div>
 
             <div class="controls">
-                <select ng-options="value as key for (value, key) in languagesMap | orderBy: 'value'"
+                <select ng-options="value as key for (value, key) in languagesMap.result | orderBy: 'value'"
                         ng-model="$mobbrStorage.user.language_iso"
                         title="the available languages">
                 </select>
@@ -383,7 +383,7 @@
 
             <div class="controls">
                 <select ng-model="$mobbrStorage.user.timezone" name="timezone" id="timezone"
-                        ng-options="value as key for (value,key ) in timezones">
+                        ng-options="value as key for (value,key ) in timezones.result">
 
                 </select>
             </div>
