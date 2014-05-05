@@ -14,8 +14,8 @@
     "ng-table": "~0.3.1",
     "file-saver": "*",
     "jspdf": "git://github.com/MrRio/jsPDF.git#a52028fe58f949a1bd32a7b5818a8e90ee954b3e",
-    "mobbr-api-angular": "git://github.com/mobbr/mobbr-api-angular#f207688fcdb3475ee2b17a2b3f5003230c290e3d",
-    "mobbr-button": "https://handijk@bitbucket.org/mobbr/mobbr-button.git#6f6ae2c78791be5fb312ab8fc0c67e495957ad2b",
+      "mobbr-api-angular": "git://github.com/mobbr/mobbr-api-angular#f207688fcdb3475ee2b17a2b3f5003230c290e3d",
+    "mobbr-button": "https://handijk@bitbucket.org/mobbr/mobbr-button.git#f47a2b11242842efd93e51d78f36266242841ae6",
     "pines-notify": "~2.0.0"
   },
   "ignore": [
