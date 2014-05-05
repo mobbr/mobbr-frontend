@@ -11,7 +11,7 @@ angular.module('mobbr.configuration', []);
  */
 
 $(function () {
-   $('.dropdown input').click(function (e) {
+   $('.dropdown input, .dropdown button').click(function (e) {
        e.stopPropagation();
    });
 });
