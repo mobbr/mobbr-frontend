@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('SourcingController', function ($scope, $location, $rootScope, invoiceDialog, pdfGenerator, MobbrInvoice, MobbrPayment, MobbrPerson) {
-
+angular.module('mobbr.controllers').controller('SourcingController', function ($scope, $location, $rootScope, $modal, pdfGenerator, MobbrInvoice, MobbrPayment, MobbrPerson) {
 
     $scope.requestableInvoices = MobbrInvoice.requestable();
     $scope.requestedInvoices = MobbrInvoice.requested();
@@ -25,24 +24,29 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
         });
     }
 
-    $scope.requestInvoices = function (ids, items, table) {
-        invoiceDialog(
-            MobbrInvoice.request,
-            'request_invoice_popup',
-            {
-                ids: ids,
-                customer_name: $rootScope.$mobbrStorage.user.companyname || (($rootScope.$mobbrStorage.user.firstname || '') + ' ' + ($rootScope.$mobbrStorage.user.lastname || '')),
-                customer_address: $rootScope.$mobbrStorage.user.address,
-                customer_country: $rootScope.$mobbrStorage.user.country_of_residence,
-                customer_vat_number: $rootScope.$mobbrStorage.user.vat_number,
-                customer_vat_rate: $rootScope.$mobbrStorage.user.vat_rate,
-                customer_status: $rootScope.$mobbrStorage.user.companyname && 'enterprise' || 'private'
-            },
-            function (dialog, response) {
-                dialog.close();
-                $scope.$broadcast('invoicetable', 'sourcing_requested_invoices');
-                $scope.$broadcast('invoicetable', 'working_requested_invoices');
-                $scope.$broadcast('invoicetable', 'sourcing_unrequested_invoices');
+    $scope.requestInvoices = function (ids) {
+        $modal.open({
+            backdrop: true,
+            keyboard: true,
+            backdropClick: false,
+            templateUrl: 'views/partials/request_invoice_popup.html',
+            controller: function ($scope) {
+                $scope.invoice = {
+                    ids: ids,
+                    customer_name: $rootScope.$mobbrStorage.user.companyname || (($rootScope.$mobbrStorage.user.firstname || '') + ' ' + ($rootScope.$mobbrStorage.user.lastname || '')),
+                    customer_address: $rootScope.$mobbrStorage.user.address,
+                    customer_country: $rootScope.$mobbrStorage.user.country_of_residence,
+                    customer_vat_number: $rootScope.$mobbrStorage.user.vat_number,
+                    customer_vat_rate: $rootScope.$mobbrStorage.user.vat_rate,
+                    customer_status: $rootScope.$mobbrStorage.user.companyname && 'enterprise' || 'private'
+                }
+            }
+        }).result.then(function (result) {
+                MobbrInvoice.request(result, function() {
+                    $scope.$broadcast('invoicetable', 'sourcing_requested_invoices');
+                    $scope.$broadcast('invoicetable', 'working_requested_invoices');
+                    $scope.$broadcast('invoicetable', 'sourcing_unrequested_invoices');
+                });
             }
         );
     }
@@ -53,15 +57,20 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
         });
     }
 
-    $scope.removePledgesDialog = function (ids, items, table) {
-        invoiceDialog(
-            MobbrPayment.unpledge,
-            'remove_pledges_popup',
-            { ids: ids },
-            function (dialog, response) {
-                dialog.close();
-                $scope.$broadcast('invoicetable', 'sourcing_pledges');
+    $scope.removePledgesDialog = function (ids) {
+        $modal.open({
+            backdrop: true,
+            keyboard: true,
+            backdropClick: false,
+            templateUrl: 'views/partials/remove_pledges_popup.html',
+            controller: function ($scope) {
+                $scope.ids = ids;
             }
-        ).open();
+        }).result.then(function (result) {
+                MobbrPayment.unpledge({ ids: result }, function() {
+                    $rootScope.$emit('invoicetable', 'sourcing_pledges')
+                });
+            }
+        );
     }
 });

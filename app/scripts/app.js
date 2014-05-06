@@ -20,6 +20,7 @@ angular.module('mobbr', [
 
         'ngRoute',
         'ngTable',
+        'ngStorage',
         'ui.bootstrap',
         'ui.router',
         'mobbrApi',
@@ -28,8 +29,6 @@ angular.module('mobbr', [
         'mobbr.config',
         'mobbr.controllers',
         'mobbr.services',
-        'mobbr.services.invoice',
-        'mobbr.services.pdf',
         'mobbr.directives',
         'mobbr.filters',
         'angularFileUpload'
