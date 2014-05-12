@@ -16,7 +16,8 @@
     "jspdf": "git://github.com/MrRio/jsPDF.git#a52028fe58f949a1bd32a7b5818a8e90ee954b3e",
     "mobbr-api-angular": "git://github.com/mobbr/mobbr-api-angular#f207688fcdb3475ee2b17a2b3f5003230c290e3d",
     "mobbr-button": "https://handijk@bitbucket.org/mobbr/mobbr-button.git#f47a2b11242842efd93e51d78f36266242841ae6",
-    "angular-ui-router": "~0.2.10"
+    "angular-ui-router": "~0.2.10",
+    "angular-ui-utils": "bower-scrollfix"
   },
   "ignore": [
     "**/.*",
