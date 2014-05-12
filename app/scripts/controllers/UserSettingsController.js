@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('UserSettingsController', function ($http, $scope, $rootScope, $upload, apiUrl, MobbrUser) {
+angular.module('mobbr.controllers').controller('UserSettingsController', function ($http, $scope, $rootScope, $upload, apiUrl, MobbrUser, mobbrMsg) {
 
     $scope.new_email = $rootScope.$mobbrStorage.user.email;
 
@@ -17,11 +17,15 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
 
     $scope.uploadIdentityProof = function (files) {
         angular.forEach(files, function (file) {
-            $upload.upload({
-                url: apiUrl + '/api_v1/user/upload_identity_proof',
-                file: file,
-                method: 'POST'
-            });
+            if (file.size > 2048 * 1024) {
+                mobbrMsg.add({ msg: 'File size cannot exceed 2MB' });
+            } else {
+                $upload.upload({
+                    url: apiUrl + '/api_v1/user/upload_identity_proof',
+                    file: file,
+                    method: 'POST'
+                });
+            }
         });
     };
 
