@@ -313,22 +313,19 @@ module.exports = function (grunt) {
       test: {
         host: 'test-www.mobbr.com',
         username: 'handijk',
-        password: 'Faishood2a',
-        //agent: process.env.SSH_AUTH_SOCK,
+        agent: process.env.SSH_AUTH_SOCK,
         showProgress: true
       },
       production: {
         host: 'mobbr.com',
         username: 'handijk',
-        password: 'Faishood2a',
-        //agent: process.env.SSH_AUTH_SOCK,
+        agent: process.env.SSH_AUTH_SOCK,
         showProgress: true
       },
       stage: {
         host: 'mobbr.com',
         username: 'handijk',
-        password: 'Faishood2a',
-        //agent: process.env.SSH_AUTH_SOCK,
+        agent: process.env.SSH_AUTH_SOCK,
         showProgress: true
       }
     },
