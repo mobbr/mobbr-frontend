@@ -18,7 +18,7 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
     $scope.uploadIdentityProof = function (files) {
         angular.forEach(files, function (file) {
             $upload.upload({
-                url: apiUrl + '/api/user/upload_identity_proof',
+                url: apiUrl + '/api_v1/user/upload_identity_proof',
                 file: file,
                 method: 'POST'
             });
