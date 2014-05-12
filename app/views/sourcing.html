@@ -1,37 +1,61 @@
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-3 sidebar-left">
+        <h1>Sourcing</h1>
         <ul class="nav nav-pills nav-stacked">
             <li ng-class="{ active: $state.includes('sourcing.request'), disabled: requestableInvoices.result.length == 0 }">
-                <a ng-href="{{ requestableInvoices.result.length > 0 && '/#/sourcing' || '' }}">
+                <a ng-href="{{ requestableInvoices.result.length > 0 && '/#/sourcing' || '' }}"
+                   ng-mouseenter="hover = 'sourcing.request'"
+                   ng-mouseleave="hover = false">
                     Request invoices
                     <span class='badge pull-right' ng-bind="requestableInvoices.result.length"></span>
                 </a>
             </li>
             <li ng-class="{ active: $state.includes('sourcing.pending'), disabled: requestedInvoices.result.length == 0 }">
-                <a ng-href="{{ requestedInvoices.result.length > 0 && '/#/sourcing/pending' || '' }}">
+                <a ng-href="{{ requestedInvoices.result.length > 0 && '/#/sourcing/pending' || '' }}"
+                   ng-mouseenter="hover = 'sourcing.pending'"
+                   ng-mouseleave="hover = false">
                     Pending invoices
                     <span class='badge pull-right' ng-bind="requestedInvoices.result.length"></span>
                 </a>
             </li>
             <li ng-class="{ active: $state.includes('sourcing.download'), disabled: confirmedInvoices.result.length == 0 }">
-                <a ng-href="{{ confirmedInvoices.result.length > 0 && '/#/sourcing/download' || '' }}">
+                <a ng-href="{{ confirmedInvoices.result.length > 0 && '/#/sourcing/download' || '' }}"
+                   ng-mouseenter="hover = 'sourcing.download'"
+                   ng-mouseleave="hover = false">
                     Download invoices
                     <span class='badge pull-right' ng-bind="confirmedInvoices.result.length"></span>
                 </a>
             </li>
             <li ng-class="{ active: $state.includes('sourcing.pledged'), disabled: pledged.result.length == 0 }">
-                <a ng-href="{{ pledged.result.length > 0 && '/#/sourcing/pledged' || '' }}">
+                <a ng-href="{{ pledged.result.length > 0 && '/#/sourcing/pledged' || '' }}"
+                   ng-mouseenter="hover = 'sourcing.pledged'"
+                   ng-mouseleave="hover = false">
                     Pledged
                     <span class='badge pull-right' ng-bind="pledged.result.length"></span>
                 </a>
             </li>
             <li ng-class="{ active: $state.includes('sourcing.workers'), disabled: workers.result.length == 0 }">
-                <a ng-href="{{ workers.result.length > 0 && '/#/sourcing/workers' || '' }}">
+                <a ng-href="{{ workers.result.length > 0 && '/#/sourcing/workers' || '' }}"
+                   ng-mouseenter="hover = 'sourcing.workers'"
+                   ng-mouseleave="hover = false">
                     Workers
                     <span class='badge pull-right' ng-bind="workers.result.length"></span>
                 </a>
             </li>
         </ul>
+        <alert ng-show="hover == 'sourcing.request' || !hover && $state.current.name == 'sourcing.request'">
+            Ask your crowdworkers for an invoice. They have 30 days to verify their data.
+            After 30 days we either generate the invoice on their behalf or refund the payment.
+        </alert>
+        <alert ng-show="hover == 'sourcing.download' || !hover && $state.current.name == 'sourcing.download'">
+            Your invoices. We generated these on behalf of your crowdworkers.
+        </alert>
+        <alert ng-show="hover == 'sourcing.pledged' || !hover && $state.current.name == 'sourcing.pledged'">
+            Tasks to which you pledged or paid. Pledges can be revoked but every currently listed participant to the taks will be notified which can hurt your reputation.
+        </alert>
+        <alert ng-show="hover == 'sourcing.workers' || !hover && $state.current.name == 'sourcing.workers'">
+            People who worked on your tasks.
+        </alert>
     </div>
     <div class="col-md-9">
         <div ui-view class="container-fluid"></div>

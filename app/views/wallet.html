@@ -1,12 +1,11 @@
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-3 sidebar-left" ui-scrollfix="51">
+        <h1>Wallet</h1>
         <ul class="nav nav-pills nav-stacked">
             <li ng-class="{ active: $state.includes('wallet.credit') }">
                 <a href="/#/wallet">
                     Credit
-                    <span ng-repeat="balance in balances.result"
-                          ng-if="balance.spendable > 0"
-                          ng-bind="balance.currency_iso + ' ' + (balance.spendable | mobbrcurrency)"
+                    <span ng-bind="balances.result.total_currency_iso + ' ' + (balances.result.total_amount | mobbrcurrency)"
                           class="badge pull-right"></span>
                 </a>
             </li>
