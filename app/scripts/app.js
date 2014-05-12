@@ -23,6 +23,7 @@ angular.module('mobbr', [
         'ngStorage',
         'ui.bootstrap',
         'ui.router',
+        'ui.scrollfix',
         'mobbrApi',
         'mobbrMsg',
         'mobbrSession',

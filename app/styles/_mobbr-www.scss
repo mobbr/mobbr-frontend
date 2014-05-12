@@ -6,12 +6,25 @@ body {
   /*background-color: #9F9 !important;*/
 }
 
+.ui-scrollfix {
+  position: fixed;
+  top: 51px;
+}
+
 .main {
   margin: 20px;
 }
 
+.toolbar {
+  height: 54px;
+}
+
 .user-thumb {
   margin: -5px 0;
+}
+
+.sidebar-left h1 {
+  margin-bottom: 27px;
 }
 
 h6,
