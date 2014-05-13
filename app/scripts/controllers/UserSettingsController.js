@@ -17,7 +17,6 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
 
     $scope.uploadIdentityProof = function (files) {
         MobbrUser.updateUser({ user: $rootScope.$mobbrStorage.user }, function () {
-            form.$setPristine();
             angular.forEach(files, function (file) {
                 if (file.size > 2048 * 1024) {
                     mobbrMsg.add({ msg: 'File size cannot exceed 2MB' });
