@@ -4,54 +4,65 @@ angular.module('mobbr.controllers').controller('WithdrawController', function ($
 
     $scope.networks = {
         btc: {
-            type: 'OTHER',
             name: 'Bitcoin',
             currencies: [ 'BTC' ],
-            default_currency: 'BTC'
+            send: {
+                currency: 'BTC'
+            }
         },
         iban: {
-            type: 'IBAN',
             name: 'IBAN/BIC',
             currencies: [ 'USD', 'GBP', 'CHF', 'SEK', 'NOK', 'DKK', 'EUR', 'PLN' ],
-            default_currency: 'EUR'
+            send: {
+                currency: 'EUR',
+                address: {
+                    type: 'IBAN'
+                }
+            }
         },
         uk: {
-            type: 'GB',
             name: 'GB',
             currencies: [ 'USD', 'GBP', 'CHF', 'SEK', 'NOK', 'DKK', 'EUR', 'PLN' ],
-            default_currency: 'GBP'
+            send: {
+                currency: 'GBP',
+                address: {
+                    type: 'GB'
+                }
+            }
         },
         us: {
-            type: 'US',
             name: 'US',
             currencies: [ 'USD', 'GBP', 'CHF', 'SEK', 'NOK', 'DKK', 'EUR', 'PLN' ],
-            default_currency: 'USD'
+            send: {
+                currency: 'USD',
+                address: {
+                    type: 'US'
+                }
+            }
         },
         ca: {
-            type: 'CA',
             name: 'Canada',
             currencies: [ 'USD', 'GBP', 'CHF', 'SEK', 'NOK', 'DKK', 'EUR', 'PLN' ],
-            default_currency: 'USD'
+            send: {
+                currency: 'USD',
+                address: {
+                    type: 'CA'
+                }
+            }
         },
         other: {
-            type: 'OTHER',
             name: 'Other',
             currencies: [ 'USD', 'GBP', 'CHF', 'SEK', 'NOK', 'DKK', 'EUR', 'PLN' ],
-            default_currency: 'EUR'
+            send: {
+                currency: 'EUR',
+                address: {
+                    type: 'OTHER'
+                }
+            }
         }
     };
 
-    $scope.deposit_currency = $scope.networks['iban'].default_currency;
     $scope.network_method = $scope.networks['iban'];
-
-    $scope.$watch('network_method.name', function (oldval, newval) {
-        $scope.network_method.send = {
-            currency: $scope.network_method.default_currency,
-            address: {
-                type: $scope.network_method.type
-            }
-        };
-    }, false);
 
     $scope.confirm = function () {
         $scope.waiting = true;

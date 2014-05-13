@@ -67,7 +67,7 @@
             </tr>
             </tbody>
             <tbody ng-if="!$groups">
-            <tr ng-repeat="item in $data">
+            <tr ng-repeat="item in $data" ng-class="{ danger: item['faileddatetime'] }">
                 <td ng-if="selectable" class="checkbox">
                     <input type="checkbox" ng-model="checkboxes.items[item.id]" />
                 </td>
@@ -78,8 +78,8 @@
                          width="20"
                          height="20">
                     <time ng-switch-when="datetime || paiddatetime"
-                          datetime="{{ item[column] }}">
-                        <small>{{ item[column] }}</small>
+                          datetime="{{ item[column] || item['faileddatetime'] }}">
+                        <small>{{ item[column] || item['faileddatetime'] }}</small>
                     </time>
                     <span ng-switch-when="username" ng-bind="item['username'] || item['.org-id']"></span>
                     <span ng-switch-when="percentage" ng-bind="((item['percentage'] || item['.percentage']) | mobbrcurrency) + '%'"></span>

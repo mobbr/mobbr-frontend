@@ -4,29 +4,56 @@ angular.module('mobbr.controllers').controller('DepositController', function ($s
 
     $scope.networks = {
         btc: {
+            type: 'btc',
             name: 'Bitcoin',
             currencies: [ 'BTC' ],
-            default_currency: 'BTC'
+            currency: 'BTC'
         },
-        iban: {
-            name: 'IBAN',
+        bankwire: {
+            type: 'bankwire',
+            name: 'Bankwire',
             currencies: [ 'USD', 'GBP', 'CHF', 'SEK', 'NOK', 'DKK', 'EUR', 'PLN' ],
-            default_currency: 'EUR'
+            currency: 'EUR'
+        },
+        creditcard: {
+            type: 'creditcard',
+            name: 'Creditcard',
+            currencies: [ 'USD', 'GBP', 'CHF', 'SEK', 'NOK', 'DKK', 'EUR', 'PLN' ],
+            currency: 'EUR'
         }
     };
 
-    $scope.deposit_currency = $scope.networks['iban'].default_currency;
+    $scope.deposit_type = $scope.networks.creditcard;
+
+    function reload() {
+        $scope.supportedCurrencies = MobbrXPayment.supportedCurrencies();
+    }
+
+    $scope.generateAddress = function (currency) {
+        $scope.generating = MobbrXPayment.newAccountAddress({
+                currency: currency
+            },
+            reload
+        );
+    }
+
+    reload();
 
     $scope.confirm = function () {
         $scope.waiting = true;
         MobbrXPayment.prepareDeposit({
-            currency: $scope.deposit_currency,
+            type: $scope.deposit_type.type,
+            currency: $scope.deposit_type.currency,
             amount: $scope.deposit_amount,
             note: $scope.deposit_note,
             return_url: $window.location.href
         }, function (data) {
             $scope.waiting = false;
-            $modalInstance.close(data.result);
+            if (data.result.type === 'bankwire') {
+                $scope.bankwire = data.result;
+            }
+            console.log(data);
+            //$modalInstance.close(data.result);
         }, function (response) {
             $scope.waiting = false;
         });
