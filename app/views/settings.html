@@ -193,19 +193,25 @@
 </pane>
 
 <pane heading="Proof">
-    <div ng-show="$mobbrStorage.user.kyc_level != 'regular'" class="row-fluid">
-        <div class="well span12 special">
-            <small>Without this information, your account is limited to receive max. €2,500 (or equivalent) and/or send max. €1,000 (or equivalent), cumulated per legal year. These limits only apply to the USD, GBP, CHF, SEK, NOK, DKK, EUR, PLN currencies.</small>
-        </div>
-    </div>
-    <div ng-show="$mobbrStorage.user.kyc_level == 'regular'" class="row-fluid">
-        <div class="well span12 special">
-            <small>This information can no longer be changed because you have a confirmed identity.</small>
+    <div class="row-fluid">
+        <div class="well span12 special" ng-switch="$mobbrStorage.user.mangopay_identity_proof">
+            <small ng-switch-when="'PROOF_REQUIRED'">
+                Without this information, your account is limited to receive max. €2,500 (or equivalent) and/or send max. €1,000 (or equivalent), cumulated per legal year. These limits only apply to the USD, GBP, CHF, SEK, NOK, DKK, EUR, PLN currencies.
+            </small>
+            <small ng-switch-when="VALIDATION_ASKED">
+                Your request has been submitted, it will be confirmed within 24-48 hours
+            </small>
+            <small ng-switch-when="'REFUSED'">
+                Your request has been refused, please try again
+            </small>
+            <small ng-switch-when="'CONFIRMED'">
+                This information can no longer be changed because you have a confirmed identity.
+            </small>
         </div>
     </div>
 
-        <fieldset ng-disabled="$parent.$mobbrStorage.user.kyc_level == 'none'">
-            <div class="control-group">
+        <fieldset ng-disabled="$mobbrStorage.user.mangopay_identity_proof == 'VALIDATION_ASKED' || $mobbrStorage.user.mangopay_identity_proof == 'VALIDATED'">
+            <!--<div class="control-group">
                 <div class="control-label">
                     <label for="identity_proof"></label>
                 </div>
@@ -213,7 +219,7 @@
                 <div class="controls">
                     <input ng-model="$mobbrStorage.user.mangopay_identity_proof" name="identity_proof" id="identity_proof" type="text" ng-disabled="true">
                 </div>
-            </div>
+            </div>-->
             <div class="control-group">
                 <div class="control-label">
                     <label for="occupation">Occupation</label>
@@ -239,12 +245,18 @@
 
             <div class="control-group">
                 <div class="control-label">
-                    <label for="identity_proof_upload">Upload scan of ID</label>
+                    <label for="identity_proof_upload">Upload scan or ID</label>
                 </div>
 
                 <div class="controls">
-                    <input ng-model="$mobbrStorage.user.mangopay_identity_proof_upload" id="identity_proof_upload" name="identity_proof_upload" type="file"
+                    <input ng-model="$mobbrStorage.user.mangopay_identity_proof_upload"
+                           id="identity_proof_upload"
+                           name="identity_proof_upload"
+                           type="file"
                            ng-file-select="uploadIdentityProof($files)">
+                    <div ng-show="uploading" class="progress progress-striped active" style="width: 30%;">
+                        <div class="bar bar-success" style="width: {{ progress }}%"></div>
+                    </div>
                 </div>
             </div>
 
