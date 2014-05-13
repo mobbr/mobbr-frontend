@@ -9,7 +9,6 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
     }
 
     function onConfirmDeposit() {
-        $location.search('transactionId', null);
         reload();
     }
 
