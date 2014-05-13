@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('UserSettingsController', function ($http, $scope, $rootScope, $upload, apiUrl, MobbrUser) {
+angular.module('mobbr.controllers').controller('UserSettingsController', function ($http, $scope, $rootScope, $upload, apiUrl, MobbrUser, mobbrMsg, mobbrSession) {
 
     $scope.new_email = $rootScope.$mobbrStorage.user.email;
 
@@ -16,11 +16,33 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
     };
 
     $scope.uploadIdentityProof = function (files) {
-        angular.forEach(files, function (file) {
-            $upload.upload({
-                url: apiUrl + '/api/user/upload_identity_proof',
-                file: file,
-                method: 'POST'
+        MobbrUser.updateUser({ user: $rootScope.$mobbrStorage.user }, function () {
+            angular.forEach(files, function (file) {
+                if (file.size > 2048 * 1024) {
+                    mobbrMsg.add({ msg: 'File size cannot exceed 2MB' });
+                } else {
+                    $scope.uploading = true;
+                    $upload.upload({
+                        url: apiUrl + '/api_v1/user/upload_identity_proof',
+                        file: file,
+                        method: 'POST'
+                    }).progress(
+                        function (e) {
+                            $scope.progress = parseInt(100 * e.loaded / e.total)
+                        }
+                    ).success(
+                        function (data, status, headers, config) {
+                            mobbrSession.setUser(data.result);
+                            $scope.uploading = false;
+                            $scope.progress = 0;
+                        }
+                    ).error(
+                        function (data, status, headers, config) {
+                            $scope.uploading = false;
+                            $scope.progress = 0;
+                        }
+                    );
+                }
             });
         });
     };
