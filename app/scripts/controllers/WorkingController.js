@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('WorkingController', function ($scope, $location, $filter, $rootScope, $modal, MobbrInvoice, MobbrPayment, MobbrUri, pdfGenerator) {
+angular.module('mobbr.controllers').controller('WorkingController', function ($scope, $location, $filter, $rootScope, MobbrInvoice, MobbrPayment, MobbrUri, invoiceDialog, pdfGenerator) {
 
     $scope.MobbrInvoice = MobbrInvoice;
     $scope.MobbrPayment = MobbrPayment;
