@@ -1,57 +1,129 @@
-<form name="deposit" ng-submit="confirm()">
+<form name="deposit" ng-submit="confirm()" ng-disabled="bankwire">
     <div class="modal-header">
         <h3>Deposit money from external account</h3>
     </div>
 
     <div class="form-horizontal modal-body">
-        <fieldset class="form-group">
-            <label class="control-label col-md-4" for="currency">
-                Currency
-            </label>
-            <div class="col-md-8">
-                <select ng-model="$parent.deposit_currency"
-                        id="currency"
-                        class="form-control"
-                        name="deposit_currency"
-                        ng-options="currency for currency in networks['iban'].currencies">
-                </select>
+        <fieldset ng-disabled="bankwire">
+            <fieldset class="form-group">
+                <label class="control-label col-md-4" for="currency">
+                    Type
+                </label>
+                <div class="col-md-8">
+                    <select ng-model="$parent.deposit_type"
+                            id="type"
+                            class="form-control"
+                            name="deposit_type"
+                            ng-options="value.name for (key, value) in networks">
+                    </select>
+                </div>
+            </fieldset>
+
+            <fieldset class="form-group">
+                <label class="control-label col-md-4" for="currency">
+                    Currency
+                </label>
+                <div class="col-md-8">
+                    <select ng-model="deposit_type.currency"
+                            id="currency"
+                            class="form-control"
+                            name="deposit_currency"
+                            ng-options="currency for currency in deposit_type.currencies">
+                    </select>
+                </div>
+            </fieldset>
+        </fieldset>
+        <fieldset ng-disabled="bankwire" ng-hide="deposit_type.type == 'btc'">
+            <fieldset class="form-group">
+                <label class="control-label col-md-4" for="amount">
+                    Amount
+                </label>
+                <div class="col-md-8">
+                    <input ng-model="$parent.deposit_amount"
+                           id="amount"
+                           class="form-control"
+                           name="deposit_amount"
+                           required
+                           type="number"
+                           step="any"
+                           min="0"
+                           max="1000000000">
+                </div>
+            </fieldset>
+
+            <fieldset class="form-group">
+                <label class="control-label col-md-4" for="country">
+                    Note
+                </label>
+                <div class="col-md-8">
+                    <textarea ng-model="$parent.deposit_note"
+                              class="form-control"
+                              id="country"
+                              name="deposit_note"></textarea>
+                </div>
+            </fieldset>
+        </fieldset>
+
+        <alert ng-show="deposit_type.type == 'btc'">
+            Make a bitcoin transfer using one of the addresses below
+        </alert>
+
+        <fieldset class="form-group" ng-show="deposit_type.type == 'btc'" ng-repeat="properties in supportedCurrencies.result['BTC']">
+            <div class="col-md-12" ng-repeat="(property, value) in properties" class="form-group">
+                <input type="text" disabled="disabled" ng-model="value" class="form-control">
             </div>
         </fieldset>
 
-        <fieldset class="form-group">
-            <label class="control-label col-md-4" for="amount">
-                Amount
-            </label>
-            <div class="col-md-8">
-                <input ng-model="$parent.deposit_amount"
-                       id="amount"
-                       class="form-control"
-                       name="deposit_amount"
-                       required
-                       type="number"
-                       step="any"
-                       min="0"
-                       max="1000000000">
-            </div>
-        </fieldset>
+        <alert ng-show="bankwire">
+            Make a bank transfer using the details below
+        </alert>
 
-        <fieldset class="form-group">
-            <label class="control-label col-md-4" for="country">
-                Note
+        <fieldset class="form-group" ng-show="bankwire">
+            <label class="control-label col-md-4">
+                Bic
             </label>
             <div class="col-md-8">
-                <textarea ng-model="$parent.deposit_note"
-                          class="form-control"
-                          id="country"
-                          name="deposit_note"></textarea>
+                <p class="form-control-static" ng-bind="bankwire.BankAccount.BIC"></p>
+            </div>
+
+            <label class="control-label col-md-4">
+                IBAN
+            </label>
+            <div class="col-md-8">
+                <p class="form-control-static" ng-bind="bankwire.BankAccount.IBAN"></p>
+            </div>
+
+            <label class="control-label col-md-4">
+                Owner
+            </label>
+            <div class="col-md-8">
+                <p class="form-control-static" ng-bind="bankwire.BankAccount.OwnerName"></p>
+            </div>
+
+            <label class="control-label col-md-4">
+                Reference
+            </label>
+            <div class="col-md-8">
+                <p class="form-control-static" ng-bind="bankwire.WireReference"></p>
             </div>
         </fieldset>
     </div>
 
     <div class="modal-footer">
-        <button type="submit" class="btn btn-success">
+        <button type="submit" class="btn btn-success" ng-show="!bankwire && deposit_type.type != 'btc'">
             <i class="glyphicon mobbrloader" ng-show="waiting"></i>
             Confirm
+        </button>
+        <button ng-click="$dismiss()"
+                class="btn btn-success"
+                ng-show="bankwire || deposit_type.type == 'btc'"
+                ng-bind="(bankwire && 'Bank' || 'Bitcoin') + ' transfer made'">
+        </button>
+        <button ng-show="deposit_type.type == 'btc'"
+                ng-click="generating = generateAddress('BTC')"
+                class="btn">
+            <i class="glyphicon mobbrloader" ng-show="generating && !generating.$resolved"></i>
+            Generate extra address
         </button>
         <button type="reset" ng-click="$dismiss()" class="btn btn-error">
             Cancel

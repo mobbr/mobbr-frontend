@@ -1,16 +1,16 @@
-<form name="proof" class="form-horizontal" ng-disabled="$parent.$mobbrStorage.user.kyc_level == 'none'">
-    <alert ng-show="$mobbrStorage.user.kyc_level != 'regular'">
+<form name="proof" class="form-horizontal" ng-disabled="$mobbrStorage.user.mangopay_identity_proof == 'VALIDATION_ASKED' || $mobbrStorage.user.mangopay_identity_proof == 'VALIDATED'">
+    <alert ng-if="$mobbrStorage.user.mangopay_identity_proof == 'PROOF_REQUIRED'">
         Without this information, your account is limited to receive max. €2,500 (or equivalent) and/or send max. €1,000 (or equivalent), cumulated per legal year. These limits only apply to the USD, GBP, CHF, SEK, NOK, DKK, EUR, PLN currencies.
     </alert>
-    <alert ng-show="$mobbrStorage.user.kyc_level == 'regular'">
+    <alert ng-if="$mobbrStorage.user.mangopay_identity_proof == 'VALIDATION_ASKED'">
+        Your request has been submitted, it will be confirmed within 24-48 hours, in the meantime your account still has limits
+    </alert>
+    <alert ng-if="$mobbrStorage.user.mangopay_identity_proof == 'REFUSED'">
+        Your request has been refused, please try again, make sure you have uploaded a readable copy of a valid ID (e.g. passport, drivers license)
+    </alert>
+    <alert ng-if="$mobbrStorage.user.mangopay_identity_proof == 'CONFIRMED'">
         This information can no longer be changed because you have a confirmed identity.
     </alert>
-
-    <fieldset class="form-group">
-        <div class="col-md-4 col-md-offset-2">
-            <input ng-model="$mobbrStorage.user.mangopay_identity_proof" class="form-control" name="identity_proof" id="identity_proof" type="text" ng-disabled="true">
-        </div>
-    </fieldset>
 
     <fieldset class="form-group">
         <label class="control-label col-md-2" for="occupation">Occupation</label>
@@ -40,6 +40,12 @@
                    name="identity_proof_upload"
                    type="file"
                    ng-file-select="uploadIdentityProof($files)">
+        </div>
+    </fieldset>
+
+    <fieldset class="form-group">
+        <div class="col-md-offset-2 col-md-4">
+            <progressbar ng-show="uploading" class="progress-striped active" value="progress" type="success"></progressbar>
         </div>
     </fieldset>
 
