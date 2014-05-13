@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-3 sidebar-left" ui-scrollfix="51">
+    <div class="col-md-3 sidebar-left">
         <h1>Wallet</h1>
         <ul class="nav nav-pills nav-stacked">
             <li ng-class="{ active: $state.includes('wallet.credit') }">
@@ -30,6 +30,12 @@
         </ul>
     </div>
     <div class="col-md-9">
+        <div class="row toolbar">
+            <fieldset class="col-md-12">
+                <button class="btn" ng-click="openDepositDialog()">Deposit</button>
+                <button class="btn" ng-click="openWithdrawDialog()">Withdraw</button>
+            </fieldset>
+        </div>
         <div ui-view class="container-fluid"></div>
     </div>
 </div>

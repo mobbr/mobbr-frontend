@@ -1,16 +1,7 @@
-<div class="modal-header">
-    <h3>Confirm or adjust your invoicing data</h3>
-    <small>Defaults are taken from your <a hef="/#/settings">settings</a> panels</small>
-</div>
-<form name="invoicing" class="form-horizontal modal-body">
-    <div class="control-group">
-        <div class="control-label">
-            <label for="name">(Business) name</label>
-        </div>
-
-        <div class="controls">
-            <input ng-model="invoice.worker_name" name="name" type="text" id="name" placeholder="e.g. Google">
-        </div>
+<form name="invoicing" ng-submit="$close(invoice)">
+    <div class="modal-header">
+        <h3>Confirm or adjust your invoicing data</h3>
+        <small>Defaults are taken from your <a hef="/#/settings">settings</a> panels</small>
     </div>
     <div class="form-horizontal modal-body">
 

@@ -18,7 +18,6 @@ $(function () {
 
 angular.module('mobbr', [
 
-        'ngRoute',
         'ngTable',
         'ngStorage',
         'ui.bootstrap',
@@ -203,7 +202,7 @@ angular.module('mobbr', [
 
         $urlRouterProvider.otherwise('/');
 
-    }).run(function ($http, $rootScope, $route, $state, $location, $window, $anchorScroll, MobbrApi, MobbrUser, mobbrMsg, mobbrSession, apiUrl, uiUrl, lightboxUrl, environment) {
+    }).run(function ($http, $rootScope, $state, $location, $window, $anchorScroll, MobbrApi, MobbrUser, mobbrMsg, mobbrSession, apiUrl, uiUrl, lightboxUrl, environment) {
 
         $rootScope.$state = $state;
         $rootScope.mobbrMsg = mobbrMsg;
@@ -266,7 +265,7 @@ angular.module('mobbr', [
             $location.hash(id);
             $anchorScroll();
         }
-    }).config(function($routeProvider, $provide) {
+    }).config(function($provide) {
 
         /**
          * overwrite angular's directive ngSwitchWhen

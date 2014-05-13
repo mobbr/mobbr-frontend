@@ -6,15 +6,6 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
 
     if (querystring) {
         $window.location.href = $window.location.href.replace(querystring, '') + querystring;
-    var querystring = $window.location.search;
-
-    if (querystring) {
-        $window.location.href = $window.location.href.replace(querystring, '') + querystring;
-    }
-
-    function onConfirmDeposit() {
-        $location.search('transactionId', null);
-        reload();
     }
 
     if ($location.search().transactionId) {
@@ -36,15 +27,6 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
     function reload() {
         $scope.balances = MobbrBalance.user();
         $scope.mutations = MobbrXPayment.get();
-        $scope.supportedCurrencies = MobbrXPayment.supportedCurrencies();
-    }
-
-    $scope.generateAddress = function (currency) {
-        $scope.generating = MobbrXPayment.newAccountAddress({
-                currency: currency
-            },
-            reload
-        );
     }
 
     $scope.openDepositDialog = function () {
