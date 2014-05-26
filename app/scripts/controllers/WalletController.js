@@ -2,27 +2,8 @@
 
 angular.module('mobbr.controllers').controller('WalletController', function ($scope, $modal, $window, $location, MobbrBalance, MobbrXPayment, MobbrPayment) {
 
-    var querystring = $window.location.search;
-
-    if (querystring) {
-        $window.location.href = $window.location.href.replace(querystring, '') + querystring;
-    }
-
-    if ($location.search().transactionId) {
-        MobbrXPayment.confirmDeposit({
-                trx_id: $location.search().transactionId
-            },
-            onConfirmDeposit,
-            onConfirmDeposit
-        );
-    }
-
     $scope.newPayments = MobbrPayment.new();
     $scope.historicPayments = MobbrPayment.historic();
-
-    function onConfirmDeposit() {
-        reload();
-    }
 
     function reload() {
         $scope.balances = MobbrBalance.user();
@@ -49,15 +30,6 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
             templateUrl: 'views/partials/withdraw_popup.html',
             controller: 'WithdrawController'
         }).result.then(reload);
-    }
-
-    if ($location.search().transactionId) {
-        MobbrXPayment.confirmDeposit({
-                trx_id: $location.search().transactionId
-            },
-            onConfirmDeposit,
-            onConfirmDeposit
-        );
     }
 
     reload();
