@@ -204,6 +204,12 @@ angular.module('mobbr', [
 
     }).run(function ($http, $rootScope, $state, $location, $window, $anchorScroll, MobbrApi, MobbrUser, mobbrMsg, mobbrSession, apiUrl, uiUrl, lightboxUrl, environment) {
 
+        var querystring = $window.location.search;
+
+        if (querystring) {
+            $window.location.href = $window.location.href.replace(querystring, '');
+        }
+
         $rootScope.$state = $state;
         $rootScope.mobbrMsg = mobbrMsg;
         $rootScope.mobbrSession = mobbrSession;
