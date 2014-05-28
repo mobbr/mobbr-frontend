@@ -5,7 +5,7 @@
 <accordion class="generate-button" close-others="false">
     <accordion-group heading="1/6: Choose button" is-open="step() >= 1" is-active="step() >= 1">
 
-        <div class="span2 button-type" ng-repeat="button in buttons">
+        <div class="col-md-2 button-type" ng-repeat="button in buttons">
             <input id="{{button.name}}" type="radio" ng-model="form.button" value="{{button.function}}" name="{{button.name}}">
             <label for="{{button.name}}">
                 <span ng-show="!button.url" ng-bind="button.name"></span>
@@ -24,7 +24,7 @@
             <div class="controls">
                 <div class="input-append">
                     <input type="text" id="url" placeholder="http://" ng-model="form.url">
-                    <a class="btn" ng-click="retrieveUrl()">Check url <i class="icon-white mobbrloader" ng-show="workingRetrieveUrl"></i></a>
+                    <a class="btn" ng-click="retrieveUrl()">Check url <i class="glyphicon mobbrloader" ng-show="workingRetrieveUrl"></i></a>
                 </div>
             </div>
         </form>
@@ -154,13 +154,13 @@
                                     <input class="input-small" id="user_share" ng-model="contributor.share" type="text" name="user_share" placeholder="e.g. '2'">
                                 </td>
                                 <td>
-                                    <button id="remove_user" class="btn btn-danger" ng-click="remove_contributeur($index);"><i class="icon-white icon-remove"></i></button>
+                                    <button id="remove_user" class="btn btn-danger" ng-click="remove_contributeur($index);"><i class="glyphicon icon-remove"></i></button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
 
-                    <button id="new_user_button" class="btn btn-success" ng-click="add_new_contributor();"><i class="icon-white icon-user"></i> Add</button>
+                    <button id="new_user_button" class="btn btn-success" ng-click="add_new_contributor();"><i class="glyphicon icon-user"></i> Add</button>
                 </div>
 
                 <div id="json_generator" class="json-generator control-group" ng-show="form.showScriptWhileEditing">

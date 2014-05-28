@@ -1,3 +1,4 @@
+<div class="container">
 <div class="page-header">
     <h1>
         Developers guide<br>
@@ -5,8 +6,8 @@
     </h1>
 </div>
 
-<div class="row-fluid" style="padding-bottom:45px">
-    <div class="pull-left span6" style="padding-top:55px">
+<div class="row" style="padding-bottom:45px">
+    <div class="pull-left col-md-6" style="padding-top:55px">
         <h4>This is how it works</h4>
         <ul>
             <li>
@@ -21,7 +22,7 @@
         </ul>
     </div>
 
-    <div class="well special pull-right span6">
+    <div class="well special pull-right col-md-6">
         <h2>The 1-minute catch-all option</h2>
         <p>If you don't want visible buttons (yet) but you do want your domain to be processable by Mobbr, just place 1 simple script in the root of your domain.</p>
         <p>Use <a href="/participation.txt">this</a> script as example, you'll <a href=""></a>figure</a> it out.</p>
@@ -29,11 +30,11 @@
 </div>
 
 <div class="well special clearfix" style="background-color: #fff; ">
-    <div class="span1"></div>
-    <div class="span7">
+    <div class="col-md-1"></div>
+    <div class="col-md-7">
         <h3 style="margin-top: 0; line-height: 1em;">Mechanism</h3>
     </div>
-    <div class="span4">
+    <div class="col-md-4">
         <p><a href="#/buttons?scrollTo=domain" class="btn" style="width: 168px;" title="Place a /participation.txt file to enable Mobbr on all your pages with just a few lines of script. This is the 'just in case' option.">The 1-minute just-in-case</a></p>
         <p><a href="#/buttons?scrollTo=buttonbasics" class="btn" style="width: 168px;" title="Place invisible metadata that Mobbr can use in your pages. Optionally place buttons to allow user to use Mobbr directly from the pages.">Mobbrize your pages</a></p>
         <p><a href="#/buttons?scrollTo=siteconnector" class="btn" style="width: 168px;" title="Connect your entire site to Mobbr at once without having to register your users or compromis their privacy.">Connect your userbase</a></p>
@@ -41,31 +42,30 @@
     <img src="/img/2013_0706_MOBBR_V4.jpg" style="padding-top:50px;"/>
 </div>
 
-<div class="row-fluid" style="padding: 45px 0;">
-    <div class="well special clearfix" style="background-color: #fff;">
-        <div class="span6" style="height: 180px; overflow: scroll; overflow-y: scroll; overflow-x: hidden;" ng-controller="ApiController">
-            <table class="apitable" width="100%" style="font-size: .8em;">
-                <tbody>
+<div class="row" style="padding: 45px 0;">
+<div class="well special clearfix" style="background-color: #fff;">
+    <div class="col-md-6" style="height: 180px; overflow: scroll; overflow-y: scroll; overflow-x: hidden;" ng-controller="ApiController">
+        <table class="apitable" width="100%" style="font-size: .8em;">
+            <tbody>
 
-                    <tr ng-repeat="apiCall in apiCalls.result">
-                         <td ng-bind="apiCall.type"></td>
-                         <td ng-bind="apiCall.endpoint"></td>
-                         <td>
+            <tr ng-repeat="apiCall in apiCalls.result">
+                <td ng-bind="apiCall.type"></td>
+                <td ng-bind="apiCall.endpoint"></td>
+                <td>
                              <span ng-repeat="param in apiCall.parameter">
                                 {{param.name }}<span ng-show="!$last">, </span>
                              </span>
 
-                         </td>
-                    </tr>
-                </tbody>
+                </td>
+            </tr>
+            </tbody>
 
-            </table>
-        </div>
-        <div class="span6">
-            <h3 style="margin-top: 0; line-height: 1em;">RESTful API</h3>
-            <p>Build your own Mobbr client or website using our API. You can use our web application (you're looking at it) to start with, it's open source.</p>
-            <p><a href="https://api.mobbr.com" target="_blank" class="btn" title="Our API has its own website, visit it for details">Go to API site</a></p>
-        </div>
+        </table>
+    </div>
+    <div class="col-md-6">
+        <h3 style="margin-top: 0; line-height: 1em;">RESTful API</h3>
+        <p>Build your own Mobbr client or website using our API. You can use our web application (you're looking at it) to start with, it's open source.</p>
+        <p><a href="https://api.mobbr.com" target="_blank" class="btn" title="Our API has its own website, visit it for details">Go to API site</a></p>
     </div>
 </div>
 
@@ -77,7 +77,7 @@
 </div>
 
 <p>
-   We supply several versions
+    We supply several versions
     of the Mobbr button
     that you can place on your pages, next to the picture, downloads, artwork, a blogpost, or anything else for which
     you would like to receive payments.
@@ -314,7 +314,7 @@
     addresses as participants. You can even use the <a href="#/siteconnector">usernames of your own site</a>!
 </p>
 
-<h3 id="metadata">Embedding meta-tags in your page's (X)HTML</h2>
+<h3 id="metadata">Embedding meta-tags in your page's (X)HTML</h3>
 <p>
     Once you have the script, you need to place it inside a <a target="_blank"
                                                                href="http://www.w3schools.com/html/html_meta.asp">meta-tag</a>
@@ -845,4 +845,5 @@ where username='{segment_3}'"}{email}{/exp:query}
 </p>
 <pre class="prettify">&lt;script src="https://{{host}}/mobbr-button.js" type="text/javascript"&gt;&lt;/script&gt;
 &lt;script type="text/javascript"&gt;mobbr.button();&lt;/script&gt;</pre>
+</div>
 </div>

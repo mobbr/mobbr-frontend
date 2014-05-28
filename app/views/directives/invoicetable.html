@@ -1,133 +1,149 @@
-<div>
-    <form class="form-inline clearfix">
-        <fieldset ng-if="buttonAction" class="pull-left">
-            <button class="btn"
-                    ng-click="buttonAction(selectedIds, selectedItems, invoiceTable)"
-                    ng-disabled="selectedIds.length == 0">
-                <i class="icon-white mobbrloader" ng-show="waiting"></i>
-                <span ng-bind="buttonText"></span>
-            </button>
-        </fieldset>
+<div class="row">
+    <fieldset class="col-md-7 toolbar" ng-if="buttonAction">
+        <button class="btn"
+                ng-click="buttonAction(selectedIds, selectedItems, invoiceTable)"
+                ng-disabled="selectedIds.length == 0">
+            <i class="glyphicon mobbrloader" ng-show="waiting"></i>
+            <span ng-bind="buttonText"></span>
+        </button>
+    </fieldset>
 
-        <fieldset class="pull-right searchbox">
-            <input ng-model="invoiceTable.$params.filter" placeholder="Search" class="search-query" type="search" id="search">
-        </fieldset>
-    </form>
-    <div class="alert" ng-show="items.length == 0" ng-bind="empty_message"></div>
-    <table ng-table="invoiceTable" ng-show="items.length > 0" class="mobbrtable table table-striped table-checkbox ng-table">
-        <thead>
-        <tr>
-            <th ng-if="selectable" class="check-box"><input id="{{ selectallid }}" type="checkbox" ng-model="$parent.$parent.select_all"></th>
-            <th ng-repeat="column in columns" ng-click="sortTableBy(column)">
-                <span ng-bind="labels[column]"></span>
-            </th>
-        </tr>
-        </thead>
-        <tbody ng-repeat="group in $groups">
-        <tr class="ng-table-group">
-            <td colspan="{{ columns.length + 1 }}">
-                <div ng-click="group.$hideRows = !group.$hideRows">
-                    <span ng-class="{ 'icon-chevron-right': group.$hideRows, 'icon-chevron-down': !group.$hideRows }"></span>
-                    <span ng-bind="group.value"></span>
-                </div>
-            </td>
-        </tr>
-        <tr ng-hide="group.$hideRows" class="ng-table-group">
-            <td>
-                <!--<input type="checkbox" ng-model="checkboxes.items[item.id]">-->
-            </td>
-            <td colspan="{{ columns.length }}">
-                <a href="{{ $rootScope.linkUrl(group.data[0].uri || group.data[0].url) }}" ng-bind="group.data[0].uri || group.data[0].url"></a>
-            </td>
-        </tr>
-        <tr ng-hide="group.$hideRows" ng-repeat="item in group.data">
-            <td ng-if="selectable" class="check-box">
-                <input type="checkbox" ng-model="checkboxes.items[item.id]">
-            </td>
-            <td ng-repeat="column in columns" ng-switch on="column" class="{{ column }}" ng-click="clickRow(item)">
-                <img ng-switch-when="gravatar"
-                     ng-src="https://secure.gravatar.com/avatar/{{ item[column] }}?s=20&default=https://mobbr.com/img/default-gravatar.png"
-                     class="gravatar xsmall img-rounded"
-                     width="20"
-                     height="20">
-                <time ng-switch-when="datetime"
-                      datetime="{{ item[column] }}">
-                    <small>{{ item[column] }}</small>
-                </time>
-                <span ng-switch-when="currency" ng-bind="item['currency'] || item['currency_iso'] || $mobbrStorage.user.currency_iso"></span>
+    <fieldset ng-if="showSearch != false" class="col-md-5 toolbar pull-right">
+        <input ng-model="invoiceTable.$params.filter" placeholder="Search" class="form-control search-query" type="search" id="search">
+    </fieldset>
+
+    <div class="col-md-12" ng-if="items.length == 0">
+        <alert class="col-md-12" ng-bind="empty_message"></alert>
+    </div>
+
+    <div class="col-md-12">
+        <table ng-table="invoiceTable" ng-show="items.length > 0" class="mobbrtable table table-striped table-checkbox ng-table">
+            <thead>
+            <tr>
+                <th ng-if="selectable" class="check-box"><input id="{{ selectallid }}" type="checkbox" ng-model="$parent.$parent.select_all"></th>
+                <th ng-repeat="column in columns" ng-click="sortTableBy(column)">
+                    <span ng-bind="labels[column] || column"></span>
+                </th>
+            </tr>
+            </thead>
+            <tbody ng-repeat="group in $groups">
+            <tr class="ng-table-group">
+                <td colspan="{{ columns.length + 1 }}">
+                    <div ng-click="group.$hideRows = !group.$hideRows">
+                        <span ng-class="{ 'icon-chevron-right': group.$hideRows, 'icon-chevron-down': !group.$hideRows }"></span>
+                        <span ng-bind="group.value"></span>
+                    </div>
+                </td>
+            </tr>
+            <tr ng-hide="group.$hideRows" class="ng-table-group">
+                <td>
+                    <!--<input type="checkbox" ng-model="checkboxes.items[item.id]">-->
+                </td>
+                <td colspan="{{ columns.length }}">
+                    <a href="{{ $rootScope.linkUrl(group.data[0].uri || group.data[0].url) }}" ng-bind="group.data[0].uri || group.data[0].url"></a>
+                </td>
+            </tr>
+            <tr ng-hide="group.$hideRows" ng-repeat="item in group.data">
+                <td ng-if="selectable" class="check-box">
+                    <input type="checkbox" ng-model="checkboxes.items[item.id]">
+                </td>
+                <td ng-repeat="column in columns" ng-switch on="column" class="{{ column }}" ng-click="clickRow(item)">
+                    <img ng-switch-when="gravatar"
+                         ng-src="https://secure.gravatar.com/avatar/{{ item[column] }}?s=20&default=https://mobbr.com/img/default-gravatar.png"
+                         class="gravatar xsmall img-rounded"
+                         width="20"
+                         height="20">
+                    <time ng-switch-when="datetime"
+                          datetime="{{ item[column] }}">
+                        <small>{{ item[column] }}</small>
+                    </time>
+                    <span ng-switch-when="currency" ng-bind="item['currency'] || item['currency_iso'] || $mobbrStorage.user.currency_iso"></span>
                 <span ng-switch-when="amount"
                       ng-bind="item[column] | mobbrcurrency"
-                      ng-class="{ 'text-error': item.amount < 0 }"
+                      ng-class="{ 'text-danger': item.amount < 0 }"
                       class="nowrap"></span>
-                <span ng-switch-default ng-bind="item[column]"></span>
-            </td>
-        </tr>
-        </tbody>
-        <tbody ng-if="!$groups">
-        <tr ng-repeat="item in $data">
-            <td ng-if="selectable" class="checkbox">
-                <input type="checkbox" ng-model="checkboxes.items[item.id]" />
-            </td>
-            <td ng-repeat="column in columns" ng-switch on="column" class="{{ column }}" ng-click="clickRow(item)">
-                <img ng-switch-when="gravatar"
-                     ng-src="https://secure.gravatar.com/avatar/{{ item[column] }}?s=20&default=https://mobbr.com/img/default-gravatar.png"
-                     class="gravatar xsmall img-rounded"
-                     width="20"
-                     height="20">
-                <time ng-switch-when="datetime"
-                      datetime="{{ item[column] }}">
-                    <small>{{ item[column] }}</small>
-                </time>
-                <span ng-switch-when="currency" ng-bind="item['currency'] || item['currency_iso'] || $mobbrStorage.user.currency_iso"></span>
-                <span ng-switch-when="amount"
-                      ng-bind="item[column] | mobbrcurrency"
-                      ng-class="{ 'text-error': item.amount < 0 }"
-                      class="nowrap"></span>
-                <span ng-switch-default ng-bind="item[column]"></span>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <div ng-if="items.length > 0">
-        <div ng-if="invoiceTable.settings().counts.length" class="btn-group pull-right">
-            <button ng-repeat="count in invoiceTable.settings().counts"
-                    type="button"
-                    ng-class="{
-                                'btn-primary':
-                                    invoiceTable.count() == count
-                                    && invoiceTable.settings().$scope.pages.length > 1,
-                                'disabled':
-                                    invoiceTable.settings().$scope.pages.length < 2
-                                    || invoiceTable.count() == count
-                              }"
-                    ng-click="invoiceTable.count(count)" class="btn btn-mini">
-                <span ng-bind="count"></span>
-            </button>
-        </div>
-        <div class="btn-group">
-            <button ng-repeat="page in invoiceTable.settings().$scope.pages"
-                    ng-class="{
-                                'disabled': !page.active,
-                                'btn-primary': page.number == invoiceTable.page()
+                    <span ng-switch-default ng-bind="item[column]"></span>
+                </td>
+            </tr>
+            </tbody>
+            <tbody ng-if="!$groups">
+            <tr ng-repeat="item in $data" ng-class="{ danger: item['faileddatetime'], warning: (!item['faileddatetime'] && !item['paiddatetime'] && item['announceddatetime']) }">
+                <td ng-if="selectable" class="checkbox">
+                    <input type="checkbox" ng-model="checkboxes.items[item.id]" />
+                </td>
+                <td ng-repeat="column in columns" ng-switch on="column" class="{{ column }}" ng-click="clickRow(item)">
+                    <img ng-switch-when="gravatar"
+                         ng-src="https://secure.gravatar.com/avatar/{{ (item['gravatar'] || item['.gravatar']) }}?s=20&default=https://mobbr.com/img/default-gravatar.png"
+                         class="gravatar xsmall img-rounded"
+                         width="20"
+                         height="20">
+                    <time ng-switch-when="datetime || paiddatetime || faileddatetime || announceddatetime"
+                          datetime="{{ item[column] || item['faileddatetime'] || item['announceddatetime'] }}">
+                        <small>{{ item[column] || item['faileddatetime'] || item['announceddatetime'] }}</small>
+                    </time>
+                    <span ng-switch-when="receive_address" ng-bind="(item['paiddatetime'] && item['receive_address']) || (item['faileddatetime'] && item['service_message']) || (item['announceddatetime'] && 'Pending')"></span>
+                    <span ng-switch-when="username" ng-bind="item['username'] || item['.org-id']"></span>
+                    <span ng-switch-when="percentage" ng-bind="((item['percentage'] || item['.percentage']) | mobbrcurrency) + '%'"></span>
+                    <span ng-switch-when="currency_description" ng-bind="$rootScope.currenciesMap.result[item['currency'] || item['currency_iso']]"></span>
+                    <span ng-switch-when="currency" ng-bind="item['currency'] || item['currency_iso'] || $mobbrStorage.user.currency_iso"></span>
+                    <span ng-switch-when="amount || fee || spendable"
+                          ng-bind="item[column] | mobbrcurrency"
+                          ng-class="{ 'text-danger': item.amount < 0 }"
+                          class="nowrap"></span>
+                    <span ng-switch-when="senders || receivers">
+                        <img ng-repeat="i in item[column]"
+                             ng-src="https://secure.gravatar.com/avatar/{{ i.gravatar }}?s=20&default=https://mobbr.com/img/default-gravatar.png"
+                             class="gravatar small img-rounded">
+                    </span>
+                    <span ng-switch-default ng-bind="item[column]"></span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-md-6" ng-if="invoiceTable.settings().$scope.pages.length > 0">
+        <ul class="pagination pagination-sm">
+            <li ng-repeat="page in invoiceTable.settings().$scope.pages"
+                ng-class="{
+                                'disabled': !page.active && !(
+                                    page.number == invoiceTable.page()
+                                        && page.type != 'prev'
+                                        && page.type != 'next'
+                                ),
+                                'active': page.number == invoiceTable.page()
                                     && page.type != 'prev'
                                     && page.type != 'next'
                                     && page.type != 'more'
                               }"
-                    ng-switch="page.type"
-                    class="btn btn-mini">
+                ng-switch="page.type">
                 <span ng-switch-when="prev" ng-click="invoiceTable.page(page.number)">&laquo;</span>
-                <span ng-switch-when="first" ng-click="invoiceTable.page(page.number)">
-                    <span ng-bind="page.number"></span>
-                </span>
-                <span ng-switch-when="page" ng-click="invoiceTable.page(page.number)">
-                    <span ng-bind="page.number"></span>
-                </span>
+                    <span ng-switch-when="first" ng-click="invoiceTable.page(page.number)">
+                        <span ng-bind="page.number"></span>
+                    </span>
+                    <span ng-switch-when="page" ng-click="invoiceTable.page(page.number)">
+                        <span ng-bind="page.number"></span>
+                    </span>
                 <span ng-switch-when="more" ng-click="invoiceTable.page(page.number)">&#8230;</span>
-                <span ng-switch-when="last" ng-click="invoiceTable.page(page.number)">
-                    <span ng-bind="page.number"></span>
-                </span>
+                    <span ng-switch-when="last" ng-click="invoiceTable.page(page.number)">
+                        <span ng-bind="page.number"></span>
+                    </span>
                 <span ng-switch-when="next" ng-click="invoiceTable.page(page.number)">&raquo;</span>
-            </button>
-        </div>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-6 pull-right" ng-if="invoiceTable.total() > invoiceTable.settings().counts[0]">
+        <ul ng-if="invoiceTable.settings().counts.length" class="pagination pagination-sm pull-right">
+            <li ng-repeat="count in invoiceTable.settings().counts"
+                ng-class="{
+                            'active':
+                                invoiceTable.count() == count,
+                            'disabled':
+                                count > invoiceTable.total()
+                            }"
+                ng-click="invoiceTable.count(count)">
+                <span ng-bind="count"></span>
+            </li>
+        </ul>
     </div>
 </div>

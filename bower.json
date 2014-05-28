@@ -6,17 +6,18 @@
     "angular-route": "~1.2.14",
     "angular-resource": "1.2.13",
     "ngstorage": "~0.2.3",
-    "angular-bootstrap": "~0.3.0",
+    "angular-bootstrap": "~0.10.0",
     "modernizr": "~2.6.2",
     "es5-shim": "~2.1.0",
-    "sass-bootstrap": "2.3.1",
+    "sass-bootstrap": "~3.0.0",
     "angularjs-file-upload": "~1.1.0",
     "ng-table": "~0.3.1",
     "file-saver": "*",
     "jspdf": "git://github.com/MrRio/jsPDF.git#a52028fe58f949a1bd32a7b5818a8e90ee954b3e",
-      "mobbr-api-angular": "git://github.com/mobbr/mobbr-api-angular#785b6e991aa9110a07bc6d70da9f5b3728596c79",
+    "mobbr-api-angular": "git://github.com/mobbr/mobbr-api-angular#7d4342d9d916d8f9bf352387a8151c81722f0179",
     "mobbr-button": "https://handijk@bitbucket.org/mobbr/mobbr-button.git#f47a2b11242842efd93e51d78f36266242841ae6",
-    "pines-notify": "~2.0.0"
+    "angular-ui-router": "~0.2.10",
+    "angular-ui-utils": "bower-scrollfix"
   },
   "ignore": [
     "**/.*",

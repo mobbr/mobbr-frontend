@@ -1,0 +1,88 @@
+<form class="form-horizontal" name="identity">
+    <alert ng-if="$mobbrStorage.user.kyc_level == 'none'">
+        Without this information, you cannot use our FIAT-currencies (USD, GBP, CHF, SEK, NOK, DKK, EUR, PLN). These restrictions do not apply to other currencies.
+    </alert>
+
+    <alert ng-if="$mobbrStorage.user.kyc_level == 'regular'">
+        This information can no longer be changed because you have a confirmed identity.
+    </alert>
+
+    <iframe ng-if="$mobbrStorage.user.kyc_level == 'none'" class="eula" src="https://api.mobbr.com/mangopay-terms-of-use.txt"></iframe>
+
+    <fieldset ng-if="$mobbrStorage.user.kyc_level == 'none'" class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="accept_mango" ng-true-value="1" ng-false-value="0">
+                    I accept these terms
+                    <span ng-bind="$mobbrStorage.user.kyc_level"></span>
+                </label>
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset class="form-group">
+        <label class="control-label col-md-2" for="firstname">First name</label>
+        <div class="col-md-4">
+            <input ng-model="$mobbrStorage.user.firstname" class="form-control" name="firstname" type="text" id="firstname" placeholder="e.g. John">
+        </div>
+    </fieldset>
+
+    <fieldset class="form-group">
+        <label class="control-label col-md-2" for="lastname">Last name</label>
+        <div class="col-md-4">
+            <input ng-model="$mobbrStorage.user.lastname" class="form-control" name="lastname" type="text" id="lastname" placeholder="e.g. Smith">
+        </div>
+    </fieldset>
+
+    <fieldset class="form-group">
+        <label class="control-label col-md-2" for="birthday">Birth day</label>
+        <div class="col-md-4">
+            <input ng-model="$mobbrStorage.user.birthday" name="birthday" type="date" id="birthday" placeholder="e.g. 1966-08-17" class="form-control">
+        </div>
+    </fieldset>
+
+    <fieldset class="form-group">
+        <label class="control-label col-md-2" for="address">Address</label>
+        <div class="col-md-4">
+            <input ng-model="$mobbrStorage.user.address" name="address" type="text" id="address" placeholder="e.g. Sesame Street, Manhattan" class="form-control">
+        </div>
+    </fieldset>
+
+    <fieldset class="form-group">
+        <label class="control-label col-md-2" for="country_of_residence">Country of residence</label>
+        <div class="col-md-4">
+            <select class="form-control"
+                    id="country_of_residence"
+                    name="country_of_residence"
+                    ng-model="$mobbrStorage.user.country_of_residence"
+                    ng-options="value as key for (value, key) in countriesMap.result | orderBy: 'key'">
+                <option value="">No country</option>
+            </select>
+        </div>
+    </fieldset>
+
+    <fieldset class="form-group">
+        <label class="control-label col-md-2" for="nationality">Country of birth</label>
+        <div class="col-md-4">
+            <select class="form-control"
+                    id="nationality"
+                    name="nationality"
+                    ng-model="$mobbrStorage.user.nationality"
+                    ng-options="value as key for (value, key) in countriesMap.result">
+                <option value="">No country</option>
+            </select>
+        </div>
+    </fieldset>
+
+    <fieldset class="form-group">
+        <div class="col-md-offset-2 col-md-4">
+            <button ng-disabled="(waitingsettings && !waitingsettings.$resolved) || ($mobbrStorage.user.kyc_level == 'none' && accept_mango == 0)"
+                    ng-click="submitSettings(settings)"
+                    class="btn btn-success">
+                <i class="glyphicon mobbrloader" ng-show="waitingsettings && !waitingsettings.$resolved"></i>
+                <span ng-bind="$mobbrStorage.user.kyc_level == 'none' && 'Enable FIAT currencies' || 'Update'"></span>
+            </button>
+        </div>
+    </fieldset>
+</form>
