@@ -25,7 +25,7 @@ angular.module('mobbr.controllers').controller('DepositController', function ($s
 
     $scope.deposit_type = $scope.networks.creditcard;
 
-    function reload() {
+    function loadCurrencies() {
         $scope.supportedCurrencies = MobbrXPayment.supportedCurrencies();
     }
 
@@ -33,15 +33,15 @@ angular.module('mobbr.controllers').controller('DepositController', function ($s
         $scope.generating = MobbrXPayment.newAccountAddress({
                 currency: currency
             },
-            reload
+            loadCurrencies
         );
     }
 
-    reload();
+    loadCurrencies();
 
     $scope.confirm = function () {
         $scope.waiting = true;
-        MobbrXPayment.prepareDeposit({
+        MobbrXPayment.deposit({
             type: $scope.deposit_type.type,
             currency: $scope.deposit_type.currency,
             amount: $scope.deposit_amount,
@@ -52,8 +52,9 @@ angular.module('mobbr.controllers').controller('DepositController', function ($s
             if (data.result.type === 'bankwire') {
                 $scope.bankwire = data.result;
             }
-            console.log(data);
-            //$modalInstance.close(data.result);
+            if (data.result.type === 'creditcard') {
+                $window.location.href = data.result.url;
+            }
         }, function (response) {
             $scope.waiting = false;
         });
