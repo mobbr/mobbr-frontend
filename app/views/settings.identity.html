@@ -13,7 +13,7 @@
         <div class="col-sm-offset-2 col-sm-10">
             <div class="checkbox">
                 <label>
-                    <input type="checkbox" ng-model="accept_mango">
+                    <input type="checkbox" ng-model="accept_mango" ng-true-value="1" ng-false-value="0">
                     I accept these terms
                     <span ng-bind="$mobbrStorage.user.kyc_level"></span>
                 </label>
@@ -77,7 +77,7 @@
 
     <fieldset class="form-group">
         <div class="col-md-offset-2 col-md-4">
-            <button ng-disabled="(waitingsettings && !waitingsettings.$resolved) || ($mobbrStorage.user.kyc_level == 'none' && !accept_mango) || identity.$pristine"
+            <button ng-disabled="(waitingsettings && !waitingsettings.$resolved) || ($mobbrStorage.user.kyc_level == 'none' && accept_mango == 0)"
                     ng-click="submitSettings(settings)"
                     class="btn btn-success">
                 <i class="glyphicon mobbrloader" ng-show="waitingsettings && !waitingsettings.$resolved"></i>
