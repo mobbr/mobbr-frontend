@@ -1,62 +1,56 @@
 'use strict';
 
-angular.module('mobbr.services.timeout', [
+angular.module('mobbr.services').factory('idleTimeout', function ($rootScope, $timeout, $sessionStorage) {
 
-        'ngStorage'
+    var timer,
+        timeout = 1000 * 60 * 60,
+        interval = 1000,
+        idletime = 0,
+        running = false;
 
-    ]).factory('idleTimeout', function ($rootScope, $timeout, $sessionStorage) {
+    function resetIdleTime() {
+        $sessionStorage.idletime = 0;
+    }
 
-        var timer,
-            timeout = 1000 * 60 * 60,
-            interval = 1000,
-            idletime = 0,
-            running = false;
-
-        function resetIdleTime() {
+    function activityInterval() {
+        if ($sessionStorage.idletime < idletime) idletime = 0;
+        idletime += interval;
+        $sessionStorage.idletime = idletime;
+        if ($sessionStorage.idletime > timeout) {
+            $rootScope.$emit('idleTimeout:timeout');
             $sessionStorage.idletime = 0;
         }
-
-        function activityInterval() {
-            if ($sessionStorage.idletime < idletime) idletime = 0;
-            idletime += interval;
-            $sessionStorage.idletime = idletime;
-            if ($sessionStorage.idletime > timeout) {
-                $rootScope.$emit('idleTimeout:timeout');
-                $sessionStorage.idletime = 0;
-            }
-            if (running === true) {
-                timer = $timeout(activityInterval, interval);
-            }
+        if (running === true) {
+            timer = $timeout(activityInterval, interval);
         }
-
-        function start() {
-            resetIdleTime();
-            running = true;
-            activityInterval();
-        }
-
-        function stop() {
-            running = false;
-            $timeout.cancel(timer);
-        }
-
-        $rootScope.$on('mobbrApi:authchange', function (user) {
-            user && start() || stop();
-        });
-
-        return {
-            start: start,
-            stop: stop,
-            reset: resetIdleTime
-        };
-
-    }).directive('idleTimeout', function (idleTimeout) {
-
-        return {
-            restrict: 'A',
-            link: function (scope, element, attrs) {
-                element.bind('mousemove keypress mousewheel wheel DOMMouseScroll', idleTimeout.reset);
-            }
-        };
     }
-);;
+
+    function start() {
+        resetIdleTime();
+        running = true;
+        activityInterval();
+    }
+
+    function stop() {
+        running = false;
+        $timeout.cancel(timer);
+    }
+
+    $rootScope.$on('mobbrApi:authchange', function (user) {
+        user && start() || stop();
+    });
+
+    return {
+        start: start,
+        stop: stop,
+        reset: resetIdleTime
+    };
+
+}).directive('idleTimeout', function (idleTimeout) {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attrs) {
+            element.bind('mousemove keypress mousewheel wheel DOMMouseScroll', idleTimeout.reset);
+        }
+    };
+});

@@ -18,7 +18,9 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
             selectable: '=',
             sort: '=',
             order: '=',
-            clickRow: '='
+            clickRow: '=',
+            showSearch: '=',
+            index: '='
         },
         controller: function ($scope, $attrs, $rootScope, $filter, ngTableParams) {
 
@@ -36,13 +38,13 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
             $scope.labels = {
                 username: 'Name',
                 worker_username: 'Name',
-                role: 'Role',
-                currency: 'Currency',
-                currency_iso: 'Currency',
-                amount: 'Amount',
                 expiration: 'Expiration days',
                 datetime: 'Date/time',
-                title: 'Title'
+                paiddatetime: 'Date/time',
+                payment_service: 'Payment service',
+                receive_address: 'Receive address',
+                currency_description: 'Currency description',
+                gravatar: ' '
             };
 
             $scope.sortTableBy = function (column) {
@@ -68,10 +70,22 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
                     total: 0,
                     getData: function ($defer, params) {
 
-                        $scope.api(reqparams, function (response) {
+                        $scope.api.$promise.then(function (response) {
 
-                            var data = response.result,
-                                filteredData = $scope.invoiceTable.filter() ?
+                            var data;
+
+                            if ($scope.index instanceof Array) {
+                                data = response.result;
+                                for (var i = 0, l = $scope.index.length; i < l; i++) {
+                                    data = data[$scope.index[i]];
+                                }
+                            } else if ($scope.index) {
+                                data = response.result[$scope.index]
+                            } else {
+                                data = response.result;
+                            }
+
+                            var filteredData = $scope.invoiceTable.filter() ?
                                     $filter('filter')(data, $scope.invoiceTable.filter()) :
                                     data,
                                 orderedData = $scope.invoiceTable.sorting() ?
@@ -87,6 +101,7 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
 
             // wait for reload event
             $scope.$on('invoicetable', function (e, id) {
+                console.log($scope.id, id);
                 if ($scope.id === id) {
                     angular.forEach($scope.checkboxes.items, function (item, key) {
                         $scope.checkboxes.items[key] = false;

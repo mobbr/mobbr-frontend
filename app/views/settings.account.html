@@ -1,0 +1,62 @@
+<alert>
+    We use gravatars, linked to your email address. Create your profile <a target="_blank" href="http://gravatar.com">here</a>.
+</alert>
+<form name="changeemail" class="form-horizontal" novalidate>
+    <fieldset class="form-group">
+        <label class="control-label col-md-2">Username</label>
+        <div class="col-md-4">
+            <input ng-model="$mobbrStorage.user.username" class="form-control" name="username" type="text" ng-disabled="true">
+        </div>
+    </fieldset>
+
+    <fieldset class="form-group">
+        <label class="control-label col-md-2">E-mail address</label>
+        <div class="col-md-4">
+            <input ng-model="new_email" class="form-control" name="email" type="email" required>
+            <span ng-show="changeemail.email.$dirty && changeemail.email.$error.required" class="help-inline">Enter a email address.</span>
+            <span ng-show="changeemail.email.$dirty && changeemail.email.$error.email" class="help-inline">Enter a valid email address.</span>
+        </div>
+    </fieldset>
+
+    <fieldset class="form-group">
+        <div class="col-md-offset-2 col-md-4">
+            <button ng-click="submitEmail(changeemail)"
+                    ng-disabled="(waitingemail && !waitingemail.$resolved) || !changeemail.$valid || $mobbrStorage.user.email == new_email"
+                    type="submit"
+                    class="btn btn-success">
+                <i class="glyphicon mobbrloader" ng-show="waitingemail && !waitingemail.$resolved"></i>
+                Change email address
+            </button>
+        </div>
+    </fieldset>
+</form>
+<form name="changepassword" class="form-horizontal" novalidate>
+    <fieldset class="form-group">
+        <label class="control-label col-md-2" for="new_password">New password</label>
+        <div class="col-md-4">
+            <input ng-model="new_password" class="form-control" id="new_password" name="new_password" type="password" required ng-pattern="/^.*(?=.{8,})(?=.*\d)(?=.*[a-z]).*$/">
+            <span ng-show="changepassword.new_password.$dirty && changepassword.new_password.$error.required" class="help-inline">Enter a new password</span>
+            <span ng-show="changepassword.new_password.$dirty && changepassword.new_password.$error.pattern" class="help-inline">Minimal 8 charactes, uppercase, lowercase and numbers</span>
+        </div>
+    </fieldset>
+
+    <fieldset class="form-group">
+        <label class="control-label col-md-2" for="new_password2">New password again</label>
+        <div class="col-md-4">
+            <input class="form-control" name="new_password2" id="new_password2" ng-model="new_password_control" type="password" required pw-check="new_password">
+            <span ng-show="changepassword.new_password2.$dirty && changepassword.new_password2.$error.pwmatch" class="help-inline">Passwords do not match</span>
+        </div>
+    </fieldset>
+
+    <fieldset class="form-group">
+        <div class="col-md-offset-2 col-md-4">
+            <button ng-click="submitPassword(changepassword)"
+                    ng-disabled="!changepassword.$valid || (waitingpassword && !waitingpassword.$resolved) || !changepassword.$dirty"
+                    type="submit"
+                    class="btn btn-success">
+                <i class="glyphicon mobbrloader" ng-show="waitingpassword && !waitingpassword.$resolved"></i>
+                Change password
+            </button>
+        </div>
+    </fieldset>
+</form>

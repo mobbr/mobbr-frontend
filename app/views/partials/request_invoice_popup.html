@@ -1,76 +1,89 @@
-<div class="modal-header">
-    <h3>Confirm or adjust your invoicing data</h3>
-    <small>Defaults are taken from your <a hef="/#/settings">settings</a> panels</small>
-</div>
-<form name="invoicing" class="form-horizontal modal-body">
-    <div class="control-group">
-        <div class="control-label">
-            <label for="name">(Business) name</label>
-        </div>
-
-        <div class="controls">
-            <input ng-model="invoice.customer_name" name="name" type="text" id="name" placeholder="e.g. Google">
-        </div>
+<form ng-submit="$close(invoice)" name="invoicing" class="form-horizontal modal-body">
+    <div class="modal-header">
+        <h3>Confirm or adjust your invoicing data</h3>
+        Defaults are taken from your <a hef="/#/settings">settings</a> panels
     </div>
+    <div class="form-horizontal modal-body">
 
-    <div class="control-group">
-        <div class="control-label">
-            <label for="name">Full address</label>
-        </div>
+        <fieldset class="form-group">
+            <label class="control-label col-md-4" for="name">
+                (Business) name
+            </label>
+            <div class="col-md-8">
+                <input ng-model="invoice.customer_name"
+                       name="name"
+                       type="text"
+                       id="name"
+                       placeholder="e.g. Google"
+                       class="form-control">
+            </div>
+        </fieldset>
 
-        <div class="controls">
-            <input ng-model="invoice.customer_address" name="address" type="text" id="address" placeholder="e.g. Sesame Street 3, Metropolis">
-        </div>
+        <fieldset class="form-group">
+            <label class="control-label col-md-4" for="address">
+                Full address
+            </label>
+            <div class="col-md-8">
+                <input ng-model="invoice.customer_address"
+                       class="form-control"
+                       name="address"
+                       type="text"
+                       id="address"
+                       placeholder="e.g. Sesame Street 3, Metropolis">
+            </div>
+        </fieldset>
+
+        <fieldset class="form-group">
+            <label class="control-label col-md-4" for="country">
+                Country
+            </label>
+            <div class="col-md-8">
+                <select ng-model="invoice.customer_country"
+                        ng-options="value as key for (value, key) in countriesMap.result"
+                        id="country"
+                        name="country"
+                        class="form-control">
+                    <option value="">No country</option>
+                </select>
+            </div>
+        </fieldset>
+
+        <fieldset class="form-group">
+            <label class="control-label col-md-4" for="vat-number">
+                VAT-number
+            </label>
+            <div class="col-md-8">
+                <input ng-model="invoice.customer_vat_number"
+                       name="vat_number"
+                       type="text"
+                       id="vat-number"
+                       placeholder="e.g. NL001234567B01"
+                       class="form-control">
+            </div>
+        </fieldset>
+
+        <fieldset class="form-group">
+            <label class="control-label col-md-4" for="status">
+                Legal entity
+            </label>
+            <div class="col-md-8">
+                <select ng-model="invoice.customer_status"
+                        name="status"
+                        type="text"
+                        id="status"
+                        class="form-control">
+                    <option value="private">Private</option>
+                    <option value="enterprise">Enterprise</option>
+                </select>
+            </div>
+        </fieldset>
     </div>
-
-    <div class="control-group">
-        <div class="control-label">
-            <label for="country">Country</label>
-        </div>
-
-        <div class="controls">
-            <select id="country" name="country" ng-model="invoice.customer_country"
-                    ng-options="value as key for (value, key) in countriesMap.result">
-                <option value="">No country</option>
-            </select>
-        </div>
-    </div>
-
-    <div class="control-group">
-        <div class="control-label">
-            <label for="vat-number">VAT-number</label>
-        </div>
-
-        <div class="controls">
-            <input ng-model="invoice.customer_vat_number" name="vat_number" type="text" id="vat-number" placeholder="e.g. NL001234567B01">
-        </div>
-    </div>
-
-    <!--<div class="control-group">
-        <div class="control-label">
-            <label for="vat-rate">Required VAT-rate (%)</label>
-        </div>
-
-        <div class="controls">
-            <input ng-model="invoice.customer_vat_rate" name="vat_rate" type="text" id="vat-rate" placeholder="e.g. 21"><br/>
-            <small>Indicate the rate for this type of work in <b>your</b> country</small>
-        </div>
-    </div>-->
-
-    <div class="control-group">
-        <div class="control-label">
-            <label for="status">Legal entity</label>
-        </div>
-
-        <div class="controls">
-            <select ng-model="invoice.customer_status" name="status" type="text" id="status">
-                <option value="private">Private</option>
-                <option value="enterprise">Enterprise</option>
-            </select>
-        </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-success">
+            <i class="glyphicon mobbrloader" ng-show="waiting"></i> Confirm
+        </button>
+        <button type="reset" ng-click="$dismiss()" class="btn btn-error">
+            Cancel
+        </button>
     </div>
 </form>
-<div class="modal-footer">
-    <button ng-click="confirm()" class="btn btn-success"><i class="icon-white mobbrloader" ng-show="waiting"></i> Confirm</button>
-    <button ng-click="close()" class="btn btn-error">Cancel</button>
-</div>
