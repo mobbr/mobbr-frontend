@@ -9,13 +9,12 @@
 
     <iframe ng-if="$mobbrStorage.user.kyc_level == 'none'" class="eula" src="https://api.mobbr.com/mangopay-terms-of-use.txt"></iframe>
 
-    <fieldset ng-if="$mobbrStorage.user.kyc_level == 'none'" class="form-group">
+    <fieldset ng-show="$mobbrStorage.user.kyc_level == 'none'" class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
             <div class="checkbox">
                 <label>
-                    <input type="checkbox" ng-model="accept_mango" ng-true-value="1" ng-false-value="0">
+                    <input type="checkbox" ng-model="accept_mango">
                     I accept these terms
-                    <span ng-bind="$mobbrStorage.user.kyc_level"></span>
                 </label>
             </div>
         </div>
@@ -77,7 +76,7 @@
 
     <fieldset class="form-group">
         <div class="col-md-offset-2 col-md-4">
-            <button ng-disabled="(waitingsettings && !waitingsettings.$resolved) || ($mobbrStorage.user.kyc_level == 'none' && accept_mango == 0)"
+            <button ng-disabled="(waitingsettings && !waitingsettings.$resolved) || ($mobbrStorage.user.kyc_level == 'none' && accept_mango == 0) || identity.$pristine"
                     ng-click="submitSettings(settings)"
                     class="btn btn-success">
                 <i class="glyphicon mobbrloader" ng-show="waitingsettings && !waitingsettings.$resolved"></i>
