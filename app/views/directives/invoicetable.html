@@ -67,7 +67,7 @@
             </tr>
             </tbody>
             <tbody ng-if="!$groups">
-            <tr ng-repeat="item in $data" ng-class="{ danger: item['faileddatetime'] }">
+            <tr ng-repeat="item in $data" ng-class="{ danger: item['faileddatetime'], warning: (!item['faileddatetime'] && !item['paiddatetime'] && item['announceddatetime']) }">
                 <td ng-if="selectable" class="checkbox">
                     <input type="checkbox" ng-model="checkboxes.items[item.id]" />
                 </td>
@@ -77,10 +77,11 @@
                          class="gravatar xsmall img-rounded"
                          width="20"
                          height="20">
-                    <time ng-switch-when="datetime || paiddatetime"
-                          datetime="{{ item[column] || item['faileddatetime'] }}">
-                        <small>{{ item[column] || item['faileddatetime'] }}</small>
+                    <time ng-switch-when="datetime || paiddatetime || faileddatetime || announceddatetime"
+                          datetime="{{ item[column] || item['faileddatetime'] || item['announceddatetime'] }}">
+                        <small>{{ item[column] || item['faileddatetime'] || item['announceddatetime'] }}</small>
                     </time>
+                    <span ng-switch-when="receive_address" ng-bind="(item['paiddatetime'] && item['receive_address']) || (item['faileddatetime'] && item['service_message']) || (item['announceddatetime'] && 'Pending')"></span>
                     <span ng-switch-when="username" ng-bind="item['username'] || item['.org-id']"></span>
                     <span ng-switch-when="percentage" ng-bind="((item['percentage'] || item['.percentage']) | mobbrcurrency) + '%'"></span>
                     <span ng-switch-when="currency_description" ng-bind="$rootScope.currenciesMap.result[item['currency'] || item['currency_iso']]"></span>
