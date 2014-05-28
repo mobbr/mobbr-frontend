@@ -1,80 +1,65 @@
-<div class="row-fluid">
-    <div class="well span12 special">
-        <small>This is a publicly accessible but secret URL. Be careful with whom you share it.</small>
-    </div>
-</div>
+<alert>
+    This is a publicly accessible but secret URL. Be careful with whom you share it.
+</alert>
 
-<div class="page-header">
-    <h1>
-        Payment receipt <span ng-hide="payment.result.meta_data.paiddatetime">(pending)</span><br>
-        <small ng-show="!external"><a href="{{ linkUrl(payment.result.meta_data.url) }}">{{ payment.response.meta_data.title || payment.result.meta_data.url }}</a></small>
-        <small ng-show="external">Payment service: {{ payment.result.meta_data.payment_service }}</small><br>
-    </h1>
-</div>
-
-<div class="row-fluid">
-    <div class="span8">
+<div class="row">
+    <div class="col-md-8">
+        <div class="page-header">
+            <h1>
+                Payment receipt <span ng-hide="payment.result.meta_data.paiddatetime">(pending)</span><br>
+                <small ng-show="!external"><a href="{{ linkUrl(payment.result.meta_data.url) }}">{{ payment.response.meta_data.title || payment.result.meta_data.url }}</a></small>
+                <small ng-show="external">Payment service: {{ payment.result.meta_data.payment_service }}</small><br>
+            </h1>
+        </div>
         <a href="{{ linkUrl(payment.result.meta_data.url) }}" ng-show="payment.result.meta_data.img_url">
             <img ng-src="{{ payment.result.meta_data.img_url }}" class="gravatar receipt-thumb">
         </a>
-
-        <div ng-show="external">
-            <div ng-show="payment.result.meta_data.amount > 0">
-                <h6><small>Receive address</small></h6>
-                <div class="clearfix"><span ng-bind="payment.result.meta_data.receive_address"></span></div>
-            </div>
-            <div ng-show="payment.result.meta_data.amount < 0">
-                <h6><small>Send address</small></h6>
-                <div class="clearfix"><span ng-bind="payment.result.meta_data.send_address"></span></div>
-            </div>
-            <h6><small>External transaction ID</small></h6>
-            <div class="clearfix"><span ng-bind="payment.result.meta_data.ext_trx_id"></span></div>
-            <h6><small>Note</small></h6>
-            <div class="clearfix"><span ng-bind="payment.result.meta_data.note"></span></div>
-        </div>
         <p>{{ payment.result.meta_data.description }}</p>
     </div>
 
-    <div class="well special pull-right span4 receipt">
-        <h6><small>Amount</small></h6>
-        <div class="clearfix">{{payment.result.meta_data.currency_iso}} <span class="amount">{{payment.result.meta_data.amount}}</span></div>
-        <h6><small>Date</small></h6>
-        <div class="clearfix"><span ng-bind="payment.result.meta_data.paiddatetime"></span></div>
+    <div class="col-md-4">
+        <div class="well">
+            <h6>Amount</h6>
+            {{ payment.result.meta_data.currency_iso }} <span class="amount">{{ payment.result.meta_data.amount }}</span>
+            <h6>Date</h6>
+            <span ng-bind="payment.result.meta_data.paiddatetime"></span>
+            <div ng-show="external">
+                <div ng-show="payment.result.meta_data.amount > 0 && payment.result.meta_data.receive_address">
+                    <h6>Receive address</h6>
+                    <span ng-bind="payment.result.meta_data.receive_address"></span>
+                </div>
+                <div ng-show="payment.result.meta_data.amount < 0 && payment.result.meta_data.send_address">
+                    <h6>Send address</h6>
+                    <span ng-bind="payment.result.meta_data.send_address"></span>
+                </div>
+                <div ng-show="payment.result.meta_data.ext_trx_id">
+                    <h6>External transaction ID</h6>
+                    <span ng-bind="payment.result.meta_data.ext_trx_id"></span>
+                </div>
+                <div ng-show="payment.result.meta_data.note">
+                    <h6>Note</h6>
+                    <span ng-bind="payment.result.meta_data.note"></span>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-<div ng-show="!external">
-    <tabs class="clearfix">
-        <pane heading="Receivers">
-
-            <form class="form-inline">
-                <label for="searchEntriesDirective">Search: </label>
-                <input class="search-query" type="search" ng-model="searchentries" id="searchEntriesDirective">
-            </form>
-
-            <peoplepagesearch people="payment.result.receivers"
-                              nodatatitle=""
-                              persontitle="Username / id"
-                              searchentries="searchentries"
-                              showamount="true"
-                              ownsearch="false"></peoplepagesearch>
-        </pane>
-
-        <pane heading="Senders">
-
-            <form class="form-inline">
-                <label for="searchEntriesDirective2">Search: </label>
-                <input class="search-query" type="search" ng-model="searchentries" id="searchEntriesDirective2">
-            </form>
-
-            <peoplepagesearch people="payment.result.senders"
-                              nodatatitle=""
-                              persontitle="Username / id"
-                              searchentries="searchentries"
-                              showamount="true"
-                              ownsearch="false"></peoplepagesearch>
-        </pane>
-    </tabs>
-
-
+<div ng-show="!external" class="row">
+    <div class="col-md-6">
+        <h3>Senders</h3>
+        <invoicetable id="receivers"
+                      columns="[ 'gravatar', 'username', 'role', 'currency', 'amount' ]"
+                      api="payment"
+                      index="'receivers'"
+                      click-row="openPayment"></invoicetable>
+    </div>
+    <div class="col-md-6">
+        <h3>Receivers</h3>
+        <invoicetable id="receivers"
+                      columns="[ 'gravatar', 'username', 'role', 'currency', 'amount' ]"
+                      api="payment"
+                      index="'senders'"
+                      click-row="openPayment"></invoicetable>
+    </div>
 </div>

@@ -1,0 +1,62 @@
+<form name="proof" class="form-horizontal" ng-disabled="$mobbrStorage.user.mangopay_identity_proof == 'VALIDATION_ASKED' || $mobbrStorage.user.mangopay_identity_proof == 'VALIDATED'">
+    <alert ng-if="$mobbrStorage.user.mangopay_identity_proof == 'PROOF_REQUIRED'">
+        Without this information, your account is limited to receive max. €2,500 (or equivalent) and/or send max. €1,000 (or equivalent), cumulated per legal year. These limits only apply to the USD, GBP, CHF, SEK, NOK, DKK, EUR, PLN currencies.
+    </alert>
+    <alert ng-if="$mobbrStorage.user.mangopay_identity_proof == 'VALIDATION_ASKED'">
+        Your request has been submitted, it will be confirmed within 24-48 hours, in the meantime your account still has limits
+    </alert>
+    <alert ng-if="$mobbrStorage.user.mangopay_identity_proof == 'REFUSED'">
+        Your request has been refused, please try again, make sure you have uploaded a readable copy of a valid ID (e.g. passport, drivers license)
+    </alert>
+    <alert ng-if="$mobbrStorage.user.mangopay_identity_proof == 'CONFIRMED'">
+        This information can no longer be changed because you have a confirmed identity.
+    </alert>
+
+    <fieldset class="form-group">
+        <label class="control-label col-md-2" for="occupation">Occupation</label>
+        <div class="col-md-4">
+            <input class="form-control" ng-model="$mobbrStorage.user.occupation" name="occupation" type="text" id="occupation" placeholder="e.g. Web-designer">
+        </div>
+    </fieldset>
+
+    <fieldset class="form-group">
+        <label class="control-label col-md-2" for="income_range">Income range</label>
+        <div class="col-md-4">
+            <select class="form-control"
+                    id="income_range"
+                    name="income_range"
+                    ng-model="$mobbrStorage.user.income_range"
+                    ng-options="value as key for (value, key) in incomerangeMap">
+                <option value="">No range</option>
+            </select>
+        </div>
+    </fieldset>
+
+    <fieldset class="form-group">
+        <label class="control-label col-md-2" for="identity_proof_upload">Upload scan of ID</label>
+        <div class="col-md-4">
+            <input ng-model="$mobbrStorage.user.mangopay_identity_proof_upload"
+                   id="identity_proof_upload"
+                   name="identity_proof_upload"
+                   type="file"
+                   ng-file-select="uploadIdentityProof($files)">
+        </div>
+    </fieldset>
+
+    <fieldset class="form-group">
+        <div class="col-md-offset-2 col-md-4">
+            <progressbar ng-show="uploading" class="progress-striped active" value="progress" type="success"></progressbar>
+        </div>
+    </fieldset>
+
+    <fieldset class="form-group">
+        <div class="col-md-offset-2 col-md-4">
+            <button ng-disabled="(waitingsettings && !waitingsettings.$resolved) || proof.$pristine"
+                    ng-click="submitSettings(settings)"
+                    class="btn btn-success">
+                <i class="glyphicon mobbrloader" ng-show="waitingsettings && !waitingsettings.$resolved"></i>
+                Update
+            </button>
+        </div>
+    </fieldset>
+</form>
