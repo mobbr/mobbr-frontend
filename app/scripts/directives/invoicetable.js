@@ -16,8 +16,8 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
             columns: '=',
             groupBy: '=',
             selectable: '=',
-            sort: '=',
-            order: '=',
+            sortBy: '=',
+            sortOrder: '=',
             clickRow: '=',
             showSearch: '=',
             index: '='
@@ -29,7 +29,7 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
 
             $scope.$rootScope = $rootScope;
 
-            sorting[$scope.sort || 'datetime'] = $scope.order || 'desc';
+            sorting[$scope.sortBy || 'datetime'] = $scope.sortOrder || 'desc';
 
             if ($scope.action) {
                 reqparams.action = $scope.action;
@@ -41,6 +41,7 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
                 expiration: 'Expiration days',
                 datetime: 'Date/time',
                 paiddatetime: 'Date/time',
+                announceddatetime: 'Date/time',
                 payment_service: 'Payment service',
                 receive_address: 'Receive address',
                 currency_description: 'Currency description',

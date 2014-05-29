@@ -81,7 +81,8 @@
                           datetime="{{ item[column] || item['faileddatetime'] || item['announceddatetime'] }}">
                         <small>{{ item[column] || item['faileddatetime'] || item['announceddatetime'] }}</small>
                     </time>
-                    <span ng-switch-when="receive_address" ng-bind="(item['paiddatetime'] && item['receive_address']) || (item['faileddatetime'] && item['service_message']) || (item['announceddatetime'] && 'Pending')"></span>
+                    <span ng-switch-when="receive_address" ng-bind="item['paiddatetime'] && item['receive_address']"></span>
+                    <span ng-switch-when="status" ng-bind="(item['paiddatetime'] && 'Succeeded') || (item['faileddatetime'] && item['service_message']) || (item['announceddatetime'] && 'Pending')"></span>
                     <span ng-switch-when="username" ng-bind="item['username'] || item['.org-id']"></span>
                     <span ng-switch-when="percentage" ng-bind="((item['percentage'] || item['.percentage']) | mobbrcurrency) + '%'"></span>
                     <span ng-switch-when="currency_description" ng-bind="$rootScope.currenciesMap.result[item['currency'] || item['currency_iso']]"></span>
