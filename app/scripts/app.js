@@ -215,16 +215,8 @@ angular.module('mobbr', [
         $rootScope.languagesMap = MobbrApi.isoLanguages();
         $rootScope.countriesMap = MobbrApi.isoCountries();
         $rootScope.timezones = MobbrApi.isoTimezones();
+        $rootScope.incomerangeMap = MobbrApi.kycIncomeRanges();
         $rootScope.host = $location.host();
-
-        $rootScope.incomerangeMap = {
-            1: 'less than € 18000',
-            2: 'between € 18000 and € 30000',
-            3: 'between € 30000 and € 50000',
-            4: 'between € 50000 and € 80000',
-            5: 'between € 80000 and € 120000',
-            6: 'more than € 120000'
-        };
 
         if (environment !== 'production') {
             $window.mobbr.setApiUrl(apiUrl);
