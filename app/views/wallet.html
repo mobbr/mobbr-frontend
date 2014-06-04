@@ -9,16 +9,10 @@
                           class="badge pull-right"></span>
                 </a>
             </li>
-            <li ng-class="{ disabled: newPayments.result.length == 0, active: $state.includes('wallet.new') }">
-                <a ng-href="{{ newPayments.result.length > 0 && '/#/wallet/new' || '' }}">
-                    New payments
-                    <span class='badge pull-right' ng-bind="newPayments.result.length"></span>
-                </a>
-            </li>
             <li ng-class="{ active: $state.includes('wallet.payments') }">
                 <a href="/#/wallet/payments">
                     Payments
-                    <span class='badge pull-right' ng-bind="historicPayments.result.length"></span>
+                    <span class='badge pull-right' ng-bind="payments.result.length"></span>
                 </a>
             </li>
             <li ng-class="{ active: $state.includes('wallet.xpayments') }">
