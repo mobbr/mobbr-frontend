@@ -2,8 +2,7 @@
 
 angular.module('mobbr.controllers').controller('WalletController', function ($scope, $modal, $window, $location, MobbrBalance, MobbrXPayment, MobbrPayment) {
 
-    $scope.newPayments = MobbrPayment.new();
-    $scope.historicPayments = MobbrPayment.historic();
+    $scope.payments = MobbrPayment.get();
 
     function reload() {
         $scope.balances = MobbrBalance.user();
