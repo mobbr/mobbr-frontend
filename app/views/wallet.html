@@ -12,13 +12,17 @@
             <li ng-class="{ active: $state.includes('wallet.payments') }">
                 <a href="/#/wallet/payments">
                     Payments
-                    <span class='badge pull-right' ng-bind="payments.result.length"></span>
+                    <span class='badge pull-right'
+                          ng-show="(payments.result | filter:{ 'since_last_login': '1' }).length > 0"
+                          ng-bind="(payments.result | filter:{ 'since_last_login': '1' }).length"></span>
                 </a>
             </li>
             <li ng-class="{ active: $state.includes('wallet.xpayments') }">
                 <a href="/#/wallet/xpayments">
                     Deposits and withdraws
-                    <span class='badge pull-right' ng-bind="mutations.result.length"></span>
+                    <span class='badge pull-right'
+                          ng-show="(mutations.result | filter:{ 'since_last_login': '1' }).length > 0"
+                          ng-bind="(mutations.result | filter:{ 'since_last_login': '1' }).length"></span>
                 </a>
             </li>
         </ul>
