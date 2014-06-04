@@ -99,9 +99,6 @@ angular.module('mobbr', [
             }).state('wallet.credit', {
                 url: '/wallet',
                 templateUrl: 'views/wallet.credit.html'
-            }).state('wallet.new', {
-                url: '/wallet/new',
-                templateUrl: 'views/wallet.new.html'
             }).state('wallet.payments', {
                 url: '/wallet/payments',
                 templateUrl: 'views/wallet.payments.html'
