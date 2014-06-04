@@ -4,8 +4,8 @@
             <h1 ng-bind="payment.result.script.title"></h1>
             <a target="_blank" href="{{ payment.result.url }}" ng-bind="payment.result.url"></a>
         </div>
-        <a href="{{ payment.result.url }}" ng-show="payment.result.script.img_url">
-            <img ng-src="{{ payment.result.script.img_url }}">
+        <a href="{{ payment.result.url }}" ng-show="payment.result.script.image">
+            <img ng-src="{{ payment.result.script.image }}" class="pull-left" width="50" height="50" class="urlimage">
         </a>
         <p>{{ payment.result.script.description }}</p>
     </div>
