@@ -67,7 +67,11 @@
             </tr>
             </tbody>
             <tbody ng-if="!$groups">
-            <tr ng-repeat="item in $data" ng-class="{ danger: item['faileddatetime'], warning: (!item['faileddatetime'] && !item['paiddatetime'] && item['announceddatetime']) }">
+            <tr ng-repeat="item in $data"
+                ng-class="{
+                    danger: item['faileddatetime'],
+                    warning: (!item['faileddatetime'] && !item['paiddatetime'] && item['announceddatetime']),
+                    new: item['since_last_login'] == '1'}">
                 <td ng-if="selectable" class="checkbox">
                     <input type="checkbox" ng-model="checkboxes.items[item.id]" />
                 </td>
