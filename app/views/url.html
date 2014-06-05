@@ -1,11 +1,12 @@
 <div class="row">
     <div class="col-md-8">
         <div class="page-header">
+            <mobbrbutton class="pull-right" size="medium" url='{ "id-base" : "https://api.mobbr.com/id/", "description": "Dit is een test", "title": "Test", "url": "https://github.com/mobbr/mobbr-q2a-plugin" }'></mobbrbutton>
             <h1 ng-bind="payment.result.script.title"></h1>
             <a target="_blank" href="{{ payment.result.url }}" ng-bind="payment.result.url"></a>
         </div>
         <a href="{{ payment.result.url }}" ng-show="payment.result.script.image">
-            <img ng-src="{{ payment.result.script.image }}" class="pull-left" width="50" height="50" class="urlimage">
+            <img ng-src="{{ payment.result.script.image }}" class="pull-left urlimage" width="50" height="50">
         </a>
         <p>{{ payment.result.script.description }}</p>
     </div>
@@ -31,7 +32,8 @@
             <h6>Currently listed participants</h6>
             <invoicetable api="payment"
                           index="[ 'script', 'participants' ]"
-                          columns="[ 'gravatar', 'username', 'role', 'percentage' ]"></invoicetable>
+                          columns="[ 'gravatar', 'username', 'role', 'percentage' ]"
+                          sort-by="'percentage'"></invoicetable>
         </div>
     </div>
 </div>

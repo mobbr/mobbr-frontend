@@ -6962,6 +6962,11 @@ pre {
   width: 100%;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003244}}
+.urlimage {
+  margin: 0 1em 1em 0;
+}
+
 @media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/components\/sass-bootstrap\/lib\/_mixins\.scss}line{font-family:\0000321}}
 .clearfix:before, .clearfix:after {
   content: " ";
