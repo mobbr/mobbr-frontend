@@ -9,6 +9,7 @@ angular.module('mobbr.controllers').controller('UrlReceiptController', function 
     }
 
     urlParam = { url: $window.atob($stateParams.url) };
+    $scope.url = urlParam.url;
 
     $scope.payment = MobbrPayment.preview({
             data: $window.atob($stateParams.url),
