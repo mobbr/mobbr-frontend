@@ -39,7 +39,7 @@
             </label>
             <div class="col-md-8">
                 <select ng-model="invoice.worker_country"
-                        ng-options="value as key for (value, key) in countriesMap.result"
+                        ng-options="country.code as country.name for country in countriesMap.result | orderBy: 'name'"
                         id="country"
                         name="country"
                         class="form-control">
