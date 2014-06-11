@@ -35,123 +35,9 @@ angular.module('mobbr', [
 
     ]).config(function ($stateProvider, $urlRouterProvider) {
 
-        var ItemsController = function ($scope, $state, ngTableParams, items, $filter) {
-
-            var sorting = {};
-
-            sorting[$scope.sortBy || 'datetime'] = $scope.sortOrder || 'desc';
-
-            $scope.sortTableBy = function (column) {
-                sorting = {};
-                sorting[column] = $scope.invoiceTable.isSortBy(column, 'asc') ? 'desc' : 'asc';
-                $scope.invoiceTable.sorting(sorting);
-            }
-
-            $scope.groupby = 'uri';
-
-            $scope.labels = {
-                username: 'Name',
-                worker_username: 'Name',
-                expiration: 'Expiration days',
-                datetime: 'Date/time',
-                paiddatetime: 'Date/time',
-                announceddatetime: 'Date/time',
-                payment_service: 'Payment service',
-                receive_address: 'Receive address',
-                currency_description: 'Currency description',
-                gravatar: ' ',
-                uri: 'URL',
-                role: 'Role',
-                currency_iso: 'Currency'
-            };
-
-            $scope.columns = $state.current.data.columns || [ 'title', 'username', 'role', 'currency_iso', 'amount' ];
-            $scope.groups = $state.current.data.columns ||  [ 'uri', 'username', 'role', 'currency_iso' ];
-            $scope.buttonText = $state.current.data.buttonText;
-            $scope.buttonAction = $scope[$state.current.data.buttonAction];
-            $scope.selectallid = Math.floor(Math.random() * 1000000);
-            $scope.selectedIds = [];
-            $scope.selectedItems = [];
-            $scope.empty_message =  $state.current.data.emptyMessage || 'No items available';
-            $scope.checkboxes = { 'checked': false, items: {} };
-            $scope.invoiceTable = new ngTableParams(
-                {
-                    page: 1,
-                    count: 10,
-                    sorting: sorting,
-                    filter: ''
-                },
-                {
-                    groupBy: $scope.groupby,
-                    total: 0,
-                    getData: function ($defer, params) {
-
-                        items.$promise.then(function (response) {
-
-                            var data = response.result,
-                                filteredData = $scope.invoiceTable.filter() ?
-                                    $filter('filter')(data, $scope.invoiceTable.filter()) :
-                                    data,
-                                orderedData = $scope.invoiceTable.sorting() ?
-                                    $filter('orderBy')(filteredData, $scope.invoiceTable.orderBy()) :
-                                    filteredData;
-
-                            $scope.invoiceTable.total(orderedData.length);
-                            $defer.resolve($scope.items = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-                        });
-                    }
-                }
-            );
-
-            $scope.$watch('groupby', function (value) {
-                $scope.invoiceTable.settings().groupBy = value;
-                $scope.invoiceTable.reload();
-            });
-
-            // watch for check all checkbox
-            $scope.$watch('select_all', function (value) {
-                console.log($scope.items);
-                angular.forEach($scope.items, function (item) {
-                    console.log(item);
-                    $scope.checkboxes.items[item.id] = value;
-                    console.log($scope.checkboxes.items);
-                });
-            });
-
-            // watch for data checkboxes
-            $scope.$watch('checkboxes.items', function (values) {
-
-                if (!$scope.items) {
-                    return;
-                }
-
-                var checked = 0,
-                    unchecked = 0,
-                    total = $scope.items.length;
-
-                angular.forEach($scope.items, function (item) {
-
-                    var indexId = $scope.selectedIds.indexOf(item.id),
-                        indexItem = $scope.selectedItems.indexOf(item);
-
-                    if ($scope.checkboxes.items[item.id]) {
-                        checked++;
-                        indexId === -1 && $scope.selectedIds.push(item.id);
-                        indexItem === -1 && $scope.selectedItems.push(item);
-                    } else {
-                        unchecked++;
-                        indexId !== -1 && $scope.selectedIds.splice(indexId, 1);
-                        indexItem !== -1 && $scope.selectedItems.splice(indexItem, 1);
-                    }
-                });
-
-                if ((unchecked == 0) || (checked == 0)) {
-                    $scope.checkboxes.checked = (checked == total);
-                }
-
-                angular.element(document.getElementById($scope.selectallid)).prop("indeterminate", (checked != 0 && unchecked != 0));
-            }, true);
-        };
+        function reloadTable(data, table) {
+            table.reload(data.result);
+        }
 
         $stateProvider.state('main', {
                 url: '/',
@@ -226,63 +112,65 @@ angular.module('mobbr', [
             }).state('invoicing.sourcing_request', {
                 url: '/sourcing/request',
                 resolve: {
-                    items: function (MobbrInvoice) {
-                        return MobbrInvoice.requestable();
+                    data: function (MobbrInvoice) {
+                        return MobbrInvoice.requestable().$promise;
                     }
                 },
                 data: {
                     buttonText: 'Request invoices',
                     buttonAction: 'requestInvoices'
                 },
-                controller: ItemsController
+                onEnter: reloadTable
             }).state('invoicing.sourcing_pending', {
                 url: '/sourcing/pending',
                 resolve: {
-                    items: function (MobbrInvoice) {
-                        return MobbrInvoice.requested();
+                    data: function (MobbrInvoice) {
+                        return MobbrInvoice.requested().$promise;
                     }
                 },
                 data: {
                     buttonText: 'Cancel request',
                     buttonAction: 'cancelInvoices'
                 },
-                controller: ItemsController
+                onEnter: reloadTable
             }).state('invoicing.sourcing_download', {
                 url: '/sourcing/download',
                 resolve: {
-                    items: function (MobbrInvoice) {
-                        return MobbrInvoice.confirmed();
+                    data: function (MobbrInvoice) {
+                        return MobbrInvoice.returned().$promise;
                     }
                 },
                 data: {
                     buttonText: 'Download invoice',
                     buttonAction: 'downloadInvoices'
                 },
-                controller: ItemsController
+                onEnter: reloadTable
             }).state('invoicing.working_confirm', {
                 url: '/working/confirm',
                 resolve: {
-                    items: function (MobbrInvoice) {
-                        return MobbrInvoice.confirmable();
+                    data: function (MobbrInvoice) {
+                        return MobbrInvoice.confirmable().$promise;
                     }
                 },
                 data: {
                     buttonText: 'Confirm invoice',
-                    buttonAction: 'confirmInvoices'
+                    buttonAction: 'confirmInvoices',
+                    columns: [ 'title', 'worker_username', 'role', 'currency_iso', 'amount' ]
                 },
-                controller: ItemsController
+                onEnter: reloadTable
             }).state('invoicing.working_download', {
                 url: '/working/download',
                 resolve: {
-                    items: function (MobbrInvoice) {
-                        return MobbrInvoice.returned();
+                    data: function (MobbrInvoice) {
+                        return MobbrInvoice.confirmed().$promise;
                     }
                 },
                 data: {
                     buttonText: 'Download invoice',
-                    buttonAction: 'downloadInvoices'
+                    buttonAction: 'downloadInvoices',
+                    columns: [ 'title', 'worker_username', 'role', 'currency_iso', 'amount' ]
                 },
-                controller: ItemsController
+                onEnter: reloadTable
             }).state('sourcing.pledged', {
                 url: '/sourcing/pledged',
                 templateUrl: 'views/sourcing.pledged.html'
