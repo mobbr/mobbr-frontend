@@ -47,7 +47,7 @@ angular.module('mobbr', [
                 $scope.invoiceTable.sorting(sorting);
             }
 
-            $scope.groupby = 'url';
+            $scope.groupby = 'uri';
 
             $scope.labels = {
                 username: 'Name',
@@ -235,7 +235,7 @@ angular.module('mobbr', [
                     buttonAction: 'requestInvoices'
                 },
                 controller: ItemsController
-            }).state('invocing.sourcing_pending', {
+            }).state('invoicing.sourcing_pending', {
                 url: '/sourcing/pending',
                 resolve: {
                     items: function (MobbrInvoice) {
@@ -247,7 +247,7 @@ angular.module('mobbr', [
                     buttonAction: 'cancelInvoices'
                 },
                 controller: ItemsController
-            }).state('invocing.sourcing_download', {
+            }).state('invoicing.sourcing_download', {
                 url: '/sourcing/download',
                 resolve: {
                     items: function (MobbrInvoice) {
