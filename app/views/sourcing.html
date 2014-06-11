@@ -47,22 +47,22 @@
                 </a>
             </li>
         </ul>
-        <alert ng-show="hover == 'sourcing.request' || !hover && $state.current.name == 'sourcing.request'">
+        <alert ng-show="hover == 'invoicing.sourcing_request' || !hover && $state.current.name == 'invoicing.sourcing_request'">
             Ask your crowdworkers for an invoice. They have 30 days to verify their data.
             After 30 days we either generate the invoice on their behalf or refund the payment.
         </alert>
-        <alert ng-show="hover == 'sourcing.download' || !hover && $state.current.name == 'sourcing.download'">
+        <alert ng-show="hover == 'invoicing.sourcing_download' || !hover && $state.current.name == 'invoicing.sourcing_download'">
             Your invoices. We generated these on behalf of your crowdworkers.
         </alert>
-        <alert ng-show="hover == 'sourcing.pledged' || !hover && $state.current.name == 'sourcing.pledged'">
+        <alert ng-show="hover == 'invoicing.sourcing_pledged' || !hover && $state.current.name == 'invoicing.sourcing_pledged'">
             Tasks to which you pledged or paid. Pledges can be revoked but every currently listed participant to the taks will be notified which can hurt your reputation.
         </alert>
-        <alert ng-show="hover == 'sourcing.workers' || !hover && $state.current.name == 'sourcing.workers'">
+        <alert ng-show="hover == 'invoicing.sourcing_workers' || !hover && $state.current.name == 'invoicing.sourcing_workers'">
             People who worked on your tasks.
         </alert>
-        <alert ng-show="hover == 'sourcing.working_confirm' || !hover && $state.current.name == 'sourcing.working_confirm'">
+        <alert ng-show="hover == 'invoicing.working_confirm' || !hover && $state.current.name == 'invoicing.working_confirm'">
             Confirm the data on the invoices your clients request. After 30 days if possible an invoice using your default data will be generated else the payment will be refunded.</alert>
-        <alert ng-show="hover == 'sourcing.working_download' || !hover && $state.current.name == 'sourcing.working_download'">
+        <alert ng-show="hover == 'invoicing.working_download' || !hover && $state.current.name == 'invoicing.working_download'">
             Your invoices. We generated these on request of your clients.
         </alert>
     </div>
