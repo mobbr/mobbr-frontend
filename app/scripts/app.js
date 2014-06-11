@@ -109,8 +109,8 @@ angular.module('mobbr', [
             }).state('invoicing', {
                 url: '/invoicing',
                 abstract: true,
-                templateUrl: 'views/sourcing.html',
-                controller: 'SourcingController',
+                templateUrl: 'views/invoicing.html',
+                controller: 'InvoicingController',
                 data: { authenticated: true, redirectTo: '/' }
             }).state('invoicing.sourcing_request', {
                 url: '/sourcing/request',
@@ -174,22 +174,6 @@ angular.module('mobbr', [
                     columns: [ 'title', 'worker_username', 'role', 'currency_iso', 'amount' ]
                 },
                 onEnter: reloadTable
-            }).state('sourcing.pledged', {
-                url: '/sourcing/pledged',
-                templateUrl: 'views/sourcing.pledged.html'
-            }).state('sourcing.workers', {
-                url: '/sourcing/workers',
-                templateUrl: 'views/sourcing.workers.html'
-            }).state('working', {
-                templateUrl: 'views/working.html',
-                controller: 'WorkingController',
-                data: { authenticated: true, redirectTo: '/' }
-            }).state('working.new', {
-                url: '/working',
-                templateUrl: 'views/working.new.html'
-            }).state('working.tasks', {
-                url: '/working/tasks',
-                templateUrl: 'views/working.tasks.html'
             }).state('domain', {
                 url: '/domain/:url',
                 templateUrl: 'views/domain.html',

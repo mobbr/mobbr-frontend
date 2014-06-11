@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('SourcingController', function ($scope, $state, $location, $rootScope, $modal, $filter, pdfGenerator, MobbrInvoice, MobbrPayment, table) {
+angular.module('mobbr.controllers').controller('InvoicingController', function ($scope, $state, $location, $rootScope, $modal, $filter, pdfGenerator, MobbrInvoice, MobbrPayment, table) {
 
     $scope.labels = {
         username: 'Name',
