@@ -102,23 +102,6 @@ angular.module('mobbr.controllers').controller('SourcingController', function ($
         });
     }
 
-    $scope.removePledgesDialog = function (ids) {
-        return $modal.open({
-            backdrop: true,
-            keyboard: true,
-            backdropClick: false,
-            templateUrl: 'views/partials/remove_pledges_popup.html',
-            controller: function ($scope) {
-                $scope.ids = ids;
-                $scope.confirm = function (result) {
-                    MobbrPayment.unpledge(result, function () {
-                        $scope.$close();
-                    });
-                };
-            }
-        });
-    }
-
     $scope.buttonAction = function (ids, items, table) {
 
         var promise = $scope[$state.current.data.buttonAction](ids, items, table);
