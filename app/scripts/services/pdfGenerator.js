@@ -42,7 +42,7 @@ angular.module('mobbr.services').factory('pdfGenerator', function ($rootScope) {
             for (i = 0; i < customer_address.length; i++) {
                 lineHeight += singlelineText(customer_address[i], alignRight(customer_address[i]), lineHeight);
             }
-            lineHeight += singlelineText($rootScope.countriesMap.result[invoice.customer_country], alignRight($rootScope.countriesMap.result[invoice.customer_country]), lineHeight);
+            lineHeight += singlelineText(invoice.customer_country, alignRight(invoice.customer_country), lineHeight);
             lineHeight += singlelineText(invoice.customer_vat_number, alignRight(invoice.customer_vat_number), lineHeight);
             singlelineText(' ' + invoice.customer_username, alignRight(' ' + invoice.customer_username), lineHeight);
             textWidth = textSize(invoice.customer_username);
@@ -53,7 +53,7 @@ angular.module('mobbr.services').factory('pdfGenerator', function ($rootScope) {
             for (i = 0; i < worker_address.length; i++) {
                 lineHeight += singlelineText(worker_address[i], marginHorizontal, lineHeight);
             }
-            lineHeight += singlelineText($rootScope.countriesMap.result[invoice.worker_country], marginHorizontal, lineHeight);
+            lineHeight += singlelineText(invoice.worker_country, marginHorizontal, lineHeight);
             lineHeight += singlelineText(invoice.worker_vat_number, marginHorizontal, lineHeight);
             pdf.setFont('Helvetica', 'Bold');
             singlelineText('Mobbr ', marginHorizontal, lineHeight);

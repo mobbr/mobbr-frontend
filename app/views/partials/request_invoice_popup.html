@@ -1,4 +1,4 @@
-<form ng-submit="$close(invoice)" name="invoicing" class="form-horizontal modal-body">
+<form ng-submit="confirm(invoice)" name="invoicing" class="form-horizontal modal-body">
     <div class="modal-header">
         <h3>Confirm or adjust your invoicing data</h3>
         Defaults are taken from your <a hef="/#/settings">settings</a> panels
@@ -15,7 +15,8 @@
                        type="text"
                        id="name"
                        placeholder="e.g. Google"
-                       class="form-control">
+                       class="form-control"
+                       required>
             </div>
         </fieldset>
 
@@ -29,7 +30,8 @@
                        name="address"
                        type="text"
                        id="address"
-                       placeholder="e.g. Sesame Street 3, Metropolis">
+                       placeholder="e.g. Sesame Street 3, Metropolis"
+                       required>
             </div>
         </fieldset>
 
@@ -42,7 +44,8 @@
                         ng-options="country.code as country.name for country in countriesMap.result | orderBy: 'name'"
                         id="country"
                         name="country"
-                        class="form-control">
+                        class="form-control"
+                        required>
                     <option value="">No country</option>
                 </select>
             </div>
@@ -58,7 +61,8 @@
                        type="text"
                        id="vat-number"
                        placeholder="e.g. NL001234567B01"
-                       class="form-control">
+                       class="form-control"
+                       required>
             </div>
         </fieldset>
 
@@ -71,7 +75,8 @@
                         name="status"
                         type="text"
                         id="status"
-                        class="form-control">
+                        class="form-control"
+                        required>
                     <option value="private">Private</option>
                     <option value="enterprise">Enterprise</option>
                 </select>
