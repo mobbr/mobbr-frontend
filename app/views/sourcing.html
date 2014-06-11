@@ -1,45 +1,49 @@
 <div class="row">
     <div class="col-md-3 sidebar-left">
-        <h1>Sourcing</h1>
+        <h1>Invoicing</h1>
+        <h6>Sourcing</h6>
         <ul class="nav nav-pills nav-stacked">
-            <li ng-class="{ active: $state.includes('sourcing.request'), disabled: requestableInvoices.result.length == 0 }">
-                <a ng-href="{{ requestableInvoices.result.length > 0 && '/#/sourcing' || '' }}"
-                   ng-mouseenter="hover = 'sourcing.request'"
+            <li ng-class="{ active: $state.includes('invoicing.sourcing_request') }">
+                <a ng-href="/#/invoicing/sourcing/request"
+                   ng-mouseenter="hover = 'invoicing.sourcing_request'"
                    ng-mouseleave="hover = false">
-                    Request invoices
-                    <span class='badge pull-right' ng-bind="requestableInvoices.result.length"></span>
+                    Request purchase invoices
+                    <span class='badge pull-right'></span>
                 </a>
             </li>
-            <li ng-class="{ active: $state.includes('sourcing.pending'), disabled: requestedInvoices.result.length == 0 }">
-                <a ng-href="{{ requestedInvoices.result.length > 0 && '/#/sourcing/pending' || '' }}"
-                   ng-mouseenter="hover = 'sourcing.pending'"
+            <li ng-class="{ active: $state.includes('invoicing.sourcing_pending')}">
+                <a ng-href="/#/invoicing/sourcing/pending"
+                   ng-mouseenter="hover = 'invoicing.sourcing_pending'"
                    ng-mouseleave="hover = false">
-                    Pending invoices
-                    <span class='badge pull-right' ng-bind="requestedInvoices.result.length"></span>
+                    Pending purchase invoices
+                    <span class='badge pull-right'></span>
                 </a>
             </li>
-            <li ng-class="{ active: $state.includes('sourcing.download'), disabled: confirmedInvoices.result.length == 0 }">
-                <a ng-href="{{ confirmedInvoices.result.length > 0 && '/#/sourcing/download' || '' }}"
-                   ng-mouseenter="hover = 'sourcing.download'"
+            <li ng-class="{ active: $state.includes('invoicing.sourcing_download') }">
+                <a ng-href="/#/invoicing/sourcing/download"
+                   ng-mouseenter="hover = 'invoicing.sourcing_download'"
                    ng-mouseleave="hover = false">
-                    Download invoices
-                    <span class='badge pull-right' ng-bind="confirmedInvoices.result.length"></span>
+                    Download purchase invoices
+                    <span class='badge pull-right'></span>
                 </a>
             </li>
-            <li ng-class="{ active: $state.includes('sourcing.pledged'), disabled: pledged.result.length == 0 }">
-                <a ng-href="{{ pledged.result.length > 0 && '/#/sourcing/pledged' || '' }}"
-                   ng-mouseenter="hover = 'sourcing.pledged'"
+        </ul>
+        <h6>Working</h6>
+        <ul class="nav nav-pills nav-stacked">
+            <li ng-class="{ active: $state.includes('invoicing.working_confirm') }">
+                <a ng-href="/#/invoicing/working/confirm"
+                   ng-mouseenter="hover = 'invoicing.working_confirm'"
                    ng-mouseleave="hover = false">
-                    Pledged
-                    <span class='badge pull-right' ng-bind="pledged.result.length"></span>
+                    Confirm sales invoices
+                    <span class='badge pull-right'></span>
                 </a>
             </li>
-            <li ng-class="{ active: $state.includes('sourcing.workers'), disabled: workers.result.length == 0 }">
-                <a ng-href="{{ workers.result.length > 0 && '/#/sourcing/workers' || '' }}"
-                   ng-mouseenter="hover = 'sourcing.workers'"
+            <li ng-class="{ active: $state.includes('invoicing.working_download') }">
+                <a ng-href="/#/invoicing/working/download"
+                   ng-mouseenter="hover = 'invoicing.working_download'"
                    ng-mouseleave="hover = false">
-                    Workers
-                    <span class='badge pull-right' ng-bind="workers.result.length"></span>
+                    Download sales invoices
+                    <span class='badge pull-right'></span>
                 </a>
             </li>
         </ul>
@@ -56,8 +60,98 @@
         <alert ng-show="hover == 'sourcing.workers' || !hover && $state.current.name == 'sourcing.workers'">
             People who worked on your tasks.
         </alert>
+        <alert ng-show="hover == 'sourcing.working_confirm' || !hover && $state.current.name == 'sourcing.working_confirm'">
+            Confirm the data on the invoices your clients request. After 30 days if possible an invoice using your default data will be generated else the payment will be refunded.</alert>
+        <alert ng-show="hover == 'sourcing.working_download' || !hover && $state.current.name == 'sourcing.working_download'">
+            Your invoices. We generated these on request of your clients.
+        </alert>
     </div>
     <div class="col-md-9">
-        <div ui-view class="container-fluid"></div>
+        <div class="container-fluid" ui-view>
+            <div class="row">
+
+                <fieldset class="col-md-5 toolbar" ng-if="buttonAction">
+                    <button class="btn"
+                            ng-click="buttonAction(selectedIds, selectedItems, invoiceTable)"
+                            ng-disabled="selectedIds.length == 0">
+                        <i class="glyphicon mobbrloader" ng-show="waiting"></i>
+                        <span ng-bind="buttonText"></span>
+                    </button>
+                </fieldset>
+
+                <fieldset class="col-md-7 toolbar pull-right">
+                    <div class="col-md-5">
+                        <div class="btn-group pull-right" dropdown>
+                            <button type="button" class="btn">Group by: {{ groupby }}</button>
+                            <button type="button" class="btn dropdown-toggle">
+                                <span class="caret"></span>
+                                <span class="sr-only">Split button!</span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li ng-repeat="group in groups"><a ng-click="$parent.groupby = group" ng-bind="labels[group] || group"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <input ng-model="invoiceTable.$params.filter" placeholder="Search" class="form-control search-query" type="search" id="search">
+                    </div>
+                </fieldset>
+
+                <div class="col-md-12" ng-if="items.length == 0">
+                    <alert class="col-md-12" ng-bind="empty_message"></alert>
+                </div>
+
+                <div class="col-md-12">
+                    <table ng-table="invoiceTable" ng-show="items.length > 0" show-filter="true" class="mobbrtable table table-striped table-checkbox">
+                        <thead>
+                        <tr>
+                            <th class="check-box"><input id="{{ selectallid }}" type="checkbox" ng-model="$parent.$parent.select_all"></th>
+                            <th ng-repeat="column in columns"
+                                class="sortable"
+                                ng-class="{
+                                    'sort-asc': tableParams.isSortBy(column.field, 'asc'),
+                                    'sort-desc': tableParams.isSortBy(column.field, 'desc')
+                                }"
+                                ng-click="tableParams.sorting(column.field, tableParams.isSortBy(column.field, 'asc') ? 'desc' : 'asc')">
+                                {{ labels[column] || column }}
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody ng-repeat="group in $groups">
+                        <tr class="ng-table-group">
+                            <td colspan="{{ columns.length + 1 }}">
+                                <div ng-click="group.$hideRows = !group.$hideRows">
+                                    <span ng-class="{ 'icon-chevron-right': group.$hideRows, 'icon-chevron-down': !group.$hideRows }"></span>
+                                    <span ng-bind="group.value"></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr ng-hide="group.$hideRows" ng-repeat="item in group.data">
+                            <td class="check-box">
+                                <input type="checkbox" ng-model="checkboxes.items[item.id]" />
+                            </td>
+                            <td ng-repeat="column in columns" ng-switch on="column" class="{{ column }}" ng-click="clickRow(item)" data-title="'Poepkop'">
+                                <img ng-switch-when="gravatar"
+                                     ng-src="https://secure.gravatar.com/avatar/{{ item[column] }}?s=20&default=https://mobbr.com/img/default-gravatar.png"
+                                     class="gravatar xsmall img-rounded"
+                                     width="20"
+                                     height="20">
+                                <time ng-switch-when="datetime"
+                                      datetime="{{ item[column] }}">
+                                    <small>{{ item[column] }}</small>
+                                </time>
+                                <span ng-switch-when="currency" ng-bind="item['currency'] || item['currency_iso'] || $mobbrStorage.user.currency_iso"></span>
+                                <span ng-switch-when="amount"
+                                      ng-bind="item[column] | mobbrcurrency"
+                                      ng-class="{ 'text-danger': item.amount < 0 }"
+                                      class="nowrap"></span>
+                                <span ng-switch-default ng-bind="item[column]"></span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

@@ -35,7 +35,123 @@ angular.module('mobbr', [
 
     ]).config(function ($stateProvider, $urlRouterProvider) {
 
-        var resolver = {};
+        var ItemsController = function ($scope, $state, ngTableParams, items, $filter) {
+
+            var sorting = {};
+
+            sorting[$scope.sortBy || 'datetime'] = $scope.sortOrder || 'desc';
+
+            $scope.sortTableBy = function (column) {
+                sorting = {};
+                sorting[column] = $scope.invoiceTable.isSortBy(column, 'asc') ? 'desc' : 'asc';
+                $scope.invoiceTable.sorting(sorting);
+            }
+
+            $scope.groupby = 'url';
+
+            $scope.labels = {
+                username: 'Name',
+                worker_username: 'Name',
+                expiration: 'Expiration days',
+                datetime: 'Date/time',
+                paiddatetime: 'Date/time',
+                announceddatetime: 'Date/time',
+                payment_service: 'Payment service',
+                receive_address: 'Receive address',
+                currency_description: 'Currency description',
+                gravatar: ' ',
+                uri: 'URL',
+                role: 'Role',
+                currency_iso: 'Currency'
+            };
+
+            $scope.columns = $state.current.data.columns || [ 'title', 'username', 'role', 'currency_iso', 'amount' ];
+            $scope.groups = $state.current.data.columns ||  [ 'uri', 'username', 'role', 'currency_iso' ];
+            $scope.buttonText = $state.current.data.buttonText;
+            $scope.buttonAction = $scope[$state.current.data.buttonAction];
+            $scope.selectallid = Math.floor(Math.random() * 1000000);
+            $scope.selectedIds = [];
+            $scope.selectedItems = [];
+            $scope.empty_message =  $state.current.data.emptyMessage || 'No items available';
+            $scope.checkboxes = { 'checked': false, items: {} };
+            $scope.invoiceTable = new ngTableParams(
+                {
+                    page: 1,
+                    count: 10,
+                    sorting: sorting,
+                    filter: ''
+                },
+                {
+                    groupBy: $scope.groupby,
+                    total: 0,
+                    getData: function ($defer, params) {
+
+                        items.$promise.then(function (response) {
+
+                            var data = response.result,
+                                filteredData = $scope.invoiceTable.filter() ?
+                                    $filter('filter')(data, $scope.invoiceTable.filter()) :
+                                    data,
+                                orderedData = $scope.invoiceTable.sorting() ?
+                                    $filter('orderBy')(filteredData, $scope.invoiceTable.orderBy()) :
+                                    filteredData;
+
+                            $scope.invoiceTable.total(orderedData.length);
+                            $defer.resolve($scope.items = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                        });
+                    }
+                }
+            );
+
+            $scope.$watch('groupby', function (value) {
+                $scope.invoiceTable.settings().groupBy = value;
+                $scope.invoiceTable.reload();
+            });
+
+            // watch for check all checkbox
+            $scope.$watch('select_all', function (value) {
+                console.log($scope.items);
+                angular.forEach($scope.items, function (item) {
+                    console.log(item);
+                    $scope.checkboxes.items[item.id] = value;
+                    console.log($scope.checkboxes.items);
+                });
+            });
+
+            // watch for data checkboxes
+            $scope.$watch('checkboxes.items', function (values) {
+
+                if (!$scope.items) {
+                    return;
+                }
+
+                var checked = 0,
+                    unchecked = 0,
+                    total = $scope.items.length;
+
+                angular.forEach($scope.items, function (item) {
+
+                    var indexId = $scope.selectedIds.indexOf(item.id),
+                        indexItem = $scope.selectedItems.indexOf(item);
+
+                    if ($scope.checkboxes.items[item.id]) {
+                        checked++;
+                        indexId === -1 && $scope.selectedIds.push(item.id);
+                        indexItem === -1 && $scope.selectedItems.push(item);
+                    } else {
+                        unchecked++;
+                        indexId !== -1 && $scope.selectedIds.splice(indexId, 1);
+                        indexItem !== -1 && $scope.selectedItems.splice(indexItem, 1);
+                    }
+                });
+
+                if ((unchecked == 0) || (checked == 0)) {
+                    $scope.checkboxes.checked = (checked == total);
+                }
+
+                angular.element(document.getElementById($scope.selectallid)).prop("indeterminate", (checked != 0 && unchecked != 0));
+            }, true);
+        };
 
         $stateProvider.state('main', {
                 url: '/',
@@ -57,19 +173,16 @@ angular.module('mobbr', [
                 url: '/recover',
                 templateUrl: 'views/recover-password.html',
                 controller: 'ResetPasswordController',
-                data: { authenticated: false, redirectTo: '/wallet' },
-                resolve: resolver
+                data: { authenticated: false, redirectTo: '/wallet' }
             }).state('join', {
                 url: '/join',
                 templateUrl: 'views/join.html',
                 controller: 'JoinController',
-                data: { authenticated: false, redirectTo: '/wallet' },
-                resolve: resolver
+                data: { authenticated: false, redirectTo: '/wallet' }
             }).state('settings', {
                 templateUrl: 'views/settings.html',
                 controller: 'UserSettingsController',
-                data: { authenticated: true, redirectTo: '/' },
-                resolve: resolver
+                data: { authenticated: true, redirectTo: '/' }
             }).state('settings.account', {
                 url: '/settings',
                 templateUrl: 'views/settings.account.html'
@@ -94,8 +207,7 @@ angular.module('mobbr', [
             }).state('wallet', {
                 templateUrl: 'views/wallet.html',
                 controller: 'WalletController',
-                data: { authenticated: true, redirectTo: 'main' },
-                resolve: resolver
+                data: { authenticated: true, redirectTo: 'main' }
             }).state('wallet.credit', {
                 url: '/wallet',
                 templateUrl: 'views/wallet.credit.html'
@@ -105,20 +217,72 @@ angular.module('mobbr', [
             }).state('wallet.xpayments', {
                 url: '/wallet/xpayments',
                 templateUrl: 'views/wallet.xpayments.html'
-            }).state('sourcing', {
+            }).state('invoicing', {
+                url: '/invoicing',
+                abstract: true,
                 templateUrl: 'views/sourcing.html',
                 controller: 'SourcingController',
-                data: { authenticated: true, redirectTo: '/' },
-                resolve: resolver
-            }).state('sourcing.request', {
-                url: '/sourcing',
-                templateUrl: 'views/sourcing.request.html'
-            }).state('sourcing.pending', {
+                data: { authenticated: true, redirectTo: '/' }
+            }).state('invoicing.sourcing_request', {
+                url: '/sourcing/request',
+                resolve: {
+                    items: function (MobbrInvoice) {
+                        return MobbrInvoice.requestable();
+                    }
+                },
+                data: {
+                    buttonText: 'Request invoices',
+                    buttonAction: 'requestInvoices'
+                },
+                controller: ItemsController
+            }).state('invocing.sourcing_pending', {
                 url: '/sourcing/pending',
-                templateUrl: 'views/sourcing.pending.html'
-            }).state('sourcing.download', {
+                resolve: {
+                    items: function (MobbrInvoice) {
+                        return MobbrInvoice.requested();
+                    }
+                },
+                data: {
+                    buttonText: 'Cancel request',
+                    buttonAction: 'cancelInvoices'
+                },
+                controller: ItemsController
+            }).state('invocing.sourcing_download', {
                 url: '/sourcing/download',
-                templateUrl: 'views/sourcing.download.html'
+                resolve: {
+                    items: function (MobbrInvoice) {
+                        return MobbrInvoice.confirmed();
+                    }
+                },
+                data: {
+                    buttonText: 'Download invoice',
+                    buttonAction: 'downloadInvoices'
+                },
+                controller: ItemsController
+            }).state('invoicing.working_confirm', {
+                url: '/working/confirm',
+                resolve: {
+                    items: function (MobbrInvoice) {
+                        return MobbrInvoice.confirmable();
+                    }
+                },
+                data: {
+                    buttonText: 'Confirm invoice',
+                    buttonAction: 'confirmInvoices'
+                },
+                controller: ItemsController
+            }).state('invoicing.working_download', {
+                url: '/working/download',
+                resolve: {
+                    items: function (MobbrInvoice) {
+                        return MobbrInvoice.returned();
+                    }
+                },
+                data: {
+                    buttonText: 'Download invoice',
+                    buttonAction: 'downloadInvoices'
+                },
+                controller: ItemsController
             }).state('sourcing.pledged', {
                 url: '/sourcing/pledged',
                 templateUrl: 'views/sourcing.pledged.html'
@@ -128,20 +292,13 @@ angular.module('mobbr', [
             }).state('working', {
                 templateUrl: 'views/working.html',
                 controller: 'WorkingController',
-                data: { authenticated: true, redirectTo: '/' },
-                resolve: resolver
+                data: { authenticated: true, redirectTo: '/' }
             }).state('working.new', {
                 url: '/working',
                 templateUrl: 'views/working.new.html'
             }).state('working.tasks', {
                 url: '/working/tasks',
                 templateUrl: 'views/working.tasks.html'
-            }).state('working.confirm', {
-                url: '/working/confirm',
-                templateUrl: 'views/working.confirm.html'
-            }).state('working.download', {
-                url: '/working/download',
-                templateUrl: 'views/working.download.html'
             }).state('domain', {
                 url: '/domain/:url',
                 templateUrl: 'views/domain.html',
