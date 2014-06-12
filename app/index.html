@@ -220,21 +220,22 @@
                     </li>
                 </ul>
 
-                <form class="navbar-form navbar-right"
+                <form ng-submit="mobbrNow(mobbrNowInput)"
+                      class="navbar-form navbar-right"
                       title="Do a direct payment to an URL or email address">
                     <div class="form-group">
                         <input class="form-control"
                                name="mobbrinput"
                                title="Enter the URL, Mobbr-account, email-address you want to send money to"
-                               placeholder="Enter recipient address"
+                               placeholder="Enter any URL"
                                size="35"
                                maxlength="512"
-                               type="text"
+                               type="url"
                                ng-model="mobbrNowInput"
                                required>
                     </div>
-                    <button name="go" class="btn" type="submit" ng-click="mobbrNow(mobbrNowInput)">
-                        Do a direct payment
+                    <button name="go" class="btn" type="submit">
+                        Search
                     </button>
                 </form>
             </div>
