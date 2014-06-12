@@ -285,7 +285,9 @@ angular.module('mobbr', [
         }
 
         $rootScope.mobbrNow = function (mobbrNow) {
-            $window.mobbr.makePayment(mobbrNow);
+            console.log($rootScope.linkUrl(mobbrNow));
+            $location.path('/url/' + window.btoa(mobbrNow));
+            //$window.mobbr.makePayment(mobbrNow);
         }
 
         $rootScope.scrollToId = function (id) {
