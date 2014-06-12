@@ -36,7 +36,15 @@ angular.module('mobbr', [
     ]).config(function ($stateProvider, $urlRouterProvider) {
 
         function reloadTable(data, table) {
-            table.reload(data.result);
+            if (data.$resolved) {
+                table.reload(data.result);
+            } else {
+
+                // we have to wait implement caching here
+                data.$promise.then(function () {
+                    table.reload(data.result);
+                });
+            }
         }
 
         $stateProvider.state('main', {
@@ -116,7 +124,7 @@ angular.module('mobbr', [
                 url: '/sourcing/request',
                 resolve: {
                     data: function (MobbrInvoice) {
-                        return MobbrInvoice.requestable().$promise;
+                        return MobbrInvoice.requestable();
                     }
                 },
                 data: {
@@ -128,7 +136,7 @@ angular.module('mobbr', [
                 url: '/sourcing/pending',
                 resolve: {
                     data: function (MobbrInvoice) {
-                        return MobbrInvoice.requested().$promise;
+                        return MobbrInvoice.requested();
                     }
                 },
                 data: {
@@ -140,7 +148,7 @@ angular.module('mobbr', [
                 url: '/sourcing/download',
                 resolve: {
                     data: function (MobbrInvoice) {
-                        return MobbrInvoice.returned().$promise;
+                        return MobbrInvoice.returned();
                     }
                 },
                 data: {
@@ -152,7 +160,7 @@ angular.module('mobbr', [
                 url: '/working/confirm',
                 resolve: {
                     data: function (MobbrInvoice) {
-                        return MobbrInvoice.confirmable().$promise;
+                        return MobbrInvoice.confirmable();
                     }
                 },
                 data: {
@@ -165,7 +173,7 @@ angular.module('mobbr', [
                 url: '/working/download',
                 resolve: {
                     data: function (MobbrInvoice) {
-                        return MobbrInvoice.confirmed().$promise;
+                        return MobbrInvoice.confirmed();
                     }
                 },
                 data: {
@@ -225,7 +233,21 @@ angular.module('mobbr', [
             }).state('url', {
                 url: '/url/:url',
                 templateUrl: 'views/url.html',
-                controller: 'UrlReceiptController'
+                controller: 'UrlReceiptController',
+                resolve: {
+                    balances: function ($window, $stateParams, MobbrBalance) {
+                        return MobbrBalance.uri({ url: $window.atob($stateParams.url) });
+                    },
+                    personPayments: function ($window, $stateParams, MobbrUri) {
+                        return MobbrUri.payments({ url: $window.atob($stateParams.url) });
+                    },
+                    payment: function ($window, $stateParams, MobbrPayment) {
+                        return MobbrPayment.preview({
+                            data: $window.atob($stateParams.url),
+                            referrer: $window.location.href
+                        }).$promise;
+                    }
+                }
             }
         );
 

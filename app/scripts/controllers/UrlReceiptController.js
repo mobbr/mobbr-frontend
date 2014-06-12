@@ -1,35 +1,21 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('UrlReceiptController', function ($scope, MobbrPayment, MobbrReferrer, MobbrBalance, MobbrPerson, MobbrUri, $stateParams, $location, $window) {
+angular.module('mobbr.controllers').controller('UrlReceiptController', function ($scope, $stateParams, MobbrBalance, MobbrUri, $window, payment) {
 
-    var urlParam, domainParam;
+    var urlParam = { url: $window.atob($stateParams.url) };
 
     if (!$stateParams.url) {
-        $location.path('/url/' + $window.btoa(document.referrer));
+        $location.path('/url/' + $window.btoa($window.location.href));
     }
 
-    urlParam = { url: $window.atob($stateParams.url) };
-    $scope.url = urlParam.url;
-
-    $scope.payment = MobbrPayment.preview({
-            data: $window.atob($stateParams.url),
-            referrer: document.referrer
-        },
-        function (response) {
-            domainParam = { domain: response.result.url };
-            $scope.locations = MobbrReferrer.domain(domainParam);
-            $scope.divisions = MobbrPerson.domain(domainParam);
-            $scope.hash = response.result.hash;
-        }
-    );
-
-    $scope.onPayment = reload;
-
     function reload() {
-        console.log($scope);
         $scope.balances = MobbrBalance.uri(urlParam);
         $scope.personPayments = MobbrUri.payments(urlParam);
     }
+
+    $scope.payment = payment;
+    $scope.url = urlParam.url;
+    $scope.onPayment = reload;
 
     reload();
 });
