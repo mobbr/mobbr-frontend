@@ -231,7 +231,7 @@ angular.module('mobbr', [
 
         $urlRouterProvider.otherwise('/');
 
-    }).run(function ($http, $rootScope, $state, $location, $window, $anchorScroll, MobbrApi, MobbrUser, mobbrMsg, mobbrSession, apiUrl, uiUrl, lightboxUrl, environment) {
+    }).run(function ($http, $rootScope, $state, $location, $window, $anchorScroll, MobbrApi, MobbrUser, MobbrBalance, mobbrMsg, mobbrSession, apiUrl, uiUrl, lightboxUrl, environment) {
 
         var querystring = $window.location.search;
 
@@ -248,6 +248,7 @@ angular.module('mobbr', [
         $rootScope.countriesMap = MobbrApi.isoCountries();
         $rootScope.timezones = MobbrApi.isoTimezones();
         $rootScope.incomerangeMap = MobbrApi.kycIncomeRanges();
+        $rootScope.userBalance = MobbrBalance.user();
         $rootScope.host = $location.host();
 
         if (environment !== 'production') {
@@ -285,7 +286,6 @@ angular.module('mobbr', [
         }
 
         $rootScope.mobbrNow = function (mobbrNow) {
-            console.log($rootScope.linkUrl(mobbrNow));
             $location.path('/url/' + window.btoa(mobbrNow));
             //$window.mobbr.makePayment(mobbrNow);
         }

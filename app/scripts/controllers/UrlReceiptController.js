@@ -19,9 +19,17 @@ angular.module('mobbr.controllers').controller('UrlReceiptController', function 
             domainParam = { domain: response.result.url };
             $scope.locations = MobbrReferrer.domain(domainParam);
             $scope.divisions = MobbrPerson.domain(domainParam);
+            $scope.hash = response.result.hash;
         }
     );
 
-    $scope.balances = MobbrBalance.uri(urlParam);
-    $scope.personPayments = MobbrUri.payments(urlParam);
+    $scope.onPayment = reload;
+
+    function reload() {
+        console.log($scope);
+        $scope.balances = MobbrBalance.uri(urlParam);
+        $scope.personPayments = MobbrUri.payments(urlParam);
+    }
+
+    reload();
 });

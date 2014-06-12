@@ -31,8 +31,6 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
 
             sorting[$scope.sortBy || 'datetime'] = $scope.sortOrder || 'desc';
 
-            console.log(sorting);
-
             if ($scope.action) {
                 reqparams.action = $scope.action;
             }
@@ -102,15 +100,8 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
                 }
             );
 
-            // wait for reload event
-            $scope.$on('invoicetable', function (e, id) {
-                console.log($scope.id, id);
-                if ($scope.id === id) {
-                    angular.forEach($scope.checkboxes.items, function (item, key) {
-                        $scope.checkboxes.items[key] = false;
-                    });
-                    $scope.invoiceTable.reload();
-                }
+            $scope.$watch('api', function (oldApi, newApi) {
+                $scope.invoiceTable.reload();
             });
 
             // watch for check all checkbox
