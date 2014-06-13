@@ -81,15 +81,18 @@
 
                 <fieldset class="col-md-7 toolbar pull-right">
                     <div class="col-md-5">
-                        <div class="btn-group pull-right" dropdown>
-                            <button type="button" class="btn">Group by: {{ groupby }}</button>
-                            <button type="button" class="btn dropdown-toggle">
-                                <span class="caret"></span>
-                                <span class="sr-only">Split button!</span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li ng-repeat="group in groups"><a ng-click="$parent.groupby = group" ng-bind="labels[group] || group"></a></li>
-                            </ul>
+                        <div class="pull-right">
+                            <label class="control-label">Group by</label>
+                            <div class="btn-group" dropdown>
+                                <button type="button" class="btn dropdown-toggle">
+                                    <span ng-bind="labels[groupby] || groupby"></span>
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li ng-repeat="group in groups"><a ng-click="$parent.groupby = group" ng-bind="labels[group] || group"></a></li>
+                                    <li><a ng-click="groupby = 'null'">None</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-7">
@@ -118,7 +121,7 @@
                         </tr>
                         </thead>
                         <tbody ng-repeat="group in $groups">
-                        <tr class="ng-table-group">
+                        <tr class="ng-table-group" ng-show="group.value">
                             <td colspan="{{ columns.length + 1 }}">
                                 <div ng-click="group.$hideRows = !group.$hideRows">
                                     <span ng-class="{ 'icon-chevron-right': group.$hideRows, 'icon-chevron-down': !group.$hideRows }"></span>
