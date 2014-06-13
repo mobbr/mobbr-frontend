@@ -235,12 +235,6 @@ angular.module('mobbr', [
                 templateUrl: 'views/url.html',
                 controller: 'UrlReceiptController',
                 resolve: {
-                    balances: function ($window, $stateParams, MobbrBalance) {
-                        return MobbrBalance.uri({ url: $window.atob($stateParams.url) });
-                    },
-                    personPayments: function ($window, $stateParams, MobbrUri) {
-                        return MobbrUri.payments({ url: $window.atob($stateParams.url) });
-                    },
                     payment: function ($window, $stateParams, MobbrPayment) {
                         return MobbrPayment.preview({
                             data: $window.atob($stateParams.url),
