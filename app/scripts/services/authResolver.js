@@ -24,16 +24,20 @@ angular.module('mobbr.services').run(function ($rootScope, $state, $timeout, $mo
         });
     }
 
-    $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams, error) {
-
-        cancelTimeout();
-        timeout = $timeout(showProgress, 1000);
+    function authState(toState, event) {
 
         if (toState.data && toState.data.authenticated !== mobbrSession.isAuthorized()) {
-            event.preventDefault();
+            event && event.preventDefault();
             mobbrMsg.add({ msg: 'Please login at the account menu' });
+            console.log(toState);
             $state.go(toState.data.redirectTo);
         }
+    }
+
+    $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams, error) {
+        cancelTimeout();
+        timeout = $timeout(showProgress, 1000);
+        authState(toState);
     });
 
     $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
@@ -50,5 +54,9 @@ angular.module('mobbr.services').run(function ($rootScope, $state, $timeout, $mo
 
     $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams, error) {
         cancelTimeout();
+    });
+
+    $rootScope.$on('mobbrApi:authchange', function () {
+        authState($state.current);
     });
 });
