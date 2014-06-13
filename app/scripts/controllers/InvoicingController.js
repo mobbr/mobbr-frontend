@@ -15,7 +15,8 @@ angular.module('mobbr.controllers').controller('InvoicingController', function (
         gravatar: ' ',
         uri: 'URL',
         role: 'Role',
-        currency_iso: 'Currency'
+        currency_iso: 'Currency',
+        null: 'None'
     };
 
     $scope.selectallid = Math.floor(Math.random() * 1000000);
