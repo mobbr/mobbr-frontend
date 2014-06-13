@@ -11,13 +11,14 @@
             </a>
             <p>{{ payment.result.script.description }}</p>
         </div>
-        <div class="row">
-            <div class="well" ng-if="personPayments.result.length > 0">
+        <div class="row" ng-if="personPayments.result.length > 0">
+            <div class="well">
                 <h6>Payments made to this URL</h6>
                 <invoicetable api="personPayments"
                               columns="[ 'datetime', 'senders', 'receivers', 'currency_iso', 'amount' ]"></invoicetable>
             </div>
         </div>
+
     </div>
     <div class="col-md-4">
         <mobbr-payment class="well" type="payment.result.script.type" hash="payment.result.hash" on-payment="onPayment"></mobbr-payment>
