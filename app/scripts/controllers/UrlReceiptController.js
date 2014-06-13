@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('UrlReceiptController', function ($scope, $stateParams, MobbrBalance, MobbrUri, $window, payment) {
+angular.module('mobbr.controllers').controller('UrlReceiptController', function ($scope, $stateParams, MobbrBalance, MobbrPayment, $window, payment) {
 
     var urlParam = { url: $window.atob($stateParams.url) };
 
@@ -10,7 +10,7 @@ angular.module('mobbr.controllers').controller('UrlReceiptController', function 
 
     function reload() {
         $scope.balances = MobbrBalance.uri(urlParam);
-        $scope.personPayments = MobbrUri.payments(urlParam);
+        $scope.personPayments = MobbrPayment.uri(urlParam);
     }
 
     $scope.payment = payment;
