@@ -67,16 +67,16 @@ angular.module('mobbr', [
                 url: '/recover',
                 templateUrl: 'views/recover-password.html',
                 controller: 'ResetPasswordController',
-                data: { authenticated: false, redirectTo: '/wallet' }
+                data: { authenticated: false, redirectTo: 'wallet.credit' }
             }).state('join', {
                 url: '/join',
                 templateUrl: 'views/join.html',
                 controller: 'JoinController',
-                data: { authenticated: false, redirectTo: '/wallet' }
+                data: { authenticated: false, redirectTo: 'wallet.credit' }
             }).state('settings', {
                 templateUrl: 'views/settings.html',
                 controller: 'UserSettingsController',
-                data: { authenticated: true, redirectTo: '/' }
+                data: { authenticated: true, redirectTo: 'main' }
             }).state('settings.account', {
                 url: '/settings',
                 templateUrl: 'views/settings.account.html'
@@ -119,7 +119,7 @@ angular.module('mobbr', [
                 abstract: true,
                 templateUrl: 'views/invoicing.html',
                 controller: 'InvoicingController',
-                data: { authenticated: true, redirectTo: '/' }
+                data: { authenticated: true, redirectTo: 'main' }
             }).state('invoicing.sourcing_request', {
                 url: '/sourcing/request',
                 resolve: {
