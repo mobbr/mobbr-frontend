@@ -12,7 +12,7 @@
                 <select class="form-control"
                         required
                         ng-model="currency"
-                        ng-options="value.currency_iso for value in $rootScope.userBalance.result.balances"></select>
+                        ng-options="value.currency_iso as value.currency_description for value in $rootScope.userBalance.result.balances"></select>
                 <!--<select class="input-small"
                         required
                         ng-model="currency"
