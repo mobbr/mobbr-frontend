@@ -73,11 +73,14 @@
                     <input type="checkbox" ng-model="checkboxes.items[item.id]" />
                 </td>
                 <td ng-repeat="column in columns" ng-switch on="column" class="{{ column }}" ng-click="clickRow(item)">
-                    <img ng-switch-when="gravatar"
-                         ng-src="https://secure.gravatar.com/avatar/{{ (item['gravatar'] || item['.gravatar']) }}?s=20&default=https://mobbr.com/img/default-gravatar.png"
-                         class="gravatar xsmall img-rounded"
-                         width="20"
-                         height="20">
+                    <a ng-switch-when="gravatar"
+                       ng-href="https://secure.gravatar.com/{{ (item['gravatar'] || item['.gravatar']) }}"
+                       target="_blank">
+                        <img ng-src="https://secure.gravatar.com/avatar/{{ (item['gravatar'] || item['.gravatar']) }}?s=20&default=https://mobbr.com/img/default-gravatar.png"
+                             class="gravatar xsmall img-rounded"
+                             width="20"
+                             height="20">
+                    </a>
                     <time ng-switch-when="datetime || paiddatetime || faileddatetime || announceddatetime"
                           datetime="{{ item[column] || item['faileddatetime'] || item['announceddatetime'] }}">
                         <small>{{ item[column] || item['faileddatetime'] || item['announceddatetime'] }}</small>
@@ -97,9 +100,12 @@
                           ng-class="{ 'text-danger': item.amount < 0 }"
                           class="nowrap"></span>
                     <span ng-switch-when="senders || receivers">
-                        <img ng-repeat="i in item[column]"
-                             ng-src="https://secure.gravatar.com/avatar/{{ i.gravatar }}?s=20&default=https://mobbr.com/img/default-gravatar.png"
-                             class="gravatar small img-rounded">
+                        <a ng-repeat="i in item[column]"
+                           ng-href="https://secure.gravatar.com/{{ (i.gravatar || item['.gravatar']) }}"
+                           target="_blank">
+                            <img ng-src="https://secure.gravatar.com/avatar/{{ i.gravatar }}?s=20&default=https://mobbr.com/img/default-gravatar.png"
+                                 class="gravatar small img-rounded">
+                        </a>
                     </span>
                     <span ng-switch-default ng-bind="item[column]"></span>
                 </td>
