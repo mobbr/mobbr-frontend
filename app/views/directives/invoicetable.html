@@ -82,6 +82,10 @@
                           datetime="{{ item[column] || item['faileddatetime'] || item['announceddatetime'] }}">
                         <small>{{ item[column] || item['faileddatetime'] || item['announceddatetime'] }}</small>
                     </time>
+                    <span ng-switch-when="type"
+                          class="label"
+                          ng-class="{ 'label-success': item['is_pledge'] == 1, 'label-primary': item['is_pledge'] == 0 }"
+                          ng-bind="item['is_pledge'] == 1 ? 'Pledge' : 'Payment'"></span>
                     <span ng-switch-when="receive_address" ng-bind="item['receive_address'] || ''"></span>
                     <span ng-switch-when="status" ng-bind="(item['paiddatetime'] && 'Succeeded') || (item['faileddatetime'] && item['service_message']) || (item['announceddatetime'] && 'Pending')"></span>
                     <span ng-switch-when="username" ng-bind="item['username'] || item['.org-id']"></span>
