@@ -45,7 +45,8 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
                 payment_service: 'Payment service',
                 receive_address: 'Receive address',
                 currency_description: 'Currency description',
-                gravatar: ' '
+                gravatar: ' ',
+                currency_iso: 'Currency'
             };
 
             $scope.sortTableBy = function (column) {

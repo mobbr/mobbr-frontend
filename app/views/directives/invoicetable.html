@@ -8,7 +8,7 @@
         </button>
     </fieldset>
 
-    <fieldset ng-if="showSearch != false" class="col-md-5 toolbar pull-right">
+    <fieldset ng-if="showSearch != false && invoiceTable.total() > invoiceTable.settings().counts[0]" class="col-md-5 toolbar pull-right">
         <input ng-model="invoiceTable.$params.filter" placeholder="Search" class="form-control search-query" type="search" id="search">
     </fieldset>
 
