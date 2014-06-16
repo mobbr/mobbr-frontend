@@ -15,7 +15,7 @@
                     This URL has no participants, create a script using the script generator
                 </alert>
                 <mobbr-payment class="well url-payment" type="payment.result.script.type" hash="payment.result.hash" on-payment="onPayment"></mobbr-payment>
-                <a ng-repeat="keyword in payment.result.script.keywords">
+                <a ng-repeat="keyword in payment.result.script.keywords" class="url-keyword">
                     <span class="label label-primary"
                           ng-bind="keyword">test</span>
                 </a>
