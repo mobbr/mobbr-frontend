@@ -26,7 +26,7 @@
                     id="income_range"
                     name="income_range"
                     ng-model="$mobbrStorage.user.income_range"
-                    ng-options="value for (key, value) in incomerangeMap.result">
+                    ng-options="key as value for (key, value) in incomerangeMap.result">
                 <option value="">No range</option>
             </select>
         </div>
@@ -39,7 +39,7 @@
                    id="identity_proof_upload"
                    name="identity_proof_upload"
                    type="file"
-                   ng-disabled="$mobbrStorage.user.income_range == '' || $mobbrStorage.user.occupation = ''"
+                   ng-disabled="$mobbrStorage.user.income_range == '' || $mobbrStorage.user.occupation == ''"
                    ng-file-select="uploadIdentityProof($files)">
         </div>
     </fieldset>

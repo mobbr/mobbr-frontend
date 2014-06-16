@@ -14,6 +14,7 @@ angular.module('mobbr.controllers').controller('UrlReceiptController', function 
         urlParam.base_currency = mobbrSession.isAuthorized() ? $rootScope.$mobbrStorage.user.currency_iso : 'EUR';
         $scope.earners = MobbrPerson.uri_earners(urlParam);
         $scope.payers = MobbrPerson.uri_payers(urlParam);
+        delete urlParam.base_currency;
     }
 
     $scope.payment = payment;

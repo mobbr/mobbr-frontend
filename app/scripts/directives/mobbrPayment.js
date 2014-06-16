@@ -5,7 +5,7 @@ angular.module('mobbr.directives').directive('mobbrPayment', function ($window, 
     return {
         restrict: 'E',
         replace: true,
-        transclude:true,
+        transclude: true,
         templateUrl: 'views/directives/mobbrPayment.html',
         scope: {
             hash: '=',
@@ -26,11 +26,13 @@ angular.module('mobbr.directives').directive('mobbrPayment', function ($window, 
             $scope.makePayment = function () {
                 $scope.payment = MobbrPayment.confirm({
                     referrer: $window.location.href,
-                    currency: $scope.currency.currency_iso,
+                    currency: $scope.currency,
                     amount: $scope.amount,
                     hash: $scope.hash
                 }, function () {
                     $scope.onPayment();
+                }, function () {
+                    $scope.error = true;
                 });
             }
         }

@@ -1,8 +1,15 @@
 <div>
-    <alert type="'success'" ng-show="payment.$resolved">
-        Payment successfully made
-        <button class="btn btn-success btn-xs pull-right" ng-click="$parent.payment = null; $parent.amount = null">Got it</button>
-    </alert>
+    <div ng-show="payment.$resolved">
+        <alert type="'danger'" ng-show="error">
+            There was an error making your payment
+            <button class="btn btn-danger btn-xs pull-right" ng-click="$parent.payment = null; $parent.error = null">Got it</button>
+        </alert>
+        <alert type="'success'" ng-show="!error">
+            Payment successfully made
+            <button class="btn btn-success btn-xs pull-right" ng-click="$parent.payment = null; $parent.amount = null">Got it</button>
+        </alert>
+    </div>
+
     <alert type="'warning'" ng-show="!mobbrSession.isAuthorized()">
         Log in to start paying to this url
     </alert>
@@ -12,7 +19,7 @@
                 <select class="form-control"
                         required
                         ng-model="currency"
-                        ng-options="value.currency_iso as value.currency_description for value in $rootScope.userBalance.result.balances"></select>
+                        ng-options="value.currency_iso as (value.currency_description || value.currency_iso) for value in $rootScope.userBalance.result.balances"></select>
                 <!--<select class="input-small"
                         required
                         ng-model="currency"
