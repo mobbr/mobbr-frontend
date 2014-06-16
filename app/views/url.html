@@ -8,13 +8,17 @@
                 <a href="{{ payment.result.url }}" ng-show="payment.result.script.image">
                     <img ng-src="{{ payment.result.script.image }}" class="pull-left urlimage" width="50" height="50">
                 </a>
-                <p>{{ payment.result.script.description }}</p>
+                <p class="page-description">{{ payment.result.script.description }}</p>
             </div>
             <div class="col-md-4">
                 <alert ng-show="!payment.result.script.participants">
                     This URL has no participants, create a script using the script generator
                 </alert>
-                <mobbr-payment class="well" type="payment.result.script.type" hash="payment.result.hash" on-payment="onPayment"></mobbr-payment>
+                <mobbr-payment class="well url-payment" type="payment.result.script.type" hash="payment.result.hash" on-payment="onPayment"></mobbr-payment>
+                <a ng-repeat="keyword in payment.result.script.keywords">
+                    <span class="label label-primary"
+                          ng-bind="keyword">test</span>
+                </a>
             </div>
         </div>
         <div class="row">
