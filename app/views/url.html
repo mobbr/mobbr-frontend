@@ -27,7 +27,8 @@
                     <h6>Payments made to this URL</h6>
                     <invoicetable api="personPayments"
                                   columns="[ 'datetime', 'senders', 'type', 'currency_iso', 'amount' ]"
-                                  show-search="false"></invoicetable>
+                                  show-search="false"
+                                  click-row="openPayment"></invoicetable>
                     <h6>URL payers</h6>
                     <invoicetable api="payers"
                                   columns="[ 'gravatar', 'username', 'roles', 'amount' ]"></invoicetable>
