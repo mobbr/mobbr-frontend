@@ -11,14 +11,25 @@
             </a>
             <p>{{ payment.result.script.description }}</p>
         </div>
-        <div class="row" ng-if="personPayments.result.length > 0">
+        <div class="row">
             <div class="well">
-                <h6>Payments made to this URL</h6>
-                <invoicetable api="personPayments"
-                              columns="[ 'datetime', 'senders', 'receivers', 'type', 'currency_iso', 'amount' ]"></invoicetable>
+                <div class="row">
+                    <div class="col-md-6" ng-if="personPayments.result.length > 0">
+                        <h6>Payments made to this URL</h6>
+                        <invoicetable api="personPayments"
+                                      columns="[ 'datetime', 'senders', 'type', 'currency_iso', 'amount' ]"
+                                      show-search="false"></invoicetable>
+                    </div>
+                    <div class="col-md-6" ng-if="balances.result.length > 0">
+                        <h6>Domain earnings</h6>
+                        <invoicetable api="balances"
+                                      columns="[ 'currency_description', 'currency_iso', 'amount' ]"
+                                      show-search="false"></invoicetable>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="row" ng-if="!payment.result.script.participants">
+        <!--<div class="row" ng-if="!payment.result.script.participants">
             <div class="well">
                 <h6>Create Mobbr script</h6>
                 <accordion class="generate-button" close-others="true">
@@ -202,19 +213,13 @@
                     </accordion-group>
                 </accordion>
             </div>
-        </div>
+        </div>-->
     </div>
     <div class="col-md-4">
         <alert ng-show="!payment.result.script.participants">
             This URL has no participants, create a script using the script generator
         </alert>
         <mobbr-payment class="well" type="payment.result.script.type" hash="payment.result.hash" on-payment="onPayment"></mobbr-payment>
-        <div class="well" ng-if="balances.result.length > 0">
-            <h6>Domain earnings</h6>
-            <invoicetable api="balances"
-                          columns="[ 'currency_description', 'currency_iso', 'amount' ]"
-                          show-search="false"></invoicetable>
-        </div>
         <div class="well" ng-if="payers.result.length > 0">
             <h6>URL payers</h6>
             <invoicetable api="payers"
