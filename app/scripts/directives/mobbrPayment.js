@@ -19,13 +19,9 @@ angular.module('mobbr.directives').directive('mobbrPayment', function ($window, 
                 donate: 'Donate'
             };
 
-            console.log($scope.onPayment);
-
             $scope.mobbrSession = mobbrSession;
             $scope.$rootScope = $rootScope;
-            $rootScope.userBalance.$promise.then(function () {
-               $scope.currency = $rootScope.userBalance.result.balances[0];
-            });
+            $scope.currency = mobbrSession.isAuthorized() ? $rootScope.$mobbrStorage.user.currency_iso : 'EUR';
 
             $scope.makePayment = function () {
                 $scope.payment = MobbrPayment.confirm({
