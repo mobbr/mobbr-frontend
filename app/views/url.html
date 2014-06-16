@@ -1,31 +1,52 @@
 <div class="row">
-    <div class="col-md-8">
-        <div class="row">
-            <div class="page-header">
-                <mobbrbutton class="pull-right" size="medium" url="{{ url }}"></mobbrbutton>
-                <h1 ng-bind="payment.result.script.title"></h1>
-                <a target="_blank" href="{{ payment.result.url }}" ng-bind="payment.result.url"></a>
+            <div class="col-md-8">
+                <div class="page-header">
+                    <mobbrbutton class="pull-right" size="medium" url="{{ url }}"></mobbrbutton>
+                    <h1 ng-bind="payment.result.script.title"></h1>
+                    <a target="_blank" href="{{ payment.result.url }}" ng-bind="payment.result.url"></a>
+                </div>
+                <a href="{{ payment.result.url }}" ng-show="payment.result.script.image">
+                    <img ng-src="{{ payment.result.script.image }}" class="pull-left urlimage" width="50" height="50">
+                </a>
+                <p>{{ payment.result.script.description }}</p>
             </div>
-            <a href="{{ payment.result.url }}" ng-show="payment.result.script.image">
-                <img ng-src="{{ payment.result.script.image }}" class="pull-left urlimage" width="50" height="50">
-            </a>
-            <p>{{ payment.result.script.description }}</p>
+            <div class="col-md-4">
+                <alert ng-show="!payment.result.script.participants">
+                    This URL has no participants, create a script using the script generator
+                </alert>
+                <mobbr-payment class="well" type="payment.result.script.type" hash="payment.result.hash" on-payment="onPayment"></mobbr-payment>
+            </div>
         </div>
         <div class="row">
-            <div class="well">
-                <div class="row">
-                    <div class="col-md-6" ng-if="personPayments.result.length > 0">
-                        <h6>Payments made to this URL</h6>
-                        <invoicetable api="personPayments"
-                                      columns="[ 'datetime', 'senders', 'type', 'currency_iso', 'amount' ]"
-                                      show-search="false"></invoicetable>
-                    </div>
-                    <div class="col-md-6" ng-if="balances.result.length > 0">
-                        <h6>Domain earnings</h6>
-                        <invoicetable api="balances"
-                                      columns="[ 'currency_description', 'currency_iso', 'amount' ]"
-                                      show-search="false"></invoicetable>
-                    </div>
+            <div class="col-md-4">
+                <div class="well" ng-if="personPayments.result.length > 0">
+                    <h6>Payments made to this URL</h6>
+                    <invoicetable api="personPayments"
+                                  columns="[ 'datetime', 'senders', 'type', 'currency_iso', 'amount' ]"
+                                  show-search="false"></invoicetable>
+                    <h6>URL payers</h6>
+                    <invoicetable api="payers"
+                                  columns="[ 'gravatar', 'username', 'roles', 'amount' ]"></invoicetable>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="well" ng-if="balances.result.length > 0">
+                    <h6>Domain earnings</h6>
+                    <invoicetable api="balances"
+                                  columns="[ 'currency_description', 'currency_iso', 'amount' ]"
+                                  show-search="false"></invoicetable>
+                    <h6>URL earners</h6>
+                    <invoicetable api="earners"
+                                  columns="[ 'gravatar', 'username', 'roles', 'amount' ]"></invoicetable>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="well" ng-if="payment.result.script.participants.length > 0">
+                    <h6>Currently listed participants</h6>
+                    <invoicetable api="payment"
+                                  index="[ 'script', 'participants' ]"
+                                  columns="[ 'gravatar', 'username', 'role', 'percentage' ]"
+                                  sort-by="'percentage'"></invoicetable>
                 </div>
             </div>
         </div>
@@ -214,29 +235,3 @@
                 </accordion>
             </div>
         </div>-->
-    </div>
-    <div class="col-md-4">
-        <alert ng-show="!payment.result.script.participants">
-            This URL has no participants, create a script using the script generator
-        </alert>
-        <mobbr-payment class="well" type="payment.result.script.type" hash="payment.result.hash" on-payment="onPayment"></mobbr-payment>
-        <div class="well" ng-if="payers.result.length > 0">
-            <h6>URL payers</h6>
-            <invoicetable api="payers"
-                          columns="[ 'gravatar', 'username', 'roles', 'amount' ]"></invoicetable>
-        </div>
-        <div class="well" ng-if="earners.result.length > 0">
-            <h6>URL earners</h6>
-            <invoicetable api="earners"
-                          columns="[ 'gravatar', 'username', 'roles', 'amount' ]"></invoicetable>
-        </div>
-
-        <div class="well" ng-if="payment.result.script.participants.length > 0">
-            <h6>Currently listed participants</h6>
-            <invoicetable api="payment"
-                          index="[ 'script', 'participants' ]"
-                          columns="[ 'gravatar', 'username', 'role', 'percentage' ]"
-                          sort-by="'percentage'"></invoicetable>
-        </div>
-    </div>
-</div>
