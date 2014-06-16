@@ -6,6 +6,10 @@ body {
   /*background-color: #9F9 !important;*/
 }
 
+.img-rounded {
+  border-radius: .25em;
+}
+
 .ui-scrollfix {
   position: fixed;
   top: 51px;
@@ -42,6 +46,10 @@ table th {
   padding-bottom: 20px;
   margin-bottom: 20px;
   border-bottom: 1px solid $mobbrblue;
+}
+
+.url-keyword {
+  margin-right: 4px;
 }
 
 .url-payment {
