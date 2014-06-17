@@ -222,14 +222,22 @@ angular.module('mobbr', [
             }).state('validator', {
                 url: '/validator',
                 templateUrl: 'views/validator.html'
-            }).state('payment', {
-                url: '/payment/:id',
-                templateUrl: 'views/payment.html',
-                controller: 'PaymentReceiptController'
-            }).state('x-payment', {
-                url: '/x-payment/:id',
-                templateUrl: 'views/payment.html',
-                controller: 'PaymentReceiptController'
+            }).state('main.payment', {
+                url: 'payment/:id',
+                onEnter: function ($rootScope, $stateParams) {
+                    $rootScope.openPayment({ id: $stateParams.id });
+                },
+                onExit: function (mobbrModal) {
+                    mobbrModal.close();
+                }
+            }).state('main.x-payment', {
+                url: 'x-payment/:id',
+                onEnter: function ($rootScope, $stateParams) {
+                    $rootScope.openExternalPayment({ id: $stateParams.id });
+                },
+                onExit: function (mobbrModal) {
+                    mobbrModal.close();
+                }
             }).state('url', {
                 url: '/url/:url',
                 templateUrl: 'views/url.html',
@@ -247,7 +255,7 @@ angular.module('mobbr', [
 
         $urlRouterProvider.otherwise('/');
 
-    }).run(function ($http, $rootScope, $state, $location, $window, $anchorScroll, MobbrApi, MobbrUser, MobbrBalance, mobbrMsg, mobbrSession, apiUrl, uiUrl, lightboxUrl, environment) {
+    }).run(function ($http, $rootScope, $state, $location, $window, $anchorScroll, mobbrModal, MobbrApi, MobbrUser, MobbrBalance, mobbrMsg, mobbrSession, apiUrl, uiUrl, lightboxUrl, environment) {
 
         var querystring = $window.location.search;
 
@@ -285,12 +293,38 @@ angular.module('mobbr', [
             $location.path('/');
         }
 
+        function paymentModal(id, external) {
+            return mobbrModal.open({
+                backdrop: true,
+                keyboard: true,
+                backdropClick: true,
+                templateUrl: 'views/partials/payment_popup.html',
+                controller: 'PaymentReceiptController',
+                resolve: {
+                    payment: function (MobbrPayment, MobbrXPayment) {
+                        return external
+                            ? MobbrXPayment.info({ id: id }).$promise
+                            : MobbrPayment.info({ id: id }).$promise;
+                    },
+                    external: function () {
+                        return external;
+                    }
+                }
+            });
+        }
+
         $rootScope.openExternalPayment = function (item) {
-            $location.path('/x-payment/' + item.id);
+            //$location.path('/x-payment/' + item.id);
+            return paymentModal(item.id, true);
         }
 
         $rootScope.openPayment = function (item) {
-            $location.path('/payment/' + item.id);
+            //$location.path('/payment/' + item.id);
+            return paymentModal(item.id);
+        }
+
+        $rootScope.getPaymentUrl= function (id, external) {
+            return uiUrl + '/#/' + (external && 'x-' || '') +  'payment/' + id;
         }
 
         $rootScope.isTest = function () {
