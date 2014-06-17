@@ -20,7 +20,8 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
             sortOrder: '=',
             clickRow: '=',
             showSearch: '=',
-            index: '='
+            index: '=',
+            header: '='
         },
         controller: function ($scope, $attrs, $rootScope, $filter, ngTableParams) {
 

@@ -1,15 +1,13 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('PaymentReceiptController', function ($scope, $stateParams, $location, MobbrPayment, MobbrXPayment) {
-
-    var params = { id: $stateParams.id };
-
-    $scope.external = false;
-
-    if ($location.path().indexOf('x-payment') !== -1) {
-        $scope.external = true;
-        $scope.payment = MobbrXPayment.info(params);
-    } else {
-        $scope.payment = MobbrPayment.info(params);
+angular.module('mobbr.controllers').controller('PaymentReceiptController', function ($scope, $state, payment, external) {
+    $scope.payment = payment;
+    $scope.external = external;
+    $scope.close = function () {
+        if ($state.includes('main.payment') || $state.includes('main.x-payment')) {
+            $state.go('main');
+        } else {
+            $scope.$dismiss();
+        }
     }
 });
