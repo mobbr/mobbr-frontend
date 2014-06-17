@@ -18,7 +18,7 @@
 
     <div class="col-md-12">
         <table ng-table="invoiceTable" ng-show="items.length > 0" class="mobbrtable table table-striped table-checkbox ng-table">
-            <thead>
+            <thead ng-if="header != false">
             <tr>
                 <th ng-if="selectable" class="check-box"><input id="{{ selectallid }}" type="checkbox" ng-model="$parent.$parent.select_all"></th>
                 <th ng-repeat="column in columns" ng-click="sortTableBy(column)">
