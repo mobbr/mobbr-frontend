@@ -366,7 +366,7 @@ angular.module('mobbr', [
                 templateUrl: 'views/url.html',
                 controller: 'UrlReceiptController',
                 resolve: {
-                    payment: function ($window, $stateParams, MobbrPayment) {
+                    payment: function ($window, $stateParams, $state, $q, MobbrPayment) {
                         return MobbrPayment.preview({
                             data: $window.atob($stateParams.url),
                             referrer: $window.location.href
