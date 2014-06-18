@@ -9,7 +9,7 @@ angular.module('mobbr.controllers').controller('UrlReceiptController', function 
     }
 
     if (payment.result.url !== urlParam.url) {
-        $location.path('/url/' + $window.btoa(payment.uri));
+        $location.path('/url/' + $window.btoa(payment.result.url));
     }
 
     function reload() {
