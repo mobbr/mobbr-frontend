@@ -52,6 +52,7 @@
                         This URL has no participants, create a script using the script generator
                     </alert>
                     <mobbr-payment class="url-payment" type="payment.result.script.type" hash="payment.result.hash" on-payment="onPayment"></mobbr-payment>
+                    <alert type="'success'" ng-if="payment.result.script.message" ng-bind="payment.result.script.message"></alert>
                     <div ng-if="payment.result.script.participants.length > 0">
                         <h6>Currently listed participants</h6>
                         <invoicetable api="payment"
