@@ -14,7 +14,7 @@
                         <div class="url-keywords" ng-if="payment.result.script.keywords.length > 0">
                             <a ng-repeat="keyword in payment.result.script.keywords" class="url-keyword">
                         <span class="label label-primary"
-                              ng-bind="keyword">test</span>
+                              ng-bind="keyword"></span>
                             </a>
                         </div>
                     </div>
@@ -24,7 +24,7 @@
                         <div class="well" ng-if="personPayments.result.length > 0">
                             <h6>Payments made to this URL</h6>
                             <invoicetable api="personPayments"
-                                          columns="[ 'datetime', 'senders', 'type', 'currency_iso', 'amount' ]"
+                                          columns="[ 'datetime', 'type', 'currency_iso', 'amount' ]"
                                           show-search="false"
                                           click-row="openPayment"></invoicetable>
                             <h6>URL payers</h6>
@@ -33,9 +33,10 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="well" ng-if="balances.result.length > 0">
+                        <div class="well" ng-if="balances.result.balances.length > 0">
                             <h6>Domain earnings</h6>
                             <invoicetable api="balances"
+                                          index="'balances'"
                                           columns="[ 'currency_description', 'currency_iso', 'amount' ]"
                                           show-search="false"></invoicetable>
                             <h6>URL earners</h6>
