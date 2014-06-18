@@ -16,7 +16,7 @@
                          class="img-rounded receipt-thumb">
                 </a>
                 <h3 class="pull-left">
-                    {{ payment.result.meta_data.currency_iso }} <span class="amount">{{ payment.result.meta_data.amount }}</span><br>
+                    {{ payment.result.meta_data.currency_iso }} <span class="amount" ng-bind="payment.result.meta_data.amount | mobbrcurrency"></span><br>
                 </h3>
             </div>
         </div>

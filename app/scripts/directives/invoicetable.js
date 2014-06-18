@@ -102,10 +102,6 @@ angular.module('mobbr.directives').directive('invoicetable', function factory() 
                 }
             );
 
-            $scope.$watch('api', function (oldApi, newApi) {
-                $scope.invoiceTable.reload();
-            });
-
             // watch for check all checkbox
             $scope.$watch('select_all', function (value) {
                 angular.forEach($scope.items, function (item) {
