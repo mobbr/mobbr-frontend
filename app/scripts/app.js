@@ -35,16 +35,8 @@ angular.module('mobbr', [
 
     ]).config(function ($stateProvider, $urlRouterProvider) {
 
-        function reloadTable(data, table) {
-            if (data.$resolved) {
-                table.reload(data.result);
-            } else {
-
-                // we have to wait implement caching here
-                data.$promise.then(function () {
-                    table.reload(data.result);
-                });
-            }
+        function reloadTable($state, data, table) {
+            table.reload(data);
         }
 
         $stateProvider.state('main', {
@@ -98,29 +90,135 @@ angular.module('mobbr', [
             }).state('settings.notifications', {
                 url: '/settings/notifications',
                 templateUrl: 'views/settings.notifications.html'
-            }).state('wallet', {
-                templateUrl: 'views/wallet.html',
-                controller: 'WalletController',
-                data: { authenticated: true, redirectTo: 'main' }
-            }).state('wallet.credit', {
+            }).state('table', {
+                abstract: true,
+                templateUrl: 'views/table.html',
+                controller: 'TableController',
+                data: {
+                    columns: [ 'title', 'username', 'role', 'currency_iso', 'amount' ],
+                    groups: [ 'uri', 'username', 'role', 'currency_iso' ],
+                    empty_message: 'No items available',
+                    selectable: false,
+                    sorting: {
+                        datetime: 'desc'
+                    }
+                }
+            }).state('table.wallet', {
                 url: '/wallet',
-                templateUrl: 'views/wallet.credit.html'
-            }).state('wallet.payments', {
-                url: '/wallet/payments',
-                templateUrl: 'views/wallet.payments.html'
-            }).state('wallet.pledges', {
-                url: '/wallet/pledges',
-                templateUrl: 'views/wallet.pledges.html'
-            }).state('wallet.xpayments', {
-                url: '/wallet/xpayments',
-                templateUrl: 'views/wallet.xpayments.html'
-            }).state('invoicing', {
+                abstract: true,
+                templateUrl: 'views/sidebars/wallet.html',
+                controller: 'WalletController',
+                data: {
+                    authenticated: true,
+                    redirectTo: 'main',
+                    groups: [ 'url', 'currency_iso' ],
+                    buttons: [
+                        {
+                            buttonText: 'Deposit',
+                            buttonAction: 'deposit',
+                            selectable: false
+                        },
+                        {
+                            buttonText: 'Withdraw',
+                            buttonAction: 'withdraw',
+                            selectable: false
+                        }
+                    ]
+                }
+            }).state('table.wallet.credit', {
+                url: '/credit',
+                resolve: {
+                    data: function (MobbrBalance) {
+                        return MobbrBalance.user();
+                    }
+                },
+                data: {
+                    index: 'balances',
+                    columns: [ 'currency_description', 'currency', 'amount', 'fee', 'spendable' ],
+                    groups: [],
+                    sorting: {
+                        amount: 'desc'
+                    }
+                },
+                onEnter: reloadTable
+            }).state('table.wallet.payments', {
+                url: '/payments',
+                resolve: {
+                    data: function (MobbrPayment) {
+                        return MobbrPayment.get();
+                    }
+                },
+                data: {
+                    columns: [ 'datetime', 'title', 'currency', 'amount' ],
+                    clickRow: 'openPayment'
+                },
+                onEnter: reloadTable
+            }).state('table.wallet.pledges', {
+                url: '/pledges',
+                resolve: {
+                    data: function (MobbrPayment) {
+                        return MobbrPayment.pledged();
+                    }
+                },
+                data: {
+                    columns: [ 'datetime', 'title', 'url', 'currency', 'amount' ],
+                    sorting: {
+                        paiddatetime: 'desc'
+                    },
+                    buttonText: 'Delete pledges',
+                    buttonAction: 'removePledges',
+                    selectable: true,
+                    clickRow: 'openPayment',
+                    buttons: [
+                        {
+                            buttonText: 'Deposit',
+                            buttonAction: 'deposit',
+                            selectable: false
+                        },
+                        {
+                            buttonText: 'Withdraw',
+                            buttonAction: 'withdraw',
+                            selectable: false
+                        },
+                        {
+                            buttonText: 'Delete pledges',
+                            buttonAction: 'removePledges',
+                            selectable: true
+                        }
+                    ]
+                },
+                onEnter: reloadTable
+            }).state('table.wallet.xpayments', {
+                url: '/xpayments',
+                resolve: {
+                    data: function (MobbrXPayment) {
+                        return MobbrXPayment.get();
+                    }
+                },
+                data: {
+                    columns: [ 'datetime', 'payment_service', 'receive_address', 'note', 'status', 'currency_iso', 'amount' ],
+                    groups: [ 'payment_service', 'currency_iso' ],
+                    sorting: {
+                        announceddatetime: 'desc'
+                    },
+                    clickRow: 'openExternalPayment'
+                },
+                onEnter: reloadTable
+            }).state('table.invoicing', {
                 url: '/invoicing',
                 abstract: true,
-                templateUrl: 'views/invoicing.html',
+                templateUrl: 'views/sidebars/invoicing.html',
                 controller: 'InvoicingController',
-                data: { authenticated: true, redirectTo: 'main' }
-            }).state('invoicing.sourcing_request', {
+                data: {
+                    authenticated: true,
+                    redirectTo: 'main',
+                    groupby: 'uri',
+                    selectable: true,
+                    sorting: {
+                        paiddatetime: 'desc'
+                    }
+                }
+            }).state('table.invoicing.sourcing_request', {
                 url: '/sourcing/request',
                 resolve: {
                     data: function (MobbrInvoice) {
@@ -128,11 +226,16 @@ angular.module('mobbr', [
                     }
                 },
                 data: {
-                    buttonText: 'Request invoices',
-                    buttonAction: 'requestInvoices'
+                    buttons: [
+                        {
+                            buttonText: 'Request invoices',
+                            buttonAction: 'requestInvoices',
+                            selectable: true
+                        }
+                    ]
                 },
                 onEnter: reloadTable
-            }).state('invoicing.sourcing_pending', {
+            }).state('table.invoicing.sourcing_pending', {
                 url: '/sourcing/pending',
                 resolve: {
                     data: function (MobbrInvoice) {
@@ -140,11 +243,16 @@ angular.module('mobbr', [
                     }
                 },
                 data: {
-                    buttonText: 'Cancel request',
-                    buttonAction: 'cancelInvoices'
+                    buttons: [
+                        {
+                            buttonText: 'Cancel request',
+                            buttonAction: 'cancelInvoices',
+                            selectable: true
+                        }
+                    ]
                 },
                 onEnter: reloadTable
-            }).state('invoicing.sourcing_download', {
+            }).state('table.invoicing.sourcing_download', {
                 url: '/sourcing/download',
                 resolve: {
                     data: function (MobbrInvoice) {
@@ -152,11 +260,16 @@ angular.module('mobbr', [
                     }
                 },
                 data: {
-                    buttonText: 'Download invoice',
-                    buttonAction: 'downloadInvoices'
+                    buttons: [
+                        {
+                            buttonText: 'Download invoice',
+                            buttonAction: 'downloadInvoices',
+                            selectable: true
+                        }
+                    ]
                 },
                 onEnter: reloadTable
-            }).state('invoicing.working_confirm', {
+            }).state('table.invoicing.working_confirm', {
                 url: '/working/confirm',
                 resolve: {
                     data: function (MobbrInvoice) {
@@ -164,12 +277,17 @@ angular.module('mobbr', [
                     }
                 },
                 data: {
-                    buttonText: 'Confirm invoice',
-                    buttonAction: 'confirmInvoices',
+                    buttons: [
+                        {
+                            buttonText: 'Confirm invoice',
+                            buttonAction: 'confirmInvoices',
+                            selectable: true
+                        }
+                    ],
                     columns: [ 'title', 'worker_username', 'role', 'currency_iso', 'amount' ]
                 },
                 onEnter: reloadTable
-            }).state('invoicing.working_download', {
+            }).state('table.invoicing.working_download', {
                 url: '/working/download',
                 resolve: {
                     data: function (MobbrInvoice) {
@@ -177,8 +295,13 @@ angular.module('mobbr', [
                     }
                 },
                 data: {
-                    buttonText: 'Download invoice',
-                    buttonAction: 'downloadInvoices',
+                    buttons: [
+                        {
+                            buttonText: 'Download invoice',
+                            buttonAction: 'downloadInvoices',
+                            selectable: true
+                        }
+                    ],
                     columns: [ 'title', 'worker_username', 'role', 'currency_iso', 'amount' ]
                 },
                 onEnter: reloadTable
