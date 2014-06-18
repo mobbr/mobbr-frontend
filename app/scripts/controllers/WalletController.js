@@ -2,15 +2,7 @@
 
 angular.module('mobbr.controllers').controller('WalletController', function ($scope, $modal, $window, $location, MobbrBalance, MobbrXPayment, MobbrPayment) {
 
-    $scope.payments = MobbrPayment.get();
-    $scope.pledged = MobbrPayment.pledged();
-
-    function reload() {
-        $scope.balances = MobbrBalance.user();
-        $scope.mutations = MobbrXPayment.get();
-    }
-
-    $scope.removePledgesDialog = function (ids) {
+    $scope.buttonActions.removePledges = function (ids) {
         return $modal.open({
             backdrop: true,
             keyboard: true,
@@ -27,7 +19,7 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
         });
     }
 
-    $scope.openDepositDialog = function () {
+    $scope.buttonActions.deposit = function () {
         $modal.open({
             backdrop: true,
             keyboard: true,
@@ -39,7 +31,7 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
         });
     }
 
-    $scope.openWithdrawDialog = function () {
+    $scope.buttonActions.withdraw = function () {
         $modal.open({
             backdrop: true,
             keyboard: true,
@@ -48,6 +40,4 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
             controller: 'WithdrawController'
         }).result.then(reload);
     }
-
-    reload();
 });
