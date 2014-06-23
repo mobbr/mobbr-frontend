@@ -14,23 +14,27 @@ angular.module('mobbr.controllers').controller('TableController', function ($sco
         currency_description: 'Currency description',
         gravatar: ' ',
         uri: 'URL',
+        url: 'URL',
         role: 'Role',
-        currency_iso: 'Currency',
-        null: 'None'
+        currency_iso: 'Currency'
+    };
+
+    $scope.grouplabels = {
+        username: 'Group by name',
+        worker_username: 'Group by name',
+        uri: 'Group by URL',
+        url: 'Group by URL',
+        role: 'Group by role',
+        currency_iso: 'Group by currency',
+        null: 'No grouping'
     };
 
     $scope.buttonActions = [];
     $scope.selectallid = Math.floor(Math.random() * 1000000);
     $scope.groupby = $state.current.data.groupby;
+    $scope.sortTableBy = table.sortTableBy;
 
-    $scope.sortTableBy = function (column) {
-        var sorting = {};
-        console.log(column);
-        sorting[column] = $scope.invoiceTable.isSortBy(column, 'asc') ? 'desc' : 'asc';
-        $scope.invoiceTable.sorting(sorting);
-    }
-
-    $scope.invoiceTable = new ngTableParams(
+    $scope.mobbrTable = new ngTableParams(
         {
             page: 1,
             count: 10,
@@ -41,9 +45,14 @@ angular.module('mobbr.controllers').controller('TableController', function ($sco
             total: function () { return $scope.items.length; },
             groupBy: $state.current.data.groupby || 'null',
             getData: function ($defer, params) {
+
                 table.data.$promise.then(function (response) {
 
                     var data = response.result;
+
+                    /**
+                     * TODO: All assignments below concerning state should be called on state update, not on data reload
+                     */
 
                     $scope.index = $state.current.data.index;
                     $scope.columns = $state.current.data.columns;
@@ -52,6 +61,7 @@ angular.module('mobbr.controllers').controller('TableController', function ($sco
                     $scope.empty_message = $state.current.data.empty_message;
                     $scope.buttons = $state.current.data.buttons;
                     $scope.clickRow = $scope[$state.current.data.clickRow];
+                    $scope.sorting = $state.current.data.sorting;
                     $scope.selectedIds = [];
                     $scope.selectedItems = [];
                     $scope.checkboxes = { 'checked': false, items: {} };
@@ -80,13 +90,14 @@ angular.module('mobbr.controllers').controller('TableController', function ($sco
                     $defer.resolve($scope.items = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
 
                 }, function () {
+
                     $defer.reject();
                 });
             }
         }
     );
 
-    table.tableParams = $scope.invoiceTable;
+    table.params = $scope.mobbrTable;
 
     $scope.buttonAction = function (action, table, ids, items) {
         if ($scope.buttonActions[action]) {
@@ -95,7 +106,7 @@ angular.module('mobbr.controllers').controller('TableController', function ($sco
 
             if (promise) {
                 promise.result.then(function () {
-                    $scope.invoiceTable.reload();
+                    $scope.mobbrTable.reload();
                 });
             }
         }
@@ -146,8 +157,8 @@ angular.module('mobbr.controllers').controller('TableController', function ($sco
     // watch for groupby value
     $scope.$watch('groupby', function (old_value, new_value) {
         if (new_value !== undefined && old_value !== undefined && new_value !== old_value) {
-            $scope.invoiceTable.settings().groupBy = $scope.groupby;
-            $scope.invoiceTable.reload();
+            $scope.mobbrTable.settings().groupBy = $scope.groupby;
+            $scope.mobbrTable.reload();
         }
     });
 });

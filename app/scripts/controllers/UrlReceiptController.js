@@ -5,7 +5,13 @@ angular.module('mobbr.controllers').controller('UrlReceiptController', function 
     var urlParam = { url: $window.atob($stateParams.url) };
 
     if (payment.result.url !== urlParam.url) {
-        $state.go('url', { url: $window.btoa(payment.result.url) }, { notify: false });
+        console.log('redirect');
+        var off = $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+            event.preventDefault();
+           console.log(event);
+        });
+        $state.go('url', { url: $window.btoa(payment.result.url) });
+        off();
     }
 
     function reload() {
