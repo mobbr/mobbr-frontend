@@ -35,8 +35,8 @@ angular.module('mobbr', [
 
     ]).config(function ($stateProvider, $urlRouterProvider) {
 
-        function reloadTable($state, data, table) {
-            table.reload(data);
+        function reloadTable(data, table) {
+            table.reset(data, this);
         }
 
         $stateProvider.state('main', {
@@ -124,20 +124,25 @@ angular.module('mobbr', [
                             selectable: false
                         }
                     ]
+                },
+                resolve: {
+                    userBalance: function (MobbrBalance) {
+                        return MobbrBalance.user().$promise;
+                    }
                 }
             }).state('table.wallet.credit', {
                 url: '/credit',
-                resolve: {
-                    data: function (MobbrBalance) {
-                        return MobbrBalance.user();
-                    }
-                },
                 data: {
                     index: 'balances',
                     columns: [ 'currency_description', 'currency', 'amount', 'fee', 'spendable' ],
                     groups: [],
                     sorting: {
-                        amount: 'desc'
+                        amount: 'asc'
+                    }
+                },
+                resolve: {
+                    data: function (MobbrBalance) {
+                        return MobbrBalance.user().$promise;
                     }
                 },
                 onEnter: reloadTable
@@ -198,9 +203,7 @@ angular.module('mobbr', [
                 data: {
                     columns: [ 'datetime', 'payment_service', 'receive_address', 'note', 'status', 'currency_iso', 'amount' ],
                     groups: [ 'payment_service', 'currency_iso' ],
-                    sorting: {
-                        announceddatetime: 'desc'
-                    },
+                    sorting: false,
                     clickRow: 'openExternalPayment'
                 },
                 onEnter: reloadTable
@@ -407,7 +410,8 @@ angular.module('mobbr', [
 
         $rootScope.login = function (email, password) {
             $rootScope.authenticating = MobbrUser.passwordLogin({ email: email, password: password }, function () {
-                $location.path('/wallet');
+                //$location.path('/wallet');
+                $state.go('table.wallet.credit');
             });
         };
 
@@ -467,31 +471,5 @@ angular.module('mobbr', [
             $location.hash(id);
             $anchorScroll();
         }
-    }).config(function($provide) {
-
-        /**
-         * overwrite angular's directive ngSwitchWhen
-         * can handle ng-switch-when="value1 || value2 || value3"
-         */
-
-        $provide.decorator('ngSwitchWhenDirective', function($delegate) {
-            $delegate[0].compile = function(element, attrs, transclude) {
-                return function(scope, element, attr, ctrl) {
-                    var subCases = [attrs.ngSwitchWhen];
-                    if(attrs.ngSwitchWhen && attrs.ngSwitchWhen.length > 0 && attrs.ngSwitchWhen.indexOf('||') != -1) {
-                        subCases = attrs.ngSwitchWhen.split('||');
-                    }
-                    var i=0;
-                    var casee;
-                    var len = subCases.length;
-                    while(i<len) {
-                        casee = $.trim(subCases[i++]);
-                        ctrl.cases['!' + casee] = (ctrl.cases['!' + casee] || []);
-                        ctrl.cases['!' + casee].push({ transclude: transclude, element: element });
-                    }
-                }
-            }
-            return $delegate;
-        });
     }
 );

@@ -1,6 +1,8 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('WalletController', function ($scope, $modal, $window, $location, MobbrBalance, MobbrXPayment, MobbrPayment) {
+angular.module('mobbr.controllers').controller('WalletController', function ($scope, $modal, $window, $location, $state, $stateParams, userBalance, MobbrPayment, table) {
+
+    $scope.userBalance = userBalance;
 
     $scope.buttonActions.removePledges = function (ids) {
         return $modal.open({
@@ -11,8 +13,11 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
             controller: function ($scope) {
                 $scope.ids = ids;
                 $scope.confirm = function (result) {
-                    MobbrPayment.unpledge(result, function () {
+                    MobbrPayment.unpledge({ ids: result }, function () {
                         $scope.$close();
+                        // TODO: there is no need reload the state again, only data should be reloaded
+                        //$state.transitionTo($state.current, $stateParams, { reload: true });
+                        table.reload();
                     });
                 };
             }
