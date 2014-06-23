@@ -3,7 +3,7 @@
     <li ng-class="{ active: $state.includes('table.wallet.credit') }">
         <a href="/#/wallet/credit">
             Credit
-                    <span ng-bind="balances.result.total_currency_iso + ' ' + (balances.result.total_amount | mobbrcurrency)"
+                    <span ng-bind="userBalance.result.total_currency_iso + ' ' + (userBalance.result.total_amount | mobbrcurrency)"
                           class="badge pull-right"></span>
         </a>
     </li>

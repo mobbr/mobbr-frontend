@@ -1,12 +1,13 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('InvoicingController', function ($scope, $state, $location, $rootScope, $modal, $filter, pdfGenerator, MobbrInvoice) {
+angular.module('mobbr.controllers').controller('InvoicingController', function ($scope, $state, $location, $rootScope, $modal, $filter, pdfGenerator, MobbrInvoice, table) {
 
-    $scope.buttonActions.cancelInvoices = function (ids, items, table) {
+    $scope.buttonActions.cancelInvoices = function (ids) {
         $scope.ciwaiting = true;
-        MobbrInvoice.unrequest({ ids: ids }, function (response) {
+        MobbrInvoice.unrequest({ ids: ids }, function () {
             $scope.ciwaiting = false;
-        }, function (response) {
+            table.reload();
+        }, function () {
             $scope.ciwaiting = true;
         });
     }
@@ -31,6 +32,7 @@ angular.module('mobbr.controllers').controller('InvoicingController', function (
                 $scope.confirm = function (result) {
                     MobbrInvoice.request(result, function () {
                         $scope.$close();
+                        table.reload();
                     });
                 };
             }
@@ -59,6 +61,7 @@ angular.module('mobbr.controllers').controller('InvoicingController', function (
                 $scope.confirm = function (result) {
                     MobbrInvoice.confirm(result, function () {
                         $scope.$close();
+                        table.reload();
                     });
                 };
             }
