@@ -59,12 +59,12 @@ angular.module('mobbr', [
                 url: '/recover',
                 templateUrl: 'views/recover-password.html',
                 controller: 'ResetPasswordController',
-                data: { authenticated: false, redirectTo: 'wallet.credit' }
+                data: { authenticated: false, redirectTo: 'table.wallet.credit' }
             }).state('join', {
                 url: '/join',
                 templateUrl: 'views/join.html',
                 controller: 'JoinController',
-                data: { authenticated: false, redirectTo: 'wallet.credit' }
+                data: { authenticated: false, redirectTo: 'table.wallet.credit' }
             }).state('settings', {
                 templateUrl: 'views/settings.html',
                 controller: 'UserSettingsController',
