@@ -109,7 +109,7 @@ angular.module('mobbr.services').factory('pdfGenerator', function ($rootScope) {
             pdf.setFont('Helvetica', 'Bold');
             singlelineText('Total ',  pdf.internal.pageSize.width - 85, lineHeight);
             pdf.setFont('Helvetica', '');
-            pdf.save(invoice.invoice_id);
+            pdf.save('invoice-' + invoice.invoice_id + '.pdf');
         }
     }
 });
