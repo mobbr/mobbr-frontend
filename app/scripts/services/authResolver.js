@@ -27,7 +27,9 @@ angular.module('mobbr.services').run(function ($rootScope, $state, $timeout, $mo
 
         if (toState.data && toState.data.authenticated !== mobbrSession.isAuthorized()) {
             event && event.preventDefault();
-            mobbrMsg.add({ msg: 'Please login at the account menu' });
+            if(mobbrSession.isAuthorized() === false){
+                mobbrMsg.add({ msg: 'Please login at the account menu' });
+            }
             $state.go(toState.data.redirectTo);
         }
     }
