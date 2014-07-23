@@ -59,7 +59,7 @@
         <script src="components/mobbr-button/mobbr.js"></script>
         <!-- endbuild -->
     </head>
-    <body ng-app="mobbr" id="ng-app" idle-timeout ng-class="{ 'mobbr-test': isTest(), 'ng-app': true, 'loading': loading }">
+    <body ng-app="mobbrWeb" id="ng-app" idle-timeout ng-class="{ 'mobbr-test': isTest(), 'ng-app': true, 'loading': loading }">
         <!--[if lt IE 10]>
         <p class="chromeframe">
             You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser
@@ -301,5 +301,36 @@
         <script src="scripts/directives/invoicetable.js"></script>
         <script src="scripts/filters/mobbrcurrency.js"></script>
         <!-- endbuild -->
+
+        <!-- build:remove -->
+        <!-- including ngMock to test locally, but build remove wil make sure it's not in the dist -->
+        <script src="components/angular-mocks/angular-mocks.js"></script>
+        <!-- /build -->
+
+        <script>
+
+            var mobbrWeb = angular.module('mobbrWeb', [
+                'mobbr'
+                <!-- build:remove -->
+                <!-- including ngMock to test locally, but build remove wil make sure it's not in the dist -->
+                , 'ngMockE2E'
+                <!-- /build -->
+
+            ]).run(function ($injector, $rootScope) {
+
+                <!-- build:remove -->
+                <!-- including ngMock to test locally, but build remove wil make sure it's not in the dist -->
+
+                var $httpBackend = $injector.get('$httpBackend');
+                
+                $httpBackend.whenGET(/views\/.*/).passThrough();
+
+
+                <!-- /build -->
+
+            });
+
+
+        </script>
     </body>
 </html>

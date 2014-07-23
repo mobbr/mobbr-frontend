@@ -40,7 +40,7 @@ module.exports = function (grunt) {
         watch: {
             all: {
                 files: [
-                    '<%= yeoman.app %>/{,*/}*.html',
+                    '{.tmp,<%= yeoman.app %>}/{,*/}*.html',
                     '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js'
                 ],
                 tasks: [ ],
@@ -63,11 +63,19 @@ module.exports = function (grunt) {
                     livereload: 35728,
                     base: 'app'
                 }
+            },
+            test: {
+                options: {
+                    port: 9001,
+                    hostname: '0.0.0.0',
+                    livereload: 35728,
+                    base: ['.tmp','app']
+                }
             }
         },
         open: {
             all: {
-                url: 'http://mobbr.dev:<%= connect.all.options.port %>'
+                url: 'http://mobbr.dev:<%= connect.all.options.port %>/index.html'
             }
         },
         clean: {
@@ -243,6 +251,19 @@ module.exports = function (grunt) {
                         ]
                     }
                 ]
+            },
+            all :{
+                files: [
+                    {
+                        expand: true,
+                        dot: true,
+                        cwd: '<%= yeoman.app %>',
+                        dest: '.tmp',
+                        src: [
+                            'index.html'
+                        ]
+                    }
+                ]
             }
         },
         compress: {
@@ -359,6 +380,26 @@ module.exports = function (grunt) {
                     config: env
                 }
             }
+        },
+        processhtml: {
+                options: {
+                    process: true,
+                    data: {
+                        title: 'processhtml',
+                        message: 'Cleaning up test html'
+                    }
+                },
+            dist: {
+                files: {
+                    '<%= yeoman.dist %>/index.html': ['<%= yeoman.dist %>/index.html']
+                }
+            },
+            server: {
+                files: {
+                    '.tmp/index.html': ['.tmp/index.html']
+                }
+            }
+
         }
     });
 
@@ -367,8 +408,21 @@ module.exports = function (grunt) {
         'bower-install-simple',
         'compass:server',
         'ngconstant:' + env,
+        'copy',
+        'processhtml',
+        'connect:test',
         'open',
-        'connect',
+        'watch'
+    ]);
+
+    grunt.registerTask('servemocked', [
+        'clean:server',
+        'bower-install-simple',
+        'compass:server',
+        'ngconstant:' + env,
+        'copy',
+        'connect:all',
+        'open',
         'watch'
     ]);
 
@@ -388,7 +442,8 @@ module.exports = function (grunt) {
         'rev',
         'htmlmin',
         'usemin',
-        'compress'
+        'compress',
+        'processhtml'
     ]);
 
     grunt.registerTask('deploy', [
