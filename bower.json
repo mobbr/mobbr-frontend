@@ -15,7 +15,7 @@
         "ng-table": "~0.3.3",
         "file-saver": "*",
         "jspdf": "git://github.com/MrRio/jsPDF.git#a52028fe58f949a1bd32a7b5818a8e90ee954b3e",
-        "mobbr-api-angular": "~0.0.10",
+        "mobbr-api-angular": "git://github.com/mobbr/mobbr-api-angular.git#7dacb7a4a8a79d7b2e04ba835170ce4e771af638",
         "mobbr-button": "https://handijk@bitbucket.org/mobbr/mobbr-button.git#f47a2b11242842efd93e51d78f36266242841ae6",
         "angular-ui-router": "~0.2.10",
         "angular-ui-utils": "bower-scrollfix"

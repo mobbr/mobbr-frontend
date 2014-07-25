@@ -1,6 +1,7 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('UserSettingsController', function ($http, $scope, $rootScope, $upload, apiUrl, MobbrUser, mobbrMsg, mobbrSession) {
+angular.module('mobbr.controllers').controller('UserSettingsController', function ($scope, $rootScope, $upload, apiUrl, MobbrUser, mobbrMsg, mobbrSession) {
+
 
     $scope.new_email = $rootScope.$mobbrStorage.user.email;
 
@@ -28,16 +29,16 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
                         method: 'POST'
                     }).progress(
                         function (e) {
-                            $scope.progress = parseInt(100 * e.loaded / e.total)
+                            $scope.progress = parseInt(100 * e.loaded / e.total);
                         }
                     ).success(
-                        function (data, status, headers, config) {
+                        function (data) {
                             mobbrSession.setUser(data.result);
                             $scope.uploading = false;
                             $scope.progress = 0;
                         }
                     ).error(
-                        function (data, status, headers, config) {
+                        function () {
                             $scope.uploading = false;
                             $scope.progress = 0;
                         }
@@ -51,17 +52,17 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
         $scope.waitingsettings = MobbrUser.updateUser({ user: $rootScope.$mobbrStorage.user }, function () {
             form && form.$setPristine();
         });
-    }
+    };
 
     $scope.submitEmail = function (form) {
         $scope.waitingemail = MobbrUser.updateEmail({ new_email: form.email.$modelValue }, function () {
             form && form.$setPristine();
         });
-    }
+    };
 
     $scope.submitPassword = function (form) {
         $scope.waitingpassword = MobbrUser.updatePassword({ new_password: form.new_password.$modelValue }, function () {
             form && form.$setPristine();
         });
-    }
+    };
 });
