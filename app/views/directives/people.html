@@ -35,7 +35,7 @@
             <td ng-bind="person.role"></td>
             <td>
                 <span ng-bind="person.currency_iso" ng-show="showamount == 'true'"></span>
-                <span ng-bind="person.amount | number:4" ng-show="showamount == 'true'" class="amount decorate-amount"></span>
+                <span ng-bind="person.amount | mobbrcurrency" ng-show="showamount == 'true'" class="amount"></span>
             </td>
             <td ng-show="showamount != 'true'">{{person.share}}</td>
         </tr>
