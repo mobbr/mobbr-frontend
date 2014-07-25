@@ -1,13 +1,13 @@
 (function() { 
  return angular.module("mobbr.config", [])
 
-.constant("lightboxUrl", "http://mobbr.dev:9000/#")
+.constant("lightboxUrl", "https://test-www.mobbr.com/lightbox/#")
 
-.constant("uiUrl", "http://mobbr.dev:9001")
+.constant("uiUrl", "https://test-www.mobbr.com")
 
-.constant("apiUrl", "http://api.mobbr.dev")
+.constant("apiUrl", "https://test-api.mobbr.com")
 
-.constant("environment", "development")
+.constant("environment", "test")
 
 ; 
 
