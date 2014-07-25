@@ -6,7 +6,7 @@ describe('Mobbr e2e example', function () {
     var ptor;
 
     beforeEach(function () {
-        browser.get('http://www.mobbr.dev:9001/#/');
+        browser.get('http://mobbr.dev:9001/#/');
         ptor = protractor.getInstance();
         ptor.waitForAngular();
     });
