@@ -93,17 +93,17 @@
                         <ul class="user-menu dropdown-menu" ng-show="!mobbrSession.isAuthorized()">
                             <li class="nav-header"></li>
                             <li>
-                                <form ng-submit="login(email, password)"
+                                <form ng-submit="login(username, password)"
                                       form-autofill-fix
                                       class="col-lg-12"
                                       name="head-login">
                                     <div class="form-group">
-                                        <input ng-model="email"
+                                        <input ng-model="username"
                                                auto-fill-sync
                                                class="form-control"
-                                               type="email"
-                                               name="email"
-                                               placeholder="email address"
+                                               type="text"
+                                               name="username"
+                                               placeholder="username"
                                                required>
                                     </div>
                                     <div class="form-group">
@@ -254,7 +254,7 @@
         <script src="components/mobbr-api-angular/mobbr-api-session.src.js"></script>
         <script src="components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
         <script src="components/ngstorage/ngStorage.js"></script>
-        <script src="components/angularjs-file-upload/angular-file-upload.js"></script>
+        <script src="components/ng-file-upload/angular-file-upload.js"></script>
         <script src="components/ng-table/ng-table.js"></script>
         <script src="components/jspdf/libs/Deflate/deflate.js"></script>
         <script src="components/jspdf/libs/Deflate/adler32cs.js"></script>
@@ -302,6 +302,10 @@
         <script src="scripts/filters/mobbrcurrency.js"></script>
         <!-- endbuild -->
 
+        <!-- TODO remove -->
+            <script src="scripts/services/mobbr-userTmp.js"></script>
+
+        <!-- end remove -->
         <!-- build:remove -->
         <!-- including ngMock to test locally, but build remove wil make sure it's not in the dist -->
         <script src="components/angular-mocks/angular-mocks.js"></script>
@@ -322,7 +326,7 @@
                 <!-- including ngMock to test locally, but build remove wil make sure it's not in the dist -->
 
                 var $httpBackend = $injector.get('$httpBackend');
-                
+
                 $httpBackend.whenGET(/views\/.*/).passThrough();
 
 
