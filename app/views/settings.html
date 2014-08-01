@@ -1,45 +1,53 @@
 <div class="row">
-    <div class="col-md-3 sidebar-left">
-        <h1>Settings</h1>
-        <ul class="nav nav-pills nav-stacked">
-            <li ng-class="{ active: $state.includes('settings.account') }">
-                <a href="/#/settings">
-                    Account
+    <div class="col-md-12 container-fluid">
+
+        <ul class="">
+            <li>
+                <a >
+                    My Account
                 </a>
+
+                <div ng-include src="'views/settings.account.html'">
+
+                </div>
             </li>
-            <li ng-class="{ active: $state.includes('settings.identity') }">
-                <a href="/#/settings/identity">
-                    Identity
+            <li>
+                <a>
+                    My Identity
                 </a>
+                <div ng-include="'views/settings.identity.html'"></div>
             </li>
-            <li ng-class="{ active: $state.includes('settings.proof') }">
-                <a href="/#/settings/proof">
+            <li>
+                <a >
                     Proof
                 </a>
+                <div ng-include="'views/settings.proof.html'"></div>
             </li>
-            <li ng-class="{ active: $state.includes('settings.invoicing') }">
-                <a href="/#/settings/invoicing">
+            <li>
+                <a >
                     Invoicing
                 </a>
+                <div ng-include="'views/settings.invoicing.html'"></div>
             </li>
-            <li ng-class="{ active: $state.includes('settings.display') }">
-                <a href="/#/settings/display">
+            <li>
+                <a >
                     Display
                 </a>
+                <div ng-include="'views/settings.display.html'"></div>
             </li>
-            <li ng-class="{ active: $state.includes('settings.privacy') }">
-                <a href="/#/settings/privacy">
+            <li>
+                <a >
                     Privacy
                 </a>
+                <div ng-include="'views/settings.privacy.html'"></div>
             </li>
-            <li ng-class="{ active: $state.includes('settings.notifications') }">
-                <a href="/#/settings/notifications">
+            <li>
+                <a >
                     Notifications
                 </a>
+                <div ng-include="'views/settings.notifications.html'"></div>
             </li>
         </ul>
     </div>
-    <div class="col-md-9">
-        <div ui-view class="container-fluid"></div>
-    </div>
+
 </div>

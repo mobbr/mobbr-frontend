@@ -1,7 +1,9 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('UserSettingsController', function ($scope, $rootScope, $upload, apiUrl, MobbrUser, mobbrMsg, mobbrSession) {
+angular.module('mobbr.controllers').controller('UserSettingsController', function ($scope, $rootScope, $upload, apiUrl, MobbrUser, mobbrMsg, mobbrSession, MobbrApi) {
 
+    $scope.formHolder = {addPaymentIdForm: undefined};
+    $scope.datePopup = {open: false};
 
     $scope.new_email = $rootScope.$mobbrStorage.user.email;
 
@@ -65,4 +67,44 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
             form && form.$setPristine();
         });
     };
+
+    $scope.removePaymentID = function (paymentId, index) {
+        $scope.waitingRemoveId = {};
+        $scope.waitingRemoveId[index] = MobbrUser.deleteUserId({id: window.btoa(paymentId)}, function () {
+            $scope.waitingRemoveId = undefined;
+        });
+    };
+
+    MobbrApi.oauthProviders(function (response) {
+        if (response.result) {
+            $scope.oAuthProviders = response.result;
+        }
+    });
+
+    $scope.addPaymentIdHolder = {idType: undefined, oAuthProvider: undefined, email: undefined};
+    $scope.addExternalId = function () {
+        var clearPaymentIdHolder = function () {
+            $scope.addPaymentIdHolder = {};
+        };
+        if ($scope.formHolder.addPaymentIdForm.$valid && $scope.addPaymentIdHolder.idType) {
+            if ($scope.addPaymentIdHolder.idType === 'EMAIL') {
+                $scope.waitingAddId = MobbrUser.addEmailId({new_email: $scope.addPaymentIdHolder.email}, clearPaymentIdHolder);
+            } else if ($scope.addPaymentIdHolder.idType === 'OAUTH') {
+                $scope.waitingAddId = MobbrUser.oAuthUrl({provider: $scope.addPaymentIdHolder.oAuthProvider.provider, redirect_url: document.location.href}, function (response) {
+                    if (response.result) {
+                        window.location = response.result;
+                    }
+                });
+            }
+        }
+    };
+
+    $scope.toggleDatePopup = function ($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+
+        $scope.datePopup.open = !$scope.datePopup.open;
+    };
+
+
 });

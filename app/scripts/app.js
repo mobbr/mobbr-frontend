@@ -392,7 +392,7 @@ angular.module('mobbr', [
         $rootScope.mobbrMsg = mobbrMsg;
         $rootScope.mobbrSession = mobbrSession;
         $rootScope.uiUrl = uiUrl;
-        $rootScope.currenciesMap = MobbrApi.forexCurrencies();
+        $rootScope.currenciesMap = MobbrApi.currencies();
         $rootScope.languagesMap = MobbrApi.isoLanguages();
         $rootScope.countriesMap = MobbrApi.isoCountries();
         $rootScope.timezones = MobbrApi.isoTimezones();
