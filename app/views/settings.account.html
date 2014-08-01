@@ -1,68 +1,134 @@
-<alert>
-    We use gravatars, linked to your email address. Create your profile <a target="_blank" href="http://gravatar.com">here</a>.
-</alert>
+<div class="form-horizontal">
+    <div class="form-group">
+        <label class="control-label col-md-3">Gravatar</label>
+
+        <div class="col-md-9">
+            <img ng-if="$mobbrStorage.user.thumbnail" ng-src="{{ $mobbrStorage.user.thumbnail }}"
+                 class="img-rounded user-thumb">
+            We use gravatars, linked to your email address. Create your profile <a target="_blank"
+                                                                                   href="http://gravatar.com">here</a>.
+        </div>
+
+    </div>
+
+</div>
+
 <form name="changeemail" class="form-horizontal" novalidate>
     <fieldset class="form-group">
-        <label class="control-label col-md-2">Username</label>
-        <div class="col-md-4">
-            <input ng-model="$mobbrStorage.user.username" class="form-control" name="username" type="text" ng-disabled="true">
+        <label class="control-label col-md-3">Username</label>
+
+        <div class="col-md-7">
+            <input ng-model="$mobbrStorage.user.username" class="form-control" name="username" type="text"
+                   ng-disabled="true">
         </div>
     </fieldset>
 
     <fieldset class="form-group">
-        <label class="control-label col-md-2">E-mail address</label>
-        <div class="col-md-4">
+        <label class="control-label col-md-3">E-mail address</label>
+
+        <div class="col-md-7">
             <input ng-model="new_email" class="form-control" name="email" type="email" required>
             <span ng-show="changeemail.email.$dirty && changeemail.email.$error.required" class="help-inline">Enter a email address.</span>
             <span ng-show="changeemail.email.$dirty && changeemail.email.$error.email" class="help-inline">Enter a valid email address.</span>
-        </div>
-    </fieldset>
 
-    <fieldset class="form-group">
-        <div class="col-md-offset-2 col-md-4">
+        </div>
+        <div class="col-md-2">
             <button ng-click="submitEmail(changeemail)"
-                    ng-disabled="(waitingemail && !waitingemail.$resolved) || !changeemail.$valid || $mobbrStorage.user.email == new_email"
+                    ng-show="!((waitingemail && !waitingemail.$resolved) || !changeemail.$valid || $mobbrStorage.user.email == new_email)"
                     type="submit"
                     class="btn btn-success">
                 <i class="glyphicon mobbrloader" ng-show="waitingemail && !waitingemail.$resolved"></i>
-                Change email address
+                update
             </button>
         </div>
     </fieldset>
-    <fieldset class="form-group">
-        <div ng-repeat="emailAddress in $mobbrStorage.user.emailAddresses">
-            <label></label>
-        </div>
-    </fieldset>
-
-
 </form>
 <form name="changepassword" class="form-horizontal" novalidate>
     <fieldset class="form-group">
-        <label class="control-label col-md-2" for="new_password">New password</label>
-        <div class="col-md-4">
-            <input ng-model="new_password" class="form-control" id="new_password" name="new_password" type="password" required ng-pattern="/^.*(?=.{8,})(?=.*\d)(?=.*[a-z]).*$/">
-            <span ng-show="changepassword.new_password.$dirty && changepassword.new_password.$error.required" class="help-inline">Enter a new password</span>
-            <span ng-show="changepassword.new_password.$dirty && changepassword.new_password.$error.pattern" class="help-inline">Minimal 8 charactes, uppercase, lowercase and numbers</span>
+        <label class="control-label col-md-3" for="new_password">New password</label>
+
+        <div class="col-md-7">
+            <input ng-model="new_password" class="form-control" id="new_password" name="new_password" type="password"
+                   required ng-pattern="/^.*(?=.{8,})(?=.*\d)(?=.*[a-z]).*$/">
+            <span ng-show="changepassword.new_password.$dirty && changepassword.new_password.$error.required"
+                  class="help-inline">Enter a new password</span>
+            <span ng-show="changepassword.new_password.$dirty && changepassword.new_password.$error.pattern"
+                  class="help-inline">Minimal 8 charactes, uppercase, lowercase and numbers</span>
         </div>
     </fieldset>
 
     <fieldset class="form-group">
-        <label class="control-label col-md-2" for="new_password2">New password again</label>
-        <div class="col-md-4">
-            <input class="form-control" name="new_password2" id="new_password2" ng-model="new_password_control" type="password" required pw-check="new_password">
-            <span ng-show="changepassword.new_password2.$dirty && changepassword.new_password2.$error.pwmatch" class="help-inline">Passwords do not match</span>
-        </div>
-    </fieldset>
+        <label class="control-label col-md-3" for="new_password2">New password again</label>
 
-    <fieldset class="form-group">
-        <div class="col-md-offset-2 col-md-4">
+        <div class="col-md-7">
+            <input class="form-control" name="new_password2" id="new_password2" ng-model="new_password_control"
+                   type="password" required pw-check="new_password">
+            <span ng-show="changepassword.new_password2.$dirty && changepassword.new_password2.$error.pwmatch"
+                  class="help-inline">Passwords do not match</span>
+        </div>
+        <div class="col_md-2">
             <button ng-click="submitPassword(changepassword)"
-                    ng-disabled="!changepassword.$valid || (waitingpassword && !waitingpassword.$resolved) || !changepassword.$dirty"
+                    ng-show="!(!changepassword.$valid || (waitingpassword && !waitingpassword.$resolved) || !changepassword.$dirty)"
                     type="submit"
                     class="btn btn-success">
                 <i class="glyphicon mobbrloader" ng-show="waitingpassword && !waitingpassword.$resolved"></i>
-                Change password
+                update
+            </button>
+        </div>
+    </fieldset>
+</form>
+<h3>
+    Payment ID's
+</h3>
+<form name="formHolder.addPaymentIdForm" class="form-horizontal" ng-submit="addExternalId()">
+    <fieldset class="form-group" ng-repeat="paymentID in $mobbrStorage.user.id">
+        <label class="control-label col-md-3" for="new_password2">External ID</label>
+
+        <div class="col-md-7">
+            <input class="form-control" ng-model="paymentID" type="text" pw-check="new_password" disabled>
+        </div>
+        <div class="col-md-2">
+            <button ng-click="removePaymentID(paymentID,$index)"
+                    type="button"
+                    class="btn btn-danger">
+                <i class="glyphicon mobbrloader"
+                   ng-show="waitingRemoveId && waitingRemoveId[$index] && !waitingRemoveId[$index].$resolved"></i>
+                x
+            </button>
+        </div>
+    </fieldset>
+
+
+    <fieldset class="form-group">
+        <label class="control-label col-md-3">Add another ID</label>
+
+        <div class="col-md-3">
+            <select ng-model="addPaymentIdHolder.idType" class="form-control">
+                <option selected value="">Select an ID type</option>
+                <option value="EMAIL">E-mail</option>
+                <option value="OAUTH">oAuth provider (github, gmail, facebook, etc)</option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <div ng-if="addPaymentIdHolder.idType != 'OAUTH'">
+                <input ng-model="addPaymentIdHolder.email" ng-disabled="addPaymentIdHolder.idType != 'EMAIL'" class="form-control" type="email" name="addEmail" id="addEmail" required>
+                <span ng-show="formHolder.addPaymentIdForm.addEmail.$dirty && formHolder.addPaymentIdForm.addEmail.$error.required"
+                      class="help-inline">Enter a email address.</span>
+                <span ng-show="formHolder.addPaymentIdForm.addEmail.$dirty && formHolder.addPaymentIdForm.addEmail.$error.email"
+                      class="help-inline">Enter a valid email address.</span>
+            </div>
+            <span ng-if="addPaymentIdHolder.idType == 'OAUTH'">
+                <select ng-model="addPaymentIdHolder.oAuthProvider" ng-options="oAuthProvider as oAuthProvider.host for oAuthProvider in oAuthProviders" class="form-control" required="">
+                    <option selected value="">Select an oAuth provider</option>
+                </select>
+            </span>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-success"
+                    ng-show="formHolder.addPaymentIdForm.$valid && formHolder.addPaymentIdForm.$dirty && addPaymentIdHolder.idType">
+                <i class="glyphicon mobbrloader"
+                   ng-show="waitingAddId && !waitingAddId.$resolved"></i>
+                +
             </button>
         </div>
     </fieldset>
