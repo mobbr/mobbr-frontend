@@ -34,7 +34,7 @@
         </div>
         <div class="col-md-2">
             <button ng-click="submitEmail(changeemail)"
-                    ng-show="!((waitingemail && !waitingemail.$resolved) || !changeemail.$valid || $mobbrStorage.user.email == new_email)"
+                    ng-disabled="((waitingemail && !waitingemail.$resolved) || !changeemail.$valid || $mobbrStorage.user.email == new_email)"
                     type="submit"
                     class="btn btn-success">
                 <i class="glyphicon mobbrloader" ng-show="waitingemail && !waitingemail.$resolved"></i>
@@ -68,7 +68,7 @@
         </div>
         <div class="col_md-2">
             <button ng-click="submitPassword(changepassword)"
-                    ng-show="!(!changepassword.$valid || (waitingpassword && !waitingpassword.$resolved) || !changepassword.$dirty)"
+                    ng-disabled="(!changepassword.$valid || (waitingpassword && !waitingpassword.$resolved) || !changepassword.$dirty)"
                     type="submit"
                     class="btn btn-success">
                 <i class="glyphicon mobbrloader" ng-show="waitingpassword && !waitingpassword.$resolved"></i>
@@ -125,7 +125,7 @@
         </div>
         <div class="col-md-2">
             <button type="submit" class="btn btn-success"
-                    ng-show="formHolder.addPaymentIdForm.$valid && formHolder.addPaymentIdForm.$dirty && addPaymentIdHolder.idType">
+                    ng-disabled="!(formHolder.addPaymentIdForm.$valid && formHolder.addPaymentIdForm.$dirty && addPaymentIdHolder.idType)">
                 <i class="glyphicon mobbrloader"
                    ng-show="waitingAddId && !waitingAddId.$resolved"></i>
                 +
