@@ -1,19 +1,19 @@
 <form name="display" class="form-horizontal">
     <fieldset class="form-group">
-        <label class="control-label col-md-2">Default currency</label>
-        <div class="col-md-4">
+        <label class="control-label col-md-3">Default currency</label>
+        <div class="col-md-7">
             <select class="form-control"
                     ng-model="$mobbrStorage.user.currency_iso"
                     name="currency_iso"
-                    ng-options="currency.code as currency.name for currency in currenciesMap.result | orderBy: 'name'"
+                    ng-options="currency.code as currency.description for currency in currenciesMap.result | orderBy: 'name'"
                     title="the currency to which other currencies are converted when displayed">
             </select>
         </div>
     </fieldset>
 
     <fieldset class="form-group">
-        <label class="control-label col-md-2">Language</label>
-        <div class="col-md-4">
+        <label class="control-label col-md-3">Language</label>
+        <div class="col-md-7">
             <select class="form-control"
                     ng-options="country.code as country.name for country in languagesMap.result | orderBy: 'name'"
                     ng-model="$mobbrStorage.user.language_iso"
@@ -23,8 +23,8 @@
     </fieldset>
 
     <fieldset class="form-group">
-        <label class="control-label col-md-2" for="timezone">Timezone</label>
-        <div class="col-md-4">
+        <label class="control-label col-md-3" for="timezone">Timezone</label>
+        <div class="col-md-7">
             <select ng-model="$mobbrStorage.user.timezone"
                     class="form-control"
                     name="timezone"
@@ -35,7 +35,7 @@
     </fieldset>
 
     <fieldset class="form-group">
-        <div class="col-md-offset-2 col-md-4">
+        <div class="col-md-offset-10 col-md-2">
             <button ng-disabled="(waitingsettings && !waitingsettings.$resolved) || display.$pristine" ng-click="submitSettings(settings)" class="btn btn-success">
                 <i class="glyphicon mobbrloader" ng-show="waitingsettings && !waitingsettings.$resolved"></i>
                 Save
