@@ -133,18 +133,38 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
         $scope.datePopup.open = !$scope.datePopup.open;
     };
 
-    var identityFields = ['firstname', 'lastname', 'birthday', 'address', 'country_of_residence', 'nationality'];
-    $scope.countIdentityCompleted = function () {
+
+    var countFields = function (fields) {
         var count = 0;
         if ($scope.$mobbrStorage.user) {
-            angular.forEach(identityFields, function (field) {
-                if ($scope.$mobbrStorage.user[field] !== undefined && $scope.$mobbrStorage.user[field] !== '') {
+            angular.forEach(fields, function (field) {
+                if ($scope.$mobbrStorage.user[field]) {
                     count = count + 1;
                 }
             });
         }
 
         return count;
+    };
+
+    var identityFields = ['firstname', 'lastname', 'birthday', 'address', 'country_of_residence', 'nationality'];
+    $scope.countIdentityCompleted = function () {
+        return countFields(identityFields);
+    };
+
+    var proofFields = ['occupation', 'income_range'];
+    $scope.countProofCompleted = function () {
+        return countFields(proofFields);
+    };
+
+    var invoicingFields = ['companyname', 'vat_number'];
+    $scope.countInvoicingCompleted = function () {
+        return countFields(invoicingFields);
+    };
+
+    var countDisplayCompleted = ['currency_iso', 'language_iso', 'timezone'];
+    $scope.countDisplayCompleted = function () {
+        return countFields(countDisplayCompleted);
     };
 
 

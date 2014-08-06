@@ -275,6 +275,12 @@ describe('mobbr.controllers: UserSettingsController', function () {
 
         scope.$mobbrStorage.user.firstname = 'test';
         expect(scope.countIdentityCompleted()).toBe(1);
+
+        expect(scope.countProofCompleted()).toBe(0);
+
+        expect(scope.countInvoicingCompleted()).toBe(0);
+
+        expect(scope.countDisplayCompleted()).toBe(0);
     });
 
 
