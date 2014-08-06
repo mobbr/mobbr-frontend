@@ -1,4 +1,8 @@
 // A reference configuration file.
+
+var HtmlReporter = require('protractor-html-screenshot-reporter');
+
+
 exports.config = {
 
 //    seleniumServerJar: 'node_modules/selenium-server/lib/runner/selenium-server-standalone-2.38.0.jar',
@@ -58,10 +62,42 @@ exports.config = {
         // The require statement must be down here, since jasmine-reporters
         // needs jasmine to be in the global and protractor does not guarantee
         // this until inside the onPrepare function.
+        var browserName,
+            platform,
+            window = browser.manage().window();
+
         require('jasmine-reporters');
-        jasmine.getEnv().addReporter(new jasmine.JUnitXmlReporter('reports', true, true));
         jasmine.getEnv().addReporter(new jasmine.ConsoleReporter());
 
+
+        jasmine.getEnv().addReporter(new HtmlReporter({
+            baseDirectory: 'reports/screenshots'   ,
+            takeScreenShotsOnlyForFailedSpecs: true
+        }));
+
+
+
+        browser.getCapabilities().then(function (capabilities) {
+                browserName = capabilities.caps_.browserName;
+                platform = capabilities.caps_.platform;
+            }
+        ).then(function getCurrentWindowSize() {
+                return window.getSize();
+            }
+        ).then(function setWindowSize(dimensions) {
+                var windowWidth = 1280,
+                    windowHeight = 960;
+
+                return window.setSize(windowWidth, windowHeight);
+            }
+        ).then(function getUpdatedWindowSize() {
+                return window.getSize();
+            }
+        ).then(function showWindowSize(dimensions) {
+                console.log('Browser:', browserName, 'on', platform, 'at', dimensions.width + 'x' + dimensions.height);
+                console.log('Running e2e tests...');
+            }
+        );
     },
 
 
