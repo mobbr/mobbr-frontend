@@ -32,13 +32,19 @@
         </div>
     </fieldset>
 
-    <fieldset class="form-group">
+    <fieldset class="form-group" ng-if="$mobbrStorage.user.kyc_level != 'regular'">
         <label class="control-label col-md-3" for="identity_proof_upload_button">Upload scan of ID</label>
-        <div class="col-md-2">
+        <div class="col-md-7" ng-if="$mobbrStorage.user.mangopay_identity_proof == 'VALIDATION_ASKED'">
+           <span class="well col-md-12 well-sm" >
+                Your ID is in the process of beeing approved
+            </span>
+        </div>
+        <div class="col-md-2" ng-if="$mobbrStorage.user.mangopay_identity_proof != 'VALIDATION_ASKED'">
 
             <input type="button" class="btn btn-info"
                     id="identity_proof_upload_button"
                     onclick="$('#identity_proof_upload').click();"
+
                     ng-disabled="!$mobbrStorage.user.income_range || !$mobbrStorage.user.occupation" value="CHOOSE FILE">
 
             <input ng-model="$mobbrStorage.user.mangopay_identity_proof_upload"
@@ -49,7 +55,7 @@
 
                    ng-file-select="uploadIdentityProof($files)">
         </div>
-        <div class="col-md-5">
+        <div class="col-md-5" ng-if="$mobbrStorage.user.mangopay_identity_proof != 'VALIDATION_ASKED'">
             <progressbar ng-show="uploading" class="progress-striped active" value="progress" type="success"></progressbar>
         </div>
 

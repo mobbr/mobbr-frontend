@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('UserSettingsController', function ($scope, $rootScope, $upload, apiUrl, MobbrUser, mobbrMsg, mobbrSession, MobbrApi) {
+angular.module('mobbr.controllers').controller('UserSettingsController', function ($scope, $rootScope, $upload, apiUrl, MobbrUser, mobbrMsg, mobbrSession, MobbrApi, $http) {
 
     $scope.formHolder = {addPaymentIdForm: undefined};
     $scope.datePopup = {open: false};
@@ -25,6 +25,23 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
         if (response.result) {
             $scope.oAuthProviders = response.result;
         }
+    });
+
+    $scope.$watch('$mobbrStorage.user.thumbnail', function (newValue) {
+        if (newValue) {
+            $scope.thumbnailFound = false;
+            $http({method: 'GET', url: newValue}).
+                success(function (data, status) {
+                    if (status === 200 || status === 201) {
+                        $scope.thumbnailFound = true;
+                    }
+
+                }).error(function () {
+
+                    $scope.thumbnailFound = false;
+                });
+        }
+
     });
 
 
@@ -73,7 +90,7 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
     };
 
     $scope.submitPassword = function (form) {
-        if(form && form.$valid) {
+        if (form && form.$valid) {
             $scope.waitingpassword = MobbrUser.updatePassword({ new_password: form.new_password.$modelValue }, function () {
                 $scope.passwordHolder = {};
                 form && form.$setPristine();
@@ -114,6 +131,20 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
         $event.stopPropagation();
 
         $scope.datePopup.open = !$scope.datePopup.open;
+    };
+
+    var identityFields = ['firstname', 'lastname', 'birthday', 'address', 'country_of_residence', 'nationality'];
+    $scope.countIdentityCompleted = function () {
+        var count = 0;
+        if ($scope.$mobbrStorage.user) {
+            angular.forEach(identityFields, function (field) {
+                if ($scope.$mobbrStorage.user[field] !== undefined && $scope.$mobbrStorage.user[field] !== '') {
+                    count = count + 1;
+                }
+            });
+        }
+
+        return count;
     };
 
 
