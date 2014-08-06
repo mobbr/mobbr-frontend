@@ -7,8 +7,8 @@
         This information can no longer be changed because you have a confirmed identity.
     </alert>
 
-    <div class="col-md-12">
-    <iframe class="col-md-9"  ng-if="$mobbrStorage.user.kyc_level == 'none'" class="eula" src="https://api.mobbr.com/mangopay-terms-of-use.txt"></iframe>
+    <div class="col-md-12" ng-if="$mobbrStorage.user.kyc_level == 'none'" >
+    <iframe class="col-md-9"  class="eula" src="https://api.mobbr.com/mangopay-terms-of-use.txt"></iframe>
 
     </div>
 
