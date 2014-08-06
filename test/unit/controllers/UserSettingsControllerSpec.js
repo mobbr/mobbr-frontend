@@ -1,6 +1,5 @@
-'use strict';
-
 describe('mobbr.controllers: UserSettingsController', function () {
+    'use strict';
 
     // loading ngmock
     beforeEach(module('ngMockE2E'));
@@ -192,7 +191,7 @@ describe('mobbr.controllers: UserSettingsController', function () {
     it('should addPaymentHolder for idType email', function () {
         createController();
         prepareAddPaymentIdForm('EMAIL');
-        httpBackend.expectPOST(common.baseUrl + 'user/email_id').respond(200,common.response);
+        httpBackend.expectPOST(common.baseUrl + 'user/email_id').respond(200, common.response);
 
         scope.addExternalId();
         httpBackend.flush();
@@ -208,7 +207,7 @@ describe('mobbr.controllers: UserSettingsController', function () {
         createController();
         prepareAddPaymentIdForm('OAUTH');
         scope.addPaymentIdHolder.oAuthProvider = {provider: 'bitbucket'};
-        httpBackend.whenGET('https://test-api.mobbr.com/api_v1/user/oauth_url?provider=bitbucket&redirect_url=http:%2F%2Flocalhost:8091%2Fcontext.html').respond(200,{message: 'ok'});
+        httpBackend.whenGET('https://test-api.mobbr.com/api_v1/user/oauth_url?provider=bitbucket&redirect_url=http:%2F%2Flocalhost:8091%2Fcontext.html').respond(200, {message: 'ok'});
 
         scope.addExternalId();
 
@@ -226,7 +225,7 @@ describe('mobbr.controllers: UserSettingsController', function () {
         httpBackend.flush();
     });
 
-    it('should toggle the datepopup' , function(){
+    it('should toggle the datepopup', function () {
         createController();
         httpBackend.flush();
 
@@ -238,7 +237,45 @@ describe('mobbr.controllers: UserSettingsController', function () {
         expect(scope.datePopup.open).toBe(true);
         scope.toggleDatePopup(event);
         expect(scope.datePopup.open).toBe(false);
-
     });
+
+    it('should try to get my gravatar as soons as it is availabe in my profile', function () {
+        createController();
+        httpBackend.flush();
+
+        expect(scope.thumbnailFound).toBe(undefined);
+
+        scope.$mobbrStorage.user.thumbnail = 'http://avatatar.com';
+        httpBackend.expectGET(scope.$mobbrStorage.user.thumbnail).respond(200);
+        scope.$apply();
+        httpBackend.flush();
+
+        expect(scope.thumbnailFound).toBe(true);
+    });
+
+    it('should not to show  my gravatar when there is none', function () {
+        createController();
+        httpBackend.flush();
+
+        expect(scope.thumbnailFound).toBe(undefined);
+
+        scope.$mobbrStorage.user.thumbnail = 'http://avatatar.com';
+        httpBackend.expectGET(scope.$mobbrStorage.user.thumbnail).respond(404);
+        scope.$apply();
+        httpBackend.flush();
+
+        expect(scope.thumbnailFound).toBe(false);
+    });
+
+    it('should count the number of field that are filled', function () {
+        createController();
+        httpBackend.flush();
+
+        expect(scope.countIdentityCompleted()).toBe(0);
+
+        scope.$mobbrStorage.user.firstname = 'test';
+        expect(scope.countIdentityCompleted()).toBe(1);
+    });
+
 
 });

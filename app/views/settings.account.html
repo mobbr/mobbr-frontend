@@ -3,10 +3,12 @@
         <label class="control-label col-md-3">Gravatar</label>
 
         <div class="col-md-9">
-            <img ng-if="$mobbrStorage.user.thumbnail" ng-src="{{ $mobbrStorage.user.thumbnail }}"
+            <img ng-if="thumbnailFound" ng-src="{{ $mobbrStorage.user.thumbnail }}"
                  class="img-rounded user-thumb">
-            We use gravatars, linked to your email address. Create your profile <a target="_blank"
+            <span ng-show="!thumbnailFound">
+                We use gravatars, linked to your email address. Create your profile <a target="_blank"
                                                                                    href="http://gravatar.com">here</a>.
+            </span>
         </div>
 
     </div>
@@ -62,7 +64,7 @@
 
         <div class="col-md-7">
             <input class="form-control" name="new_password2" id="new_password2" ng-model="passwordHolder.new_password_control"
-                   type="password" required pw-check="new_password"> {{passwordHolder.new_password_control}}
+                   type="password" required pw-check="new_password">
             <span ng-show="changepassword.new_password2.$dirty && changepassword.new_password2.$error.pwmatch"
                   class="help-inline">Passwords do not match</span>
         </div>
