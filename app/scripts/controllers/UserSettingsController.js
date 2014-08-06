@@ -12,14 +12,21 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
         hide_my_incoming_payments: 'Hide my incoming payments',
         hide_my_items: 'Hide my items',
         hide_my_outgoing_payments: 'Hide my outgoing payments',
-       'hide_my_email_from_donators' : 'Hide my email from donators',
-        'hide_my_email_from_public' : 'Hide my email from public users',
+        'hide_my_email_from_donators': 'Hide my email from donators',
+        'hide_my_email_from_public': 'Hide my email from public users',
         send_json_mention_notification: 'Send JSON mention notification',
         send_monthly_reports: 'Send monthly reports',
         send_newsletter: 'Send me newsletters to keep me informed',
         send_payment_expired_notification: 'Send payment expire notifications',
         send_payment_received_notification: 'Send payment recieved notifications'
     };
+
+    MobbrApi.oauthProviders(function (response) {
+        if (response.result) {
+            $scope.oAuthProviders = response.result;
+        }
+    });
+
 
     $scope.uploadIdentityProof = function (files) {
         MobbrUser.updateUser({ user: $rootScope.$mobbrStorage.user }, function () {
@@ -66,11 +73,14 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
     };
 
     $scope.submitPassword = function (form) {
-        $scope.waitingpassword = MobbrUser.updatePassword({ new_password: form.new_password.$modelValue }, function () {
-            $scope.passwordHolder = {};
-            form && form.$setPristine();
-        });
+        if(form && form.$valid) {
+            $scope.waitingpassword = MobbrUser.updatePassword({ new_password: form.new_password.$modelValue }, function () {
+                $scope.passwordHolder = {};
+                form && form.$setPristine();
+            });
+        }
     };
+
 
     $scope.removePaymentID = function (paymentId, index) {
         $scope.waitingRemoveId = {};
@@ -79,11 +89,6 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
         });
     };
 
-    MobbrApi.oauthProviders(function (response) {
-        if (response.result) {
-            $scope.oAuthProviders = response.result;
-        }
-    });
 
     $scope.addPaymentIdHolder = {idType: undefined, oAuthProvider: undefined, email: undefined};
     $scope.addExternalId = function () {
