@@ -1,12 +1,13 @@
 'use strict';
 
 angular.module('mobbr.filters').filter('mobbrcurrency', function ($rootScope) {
-    return function(amount, currency) {
+    return function (amount, currency) {
 
         var negative,
             localestring;
 
         amount = parseFloat(amount);
+
 
         if (amount.toLocaleString && $rootScope.$mobbrStorage.user) {
             localestring = (currency || '') + amount.toLocaleString($rootScope.$mobbrStorage.user.language_iso, {
@@ -21,5 +22,5 @@ angular.module('mobbr.filters').filter('mobbrcurrency', function ($rootScope) {
         }
 
         return localestring;
-    }
+    };
 });

@@ -1,9 +1,9 @@
 'use strict';
 
-angular.module('mobbr.controllers', []);
+angular.module('mobbr.controllers', ['angularFileUpload','mobbrApi','mobbrMsg','mobbrSession','mobbr.config']);
 angular.module('mobbr.services', []);
-angular.module('mobbr.directives', []);
-angular.module('mobbr.filters', []);
+angular.module('mobbr.directives', ['mobbrSession','mobbr.config']);
+angular.module('mobbr.filters',  ['mobbrSession','mobbr.config']);
 angular.module('mobbr.configuration', []);
 
 /**
@@ -30,8 +30,7 @@ angular.module('mobbr', [
         'mobbr.controllers',
         'mobbr.services',
         'mobbr.directives',
-        'mobbr.filters',
-        'angularFileUpload'
+        'mobbr.filters'
 
     ]).config(function ($stateProvider, $urlRouterProvider) {
 
@@ -393,7 +392,7 @@ angular.module('mobbr', [
         $rootScope.mobbrMsg = mobbrMsg;
         $rootScope.mobbrSession = mobbrSession;
         $rootScope.uiUrl = uiUrl;
-        $rootScope.currenciesMap = MobbrApi.forexCurrencies();
+        $rootScope.currenciesMap = MobbrApi.currencies();
         $rootScope.languagesMap = MobbrApi.isoLanguages();
         $rootScope.countriesMap = MobbrApi.isoCountries();
         $rootScope.timezones = MobbrApi.isoTimezones();
@@ -408,8 +407,8 @@ angular.module('mobbr', [
             $window.mobbr.createDiv();
         }
 
-        $rootScope.login = function (email, password) {
-            $rootScope.authenticating = MobbrUser.passwordLogin({ email: email, password: password }, function () {
+        $rootScope.login = function (username, password) {
+            $rootScope.authenticating = MobbrUser.passwordLogin({ username: username, password: password }, function () {
                 //$location.path('/wallet');
                 $state.go('table.wallet.credit');
             });
