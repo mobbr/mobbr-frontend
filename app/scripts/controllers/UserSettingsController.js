@@ -4,6 +4,7 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
 
     $scope.formHolder = {addPaymentIdForm: undefined};
     $scope.datePopup = {open: false};
+    $scope.passwordHolder = {};
 
     $scope.new_email = $rootScope.$mobbrStorage.user.email;
 
@@ -66,6 +67,7 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
 
     $scope.submitPassword = function (form) {
         $scope.waitingpassword = MobbrUser.updatePassword({ new_password: form.new_password.$modelValue }, function () {
+            $scope.passwordHolder = {};
             form && form.$setPristine();
         });
     };
@@ -87,6 +89,7 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
     $scope.addExternalId = function () {
         var clearPaymentIdHolder = function () {
             $scope.addPaymentIdHolder = {};
+            $scope.formHolder.addPaymentIdForm.$setPristine();
         };
         if ($scope.formHolder.addPaymentIdForm.$valid && $scope.addPaymentIdHolder.idType) {
             if ($scope.addPaymentIdHolder.idType === 'EMAIL') {

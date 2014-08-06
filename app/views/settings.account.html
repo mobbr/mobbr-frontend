@@ -48,7 +48,7 @@
         <label class="control-label col-md-3" for="new_password">New password</label>
 
         <div class="col-md-7">
-            <input ng-model="new_password" class="form-control" id="new_password" name="new_password" type="password"
+            <input ng-model="passwordHolder.new_password" class="form-control" id="new_password" name="new_password" type="password"
                    required ng-pattern="/^.*(?=.{8,})(?=.*\d)(?=.*[a-z]).*$/">
             <span ng-show="changepassword.new_password.$dirty && changepassword.new_password.$error.required"
                   class="help-inline">Enter a new password</span>
@@ -61,12 +61,12 @@
         <label class="control-label col-md-3" for="new_password2">New password again</label>
 
         <div class="col-md-7">
-            <input class="form-control" name="new_password2" id="new_password2" ng-model="new_password_control"
-                   type="password" required pw-check="new_password">
+            <input class="form-control" name="new_password2" id="new_password2" ng-model="passwordHolder.new_password_control"
+                   type="password" required pw-check="new_password"> {{passwordHolder.new_password_control}}
             <span ng-show="changepassword.new_password2.$dirty && changepassword.new_password2.$error.pwmatch"
                   class="help-inline">Passwords do not match</span>
         </div>
-        <div class="col_md-2">
+        <div class="col-md-2">
             <button ng-click="submitPassword(changepassword)"
                     ng-disabled="(!changepassword.$valid || (waitingpassword && !waitingpassword.$resolved) || !changepassword.$dirty)"
                     type="submit"
@@ -85,7 +85,7 @@
         <label class="control-label col-md-3" for="new_password2">External ID</label>
 
         <div class="col-md-7">
-            <input class="form-control" ng-model="paymentID" type="text" pw-check="new_password" disabled>
+            <input class="form-control" ng-model="paymentID" type="text" disabled>
         </div>
         <div class="col-md-2">
             <button ng-click="removePaymentID(paymentID,$index)"
