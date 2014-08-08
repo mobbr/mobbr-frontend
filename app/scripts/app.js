@@ -89,224 +89,32 @@ angular.module('mobbr', [
             }).state('settings.notifications', {
                 url: '/settings/notifications',
                 templateUrl: 'views/settings.notifications.html'
-            }).state('table', {
-                abstract: true,
-                templateUrl: 'views/table.html',
-                controller: 'TableController',
-                data: {
-                    columns: [ 'title', 'username', 'role', 'currency_iso', 'amount' ],
-                    groups: [ 'uri', 'username', 'role', 'currency_iso' ],
-                    empty_message: 'No items available',
-                    selectable: false,
-                    sorting: {
-                        datetime: 'desc'
-                    }
-                }
-            }).state('table.wallet', {
+            }).state('wallet', {
                 url: '/wallet',
-                abstract: true,
-                templateUrl: 'views/sidebars/wallet.html',
+                templateUrl: 'views/wallet.html',
                 controller: 'WalletController',
                 data: {
                     authenticated: true,
-                    redirectTo: 'main',
-                    groups: [ 'url', 'currency_iso' ],
-                    buttons: [
-                        {
-                            buttonText: 'Deposit',
-                            buttonAction: 'deposit',
-                            selectable: false
-                        },
-                        {
-                            buttonText: 'Withdraw',
-                            buttonAction: 'withdraw',
-                            selectable: false
-                        }
-                    ]
+                    redirectTo: 'main'
                 },
                 resolve: {
-                    userBalance: function (MobbrBalance) {
-                        return MobbrBalance.user().$promise;
+                    payments: function (MobbrPayment) {
+                        return MobbrPayment.get().$promise;
                     }
                 }
-            }).state('table.wallet.credit', {
-                url: '/credit',
-                data: {
-                    index: 'balances',
-                    columns: [ 'currency_description', 'currency', 'amount', 'fee', 'spendable' ],
-                    groups: [],
-                    sorting: {
-                        amount: 'asc'
-                    }
-                },
-                resolve: {
-                    data: function (MobbrBalance) {
-                        return MobbrBalance.user().$promise;
-                    }
-                },
-                onEnter: reloadTable
-            }).state('table.wallet.payments', {
+            }).state('payments', {
                 url: '/payments',
-                resolve: {
-                    data: function (MobbrPayment) {
-                        return MobbrPayment.get();
-                    }
-                },
-                data: {
-                    columns: [ 'datetime', 'title', 'currency', 'amount' ],
-                    clickRow: 'openPayment'
-                },
-                onEnter: reloadTable
-            }).state('table.wallet.pledges', {
-                url: '/pledges',
-                resolve: {
-                    data: function (MobbrPayment) {
-                        return MobbrPayment.pledged();
-                    }
-                },
-                data: {
-                    columns: [ 'datetime', 'title', 'url', 'currency', 'amount' ],
-                    sorting: {
-                        paiddatetime: 'desc'
-                    },
-                    buttonText: 'Delete pledges',
-                    buttonAction: 'removePledges',
-                    selectable: true,
-                    clickRow: 'openPayment',
-                    buttons: [
-                        {
-                            buttonText: 'Deposit',
-                            buttonAction: 'deposit',
-                            selectable: false
-                        },
-                        {
-                            buttonText: 'Withdraw',
-                            buttonAction: 'withdraw',
-                            selectable: false
-                        },
-                        {
-                            buttonText: 'Delete pledges',
-                            buttonAction: 'removePledges',
-                            selectable: true
-                        }
-                    ]
-                },
-                onEnter: reloadTable
-            }).state('table.wallet.xpayments', {
-                url: '/xpayments',
-                resolve: {
-                    data: function (MobbrXPayment) {
-                        return MobbrXPayment.get();
-                    }
-                },
-                data: {
-                    columns: [ 'datetime', 'payment_service', 'receive_address', 'note', 'status', 'currency_iso', 'amount' ],
-                    groups: [ 'payment_service', 'currency_iso' ],
-                    sorting: false,
-                    clickRow: 'openExternalPayment'
-                },
-                onEnter: reloadTable
-            }).state('table.invoicing', {
-                url: '/invoicing',
-                abstract: true,
-                templateUrl: 'views/sidebars/invoicing.html',
-                controller: 'InvoicingController',
+                templateUrl: 'views/payments.html',
+                controller: 'PaymentsController',
                 data: {
                     authenticated: true,
-                    redirectTo: 'main',
-                    groupby: 'uri',
-                    selectable: true,
-                    sorting: {
-                        paiddatetime: 'desc'
+                    redirectTo: 'main'
+                },
+                resolve: {
+                    payments: function (MobbrPayment) {
+                        return MobbrPayment.get().$promise;
                     }
                 }
-            }).state('table.invoicing.sourcing_request', {
-                url: '/sourcing/request',
-                resolve: {
-                    data: function (MobbrInvoice) {
-                        return MobbrInvoice.requestable();
-                    }
-                },
-                data: {
-                    buttons: [
-                        {
-                            buttonText: 'Request invoices',
-                            buttonAction: 'requestInvoices',
-                            selectable: true
-                        }
-                    ]
-                },
-                onEnter: reloadTable
-            }).state('table.invoicing.sourcing_pending', {
-                url: '/sourcing/pending',
-                resolve: {
-                    data: function (MobbrInvoice) {
-                        return MobbrInvoice.requested();
-                    }
-                },
-                data: {
-                    buttons: [
-                        {
-                            buttonText: 'Cancel request',
-                            buttonAction: 'cancelInvoices',
-                            selectable: true
-                        }
-                    ]
-                },
-                onEnter: reloadTable
-            }).state('table.invoicing.sourcing_download', {
-                url: '/sourcing/download',
-                resolve: {
-                    data: function (MobbrInvoice) {
-                        return MobbrInvoice.returned();
-                    }
-                },
-                data: {
-                    buttons: [
-                        {
-                            buttonText: 'Download invoice',
-                            buttonAction: 'downloadInvoices',
-                            selectable: true
-                        }
-                    ]
-                },
-                onEnter: reloadTable
-            }).state('table.invoicing.working_confirm', {
-                url: '/working/confirm',
-                resolve: {
-                    data: function (MobbrInvoice) {
-                        return MobbrInvoice.confirmable();
-                    }
-                },
-                data: {
-                    buttons: [
-                        {
-                            buttonText: 'Confirm invoice',
-                            buttonAction: 'confirmInvoices',
-                            selectable: true
-                        }
-                    ],
-                    columns: [ 'title', 'worker_username', 'role', 'currency_iso', 'amount' ]
-                },
-                onEnter: reloadTable
-            }).state('table.invoicing.working_download', {
-                url: '/working/download',
-                resolve: {
-                    data: function (MobbrInvoice) {
-                        return MobbrInvoice.confirmed();
-                    }
-                },
-                data: {
-                    buttons: [
-                        {
-                            buttonText: 'Download invoice',
-                            buttonAction: 'downloadInvoices',
-                            selectable: true
-                        }
-                    ],
-                    columns: [ 'title', 'worker_username', 'role', 'currency_iso', 'amount' ]
-                },
-                onEnter: reloadTable
             }).state('domain', {
                 url: '/domain/:url',
                 templateUrl: 'views/domain.html',
