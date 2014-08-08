@@ -1,10 +1,10 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('WalletController', function ($scope, $modal, $window, $location, $state, $stateParams, userBalance, MobbrPayment, table) {
+angular.module('mobbr.controllers').controller('WalletController', function ($scope, $modal, $window, $location, $state, $stateParams, MobbrPayment, payments) {
 
-    $scope.userBalance = userBalance;
+    $scope.data = payments;
 
-    $scope.buttonActions.removePledges = function (ids) {
+    $scope.removePledges = function (ids) {
         return $modal.open({
             backdrop: true,
             keyboard: true,
@@ -24,7 +24,7 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
         });
     }
 
-    $scope.buttonActions.deposit = function () {
+    $scope.deposit = function () {
         $modal.open({
             backdrop: true,
             keyboard: true,
@@ -36,7 +36,7 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
         });
     }
 
-    $scope.buttonActions.withdraw = function () {
+    $scope.withdraw = function () {
         $modal.open({
             backdrop: true,
             keyboard: true,
