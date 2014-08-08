@@ -23,6 +23,7 @@ angular.module('mobbr', [
         'ui.bootstrap',
         'ui.router',
         'ui.scrollfix',
+        'ui.unique',
         'mobbrApi',
         'mobbrMsg',
         'mobbrSession',
@@ -30,7 +31,9 @@ angular.module('mobbr', [
         'mobbr.controllers',
         'mobbr.services',
         'mobbr.directives',
-        'mobbr.filters'
+        'mobbr.filters',
+        'angularMoment'
+
 
     ]).config(function ($stateProvider, $urlRouterProvider) {
 
@@ -42,6 +45,10 @@ angular.module('mobbr', [
                 url: '/',
                 templateUrl: 'views/main.html',
                 controller: 'MainController'
+            }).state('updates', {
+                url: '/updates',
+                templateUrl: 'views/updates.html',
+                controller: 'UpdatesController'
             }).state('login', {
                 url: '/login/:hash',
                 templateUrl: 'views/link-login.html',
@@ -207,6 +214,8 @@ angular.module('mobbr', [
         $rootScope.incomerangeMap = MobbrApi.kycIncomeRanges();
         $rootScope.userBalance = MobbrBalance.user();
         $rootScope.host = $location.host();
+        $rootScope.oAuthProviders =  MobbrApi.oauthProviders();
+
 
         if (environment !== 'production') {
             $window.mobbr.setApiUrl(apiUrl);
@@ -272,11 +281,13 @@ angular.module('mobbr', [
         $rootScope.mobbrNow = function (mobbrNow) {
             $location.path('/url/' + window.btoa(mobbrNow));
             //$window.mobbr.makePayment(mobbrNow);
-        }
+        };
 
         $rootScope.scrollToId = function (id) {
             $location.hash(id);
             $anchorScroll();
-        }
+        };
+
+
     }
 );
