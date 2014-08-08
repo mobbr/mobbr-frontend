@@ -21,11 +21,7 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
         send_payment_received_notification: 'Send payment recieved notifications'
     };
 
-    MobbrApi.oauthProviders(function (response) {
-        if (response.result) {
-            $scope.oAuthProviders = response.result;
-        }
-    });
+
 
     $scope.$watch('$mobbrStorage.user.thumbnail', function (newValue) {
         if (newValue) {
@@ -117,6 +113,7 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
             if ($scope.addPaymentIdHolder.idType === 'EMAIL') {
                 $scope.waitingAddId = MobbrUser.addEmailId({new_email: $scope.addPaymentIdHolder.email}, clearPaymentIdHolder);
             } else if ($scope.addPaymentIdHolder.idType === 'OAUTH') {
+               console.log('get oauthurl');
                 $scope.waitingAddId = MobbrUser.oAuthUrl({provider: $scope.addPaymentIdHolder.oAuthProvider.provider, redirect_url: document.location.href}, function (response) {
                     if (response.result) {
                         window.location = response.result;

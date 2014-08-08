@@ -36,7 +36,6 @@ describe('mobbr.controllers: UserSettingsController', function () {
 
     function createController() {
 
-        httpBackend.expectGET(common.baseUrl + 'api/oauth_providers').respond({result: []});
 
         contr('UserSettingsController', {
             $scope: scope,
@@ -207,11 +206,11 @@ describe('mobbr.controllers: UserSettingsController', function () {
         createController();
         prepareAddPaymentIdForm('OAUTH');
         scope.addPaymentIdHolder.oAuthProvider = {provider: 'bitbucket'};
-        httpBackend.whenGET('https://test-api.mobbr.com/api_v1/user/oauth_url?provider=bitbucket&redirect_url=http:%2F%2Flocalhost:8091%2Fcontext.html').respond(200, {message: 'ok'});
+        httpBackend.whenGET(/https:\/\/test-api.mobbr.com\/api_v1\/user\/oauth_url\?provider=bitbucket&redirect_url=.*/).respond(200, {message: 'ok'});
 
         scope.addExternalId();
 
-        httpBackend.flush();
+
     });
 
     it('should refuse to addPaymentHolder without idType', function () {
@@ -222,12 +221,10 @@ describe('mobbr.controllers: UserSettingsController', function () {
 
         scope.addExternalId();
 
-        httpBackend.flush();
     });
 
     it('should toggle the datepopup', function () {
         createController();
-        httpBackend.flush();
 
         expect(scope.datePopup.open).toBe(false);
         var event = {preventDefault: function () {
@@ -241,7 +238,6 @@ describe('mobbr.controllers: UserSettingsController', function () {
 
     it('should try to get my gravatar as soons as it is availabe in my profile', function () {
         createController();
-        httpBackend.flush();
 
         expect(scope.thumbnailFound).toBe(undefined);
 
@@ -255,7 +251,6 @@ describe('mobbr.controllers: UserSettingsController', function () {
 
     it('should not to show  my gravatar when there is none', function () {
         createController();
-        httpBackend.flush();
 
         expect(scope.thumbnailFound).toBe(undefined);
 
@@ -269,7 +264,6 @@ describe('mobbr.controllers: UserSettingsController', function () {
 
     it('should count the number of field that are filled', function () {
         createController();
-        httpBackend.flush();
 
         expect(scope.countIdentityCompleted()).toBe(0);
 
