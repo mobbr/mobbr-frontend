@@ -1,4 +1,4 @@
-angular.module('mobbr.controllers').controller('UpdatesController', function ($scope, $stateParams, $q, MobbrNotifications, MobbrBalance) {
+angular.module('mobbr.controllers').controller('UpdatesController', function ($scope, $q, MobbrNotifications, MobbrBalance) {
     'use strict';
 
 
@@ -15,7 +15,7 @@ angular.module('mobbr.controllers').controller('UpdatesController', function ($s
         });
     }
 
-    $scope.$watch('$mobbrStorage.user .id', function () {
+    $scope.$watch('$mobbrStorage.user.id', function () {
         if ($scope.oAuthProviders && $scope.oAuthProviders.length > 0) {
             parseIds();
         } else {
