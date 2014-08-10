@@ -17,6 +17,7 @@ angular.module('mobbr.controllers').controller('UpdatesController', function ($s
 
     $scope.$watch('$mobbrStorage.user.id', function () {
         if ($scope.oAuthProviders && $scope.oAuthProviders.length > 0) {
+
             parseIds();
         } else {
             $q.when($scope.oAuthProviders).then(function () {
@@ -27,18 +28,18 @@ angular.module('mobbr.controllers').controller('UpdatesController', function ($s
         }
     });
 
-    function refreshNotifications() {
+    $scope.refreshNotifications = function() {
         $scope.notifications = MobbrNotifications.user(function (response) {
             $scope.notifications = response.result;
 
         });
     }
 
-    refreshNotifications();
+    $scope.refreshNotifications();
 
     $scope.deleteAll = function () {
-        MobbrNotifications.delete().then(function () {
-            refreshNotifications();
+        MobbrNotifications.delete(function () {
+            $scope.refreshNotifications();
         });
     };
 

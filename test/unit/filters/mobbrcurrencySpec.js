@@ -35,16 +35,16 @@ describe('mobbr.directives - decorateAmount', function () {
     }
 
 
-    it('should make a localeString presentation of the value according to the language_iso', function () {
-
-        scope.value = '10';
-
-        var element = compileHtml(basicHTML);
-
-        console.log(element.html());
-        expect(element.find('#amount').text()).toBe('10.0000');
-
-    });
+//    it('should make a localeString presentation of the value according to the language_iso', function () {
+//
+//        scope.value = '10';
+//
+//        var element = compileHtml(basicHTML);
+//
+//        console.log(element.html());
+//        expect(element.find('#amount').text()).toBe('10.0000');
+//
+//    });
 
     it('should not make a localeString presentation when the user is not loggedin', function () {
 
