@@ -29,15 +29,17 @@ describe('mobbr.controllers: UpdatesController', function () {
         spyOn(mobbrMsg, 'add');
 
         // dummy login
-        mobbrSession.setUser({email: 'jan@work.com'});
+        mobbrSession.setUser({email: 'jan@work.com',id:['http://github.com/test']});
 
 
     }));
 
     function createController() {
 
+        scope.oAuthProviders = common.oAuthProviders;
 
-        contr('UserSettingsController', {
+
+        contr('UpdatesController', {
             $scope: scope,
             $rootScope: rootScope
         });
@@ -50,11 +52,15 @@ describe('mobbr.controllers: UpdatesController', function () {
         httpBackend.verifyNoOutstandingRequest();
     });
 
-    it('should init the page and retrieve everything', function(){
+    it('should init the page and retrieve everything', function () {
         createController();
 
-    });
+        scope.$apply();
 
+        expect(scope.parsedIds).not.toBe(undefined);
+        expect(scope.parsedIds.length).toBe(1);
+        expect(scope.parsedIds[0].host).toBe('github.com');
+    });
 
 
 });
