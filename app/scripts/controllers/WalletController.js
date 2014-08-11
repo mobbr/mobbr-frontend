@@ -1,6 +1,5 @@
-'use strict';
-
-angular.module('mobbr.controllers').controller('WalletController', function ($scope, $modal, $window, $location, $state, $stateParams, MobbrXPayment, MobbrBalance) {
+angular.module('mobbr.controllers').controller('WalletController', function ($scope, MobbrXPayment, MobbrBalance) {
+    'use strict';
 
     $scope.dashboard = {};
 
@@ -8,7 +7,7 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
         $scope.payments = response.result;
     });
 
-    function retrieveSupportedCurrencies(){
+    function retrieveSupportedCurrencies() {
         MobbrXPayment.supportedCurrencies(function (response) {
             // nices to create a tidy structure in the controller then in the view
             $scope.walletAddresses = response.result;
@@ -16,7 +15,6 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
         });
     };
     retrieveSupportedCurrencies();
-
 
 
     MobbrBalance.user(function (response) {
@@ -28,7 +26,7 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
     });
 
     $scope.addBitcoinAddress = function (currency) {
-        MobbrXPayment.newAccountAddress({currency: currency}, function(response){
+        MobbrXPayment.newAccountAddress({currency: currency}, function () {
             retrieveSupportedCurrencies();
         });
     }
