@@ -6,19 +6,22 @@ angular.module('mobbr.filters').filter('mobbrcurrency', function ($rootScope) {
         var negative,
             localestring;
 
-        amount = parseFloat(amount);
+        if (amount) {
+
+            amount = parseFloat(amount);
 
 
-        if (amount.toLocaleString && $rootScope.$mobbrStorage.user) {
-            localestring = (currency || '') + amount.toLocaleString($rootScope.$mobbrStorage.user.language_iso, {
-                minimumFractionDigits: 4,
-                maximumFractionDigits: 4
-            });
-        }
+            if (amount.toLocaleString && $rootScope.$mobbrStorage.user) {
+                localestring = (currency || '') + amount.toLocaleString($rootScope.$mobbrStorage.user.language_iso, {
+                    minimumFractionDigits: 4,
+                    maximumFractionDigits: 4
+                });
+            }
 
-        if (!localestring) {
-            negative = amount < 0;
-            localestring = (negative ? '-' : '') + (currency || '') + ('' + Math.abs(amount).toFixed(4));
+            if (!localestring) {
+                negative = amount < 0;
+                localestring = (negative ? '-' : '') + (currency || '') + ('' + Math.abs(amount).toFixed(4));
+            }
         }
 
         return localestring;
