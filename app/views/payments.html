@@ -1,1 +1,42 @@
-<mtable data="data" columns="[ 'datetime', 'title', 'currency', 'amount' ]" group-by="null" groups="[ 'url', 'currency_iso' ]" sorting="true"></mtable>
+<div id="payments">
+    <div class="page-header">
+        <h1>Payments</h1>
+    </div>
+
+    <h2><a href="#/payments">Pledges</a></h2>
+    <div ng-show="$state.includes('payments.pledges')">
+        <button ng-click="removePledes()" class="btn btn-primary" ng-disabled="filterSelectedIds(pledgedTable.data).length === 0">Delete selected pledges</button>
+        <table class="table" ng-table="pledgedTable" >
+            <tbody>
+            <tr ng-repeat="payment in $data">
+                <td data-title="Date" ng-bind="payment.datetime | amDateFormat : 'YYYYMMDD HH:MM'"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h2><a href="#/payments/unclaimed">Unclaimed</a></h2>
+    <table class="table" ng-table="unclaimedTable" ng-show="$state.includes('payments.unclaimed')">
+        <tbody>
+        <tr ng-repeat="payment in $data">
+            <td data-title="Date" ng-bind="payment.datetime | amDateFormat : 'YYYYMMDD HH:MM'"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h2><a href="#/payments/payments">Payments</a></h2>
+
+    <div ng-show="$state.includes('payments.payments')">
+        <table class="table" ng-table="paymentsTable">
+            <tbody>
+            <tr ng-repeat="payment in $data">
+                <td><input type="checkbox" ng-model="payment.selected" value="{{payment.id}}"></td>
+                <td data-title="Date" ng-bind="payment.datetime | amDateFormat : 'YYYYMMDD HH:MM'"></td>
+            </tr>
+            </tbody>
+        </table>
+        <button class="btn btn-primary" ng-click="paymentsTable.count(paymentsTable.count() + 10)">More</button>
+    </div>
+
+
+</div>
