@@ -8,17 +8,30 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
         $scope.payments = response.result;
     });
 
-    MobbrXPayment.supportedCurrencies(function(response){
-        $scope.walletAddresses = response.result;
-    });
+    function retrieveSupportedCurrencies(){
+        MobbrXPayment.supportedCurrencies(function (response) {
+            // nices to create a tidy structure in the controller then in the view
+            $scope.walletAddresses = response.result;
+
+        });
+    };
+    retrieveSupportedCurrencies();
+
 
 
     MobbrBalance.user(function (response) {
-        if(response && response.result){
+        if (response && response.result) {
             $scope.dashboard.total_currency_iso = response.result.total_currency_iso;
             $scope.dashboard.total_amount = response.result.total_amount;
+            $scope.dashboard.balances = response.result.balances;
         }
     });
+
+    $scope.addBitcoinAddress = function (currency) {
+        MobbrXPayment.newAccountAddress({currency: currency}, function(response){
+            retrieveSupportedCurrencies();
+        });
+    }
 
 //    $scope.removePledges = function (ids) {
 //        return $modal.open({
