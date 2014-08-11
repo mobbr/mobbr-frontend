@@ -115,23 +115,24 @@ angular.module('mobbr', [
                 url: '/wallet/withdraw',
                 templateUrl: 'views/wallet.withdraw.html'
             }).state('payments', {
-                url: '/payments',
+
                 templateUrl: 'views/payments.html',
                 controller: 'PaymentsController',
                 data: {
                     authenticated: true,
                     redirectTo: 'main'
-                },
-                resolve: {
-                    payments: function (MobbrPayment) {
-                        return MobbrPayment.get().$promise;
-                    }
                 }
+            }).state('payments.pledges', {
+                url: '/payments'
+            }).state('payments.unclaimed', {
+                url: '/payments/unclaimed'
+            }).state('payments.payments', {
+                url: '/payments/payments'
             }).state('domain', {
                 url: '/domain/:url',
                 templateUrl: 'views/domain.html',
                 controller: 'DomainController'
-            }).state('claimpayment', {
+            }).state('claim payment', {
                 url: '/claimpayment',
                 templateUrl: 'views/claim_payment.html',
                 controller: 'ClaimPaymentController'
