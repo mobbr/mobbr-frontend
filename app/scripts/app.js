@@ -97,13 +97,23 @@ angular.module('mobbr', [
                 url: '/settings/notifications',
                 templateUrl: 'views/settings.notifications.html'
             }).state('wallet', {
-                url: '/wallet',
                 templateUrl: 'views/wallet.html',
                 controller: 'WalletController',
                 data: {
                     authenticated: true,
                     redirectTo: 'main'
                 }
+            }).state('wallet.default', {
+                url: '/wallet'
+            }).state('wallet.pay', {
+                url: '/wallet/pay',
+                templateUrl: 'views/wallet.pay.html'
+            }).state('wallet.deposit', {
+                url: '/wallet/deposit',
+                templateUrl: 'views/wallet.deposit.html'
+            }).state('wallet.withdraw', {
+                url: '/wallet/withdraw',
+                templateUrl: 'views/wallet.withdraw.html'
             }).state('payments', {
                 url: '/payments',
                 templateUrl: 'views/payments.html',
