@@ -1,1 +1,99 @@
-<mtable data="data" columns="[ 'datetime', 'title', 'currency', 'amount' ]" group-by="null" groups="[ 'url', 'currency_iso' ]" sorting="true"></mtable>
+<div id="wallet">
+    <h1>My money
+                <a href="#/walled/pay" class="btn">Pay</a>
+                <a href="#/walled/widthdraw" class="btn">Withdraw</a>
+                <a href="#/walled/deposit" class="btn">Deposit</a>
+    </h1>
+
+    <h2>Total balance in {{dashboard.total_amount | mobbrcurrency:dashboard.total_currency_iso}} </h2>
+
+
+    <div class="row">
+        <div class="col-xs-6 col-md-3" ng-repeat="balance in balances ">
+            <div class="thumbnail" >
+                <div class="grid_12">
+                    <div class="">spendable</div>
+                    <span></span>
+                </div>
+                <div class="grid_12 ">
+
+                </div>
+                <span></span>
+            </div>
+        </div>
+
+        <div class="col-xs-6 col-md-3">
+            <div class="thumbnail">
+                <div class="grid_12">
+                    <span class="glyphicon glyphicon-cog"></span>
+                    Settings & profile
+                </div>
+                <hr/>
+                <div class="grid_12 ">
+                    {{$mobbrStorage.user.complete?$mobbrStorage.user.complete:'0'}} %
+                </div>
+                <a href="#/settings" class="btn">{{$mobbrStorage.user.complete == 100?'Update your settings':'Complete
+                    your settings'}}</a>
+            </div>
+        </div>
+
+
+        <div class="col-xs-6 col-md-3">
+            <div class="thumbnail">
+                <div class="grid_12">
+                    <span class="glyphicon glyphicon-bookmark"></span>
+                    My active tasks
+                </div>
+                <hr/>
+                <div class="grid_12 ">
+                    {{dashboard.activeTasks}}
+                </div>
+                <a href="#/task" class="btn">Start a new task</a>
+            </div>
+        </div>
+
+        <div class="col-xs-6 col-md-3">
+            <div class="thumbnail">
+                <div class="grid_12">
+                    <span class="glyphicon glyphicon-bookmark"></span>
+                    Linked accounts
+                </div>
+                <hr/>
+                <div class="grid_12 ">
+                    <ul>
+                        <li ng-repeat="provider in parsedIds">
+                            <img ng-src="provider.favicon" ng-show="provider.favicon">
+                        </li>
+                    </ul>
+                </div>
+                <a href="#/settings/identity" class="btn">Add more accounts</a>
+            </div>
+        </div>
+
+    </div>
+
+    <h2>Deposits & withdrawls</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Service</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="payment in payments">
+                <td ng-bind="payment.paiddatetime?(payment.paiddatetime | amDateFormat : 'YYMMDD HH:MM'):payment.service_message"></td>
+                <td ng-bind="payment.amount | mobbrcurrency:payment.currency_iso"></td>
+                <td ng-bind="payment.payment_service"></td>
+
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Wallet addresses</h2>
+    <div>Use there public addresses to recieve money from external accounts. Give there to anyone who needs to fund your Mobbr account.</div>
+
+
+
+</div>

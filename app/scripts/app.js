@@ -103,11 +103,6 @@ angular.module('mobbr', [
                 data: {
                     authenticated: true,
                     redirectTo: 'main'
-                },
-                resolve: {
-                    payments: function (MobbrPayment) {
-                        return MobbrPayment.get().$promise;
-                    }
                 }
             }).state('payments', {
                 url: '/payments',
