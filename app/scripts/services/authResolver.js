@@ -25,7 +25,7 @@ angular.module('mobbr.services').run(function ($rootScope, $state, $timeout, $mo
 
     function authState(toState, event) {
 
-        if (toState.data && toState.data.authenticated !== mobbrSession.isAuthorized()) {
+        if (toState.data && toState.data.authenticated !== undefined && toState.data.authenticated !== mobbrSession.isAuthorized()) {
             event && event.preventDefault();
             if(mobbrSession.isAuthorized() === false){
                 mobbrMsg.add({ msg: 'Please login at the account menu' });
