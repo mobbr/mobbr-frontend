@@ -195,6 +195,21 @@ angular.module('mobbr', [
                         }).$promise;
                     }
                 }
+            }).state('tasks', {
+                url: '/tasks',
+                //abstract: true,
+                controller: 'TasksController',
+                templateUrl: 'views/tasks.html',
+                data: {
+                    title: 'Explore tasks'
+                }
+            }).state('tasks.task', {
+                url: '/:task',
+                controller: 'TaskController',
+                templateUrl: 'views/tasks.task.html',
+                data: {
+                    title: 'Task status'
+                }
             }
         );
 
@@ -212,9 +227,21 @@ angular.module('mobbr', [
         $rootScope.mobbrMsg = mobbrMsg;
         $rootScope.mobbrSession = mobbrSession;
         $rootScope.uiUrl = uiUrl;
-        $rootScope.currenciesMap = MobbrApi.currencies();
-        $rootScope.languagesMap = MobbrApi.isoLanguages();
-        $rootScope.countriesMap = MobbrApi.isoCountries();
+
+        $rootScope.currenciesMap = {};
+        $rootScope.languagesMap = {};
+        $rootScope.countriesMap = {};
+
+        $rootScope.currencies = MobbrApi.currencies(function (response) {
+            response.result.forEach(function (item) { $rootScope.currenciesMap[item.currency_iso] = item; });
+        });
+        $rootScope.languages = MobbrApi.isoLanguages(function (response) {
+            response.result.forEach(function (item) { $rootScope.languagesMap[item.language_iso] = item; });
+        });
+        $rootScope.countries = MobbrApi.isoCountries(function (response) {
+            response.result.forEach(function (item) { $rootScope.countriesMap[item.country_iso] = item; });
+        });
+
         $rootScope.timezones = MobbrApi.isoTimezones();
         $rootScope.incomerangeMap = MobbrApi.kycIncomeRanges();
         $rootScope.userBalance = MobbrBalance.user();
