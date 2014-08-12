@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h1 ng-bind="state.current.data.title"></h1>
+            </div>
+            <div class="col-md-6 text-right">
+                <button type="button" class="btn btn-default">Go to task</button>
+                <button type="button" class="btn btn-default">Make a pledge</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <form class="input-group">
+                    <span class="input-group-addon">=</span>
+                    <input type="url" class="form-control" ng-model="query" required>
+                    <span class="input-group-btn">
+                        <button ng-disabled="query == task" class="btn btn-default" type="submit">Go!</button>
+                    </span>
+                </form>
+            </div>
+        </div>
+        <div class="row" ui-view></div>
+    </div>
+</div>

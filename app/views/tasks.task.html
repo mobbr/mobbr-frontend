@@ -1,0 +1,26 @@
+        <div class="task-summary">
+            <div class="col-xs-6 col-md-3">
+                <h1>Domain overview</h1>
+            </div>
+            <div class="col-xs-6 col-md-3">
+                <h1>To be determined</h1>
+            </div>
+            <div class="col-xs-6 col-md-3">
+                <h1>no money: show payment dialog, money: show payment</h1>
+            </div>
+            <div class="col-xs-6 col-md-3">
+                <h1>if no people participating show invite functionality else paid persons</h1>
+            </div>
+        </div>
+
+        <div ng-class="{ loading: info && !info.$resolved }" class="task-info">
+            <h1 ng-bind="info.result.title"></h1>
+            <p ng-bind="info.result.description"></p>
+            <abbr ng-bind="info.result.language" lang="{{ info.result.language }}" title="{{ info.result.language }}"></abbr>
+            <small ng-show="info.result.copyright" ng-bind="info.result.copyright"></small>
+        </div>
+
+        <h1>Tags on this task</h1>
+        <div ng-class="{ loading: info && !info.$resolved }" class="task-tags">
+            <span ng-repeat="keyword in info.result.keywords" ng-bind="keyword" class="label label-default"></span>
+        </div>
