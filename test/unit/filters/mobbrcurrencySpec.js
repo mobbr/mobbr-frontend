@@ -54,7 +54,6 @@ describe('mobbr.directives - decorateAmount', function () {
 
         var element = compileHtml(basicHTML);
 
-        console.log(element.html());
         expect(element.find('#amount').text()).toBe('10.0000');
 
     });
