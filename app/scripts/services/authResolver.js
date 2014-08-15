@@ -59,4 +59,6 @@ angular.module('mobbr.services').run(function ($rootScope, $state, $timeout, $mo
     $rootScope.$on('mobbrApi:authchange', function () {
         authState($state.current);
     });
+
+    $rootScope.mobbrSession = mobbrSession;
 });
