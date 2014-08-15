@@ -1,0 +1,42 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>Select people to invite</h2>
+                </div>
+                <div class="col-md-6 text-right">
+                    <button ng-click="invite()"
+                            class="btn btn-default">Invite people</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-class="{ loading: persons && !persons.$resolved }" class="row">
+    <div ng-repeat="person in persons.result" class="col-xs-6 col-md-3">
+        <input type="checkbox" ng-model="checkboxes[person.id]">
+        <img ng-src="https://secure.gravatar.com/avatar/{{ person['gravatar'] }}?s=20&default=https://mobbr.com/img/default-gravatar.png"
+             width="20"
+             height="20">
+        <h3 ng-show="person.firstname || person.lastname"
+            ng-bind="person.firstname + (person.firstname && person.lastname && ' ') + person.lastname"></h3>
+        <h4 ng-bind="person.companyname"></h4>
+        <ul>
+            <li ng-repeat="role in person.role" ng-bind="role"></li>
+        </ul>
+        <dl>
+            <dt>Share average</dt>
+            <dd ng-bind="person.share_average + '%'"></dd>
+            <dt>Keyword rating</dt>
+            <dd ng-bind="person.keyword_rating"></dd>
+            <dt>Activity rating</dt>
+            <dd ng-bind="person.activity_rating"></dd>
+        </dl>
+    </div>
+</div>
+
+<div ng-hide="persons && (!persons.$resolved || persons.result.length > 0)">
+    <h2 class="text-center"><em>There are no people to invite</em></h2>
+</div>
