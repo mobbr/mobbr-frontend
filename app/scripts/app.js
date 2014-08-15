@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers', ['angularFileUpload','mobbrApi','mobbrMsg','mobbrSession','mobbr.config']);
+angular.module('mobbr.controllers', ['angularFileUpload','mobbrApi','mobbrMsg','mobbrSession','mobbr.config','ngTable']);
 angular.module('mobbr.services', []);
 angular.module('mobbr.directives', ['mobbrSession','mobbr.config']);
 angular.module('mobbr.filters',  ['mobbrSession','mobbr.config']);
@@ -18,7 +18,6 @@ $(function () {
 
 angular.module('mobbr', [
 
-        'ngTable',
         'ngStorage',
         'ui.bootstrap',
         'ui.router',
@@ -33,7 +32,6 @@ angular.module('mobbr', [
         'mobbr.directives',
         'mobbr.filters',
         'angularMoment'
-
 
     ]).config(function ($stateProvider, $urlRouterProvider) {
 

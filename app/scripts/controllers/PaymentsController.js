@@ -1,58 +1,102 @@
-'use strict';
+/* global ngTableParams */
+angular.module('mobbr.controllers').controller('PaymentsController', function ($scope, $filter, ngTableParams, MobbrPayment, filterFilter, $timeout) {
+    'use strict';
 
-angular.module('mobbr.controllers').controller('PaymentsController', function ($scope, $filter, ngTableParams, MobbrPayment, filterFilter) {
 
-    $scope.filterSelectedIds = function(data) {
+    $scope.paymentTable = {data: []};
+    $scope.pledgedTable = {};
+    $scope.unclaimedTable = {};
+
+    $scope.filterSelectedIds = function (data) {
         var selected = filterFilter(data, { selected: true });
         if (selected && selected.length > 0) {
             var ids = [];
             angular.forEach(selected, function (elem) {
                 ids.push(elem.id);
             });
+            return ids;
         }
         return [];
     };
 
-    function createBasicTable(promise, limit) {
-        return new ngTableParams({
-            page: 1,
-            count: limit ? 10 : undefined,
-            sorting: {
-
-                name: 'asc'
-            }
-        }, {
-            counts: 10,
-            total: 1,
-            getData: function ($defer, params) {
-                promise.then(function (response) {
-                    var data = response.result;
-                    var orderedData = params.sorting() ?
-                        $filter('orderBy')(data, params.orderBy()) :
-                        data;
-                    if (params.count() === undefined) {
-                        $defer.resolve(orderedData);
-                    } else {
-                        $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-                    }
-
-                }, function () {
-                    $defer.reject();
+    $scope.retrievePayments = function (searchParam) {
+        MobbrPayment.get({search: searchParam, offset: $scope.paymentTable.data.length, limit: 10}, function (response) {
+            if (response.result) {
+                angular.forEach(response.result, function (item) {
+                    $scope.paymentTable.data.push(item);
                 });
             }
         });
-    }
-    $scope.paymentsTable = createBasicTable(MobbrPayment.get().$promise, true);
+    };
+    $scope.retrievePayments();
 
-    $scope.pledgedTable = createBasicTable(MobbrPayment.pledged().$promise);
+    $scope.$watch('paymentTable.search', function () {
+
+        if ($scope.SearchPaymentDataTimeout) {
+            $timeout.cancel($scope.SearchPaymentDataTimeout);
+        }
+        $scope.SearchPaymentDataTimeout = $timeout(function () {
+            $scope.SearchPaymentDataTimeout = undefined;
+            if ($scope.paymentTable.search !== undefined) {
+                if ($scope.paymentTable.search.length >= 3) {
+                    while ($scope.paymentTable.data.length > 0) {
+                        $scope.paymentTable.data.pop();
+
+                    }
+                    $scope.retrievePayments($scope.paymentTable.search);
+                } else {
+                    $scope.retrievePayments();
+                }
+            }
+
+        }, 300);
+    });
+
+    function retrievePledges() {
+        MobbrPayment.pledged().$promise.then(function (response) {
+            $scope.pledgedTable.data = response.result;
+        });
+    }
+    retrievePledges();
+
+    function retrieveUnclaimedShares() {
+        MobbrPayment.unclaimedShares().$promise.then(function (response) {
+            $scope.unclaimedTable.data = response.result;
+        });
+    }
+    retrieveUnclaimedShares();
+
     $scope.removePledes = function () {
         var selected = $scope.filterSelectedIds($scope.pledgedTable.data);
         if (selected && selected.length > 0) {
-            MobbrPayment.unpledge({ids: selected});
+            MobbrPayment.unpledge({ids: selected}).$promise.then(function () {
+                retrievePledges();
+            });
         }
-    }
+    };
 
-    $scope.unclaimedTable = createBasicTable(MobbrPayment.unclaimed().$promise);
+    $scope.revokeSelectedShares = function () {
+        var selected = $scope.filterSelectedIds($scope.unclaimedTable.data);
+        if (selected && selected.length > 0) {
+            MobbrPayment.unclaimShares({ids: selected}).$promise.then(function () {
+                retrieveUnclaimedShares();
+            });
 
+        }
+    };
+
+    $scope.downloadInvoiceSelectedShares = function () {
+        var selected = $scope.filterSelectedIds($scope.unclaimedTable.data);
+        if (selected && selected.length > 0) {
+//            MobbrPayment.todo({ids: selected});
+        }
+    };
+
+    $scope.downloadInvoiceSelectedPayments = function () {
+        var selected = $scope.filterSelectedIds($scope.paymentTable.data);
+        if (selected && selected.length > 0) {
+//            MobbrPayment.todo({ids: selected});
+        }
+    };
 
 });
