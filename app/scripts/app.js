@@ -195,6 +195,62 @@ angular.module('mobbr', [
                         }).$promise;
                     }
                 }
+            }).state('tasks', {
+                url: '/tasks',
+                controller: 'TasksController',
+                templateUrl: 'views/tasks.html',
+                data: {
+                    title: 'Explore tasks'
+                }
+            }).state('tasks.view', {
+                abstract: true,
+                controller: 'TaskController',
+                templateUrl: 'views/tasks.task.html',
+                data: {
+                    title: 'Task status'
+                }
+            }).state('tasks.view.task', {
+                url: '/:task'
+            }).state('tasks.view.task.domain', {
+                url: '/domain',
+                views: {
+                    'task-section': {
+                        controller: 'TaskDomainController',
+                        templateUrl: 'views/tasks.task.domain.html'
+                    }
+                }
+            }).state('tasks.view.task.payments', {
+                url: '/payments',
+                views: {
+                    'task-section': {
+                        controller: 'TaskPaymentsController',
+                        templateUrl: 'views/tasks.task.payments.html'
+                    }
+                }
+            }).state('tasks.view.task.persons', {
+                url: '/persons',
+                views: {
+                    'task-section': {
+                        controller: 'TaskPersonsController',
+                        templateUrl: 'views/tasks.task.persons.html'
+                    }
+                }
+            }).state('tasks.view.task.invite', {
+                url: '/invite',
+                views: {
+                    'task-section': {
+                        controller: 'TaskInviteController',
+                        templateUrl: 'views/tasks.task.invite.html'
+                    }
+                }
+            }).state('tasks.view.task.pay', {
+                url: '/pay',
+                views: {
+                    'pay@tasks': {
+                        controller: 'TaskPayController',
+                        templateUrl: 'views/tasks.task.pay.html'
+                    }
+                }
             }
         );
 
@@ -212,9 +268,22 @@ angular.module('mobbr', [
         $rootScope.mobbrMsg = mobbrMsg;
         $rootScope.mobbrSession = mobbrSession;
         $rootScope.uiUrl = uiUrl;
-        $rootScope.currenciesMap = MobbrApi.currencies();
-        $rootScope.languagesMap = MobbrApi.isoLanguages();
-        $rootScope.countriesMap = MobbrApi.isoCountries();
+
+        $rootScope.currenciesMap = {};
+        $rootScope.languagesMap = {};
+        $rootScope.countriesMap = {};
+
+        $rootScope.currencies = MobbrApi.currencies(function (response) {
+            response.result.forEach(function (item) { $rootScope.currenciesMap[item.currency_iso] = item; });
+            console.log($rootScope.currenciesMap);
+        });
+        $rootScope.languages = MobbrApi.isoLanguages(function (response) {
+            response.result.forEach(function (item) { $rootScope.languagesMap[item.code] = item.name; });
+        });
+        $rootScope.countries = MobbrApi.isoCountries(function (response) {
+            response.result.forEach(function (item) { $rootScope.countriesMap[item.code] = item.name; });
+        });
+
         $rootScope.timezones = MobbrApi.isoTimezones();
         $rootScope.incomerangeMap = MobbrApi.kycIncomeRanges();
         $rootScope.userBalance = MobbrBalance.user();

@@ -1,0 +1,100 @@
+<div class="container">
+    <div class="row">
+        <form class="col-md-12">
+            <div class="row">
+                <fieldset ng-disabled="!task.$resolved || payment" class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <select class="form-control"
+                                    required
+                                    ng-model="currency"
+                                    ng-options="key for (key, value) in currenciesMap"></select>
+                        </div>
+                        <div class="col-md-4">
+                            <input class="form-control"
+                                   required
+                                   type="number"
+                                   ng-model="amount"
+                                   step="any"
+                                   min="0"
+                                   max="1000000000">
+                        </div>
+                        <div class="col-md-4">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" ng-model="invoices">
+                                    I want invoices
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset ng-disabled="!task.$resolved || (payment && !payment.$resolved)" class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <button ng-disabled="!currency || !amount || payment"
+                                    ng-click="preview()"
+                                    class="btn btn-default btn-block"
+                                    type="submit">
+                                Preview payment
+                            </button>
+                        </div>
+                        <div class="col-md-6">
+                            <button ng-disabled="!currency || !amount || confirm.$resolved"
+                                    ng-click="payment.result.hash ? pay() : previewPay()"
+                                    ng-bind="confirm.message.text || task.result.script.pledge && 'Pledge' || 'Pay'"
+                                    class="btn btn-success btn-block"
+                                    type="submit">
+                            </button>
+                        </div>
+                        <div class="col-md-2">
+                            <a ng-href="{{ state.href('tasks.view.task') }}"
+                               class="btn btn-danger btn-block"
+                               type="submit">
+                                X
+                            </a>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </form>
+    </div>
+</div>
+<div ng-show="show_preview && payment && payment.$resolved" class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Participant</th>
+                    <th>Role</th>
+                    <th>%</th>
+                    <th>Currency</th>
+                    <th>Amount</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="participant in payment.result.script.participants">
+                    <td ng-bind="participant.datetime">
+                        <img ng-src="https://secure.gravatar.com/avatar/{{ participant['gravatar'] }}?s=20&default=https://mobbr.com/img/default-gravatar.png"
+                             width="20"
+                             height="20">
+                        <span ng-bind="participant.username"></span>
+                    </td>
+                    <td ng-bind="participant.role"></td>
+                    <td ng-bind="participant.share"></td>
+                    <td ng-bind="participant.currency_iso"></td>
+                    <td ng-bind="participant.amount | mobbrcurrency:''"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Total</td>
+                    <td>100%</td>
+                    <td ng-bind="payment.result.script['.currency']"></td>
+                    <td ng-bind="payment.result.script['.amount'] | mobbrcurrency:''"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
