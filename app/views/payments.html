@@ -4,38 +4,127 @@
     </div>
 
     <h2><a href="#/payments">Pledges</a></h2>
+
     <div ng-show="$state.includes('payments.pledges')">
-        <button ng-click="removePledes()" class="btn btn-primary" ng-disabled="filterSelectedIds(pledgedTable.data).length === 0">Delete selected pledges</button>
-        <table class="table" ng-table="pledgedTable" >
+        <button ng-click="removePledes()" class="btn btn-primary"
+                ng-show="filterSelectedIds(pledgedTable.data).length > 0">Delete selected pledges
+        </button>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th ng-click="pledgedTable.sortBy='datetime'; pledgedTable.reverse=!pledgedTable.reverse">
+                        Date
+                    </th>
+                    <th ng-click="pledgedTable.sortBy='title'; pledgedTable.reverse=!pledgedTable.reverse">
+                        Title
+                    </th>
+                    <th ng-click="pledgedTable.sortBy='url'; pledgedTable.reverse=!pledgedTable.reverse">
+                        Url
+                    </th>
+                    <th ng-click="pledgedTable.sortBy='currency_iso'; pledgedTable.reverse=!pledgedTable.reverse">
+                        Currency
+                    </th>
+                    <th ng-click="pledgedTable.sortBy='amount'; pledgedTable.reverse=!pledgedTable.reverse">
+                        Amount
+                    </th>
+                </tr>
+            </thead>
             <tbody>
-            <tr ng-repeat="payment in $data">
-                <td data-title="Date" ng-bind="payment.datetime | amDateFormat : 'YYYYMMDD HH:MM'"></td>
-            </tr>
+                <tr ng-repeat="payment in pledgedTable.data | orderBy:pledgedTable.sortBy:pledgedTable.reverse">
+                    <td><input type="checkbox" ng-model="payment.selected"></td>
+                    <td data-title="'Date'" sortable="'datetime'" ng-bind="payment.datetime | amDateFormat : 'YYYYMMDD HH:MM'"></td>
+                    <td data-title="'Title'" sortable="'title'" ng-bind="payment.title"></td>
+                    <td data-title="'Url'" sortable="'url'" ng-bind="payment.url"></td>
+                    <td data-title="'Currency'" sortable="'currency_iso'" ng-bind="payment.currency_iso"></td>
+                    <td data-title="'Amount'" sortable="'amount'" ng-bind="payment.amount | mobbrcurrency:''"></td>
+                </tr>
             </tbody>
         </table>
     </div>
 
     <h2><a href="#/payments/unclaimed">Unclaimed</a></h2>
-    <table class="table" ng-table="unclaimedTable" ng-show="$state.includes('payments.unclaimed')">
-        <tbody>
-        <tr ng-repeat="payment in $data">
-            <td data-title="Date" ng-bind="payment.datetime | amDateFormat : 'YYYYMMDD HH:MM'"></td>
-        </tr>
-        </tbody>
-    </table>
+    <div ng-show="$state.includes('payments.unclaimed')">
+        <button ng-click="revokeSelectedShares()" class="btn btn-primary"
+                ng-show="filterSelectedIds(unclaimedTable.data).length > 0">Delete selected shares
+        </button>
+
+        <button ng-click="downloadInvoiceSelectedShares()" class="btn btn-primary"
+                ng-show="filterSelectedIds(unclaimedTable.data).length > 0">Download invoice selected
+        </button>
+
+        <table class="table" >
+            <thead>
+                <tr>
+                    <th></th>
+                    <th ng-click="unclaimedTable.sortBy='username'; unclaimedTable.reverse=!unclaimedTable.reverse">
+                        Participant
+                    </th>
+                    <th ng-click="unclaimedTable.sortBy='payment'; unclaimedTable.reverse=!unclaimedTable.reverse">
+                        Payment
+                    </th>
+                    <th ng-click="unclaimedTable.sortBy='currency_iso'; unclaimedTable.reverse=!unclaimedTable.reverse">
+                        Currency
+                    </th>
+                    <th ng-click="unclaimedTable.sortBy='amount'; unclaimedTable.reverse=!unclaimedTable.reverse">
+                        Amount
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="payment in unclaimedTable.data | orderBy:unclaimedTable.sortBy:unclaimedTable.reverse">
+                    <td><input type="checkbox" ng-model="payment.selected"></td>
+                    <td>
+                        <img ng-src="https://secure.gravatar.com/avatar/{{ payment.username }}?s=50&default=https://mobbr.com/img/default-gravatar.png"
+                             class="gravatar img-rounded"
+                             width="50"
+                             height="50">
+                        <span ng-bind="payment.username"></span>
+                    </td>
+                    <td ng-bind="payment.payment"></td>
+                    <td ng-bind="payment.currency_iso"></td>
+                    <td ng-bind="payment.amount"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
     <h2><a href="#/payments/payments">Payments</a></h2>
 
     <div ng-show="$state.includes('payments.payments')">
-        <table class="table" ng-table="paymentsTable">
+        <button ng-click="downloadInvoiceSelectedPayments()" class="btn btn-primary"
+                ng-show="filterSelectedIds(paymentTable.data).length > 0">Download invoice selected
+        </button>
+        <input type="text" ng-model="paymentTable.search">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th ng-click="paymentTable.sortBy='datetime'; paymentTable.reverse=!paymentTable.reverse">
+                        Date
+                    </th>
+                    <th ng-click="paymentTable.sortBy='title'; paymentTable.reverse=!paymentTable.reverse">
+                        Title
+                    </th>
+                    <th ng-click="paymentTable.sortBy='currency_iso'; paymentTable.reverse=!paymentTable.reverse">
+                        Currency
+                    </th>
+                    <th ng-click="paymentTable.sortBy='amount'; paymentTable.reverse=!paymentTable.reverse">
+                        Amount
+                    </th>
+                </tr>
+            </thead>
             <tbody>
-            <tr ng-repeat="payment in $data">
-                <td><input type="checkbox" ng-model="payment.selected" value="{{payment.id}}"></td>
-                <td data-title="Date" ng-bind="payment.datetime | amDateFormat : 'YYYYMMDD HH:MM'"></td>
+            <tr ng-repeat="payment in paymentTable.data | orderBy:paymentTable.sortBy:paymentTable.reverse">
+                <td><input type="checkbox" ng-model="payment.selected"></td>
+                <td ng-bind="payment.datetime | amDateFormat : 'YYYYMMDD HH:MM'"></td>
+                <td>{{payment.title?payment.title:payment.url}}</td>
+                <td ng-bind="payment.currency_iso"></td>
+                <td ng-bind="payment.amount | mobbrcurrency:''"></td>
             </tr>
             </tbody>
         </table>
-        <button class="btn btn-primary" ng-click="paymentsTable.count(paymentsTable.count() + 10)">More</button>
+        <button class="btn btn-primary" ng-click="retrievePayments()">More</button>
     </div>
 
 
