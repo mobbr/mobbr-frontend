@@ -1,0 +1,13 @@
+<div ng-class="{ loading: persons && !persons.$resolved }" class="row">
+    <div ng-repeat="person in persons.result" class="col-xs-6 col-md-3">
+        <img ng-src="https://secure.gravatar.com/avatar/{{ person['gravatar'] }}?s=20&default=https://mobbr.com/img/default-gravatar.png"
+             width="20"
+             height="20">
+        <h3 ng-bind="person.username"></h3>
+        <ul>
+            <li ng-repeat="role in person.role" ng-bind="role"></li>
+        </ul>
+        <span ng-bind="person.share_average"></span>
+        <span ng-bind="person.amount | mobbrcurrency:''"></span>
+    </div>
+</div>

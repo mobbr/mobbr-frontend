@@ -1,0 +1,33 @@
+<div ng-show="!has_failed && urls.result.length > 0" class="row" ng-class="{ loading: urls && !urls.$resolved }">
+    <a ng-repeat="url in urls.result" ng-href="{{ state.href('tasks.view.task.domain', { task: encodeTask(url.url) }) }}">
+        <div class="col-xs-6 col-md-3">
+            <h3 ng-bind="url.title"></h3>
+            <p ng-bind="url.description"></p>
+            <dl>
+                <dt>Number of payments:</dt>
+                <dd ng-bind="url.num_payments"></dd>
+                <dt>Number of recipients</dt>
+                <dd ng-bind="url.num_recipients"></dd>
+                <dt>Amount</dt>
+                <dd ng-bind="yrl.amount"></dd>
+            </dl>
+        </div>
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="container">
+            <div class="row">
+                <div ng-hide="has_failed || (urls.$resolved && urls.result.length > 0) || !urls.$resolved" class="col-md-12">
+                    <h2 class="text-center"><em>This domain has no tasks</em></h2>
+                </div>
+
+                <div ng-show="has_failed" class="col-md-12 task-tags" class="col-md-12">
+                    <h2>Your domain is not reachable by Mobbr</h2>
+                    <p>Fix it!!!!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
