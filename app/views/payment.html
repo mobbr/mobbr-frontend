@@ -1,65 +1,53 @@
-<alert>
-    This is a publicly accessible but secret URL. Be careful with whom you share it.
-</alert>
+<div id="paymentreceipt">
 
-<div class="row">
-    <div class="col-md-8">
-        <div class="page-header">
-            <h1>
-                Payment receipt <span ng-hide="payment.result.meta_data.paiddatetime">(pending)</span><br>
-                <small ng-show="!external"><a href="{{ linkUrl(payment.result.meta_data.url) }}">{{ payment.response.meta_data.title || payment.result.meta_data.url }}</a></small>
-                <small ng-show="external">Payment service: {{ payment.result.meta_data.payment_service }}</small><br>
-            </h1>
-        </div>
-        <a href="{{ linkUrl(payment.result.meta_data.url) }}" ng-show="payment.result.meta_data.img_url">
-            <img ng-src="{{ payment.result.meta_data.img_url }}" class="gravatar receipt-thumb">
-        </a>
-        <p>{{ payment.result.meta_data.description }}</p>
+    <div class="page-header">
+        Payment receipt
     </div>
 
-    <div class="col-md-4">
-        <div class="well">
-            <h6>Amount</h6>
-            {{ payment.result.meta_data.currency_iso }} <span class="amount">{{ payment.result.meta_data.amount }}</span>
-            <h6>Date</h6>
-            <span ng-bind="payment.result.meta_data.paiddatetime"></span>
-            <div ng-show="external">
-                <div ng-show="payment.result.meta_data.amount > 0 && payment.result.meta_data.receive_address">
-                    <h6>Receive address</h6>
-                    <span ng-bind="payment.result.meta_data.receive_address"></span>
-                </div>
-                <div ng-show="payment.result.meta_data.amount < 0 && payment.result.meta_data.send_address">
-                    <h6>Send address</h6>
-                    <span ng-bind="payment.result.meta_data.send_address"></span>
-                </div>
-                <div ng-show="payment.result.meta_data.ext_trx_id">
-                    <h6>External transaction ID</h6>
-                    <span ng-bind="payment.result.meta_data.ext_trx_id"></span>
-                </div>
-                <div ng-show="payment.result.meta_data.note">
-                    <h6>Note</h6>
-                    <span ng-bind="payment.result.meta_data.note"></span>
-                </div>
-            </div>
-        </div>
+    <div class="row">
+        <span ng-bind="payment.amount | mobbrcurrency:payment.currency_iso"></span>
     </div>
-</div>
+    <div class="row">
+        <span ng-bind="payment.paiddatetime | amDateFormat : 'YYYYMMDD HH:MM'"></span>
+    </div>
+    <div class="row">
+        <span ng-bind="payment.description"></span>
+    </div>
+    <div class="row">
+            <img ng-src="payment.fav_icon" ng-if="payment.fav_icon"><span> TASK URL <a ng-href="payment.uri" ng-bind="payment.uri"></a></span>
 
-<div ng-show="!external" class="row">
-    <div class="col-md-6">
-        <h3>Senders</h3>
-        <invoicetable id="receivers"
-                      columns="[ 'gravatar', 'username', 'role', 'currency', 'amount' ]"
-                      api="payment"
-                      index="'receivers'"
-                      click-row="openPayment"></invoicetable>
     </div>
-    <div class="col-md-6">
-        <h3>Receivers</h3>
-        <invoicetable id="receivers"
-                      columns="[ 'gravatar', 'username', 'role', 'currency', 'amount' ]"
-                      api="payment"
-                      index="'senders'"
-                      click-row="openPayment"></invoicetable>
+
+    <div class="row" ng-if="(recieversAndSenders | filter:{selected:true}).length > 0">
+        <button class="btn btn-primary" ng-click="mailSelected()">Mail selected people</button>
+        <button class="btn btn-primary" ng-click="revokeSelected()">Recoke selected shares</button>
+        <button class="btn btn-primary" ng-click="download()">Download invoice(s) selected</button>
     </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th><input type="checkbox" ng-model="selectAll.selected"></th>
+                <th ng-click="sortBy='username'; reverse=!reverse">Participant</th>
+                <th ng-click="sortBy='role'; reverse=!reverse">Role</th>
+                <th ng-click="sortBy='share'; reverse=!reverse">%</th>
+                <th ng-click="sortBy='currency_iso'; reverse=!reverse">Currency</th>
+                <th ng-click="sortBy='amount'; reverse=!reverse">Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="participant in recieversAndSenders | orderBy:sortBy:reverse">
+                <td><input ng-if="participant.unclaimed == '1'" type="checkbox" ng-model="participant.selected"></td>
+                <td> <img ng-src="https://secure.gravatar.com/avatar/{{ participant.gravatar }}?s=50&default=https://mobbr.com/img/default-gravatar.png"
+                          class="gravatar img-rounded"
+                          width="50"
+                          height="50">
+                    {{participant.username}}
+                </td>
+                <td ng-bind="participant.role"></td>
+                <td ng-bind="participant.share|number:2"></td>
+                <td ng-bind="participant.currency_iso"></td>
+                <td ng-bind="participant.amount | mobbrcurrency:''"></td>
+            </tr>
+        </tbody>
+    </table>
 </div>
