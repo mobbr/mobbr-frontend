@@ -299,8 +299,7 @@ angular.module('mobbr', [
 
         $rootScope.login = function (username, password) {
             $rootScope.authenticating = MobbrUser.passwordLogin({ username: username, password: password }, function () {
-                //$location.path('/wallet');
-                $state.go('table.wallet.credit');
+                //$state.go('table.wallet.credit');
             });
         };
 
