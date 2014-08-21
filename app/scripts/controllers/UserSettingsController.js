@@ -1,6 +1,9 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('UserSettingsController', function ($scope, $rootScope, $upload, apiUrl, MobbrUser, mobbrMsg, mobbrSession, MobbrApi, $http) {
+angular.module('mobbr.controllers').controller('UserSettingsController', function ($scope, $rootScope, $upload, $http, $window, $interval, apiUrl, uiUrl, MobbrUser, mobbrMsg, mobbrSession, MobbrApi) {
+
+    var popup_url,
+        oauth_popup;
 
     $scope.formHolder = {addPaymentIdForm: undefined};
     $scope.datePopup = {open: false};
@@ -96,26 +99,42 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
 
     $scope.removePaymentID = function (paymentId, index) {
         $scope.waitingRemoveId = {};
-        $scope.waitingRemoveId[index] = MobbrUser.deleteUserId({id: window.btoa(paymentId)}, function () {
+        $scope.waitingRemoveId[index] = MobbrUser.deleteUserId({id: paymentId}, function () {
             $scope.waitingRemoveId = undefined;
         });
     };
 
 
     $scope.addPaymentIdHolder = {idType: undefined, oAuthProvider: undefined, email: undefined};
+
+    function clearPaymentIdHolder () {
+        $scope.addPaymentIdHolder = {};
+        $scope.formHolder.addPaymentIdForm.$setPristine();
+    }
+
+    function popupMessage(e) {
+        if (e.data === 'oauth-popup') {
+            oauth_popup.close();
+            $scope.waitingAddId = MobbrUser.confirmOauthId({ redirected_url: oauth_popup.location.href });
+            $window.removeEventListener('message', popupMessage);
+        }
+    }
+
     $scope.addExternalId = function () {
-        var clearPaymentIdHolder = function () {
-            $scope.addPaymentIdHolder = {};
-            $scope.formHolder.addPaymentIdForm.$setPristine();
-        };
+
+        popup_url = $window.location.origin + '/popup.html';
+        oauth_popup = $window.open(popup_url, 'oauth-popup');
+
         if ($scope.formHolder.addPaymentIdForm.$valid && $scope.addPaymentIdHolder.idType) {
             if ($scope.addPaymentIdHolder.idType === 'EMAIL') {
                 $scope.waitingAddId = MobbrUser.addEmailId({new_email: $scope.addPaymentIdHolder.email}, clearPaymentIdHolder);
             } else if ($scope.addPaymentIdHolder.idType === 'OAUTH') {
-                $scope.waitingAddId = MobbrUser.oAuthUrl({provider: $scope.addPaymentIdHolder.oAuthProvider.provider, redirect_url: document.location.href}, function (response) {
-                    if (response.result) {
-                        window.location = response.result;
-                    }
+                $scope.waitingAddId = MobbrUser.oAuthUrl({
+                    provider: $scope.addPaymentIdHolder.oAuthProvider.provider,
+                    redirect_url: popup_url
+                }, function (response) {
+                    $window.addEventListener('message', popupMessage, false);
+                    oauth_popup.location.href = response.result;
                 });
             }
         }
