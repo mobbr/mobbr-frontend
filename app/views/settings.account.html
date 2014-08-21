@@ -120,7 +120,7 @@
                       class="help-inline">Enter a valid email address.</span>
             </div>
             <span ng-if="addPaymentIdHolder.idType == 'OAUTH'">
-                <select ng-model="addPaymentIdHolder.oAuthProvider" ng-options="oAuthProvider as oAuthProvider.host for oAuthProvider in oAuthProviders" class="form-control" required="">
+                <select ng-model="addPaymentIdHolder.oAuthProvider" ng-options="oAuthProvider as oAuthProvider.host for oAuthProvider in oAuthProviders.result" class="form-control" required="">
                     <option selected value="">Select an oAuth provider</option>
                 </select>
             </span>
