@@ -247,7 +247,8 @@ module.exports = function (grunt) {
                         src: [
                             '*.{ico,txt,js}',
                             '.htaccess',
-                            'fonts/*.*'
+                            'fonts/*.*',
+                            'popup.html'
                         ]
                     }
                 ]
@@ -260,7 +261,8 @@ module.exports = function (grunt) {
                         cwd: '<%= yeoman.app %>',
                         dest: '.tmp',
                         src: [
-                            'index.html'
+                            'index.html',
+                            'popup.html'
                         ]
                     }
                 ]
@@ -335,19 +337,20 @@ module.exports = function (grunt) {
             test: {
                 host: 'test-www.mobbr.com',
                 username: 'handijk',
-                agent: process.env.SSH_AUTH_SOCK,
+                password: '!8flakeeR',
+                //agent: process.env.SSH_AUTH_SOCK,
                 showProgress: true
             },
             production: {
                 host: 'mobbr.com',
                 username: 'handijk',
-                agent: process.env.SSH_AUTH_SOCK,
+                //agent: process.env.SSH_AUTH_SOCK,
                 showProgress: true
             },
             stage: {
                 host: 'mobbr.com',
                 username: 'handijk',
-                agent: process.env.SSH_AUTH_SOCK,
+                //agent: process.env.SSH_AUTH_SOCK,
                 showProgress: true
             }
         },
@@ -442,8 +445,8 @@ module.exports = function (grunt) {
         'rev',
         'htmlmin',
         'usemin',
-        'compress',
-        'processhtml'
+        'processhtml',
+        'compress'
     ]);
 
     grunt.registerTask('deploy', [
