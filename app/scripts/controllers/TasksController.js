@@ -40,5 +40,14 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
         });
     }
 
+    $scope.resetTask = function () {
+        $scope.task = undefined;
+        $scope.url = undefined;
+        $scope.has_failed = false;
+        $scope.has_script = false;
+        $scope.has_payments = false;
+        $scope.has_participants = false;
+    }
+
     $scope.state = $state;
 });
