@@ -170,14 +170,10 @@ angular.module('mobbr', [
                 url: '/payment/:id',
                 templateUrl : 'views/payment.html',
                 controller : 'PaymentReceiptController'
-            }).state('main.x-payment', {
-                url: 'x-payment/:id',
-                onEnter: function ($rootScope, $stateParams) {
-                    $rootScope.openExternalPayment({ id: $stateParams.id });
-                },
-                onExit: function (mobbrModal) {
-                    mobbrModal.close();
-                }
+            }).state('x-payment', {
+                url: '/x-payment/:id',
+                templateUrl : 'views/payment.html',
+                controller : 'PaymentReceiptController'
             }).state('url', {
                 url: '/url/:url',
                 templateUrl: 'views/url.html',
