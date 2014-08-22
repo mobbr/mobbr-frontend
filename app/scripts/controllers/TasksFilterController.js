@@ -54,7 +54,8 @@ angular.module('mobbr.controllers').controller('TasksFilterController', function
     });
 
     $scope.$watch('[ filter_language, filter_order, user_tasks ]', queryFilter, true);
-    $scope.languages = MobbrApi.languages({ used: true });
+    $scope.languages = MobbrApi.languages({ include_unused: false });
     $scope.tag = $state.params.tag;
     $scope.filter_order = $scope.order_options[0].code;
+    $scope.resetTask();
 });
