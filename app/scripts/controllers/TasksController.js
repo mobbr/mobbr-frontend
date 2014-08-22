@@ -48,6 +48,4 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
         $scope.has_payments = false;
         $scope.has_participants = false;
     }
-
-    $scope.state = $state;
 });

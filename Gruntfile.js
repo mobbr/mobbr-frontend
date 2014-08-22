@@ -337,7 +337,6 @@ module.exports = function (grunt) {
             test: {
                 host: 'test-www.mobbr.com',
                 username: 'handijk',
-                password: '!8flakeeR',
                 //agent: process.env.SSH_AUTH_SOCK,
                 showProgress: true
             },
