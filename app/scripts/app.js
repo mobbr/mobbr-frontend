@@ -166,22 +166,14 @@ angular.module('mobbr', [
             }).state('validator', {
                 url: '/validator',
                 templateUrl: 'views/validator.html'
-            }).state('main.payment', {
-                url: 'payment/:id',
-                onEnter: function ($rootScope, $stateParams) {
-                    $rootScope.openPayment({ id: $stateParams.id });
-                },
-                onExit: function (mobbrModal) {
-                    mobbrModal.close();
-                }
-            }).state('main.x-payment', {
-                url: 'x-payment/:id',
-                onEnter: function ($rootScope, $stateParams) {
-                    $rootScope.openExternalPayment({ id: $stateParams.id });
-                },
-                onExit: function (mobbrModal) {
-                    mobbrModal.close();
-                }
+            }).state('payment', {
+                url: '/payment/:id',
+                templateUrl : 'views/payment.html',
+                controller : 'PaymentReceiptController'
+            }).state('x-payment', {
+                url: '/x-payment/:id',
+                templateUrl : 'views/payment.html',
+                controller : 'PaymentReceiptController'
             }).state('url', {
                 url: '/url/:url',
                 templateUrl: 'views/url.html',
@@ -313,7 +305,8 @@ angular.module('mobbr', [
 
         $rootScope.login = function (username, password) {
             $rootScope.authenticating = MobbrUser.passwordLogin({ username: username, password: password }, function () {
-                //$state.go('table.wallet.credit');
+                //$location.path('/wallet');
+                $state.go('wallet.default');
             });
         };
 
