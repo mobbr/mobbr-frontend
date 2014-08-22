@@ -1,24 +1,32 @@
-angular.module('mobbr.controllers').controller('PaymentReceiptController', function ($scope, $stateParams, MobbrPayment, MobbrInvoice, filterFilter, $window) {
+angular.module('mobbr.controllers').controller('PaymentReceiptController', function ($scope, $stateParams, $state, MobbrPayment, MobbrXPayment, MobbrInvoice, filterFilter, $window) {
     'use strict';
 
-    function retrievePayment() {
-        MobbrPayment.info({id: $stateParams.id}).$promise.then(
-            function (response) {
-                if (response.result) {
-                    $scope.payment = response.result;
-                    $scope.recieversAndSenders = [];
-                    angular.forEach($scope.payment.senders, function (sender) {
-                        $scope.recieversAndSenders.push(sender);
-                    });
-                    angular.forEach($scope.payment.receivers, function (reciever) {
-                        $scope.recieversAndSenders.push(reciever);
-                    });
 
-                }
-            }
-        );
+    var paymentResponse = function (response) {
+        if (response.result) {
+            $scope.payment = response.result;
+            $scope.recieversAndSenders = [];
+            angular.forEach($scope.payment.senders, function (sender) {
+                $scope.recieversAndSenders.push(sender);
+            });
+            angular.forEach($scope.payment.receivers, function (reciever) {
+                $scope.recieversAndSenders.push(reciever);
+            });
+
+        }
     }
 
+    function retrievePayment() {
+        if ($state.includes('x-payment')) {
+            MobbrXPayment.info({id: $stateParams.id}).$promise.then(
+                paymentResponse
+            );
+        } else {
+            MobbrPayment.info({id: $stateParams.id}).$promise.then(
+                paymentResponse
+            );
+        }
+    }
     retrievePayment();
 
     $scope.filterSelectedIds = function (data) {
