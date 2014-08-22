@@ -70,27 +70,75 @@
 
         <div class="ng-cloak messaging container-fluid">
             <div class="container">
-                <alert ng-repeat="alert in mobbrMsg.messages" type="alert.type" close="mobbrMsg.close($index)">{{ alert.msg }}</alert>
+                <alert ng-repeat="alert in mobbrMsg.messages" type="{{ alert.type }}" close="mobbrMsg.close($index)">{{ alert.msg }}</alert>
             </div>
         </div>
 
         <header class="navbar navbar-fixed-top navbar-default" role="navigation">
             <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="#/">
-                        <img src="img/logo-mobbr.png">
-                    </a>
-                </div>
-
-                <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav">
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown">
-                            <img ng-if="$mobbrStorage.user.thumbnail" ng-src="{{ $mobbrStorage.user.thumbnail }}" class="img-rounded user-thumb">
-                            <span ng-bind="$mobbrStorage.user.username || 'Account'"></span>
+                            <img ng-click="state.go('main')" src="img/logo-mobbr.png">
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#">Community</a>
+                            </li>
+                            <li>
+                                <a href="#">Help &amp; Support</a>
+                            </li>
+                            <li>
+                                <a href="#">Documentation</a>
+                            </li>
+                            <li>
+                                <a href="#">About us</a>
+                            </li>
+                            <li>
+                                <a href="#">Contact</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav">
+                    <li ng-class="{ 'active': state.includes('updates') }">
+                        <a ng-href="{{ state.href('updates') }}">Updates</a>
+                    </li>
+                    <li ng-class="{ 'active': state.includes('tasks.filter') }">
+                        <a ng-href="{{ state.href('tasks.filter') }}">Tasks</a>
+                    </li>
+                    <li ng-class="{ 'active': state.includes('payments.pledges') }">
+                        <a ng-href="{{ state.href('payments.pledges') }}">Payments</a>
+                    </li>
+                    <li ng-class="{ 'active': state.includes('wallet.default') }">
+                        <a ng-href="{{ state.href('wallet.default') }}">Wallet</a>
+                    </li>
+                </ul>
+
+                <ul ng-show="mobbrSession.isAuthorized()" class="nav navbar-nav navbar-right">
+                    <li>
+                        <a>
+                            <span ng-bind="'Hi ' + $mobbrStorage.user.username"></span>
+                            <img ng-src="{{ $mobbrStorage.user.thumbnail }}" class="img-rounded user-thumb">
+                        </a>
+                    </li>
+                    <li ng-class="{ 'active': state.includes('settings') }">
+                        <a ng-href="{{ state.href('settings.account') }}">
+                            <span class="glyphicon glyphicon-cog"></span>
+                        </a>
+                    </li>
+                </ul>
+
+                <ul ng-hide="mobbrSession.isAuthorized()">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown">
+                            Click here to login
                             <b class="caret"></b>
                         </a>
 
-                        <ul class="user-menu dropdown-menu" ng-show="!mobbrSession.isAuthorized()">
+                        <ul class="user-menu dropdown-menu">
                             <li class="nav-header"></li>
                             <li>
                                 <form ng-submit="login(username, password)"
@@ -130,116 +178,10 @@
                             <li class="divider"></li>
                             <li><a class="nav-header" href="#/recover">Password forgotten</a></li>
                         </ul>
-
-                        <ul class="dropdown-menu" ng-show="mobbrSession.isAuthorized()">
-                            <li>
-                                <a href="#/wallet">
-                                    <span class="glyphicon glyphicon-inbox"></span>
-                                    Wallet
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#/payments">
-                                    <span class="glyphicon glyphicon-bullhorn"></span>
-                                    Payments
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#/settings">
-                                    <span class="glyphicon glyphicon-wrench"></span>
-                                    Settings
-                                </a>
-                            </li>
-                            <li>
-                                <a ng-click="logout()">
-                                    <span class="glyphicon glyphicon-lock"></span>
-                                    Log out
-                                </a>
-                            </li>
-                        </ul>
                     </li>
                 </ul>
             </div>
         </header>
-
-        <section class="navbar navbar-inverse navbar-static-top">
-            <div class="container-fluid">
-                <ul class="nav navbar-nav">
-                    <li><a href="#/features">Features</a></li>
-                    <li><a target="_blank" href="https://docs.mobbr.com">Getting started</a></li>
-                    <li><a href="#/claimpayment">Claim payment</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            More
-                            <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a target="_blank" href="http://blog.mobbr.com">
-                                    Blog ?
-                                </a>
-                            </li>
-                            <li>
-                                <a target="_blank" href="https://plus.google.com/communities/100962413817465214183">
-                                    Community ?
-                                </a>
-                            </li>
-                            <li>
-                                <a target="_blank" href="https://ask.mobbr.com">
-                                    Help &amp; support ?
-                                </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="#/company">
-                                    About us
-                                </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="#/integration">
-                                    Documentation
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a target="_blank" href="https://twitter.com/mobbrcom">
-                            <img class="customicon" src="img/icon-twitter.png">
-                        </a>
-                    </li>
-                    <li>
-                        <a target="_blank" href="https://plus.google.com/+Mobbrcom">
-                            <img class="customicon" src="img/icon-gplus.png">
-                        </a>
-                    </li>
-                    <li>
-                        <a target="_blank" href="http://blog.mobbr.com">
-                            <img class="customicon" src="img/icon-rss.png">
-                        </a>
-                    </li>
-                </ul>
-
-                <form ng-submit="mobbrNow(mobbrNowInput)"
-                      class="navbar-form navbar-right"
-                      title="Do a direct payment to an URL or email address">
-                    <div class="form-group">
-                        <input class="form-control"
-                               name="mobbrinput"
-                               title="Enter the URL, Mobbr-account, email-address you want to send money to"
-                               placeholder="Enter any URL"
-                               size="35"
-                               maxlength="512"
-                               type="url"
-                               ng-model="mobbrNowInput"
-                               required>
-                    </div>
-                    <button name="go" class="btn" type="submit">
-                        Search
-                    </button>
-                </form>
-            </div>
-        </section>
 
         <div class="container-fluid main" ui-view></div>
 

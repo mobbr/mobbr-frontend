@@ -294,7 +294,7 @@ angular.module('mobbr', [
         $rootScope.userBalance = MobbrBalance.user();
         $rootScope.host = $location.host();
         $rootScope.oAuthProviders =  MobbrApi.oauthProviders();
-
+        $rootScope.state = $state;
 
         if (environment !== 'production') {
             $window.mobbr.setApiUrl(apiUrl);
