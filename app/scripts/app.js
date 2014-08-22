@@ -195,21 +195,35 @@ angular.module('mobbr', [
                     }
                 }
             }).state('tasks', {
-                url: '/tasks',
+                abstract: true,
                 controller: 'TasksController',
-                templateUrl: 'views/tasks.html',
+                templateUrl: 'views/tasks.html'
+            }).state('tasks.filter', {
+                url: '/tasks',
+                views: {
+                    'tasks-section': {
+                        controller: 'TasksFilterController',
+                        templateUrl: 'views/tasks.filter.html'
+                    }
+                },
                 data: {
                     title: 'Explore tasks'
                 }
+            }).state('tasks.filter.tag', {
+                url: '/:tag'
             }).state('tasks.view', {
                 abstract: true,
-                controller: 'TaskController',
-                templateUrl: 'views/tasks.task.html',
+                views: {
+                    'tasks-section': {
+                        controller: 'TaskController',
+                        templateUrl: 'views/tasks.task.html'
+                    }
+                },
                 data: {
                     title: 'Task status'
                 }
             }).state('tasks.view.task', {
-                url: '/:task'
+                url: '^/task/:task'
             }).state('tasks.view.task.domain', {
                 url: '/domain',
                 views: {
