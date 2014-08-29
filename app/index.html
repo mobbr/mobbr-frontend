@@ -41,8 +41,8 @@
         <meta property="og:image" content="https://mobbr.com/img/mobbr-ripple.jpg" />
         <meta property="og:description" content="Welcome to MOBBR, the world's first crowdpayment system. Start sharing rewards and donations in bitcoin, XRP, social currencies and FIAT currencies." />
         <meta name="description" content="Welcome to MOBBR, the world's first crowdpayment system. Start sharing rewards and donations in bitcoin, XRP, social currencies and FIAT currencies." />
-        <link href="//fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700" rel="stylesheet">
-        <link href="//fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
+        <link href="http://fonts.googleapis.com/css?family=Roboto:400,700italic,700,400italic" rel="stylesheet" type="text/css">
+        <link href="http://fonts.googleapis.com/css?family=Roboto+Condensed:400italic,700italic,400,700" rel="stylesheet" type="text/css">
         <!-- build:css styles/style.css -->
         <link href="styles/style.css" rel="stylesheet">
         <!-- endbuild -->
@@ -75,111 +75,137 @@
         </div>
 
         <header class="navbar navbar-fixed-top navbar-default" role="navigation">
-            <div class="container-fluid">
-                <ul class="nav navbar-nav">
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown">
-                            <img ng-click="state.go('main')" src="img/logo-mobbr.png">
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li>
-                                <a href="#">Community</a>
-                            </li>
-                            <li>
-                                <a href="#">Help &amp; Support</a>
-                            </li>
-                            <li>
-                                <a href="#">Documentation</a>
-                            </li>
-                            <li>
-                                <a href="#">About us</a>
-                            </li>
-                            <li>
-                                <a href="#">Contact</a>
+            <div class="container">
+                <div class="row expand-pad">
+                    <div class="col-md-2 col-sm-2 col-xs-3 col-logo">
+                        <ul class="nav">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle logo text-right" data-toggle="dropdown">
+                                        <span class="crop">
+                                            <img ng-click="state.go('main')" src="img/logo-mobbr.png">
+                                        </span>
+                                    <span class="caret"></span>
+                                </a>
+
+                                <ul class="dropdown-menu logo-menu" role="menu">
+                                    <li>
+                                        <a href="#">Community</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Help &amp; Support</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Documentation</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">About us</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Contact</a>
+                                    </li>
+                                </ul>
                             </li>
                         </ul>
-                    </li>
-                </ul>
+                    </div>
 
-                <ul class="nav navbar-nav">
-                    <li ng-class="{ 'active': state.includes('updates') }">
-                        <a ng-href="{{ state.href('updates') }}">Updates</a>
-                    </li>
-                    <li ng-class="{ 'active': state.includes('tasks.filter') }">
-                        <a ng-href="{{ state.href('tasks.filter') }}">Tasks</a>
-                    </li>
-                    <li ng-class="{ 'active': state.includes('payments.pledges') }">
-                        <a ng-href="{{ state.href('payments.pledges') }}">Payments</a>
-                    </li>
-                    <li ng-class="{ 'active': state.includes('wallet.default') }">
-                        <a ng-href="{{ state.href('wallet.default') }}">Wallet</a>
-                    </li>
-                </ul>
+                    <div class="col-md-5 col-sm-5 col-xs-6">
+                        <div class="row no-pad">
+                            <ul class="nav menu">
+                                <li ng-class="{ 'active': state.includes('updates') }" class="col-md-offset-2 col-sm-offset-2 col-xs-offset-0 col-md-2 col-sm-2 col-xs-3">
+                                    <a ng-href="{{ state.href('updates') }}" class="text-center">
+                                        <span class="glyphicon glyphicon-bullhorn"></span>
+                                        <small>Updates</small>
+                                    </a>
+                                </li>
+                                <li ng-class="{ 'active': state.includes('tasks') }" class="col-md-2 col-sm-2 col-xs-3">
+                                    <a ng-href="{{ state.href('tasks.filter') }}" class="text-center">
+                                        <span class="glyphicon glyphicon-tasks"></span>
+                                        <small>Tasks</small>
+                                    </a>
+                                </li>
+                                <li ng-class="{ 'active': state.includes('payments') }" class="col-md-2 col-sm-2 col-xs-3">
+                                    <a ng-href="{{ state.href('payments.pledges') }}" class="text-center">
+                                        <span class="glyphicon glyphicon-transfer"></span>
+                                        <small>Payments</small>
+                                    </a>
+                                </li>
+                                <li ng-class="{ 'active': state.includes('wallet') }" class="col-md-2 col-sm-2 col-xs-3">
+                                    <a ng-href="{{ state.href('wallet.default') }}" class="text-center">
+                                        <span class="glyphicon glyphicon-briefcase"></span>
+                                        <small>Wallet</small>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
 
-                <ul ng-show="mobbrSession.isAuthorized()" class="nav navbar-nav navbar-right">
-                    <li>
-                        <a>
-                            <span ng-bind="'Hi ' + $mobbrStorage.user.username"></span>
-                            <img ng-src="{{ $mobbrStorage.user.thumbnail }}" class="img-rounded user-thumb">
-                        </a>
-                    </li>
-                    <li ng-class="{ 'active': state.includes('settings') }">
-                        <a ng-href="{{ state.href('settings.account') }}">
-                            <span class="glyphicon glyphicon-cog"></span>
-                        </a>
-                    </li>
-                </ul>
+                    <div class="col-md-5 col-sm-5 col-xs-3">
+                        <div class="row no-pad">
+                            <ul ng-show="mobbrSession.isAuthorized()" class="nav menu">
+                                <li class="user-welcome col-md-10 col-sm-10 col-xs-6 text-right">
+                                    <span ng-bind="'Hi ' + $mobbrStorage.user.username" class="msg"></span>
+                                    <img ng-src="{{ $mobbrStorage.user.thumbnail }}" width="50" height="50">
+                                </li>
+                                <li class="col-md-2 col-sm-2 col-xs-6" ng-class="{ 'active': state.includes('settings') }">
+                                    <a ng-href="{{ state.href('settings.account') }}" class="text-center">
+                                        <span class="glyphicon glyphicon-cog"></span>
+                                        <small>Settings</small>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
 
-                <ul ng-hide="mobbrSession.isAuthorized()" class="nav navbar-nav navbar-right">
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown">
-                            Click here to login
-                            <b class="caret"></b>
-                        </a>
+                        <ul ng-hide="mobbrSession.isAuthorized()" class="nav navbar-nav navbar-right menu">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle text-center" data-toggle="dropdown">
+                                    <span class="glyphicon glyphicon-user"></span>
+                                    <small>Login <b class="caret"></b></small>
+                                </a>
 
-                        <ul class="user-menu dropdown-menu">
-                            <li class="nav-header"></li>
-                            <li>
-                                <form ng-submit="login(username, password)"
-                                      form-autofill-fix
-                                      class="col-lg-12"
-                                      name="head-login">
-                                    <div class="form-group">
-                                        <input ng-model="username"
-                                               auto-fill-sync
-                                               class="form-control"
-                                               type="text"
-                                               name="username"
-                                               placeholder="username"
-                                               required>
-                                    </div>
-                                    <div class="form-group">
-                                        <input ng-model="password"
-                                               auto-fill-sync
-                                               class="form-control"
-                                               type="password"
-                                               name="password"
-                                               placeholder="password"
-                                               required>
-                                    </div>
-                                    <div class="form-group">
-                                        <button ng-disabled="authenticating && !authenticating.$resolved"
-                                                type="submit"
-                                                class="btn btn-block">
-                                            <i class="glyphicon mobbrloader" ng-show="authenticating && !authenticating.$resolved"></i>
-                                            Log in
-                                        </button>
-                                    </div>
-                                </form>
+                                <ul class="user-menu dropdown-menu">
+                                    <li class="nav-header"></li>
+                                    <li>
+                                        <form ng-submit="login(username, password)"
+                                              form-autofill-fix
+                                              class="col-lg-12"
+                                              name="head-login">
+                                            <div class="form-group">
+                                                <input ng-model="username"
+                                                       auto-fill-sync
+                                                       class="form-control"
+                                                       type="text"
+                                                       name="username"
+                                                       placeholder="username"
+                                                       required>
+                                            </div>
+                                            <div class="form-group">
+                                                <input ng-model="password"
+                                                       auto-fill-sync
+                                                       class="form-control"
+                                                       type="password"
+                                                       name="password"
+                                                       placeholder="password"
+                                                       required>
+                                            </div>
+                                            <div class="form-group">
+                                                <button ng-disabled="authenticating && !authenticating.$resolved"
+                                                        type="submit"
+                                                        class="btn btn-block">
+                                                    <i class="glyphicon mobbrloader" ng-show="authenticating && !authenticating.$resolved"></i>
+                                                    Log in
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li><a class="nav-header" href="#/join">Register / new user</a></li>
+                                    <li class="divider"></li>
+                                    <li><a class="nav-header" href="#/recover">Password forgotten</a></li>
+                                </ul>
                             </li>
-                            <li class="divider"></li>
-                            <li><a class="nav-header" href="#/join">Register / new user</a></li>
-                            <li class="divider"></li>
-                            <li><a class="nav-header" href="#/recover">Password forgotten</a></li>
                         </ul>
-                    </li>
-                </ul>
+                    </div>
+                </div>
             </div>
         </header>
 
@@ -196,15 +222,9 @@
         <script src="components/mobbr-api-angular/mobbr-api-session.src.js"></script>
         <script src="components/angular-bootstrap/ui-bootstrap.js"></script>
         <script src="components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+        <script src="components/ng-table/ng-table.js"></script>
         <script src="components/ngstorage/ngStorage.js"></script>
         <script src="components/ng-file-upload/angular-file-upload.js"></script>
-        <script src="components/ng-table/ng-table.js"></script>
-        <script src="components/jspdf/libs/Deflate/deflate.js"></script>
-        <script src="components/jspdf/libs/Deflate/adler32cs.js"></script>
-        <script src="components/file-saver/FileSaver.js"></script>
-        <script src="components/jspdf/jspdf.js"></script>
-        <script src="components/jspdf/jspdf.plugin.standard_fonts_metrics.js"></script>
-        <script src="components/jspdf/jspdf.plugin.split_text_to_size.js"></script>
         <script src="components/angular-ui-utils/ui-utils.js"></script>
         <script src="components/moment/moment.js"></script>
         <script src="components/angular-moment/angular-moment.js"></script>
@@ -212,14 +232,8 @@
         <!-- build:js scripts/mobbr-www.js -->
         <script src="scripts/config.js"></script>
         <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/ApiController.js"></script>
         <script src="scripts/controllers/ActivateController.js"></script>
-        <script src="scripts/controllers/UrlReceiptController.js"></script>
         <script src="scripts/controllers/PaymentReceiptController.js"></script>
-        <script src="scripts/controllers/ExchangeRateController.js"></script>
-        <script src="scripts/controllers/DomainController.js"></script>
-        <script src="scripts/controllers/CreateButtonController.js"></script>
-        <script src="scripts/controllers/ClaimPaymentController.js"></script>
         <script src="scripts/controllers/MainController.js"></script>
         <script src="scripts/controllers/WalletController.js"></script>
         <script src="scripts/controllers/DepositController.js"></script>
@@ -240,17 +254,11 @@
         <script src="scripts/controllers/TasksController.js"></script>
         <script src="scripts/controllers/TasksFilterController.js"></script>
         <script src="scripts/services/idleTimeout.js"></script>
-        <script src="scripts/services/pdfGenerator.js"></script>
         <script src="scripts/services/authResolver.js"></script>
-        <script src="scripts/services/mobbrModal.js"></script>
         <script src="scripts/directives/mobbrbutton.js"></script>
-        <script src="scripts/directives/mobbrtable.js"></script>
-        <script src="scripts/directives/mtable.js"></script>
-        <script src="scripts/directives/mobbrPayment.js"></script>
         <script src="scripts/directives/placeholder.js"></script>
         <script src="scripts/directives/pwCheck.js"></script>
         <script src="scripts/directives/formAutofillFix.js"></script>
-        <script src="scripts/directives/invoicetable.js"></script>
         <script src="scripts/filters/mobbrcurrency.js"></script>
         <!-- endbuild -->
 
