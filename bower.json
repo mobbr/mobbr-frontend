@@ -16,11 +16,12 @@
     "ng-table": "~0.3.3",
     "file-saver": "*",
     "jspdf": "git://github.com/MrRio/jsPDF.git#a52028fe58f949a1bd32a7b5818a8e90ee954b3e",
-    "mobbr-api-angular": "git://github.com/mobbr/mobbr-api-angular.git#56f898f0f688700d714f8d36ef9801826a5a0c33",
+    "mobbr-api-angular": "git://github.com/mobbr/mobbr-api-angular.git#f1ac62c806430fbff3d53353fabad6c97aad1ec1",
     "mobbr-button": "https://handijk@bitbucket.org/mobbr/mobbr-button.git#f47a2b11242842efd93e51d78f36266242841ae6",
     "angular-ui-router": "~0.2.10",
     "angular-ui-utils": "0.1.1",
-    "angular-moment": "0.8.0"
+    "angular-moment": "0.8.0",
+    "purl":"2.3.1"
   },
   "devDependencies": {
     "angular-mocks": "1.2.20",

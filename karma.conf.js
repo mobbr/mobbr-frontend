@@ -28,6 +28,7 @@ module.exports = function (config) {
             'app/components/mobbr-api-angular/src/session/mobbr-session.js',
             'app/components/mobbr-api-angular/src/session/*.js',
             'app/components/ng-table/ng-table.js',
+            'app/components/purl/purl.js',
             'test/commonTest.js',
             'app/scripts/**/*.js',
             'app/scripts/**/**/*.js',
