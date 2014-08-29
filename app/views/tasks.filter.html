@@ -51,7 +51,7 @@
 </div>
 
 <div class="row">
-    <a ng-repeat="url in tasks.result" ng-href="{{ state.href('tasks.view.task', { task: $scope.encodeTask(url.url) }) }}">
+    <a ng-repeat="url in tasks.result" ng-href="{{ state.href('tasks.view.task', { task: encodeTask(url.url) }) }}">
         <div class="col-xs-6 col-md-3">
             <h3 ng-bind="url.title"></h3>
             <p ng-bind="url.description"></p>
