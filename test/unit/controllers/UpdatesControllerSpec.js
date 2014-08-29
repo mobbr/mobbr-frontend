@@ -19,13 +19,15 @@ describe('mobbr.controllers: UpdatesController', function () {
 
 
     // Initialize the controller and a mock scope
-    beforeEach(inject(function ($controller, $rootScope, $httpBackend, mobbrSession, commonTest, mobbrMsg,$q) {
+    beforeEach(inject(function ($controller, $rootScope, $httpBackend, mobbrSession, commonTest, mobbrMsg,$q, $localStorage) {
         contr = $controller;
         rootScope = $rootScope;
         scope = $rootScope.$new();
         common = commonTest;
         iMobbrMsg = mobbrMsg;
-        q = $q
+        q = $q;
+
+        $localStorage.token = undefined;
 
         httpBackend = $httpBackend;
 
@@ -66,8 +68,6 @@ describe('mobbr.controllers: UpdatesController', function () {
             $scope: scope,
             $rootScope: rootScope
         });
-
-        common.ping(httpBackend);
 
     }
 

@@ -17,13 +17,15 @@ describe('mobbr.controllers: WalletController', function () {
 
 
     // Initialize the controller and a mock scope
-    beforeEach(inject(function ($controller, $rootScope, $httpBackend, mobbrSession, commonTest, mobbrMsg) {
+    beforeEach(inject(function ($controller, $rootScope, $httpBackend, mobbrSession, commonTest, mobbrMsg, $localStorage) {
         contr = $controller;
         rootScope = $rootScope;
         scope = $rootScope.$new();
         common = commonTest;
         iMobbrMsg = mobbrMsg;
 
+
+        $localStorage.token = undefined;
 
         httpBackend = $httpBackend;
 
