@@ -1,0 +1,23 @@
+<div class="smarturlbox col-md-12"
+     ng-class="{url:form.type=='URL',crowds: form.type=='CROWS', task:form.type=='TASK', people:form.type=='PEOPLE'}">
+    <form name="smartUrlBoxForm" ng-submit="gotoUrl()">
+        <button ng-click="showUrlTypes=!showUrlTypes" class="showUrlTypes"></button>
+        <input type="text" class="col-md-10" ng-model="form.url" placeholder="{{}}">
+        <input type="submit">
+        <ul ng-show="showUrlTypes">
+            <li ng-click="form.type='URL'">
+                Create and manage tasks
+            </li>
+            <li ng-click="form.type='CROWS'">
+                Find crows
+            </li>
+            <li ng-click="form.type='TASK'">
+                Find tasks
+            </li>
+            <li ng-click="form.type='PEOPLE'">
+                Find people
+            </li>
+        </ul>
+    </form>
+
+</div>

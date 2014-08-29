@@ -16,7 +16,7 @@
     "ng-table": "~0.3.3",
     "file-saver": "*",
     "jspdf": "git://github.com/MrRio/jsPDF.git#a52028fe58f949a1bd32a7b5818a8e90ee954b3e",
-    "mobbr-api-angular": "git://github.com/mobbr/mobbr-api-angular.git#65e1f0b130a50682839160999bd341504d15d8a4",
+    "mobbr-api-angular": "git://github.com/mobbr/mobbr-api-angular.git#56f898f0f688700d714f8d36ef9801826a5a0c33",
     "mobbr-button": "https://handijk@bitbucket.org/mobbr/mobbr-button.git#f47a2b11242842efd93e51d78f36266242841ae6",
     "angular-ui-router": "~0.2.10",
     "angular-ui-utils": "0.1.1",
@@ -33,6 +33,6 @@
   ],
   "main": "app/index.html",
   "resolutions": {
-    "angular": "1.2.22"
+    "angular": "1.2.23"
   }
 }
