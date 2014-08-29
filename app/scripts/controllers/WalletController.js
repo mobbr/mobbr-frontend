@@ -1,4 +1,4 @@
-angular.module('mobbr.controllers').controller('WalletController', function ($scope, MobbrXPayment, MobbrBalance) {
+angular.module('mobbr.controllers').controller('WalletController', function ($scope, $modal, MobbrXPayment, MobbrBalance) {
     'use strict';
 
     $scope.dashboard = {};
@@ -17,7 +17,7 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
     retrieveSupportedCurrencies();
 
 
-    MobbrBalance.user(function (response) {
+    MobbrBalance.get(function (response) {
         if (response && response.result) {
             $scope.dashboard.total_currency_iso = response.result.total_currency_iso;
             $scope.dashboard.total_amount = response.result.total_amount;
@@ -28,6 +28,26 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
     $scope.addBitcoinAddress = function (currency) {
         MobbrXPayment.newAccountAddress({currency: currency}, function () {
             retrieveSupportedCurrencies();
+        });
+    }
+
+    $scope.depositDialog = function () {
+        $modal.open({
+            backdrop: true,
+            keyboard: true,
+            backdropClick: false,
+            templateUrl: 'views/partials/deposit_popup.html',
+            controller: 'DepositController'
+        });
+    }
+
+    $scope.withdrawDialog = function () {
+        $modal.open({
+            backdrop: true,
+            keyboard: true,
+            backdropClick: false,
+            templateUrl: 'views/partials/withdraw_popup.html',
+            controller: 'WithdrawController'
         });
     }
 

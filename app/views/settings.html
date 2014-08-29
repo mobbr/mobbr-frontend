@@ -1,53 +1,179 @@
-<div class="row">
-    <div class="col-md-12 container-fluid">
-
-        <ul class="">
-            <li>
-                <a >
-                    My Account
-                </a>
-
-                <div ng-include src="'views/settings.account.html'">
-
-                </div>
-            </li>
-            <li>
-                <a>
-                    My Identity {{countIdentityCompleted()}} / 6 completed
-                </a>
-                <div ng-include="'views/settings.identity.html'"></div>
-            </li>
-            <li>
-                <a >
-                    Proof {{countProofCompleted()}} / 3 completed
-                </a>
-                <div ng-include="'views/settings.proof.html'"></div>
-            </li>
-            <li>
-                <a >
-                    Invoicing {{countInvoicingCompleted()}} / 2 completed
-                </a>
-                <div ng-include="'views/settings.invoicing.html'"></div>
-            </li>
-            <li>
-                <a >
-                    Display {{countDisplayCompleted()}} / 3 completed
-                </a>
-                <div ng-include="'views/settings.display.html'"></div>
-            </li>
-            <li>
-                <a >
-                    Privacy
-                </a>
-                <div ng-include="'views/settings.privacy.html'"></div>
-            </li>
-            <li>
-                <a >
-                    Notifications
-                </a>
-                <div ng-include="'views/settings.notifications.html'"></div>
-            </li>
-        </ul>
+<div class="row top-bar">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Settings</h1>
+            </div>
+        </div>
     </div>
+</div>
 
+<div class="row">
+    <accordion>
+        <accordion-group is-open="account.open">
+            <accordion-heading>
+                <div class="container">
+                    <div class="row no-pad">
+                        <div class="col-xs-1">
+                            <span class="glyphicon glyphicon-ok"></span>
+                        </div>
+                        <div class="col-xs-9">
+                            <strong>My Account</strong>
+                        </div>
+                        <div class="icons">
+                            <div class="col-xs-1 text-center icon">
+                                <span class="glyphicon glyphicon-info-sign"></span>
+                            </div>
+                            <div class="col-xs-1 text-center icon">
+                                <span ng-class="account.open ? 'glyphicon-minus' : 'glyphicon-plus'" class="glyphicon"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </accordion-heading>
+            <div class="col-md-12" ng-include="'views/settings.account.html'"></div>
+        </accordion-group>
+        <accordion-group ng-class="{ 'warning': countIdentityCompleted() != 6 }" is-open="identity.open">
+            <accordion-heading>
+                <div class="container">
+                    <div class="row no-pad">
+                        <div class="col-xs-1">
+                            <span ng-class="countIdentityCompleted() == 6 ? 'glyphicon-ok' : 'glyphicon-warning-sign'"
+                                  class="glyphicon"></span>
+                        </div>
+                        <div class="col-xs-9">
+                            <strong>My Identity</strong> {{countIdentityCompleted()}} / 6 completed
+                        </div>
+                        <div class="icons">
+                            <div class="col-xs-1 text-center icon">
+                                <span class="glyphicon glyphicon-info-sign"></span>
+                            </div>
+                            <div class="col-xs-1 text-center icon">
+                                <span ng-class="identity.open ? 'glyphicon-minus' : 'glyphicon-plus'" class="glyphicon"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </accordion-heading>
+            <div class="col-md-12" ng-include="'views/settings.identity.html'"></div>
+        </accordion-group>
+        <accordion-group ng-class="{ 'warning': countProofCompleted() != 3 }" is-open="proof.open">
+            <accordion-heading>
+                <div class="container">
+                    <div class="row no-pad">
+                        <div class="col-xs-1">
+                            <span ng-class="countProofCompleted() == 3 ? 'glyphicon-ok' : 'glyphicon-warning-sign'"
+                                  class="glyphicon"></span>
+                        </div>
+                        <div class="col-xs-9">
+                            <strong>Proof</strong> {{countProofCompleted()}} / 3 completed
+                        </div>
+                        <div class="icons">
+                            <div class="col-xs-1 text-center icon">
+                                <span class="glyphicon glyphicon-info-sign"></span>
+                            </div>
+                            <div class="col-xs-1 text-center icon">
+                                <span ng-class="proof.open ? 'glyphicon-minus' : 'glyphicon-plus'" class="glyphicon"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </accordion-heading>
+            <div class="col-md-12" ng-include="'views/settings.proof.html'"></div>
+        </accordion-group>
+        <accordion-group ng-class="{ 'warning': countInvoicingCompleted() != 2 }" is-open="invoicing.open">
+            <accordion-heading>
+                <div class="container">
+                    <div class="row no-pad">
+                        <div class="col-xs-1">
+                            <span ng-class="countInvoicingCompleted() == 2 ? 'glyphicon-ok' : 'glyphicon-warning-sign'"
+                                  class="glyphicon"></span>
+                        </div>
+                        <div class="col-xs-9">
+                            <strong>Invoicing</strong> {{countInvoicingCompleted()}} / 2 completed
+                        </div>
+                        <div class="icons">
+                            <div class="col-xs-1 text-center icon">
+                                <span class="glyphicon glyphicon-info-sign"></span>
+                            </div>
+                            <div class="col-xs-1 text-center icon">
+                                <span ng-class="invoicing.open ? 'glyphicon-minus' : 'glyphicon-plus'" class="glyphicon"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </accordion-heading>
+            <div class="col-md-12" ng-include="'views/settings.invoicing.html'"></div>
+        </accordion-group>
+        <accordion-group ng-class="{ 'warning': countDisplayCompleted() != 3 }" is-open="display.open">
+            <accordion-heading>
+                <div class="container">
+                    <div class="row no-pad">
+                        <div class="col-xs-1">
+                            <span ng-class="countDisplayCompleted() == 3 ? 'glyphicon-ok' : 'glyphicon-warning-sign'"
+                                  class="glyphicon"></span>
+                        </div>
+                        <div class="col-xs-9">
+                            <strong>Display</strong> {{countDisplayCompleted()}} / 3 completed
+                        </div>
+                        <div class="icons">
+                            <div class="col-xs-1 text-center icon">
+                                <span class="glyphicon glyphicon-info-sign"></span>
+                            </div>
+                            <div class="col-xs-1 text-center icon">
+                                <span ng-class="warning.open ? 'glyphicon-minus' : 'glyphicon-plus'" class="glyphicon"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </accordion-heading>
+            <div ng-include="'views/settings.display.html'"></div>
+        </accordion-group>
+        <accordion-group is-open="privacy.open">
+            <accordion-heading>
+                <div class="container">
+                    <div class="row no-pad">
+                        <div class="col-xs-1">
+                            <span class="glyphicon glyphicon-ok"></span>
+                        </div>
+                        <div class="col-xs-9">
+                            <strong>Privacy</strong>
+                        </div>
+                        <div class="icons">
+                            <div class="col-xs-1 text-center icon">
+                                <span class="glyphicon glyphicon-info-sign"></span>
+                            </div>
+                            <div class="col-xs-1 text-center icon">
+                                <span ng-class="privacy.open ? 'glyphicon-minus' : 'glyphicon-plus'" class="glyphicon"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </accordion-heading>
+            <div class="col-md-12" ng-include="'views/settings.privacy.html'"></div>
+        </accordion-group>
+        <accordion-group is-open="notifications.open">
+            <accordion-heading>
+                <div class="container">
+                    <div class="row no-pad">
+                        <div class="col-xs-1">
+                            <span class="glyphicon glyphicon-ok"></span>
+                        </div>
+                        <div class="col-xs-9">
+                            <strong>Notifications</strong>
+                        </div>
+                        <div class="icons">
+                            <div class="col-xs-1 text-center icon">
+                                <span class="glyphicon glyphicon-info-sign"></span>
+                            </div>
+                            <div class="col-xs-1 text-center icon">
+                                <span ng-class="notifications.open ? 'glyphicon-minus' : 'glyphicon-plus'" class="glyphicon"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </accordion-heading>
+            <div class="col-md-12" ng-include="'views/settings.notifications.html'"></div>
+        </accordion-group>
+    </accordion>
 </div>

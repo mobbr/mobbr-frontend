@@ -1,19 +1,29 @@
+$grid-float-breakpoint:                   0;
+$border-radius-base:                      0;
+$border-radius-large:                     0;
+$border-radius-small:                     0;
+$input-border-radius:                     0;
+$gray:                                    #edebeb;
+$input-bg:                                $gray;
+
 $mobbrblue:                               rgb(0, 158, 224);
 $brand-primary:                           $mobbrblue;
-$black:                                   #000 !default;
-$grayDark:                                #333 !default;
-$grayLight:                               #999 !default;
-$grayLighter:                             #eee !default;
+$state-warning-bg:                        #f60;
+$state-warning-text:                      #ff0;
 $white:                                   #fff;
-$blue:                                    $mobbrblue;
-$navbar-default-bg:                       $mobbrblue;
+$btn-success-bg:                          #690;
+$btn-danger-bg:                           $state-warning-bg;
+
+$navbar-height:                           60px;
+$navbar-default-bg:                       $white;
 $navbar-default-border:                   $mobbrblue;
-$navbar-default-link-color:               $white;
-$navbar-default-link-hover-color:         $white;
-$navbar-default-link-active-bg:           darken($mobbrblue, 5%);
+$navbar-default-link-color:               $mobbrblue;
+$navbar-default-link-hover-color:         #000;
+$navbar-default-link-active-bg:           $mobbrblue;
 $navbar-default-link-active-color:        $white;
-$mobbrHeadingsFontFamily:                 'Open Sans Condensed', sans-serif;
-$mobbrFontFamily:                         'Open Sans', sans-serif;
+
+$mobbrFont:                               'Roboto', sans-serif;
+$mobbrFontCondensed:                      'Roboto Condensed', sans-serif;
 $icon-font-path:                          '../fonts/';
 $link-color:                              $mobbrblue;
 $link-hover-color:                        darken($link-color, 15%);

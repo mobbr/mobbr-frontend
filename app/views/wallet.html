@@ -2,8 +2,8 @@
     <div class="page-header">
         <h1>My money
             <a href="/#/wallet/pay" class="btn">Pay</a>
-            <a href="/#/wallet/withdraw" class="btn">Withdraw</a>
-            <a href="/#/wallet/deposit" class="btn">Deposit</a>
+            <a ng-click="withdrawDialog()" class="btn">Withdraw</a>
+            <a ng-click="depositDialog()" class="btn">Deposit</a>
         </h1>
 
         <h2>Total balance in {{dashboard.total_amount | mobbrcurrency:dashboard.total_currency_iso}} </h2>

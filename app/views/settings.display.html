@@ -1,45 +1,59 @@
 <form name="display" class="form-horizontal">
-    <fieldset class="form-group">
-        <label class="control-label col-md-3">Default currency</label>
-        <div class="col-md-7">
-            <select class="form-control"
-                    ng-model="$mobbrStorage.user.currency_iso"
-                    name="currency_iso"
-                    ng-options="currency.code as currency.description for currency in currenciesMap.result | orderBy: 'name'"
-                    title="the currency to which other currencies are converted when displayed">
-            </select>
-        </div>
-    </fieldset>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <fieldset class="form-group">
+                    <label class="control-label col-sm-3 col-md-2">Default currency</label>
+                    <div class="col-sm-7 col-md-8">
+                        <select class="form-control"
+                                ng-model="$mobbrStorage.user.currency_iso"
+                                name="currency_iso"
+                                ng-options="currency.currency_iso as currency.currency_description for currency in currencies.result | orderBy: 'currency_iso'"
+                                title="the currency to which other currencies are converted when displayed">
+                        </select>
+                    </div>
+                </fieldset>
 
-    <fieldset class="form-group">
-        <label class="control-label col-md-3">Language</label>
-        <div class="col-md-7">
-            <select class="form-control"
-                    ng-options="country.code as country.name for country in languagesMap.result | orderBy: 'name'"
-                    ng-model="$mobbrStorage.user.language_iso"
-                    title="the available languages">
-            </select>
-        </div>
-    </fieldset>
+                <fieldset class="form-group">
+                    <label class="control-label col-sm-3 col-md-2">Language</label>
+                    <div class="col-sm-7 col-md-8">
+                        <select class="form-control"
+                                ng-options="country.code as country.name for country in languages.result | orderBy: 'code'"
+                                ng-model="$mobbrStorage.user.language_iso"
+                                title="the available languages">
+                        </select>
+                    </div>
+                </fieldset>
 
-    <fieldset class="form-group">
-        <label class="control-label col-md-3" for="timezone">Timezone</label>
-        <div class="col-md-7">
-            <select ng-model="$mobbrStorage.user.timezone"
-                    class="form-control"
-                    name="timezone"
-                    id="timezone"
-                    ng-options="timezone.name as timezone.name for timezone in timezones.result | orderBy: 'name'">
-            </select>
+                <fieldset class="form-group">
+                    <label class="control-label col-sm-3 col-md-2" for="timezone">Timezone</label>
+                    <div class="col-sm-7 col-md-8">
+                        <select ng-model="$mobbrStorage.user.timezone"
+                                class="form-control"
+                                name="timezone"
+                                id="timezone"
+                                ng-options="timezone.name as timezone.name for timezone in timezones.result | orderBy: 'name'">
+                        </select>
+                    </div>
+                </fieldset>
+            </div>
         </div>
-    </fieldset>
+    </div>
 
-    <fieldset class="form-group">
-        <div class="col-md-offset-10 col-md-2">
-            <button ng-disabled="(waitingsettings && !waitingsettings.$resolved) || display.$pristine" ng-click="submitSettings(settings)" class="btn btn-success">
-                <i class="glyphicon mobbrloader" ng-show="waitingsettings && !waitingsettings.$resolved"></i>
-                Save
-            </button>
+    <div class="save-bar">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <fieldset class="form-group">
+                        <div class="col-sm-offset-10 col-sm-2">
+                            <button ng-disabled="(waitingsettings && !waitingsettings.$resolved) || display.$pristine" ng-click="submitSettings(settings)" class="btn btn-success btn-block">
+                                <i class="glyphicon mobbrloader" ng-show="waitingsettings && !waitingsettings.$resolved"></i>
+                                Save
+                            </button>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
         </div>
-    </fieldset>
+    </div>
 </form>
