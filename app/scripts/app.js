@@ -291,7 +291,7 @@ angular.module('mobbr', [
 
         $rootScope.timezones = MobbrApi.isoTimezones();
         $rootScope.incomerangeMap = MobbrApi.kycIncomeRanges();
-        $rootScope.userBalance = MobbrBalance.user();
+        $rootScope.userBalance = MobbrBalance.get();
         $rootScope.host = $location.host();
         $rootScope.oAuthProviders =  MobbrApi.oauthProviders();
         $rootScope.state = $state;
