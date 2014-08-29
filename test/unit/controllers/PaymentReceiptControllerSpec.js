@@ -124,6 +124,8 @@ describe('mobbr.controllers: PaymentReceiptController', function () {
 
         });
 
+        common.ping(httpBackend);
+
     }
 
     afterEach(function () {

@@ -17,7 +17,7 @@ describe('mobbr.directives mobbrSmartUrlBox', function () {
         '</div>';
 
     var crowsTypeHTML = '<div>' +
-        '<mobbr-smart-url-box url-type="CROWS"></mobbr-smart-url-box>' +
+        '<mobbr-smart-url-box url-type="CROWDS"></mobbr-smart-url-box>' +
         '</div>';
 
     // load the templates
@@ -50,6 +50,7 @@ describe('mobbr.directives mobbrSmartUrlBox', function () {
     it('should initially go to crows type when crows type is given ', function () {
         var element = compileHtml(crowsTypeHTML).find('.smarturlbox');
         expect(element.hasClass('url')).toBeFalsy();
+
         expect(element.hasClass('crowds')).toBeTruthy();
     });
 

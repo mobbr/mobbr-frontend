@@ -42,7 +42,6 @@ describe('mobbr.controllers: UserSettingsController', function () {
             $rootScope: rootScope
         });
 
-
     }
 
     afterEach(function () {
@@ -64,6 +63,7 @@ describe('mobbr.controllers: UserSettingsController', function () {
         expectUpdateUser();
         common.ping(httpBackend);
         scope.submitSettings(form);
+
         httpBackend.flush();
 
         expect(form.$setPristine).toHaveBeenCalled();

@@ -74,6 +74,8 @@ describe('mobbr.controllers: PaymentsController', function () {
             $rootScope: rootScope
         });
 
+        common.ping(httpBackend);
+
     }
 
     afterEach(function () {
