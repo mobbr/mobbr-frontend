@@ -10,7 +10,7 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
         $state.go($state.includes('tasks.view.task') ? $state.current.name : 'tasks.view.task', { task: $scope.encodeTask(url) });
     };
 
-    $scope.queryTask = function (task) {
+    $scope.$on('tasks-query-task', function (event, task) {
 
         var url = $window.atob(task);
 
@@ -31,15 +31,18 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
             $scope.has_payments = parseFloat(response.result.statistics.amount_total) > 0;
             $scope.has_participants = parseFloat(response.result.statistics.num_partipants) > 0;
 
+            $scope.$emit('task-redirect');
+
         }, function () {
 
             $scope.has_failed = true;
             $scope.has_script = false;
             $scope.has_payments = false;
             $scope.has_participants = false;
+
         });
         return $scope.task;
-    };
+    });
 
     $scope.resetTask = function () {
         $scope.task = undefined;
