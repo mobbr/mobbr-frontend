@@ -169,11 +169,12 @@ describe('mobbr.controllers: UserSettingsController', function () {
 
     it('should submit a removePaymentID request', function () {
         createController();
-        httpBackend.expectDELETE(common.baseUrl + 'user/id?id=MQ%3D%3D').respond(common.response);
+        httpBackend.expectDELETE(common.baseUrl + 'user/id?id=1').respond(common.response);
 
         scope.removePaymentID('1', 'index');
 
         expect(scope.waitingRemoveId.index.$resolved).toBe(false);
+        common.ping(httpBackend);
         httpBackend.flush();
         expect(scope.waitingRemoveId).toBe(undefined);
     });

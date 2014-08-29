@@ -47,7 +47,7 @@ describe('mobbr.controllers: WalletController', function () {
             {},
             {}
         ]});
-        httpBackend.expectGET(common.baseUrl + 'balances/user').respond(200, {result: {total_currency_iso: 'EUR', total_amount: 12.32, balances: [
+        httpBackend.expectGET(common.baseUrl + 'balances').respond(200, {result: {total_currency_iso: 'EUR', total_amount: 12.32, balances: [
             {},
             {}
         ]}});

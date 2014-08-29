@@ -17,7 +17,7 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
     retrieveSupportedCurrencies();
 
 
-    MobbrBalance.user(function (response) {
+    MobbrBalance.get(function (response) {
         if (response && response.result) {
             $scope.dashboard.total_currency_iso = response.result.total_currency_iso;
             $scope.dashboard.total_amount = response.result.total_amount;
