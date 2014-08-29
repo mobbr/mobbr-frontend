@@ -67,6 +67,7 @@ describe('mobbr.controllers: UpdatesController', function () {
             $rootScope: rootScope
         });
 
+        common.ping(httpBackend);
 
     }
 

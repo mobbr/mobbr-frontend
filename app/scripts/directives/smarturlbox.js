@@ -1,5 +1,7 @@
 angular.module('mobbr.directives').directive('mobbrSmartUrlBox', function factory() {
     'use strict';
+    var placeholders = {'URL':'Enter any URL we\'ll analyze it','CROWDS':'Enter a keyword','TASK': 'Enter a keyword', 'PEOPLE':'Enter any email, username or profile id'};
+
     return {
         restrict: 'E',
         replace: true,
@@ -14,15 +16,19 @@ angular.module('mobbr.directives').directive('mobbrSmartUrlBox', function factor
             } else {
                 scope.form.type = attrs.urlType;
             }
+
+            scope.placeHolders = placeholders;
         },
         controller: function ($scope, $location, $window) {
+
+
             $scope.gotoUrl = function () {
                 if ($scope.form.url) {
                     switch ($scope.form.type) {
                         case 'URL':
                             $location.path('/task/' + $window.btoa($scope.form.url));
                             break;
-                        case 'CROWS':
+                        case 'CROWDS':
                             $location.path('/crowds/' + $scope.form.url);
                             break;
                         case 'TASK':
