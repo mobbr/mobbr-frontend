@@ -17,7 +17,7 @@ describe('mobbr.controllers: UserSettingsController', function () {
 
 
     // Initialize the controller and a mock scope
-    beforeEach(inject(function ($controller, $rootScope, $httpBackend, mobbrSession, commonTest, mobbrMsg) {
+    beforeEach(inject(function ($controller, $rootScope, $httpBackend, mobbrSession, commonTest, mobbrMsg, $localStorage) {
         contr = $controller;
         rootScope = $rootScope;
         scope = $rootScope.$new();
@@ -25,6 +25,8 @@ describe('mobbr.controllers: UserSettingsController', function () {
         iMobbrMsg = mobbrMsg;
 
         httpBackend = $httpBackend;
+
+        $localStorage.token = undefined;
 
         spyOn(mobbrMsg, 'add');
 
