@@ -24,13 +24,16 @@ describe('mobbr.directives mobbrSmartUrlBox', function () {
     beforeEach(module('views/directives/smarturlbox.html'));
 
     // Initialize the controller and a mock scope
-    beforeEach(inject(function ($compile, $rootScope, $location) {
+    beforeEach(inject(function ($compile, $rootScope, $location,$localStorage) {
         rootScope = $rootScope;
         scope = $rootScope.$new();
         compile = $compile;
         location = $location;
 
         spyOn(location, 'path');
+
+
+        $localStorage.token = undefined;
     }));
 
 
