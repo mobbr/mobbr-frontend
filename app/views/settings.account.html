@@ -1,18 +1,17 @@
-<div class="line-bar">
+<div class="info-bar">
     <div class="container">
-        <div class="row">
+        <div class="row no-margin">
             <div class="col-md-12">
                 <div class="form-horizontal">
                     <div class="form-group">
-                        <label class="control-label title col-sm-3 col-md-2">Gravatar</label>
-
-                        <div class="col-sm-7 col-md-8">
-                            <img width="50"
-                                 height="50"
-                                 ng-if="thumbnailFound"
-                                 ng-src="{{ $mobbrStorage.user.thumbnail }}"
-                                 class="img-rounded user-thumb">
-                            <span>
+                        <label class="control-label title col-md-2 col-sm-3 col-xs-12">Gravatar</label>
+                        <img width="50"
+                             height="50"
+                             ng-if="thumbnailFound"
+                             ng-src="{{ $mobbrStorage.user.thumbnail }}"
+                             class="img-rounded user-thumb pull-left">
+                        <div class="col-sm-6 col-md-7 col-xs-10">
+                            <span class="info-box">
                                 <span class="glyphicon glyphicon-info-sign"></span>
                                 We use gravatars, linked to your email address. Create your profile
                                 <a target="_blank" href="http://gravatar.com">here</a>.
@@ -26,7 +25,7 @@
 </div>
 
 <div class="container">
-    <div class="row">
+    <div class="row no-margin">
         <div class="col-md-12">
             <form name="changeemail" class="form-horizontal" novalidate>
                 <fieldset class="form-group">
@@ -97,7 +96,7 @@
             </fieldset>
             <form name="formHolder.addPaymentIdForm" class="form-horizontal" ng-submit="addExternalId()">
                 <fieldset class="form-group" ng-repeat="paymentID in $mobbrStorage.user.id">
-                    <label class="control-label col-sm-3 col-md-2" for="new_password2">External ID</label>
+                    <label class="control-label col-xs-12 col-sm-3 col-md-2" for="new_password2">External ID</label>
 
                     <div class="col-sm-7 col-xs-10 col-md-8">
                         <input class="form-control" ng-model="paymentID" type="text" disabled>
