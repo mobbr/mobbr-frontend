@@ -1,4 +1,8 @@
 $grid-float-breakpoint:                   0;
+$grid-gutter-width:                       12px;
+$line-height-base:                        2;
+$line-height-computed:                    floor(($font-size-base * $line-height-base));
+$input-height-base:                       ($line-height-computed + ($padding-base-vertical * 2));
 $border-radius-base:                      0;
 $border-radius-large:                     0;
 $border-radius-small:                     0;
