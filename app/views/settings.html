@@ -1,6 +1,6 @@
 <div class="row top-bar">
     <div class="container">
-        <div class="row">
+        <div class="row left-pad">
             <div class="col-md-12">
                 <h1>Settings</h1>
             </div>
@@ -14,10 +14,8 @@
             <accordion-heading>
                 <div class="container">
                     <div class="row no-pad">
-                        <div class="col-xs-1">
+                        <div class="col-xs-10 title">
                             <span class="glyphicon glyphicon-ok"></span>
-                        </div>
-                        <div class="col-xs-9">
                             <strong>My Account</strong>
                         </div>
                         <div class="icons">
@@ -31,17 +29,15 @@
                     </div>
                 </div>
             </accordion-heading>
-            <div class="col-md-12" ng-include="'views/settings.account.html'"></div>
+            <div ng-include="'views/settings.account.html'"></div>
         </accordion-group>
         <accordion-group ng-class="{ 'warning': countIdentityCompleted() != 6 }" is-open="identity.open">
             <accordion-heading>
                 <div class="container">
                     <div class="row no-pad">
-                        <div class="col-xs-1">
+                        <div class="col-xs-10 title">
                             <span ng-class="countIdentityCompleted() == 6 ? 'glyphicon-ok' : 'glyphicon-warning-sign'"
                                   class="glyphicon"></span>
-                        </div>
-                        <div class="col-xs-9">
                             <strong>My Identity</strong> {{countIdentityCompleted()}} / 6 completed
                         </div>
                         <div class="icons">
@@ -55,17 +51,15 @@
                     </div>
                 </div>
             </accordion-heading>
-            <div class="col-md-12" ng-include="'views/settings.identity.html'"></div>
+            <div ng-include="'views/settings.identity.html'"></div>
         </accordion-group>
         <accordion-group ng-class="{ 'warning': countProofCompleted() != 3 }" is-open="proof.open">
             <accordion-heading>
                 <div class="container">
                     <div class="row no-pad">
-                        <div class="col-xs-1">
+                        <div class="col-xs-10 title">
                             <span ng-class="countProofCompleted() == 3 ? 'glyphicon-ok' : 'glyphicon-warning-sign'"
                                   class="glyphicon"></span>
-                        </div>
-                        <div class="col-xs-9">
                             <strong>Proof</strong> {{countProofCompleted()}} / 3 completed
                         </div>
                         <div class="icons">
@@ -79,17 +73,15 @@
                     </div>
                 </div>
             </accordion-heading>
-            <div class="col-md-12" ng-include="'views/settings.proof.html'"></div>
+            <div ng-include="'views/settings.proof.html'"></div>
         </accordion-group>
         <accordion-group ng-class="{ 'warning': countInvoicingCompleted() != 2 }" is-open="invoicing.open">
             <accordion-heading>
                 <div class="container">
                     <div class="row no-pad">
-                        <div class="col-xs-1">
+                        <div class="col-xs-10 title">
                             <span ng-class="countInvoicingCompleted() == 2 ? 'glyphicon-ok' : 'glyphicon-warning-sign'"
                                   class="glyphicon"></span>
-                        </div>
-                        <div class="col-xs-9">
                             <strong>Invoicing</strong> {{countInvoicingCompleted()}} / 2 completed
                         </div>
                         <div class="icons">
@@ -103,17 +95,15 @@
                     </div>
                 </div>
             </accordion-heading>
-            <div class="col-md-12" ng-include="'views/settings.invoicing.html'"></div>
+            <div ng-include="'views/settings.invoicing.html'"></div>
         </accordion-group>
         <accordion-group ng-class="{ 'warning': countDisplayCompleted() != 3 }" is-open="display.open">
             <accordion-heading>
                 <div class="container">
                     <div class="row no-pad">
-                        <div class="col-xs-1">
+                        <div class="col-xs-10 title">
                             <span ng-class="countDisplayCompleted() == 3 ? 'glyphicon-ok' : 'glyphicon-warning-sign'"
                                   class="glyphicon"></span>
-                        </div>
-                        <div class="col-xs-9">
                             <strong>Display</strong> {{countDisplayCompleted()}} / 3 completed
                         </div>
                         <div class="icons">
@@ -133,10 +123,8 @@
             <accordion-heading>
                 <div class="container">
                     <div class="row no-pad">
-                        <div class="col-xs-1">
+                        <div class="col-xs-10 title">
                             <span class="glyphicon glyphicon-ok"></span>
-                        </div>
-                        <div class="col-xs-9">
                             <strong>Privacy</strong>
                         </div>
                         <div class="icons">
@@ -150,16 +138,14 @@
                     </div>
                 </div>
             </accordion-heading>
-            <div class="col-md-12" ng-include="'views/settings.privacy.html'"></div>
+            <div ng-include="'views/settings.privacy.html'"></div>
         </accordion-group>
         <accordion-group is-open="notifications.open">
             <accordion-heading>
                 <div class="container">
                     <div class="row no-pad">
-                        <div class="col-xs-1">
+                        <div class="col-xs-10 title">
                             <span class="glyphicon glyphicon-ok"></span>
-                        </div>
-                        <div class="col-xs-9">
                             <strong>Notifications</strong>
                         </div>
                         <div class="icons">
@@ -173,7 +159,7 @@
                     </div>
                 </div>
             </accordion-heading>
-            <div class="col-md-12" ng-include="'views/settings.notifications.html'"></div>
+            <div ng-include="'views/settings.notifications.html'"></div>
         </accordion-group>
     </accordion>
 </div>
