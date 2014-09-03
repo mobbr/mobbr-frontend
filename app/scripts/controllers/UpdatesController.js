@@ -50,4 +50,6 @@ angular.module('mobbr.controllers').controller('UpdatesController', function ($s
         }
     });
 
+    $scope.updates = { open: true };
+
 });
