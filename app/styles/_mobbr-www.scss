@@ -247,10 +247,10 @@ label.title {
 }
 
 .top-info {
-  border-top: 1px solid #9ebd5b;
+  border-top: 1px solid $mobbrlightblue;
 
   .card-container {
-    perspective: 1;
+    perspective: 970px;
   }
 
   .card-container:hover .card {
@@ -318,6 +318,51 @@ label.title {
       }
     }
   }
+
+  .flatcard {
+
+    height: 220px;
+
+    h3 {
+      margin: 0;
+      padding: 0;
+      font-size: 14px;
+      line-height: 42px;
+      border-bottom: 1px solid $mobbrlightyellow;
+      font-weight: normal;
+    }
+
+    .large,
+    .xlarge {
+      font-family: $mobbrFontCondensed;
+      font-size: 26px;
+      text-align: center;
+      line-height: 26px;
+      padding: 17px 0;
+      font-weight: bold;
+    }
+
+    .xlarge {
+      font-size: 72px;
+      line-height: 72px;
+    }
+
+    .bottom {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: 0;
+
+      .btn {
+        font-family: $mobbrFontCondensed;
+        background: $white;
+        font-size: 12px;
+        text-transform: uppercase;
+        line-height: 40px;
+      }
+    }
+  }
 }
 
 accordion .panel-default > .panel-heading {
@@ -381,10 +426,10 @@ accordion .info-bar {
   }
 
   .top-info {
-    border-color: #9ebd5b;
+    border-color: $mobbrlightgreen;
 
     .card {
-      border-color: #9ebd5b;
+      border-color: $mobbrlightgreen;
     }
   }
 
@@ -437,6 +482,14 @@ accordion .info-bar {
   .top-bar,
   .top-info {
     background: $mobbryellow;
+  }
+
+  .top-info {
+    border-color: $mobbrlightyellow;
+
+    .card {
+      border-color: $mobbrlightyellow;
+    }
   }
 
   .table > thead > tr > th {
@@ -608,6 +661,42 @@ accordion {
       margin-top: -$grid-gutter-width / 3;
       margin-left: -$grid-gutter-width * 2;
     }
+  }
+}
+
+.updates accordion {
+
+  .panel-heading,
+  .info-bar {
+    background: $white;
+  }
+
+  .panel {
+    background: transparent;
+
+    .panel-body {
+      padding-top: 0;
+
+      .info-bar {
+        padding-top: $grid-gutter-width;
+
+        .title {
+          font-size: 16px;
+          line-height: 40px;
+        }
+
+        select,
+        .btn-primary {
+          background: $mobbryellow;
+          color: $white;
+        }
+      }
+    }
+  }
+
+  table tr {
+    background: $white;
+    border-bottom: $grid-gutter-width $gray solid;
   }
 }
 
