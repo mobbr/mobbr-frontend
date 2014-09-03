@@ -8,94 +8,149 @@
     </div>
 </div>
 
-<div id="updates">
-    <div class="page-header">
+<div class="row top-info">
+    <div class="container">
         <div class="row">
-            <div class="col-xs-6 col-md-3">
-                <div class="thumbnail">
-                    <div class="grid_12">
-                        <span class="glyphicon glyphicon-bookmark"></span>
-                        Balances in {{dashboard.total_currency_iso}}
+            <div class="flatcard col-xs-6 col-md-3">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>
+                            <span class="glyphicon glyphicon-bookmark"></span>
+                            Balances in {{dashboard.total_currency_iso}}
+                        </h3>
                     </div>
-                    <hr />
-                    <div class="grid_12 " >
-                         {{dashboard.total_amount | number:2}}
+                </div>
+                <div class="row">
+                    <span class="large col-md-12" ng-bind-html="dashboard.total_amount | mobbrcurrency:'':true"></span>
+                </div>
+                <div class="row bottom">
+                    <div class="col-md-12">
+                        <a ng-href="{{ $state.href('wallet') }}" class="btn btn-block">Go to your wallet</a>
                     </div>
-                    <a href="#/wallet" class="btn">Go to your wallet</a>
                 </div>
             </div>
-
-            <div class="col-xs-6 col-md-3">
-                <div class="thumbnail">
-                    <div class="grid_12">
-                        <span class="glyphicon glyphicon-cog"></span>
-                        Settings & profile
+            <div class="flatcard col-xs-6 col-md-3">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>
+                            <span class="glyphicon glyphicon-cog"></span>
+                            Settings & profile
+                        </h3>
                     </div>
-                    <hr />
-                    <div class="grid_12 " >
-                        {{$mobbrStorage.user.complete?$mobbrStorage.user.complete:'0'}} %
+                </div>
+                <div class="row">
+                    <span class="xlarge col-md-12">
+                        {{$mobbrStorage.user.complete?$mobbrStorage.user.complete:'0'}}%
+                    </span>
+                </div>
+                <div class="row bottom">
+                    <div class="col-md-12">
+                        <a ng-href="{{ $state.href('settings') }}" class="btn btn-block">
+                            {{$mobbrStorage.user.complete == 100?'Update your settings':'Complete your settings'}}
+                        </a>
                     </div>
-                    <a href="#/settings" class="btn">{{$mobbrStorage.user.complete == 100?'Update your settings':'Complete your settings'}}</a>
                 </div>
             </div>
-
-
-            <div class="col-xs-6 col-md-3">
-                <div class="thumbnail">
-                    <div class="grid_12">
-                        <span class="glyphicon glyphicon-bookmark"></span>
-                        My active tasks
+            <div class="flatcard col-xs-6 col-md-3">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>
+                            <span class="glyphicon glyphicon-bookmark"></span>
+                            My active tasks
+                        </h3>
                     </div>
-                    <hr />
-                    <div class="grid_12 " >
+                </div>
+                <div class="row">
+                    <span class="xlarge col-md-12">
                         {{dashboard.activeTasks}}
+                    </span>
+                </div>
+                <div class="row bottom">
+                    <div class="col-md-12">
+                        <a ng-href="{{ $state.href('tasks') }}" class="btn btn-block">Start a new task</a>
                     </div>
-                    <a href="#/task" class="btn">Start a new task</a>
                 </div>
             </div>
-
-            <div class="col-xs-6 col-md-3">
-                <div class="thumbnail">
-                    <div class="grid_12">
-                        <span class="glyphicon glyphicon-bookmark"></span>
-                        Linked accounts
+            <div class="flatcard col-xs-6 col-md-3">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>
+                            <span class="glyphicon glyphicon-bookmark"></span>
+                            Linked accounts
+                        </h3>
                     </div>
-                    <hr />
-                    <div class="grid_12 " >
+                </div>
+                <div class="row">
+                    <div class="txt col-md-12">
                         <ul>
                             <li ng-repeat="provider in parsedIds">
                                 <img ng-src="provider.favicon" ng-show="provider.favicon">
                             </li>
                         </ul>
                     </div>
-                    <a href="#/settings/identity" class="btn">Add more accounts</a>
+                </div>
+                <div class="row bottom">
+                    <div class="col-md-12">
+                        <a ng-href="{{ $state.href('settings.identity') }}" class="btn btn-block">Add more accounts</a>
+                    </div>
                 </div>
             </div>
-
         </div>
     </div>
-
-    <div class="row">
-        <h2>Updates and activities</h2>
-        <span class="pull-right">
-            Filter by
-            <select class="form-inline form-control" ng-model="notificationType" ng-options="type.type as type.type for type in notifications | unique:'type'">
-                <option value="">Choose a notificationtype</option>
-            </select>
-            <button class="btn btn-primary " ng-click="deleteAll()">Delete all notifications</button>
-
-        </span>
-
-        <table class="table grid_12">
-            <tbody>
-                <tr ng-repeat="notification in notifications | filter:notificationType">
-                    <td>plaatje {{notification.type}}</td>
-                    <td>{{notification.type}}</td>
-                    <td am-time-ago="notification.timestamp" ></td>
-                </tr>
-            </tbody>
-        </table>
-
-    </div>
-
 </div>
+
+<accordion>
+    <accordion-group is-open="updates.open">
+        <accordion-heading>
+            <div class="container">
+                <div class="row no-pad">
+                    <div class="col-xs-10 title">
+                        <span class="glyphicon glyphicon-ok"></span>
+                        <strong>Updates and activity</strong>
+                    </div>
+                    <div class="icons">
+                        <div class="col-xs-1 text-center icon">
+                            <span class="glyphicon glyphicon-info-sign"></span>
+                        </div>
+                        <div class="col-xs-1 text-center icon">
+                            <span ng-class="account.open ? 'glyphicon-minus' : 'glyphicon-plus'" class="glyphicon"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </accordion-heading>
+        <div>
+            <div class="info-bar">
+                <div class="container">
+                    <div class="row no-margin">
+                        <div class="col-md-6 title">
+                            <span class="glyphicon glyphicon-ok"></span>
+                            <strong>Filter by</strong>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-inline form-control" ng-model="notificationType" ng-options="type.type as type.type for type in notifications | unique:'type'">
+                                <option value="">Choose a notificationtype</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-primary btn-block" ng-click="deleteAll()">Delete all notifications</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <table class="table">
+                        <tbody>
+                        <tr ng-repeat="notification in notifications | filter:notificationType">
+                            <td>plaatje {{notification.type}}</td>
+                            <td>{{notification.type}}</td>
+                            <td am-time-ago="notification.timestamp" ></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </accordion-group>
+</accordion>
