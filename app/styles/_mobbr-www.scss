@@ -246,6 +246,19 @@ label.title {
   background: $mobbrblue;
 }
 
+.top-info.filter {
+  background: $white;
+  color: $mobbrblue;
+  padding-top: $grid-gutter-width;
+  padding-bottom: $grid-gutter-width;
+  font-size: 16px;
+  line-height: 24px;
+
+  .title {
+    line-height: 40px;
+  }
+}
+
 .top-info {
   border-top: 1px solid $mobbrlightblue;
 
@@ -253,13 +266,16 @@ label.title {
     perspective: 970px;
   }
 
-  .card-container:hover .card {
+  .card-container:hover .card,
+  .active .card,
+  .active:hover .card {
     transform: rotateY(180deg);
   }
 
   .card {
     transition: 0.6s;
     transform-style: preserve-3d;
+    backface-visibility: hidden;
   }
 
   .front, .back {
@@ -503,6 +519,18 @@ accordion .info-bar {
 
 /* end some coloring */
 
+.wide-header {
+  background: $white;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-size: 16px;
+  border-bottom: 1px solid $gray;
+
+  .glyphicon {
+    margin-right: $grid-gutter-width;
+  }
+}
+
 .text-warning {
   color: $state-warning-bg;
 }
@@ -531,6 +559,10 @@ a.btn-call {
   background-color: $mobbrcallout;
   text-align: left;
   font-weight: bold;
+}
+
+.btn-call.white {
+  background: #fff;
 }
 
 .nice-amount {
@@ -914,6 +946,198 @@ body {
   }
 }
 
+.query-bar {
+  padding-bottom: 0;
+  padding-top: $grid-gutter-width * 2;
+  border-bottom: 1px solid $mobbrblue;
+
+
+  .form-control {
+    padding: $grid-gutter-width;
+    height: 50px;
+  }
+
+  .input-group-addon {
+    width: 50px;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: $grid-gutter-width / 2;
+    margin-bottom: $grid-gutter-width / 2;
+  }
+
+  .input-group-btn .btn {
+    height: 50px;
+    width: 50px;
+  }
+}
+
+.tags {
+  border: 0;
+}
+
+.tasks-summary {
+  padding-bottom: 0;
+  border-top: 0;
+
+  .container > .row {
+    margin: 0;
+  }
+
+  .card-container {
+    padding-right: 0;
+    padding-left: 1px;
+  }
+
+  .card-container:first-child {
+    padding-left: 0;
+  }
+
+  .card {
+    border: 0;
+    h3 {
+      margin: 0;
+      padding: 0;
+      font-size: 14px;
+      line-height: 42px;
+      font-weight: normal;
+    }
+
+    .large,
+    .xlarge {
+      font-family: $mobbrFontCondensed;
+      font-size: 16px;
+      text-align: left;
+      font-weight: bold;
+    }
+
+    .xlarge {
+      font-size: 72px;
+      line-height: 72px;
+    }
+
+    .front,
+    .back {
+      text-align:left;
+      height: 219px;
+      background: $white;
+      color: $mobbrblue;
+    }
+  }
+
+  .active .card {
+    .front,
+    .back {
+      height: 220px;
+    }
+  }
+}
+
+.data-cards {
+  padding: $grid-gutter-width / 4;
+}
+
+.data-card-container {
+  padding: $grid-gutter-width / 4;;
+}
+
+.data-card {
+  background: $white;
+  color: #000;
+  padding: $grid-gutter-width * 2;
+  height: 314px;
+  overflow: hidden;
+  line-height: 20px;
+  position: relative;
+
+  h3 {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    font-family: $mobbrFontCondensed;
+    font-weight: bold;
+  }
+
+   p {
+     font-size: 12px;
+     line-height: 16px;
+   }
+
+  .bottom {
+    position: absolute;
+    bottom: 0;
+    left: $grid-gutter-width * 2;
+    right: $grid-gutter-width * 2;
+  }
+
+  .participants {
+    color: $mobbryellow;
+  }
+
+  .amount {
+    color: $mobbrgreen;
+  }
+
+  .item {
+    text-align: right;
+    margin-top: $grid-gutter-width * 2;
+    margin-bottom: $grid-gutter-width * 2;
+  }
+
+  .large {
+    font-size: 24px;
+  }
+}
+
+.failed.card .front,
+.failed.card .back {
+  color: #000;
+  background: $mobbrcallout;
+}
+
+.data-card:hover {
+  background: $mobbrblue;
+  color: $white;
+
+  .item {
+    color: $white;
+  }
+}
+
+.data-cards-persons .data-card:hover {
+  background: $mobbryellow;
+}
+
+.task-section-container .col-md-12 {
+  min-height: 0;
+}
+
+.data-cards-persons .data-card img {
+  margin-right: $grid-gutter-width * 1.5;
+}
+
+.task-info {
+  background: $white;
+  color: $mobbrblue;
+  padding: $grid-gutter-width * 1.5;
+  line-height: 1.4;
+}
+
+.task-info-row {
+  margin: 0;
+}
+
+.task-payments {
+  background: $white;
+}
+
+.col-md-12.task-tags {
+  padding-bottom: $grid-gutter-width * 2;
+}
+
+.task-instructions {
+  margin-bottom: $grid-gutter-width * 2;
+}
+
 .messaging {
   z-index: 9999;
   position: fixed;
@@ -921,6 +1145,22 @@ body {
   width: 100%;
   margin: 0 auto;
   height: 0;
+}
+
+.pay-task {
+  padding-top: $grid-gutter-width;
+  padding-bottom: $grid-gutter-width;
+
+  input,
+  select {
+    background: $white;
+  }
+
+  .checkbox {
+    margin-bottom: 0;
+    margin-top: 8px;
+    line-height: 20px;
+  }
 }
 /*
 .user-thumb {
