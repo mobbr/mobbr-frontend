@@ -1,9 +1,9 @@
-<div class="row">
+<div class="row top-info tags">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <h2>Related suggestions</h2>
-                <div class="tasks-tags">
+                <ul class="tasks-tags list-inline">
                     <li ng-repeat="keyword in keywords.result">
                         <a ng-href="{{ state.href('tasks.filter.tag', { tag: keyword.keyword }) }}">
                             <span ng-bind="keyword.keyword"ng-class="keyword.keyword == tag ? 'label-primary' : 'label-default'" class="label"></span>
@@ -11,18 +11,19 @@
                         <a ng-show="keyword.keyword == tag" ng-href="{{ state.href('tasks.filter', { tag: 'test' }) }}" class="glyphicon glyphicon-remove"></a>
                     </li>
                     <em ng-show="keywords.$resolved && keywords.result.length == 0">No tags defined</em>
-                </div>
+                </ul>
             </div>
         </div>
     </div>
 </div>
 
-<div class="row">
+<div class="row top-info filter">
     <div class="container">
         <div class="row">
-            <fieldset ng-disabled="(tasks && !tasks.$resolved) || (tags && !tags.$resolved)">
-                <div class="col-md-3">
-                    <h2>Filter on</h2>
+            <fieldset ng-disabled="(tasks && !tasks.$resolved) || (tags && !tags.$resolved)" class="form-horizontal">
+                <div class="col-md-3 title">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <strong>Filter by</strong>
                 </div>
                 <div class="col-md-3">
                     <div ng-show="mobbrSession.isAuthorized()" class="checkbox">
@@ -50,19 +51,18 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row data-cards">
     <a ng-repeat="url in tasks.result" ng-href="{{ state.href('tasks.view.task', { task: encodeTask(url.url) }) }}">
-        <div class="col-xs-6 col-md-3">
-            <h3 ng-bind="url.title"></h3>
-            <p ng-bind="url.description"></p>
-            <dl>
-                <dt>Number of payments:</dt>
-                <dd ng-bind="url.num_payments"></dd>
-                <dt>Number of recipients</dt>
-                <dd ng-bind="url.num_recipients"></dd>
-                <dt>Amount</dt>
-                <dd ng-bind="yrl.amount"></dd>
-            </dl>
+        <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2 data-card-container">
+            <div class="data-card">
+                <h3 ng-bind="url.title"></h3>
+                <p ng-bind="url.description"></p>
+                <div class="bottom">
+                    <div class="item large amount" ng-bind-html="url.amount_total | mobbrcurrency:url.currency_iso:true"></div>
+                    <div class="item large participants" class="participants" ng-bind="url.num_recipients"></div>
+                    <div class="item" ng-bind="url.domain"></div>
+                </div>
+            </div>
         </div>
     </a>
     <div class="col-md-12" ng-show="tasks.$resolved && tasks.result.length == 0">

@@ -1,36 +1,33 @@
 <div class="row top-bar">
     <div class="container">
         <div class="row left-pad">
-            <div class="col-md-12">
-                <h1 ng-bind="state.current.data.title">My money</h1>
+            <div class="col-md-6">
+                <h1 ng-bind="state.current.data.title"></h1>
+            </div>
+            <div ng-if="state.includes('tasks.view.task')">
+                <div class="col-md-3">
+                    <a ng-disabled="!url"
+                       ng-href="{{ url }}"
+                       class="btn btn-call white btn-block"
+                       target="_blank">Go to task</a>
+                </div>
+                <div class="col-md-3">
+                    <a ng-disabled="!task.result.script.url"
+                       ng-href="{{ state.href('tasks.view.task.pay') }}"
+                       ng-bind="'Make a ' + (task.result.script.type == 'donate' ? 'pledge' : 'payment')"
+                       class="btn btn-block btn-call">Make a pledge</a>
+                </div>
+            </div>
+            <div ng-if="state.is('tasks.filter')" class="col-md-3 col-md-offset-3">
+                <a class="btn btn-call btn-block">Create a task</a>
             </div>
         </div>
     </div>
 </div>
 
-<div class="row">
-    <div class="container">
-        <div class="row">
-            <div ng-if="state.includes('tasks.view.task')" class="col-md-6 text-right">
-                <a ng-disabled="!url"
-                   ng-href="{{ url }}"
-                   class="btn btn-default"
-                   target="_blank">Go to task</a>
-                <a ng-disabled="!task.result.script.url"
-                   ng-href="{{ state.href('tasks.view.task.pay') }}"
-                   ng-bind="'Make a ' + (task.result.script.type == 'donate' ? 'pledge' : 'payment')"
-                   class="btn btn-primary">Make a pledge</a>
-            </div>
-            <div ng-if="state.is('tasks')" class="col-md-6 text-right">
-                <button type="button" class="btn btn-primary">Create a task</button>
-            </div>
-        </div>
-    </div>
-</div>
+<div ui-view="pay" class="task-pay"></div>
 
-<div ui-view="pay" class="row" class="task-pay"></div>
-
-<div class="row">
+<div class="row top-info query-bar">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -51,4 +48,8 @@
     </div>
 </div>
 
-<div ui-view="tasks-section" ng-class="{ loading: task && !task.$resolved }"></div>
+<div>
+    <div ui-view="tasks-section" ng-class="{ loading: task && !task.$resolved }"></div>
+</div>
+
+
