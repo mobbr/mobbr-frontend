@@ -7,152 +7,306 @@
 </div>
 
 <div ui-view ng-show="task && task.$resolved">
-    <div class="row task-summary">
+    <div class="row top-info tasks-summary">
         <div class="container">
             <div class="row">
-                <div class="col-xs-6 col-md-3">
-                    <a ng-href="{{ state.href('tasks.view.task.domain') }}">
-                        <div ng-hide="has_failed"
-                             ng-class="state.is('tasks.view.task.domain') ? '' : 'bg-success'"
-                             class="alert">
-
+                <div ng-class="state.is('tasks.view.task.domain') ? 'active' : ''"
+                     ng-click="state.go('tasks.view.task.domain')"
+                     class="card-container col-xs-6 col-md-3">
+                    <div class="card" ng-class="has_failed ? 'failed' : ''">
+                        <div ng-hide="has_failed">
                             <div class="front">
-                                <h2>Task hosted on</h2>
-                                <h3 ng-bind="domain"></h3>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h3>
+                                            <span class="glyphicon glyphicon-bookmark"></span>
+                                            Task hosted on
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <span class="large col-md-12" ng-bind="domain"></span>
+                                </div>
+                            </div>
+                            <div class="back">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h3>
+                                            <span class="glyphicon glyphicon-bookmark"></span>
+                                            blabla
+                                        </h3>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div ng-show="has_failed"
-                             ng-class="state.is('tasks.view.task.domain') ? '' : 'bg-warning'"
-                             class="alert">
+                        <div ng-show="has_failed">
                             <div class="front">
-                                <h2>Task not usable</h2>
-                                <h3>Click here for more info</h3>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h3>
+                                            <span class="glyphicon glyphicon-bookmark"></span>
+                                            Task not usable
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                                <span class="large col-md-12">
+                                                    Click here for more info
+                                                </span>
+                                </div>
+                            </div>
+                            <div class="back">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h3>
+                                            <span class="glyphicon glyphicon-bookmark"></span>
+                                            blabla
+                                        </h3>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </a>
-                </div>
-
-                <div class="col-xs-6 col-md-3">
-                    <a ng-href="{{ task.result.script && state.href('tasks.view.task') }}">
-                        <div ng-show="has_script"
-                             ng-class="state.is('tasks.view.task') ? '' : 'bg-success'"
-                             class="alert">
-                            <div class="front">
-                                <h2>Connected</h2>
-                                <h3>Script metadata</h3>
-                            </div>
-                        </div>
-                        <div ng-hide="has_script"
-                             ng-class="state.is('tasks.view.task') ? '' : 'bg-warning'"
-                             class="alert">
-
-                            <div class="front">
-                                <h2>Disconnected</h2>
-                                <h3 ng-show="!has_failed">Click here for instructions</h3>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <div ng-mouseover="block3 = true" ng-mouseout="block3 = false" class="col-xs-6 col-md-3">
-                    <div ng-show="has_payments"
-                         ng-class="state.is('tasks.view.task.payments') ? '' : 'alert-success'"
-                         class="alert">
-                        <a ng-href="{{ state.href('tasks.view.task.payments') }}">
-                            <div ng-hide="block3 || state.is('tasks.view.task.payments')"
-                                 class="front">
-                                <h2>Total payment amount</h2>
-                                <h3 ng-bind="task.result.statistics.amount_total | mobbrcurrency: task.result.statistics.amount_currency"></h3>
-                            </div>
-                            <div ng-show="block3 || state.includes('tasks.view.task.payments')"
-                                 class="back">
-                                <h4>Average payment amount</h4>
-                                <h5 ng-bind="task.result.statistics.amount_average | mobbrcurrency: task.result.statistics.amount_currency"></h5>
-                                <h4>Number of payments</h4>
-                                <h5 ng-bind="task.result.statistics.num_payments"></h5>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div ng-hide="has_payments" ng-class="state.is('tasks.view.task.pay') ? '' : 'alert-warning'"
-                         class="alert">
-                        <a ng-href="{{ has_script && state.href('tasks.view.task.pay') || '' }}">
-                            <div class="front">
-                                <h2>No payments yet</h2>
-                                <h3 ng-show="has_script && !state.is('tasks.view.task.pay')">Click here to make a payment</h3>
-                            </div>
-                        </a>
                     </div>
                 </div>
 
-                <div ng-mouseover="block4 = true" ng-mouseout="block4 = false" class="col-xs-6 col-md-3">
-                    <div ng-show="has_participants"
-                         ng-class="state.includes('tasks.view.task.persons') ? '' : 'alert-success'"
-                         class="alert">
-                        <a ng-href="{{ state.href('tasks.view.task.persons') }}">
-                            <div ng-hide="block4 || state.is('tasks.view.task.persons')"
-                                 class="front">
-                                <h2>Current participants</h2>
-                                <h3 ng-bind="task.result.statistics.num_partipants"></h3>
-                            </div>
-
-                            <div ng-show="block4 || state.includes('tasks.view.task.persons')"
-                                 class="back">
-                                <h4>Recipients</h4>
-                                <h5 ng-bind="task.result.statistics.num_recipients"></h5>
-                                <h4>Senders</h4>
-                                <h5 ng-bind="task.result.statistics.num_senders"></h5>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div ng-hide="has_participants"
-                         ng-class="state.is('tasks.view.task.invite') ? '' : 'alert-warning'"
-                         class="alert">
-                        <a ng-href="{{ has_script && state.href('tasks.view.task.invite') || '' }}">
+                <div ng-class="state.is('tasks.view.task') ? 'active' : ''"
+                     ng-click="state.go('tasks.view.task')"
+                     class="card-container col-xs-6 col-md-3">
+                    <div class="card" ng-class="has_script ? '' : 'failed'">
+                        <div ng-show="has_script">
                             <div class="front">
-                                <h2>No participants yet</h2>
-                                <h3 ng-show="has_script && !state.is('tasks.view.task.invite')">Click here to invite people</h3>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h3>
+                                            <span class="glyphicon glyphicon-bookmark"></span>
+                                            Connected
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <span class="large col-md-12" ng-bind="domain"></span>
+                                </div>
                             </div>
-                        </a>
+                            <div class="back">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h3>
+                                            <span class="glyphicon glyphicon-bookmark"></span>
+                                            First payment at
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <span class="large col-md-12" ng-bind="task.result.statistics.firstpaiddatetime | amDateFormat : 'DD-MM-YYYY HH:MM'"></span>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h3>
+                                            <span class="glyphicon glyphicon-bookmark"></span>
+                                            Last payment at
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <span class="large col-md-12" ng-bind="task.result.statistics.lastpaiddatetime | amDateFormat : 'DD-MM-YYYY HH:MM'"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-hide="has_script">
+                            <div class="front">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h3>
+                                            <span class="glyphicon glyphicon-bookmark"></span>
+                                            Disconnected
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <h3 ng-show="!has_failed">Click here for instructions</h3>
+                                </div>
+                            </div>
+                            <div class="back">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h3>
+                                            <span class="glyphicon glyphicon-bookmark"></span>
+                                            blabla
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-class="state.is('tasks.view.task.payments') ? 'active' : ''"
+                     ng-click="has_payments && state.go('tasks.view.task.payments') || state.go('tasks.view.task.pay')"
+                     class="card-container col-xs-6 col-md-3">
+                    <div class="card" ng-class="has_payments ? '' : 'failed'">
+                        <div ng-show="has_payments">
+                            <div class="front">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h3>
+                                            <span class="glyphicon glyphicon-bookmark"></span>
+                                            Total payment amount
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <span class="large col-md-12" ng-bind-html="task.result.statistics.amount_total | mobbrcurrency: task.result.statistics.amount_currency:true"></span>
+                                </div>
+                            </div>
+                            <div class="back">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h3>
+                                            <span class="glyphicon glyphicon-bookmark"></span>
+                                            Average payment amount
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <span class="large col-md-12" ng-bind-html="task.result.statistics.amount_average | mobbrcurrency: task.result.statistics.amount_currency:true"></span>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h3>
+                                            <span class="glyphicon glyphicon-bookmark"></span>
+                                            Number of payments
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <span class="large col-md-12" ng-bind="task.result.statistics.num_payments"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div ng-hide="has_payments">
+                            <div class="front">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h3>
+                                            <span class="glyphicon glyphicon-bookmark"></span>
+                                            No payments yet
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <span ng-show="has_script && !state.is('tasks.view.task.pay')">Click here to make a payment</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-class="state.includes('tasks.view.task.persons') || state.includes('tasks.view.task.invite') ? 'active' : ''"
+                     ng-click="has_participants && state.go('tasks.view.task.persons') || state.go('tasks.view.task.invite')"
+                     class="card-container col-xs-6 col-md-3">
+                    <div class="card" ng-class="has_participants ? '' : 'failed'">
+                        <div ng-show="has_participants">
+                            <div class="front">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h3>
+                                            <span class="glyphicon glyphicon-bookmark"></span>
+                                            Current participants
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <span class="large col-md-12" ng-bind="task.result.statistics.num_partipants"></span>
+                                </div>
+                            </div>
+                            <div class="back">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h3>
+                                            <span class="glyphicon glyphicon-bookmark"></span>
+                                            Recipients
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <span class="large col-md-12" ng-bind="task.result.statistics.num_recipients"></span>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h3>
+                                            <span class="glyphicon glyphicon-bookmark"></span>
+                                            Senders
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <span class="large col-md-12" ng-bind="task.result.statistics.num_senders"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div ng-hide="has_participants">
+                            <div class="front">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h3>
+                                            <span class="glyphicon glyphicon-bookmark"></span>
+                                            No participants yet
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                        <span class="large col-md-12" ng-show="has_script && !state.is('tasks.view.task.invite')">
+                                            Click here to invite people
+                                        </span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="row">
-        <div ui-view="task-section" class="col-md-12 task-section" ></div>
-    </div>
-
-    <div ng-if="!has_failed && !has_script" class="row">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 task-tags">
-                    <h2>Instructions</h2>
-                    <p>Make sure it gets connected!!!!</p>
-                </div>
-            </div>
+    <div class="row task-section-container">
+        <div class="col-md-12">
+            <div collapse="state.is('tasks.view.task')" ui-view="task-section" class="task-section" ></div>
         </div>
     </div>
 
-    <div ng-if="!has_failed && has_script" class="row">
+    <div class="row top-bar">
         <div class="container">
-            <div class="row">
-                <div class="col-md-12 task-info">
-                    <h2 ng-bind="task.result.script.title"></h2>
-                    <p ng-bind="task.result.script.description"></p>
-                    <small ng-show="task.result.script.copyright" ng-bind="task.result.script.copyright"></small>
-                    <abbr ng-bind="languagesMap[task.result.script.language]"
-                          lang="{{ task.result.script.language }}"
-                          title="{{ languagesMap[task.result.script.language] }}"></abbr>
+            <div ng-if="!has_failed && !has_script" class="row task-instructions">
+                <div class="container">
+                    <div class="row task-info-row">
+                        <div class="col-md-12 task-info">
+                            <h2>Instructions</h2>
+                            <p>Make sure it gets connected!!!!</p>
+                        </div>
+                    </div>
                 </div>
+            </div>
 
-                <div class="col-md-12 task-tags">
-                    <h2>Tags on this task</h2>
-                    <div class="task-tags">
-                        <span ng-repeat="keyword in task.result.script.keywords" ng-bind="keyword" class="label label-default"></span>
-                        <em ng-show="!task.result.script.keywords || task.result.script.keywords.length == 0">No tags defined</em>
+            <div ng-if="!has_failed && has_script" class="row">
+                <div class="container">
+                    <div class="row task-info-row">
+                        <div class="col-md-12 task-info">
+                            <h2 ng-bind="task.result.script.title"></h2>
+                            <p ng-bind="task.result.script.description"></p>
+                            <small ng-show="task.result.script.copyright" ng-bind="task.result.script.copyright"></small>
+                            <abbr ng-bind="languagesMap[task.result.script.language]"
+                                  lang="{{ task.result.script.language }}"
+                                  title="{{ languagesMap[task.result.script.language] }}"></abbr>
+                        </div>
+
+                        <div class="col-md-12 task-tags">
+                            <h2>Tags on this task</h2>
+                            <div class="task-tags">
+                                <span ng-repeat="keyword in task.result.script.keywords" ng-bind="keyword" class="label label-default"></span>
+                                <em ng-show="!task.result.script.keywords || task.result.script.keywords.length == 0">No tags defined</em>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

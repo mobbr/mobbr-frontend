@@ -1,13 +1,44 @@
-<div ng-class="{ loading: persons && !persons.$resolved }" class="row">
-    <div ng-repeat="person in persons.result" class="col-xs-6 col-md-3">
-        <img ng-src="https://secure.gravatar.com/avatar/{{ person['gravatar'] }}?s=20&default=https://mobbr.com/img/default-gravatar.png"
-             width="20"
-             height="20">
-        <h3 ng-bind="person.username"></h3>
-        <ul>
-            <li ng-repeat="role in person.role" ng-bind="role"></li>
-        </ul>
-        <span ng-bind="person.share_average"></span>
-        <span ng-bind="person.amount | mobbrcurrency:''"></span>
+<div class="row wide-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <span class="glyphicon glyphicon-ok"></span>
+                <strong>People at this domain</strong>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-show="!has_failed && urls.result.length > 0" class="row data-cards" ng-class="{ loading: urls && !urls.$resolved }">
+    <a ng-repeat="url in urls.result" ng-href="{{ state.href('tasks.view.task', { task: encodeTask(url.url) }) }}">
+
+    </a>
+</div>
+
+
+<div ng-class="{ loading: persons && !persons.$resolved }" class="row data-cards data-cards-persons">
+    <div ng-repeat="person in persons.result" class="col-xs-6 col-sm-4 col-md-3 col-lg-2 data-card-container">
+        <div class="data-card">
+            <img ng-src="https://secure.gravatar.com/avatar/{{ person['gravatar'] }}?s=50&default=https://mobbr.com/img/default-gravatar.png"
+                 width="50"
+                 height="50"
+                 class="pull-left">
+            <h3 ng-bind="person.username"></h3>
+            <p>
+                Active since<br>
+                <time ng-bind="person.datetime | amDateFormat : 'DD-MM-YYYY HH:MM'"></time>
+            </p>
+
+            <ul class="list-unstyled">
+                <li ng-repeat="role in person.role">
+                    <strong ng-bind="role"></strong>
+                </li>
+            </ul>
+            <div class="bottom">
+                <div class="item large amount" ng-bind-html="person.amount | mobbrcurrency:$mobbrStorage.user.currency_iso:true"></div>
+                <div class="item large participants" class="participants" ng-bind="(person.share_average | number: 0) + '%'"></div>
+                <div class="item" ng-bind="url.domain"></div>
+            </div>
+        </div>
     </div>
 </div>

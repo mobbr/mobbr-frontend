@@ -1,39 +1,46 @@
-<div class="row">
-    <div class="col-md-12">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <h2>Select people to invite</h2>
-                </div>
-                <div class="col-md-6 text-right">
-                    <button ng-click="invite()"
-                            class="btn btn-default">Invite people</button>
-                </div>
+<div class="row wide-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <span class="glyphicon glyphicon-ok"></span>
+                <strong>Select people to invite</strong>
+            </div>
+            <div class="col-md-3">
+                <button ng-click="invite()"
+                        class="btn btn-block btn-primary text-left">Invite people</button>
             </div>
         </div>
     </div>
 </div>
 
-<div ng-class="{ loading: persons && !persons.$resolved }" class="row">
-    <div ng-repeat="person in persons.result" class="col-xs-6 col-md-3">
-        <input type="checkbox" ng-model="checkboxes[person.id]">
-        <img ng-src="https://secure.gravatar.com/avatar/{{ person['gravatar'] }}?s=20&default=https://mobbr.com/img/default-gravatar.png"
-             width="20"
-             height="20">
-        <h3 ng-show="person.firstname || person.lastname"
-            ng-bind="person.firstname + (person.firstname && person.lastname && ' ') + person.lastname"></h3>
-        <h4 ng-bind="person.companyname"></h4>
-        <ul>
-            <li ng-repeat="role in person.role" ng-bind="role"></li>
-        </ul>
-        <dl>
-            <dt>Share average</dt>
-            <dd ng-bind="person.share_average + '%'"></dd>
-            <dt>Keyword rating</dt>
-            <dd ng-bind="person.keyword_rating"></dd>
-            <dt>Activity rating</dt>
-            <dd ng-bind="person.activity_rating"></dd>
-        </dl>
+<div ng-class="{ loading: persons && !persons.$resolved }" class="row data-cards data-cards-persons">
+    <div ng-repeat="person in persons.result" class="col-xs-6 col-sm-4 col-md-3 col-lg-2 data-card-container">
+        <div class="data-card">
+            <input type="checkbox" ng-model="checkboxes[person.id]" class="pull-right">
+            <img ng-src="https://secure.gravatar.com/avatar/{{ person['gravatar'] }}?s=50&default=https://mobbr.com/img/default-gravatar.png"
+                 width="50"
+                 height="50"
+                 class="pull-left">
+            <h3 ng-bind="person.id"></h3>
+
+            <ul class="list-unstyled">
+                <li ng-repeat="role in person.role">
+                    <strong ng-bind="role"></strong>
+                </li>
+            </ul>
+
+            <ul class="list-unstyled list-inline">
+                <li ng-repeat="keyword in person.keyword">
+                    <span ng-bind="keyword" class="label label-default"></span>
+                </li>
+            </ul>
+
+            <div class="bottom">
+                <div class="item large amount" ng-bind="person.num_tasks"></div>
+                <div class="item large participants" ng-bind="person.num_rewards"></div>
+                <div class="item large" ng-bind="person.num_domains"></div>
+            </div>
+        </div>
     </div>
 </div>
 
