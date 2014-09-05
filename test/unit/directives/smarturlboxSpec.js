@@ -89,7 +89,7 @@ describe('mobbr.directives mobbrSmartUrlBox', function () {
         element.find('li:eq(1)').click();
         element.find('input[type=submit]').click();
 
-        expect(location.path).toHaveBeenCalledWith('/crowds/test');
+        expect(location.path).toHaveBeenCalledWith('/crowds/dGVzdA==');
     });
 
     it('should go to the tasks url', function(){
