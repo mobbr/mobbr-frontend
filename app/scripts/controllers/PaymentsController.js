@@ -99,4 +99,6 @@ angular.module('mobbr.controllers').controller('PaymentsController', function ($
         }
     };
 
+    $scope.pledges = { open: true };
+
 });
