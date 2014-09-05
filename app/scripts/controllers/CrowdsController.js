@@ -11,8 +11,8 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
         });
     }
 
-    $scope.$watch('url', function(url){
-        if(url){
+    $scope.$watch('url', function (url) {
+        if (url) {
             $scope.tags = MobbrUri.info({
                 url: url
             });
@@ -28,25 +28,20 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
                     url: url
                 }
             );
-
         }
     });
 
-    if($state.params && $state.params.urlHash){
+    if ($state.params && $state.params.urlHash) {
         $scope.url = window.atob($state.params.urlHash);
     }
 
-    $scope.$on('$stateChangeStart', function(event,toState, toParams, fromState, fromParams){
-        if($state.includes('crowds.view.filter')){
+    $scope.$on('$stateChangeStart', function (event, toState, toParams) {
+        if ($state.includes('crowds.view.filter')) {
             if (toParams && toParams.urlHash) {
                 $scope.url = window.atob(toParams.urlHash);
             }
         }
-
     });
-
-
-
 
 
     $scope.resetTags = function () {
@@ -105,15 +100,14 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
 
     $scope.invitePeople = function () {
         var ids = [];
-        angular.forEach($scope.selectedPersons, function(person){
-            ids.push('https://api.mobbr.com/id/' +person.id);
+        angular.forEach($scope.selectedPersons, function (person) {
+            ids.push('https://api.mobbr.com/id/' + person.id);
         });
-        $scope.invite = MobbrPerson.invite({ids:ids, url:$scope.url});
-        $scope.invite.$promise.then(function(){
+        $scope.invite = MobbrPerson.invite({ids: ids, url: $scope.url});
+        $scope.invite.$promise.then(function () {
             $state.go($state.current, {}, {reload: true});
         });
     };
-
 
 
 });
