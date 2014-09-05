@@ -13,7 +13,6 @@ angular.module('mobbr.directives').directive('mobbrSmartUrlBox', function factor
 
             attrs.$observe('url', function(){
                 if(attrs.url){
-                    console.log('url ' + attrs.url);
                     scope.form.url =attrs.url;
                 }
             });
