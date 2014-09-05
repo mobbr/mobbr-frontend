@@ -4,7 +4,6 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
     $scope.form = {};
     $scope.selectedPersons = [];
 
-    console.log('url ' + $state.params.urlHash);
     function resetTags() {
         $scope.filteredTags = [];
         angular.forEach($scope.tags.result.script.keywords, function (keyword) {
@@ -12,7 +11,7 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
         });
     }
 
-    if ($state.params.urlHash) {
+    if ($state.params && $state.params.urlHash) {
         $scope.url = window.atob($state.params.urlHash);
 
         $scope.tags = MobbrUri.info({
@@ -95,7 +94,6 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
         $scope.invite.$promise.then(function(){
             $state.go($state.current, {}, {reload: true});
         });
-
     };
 
 
