@@ -181,5 +181,5 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
         return countFields(countDisplayCompleted);
     };
 
-
+    $scope.account = { open: true };
 });
