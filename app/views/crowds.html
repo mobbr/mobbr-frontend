@@ -1,6 +1,68 @@
 <div class="container">
 
-    <mobbr-smart-url-box url-type="CROWDS" url="url"></mobbr-smart-url-box>
+    <mobbr-smart-url-box url-type="CROWDS" url="{{url}}"></mobbr-smart-url-box>
 
+
+    <div ng-show="filteredTags">
+        <ul class="tasks-tags list-inline">
+            <li>
+                <a ng-click="resetTags()">Reset</a>
+            </li>
+            <li ng-repeat="tag in filteredTags" >
+                <a ng-click="removeTag(tag)" href="">
+                    <span class="label label-default">
+                        {{tag}} x
+                    </span>
+                </a>
+            </li>
+            <li>
+                <form ng-submit="addTag()" name="addTagForm">
+                    <input type="text" ng-model="form.newTag"><input class="btn btn-primary" type="submit" value="Add">
+                </form>
+            </li>
+        </ul>
+
+    </div>
+
+    <div class="row" ng-show="selectedPersons && selectedPersons.length > 0">
+        <div class="col-md-9">
+            <img ng-repeat="person in selectedPersons" ng-src="https://secure.gravatar.com/avatar/{{ person['gravatar'] }}?s=50&default=https://mobbr.com/img/default-gravatar.png"
+                 width="50"
+                 height="50"
+                 ng-click="removePerson(person)"
+                 class="pull-left">
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-primary pull-right" ng-click="invitePeople()">Invite these people</button>
+        </div>
+    </div>
+
+    <div ng-class="{ loading: persons && !persons.$resolved }" class="row data-cards data-cards-persons">
+        <div ng-repeat="person in persons.result" class="col-md-3 data-card-container">
+            <div class="data-card" ng-click="person.selected = !person.selected;addPerson(person);">
+                <input type="checkbox" ng-model="person.selected"  class="pull-right">
+                <img ng-src="https://secure.gravatar.com/avatar/{{ person['gravatar'] }}?s=50&default=https://mobbr.com/img/default-gravatar.png"
+                     width="50"
+                     height="50"
+                     class="pull-left">
+                <h3 ng-bind="person.id"></h3>
+
+                <ul class="list-unstyled">
+                    <li ng-repeat="role in person.role">
+                        <strong ng-bind="role"></strong>
+                    </li>
+                </ul>
+
+                <div >
+                    <div class="item large amount" ng-bind="person.num_tasks"></div>
+                    <div class="item large participants" ng-bind="person.num_rewards"></div>
+                    <div class="item large" ng-bind="person.num_domains"></div>
+                </div>
+                <div class="bottom">
+                    Invite now
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>

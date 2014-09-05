@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('mobbr.controllers', ['angularFileUpload', 'mobbrApi', 'mobbrMsg', 'mobbrSession', 'mobbr.config', 'ngTable', 'ngStorage']);
+angular.module('mobbr.controllers', ['angularFileUpload', 'mobbrApi', 'mobbrMsg', 'mobbrSession', 'mobbr.config', 'ngTable', 'ngStorage', 'ui.bootstrap']);
 angular.module('mobbr.services', []);
-angular.module('mobbr.directives', ['mobbrSession', 'mobbr.config']);
+angular.module('mobbr.directives', ['mobbrSession', 'mobbr.config', 'ui.bootstrap']);
 angular.module('mobbr.filters', ['mobbrSession', 'mobbr.config']);
 angular.module('mobbr.configuration', []);
 
@@ -17,9 +17,8 @@ $(function () {
 });
 
 angular.module('mobbr', [
-
-    'ngStorage',
     'ui.bootstrap',
+    'ngStorage',
     'ui.router',
     'ui.scrollfix',
     'ui.unique',
@@ -34,10 +33,6 @@ angular.module('mobbr', [
     'angularMoment'
 
 ]).config(function ($stateProvider, $urlRouterProvider) {
-
-    function reloadTable(data, table) {
-        table.reset(data, this);
-    }
 
     $stateProvider.state('main', {
         url: '/',
@@ -257,11 +252,24 @@ angular.module('mobbr', [
                 }
             }
         }
-    );
+    ).state('crowds', {
+            templateUrl: 'views/crowds.html',
+            controller: 'CrowdsController',
+            data: {
+                authenticated: true,
+                redirectTo: 'main'
+            }
+        }
+    ).state('crowds.view', {
+            url: '/crowds'
+    }).state('crowds.view.filter', {
+            url: '/:urlHash'
+    });
+
 
     $urlRouterProvider.otherwise('/');
 
-}).run(function ($http, $rootScope, $state, $location, $window, $anchorScroll, mobbrModal, MobbrApi, MobbrUser, MobbrBalance, mobbrMsg, mobbrSession, apiUrl, uiUrl, lightboxUrl, environment) {
+}).run(function ($http, $rootScope, $state, $location, $window, $anchorScroll, MobbrApi, MobbrUser, MobbrBalance, mobbrMsg, mobbrSession, apiUrl, uiUrl, lightboxUrl, environment) {
 
         var querystring = $window.location.search;
 
@@ -326,7 +334,7 @@ angular.module('mobbr', [
         $rootScope.logout = function () {
             MobbrUser.logout();
             $location.path('/');
-        }
+        };
 
         function paymentModal(id, external) {
             return mobbrModal.open({
