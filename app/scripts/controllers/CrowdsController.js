@@ -11,25 +11,43 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
         });
     }
 
-    if ($state.params && $state.params.urlHash) {
+    $scope.$watch('url', function(url){
+        if(url){
+            $scope.tags = MobbrUri.info({
+                url: url
+            });
+
+            $scope.tags.$promise.then(function () {
+                if ($scope.tags.result) {
+                    resetTags();
+                }
+            });
+
+            $scope.persons = MobbrPerson.taskCandidates(
+                {
+                    url: url
+                }
+            );
+
+        }
+    });
+
+    if($state.params && $state.params.urlHash){
         $scope.url = window.atob($state.params.urlHash);
-
-        $scope.tags = MobbrUri.info({
-            url: $scope.url
-        });
-
-        $scope.tags.$promise.then(function () {
-            if ($scope.tags.result) {
-                resetTags();
-            }
-        });
-
-        $scope.persons = MobbrPerson.taskCandidates(
-            {
-                url: $scope.url
-            }
-        );
     }
+
+    $scope.$on('$stateChangeStart', function(event,toState, toParams, fromState, fromParams){
+        if($state.includes('crowds.view.filter')){
+            if (toParams && toParams.urlHash) {
+                $scope.url = window.atob(toParams.urlHash);
+            }
+        }
+
+    });
+
+
+
+
 
     $scope.resetTags = function () {
         resetTags();
