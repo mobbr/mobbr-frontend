@@ -11,6 +11,14 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
         });
     }
 
+    function findPeopleOnUrl(url) {
+        $scope.persons = MobbrPerson.taskCandidates(
+            {
+                url: url
+            }
+        );
+    }
+
     $scope.$watch('url', function (url) {
         if (url) {
             $scope.tags = MobbrUri.info({
@@ -22,12 +30,7 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
                     resetTags();
                 }
             });
-
-            $scope.persons = MobbrPerson.taskCandidates(
-                {
-                    url: url
-                }
-            );
+            findPeopleOnUrl(url);
         }
     });
 
@@ -82,7 +85,11 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
 
     $scope.$watch('filteredTags', function (keywords, oldValue) {
         if (oldValue !== undefined) {
-            findPeopleOnTags(keywords);
+            if(keywords.length !== $scope.tags.result.script.keywords.length){
+                findPeopleOnTags(keywords);
+            }else{
+                findPeopleOnUrl($scope.url);
+            }
         }
     });
 
