@@ -50,6 +50,10 @@ describe('mobbr.controllers: PaymentsController', function () {
         expect(scope.url).toBe(undefined);
     });
 
+    it('should retrieve tags and people when a url is known', function(){
+
+    });
+
 
 
 });
