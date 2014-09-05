@@ -8225,6 +8225,34 @@ body {
   width: 118px;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003819}}
+.navbar-fixed-top .logo.user {
+  padding: 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003823}}
+.navbar-fixed-top .loggedin-msg {
+  display: block;
+  padding-top: 5px;
+  padding-right: 5px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003828}}
+.navbar-fixed-top .loggedin-msg .caret {
+  margin-top: 24px;
+  margin-left: 18px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003833}}
+.navbar-fixed-top .loggedin-msg img {
+  margin-left: 5px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003838}}
+.navbar-fixed-top .user-msg {
+  padding-top: 15px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003841}}
+.navbar-fixed-top .user-msg .caret {
+  margin-top: 15px;
+  margin-left: 18px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003847}}
 .navbar-fixed-top .logo-menu {
   font-family: 'Roboto Condensed';
   font-size: 1.2em;
@@ -8236,81 +8264,94 @@ body {
   padding-left: 5px;
   padding-right: 5px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003830}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003858}}
 .navbar-fixed-top .logo-menu a {
   background-color: #edebeb;
   padding-top: 10px;
   padding-bottom: 10px;
   border-bottom: 1px solid white;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003838}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003865}}
+.navbar-fixed-top .logo-menu .link-call {
+  background-color: #ffcc00;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003870}}
 .navbar-fixed-top .menu.nav:before, .navbar-fixed-top .menu.nav:after {
   content: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003842}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003874}}
 .navbar-fixed-top .menu li.active a {
   color: white;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003846}}
-.navbar-fixed-top .menu li a {
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003878}}
+.navbar-fixed-top .user-icon {
+  display: block;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003883}}
+.navbar-fixed-top .menu li a,
+.navbar-fixed-top .user-icon {
   padding-top: 15px;
   padding-bottom: 3px;
   padding-left: 3px;
   padding-right: 3px;
   line-height: 0px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003853}}
-.navbar-fixed-top .menu li a .glyphicon {
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003890}}
+.navbar-fixed-top .menu li a .glyphicon,
+.navbar-fixed-top .user-icon .glyphicon {
   display: block;
   font-size: 25px;
 }
 @media (max-width: 319px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003853}}
-  .navbar-fixed-top .menu li a .glyphicon {
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003890}}
+  .navbar-fixed-top .menu li a .glyphicon,
+  .navbar-fixed-top .user-icon .glyphicon {
     font-size: 21px;
     padding-top: 4px;
     padding-bottom: 21px;
   }
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003864}}
-.navbar-fixed-top .menu li a small {
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003901}}
+.navbar-fixed-top .menu li a small,
+.navbar-fixed-top .user-icon small {
   font-size: .6em;
   text-transform: uppercase;
   line-height: 17px;
 }
 @media (max-width: 319px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003864}}
-  .navbar-fixed-top .menu li a small {
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003901}}
+  .navbar-fixed-top .menu li a small,
+  .navbar-fixed-top .user-icon small {
     display: none;
   }
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003875}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003912}}
 .navbar-fixed-top .menu li.user-welcome {
   padding-top: 5px;
   padding-right: 5px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003879}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003916}}
 .navbar-fixed-top .menu li.user-welcome .msg {
   font-size: 1.2em;
   font-family: "Roboto Condensed", sans-serif;
   padding-right: 6px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003885}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003922}}
 .navbar-fixed-top .menu li.user-welcome img {
   margin-right: 5px;
 }
 @media (max-width: 768px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003890}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003927}}
   .navbar-fixed-top .menu li.user-welcome .msg {
     display: none;
   }
 }
 @media (max-width: 480px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003875}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003912}}
   .navbar-fixed-top .menu li.user-welcome {
     padding-top: 14px;
   }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003898}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003935}}
   .navbar-fixed-top .menu li.user-welcome img {
     width: 26px;
     height: 26px;
@@ -8320,39 +8361,39 @@ body {
 /*
  * settings page
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003910}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003947}}
 .user-thumb {
   margin-left: 6px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003914}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003951}}
 .user-menu {
   min-width: 315px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003918}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003955}}
 .top-bar {
   color: white;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003921}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003958}}
 .top-bar h1 {
   font-size: 26px;
   text-transform: uppercase;
   line-height: 26px;
   margin: 37px 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003928}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003965}}
 .top-bar .btn-call {
   margin: 24px 0;
   padding: 12px 17px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003934}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003971}}
 .top-info {
   color: white;
   padding-bottom: 24px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003938}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003975}}
 .top-info h2 {
   margin-top: 16px;
   margin-bottom: 0;
@@ -8363,18 +8404,18 @@ body {
   font-family: "Roboto Condensed", sans-serif;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003949}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003986}}
 .query-bar {
   padding-bottom: 0;
   padding-top: 24px;
   border-bottom: 1px solid #009ee0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003955}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003992}}
 .query-bar .form-control {
   padding: 12px;
   height: 50px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003960}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003997}}
 .query-bar .input-group-addon {
   width: 50px;
   padding-top: 0;
@@ -8382,40 +8423,40 @@ body {
   margin-top: 6px;
   margin-bottom: 6px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003968}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031005}}
 .query-bar .input-group-btn .btn {
   height: 50px;
   width: 50px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003974}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031011}}
 .tags {
   border: 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003978}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031015}}
 .tasks-summary {
   padding-bottom: 0;
   border-top: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003982}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031019}}
 .tasks-summary .container > .row {
   margin: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003986}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031023}}
 .tasks-summary .card-container {
   padding-right: 0;
   padding-left: 1px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003991}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031028}}
 .tasks-summary .card-container:first-child {
   padding-left: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003995}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031032}}
 .tasks-summary .card {
   border: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\00003997}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031034}}
 .tasks-summary .card h3 {
   margin: 0;
   padding: 0;
@@ -8423,7 +8464,7 @@ body {
   line-height: 42px;
   font-weight: normal;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031006}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031043}}
 .tasks-summary .card .large,
 .tasks-summary .card .xlarge {
   font-family: "Roboto Condensed", sans-serif;
@@ -8431,12 +8472,12 @@ body {
   text-align: left;
   font-weight: bold;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031013}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031050}}
 .tasks-summary .card .xlarge {
   font-size: 72px;
   line-height: 72px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031019}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031056}}
 .tasks-summary .card .front,
 .tasks-summary .card .back {
   text-align: left;
@@ -8444,23 +8485,23 @@ body {
   background: white;
   color: #009ee0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031029}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031066}}
 .tasks-summary .active .card .front,
 .tasks-summary .active .card .back {
   height: 220px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031035}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031072}}
 .data-cards {
   padding: 3px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031039}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031076}}
 .data-card-container {
   padding: 3px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031043}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031080}}
 .data-card {
   background: white;
   color: #000;
@@ -8470,7 +8511,7 @@ body {
   line-height: 20px;
   position: relative;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031052}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031089}}
 .data-card h3 {
   margin: 0;
   padding: 0;
@@ -8478,70 +8519,70 @@ body {
   font-family: "Roboto Condensed", sans-serif;
   font-weight: bold;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031060}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031097}}
 .data-card p {
   font-size: 12px;
   line-height: 16px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031065}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031102}}
 .data-card .bottom {
   position: absolute;
   bottom: 0;
   left: 24px;
   right: 24px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031072}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031109}}
 .data-card .participants {
   color: #ff9900;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031076}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031113}}
 .data-card .amount {
   color: #699900;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031080}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031117}}
 .data-card .item {
   text-align: right;
   margin-top: 24px;
   margin-bottom: 24px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031086}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031123}}
 .data-card .large {
   font-size: 24px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031092}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031129}}
 .failed.card .front,
 .failed.card .back {
   color: #000;
   background: #ffcc00;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031097}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031134}}
 .data-card:hover {
   background: #009ee0;
   color: white;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031101}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031138}}
 .data-card:hover .item {
   color: white;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031106}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031143}}
 .data-cards-persons .data-card:hover {
   background: #ff9900;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031110}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031147}}
 .task-section-container .col-md-12 {
   min-height: 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031114}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031151}}
 .data-cards-persons .data-card img {
   margin-right: 18px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031118}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031155}}
 .task-info {
   background: white;
   color: #009ee0;
@@ -8549,27 +8590,27 @@ body {
   line-height: 1.4;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031125}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031162}}
 .task-info-row {
   margin: 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031129}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031166}}
 .task-payments {
   background: white;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031133}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031170}}
 .col-md-12.task-tags {
   padding-bottom: 24px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031137}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031174}}
 .task-instructions {
   margin-bottom: 24px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031141}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031178}}
 .messaging {
   z-index: 9999;
   position: fixed;
@@ -8579,17 +8620,17 @@ body {
   height: 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031150}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031187}}
 .pay-task {
   padding-top: 12px;
   padding-bottom: 12px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031155}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031192}}
 .pay-task input,
 .pay-task select {
   background: white;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031159}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031196}}
 .pay-task .checkbox {
   margin-bottom: 0;
   margin-top: 8px;
