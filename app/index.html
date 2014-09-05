@@ -59,7 +59,7 @@
         <script src="components/mobbr-button/mobbr.js"></script>
         <!-- endbuild -->
     </head>
-    <body ng-app="mobbrWeb" id="ng-app" idle-timeout ng-class="{ 'mobbr-test': isTest(), 'ng-app': true, 'loading': loading, 'payments': $state.includes('wallet') || $state.includes('payments'), 'updates': $state.includes('updates') }">
+    <body ng-app="mobbrWeb" id="ng-app" idle-timeout ng-class="{ 'mobbr-test': isTest(), 'ng-app': true, 'loading': loading, 'payments': $state.includes('wallet') || $state.includes('payments') || $state.includes('payment') || $state.includes('x-payment'), 'updates': $state.includes('updates') }">
         <!--[if lt IE 10]>
         <p class="chromeframe">
             You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser

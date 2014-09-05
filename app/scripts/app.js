@@ -67,29 +67,30 @@ angular.module('mobbr', [
                 controller: 'JoinController',
                 data: { authenticated: false, redirectTo: 'table.wallet.credit' }
             }).state('settings', {
+                url: '/settings',
                 templateUrl: 'views/settings.html',
                 controller: 'UserSettingsController',
                 data: { authenticated: true, redirectTo: 'main' }
             }).state('settings.account', {
-                url: '/settings',
+                url: '/account',
                 templateUrl: 'views/settings.account.html'
             }).state('settings.identity', {
-                url: '/settings/identity',
+                url: '/identity',
                 templateUrl: 'views/settings.identity.html'
             }).state('settings.proof', {
-                url: '/settings/proof',
+                url: '/proof',
                 templateUrl: 'views/settings.proof.html'
             }).state('settings.invoicing', {
-                url: '/settings/invoicing',
+                url: '/invoicing',
                 templateUrl: 'views/settings.invoicing.html'
             }).state('settings.display', {
-                url: '/settings/display',
+                url: '/display',
                 templateUrl: 'views/settings.display.html'
             }).state('settings.privacy', {
-                url: '/settings/privacy',
+                url: '/privacy',
                 templateUrl: 'views/settings.privacy.html'
             }).state('settings.notifications', {
-                url: '/settings/notifications',
+                url: '/notifications',
                 templateUrl: 'views/settings.notifications.html'
             }).state('wallet', {
                 templateUrl: 'views/wallet.html',
