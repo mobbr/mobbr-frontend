@@ -1,4 +1,4 @@
-angular.module('mobbr.directives').directive('mobbrSmartUrlBox', function factory() {
+angular.module('mobbr.directives').directive('mobbrSmartUrlBox', function factory($window) {
     'use strict';
     var placeholders = {'URL':'Enter any URL we\'ll analyze it','CROWDS':'Enter a keyword','TASK': 'Enter a keyword', 'PEOPLE':'Enter any email, username or profile id'};
 
@@ -10,6 +10,10 @@ angular.module('mobbr.directives').directive('mobbrSmartUrlBox', function factor
         scope: {},
         link: function (scope, elem, attrs) {
             scope.form = {};
+
+            attrs.$observe('url', function(){
+                scope.form.url = $window.atob(attrs.url);
+            });
 
             if (!attrs.urlType) {
                 scope.form.type = 'URL';
@@ -24,15 +28,16 @@ angular.module('mobbr.directives').directive('mobbrSmartUrlBox', function factor
 
             $scope.gotoUrl = function () {
                 if ($scope.form.url) {
+                    var url = $window.btoa($scope.form.url);
                     switch ($scope.form.type) {
                         case 'URL':
-                            $location.path('/task/' + $window.btoa($scope.form.url));
+                            $location.path('/task/' + url);
                             break;
                         case 'CROWDS':
-                            $location.path('/crowds/' + $scope.form.url);
+                            $location.path('/crowds/' + url);
                             break;
                         case 'TASK':
-                            $location.path('/tasks/' + $window.btoa($scope.form.url));
+                            $location.path('/tasks/' + url);
                             break;
 //                        case 'PEOPLE':
 //                            $location.path('/person/' + $window.btoa($scope.form.url));
