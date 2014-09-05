@@ -135,7 +135,84 @@
                         </li>
                     </ul>
 
-                    <ul ng-show="mobbrSession.isAuthorized()" class="nav menu">
+                    <div class="col-sm-offset-1 col-sm-3 col-xs-3">
+                        <div class="row">
+                            <ul class="nav">
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle logo user text-right" data-toggle="dropdown">
+                                        <span ng-show="mobbrSession && !mobbrSession.isAuthorized()">
+                                            <span class="col-xs-8 user-msg">
+                                                <span class="caret pull-left"></span>
+                                                Register/login
+                                            </span>
+                                            <span ng-class="{ 'active': state.includes('tasks') }" class="col-xs-4">
+                                                <span class="user-icon text-center">
+                                                    <span class="glyphicon glyphicon-user"></span>
+                                                </span>
+                                            </span>
+                                        </span>
+
+                                        <span ng-show="mobbrSession && mobbrSession.isAuthorized()" class="loggedin-msg">
+                                            <span class="msg">
+                                                <span class="caret pull-left"></span>
+                                                <span ng-bind="'Hi ' + $mobbrStorage.user.username"></span>
+                                            </span>
+                                            <img ng-src="{{ $mobbrStorage.user.thumbnail }}" width="50" height="50">
+                                        </span>
+                                    </a>
+
+                                    <ul ng-show="mobbrSession && !mobbrSession.isAuthorized()" class="dropdown-menu logo-menu" role="menu">
+                                        <li>
+                                            <input ng-model="username"
+                                                   auto-fill-sync
+                                                   class="form-control"
+                                                   type="text"
+                                                   name="username"
+                                                   placeholder="username"
+                                                   required>
+                                        </li>
+                                        <li>
+                                            <input ng-model="password"
+                                                   auto-fill-sync
+                                                   class="form-control"
+                                                   type="password"
+                                                   name="password"
+                                                   placeholder="password"
+                                                   required>
+                                        </li>
+                                        <li>
+                                            <button ng-disabled="authenticating && !authenticating.$resolved"
+                                                    ng-click="login(username, password)"
+                                                    class="btn btn-block">
+                                                <i class="glyphicon mobbrloader" ng-show="authenticating && !authenticating.$resolved"></i>
+                                                Log in
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <a class="link-call" ng-href="{{ $state.href('join') }}">Register me now</a>
+                                        </li>
+                                    </ul>
+
+                                    <ul ng-show="mobbrSession && mobbrSession.isAuthorized()" class="dropdown-menu logo-menu" role="menu">
+                                        <!--<li>
+                                            <a href="#">My profile</a>
+                                        </li>--->
+                                        <li>
+                                            <a ng-href="{{ $state.href('settings') }}">Settings</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" ng-click="logout()">Log out</a>
+                                        </li>
+                                        <li ng-repeat="paymentID in $mobbrStorage.user.id">
+                                            <a ng-href="{{ paymentID }}" ng-bind="paymentID" target="_blank"></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!--<ul ng-show="mobbrSession.isAuthorized()" class="nav menu">
                         <li class="user-welcome col-md-3 col-sm-3 col-xs-3 text-right">
                             <span ng-bind="'Hi ' + $mobbrStorage.user.username" class="msg"></span>
                             <img ng-src="{{ $mobbrStorage.user.thumbnail }}" width="50" height="50">
@@ -196,7 +273,7 @@
                                 <li><a class="nav-header" href="#/recover">Password forgotten</a></li>
                             </ul>
                         </li>
-                    </ul>
+                    </ul>-->
                 </div>
             </div>
         </header>

@@ -816,6 +816,34 @@ body {
     }
   }
 
+  .logo.user {
+    padding: 0;
+  }
+
+  .loggedin-msg {
+    display: block;
+    padding-top: 5px;
+    padding-right: 5px;
+
+    .caret {
+      margin-top: $grid-gutter-width * 2;
+      margin-left: $grid-gutter-width * 1.5;
+    }
+
+    img {
+      margin-left: 5px;
+    }
+  }
+
+  .user-msg {
+    padding-top: $grid-gutter-width * 1.25;
+
+    .caret {
+      margin-top: $grid-gutter-width * 1.25;
+      margin-left: $grid-gutter-width * 1.5;
+    }
+  }
+
   .logo-menu {
     font-family: 'Roboto Condensed';
     font-size: 1.2em;
@@ -833,6 +861,10 @@ body {
       padding-bottom: 10px;
       border-bottom: 1px solid $white;
     }
+
+    .link-call {
+      background-color: $mobbrcallout;
+    }
   }
 
   .menu.nav:before, .menu.nav:after {
@@ -843,7 +875,12 @@ body {
     color: $white;
   }
 
-  .menu li a {
+  .user-icon {
+    display: block;
+  }
+
+  .menu li a,
+  .user-icon {
     padding-top: 15px;
     padding-bottom: 3px;
     padding-left: 3px;
