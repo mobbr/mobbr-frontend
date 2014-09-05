@@ -1,4 +1,4 @@
-angular.module('mobbr.directives').directive('mobbrSmartUrlBox', function factory($window) {
+angular.module('mobbr.directives').directive('mobbrSmartUrlBox', function factory() {
     'use strict';
     var placeholders = {'URL':'Enter any URL we\'ll analyze it','CROWDS':'Enter a keyword','TASK': 'Enter a keyword', 'PEOPLE':'Enter any email, username or profile id'};
 
@@ -8,11 +8,14 @@ angular.module('mobbr.directives').directive('mobbrSmartUrlBox', function factor
         transclude:true,
         templateUrl: 'views/directives/smarturlbox.html',
         scope: {},
-        link: function (scope, elem, attrs) {
+        link: function (scope, elem, attrs, $window) {
             scope.form = {};
 
             attrs.$observe('url', function(){
-                scope.form.url = $window.atob(attrs.url);
+                if(attrs.url){
+                    console.log('url ' + attrs.url);
+                    scope.form.url =attrs.url;
+                }
             });
 
             if (!attrs.urlType) {
