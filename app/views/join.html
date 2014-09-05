@@ -1,97 +1,103 @@
-<div class="container">
-    <div class="page-header">
-        <h1>
-            Join Mobbr<br>
-            <small>
-                Choose your username with care, it can never be changed. Ever.
-            </small>
-        </h1>
-    </div>
-
-    <form name="register" class="form-horizontal">
-
-        <div class="row">
-            <div class="eula col-md-8 col-md-offset-2">
-                <iframe src="https://api.mobbr.com/mobbr-terms-of-use.txt"></iframe>
+<div class="row top-bar">
+    <div class="container">
+        <div class="row left-pad">
+            <div class="col-md-3">
+                <h1>Register</h1>
             </div>
         </div>
+    </div>
+</div>
 
-        <fieldset class="form-group">
-            <label for="accept_eula" class="col-md-4 col-md-offset-2">
-                <div class="checkbox">
-                    <input type="checkbox" id="accept_eula" ng-model="accept_eula">
-                    I accept the terms
+<div class="row page-white">
+    <div class="container">
+        <div class="row">
+            <form name="register" class="form-horizontal">
+
+                <div class="row">
+                    <div class="eula col-md-10 col-md-offset-2">
+                        <iframe src="https://api.mobbr.com/mobbr-terms-of-use.txt"></iframe>
+                    </div>
                 </div>
-            </label>
-        </fieldset>
 
-        <fieldset class="form-group">
-            <label class="control-label col-md-2" for="username">Username</label>
-            <div class="col-md-4">
-                <input class="form-control"
-                       ng-model="username"
-                       name="username"
-                       type="text"
-                       id="username"
-                       placeholder="e.g. _super-man_"
-                       required>
-            </div>
-        </fieldset>
+                <fieldset class="form-group">
+                    <div class="col-md-10 col-md-offset-2">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-model="accept_eula">
+                                I accept the Mobbr terms and conditions
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
 
-        <fieldset class="form-group">
-            <label class="control-label col-md-2" for="email">Email</label>
-            <div class="col-md-4">
-                <input class="form-control"
-                       ng-model="email"
-                       name="email"
-                       type="email"
-                       id="email"
-                       placeholder="e.g. _super-man_"
-                       required>
-            </div>
-        </fieldset>
+                <fieldset class="form-group">
+                    <label class="control-label col-md-2" for="username">Username</label>
+                    <div class="col-md-10">
+                        <input class="form-control"
+                               ng-model="username"
+                               name="username"
+                               type="text"
+                               id="username"
+                               placeholder="e.g. _super-man_"
+                               required>
+                    </div>
+                </fieldset>
 
-        <fieldset class="form-group">
-            <label class="control-label col-md-2" for="password">Password</label>
-            <div class="col-md-4">
-                <input class="form-control"
-                       ng-model="password"
-                       name="password"
-                       type="password"
-                       id="password"
-                       placeholder="min. 8 alfanum positions"
-                       required
-                       ng-pattern="/^.*(?=.{8,})(?=.*\d)(?=.*[a-z]).*$/">
+                <fieldset class="form-group">
+                    <label class="control-label col-md-2" for="email">Email</label>
+                    <div class="col-md-10">
+                        <input class="form-control"
+                               ng-model="email"
+                               name="email"
+                               type="email"
+                               id="email"
+                               placeholder="e.g. _super-man_"
+                               required>
+                    </div>
+                </fieldset>
+
+                <fieldset class="form-group">
+                    <label class="control-label col-md-2" for="password">Password</label>
+                    <div class="col-md-10">
+                        <input class="form-control"
+                               ng-model="password"
+                               name="password"
+                               type="password"
+                               id="password"
+                               placeholder="min. 8 alfanum positions"
+                               required
+                               ng-pattern="/^.*(?=.{8,})(?=.*\d)(?=.*[a-z]).*$/">
                 <span ng-show="register.password.$dirty && register.password.$error.pattern"
                       class="help-inline">Minimal 8 charactes, uppercase, lowercase and numbers</span>
-            </div>
-        </fieldset>
+                    </div>
+                </fieldset>
 
-        <fieldset class="form-group">
-            <label class="control-label col-md-2" for="password_control">Confirm password</label>
-            <div class="col-md-4">
-                <input class="form-control"
-                       ng-model="password_control"
-                       name="password_control"
-                       type="password"
-                       id="password_control"
-                       placeholder="min. 8 alfanum positions"
-                       required
-                       ng-pattern="/^.*(?=.{8,})(?=.*\d)(?=.*[a-z]).*$/">
+                <fieldset class="form-group">
+                    <label class="control-label col-md-2" for="password_control">Confirm password</label>
+                    <div class="col-md-10">
+                        <input class="form-control"
+                               ng-model="password_control"
+                               name="password_control"
+                               type="password"
+                               id="password_control"
+                               placeholder="min. 8 alfanum positions"
+                               required
+                               ng-pattern="/^.*(?=.{8,})(?=.*\d)(?=.*[a-z]).*$/">
                 <span ng-show="register.password.$dirty && register.password.$error.pattern"
                       class="help-inline">Minimal 8 charactes, uppercase, lowercase and numbers</span>
-            </div>
-        </fieldset>
+                    </div>
+                </fieldset>
 
-        <fieldset class="form-group">
-            <div class="col-md-offset-2 col-md-4">
-                <button ng-click="registerUser(username, email, password, password_control)"
-                        class="btn btn-primary"
-                        ng-disabled="!accept_eula || waiting">
-                    <i class="glyphicon mobbrloader" ng-show="waiting"></i> Join
-                </button>
-            </div>
-        </fieldset>
-    </form>
-
+                <fieldset class="form-group">
+                    <div class="col-md-offset-10 col-md-2">
+                        <button ng-click="registerUser(username, email, password, password_control)"
+                                class="btn btn-block btn-call"
+                                ng-disabled="!accept_eula || waiting">
+                            <i class="glyphicon mobbrloader" ng-show="waiting"></i> Register me now
+                        </button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
 </div>
