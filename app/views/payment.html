@@ -2,73 +2,98 @@
     <div class="container">
         <div class="row left-pad">
             <div class="col-md-12">
-                <h1>Payment receipt</h1>
+                <h1>
+                    Payment receipt
+                    <span ng-if="payment.paiddatetime" ng-bind="payment.paiddatetime | amDateFormat : 'YYYYMMDD HH:MM'"></span>
+                    <span ng-if="!payment.paiddatetime && payment.faileddatetime" ng-bind="payment.faileddatetime | amDateFormat : 'YYYYMMDD HH:MM'"></span>
+                    <span ng-if="payment.faileddatetime && payment.service_message" ng-bind="payment.service_message"></span>
+                </h1>
             </div>
         </div>
     </div>
 </div>
 
-<div id="paymentreceipt">
-
-    <div class="row">
-        <span ng-bind="payment.amount | mobbrcurrency:payment.currency_iso"></span>
-    </div>
-    <div class="row" ng-if="payment.paiddatetime">
-        <span ng-bind="payment.paiddatetime | amDateFormat : 'YYYYMMDD HH:MM'"></span>
-    </div>
-    <div class="row" ng-if="!payment.paiddatetime && payment.faileddatetime">
-        <span ng-bind="payment.faileddatetime | amDateFormat : 'YYYYMMDD HH:MM'"></span>
-    </div>
-    <div class="row" ng-if="payment.faileddatetime && payment.service_message">
-        <span ng-bind="payment.service_message"></span>
-    </div>
-    <div class="row" ng-if="payment.note">
-        <span ng-bind="payment.note"></span>
-    </div>
-    <div class="row" ng-if="payment.description">
-        <span ng-bind="payment.description"></span>
-    </div>
-    <div class="row" ng-if="payment.uri">
-        <img ng-src="{{payment.favicon}}" ng-if="payment.favicon"><span> TASK URL <a ng-href="payment.uri"
-                                                                                     ng-bind="payment.uri"></a></span>
-
-    </div>
-
-    <div ng-if="recieversAndSenders && recieversAndSenders.length > 0">
-
-        <div class="row" ng-if="(recieversAndSenders | filter:{selected:true}).length > 0">
-            <button class="btn btn-primary" ng-click="mailSelected()">Mail selected people</button>
-            <button class="btn btn-primary" ng-click="revokeSelected()">Recoke selected shares</button>
-            <button class="btn btn-primary" ng-click="download()">Download invoice(s) selected</button>
+<div class="row">
+    <div class="container">
+        <div class="row">
+            <div class="md-12">
+                <span ng-bind-html="payment.amount | mobbrcurrency:payment.currency_iso:true:true"></span>
+            </div>
         </div>
+    </div>
+</div>
 
-        <table class="table">
-            <thead>
-            <tr>
-                <th><input type="checkbox" ng-model="selectAll.selected"></th>
-                <th ng-click="sortBy='username'; reverse=!reverse">Participant</th>
-                <th ng-click="sortBy='role'; reverse=!reverse">Role</th>
-                <th ng-click="sortBy='share'; reverse=!reverse">%</th>
-                <th ng-click="sortBy='currency_iso'; reverse=!reverse">Currency</th>
-                <th ng-click="sortBy='amount'; reverse=!reverse">Amount</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="participant in recieversAndSenders | orderBy:sortBy:reverse">
-                <td><input ng-if="participant.unclaimed == '1'" type="checkbox" ng-model="participant.selected"></td>
-                <td><img
-                        ng-src="https://secure.gravatar.com/avatar/{{ participant.gravatar }}?s=50&default=https://mobbr.com/img/default-gravatar.png"
-                        class="gravatar img-rounded"
-                        width="50"
-                        height="50">
-                    {{participant.username}}
-                </td>
-                <td ng-bind="participant.role"></td>
-                <td ng-bind="participant.share|number:2"></td>
-                <td ng-bind="participant.currency_iso"></td>
-                <td ng-bind="participant.amount | mobbrcurrency:''"></td>
-            </tr>
-            </tbody>
-        </table>
+<div class="row" ng-if="payment.note">
+    <div class="container">
+        <div class="row">
+            <div class="md-12">
+                <span ng-bind="payment.note"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" ng-if="payment.description">
+    <div class="container">
+        <div class="row">
+            <div class="md-12">
+                <span ng-bind="payment.description"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" ng-if="payment.uri">
+    <div class="container">
+        <div class="row">
+            <div class="md-12">
+                <strong>Task URL</strong>
+                <img ng-src="{{payment.favicon}}" ng-if="payment.favicon"><span>
+                <a ng-href="payment.uri" ng-bind="payment.uri"></a></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="container">
+        <div class="row">
+            <div ng-if="recieversAndSenders && recieversAndSenders.length > 0">
+                <div class="row" ng-if="(recieversAndSenders | filter:{selected:true}).length > 0">
+                    <button class="btn btn-primary" ng-click="mailSelected()">Mail selected people</button>
+                    <button class="btn btn-primary" ng-click="revokeSelected()">Recoke selected shares</button>
+                    <button class="btn btn-primary" ng-click="download()">Download invoice(s) selected</button>
+                </div>
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th><input type="checkbox" ng-model="selectAll.selected"></th>
+                        <th ng-click="sortBy='username'; reverse=!reverse">Participant</th>
+                        <th ng-click="sortBy='role'; reverse=!reverse">Role</th>
+                        <th ng-click="sortBy='share'; reverse=!reverse">%</th>
+                        <th ng-click="sortBy='currency_iso'; reverse=!reverse">Currency</th>
+                        <th ng-click="sortBy='amount'; reverse=!reverse">Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="participant in recieversAndSenders | orderBy:sortBy:reverse">
+                        <td><input ng-if="participant.unclaimed == '1'" type="checkbox" ng-model="participant.selected"></td>
+                        <td><img
+                                ng-src="https://secure.gravatar.com/avatar/{{ participant.gravatar }}?s=50&default=https://mobbr.com/img/default-gravatar.png"
+                                class="gravatar img-rounded"
+                                width="50"
+                                height="50">
+                            {{participant.username}}
+                        </td>
+                        <td ng-bind="participant.role"></td>
+                        <td ng-bind="participant.share|number:2"></td>
+                        <td ng-bind="participant.currency_iso"></td>
+                        <td ng-bind-html="participant.amount | mobbrcurrency:'':true:true"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
