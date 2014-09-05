@@ -1,8 +1,14 @@
-<div id="paymentreceipt">
-
-    <div class="page-header">
-        Payment receipt
+<div class="row top-bar">
+    <div class="container">
+        <div class="row left-pad">
+            <div class="col-md-12">
+                <h1>Payment receipt</h1>
+            </div>
+        </div>
     </div>
+</div>
+
+<div id="paymentreceipt">
 
     <div class="row">
         <span ng-bind="payment.amount | mobbrcurrency:payment.currency_iso"></span>

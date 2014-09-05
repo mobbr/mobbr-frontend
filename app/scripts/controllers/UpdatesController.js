@@ -29,7 +29,7 @@ angular.module('mobbr.controllers').controller('UpdatesController', function ($s
     });
 
     $scope.refreshNotifications = function() {
-        $scope.notifications = MobbrNotifications.user(function (response) {
+        $scope.notifications = MobbrNotifications.get(function (response) {
             $scope.notifications = response.result;
 
         });
@@ -43,11 +43,13 @@ angular.module('mobbr.controllers').controller('UpdatesController', function ($s
         });
     };
 
-    MobbrBalance.user(function (response) {
+    MobbrBalance.get(function (response) {
         if(response && response.result){
             $scope.dashboard.total_currency_iso = response.result.total_currency_iso;
             $scope.dashboard.total_amount = response.result.total_amount;
         }
     });
+
+    $scope.updates = { open: true };
 
 });

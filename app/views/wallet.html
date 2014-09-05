@@ -1,104 +1,198 @@
-<div id="wallet">
-    <div class="page-header">
-        <h1>My money
-            <a href="/#/wallet/pay" class="btn">Pay</a>
-            <a href="/#/wallet/withdraw" class="btn">Withdraw</a>
-            <a href="/#/wallet/deposit" class="btn">Deposit</a>
-        </h1>
-
-        <h2>Total balance in {{dashboard.total_amount | mobbrcurrency:dashboard.total_currency_iso}} </h2>
-
-
-        <div class="row">
-            <div class="col-xs-6 col-md-3" ng-repeat="balance in dashboard.balances ">
-                <div class="thumbnail">
-                    <div class="grid_12 frontside">
-                        <div class="">spendable</div>
-
-                        <div ng-bind="balance.spendable | mobbrcurrency:''"></div>
-                        <div ng-bind="balance.currency_description"></div>
-
-
-                    </div>
-                    <div class="grid_12 backside">
-                        last updated since {{balance.updatedatetime | amDateFormat : 'YYYYMMDD HH:MM'}}
-                        <div><label>Converted Amount</label><span ng-bind="balance.converted_amount | mobbrcurrency:''"></span></div>
-                        <div><label>Currency</label><span ng-bind="balance.currency_iso"></span></div>
-                        <div><label>Exchange rate</label><span ng-bind="balance.exchange_rate"></span></div>
-                    </div>
-                </div>
-
+<div class="row top-bar">
+    <div class="container">
+        <div class="row left-pad">
+            <div class="col-md-3">
+                <h1>My money</h1>
             </div>
-
-
+            <div class="col-md-3">
+                <a href="/#/wallet/pay" class="btn btn-call btn-block">Pay</a>
+            </div>
+            <div class="col-md-3">
+                <a ng-click="withdrawDialog()" class="btn btn-call btn-block">Withdraw</a>
+            </div>
+            <div class="col-md-3">
+                <a ng-click="depositDialog()" class="btn btn-call btn-block">Deposit</a>
+            </div>
         </div>
     </div>
-
-    <div class="col-md-12" ng-show="$state.includes('wallet.pay') || $state.includes('wallet.withdraw') || $state.includes('wallet.deposit')">
-        Binnenkort in dit theater
-        <div ui-view class="container-fluid"></div>
-    </div>
-
-    <h2>Deposits & withdrawls</h2>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Date</th>
-            <th>Currency</th>
-            <th>Amount</th>
-            <th>Service</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="payment in payments">
-            <td ng-bind="payment.paiddatetime?(payment.paiddatetime | amDateFormat : 'YYMMDD HH:MM'):payment.service_message"></td>
-            <td ng-bind="payment.currency_iso"></td>
-            <td ng-bind="payment.amount | mobbrcurrency:''"></td>
-            <td ng-bind="payment.payment_service"></td>
-
-        </tr>
-        </tbody>
-    </table>
-
-    <h2>Wallet addresses</h2>
-
-    <div>Use there public addresses to recieve money from external accounts. Give there to anyone who needs to fund your
-        Mobbr account.
-    </div>
-
-
-    <table ng-repeat="wallet in walletAddresses" class="table">
-        <thead>
-        <tr>
-            <th ng-bind="wallet.currency"></th>
-            <th></th>
-            <th>i</th>
-        </tr>
-        </thead>
-        <tbody ng-if="wallet.message">
-        <tr>
-            <td colspan="3" ng-bind="wallet.message">
-
-            </td>
-        </tr>
-        </tbody>
-        <tbody ng-repeat="address in wallet.addresses">
-        <tr ng-repeat="(key, value) in address">
-            <td ng-bind="key"></td>
-            <td ng-bind="value" colspan="2"></td>
-        </tr>
-        </tbody>
-        <tbody ng-if="wallet.currency =='BTC'">
-        <tr>
-            <td>Add another</td>
-            <td></td>
-            <td>
-                <button class="btn" ng-click="addBitcoinAddress(wallet.currency)">+</button>
-            </td>
-        </tr>
-
-        </tbody>
-    </table>
-
-
 </div>
+
+<div class="row top-info">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Total balance in <span ng-bind-html="dashboard.total_amount | mobbrcurrency:dashboard.total_currency_iso:true"></span></h2>
+            </div>
+
+            <div class="card-container col-xs-6 col-md-3" ng-repeat="balance in dashboard.balances ">
+                <div class="card">
+                    <div class="front">
+                        <div class="row">
+                            <small class="col-md-12">Spendable</small>
+                        </div>
+                        <div class="row">
+                            <span class="txt col-md-12" ng-bind-html="balance.spendable | mobbrcurrency:'':true"></span>
+                        </div>
+                        <div class="row">
+                            <span class="txt big col-md-12" ng-bind="balance.currency_iso"></span>
+                        </div>
+                        <div class="row">
+                            <small class="col-md-12" ng-bind="balance.currency_description"></small>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="row">
+                            <small class="first col-md-12">
+                                Last updated at {{balance.updatedatetime | amDateFormat : 'YYYYMMDD HH:MM'}}
+                            </small>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <small class="pull-left">Amount</small>
+                                <span class="txt pull-right" ng-bind-html="balance.amount | mobbrcurrency:'':true"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 text-warning">
+                                <small class="pull-left">Fee</small>
+                                <span class="txt pull-right" ng-bind-html="balance.fee | mobbrcurrency:'':true"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 text-success">
+                                <small class="pull-left">Spendable</small>
+                                <span class="txt pull-right" ng-bind-html="balance.spendable | mobbrcurrency:'':true"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<accordion>
+    <accordion-group is-open="xpayments.open">
+        <accordion-heading>
+            <div class="container">
+                <div class="row no-pad">
+                    <div class="col-xs-10 title">
+                        <span class="glyphicon glyphicon-ok"></span>
+                        <strong>Deposits & withdrawls</strong>
+                    </div>
+                    <div class="icons">
+                        <div class="col-xs-1 text-center icon">
+                            <span class="glyphicon glyphicon-info-sign"></span>
+                        </div>
+                        <div class="col-xs-1 text-center icon">
+                            <span ng-class="account.open ? 'glyphicon-minus' : 'glyphicon-plus'" class="glyphicon"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </accordion-heading>
+        <div>
+            <div class="container">
+                <div class="row no-margin">
+                    <div class="col-md-12">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Service</th>
+                                <th>Currency</th>
+                                <th>Amount</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="payment in payments">
+                                <td ng-bind="payment.paiddatetime?(payment.paiddatetime | amDateFormat : 'YYMMDD HH:MM'):payment.service_message"></td>
+                                <td ng-bind="payment.payment_service"></td>
+                                <td ng-bind="payment.currency_iso"></td>
+                                <td ng-bind-html="payment.amount | mobbrcurrency:'':true:true"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </accordion-group>
+    <accordion-group is-open="addresses.open">
+        <accordion-heading>
+            <div class="container">
+                <div class="row no-pad">
+                    <div class="col-xs-10 title">
+                        <span class="glyphicon glyphicon-ok"></span>
+                        <strong>Wallet addresses</strong>
+                    </div>
+                    <div class="icons">
+                        <div class="col-xs-1 text-center icon">
+                            <span class="glyphicon glyphicon-info-sign"></span>
+                        </div>
+                        <div class="col-xs-1 text-center icon">
+                            <span ng-class="account.open ? 'glyphicon-minus' : 'glyphicon-plus'" class="glyphicon"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </accordion-heading>
+        <div>
+            <div class="info-bar">
+                <div class="container">
+                    <div class="row no-margin">
+                        <div class="col-md-12">
+                            <span class="info-box">
+                                <span class="glyphicon glyphicon-info-sign"></span>
+                                Use there public addresses to recieve money from external accounts. Give there to anyone who needs to fund your Mobbr account.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-repeat="wallet in walletAddresses" class="bar">
+                <div class="container">
+                    <div class="row no-margin">
+                        <div class="col-md-12">
+                            <div ng-if="wallet.currency == 'BTC'">
+                                <fieldset>
+                                    <label class="title control-label col-sm-3" ng-bind="wallet.currency"></label>
+                                    <div class="col-sm-7">
+                                        <span class="info-box">
+                                            <span class="glyphicon glyphicon-info-sign"></span>
+                                            <span ng-bind="wallet.message"></span>
+                                        </span>
+                                    </div>
+                                </fieldset>
+                                <fieldset ng-repeat="address in wallet.addresses">
+                                    <label class="title control-label col-sm-3">Address</label>
+                                    <div class="col-sm-7">
+                                        <input class="form-control" type="text" ng-model="address" disabled>
+                                    </div>
+                                </fieldset>
+                                <fieldset>
+                                    <label class="title control-label col-sm-3">Add another</label>
+                                    <div class="col-sm-offset-7 col-sm-1">
+                                        <button class="btn btn-success btn-square" ng-click="addBitcoinAddress(wallet.currency)">+</button>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div ng-if="wallet.currency != 'BTC'">
+                                <fieldset>
+                                    <label class="title control-label col-sm-3" ng-bind="wallet.currency"></label>
+                                    <div class="col-sm-7">
+                                        <span class="info-box">
+                                            <span class="glyphicon glyphicon-info-sign"></span>
+                                            <span ng-bind="wallet.message"></span>
+                                        </span>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </accordion-group>
+</accordion>
