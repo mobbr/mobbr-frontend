@@ -126,16 +126,16 @@
                     <div class="col-sm-4 col-xs-5 col-md-4">
                         <div ng-if="addPaymentIdHolder.idType != 'OAUTH'">
                             <input ng-model="addPaymentIdHolder.email" ng-disabled="addPaymentIdHolder.idType != 'EMAIL'" class="form-control" type="email" name="addEmail" id="addEmail" required>
-                <span ng-show="formHolder.addPaymentIdForm.addEmail.$dirty && formHolder.addPaymentIdForm.addEmail.$error.required"
-                      class="help-inline">Enter a email address.</span>
-                <span ng-show="formHolder.addPaymentIdForm.addEmail.$dirty && formHolder.addPaymentIdForm.addEmail.$error.email"
-                      class="help-inline">Enter a valid email address.</span>
+                            <span ng-show="formHolder.addPaymentIdForm.addEmail.$dirty && formHolder.addPaymentIdForm.addEmail.$error.required"
+                                  class="help-inline">Enter a email address.</span>
+                            <span ng-show="formHolder.addPaymentIdForm.addEmail.$dirty && formHolder.addPaymentIdForm.addEmail.$error.email"
+                                  class="help-inline">Enter a valid email address.</span>
                         </div>
-            <span ng-if="addPaymentIdHolder.idType == 'OAUTH'">
-                <select ng-model="addPaymentIdHolder.oAuthProvider" ng-options="oAuthProvider as oAuthProvider.host for oAuthProvider in oAuthProviders.result" class="form-control" required="">
-                    <option selected value="">Select an oAuth provider</option>
-                </select>
-            </span>
+                        <span ng-if="addPaymentIdHolder.idType == 'OAUTH'">
+                            <select ng-model="addPaymentIdHolder.oAuthProvider" ng-options="oAuthProvider as oAuthProvider.host for oAuthProvider in oAuthProviders.result" class="form-control" required="">
+                                <option selected value="">Select an oAuth provider</option>
+                            </select>
+                        </span>
                     </div>
                     <div class="col-sm-1 col-xs-2 col-md-1">
                         <button type="submit" class="btn btn-success btn-square"
