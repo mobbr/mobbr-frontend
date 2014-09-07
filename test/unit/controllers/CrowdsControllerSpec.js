@@ -1,4 +1,4 @@
-describe('mobbr.controllers: PaymentsController', function () {
+describe('mobbr.controllers: CrowdsController', function () {
     'use strict';
 
     // loading ngmock
@@ -185,5 +185,82 @@ describe('mobbr.controllers: PaymentsController', function () {
         httpBackend.flush();
     });
 
+    function selectPerson(person){
+        person.selected = true;
+        scope.addPerson(person);
+    }
 
+    it('should keep people selected when removing a tag', function(){
+        createController(true);
+
+        httpBackend.flush();
+
+        expect(scope.selectedPersons.length).toBe(0);
+
+        selectPerson(scope.persons.result[0]);
+        selectPerson(scope.persons.result[1]);
+        selectPerson(scope.persons.result[2]);
+
+        expect(scope.selectedPersons.length).toBe(3);
+
+        scope.removeTag(scope.filteredTags[0]);
+        httpBackend.expectGET('https://test-api.mobbr.com/api_v1/persons/task_candidates?keywords=deepwater+horizon&keywords=golf+van+mexico&keywords=halliburton&keywords=milieuramp&keywords=olieramp&keywords=vervuiling&keywords=voedsel&keywords=water').respond(200,peopleResult);
+        httpBackend.flush();
+
+
+        expect(scope.selectedPersons.length).toBe(3);
+        expect(scope.persons.result[0].selected).toBe(true);
+        expect(scope.persons.result[1].selected).toBe(true);
+        expect(scope.persons.result[2].selected).toBe(true);
+        expect(scope.persons.result[3].selected).toBe(undefined);
+
+    });
+
+    it('should remove a selected person if it\'s selected for the second time', function(){
+        createController(true);
+
+        httpBackend.flush();
+
+        expect(scope.selectedPersons.length).toBe(0);
+
+        selectPerson(scope.persons.result[0]);
+        expect(scope.selectedPersons.length).toBe(1);
+
+        scope.persons.result[0].selected = false;
+        scope.addPerson(scope.persons.result[0]);
+        expect(scope.selectedPersons.length).toBe(0);
+        expect(scope.persons.result[0].selected).toBe(false);
+    });
+
+    it('should deselected a selected person when removed', function(){
+        createController(true);
+
+        httpBackend.flush();
+
+        selectPerson(scope.persons.result[0]);
+        expect(scope.selectedPersons.length).toBe(1);
+
+        scope.removePerson(scope.selectedPersons[0]);
+        expect(scope.selectedPersons.length).toBe(0);
+        expect(scope.persons.result[0].selected).toBe(false);
+
+    });
+
+    it('should filter on tags when not all original tags are available anymore', function(){
+        createController(true);
+
+        httpBackend.flush();
+        expect(scope.filteredTags.length).toBe(9);
+        scope.filteredTags.splice(0,1);
+        var newArray = [];
+        angular.forEach(scope.filteredTags, function(tag){
+            newArray.push(tag);
+        });
+        scope.filteredTags = newArray;
+        expect(scope.filteredTags.length).toBe(8);
+
+        httpBackend.expectGET('https://test-api.mobbr.com/api_v1/persons/task_candidates?keywords=deepwater+horizon&keywords=golf+van+mexico&keywords=halliburton&keywords=milieuramp&keywords=olieramp&keywords=vervuiling&keywords=voedsel&keywords=water').respond(200,peopleResult);
+        httpBackend.flush();
+
+    });
 });

@@ -102,6 +102,9 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
     };
 
     $scope.removePerson = function (person) {
+        if(person.selected === true){
+            person.selected = false;
+        }
         $scope.selectedPersons.splice($scope.selectedPersons.indexOf(person), 1);
     };
 
