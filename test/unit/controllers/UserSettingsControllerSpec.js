@@ -17,7 +17,7 @@ describe('mobbr.controllers: UserSettingsController', function () {
 
 
     // Initialize the controller and a mock scope
-    beforeEach(inject(function ($controller, $rootScope, $httpBackend, mobbrSession, commonTest, mobbrMsg) {
+    beforeEach(inject(function ($controller, $rootScope, $httpBackend, mobbrSession, commonTest, mobbrMsg, $localStorage) {
         contr = $controller;
         rootScope = $rootScope;
         scope = $rootScope.$new();
@@ -25,6 +25,8 @@ describe('mobbr.controllers: UserSettingsController', function () {
         iMobbrMsg = mobbrMsg;
 
         httpBackend = $httpBackend;
+
+        $localStorage.token = undefined;
 
         spyOn(mobbrMsg, 'add');
 
@@ -41,7 +43,6 @@ describe('mobbr.controllers: UserSettingsController', function () {
             $scope: scope,
             $rootScope: rootScope
         });
-
 
     }
 
@@ -64,6 +65,7 @@ describe('mobbr.controllers: UserSettingsController', function () {
         expectUpdateUser();
         common.ping(httpBackend);
         scope.submitSettings(form);
+
         httpBackend.flush();
 
         expect(form.$setPristine).toHaveBeenCalled();
@@ -169,11 +171,12 @@ describe('mobbr.controllers: UserSettingsController', function () {
 
     it('should submit a removePaymentID request', function () {
         createController();
-        httpBackend.expectDELETE(common.baseUrl + 'user/id?id=MQ%3D%3D').respond(common.response);
+        httpBackend.expectDELETE(common.baseUrl + 'user/id?id=1').respond(common.response);
 
         scope.removePaymentID('1', 'index');
 
         expect(scope.waitingRemoveId.index.$resolved).toBe(false);
+        common.ping(httpBackend);
         httpBackend.flush();
         expect(scope.waitingRemoveId).toBe(undefined);
     });

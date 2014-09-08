@@ -17,13 +17,15 @@ describe('mobbr.controllers: WalletController', function () {
 
 
     // Initialize the controller and a mock scope
-    beforeEach(inject(function ($controller, $rootScope, $httpBackend, mobbrSession, commonTest, mobbrMsg) {
+    beforeEach(inject(function ($controller, $rootScope, $httpBackend, mobbrSession, commonTest, mobbrMsg, $localStorage) {
         contr = $controller;
         rootScope = $rootScope;
         scope = $rootScope.$new();
         common = commonTest;
         iMobbrMsg = mobbrMsg;
 
+
+        $localStorage.token = undefined;
 
         httpBackend = $httpBackend;
 
@@ -47,7 +49,7 @@ describe('mobbr.controllers: WalletController', function () {
             {},
             {}
         ]});
-        httpBackend.expectGET(common.baseUrl + 'balances/user').respond(200, {result: {total_currency_iso: 'EUR', total_amount: 12.32, balances: [
+        httpBackend.expectGET(common.baseUrl + 'balances').respond(200, {result: {total_currency_iso: 'EUR', total_amount: 12.32, balances: [
             {},
             {}
         ]}});

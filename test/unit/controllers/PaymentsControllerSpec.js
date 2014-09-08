@@ -18,7 +18,7 @@ describe('mobbr.controllers: PaymentsController', function () {
 
 
     // Initialize the controller and a mock scope
-    beforeEach(inject(function ($controller, $rootScope, $httpBackend, mobbrSession, commonTest, mobbrMsg, $timeout) {
+    beforeEach(inject(function ($controller, $rootScope, $httpBackend, mobbrSession, commonTest, mobbrMsg, $timeout, $localStorage) {
         contr = $controller;
         rootScope = $rootScope;
         scope = $rootScope.$new();
@@ -26,6 +26,9 @@ describe('mobbr.controllers: PaymentsController', function () {
         iMobbrMsg = mobbrMsg;
         timeout = $timeout;
         httpBackend = $httpBackend;
+
+        $localStorage.token = undefined;
+
 
         // dummy login
         mobbrSession.setUser({email: 'jan@work.com', id: ['http://github.com/test']});

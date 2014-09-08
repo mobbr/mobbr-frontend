@@ -19,13 +19,15 @@ describe('mobbr.controllers: UpdatesController', function () {
 
 
     // Initialize the controller and a mock scope
-    beforeEach(inject(function ($controller, $rootScope, $httpBackend, mobbrSession, commonTest, mobbrMsg,$q) {
+    beforeEach(inject(function ($controller, $rootScope, $httpBackend, mobbrSession, commonTest, mobbrMsg,$q, $localStorage) {
         contr = $controller;
         rootScope = $rootScope;
         scope = $rootScope.$new();
         common = commonTest;
         iMobbrMsg = mobbrMsg;
-        q = $q
+        q = $q;
+
+        $localStorage.token = undefined;
 
         httpBackend = $httpBackend;
 
@@ -38,7 +40,7 @@ describe('mobbr.controllers: UpdatesController', function () {
     }));
 
     function expectRefreshNotification() {
-        httpBackend.expectGET(common.baseUrl + 'notifications/user').respond(200, {result: [
+        httpBackend.expectGET(common.baseUrl + 'notifications').respond(200, {result: [
             {},
             {},
             {}
@@ -59,14 +61,13 @@ describe('mobbr.controllers: UpdatesController', function () {
         }
 
         expectRefreshNotification();
-        httpBackend.expectGET(common.baseUrl + 'balances/user').respond(200, {result: {total_currency_iso: 'EUR', total_amount: 12.32}});
+        httpBackend.expectGET(common.baseUrl + 'balances').respond(200, {result: {total_currency_iso: 'EUR', total_amount: 12.32}});
 
 
         contr('UpdatesController', {
             $scope: scope,
             $rootScope: rootScope
         });
-
 
     }
 
@@ -92,10 +93,10 @@ describe('mobbr.controllers: UpdatesController', function () {
         httpBackend.flush();
         expect(scope.notifications.length).toBe(3);
 
-        httpBackend.expectDELETE(common.baseUrl + 'notifications/user').respond(200, {});
+        httpBackend.expectDELETE(common.baseUrl + 'notifications').respond(200, {});
         scope.deleteAll();
 
-        httpBackend.expectGET(common.baseUrl + 'notifications/user').respond(200, {result: []});
+        httpBackend.expectGET(common.baseUrl + 'notifications').respond(200, {result: []});
 
         httpBackend.flush();
 
