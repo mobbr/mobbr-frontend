@@ -28,11 +28,15 @@ module.exports = function (config) {
             'app/components/mobbr-api-angular/src/session/mobbr-session.js',
             'app/components/mobbr-api-angular/src/session/*.js',
             'app/components/ng-table/ng-table.js',
+            'app/components/purl/purl.js',
             'test/commonTest.js',
             'app/scripts/**/*.js',
             'app/scripts/**/**/*.js',
             'app/scripts/**/**/**/*.js',
-            'test/unit/**/**/*.js'
+            'test/unit/**/**/*.js',
+
+            'app/views/**/*.html'
+
         ],
 
         plugins: [
@@ -45,7 +49,9 @@ module.exports = function (config) {
 
             'karma-chrome-launcher',
 
-            'karma-phantomjs-launcher'
+            'karma-phantomjs-launcher',
+
+            'karma-ng-html2js-preprocessor'
 
         ],
 
@@ -76,7 +82,8 @@ module.exports = function (config) {
             // do not include tests or libraries
             // (these files will be instrumented by Istanbul)
             'app/scripts/*.js': 'coverage',
-            'app/scripts/**/*.js': 'coverage'
+            'app/scripts/**/*.js': 'coverage',
+            'app/**/*.html': ['ng-html2js']
         },
 
         coverageReporter: {
@@ -103,6 +110,21 @@ module.exports = function (config) {
         // - IE (only Windows)
         browsers: ['PhantomJS'],
 
+        ngHtml2JsPreprocessor: {
+            // strip this from the file path
+            stripPrefix: 'app/'
+            // prepend this to the
+//            prependPrefix: 'served/',
+
+            // or define a custom transform function
+//            cacheIdFromPath: function(filepath) {
+//                return cacheId;
+//            },
+
+            // setting this option will create only a single module that contains templates
+            // from all the files, so you can load them all with module('foo')
+//            moduleName: 'foo'
+        },
 
         // Continuous Integration mode
         // if true, it capture browsers, run tests and exit

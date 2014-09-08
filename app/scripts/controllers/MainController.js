@@ -1,3 +1,8 @@
-'use strict';
+angular.module('mobbr.controllers').controller('MainController', function ($scope, MobbrUri) {
+    'use strict';
 
-angular.module('mobbr.controllers').controller('MainController', function () { });
+//    MobbrUri.get({limit: 4}).$promise.then(function(response){
+//        $scope.featuredTasks = response.result;
+//    });
+
+});
