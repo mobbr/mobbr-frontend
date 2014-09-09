@@ -14,6 +14,7 @@ angular.module('mobbr.directives').directive('mobbrSmartUrlBox', function factor
         templateUrl: 'views/directives/smarturlbox.html',
         scope: {
             query: '=',
+            activeQuery: '=',
             urlType: '@'
         },
         link: function (scope, elem, attrs, $window) {
