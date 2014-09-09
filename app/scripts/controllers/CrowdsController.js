@@ -1,26 +1,14 @@
 angular.module('mobbr.controllers').controller('CrowdsController', function ($scope, $state, $window, $rootScope, mobbrSession, MobbrUri, MobbrPerson, MobbrKeywords) {
     'use strict';
 
-    $scope.form = {};
-    $scope.selectedPersons = [];
-
-    function queryPeople(url) {
-        if (url && url !== $scope.activeQuery) {
-            $scope.$emit('set-tags', 'uri', {
-                language: $scope.filter_language,
-                url: url
-            });
-        } else if (mobbrSession.isAuthorized()) {
-            $scope.$emit('set-tags', 'person', {
-                language: $scope.filter_language,
-                username: $rootScope.$mobbrStorage.user.username
-            });
-        } else {
-            $scope.$emit('set-tags', 'get', {
-                language: $scope.filter_language
-            });
+    function filterUpdate(newValue, oldValue) {
+        if (newValue !== oldValue) {
+            $scope.$emit('filter-update');
         }
     }
+
+    $scope.form = {};
+    $scope.selectedPersons = [];
 
     function findPeopleOnTags(keywords) {
 
@@ -78,18 +66,6 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
         });
     };
 
-    $scope.$on('$stateChangeStart', function (event, toState, toParams) {
-
-        if (toState.name.indexOf('box.crowds') === 0) {
-            queryPeople(toParams.task && $window.atob(toParams.task) || undefined);
-        }
-
-        if (toState.name.indexOf('box.crowds.task') !== 0) {
-            $scope.$emit('set-query');
-            $scope.$emit('set-active-query');
-        }
-    });
-
     $scope.$on('update-tags', function () {
         if($scope.filteredTags && $scope.filteredTags.length > 0){
             findPeopleOnTags($scope.filteredTags);
@@ -102,5 +78,5 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
         $scope.$emit('set-query', $window.atob($state.params.task));
     }
 
-    queryPeople($state.params.task && $window.atob($state.params.task) || undefined);
+    $scope.$watch('filter_language', filterUpdate);
 });
