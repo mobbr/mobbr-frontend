@@ -3,7 +3,8 @@
         <span ng-click="showUrlTypes=!showUrlTypes" class="showUrlTypes input-group-addon">=</span>
         <input type="url" class="form-control" ng-model="query" placeholder="{{placeHolders[urlType]}}">
             <span class="input-group-btn">
-                <button class="btn btn-default"
+                <button ng-disabled="query === '' || activeQuery == query"
+                        class="btn btn-default"
                         type="submit">Go!</button>
                 </span>
     </form>

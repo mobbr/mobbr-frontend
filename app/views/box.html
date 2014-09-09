@@ -31,7 +31,37 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <mobbr-smart-url-box url-type="{{ $state.includes('box.crowds') && 'CROWDS' || 'URL' }}" query="query"></mobbr-smart-url-box>
+                <mobbr-smart-url-box active-query="activeQuery" url-type="{{ $state.includes('box.crowds') && 'CROWDS' || 'URL' }}" query="query"></mobbr-smart-url-box>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row top-info tags">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Required expertise {{ activeQuery && 'for ' + activeQuery }}</h2>
+                <ul class="tasks-tags list-inline">
+                    <li ng-show="tagsChanged">
+                        <a ng-click="resetTags()"><span class="label label-default">Reset</span></a>
+                    </li>
+                    <li ng-show="filteredTags.length == 0">
+                        <a ng-click="topTags()"><span class="label label-default">No tags to display, click here for top tags</span></a>
+                    </li>
+                    <li ng-repeat="tag in filteredTags" >
+                        <a ng-click="removeTag(tag)" href="">
+                            <span class="label label-default">
+                                {{tag}} x
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <form ng-submit="addTag()" name="addTagForm">
+                            <input type="text" ng-model="form.newTag"><input class="btn btn-primary" type="submit" value="Add">
+                        </form>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
