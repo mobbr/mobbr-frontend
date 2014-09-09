@@ -1,55 +1,60 @@
-/* global purl */
-angular.module('mobbr.controllers').controller('TasksController', function ($scope, $rootScope, $state, $window, MobbrUri) {
-    'use strict';
+'use strict';
 
-    $scope.encodeTask = function (url) {
-        return $window.btoa(url);
-    };
+angular.module('mobbr.controllers').controller('TasksController', function ($scope, $rootScope, $state, $stateParams, MobbrUri, MobbrKeywords, MobbrApi) {
 
-    $scope.setTask = function (url) {
-        $state.go($state.includes('tasks.view.task') ? $state.current.name : 'tasks.view.task', { task: $scope.encodeTask(url) });
-    };
+    $scope.order_options = [
+        {
+            code: 'new_tasks',
+            name: 'New tasks'
+        },
+        {
+            code: 'new_payments',
+            name: 'New payments'
+        },
+        {
+            code: 'highest_payments',
+            name: 'Highest payments'
+        },
+        {
+            code: 'most_participants',
+            name: 'Most participants'
+        },
+        {
+            code: 'recent_pledges',
+            name: 'Recent pledges'
+        },
+        {
+            code: 'highest_activity',
+            name: 'Highest activity'
+        },
+        {
+            code: 'highest_rewards',
+            name: 'Highest rewards'
+        }
+    ];
 
-    $scope.$on('tasks-query-task', function (event, task) {
-
-        var url = $window.atob(task);
-
-        $scope.query = url;
-        $scope.domain = purl(url).hostname;
-
-        $scope.task = MobbrUri.info({ url: url }, function (response) {
-
-            if (response.result.script && response.result.script.url && response.result.script.url !== url) {
-                $scope.query = response.result.script.url;
-                $scope.setTask($scope.query);
-                url = $scope.query;
-            }
-
-            $scope.url = url;
-            $scope.has_failed = false;
-            $scope.has_script = response.result.script !== undefined && response.result.script.url !== undefined;
-            $scope.has_payments = parseFloat(response.result.statistics.amount_total) > 0;
-            $scope.has_participants = parseFloat(response.result.statistics.num_partipants) > 0;
-
-            $scope.$emit('task-redirect');
-
-        }, function () {
-
-            $scope.has_failed = true;
-            $scope.has_script = false;
-            $scope.has_payments = false;
-            $scope.has_participants = false;
-
+    function queryFilter() {
+        $scope.tasks = MobbrUri.get({
+            language: $scope.filter_language || null,
+            keywords: $scope.tag || null,
+            username: $scope.user_tasks && $rootScope.$mobbrStorage.user && $rootScope.$mobbrStorage.user.username || null
         });
-        return $scope.task;
+
+        $scope.keywords = MobbrKeywords.get({
+            language: $scope.filter_language || null,
+            related_to: $scope.tag || null
+        });
+    }
+
+    $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
+        $scope.tag = toParams.tag;
+        if ($state.includes('box.tasks')) {
+            queryFilter();
+        }
     });
 
-    $scope.resetTask = function () {
-        $scope.task = undefined;
-        $scope.url = undefined;
-        $scope.has_failed = false;
-        $scope.has_script = false;
-        $scope.has_payments = false;
-        $scope.has_participants = false;
-    };
+    $scope.$watch('[ filter_language, filter_order, user_tasks ]', queryFilter, true);
+    $scope.languages = MobbrApi.languages({ include_unused: false });
+    $scope.tag = $state.params.tag;
+    $scope.filter_order = $scope.order_options[0].code;
 });
