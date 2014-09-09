@@ -181,90 +181,91 @@ angular.module('mobbr', [
                 }).$promise;
             }
         }
-    }).state('tasks', {
+    }).state('box', {
         abstract: true,
-        controller: 'TasksController',
-        templateUrl: 'views/tasks.html'
-    }).state('tasks.filter', {
+        controller: 'BoxController',
+        templateUrl: 'views/box.html'
+    }).state('box.tasks', {
         url: '/tasks',
         views: {
             'tasks-section': {
-                controller: 'TasksFilterController',
-                templateUrl: 'views/tasks.filter.html'
+                controller: 'TasksController',
+                templateUrl: 'views/tasks.html'
             }
         },
         data: {
             title: 'Explore tasks'
         }
-    }).state('tasks.filter.tag', {
+    }).state('box.tasks.tag', {
         url: '/:tag'
-    }).state('tasks.view', {
+    }).state('box.task', {
         abstract: true,
         views: {
             'tasks-section': {
                 controller: 'TaskController',
-                templateUrl: 'views/tasks.task.html'
+                templateUrl: 'views/task.html'
             }
         },
         data: {
             title: 'Task status'
         }
-    }).state('tasks.view.task', {
+    }).state('box.task.view', {
         url: '^/task/:task'
-    }).state('tasks.view.task.domain', {
+    }).state('box.task.view.domain', {
         url: '/domain',
         views: {
             'task-section': {
                 controller: 'TaskDomainController',
-                templateUrl: 'views/tasks.task.domain.html'
+                templateUrl: 'views/task.domain.html'
             }
         }
-    }).state('tasks.view.task.payments', {
+    }).state('box.task.view.payments', {
         url: '/payments',
         views: {
             'task-section': {
                 controller: 'TaskPaymentsController',
-                templateUrl: 'views/tasks.task.payments.html'
+                templateUrl: 'views/task.payments.html'
             }
         }
-    }).state('tasks.view.task.persons', {
+    }).state('box.task.view.persons', {
         url: '/persons',
         views: {
             'task-section': {
                 controller: 'TaskPersonsController',
-                templateUrl: 'views/tasks.task.persons.html'
+                templateUrl: 'views/task.persons.html'
             }
         }
-    }).state('tasks.view.task.invite', {
+    }).state('box.task.view.invite', {
         url: '/invite',
         views: {
             'task-section': {
                 controller: 'TaskInviteController',
-                templateUrl: 'views/tasks.task.invite.html'
+                templateUrl: 'views/task.invite.html'
             }
         }
-    }).state('tasks.view.task.pay', {
+    }).state('box.task.view.pay', {
             url: '/pay',
             views: {
                 'pay@tasks': {
                     controller: 'TaskPayController',
-                    templateUrl: 'views/tasks.task.pay.html'
+                    templateUrl: 'views/task.pay.html'
                 }
             }
         }
-    ).state('crowds', {
-            templateUrl: 'views/crowds.html',
-            controller: 'CrowdsController',
+    ).state('box.crowds', {
+            url: '/crowds',
+            views: {
+                'tasks-section': {
+                    controller: 'CrowdsController',
+                    templateUrl: 'views/crowds.html'
+                }
+            },
             data: {
-                authenticated: true,
-                redirectTo: 'main'
+                title: 'Find crowds'
             }
-        }
-    ).state('crowds.view', {
-            url: '/crowds'
-    }).state('crowds.view.filter', {
-            url: '/:urlHash'
-    });
+        }).state('box.crowds.task', {
+            url: '/:task'
+        });
 
 
     $urlRouterProvider.otherwise('/');
@@ -330,6 +331,9 @@ angular.module('mobbr', [
             }
         });
 
+        $rootScope.encodeTask = function (url) {
+            return $window.btoa(url);
+        };
 
         $rootScope.logout = function () {
             MobbrUser.logout();
