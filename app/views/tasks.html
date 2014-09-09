@@ -1,55 +1,71 @@
-<div class="row top-bar">
-    <div class="container">
-        <div class="row left-pad">
-            <div class="col-md-6">
-                <h1 ng-bind="state.current.data.title"></h1>
-            </div>
-            <div ng-if="state.includes('tasks.view.task')">
-                <div class="col-md-3">
-                    <a ng-disabled="!url"
-                       ng-href="{{ url }}"
-                       class="btn btn-call white btn-block"
-                       target="_blank">Go to task</a>
-                </div>
-                <div class="col-md-3">
-                    <a ng-disabled="!task.result.script.url"
-                       ng-href="{{ state.href('tasks.view.task.pay') }}"
-                       ng-bind="'Make a ' + (task.result.script.type == 'donate' ? 'pledge' : 'payment')"
-                       class="btn btn-block btn-call">Make a pledge</a>
-                </div>
-            </div>
-            <div ng-if="state.is('tasks.filter')" class="col-md-3 col-md-offset-3">
-                <a class="btn btn-call btn-block">Create a task</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div ui-view="pay" class="task-pay"></div>
-
-<div class="row top-info query-bar">
+<div class="row top-info tags">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <fieldset ng-disabled="(tasks && !tasks.$resolved) || (tags && !tags.$resolved) || (task && !task.$resolved)">
-                    <form ng-submit="setTask(query)" class="input-group">
-                        <span class="input-group-addon">=</span>
-                        <input type="url" class="form-control" ng-model="query" required>
-                        <span class="input-group-btn">
-                            <button ng-disabled="query == task.result.script.url"
-                                    ng-class="{ loading: task && !task.$resolved }"
-                                    class="btn btn-default"
-                                    type="submit">Go!</button>
-                        </span>
-                    </form>
-                </fieldset>
+                <h2>Related suggestions</h2>
+                <ul class="tasks-tags list-inline">
+                    <li ng-repeat="keyword in keywords.result">
+                        <a ng-href="{{ state.href('tasks.filter.tag', { tag: keyword.keyword }) }}">
+                            <span ng-bind="keyword.keyword"ng-class="keyword.keyword == tag ? 'label-primary' : 'label-default'" class="label"></span>
+                        </a>
+                        <a ng-show="keyword.keyword == tag" ng-href="{{ state.href('tasks.filter', { tag: 'test' }) }}" class="glyphicon glyphicon-remove"></a>
+                    </li>
+                    <em ng-show="keywords.$resolved && keywords.result.length == 0">No tags defined</em>
+                </ul>
             </div>
         </div>
     </div>
 </div>
 
-<div>
-    <div ui-view="tasks-section" ng-class="{ loading: task && !task.$resolved }"></div>
+<div class="row top-info filter">
+    <div class="container">
+        <div class="row">
+            <fieldset ng-disabled="(tasks && !tasks.$resolved) || (tags && !tags.$resolved)" class="form-horizontal">
+                <div class="col-md-3 title">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <strong>Filter by</strong>
+                </div>
+                <div class="col-md-3">
+                    <div ng-show="mobbrSession.isAuthorized()" class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="user_tasks">
+                            My tasks
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-control"
+                            ng-options="language.code as language.name for language in languages.result"
+                            ng-model="filter_language">
+                        <option value="">Choose language</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-control"
+                            ng-options="option.code as option.name for option in order_options"
+                            ng-model="filter_order">
+                    </select>
+                </div>
+            </fieldset>
+        </div>
+    </div>
 </div>
 
-
+<div class="row data-cards">
+    <a ng-repeat="url in tasks.result" ng-href="{{ state.href('box.task.view', { task: encodeTask(url.url) }) }}">
+        <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2 data-card-container">
+            <div class="data-card">
+                <h3 ng-bind="url.title"></h3>
+                <p ng-bind="url.description"></p>
+                <div class="bottom">
+                    <div class="item large amount" ng-bind-html="url.amount_total | mobbrcurrency:url.currency_iso:true"></div>
+                    <div class="item large participants" class="participants" ng-bind="url.num_recipients"></div>
+                    <div class="item" ng-bind="url.domain"></div>
+                </div>
+            </div>
+        </div>
+    </a>
+    <div class="col-md-12" ng-show="tasks.$resolved && tasks.result.length == 0">
+        <h2><em>No tasks found...</em></h2>
+    </div>
+</div>

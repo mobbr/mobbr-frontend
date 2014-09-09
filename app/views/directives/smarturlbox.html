@@ -1,28 +1,24 @@
-<div class="smarturlbox col-md-12"
-     ng-class="{url:form.type=='URL',crowds: form.type=='CROWDS', task:form.type=='TASK', people:form.type=='PEOPLE'}">
-    <div class="input-group">
+<fieldset>
+    <form ng-submit="gotoUrl(query)" class="input-group">
         <span ng-click="showUrlTypes=!showUrlTypes" class="showUrlTypes input-group-addon">=</span>
-        <form name="smartUrlBoxForm" ng-submit="gotoUrl()">
-            <input type="text" class="form-control" ng-model="form.url" placeholder="{{placeHolders[form.type]}}">
-             <span class="input-group-btn">
-                 <input type="submit" class="btn btn-default" ng-disabled="!form.url" value="*">
-             </span>
-        </form>
-    </div>
-        <ul ng-show="showUrlTypes">
-            <li ng-click="form.type='URL';showUrlTypes=false">
-                <a>Create and manage tasks</a>
-            </li>
-            <li ng-click="form.type='CROWDS';showUrlTypes=false">
-                <a>Find crowds</a>
-            </li>
-            <li ng-click="form.type='TASK';showUrlTypes=false">
-                <a>Find tasks</a>
-            </li>
-            <li ng-click="form.type='PEOPLE';showUrlTypes=false">
-                <a>Find people</a>
-            </li>
-        </ul>
-
-
-</div>
+        <input type="url" class="form-control" ng-model="query" placeholder="{{placeHolders[urlType]}}">
+            <span class="input-group-btn">
+                <button class="btn btn-default"
+                        type="submit">Go!</button>
+                </span>
+    </form>
+    <ul collapse="!showUrlTypes">
+        <li ng-click="urlType='URL';showUrlTypes=false">
+            <a>Create and manage tasks</a>
+        </li>
+        <li ng-click="urlType='CROWDS';showUrlTypes=false">
+            <a>Find crowds</a>
+        </li>
+        <li ng-click="urlType='TASK';showUrlTypes=false">
+            <a>Find tasks</a>
+        </li>
+        <li ng-click="urlType='PEOPLE';showUrlTypes=false">
+            <a>Find people</a>
+        </li>
+    </ul>
+</fieldset>
