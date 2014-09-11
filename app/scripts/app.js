@@ -122,46 +122,6 @@ angular.module('mobbr', [
         url: '/payments/unclaimed'
     }).state('payments.payments', {
         url: '/payments/payments'
-    }).state('domain', {
-        url: '/domain/:url',
-        templateUrl: 'views/domain.html',
-        controller: 'DomainController'
-    }).state('claim payment', {
-        url: '/claimpayment',
-        templateUrl: 'views/claim_payment.html',
-        controller: 'ClaimPaymentController'
-    }).state('generatebutton', {
-        url: '/generatebutton',
-        templateUrl: 'views/generate_button.html',
-        controller: 'CreateButtonController'
-    }).state('exchangerate', {
-        url: '/exchangerate',
-        templateUrl: 'views/exchangerate.html',
-        controller: 'ExchangeRateController'
-    }).state('integration', {
-        url: '/integration',
-        templateUrl: 'views/integration.html'
-    }).state('api', {
-        url: '/api',
-        templateUrl: 'views/api.html'
-    }).state('usecases', {
-        url: '/usecases',
-        templateUrl: 'views/usecases.html'
-    }).state('siteconnector', {
-        url: '/siteconnector',
-        templateUrl: 'views/siteconnector.html'
-    }).state('features', {
-        url: '/features',
-        templateUrl: 'views/features.html'
-    }).state('gettingstarted', {
-        url: '/gettingstarted',
-        templateUrl: 'views/gettingstarted.html'
-    }).state('company', {
-        url: '/company',
-        templateUrl: 'views/company.html'
-    }).state('validator', {
-        url: '/validator',
-        templateUrl: 'views/validator.html'
     }).state('payment', {
         url: '/payment/:id',
         templateUrl: 'views/payment.html',
