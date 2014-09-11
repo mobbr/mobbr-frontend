@@ -51,6 +51,4 @@ angular.module('mobbr.controllers').controller('WalletController', function ($sc
             controller: 'WithdrawController'
         });
     }
-
-    $scope.xpayments = { open: true };
 });
