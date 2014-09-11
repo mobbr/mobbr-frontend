@@ -7,9 +7,6 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
         }
     }
 
-    $scope.form = {};
-    $scope.selectedPersons = [];
-
     function findPeopleOnTags(keywords) {
 
         $scope.persons = MobbrPerson.taskCandidates({
@@ -79,4 +76,6 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
     }
 
     $scope.$watch('filter_language', filterUpdate);
+    $scope.form = {};
+    $scope.selectedPersons = [];
 });
