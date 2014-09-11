@@ -65,6 +65,7 @@ angular.module('mobbr', [
         controller: 'JoinController',
         data: { authenticated: false, redirectTo: 'table.wallet.credit' }
     }).state('settings', {
+        url: '/settings',
         templateUrl: 'views/settings.html',
         controller: 'UserSettingsController',
         data: { authenticated: true, redirectTo: 'main' }
