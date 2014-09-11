@@ -1,0 +1,74 @@
+<div class="row top-bar">
+    <div class="container">
+        <div class="row left-pad">
+            <div class="col-md-6">
+                <h1 ng-bind="$state.current.data.title"></h1>
+            </div>
+            <div ng-if="$state.includes('box.task')">
+                <div class="col-md-3">
+                    <a ng-disabled="!url"
+                       ng-href="{{ url }}"
+                       class="btn btn-call white btn-block"
+                       target="_blank">Go to task</a>
+                </div>
+                <div class="col-md-3">
+                    <a ng-disabled="!task.result.script.url"
+                       ng-href="{{ state.href('tasks.view.task.pay') }}"
+                       ng-bind="'Make a ' + (task.result.script.type == 'donate' ? 'pledge' : 'payment')"
+                       class="btn btn-block btn-call">Make a pledge</a>
+                </div>
+            </div>
+            <div ng-if="$state.includes('box.crowds') || $state.includes('box.tasks')" class="col-md-3 col-md-offset-3">
+                <a class="btn btn-call btn-block">Start a new task!</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ui-view="pay" class="task-pay"></div>
+
+<div class="row top-info query-bar">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <mobbr-smart-url-box active-query="activeQuery" url-type="{{ $state.includes('box.crowds') && 'CROWDS' || 'URL' }}" query="query"></mobbr-smart-url-box>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row top-info tags" ng-show="!$state.includes('box.task.view')">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>{{ $state.includes('box.crowds') && 'Required expertise' + (activeQuery && ' for ' + activeQuery) || 'Tags on this task' }}</h2>
+                <ul class="tasks-tags list-inline">
+                    <li ng-show="tagsChanged">
+                        <a ng-click="resetTags()"><span class="label label-default">Reset</span></a>
+                    </li>
+                    <li ng-show="filteredTags.length == 0">
+                        <a ng-click="topTags()"><span class="label label-default">No tags to display, click here for top tags</span></a>
+                    </li>
+                    <li ng-repeat="tag in filteredTags" >
+                        <a ng-click="removeTag(tag)" href="">
+                            <span class="label label-default">
+                                {{tag}} x
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <form ng-submit="addTag()" name="addTagForm">
+                            <input type="text" ng-model="form.newTag"><input class="btn btn-primary" type="submit" value="Add">
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <div ui-view="tasks-section" ng-class="{ loading: task && !task.$resolved }"></div>
+</div>
+
+

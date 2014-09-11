@@ -1,58 +1,110 @@
-angular.module('mobbr.controllers').controller('TaskController', function ($scope, $state, $window, $rootScope) {
+angular.module('mobbr.controllers').controller('TaskController', function ($scope, $state, $window, $rootScope, MobbrUri) {
     'use strict';
 
-    function redirect(){
+    function redirect() {
+
         if ($scope.has_failed) {
             switch ($state.current.name) {
-                case 'tasks.view.task':
-                case 'tasks.view.task.invite':
-                case 'tasks.view.task.payments':
-                case 'tasks.view.task.pay':
-                case 'tasks.view.task.persons':
-                    $state.go('tasks.view.task.domain');
+                case 'box.task.view':
+                case 'box.task.view.invite':
+                case 'box.task.view.payments':
+                case 'box.task.view.pay':
+                case 'box.task.view.persons':
+                    $state.go('box.task.view.domain');
                     break;
             }
             return;
         }
+
         if (!$scope.has_script) {
             switch ($state.current.name) {
-                case 'tasks.view.task.invite':
-                case 'tasks.view.task.payments':
-                case 'tasks.view.task.pay':
-                case 'tasks.view.task.persons':
-                    $state.go('tasks.view.task');
+                case 'box.task.view.invite':
+                case 'box.task.view.payments':
+                case 'box.task.view.pay':
+                case 'box.task.view.persons':
+                    $state.go('box.task.view');
                     break;
             }
             return;
         }
+
         if (!$scope.has_payments) {
             switch ($state.current.name) {
-                case 'tasks.view.task.payments':
-                    $state.go('tasks.view.task.pay');
+                case 'box.task.view.payments':
+                    $state.go('box.task.view.pay');
                     break;
             }
             return;
         }
+
         if (!$scope.has_participants) {
             switch ($state.current.name) {
-                case 'tasks.view.task.persons':
-                    $state.go('tasks.view.task.invite');
+                case 'box.task.view.persons':
+                    $state.go('box.task.view.invite');
                     break;
             }
         }
     }
 
-    $scope.$on('task-redirect', redirect );
+    function queryTask(task) {
 
+        var url = $window.atob(task);
+
+        $scope.$emit('set-query', url);
+        $scope.domain = purl(url).hostname;
+
+        $scope.task = MobbrUri.info({ url: url }, function (response) {
+
+            if (response.result.script && response.result.script.url && response.result.script.url !== url) {
+                $state.go($state.includes('box.task.view') ? $state.current.name : 'box.task.view', { task: $window.btoa(response.result.script.url) });
+                $scope.$emit('set-query', response.result.script.url);
+                url = $scope.query;
+            }
+
+            $scope.url = url;
+            $scope.has_failed = false;
+            $scope.has_script = response.result.script !== undefined && response.result.script.url !== undefined;
+            $scope.has_payments = parseFloat(response.result.statistics.amount_total) > 0;
+            $scope.has_participants = parseFloat(response.result.statistics.num_partipants) > 0;
+            $scope.$emit('set-active-query', url);
+
+            redirect();
+
+        }, function () {
+
+            $scope.has_failed = true;
+            $scope.has_script = false;
+            $scope.has_payments = false;
+            $scope.has_participants = false;
+            $scope.$emit('set-active-query', url);
+        });
+    }
+
+    function resetTask() {
+
+        $scope.$emit('set-query');
+        $scope.$emit('set-active-query');
+        $scope.task = undefined;
+        $scope.url = undefined;
+        $scope.has_failed = false;
+        $scope.has_script = false;
+        $scope.has_payments = false;
+        $scope.has_participants = false;
+    }
 
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
-        if ($state.includes('tasks.view.task') && toParams.task) {
+
+        if ($state.includes('box.task.view') && toParams.task) {
             if ((!$scope.has_script && $scope.url !== $window.atob(toParams.task)) || ($scope.has_script && toParams.task !== $window.btoa($scope.task.result.script.url))) {
-                $scope.$broadcast('tasks-query-task',toParams.task);
+                queryTask($state.params.task);
             }
+        }
+
+        if (toState.name.indexOf('box.task.view') !== 0) {
+            resetTask();
         }
     });
 
     $scope.$on('$stateChangeSuccess', redirect);
-    $scope.$broadcast('tasks-query-task',$state.params.task);
+    queryTask($state.params.task);
 });
