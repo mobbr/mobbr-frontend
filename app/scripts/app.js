@@ -247,7 +247,7 @@ angular.module('mobbr', [
     }).state('box.task.view.pay', {
             url: '/pay',
             views: {
-                'pay@tasks': {
+                'pay@box': {
                     controller: 'TaskPayController',
                     templateUrl: 'views/task.pay.html'
                 }
@@ -292,7 +292,6 @@ angular.module('mobbr', [
             response.result.forEach(function (item) {
                 $rootScope.currenciesMap[item.currency_iso] = item;
             });
-            console.log($rootScope.currenciesMap);
         });
         $rootScope.languages = MobbrApi.isoLanguages(function (response) {
             response.result.forEach(function (item) {
