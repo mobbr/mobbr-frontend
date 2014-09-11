@@ -105,7 +105,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="payment in payments">
+                            <tr ng-repeat="payment in payments" ng-click="openExternalPayment(payment)">
                                 <td ng-bind="payment.paiddatetime?(payment.paiddatetime | amDateFormat : 'YYMMDD HH:MM'):payment.service_message"></td>
                                 <td ng-bind="payment.payment_service"></td>
                                 <td ng-bind="payment.currency_iso"></td>
