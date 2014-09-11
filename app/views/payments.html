@@ -56,7 +56,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="payment in pledgedTable.data | orderBy:pledgedTable.sortBy:pledgedTable.reverse">
+                        <tr ng-repeat="payment in pledgedTable.data | orderBy:pledgedTable.sortBy:pledgedTable.reverse" ng-click="openPayment(payment)">
                             <td><input type="checkbox" ng-model="payment.selected"></td>
                             <td data-title="'Date'" sortable="'datetime'" ng-bind="payment.datetime | amDateFormat : 'YYYYMMDD HH:MM'"></td>
                             <td data-title="'Title'" sortable="'title'" ng-bind="payment.title"></td>
@@ -119,7 +119,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="payment in unclaimedTable.data | orderBy:unclaimedTable.sortBy:unclaimedTable.reverse">
+                        <tr ng-repeat="payment in unclaimedTable.data | orderBy:unclaimedTable.sortBy:unclaimedTable.reverse" ng-click="openPayment(payment)">
                             <td><input type="checkbox" ng-model="payment.selected"></td>
                             <td>
                                 <img ng-src="https://secure.gravatar.com/avatar/{{ payment.username }}?s=50&default=https://mobbr.com/img/default-gravatar.png"
@@ -183,7 +183,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="payment in paymentTable.data | orderBy:paymentTable.sortBy:paymentTable.reverse">
+                        <tr ng-repeat="payment in paymentTable.data | orderBy:paymentTable.sortBy:paymentTable.reverse" ng-click="openPayment(payment)">
                             <td><input type="checkbox" ng-model="payment.selected"></td>
                             <td ng-bind="payment.datetime | amDateFormat : 'YYYYMMDD HH:MM'"></td>
                             <td>{{payment.title?payment.title:payment.url}}</td>
