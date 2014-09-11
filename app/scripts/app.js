@@ -341,7 +341,7 @@ angular.module('mobbr', [
             $location.path('/');
         };
 
-        function paymentModal(id, external) {
+        /*function paymentModal(id, external) {
             return mobbrModal.open({
                 backdrop: true,
                 keyboard: true,
@@ -359,16 +359,16 @@ angular.module('mobbr', [
                     }
                 }
             });
-        }
+        }*/
 
         $rootScope.openExternalPayment = function (item) {
-            //$location.path('/x-payment/' + item.id);
-            return paymentModal(item.id, true);
+            $state.go('x-payment', { id: item.id });
+            //return paymentModal(item.id, true);
         }
 
         $rootScope.openPayment = function (item) {
-            //$location.path('/payment/' + item.id);
-            return paymentModal(item.id);
+            $state.go('payment', { id: item.id });
+            //return paymentModal(item.id);
         }
 
         $rootScope.getPaymentUrl = function (id, external) {
