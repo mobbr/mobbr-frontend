@@ -2,7 +2,7 @@
 
 angular.module('mobbr.filters').filter('mobbrcurrency', function ($rootScope, $sce) {
 
-    var separator = Number('1.2').toLocaleString($rootScope.$mobbrStorage.user.language_iso).substr(1,1);
+    var separator = Number('1.2').toLocaleString($rootScope.$mobbrStorage.user && $rootScope.$mobbrStorage.user.language_iso || 'EUR').substr(1,1);
 
     return function (amount, currency, is_html, decorate) {
 

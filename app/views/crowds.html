@@ -1,31 +1,25 @@
-<div class="container">
-    Find crowds <a class="btn btn-primary pull-right" href="#/tasks">Start a new task</a>
-
-    <mobbr-smart-url-box url-type="CROWDS" url="{{url}}"></mobbr-smart-url-box>
-
-
-    <div ng-show="filteredTags">
-        <ul class="tasks-tags list-inline">
-            <li>
-                <a ng-click="resetTags()">Reset</a>
-            </li>
-            <li ng-repeat="tag in filteredTags" >
-                <a ng-click="removeTag(tag)" href="">
-                    <span class="label label-default">
-                        {{tag}} x
-                    </span>
-                </a>
-            </li>
-            <li>
-                <form ng-submit="addTag()" name="addTagForm">
-                    <input type="text" ng-model="form.newTag"><input class="btn btn-primary" type="submit" value="Add">
-                </form>
-            </li>
-        </ul>
-
+<div class="row top-info filter">
+    <div class="container">
+        <div class="row">
+            <fieldset ng-disabled="(tasks && !tasks.$resolved) || (tags && !tags.$resolved)" class="form-horizontal">
+                <div class="col-md-9 title">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <strong>Filter by</strong>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-control"
+                            ng-options="language.code as language.name for language in languages.result"
+                            ng-model="filter_language">
+                        <option value="">Choose language</option>
+                    </select>
+                </div>
+            </fieldset>
+        </div>
     </div>
+</div>
 
-    <div class="row" ng-show="selectedPersons && selectedPersons.length > 0">
+<div ng-show="selectedPersons && selectedPersons.length > 0" class="row">
+    <div class="container">
         <div class="col-md-9">
             <img ng-repeat="person in selectedPersons" ng-src="https://secure.gravatar.com/avatar/{{ person['gravatar'] }}?s=50&default=https://mobbr.com/img/default-gravatar.png"
                  width="50"
@@ -37,33 +31,32 @@
             <button class="btn btn-primary pull-right" ng-click="invitePeople()">Invite these people</button>
         </div>
     </div>
+</div>
 
-    <div ng-class="{ loading: persons && !persons.$resolved }" class="row data-cards data-cards-persons">
-        <div ng-repeat="person in persons.result" class="col-md-3 data-card-container">
-            <div class="data-card" ng-click="person.selected = !person.selected;addPerson(person);">
-                <input type="checkbox" ng-model="person.selected"  class="pull-right">
-                <img ng-src="https://secure.gravatar.com/avatar/{{ person['gravatar'] }}?s=50&default=https://mobbr.com/img/default-gravatar.png"
-                     width="50"
-                     height="50"
-                     class="pull-left">
-                <h3 ng-bind="person.id"></h3>
+<div ng-class="{ loading: persons && !persons.$resolved }" class="row data-cards data-cards-persons">
+    <div ng-repeat="person in persons.result" class="col-md-3 data-card-container">
+        <div class="data-card" ng-click="$scope.tags.$resolved && (person.selected = !person.selected);$scope.tags.$resolved && addPerson(person);">
+            <input ng-show="$scope.tags.$resolved" type="checkbox" ng-model="person.selected"  class="pull-right">
+            <img ng-src="https://secure.gravatar.com/avatar/{{ person['gravatar'] }}?s=50&default=https://mobbr.com/img/default-gravatar.png"
+                 width="50"
+                 height="50"
+                 class="pull-left">
+            <h3 ng-bind="person.id"></h3>
 
-                <ul class="list-unstyled">
-                    <li ng-repeat="role in person.role">
-                        <strong ng-bind="role"></strong>
-                    </li>
-                </ul>
+            <ul class="list-unstyled">
+                <li ng-repeat="role in person.role">
+                    <strong ng-bind="role"></strong>
+                </li>
+            </ul>
 
-                <div >
-                    <div class="item large amount" ng-bind="person.num_tasks"></div>
-                    <div class="item large participants" ng-bind="person.num_rewards"></div>
-                    <div class="item large" ng-bind="person.num_domains"></div>
-                </div>
-                <div class="bottom">
-                    Invite now
-                </div>
+            <div >
+                <div class="item large amount" ng-bind="person.num_tasks"></div>
+                <div class="item large participants" ng-bind="person.num_rewards"></div>
+                <div class="item large" ng-bind="person.num_domains"></div>
+            </div>
+            <div ng-show="$scope.tags.$resolved" class="bottom">
+                Invite now
             </div>
         </div>
     </div>
-
 </div>
