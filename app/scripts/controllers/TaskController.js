@@ -66,6 +66,7 @@ angular.module('mobbr.controllers').controller('TaskController', function ($scop
             $scope.has_script = response.result.script !== undefined && response.result.script.url !== undefined;
             $scope.has_payments = parseFloat(response.result.statistics.amount_total) > 0;
             $scope.has_participants = parseFloat(response.result.statistics.num_partipants) > 0;
+            $scope.$emit('set-active-query', url);
 
             redirect();
 
@@ -75,13 +76,14 @@ angular.module('mobbr.controllers').controller('TaskController', function ($scop
             $scope.has_script = false;
             $scope.has_payments = false;
             $scope.has_participants = false;
-
+            $scope.$emit('set-active-query', url);
         });
     }
 
     function resetTask() {
 
         $scope.$emit('set-query');
+        $scope.$emit('set-active-query');
         $scope.task = undefined;
         $scope.url = undefined;
         $scope.has_failed = false;
