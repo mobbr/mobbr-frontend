@@ -1,0 +1,86 @@
+<div id="persondetail">
+
+    <div class="row">
+        <div class="container">
+            <div class="row">
+
+                    <img ng-src="https://secure.gravatar.com/avatar/{{ person.user.gravatar }}?s=200&default=https://mobbr.com/img/default-gravatar.png"
+                         width="200"
+                         class="pull-left"
+                         height="200">
+
+                <div class="col-md-8">
+                    <div>
+                        {{ person.user.firstname }} {{ person.user.lastname }} <span class="" ng-show="person.user.kyc_level == 'regular'"></span> <span ng-show="person.user.kyc_level == 'regular'">|</span>
+                    </div>
+                    <div ng-show="person.user.occupation" ng-bind="person.user.occupation">
+
+                    </div>
+                    <div>
+                        Active since {{ person.user.registerdatetime | amDateFormat : 'DD-MM-YYYY' }} | Last active {{  person.user.lastlogindatetime}}
+                    </div>
+                    <div ng-show="remoteProfile.aboutMe" ng-bind="remoteProfile.aboutMe">
+
+                    </div>
+                    <div ng-show="remoteProfile.bio" ng-bind="remoteProfile.bio">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-show="person.user.ids">
+        <div class="container">
+            Active accounts
+            <div class="row">
+                <a ng-repeat="id in person.user.ids" ng-href="id.id" target="_blank">
+                    {{id}}
+                    <img ng-src="{{id.favicon}}">
+                    {{id.provider}}
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="container">
+            Performance
+            <span class="pull-right">
+                <span ng-show="person.stats.num_domain">{{person.stats.num_domain}} domains</span>
+                <button class="btn btn-primary" href="/tasks">View {{person.stats.num_urls}} tasks</button>
+            </span>
+
+            </span>
+        </div>
+    </div>
+
+    <div class="row" ng-show="keywords && keywords.result" ng-init="keywordsLimitDefault = 10; keywordsLimit = keywordsLimitDefault">
+        <div class="container">
+            {{person.user.firstname}}'s tags
+            <div class="row">
+                <div class="col-md-12">
+                    <ul>
+                        <li ng-repeat="keyword in keywords.result | limitTo:keywordsLimit" ng-bind="keyword.keyword"></li>
+                    </ul>
+                    <button class="btn" ng-click="keywordsLimit = 1000" ng-show="keywordsLimit == keywordsLimitDefault && keywords.result.length > keywordsLimit">More</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" ng-show="person && person.domain" ng-init="domainLimitDefault = 10; domainLimit = domainLimitDefault">
+        <div class="container">
+            {{person.user.firstname}}'s domains
+            <div class="row">
+                <div class="col-md-12">
+                    <ul>
+                        <li ng-repeat="domain in person.domain | limitTo:domainLimit" ><img ng-src="{{domain.favicon}}"> {{domain.host}}</li>
+                    </ul>
+                    <button class="btn" ng-click="domainLimit = 1000" ng-show="domainLimit == domainLimitDefault && keywords.result.length > domainLimit">More</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
