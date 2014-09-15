@@ -61,11 +61,14 @@ angular.module('mobbr.controllers').controller('BoxController', function ($scope
         keywords.splice(keywords.indexOf(tag), 1);
     };
 
-    $scope.$on('$stateChangeStart', function (event, toState, toParams) {
+    $scope.$on('$stateChangeStart', function (event, toState, toParams, fromState) {
+
+        if (toState.name.split('.')[1] !== fromState.name.split('.')[1]) {
+            $scope.filteredTags = [];
+        }
+
         if (toState.name === 'box.crowds' || toState.name === 'box.tasks') {
             doQuery(toParams.task && $window.atob(toParams.task) || undefined);
-        } else {
-            $scope.filteredTags = [];
         }
     });
 
