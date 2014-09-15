@@ -8,7 +8,7 @@ angular.module('mobbr.controllers').controller('UpdatesController', function ($s
         $scope.parsedIds = [];
         angular.forEach($scope.oAuthProviders, function (providerObj) {
             angular.forEach($scope.$mobbrStorage.user.id, function (id) {
-                if (id.indexOf(providerObj.host) > -1) {
+                if (providerObj && id.indexOf(providerObj.host) > -1) {
                     $scope.parsedIds.push(providerObj);
                 }
             });
