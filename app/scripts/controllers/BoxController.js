@@ -13,20 +13,20 @@ angular.module('mobbr.controllers').controller('BoxController', function ($scope
 
     function topTags() {
         $scope.tags = MobbrKeywords.get({
-            language: $scope.filter_language
+            language: language
         }, filterTags);
     }
 
     function userTags() {
         $scope.tags = MobbrKeywords.person({
-            language: $scope.filter_language,
+            language: language,
             username: $rootScope.$mobbrStorage.user.username
         }, filterTags);
     }
 
     function urlTags(url) {
         $scope.tags = MobbrKeywords.uri({
-            language: $scope.filter_language,
+            language: language,
             url: url
         }, filterTags);
     }
