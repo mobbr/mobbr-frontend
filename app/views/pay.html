@@ -3,7 +3,19 @@
         <div class="row pay-task">
             <form class="col-md-12">
                 <div class="row">
-                    <fieldset ng-disabled="!task.$resolved || payment" class="col-md-6">
+                    <fieldset ng-if="!activeQuery">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input class="form-control"
+                                       required
+                                       ng-model="activeQuery"
+                                       step="any"
+                                       min="0"
+                                       max="1000000000">
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset ng-disabled="!activeQuery || payment" class="col-md-6">
                         <div class="row">
                             <div class="col-md-4">
                                 <select class="form-control"
@@ -30,7 +42,7 @@
                             </div>
                         </div>
                     </fieldset>
-                    <fieldset ng-disabled="!task.$resolved || (payment && !payment.$resolved)" class="col-md-6">
+                    <fieldset class="col-md-6">
                         <div class="row">
                             <div class="col-md-4">
                                 <button ng-disabled="!currency || !amount || payment"
@@ -49,11 +61,7 @@
                                 </button>
                             </div>
                             <div class="col-md-2">
-                                <a ng-href="{{ state.href('tasks.view.task') }}"
-                                   class="btn btn-danger btn-block"
-                                   type="submit">
-                                    X
-                                </a>
+                                <button ng-click="$state.go('^')" class="btn btn-danger btn-block">X</button>
                             </div>
                         </div>
                     </fieldset>

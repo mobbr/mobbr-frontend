@@ -10,8 +10,8 @@
     <div class="row top-info tasks-summary">
         <div class="container">
             <div class="row">
-                <div ng-class="state.is('tasks.view.task.domain') ? 'active' : ''"
-                     ng-click="state.go('tasks.view.task.domain')"
+                <div ng-class="state.is('box.task.view.domain') ? 'active' : ''"
+                     ng-click="state.go('box.task.view.domain')"
                      class="card-container col-xs-6 col-md-3">
                     <div class="card" ng-class="has_failed ? 'failed' : ''">
                         <div ng-hide="has_failed">
@@ -69,8 +69,8 @@
                     </div>
                 </div>
 
-                <div ng-class="state.is('tasks.view.task') ? 'active' : ''"
-                     ng-click="state.go('tasks.view.task')"
+                <div ng-class="state.is('box.task.view') ? 'active' : ''"
+                     ng-click="state.go('box.task.view')"
                      class="card-container col-xs-6 col-md-3">
                     <div class="card" ng-class="has_script ? '' : 'failed'">
                         <div ng-show="has_script">
@@ -140,8 +140,8 @@
                     </div>
                 </div>
 
-                <div ng-class="state.is('tasks.view.task.payments') ? 'active' : ''"
-                     ng-click="has_payments && state.go('tasks.view.task.payments') || state.go('tasks.view.task.pay')"
+                <div ng-class="state.is('box.task.view.payments') ? 'active' : ''"
+                     ng-click="has_payments && state.go('box.task.view.payments') || state.go('box.task.view.pay')"
                      class="card-container col-xs-6 col-md-3">
                     <div class="card" ng-class="has_payments ? '' : 'failed'">
                         <div ng-show="has_payments">
@@ -202,8 +202,8 @@
                     </div>
                 </div>
 
-                <div ng-class="state.includes('tasks.view.task.persons') || state.includes('tasks.view.task.invite') ? 'active' : ''"
-                     ng-click="has_participants && state.go('tasks.view.task.persons') || state.go('tasks.view.task.invite')"
+                <div ng-class="state.includes('box.task.view.persons') || state.includes('box.task.view.invite') ? 'active' : ''"
+                     ng-click="has_participants && state.go('box.task.view.persons') || state.go('box.task.view.invite')"
                      class="card-container col-xs-6 col-md-3">
                     <div class="card" ng-class="has_participants ? '' : 'failed'">
                         <div ng-show="has_participants">
@@ -257,7 +257,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                        <span class="large col-md-12" ng-show="has_script && !state.is('tasks.view.task.invite')">
+                                        <span class="large col-md-12" ng-show="has_script && !state.is('box.task.view.invite')">
                                             Click here to invite people
                                         </span>
                                 </div>
@@ -271,7 +271,7 @@
 
     <div class="row task-section-container">
         <div class="col-md-12">
-            <div collapse="state.is('tasks.view.task')" ui-view="task-section" class="task-section" ></div>
+            <div collapse="state.is('box.task.view')" ui-view="task-section" class="task-section" ></div>
         </div>
     </div>
 

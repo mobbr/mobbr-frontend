@@ -180,6 +180,4 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
     $scope.countDisplayCompleted = function () {
         return countFields(countDisplayCompleted);
     };
-
-    $scope.account = { open: true };
 });
