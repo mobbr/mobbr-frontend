@@ -2,12 +2,7 @@
 angular.module('mobbr.controllers').controller('BoxController', function ($scope, $rootScope, $state, $window, mobbrSession, MobbrKeywords) {
     'use strict';
 
-    function refreshTags() {
-        $scope.tagsChanged = $scope.tags && $scope.tags.result && angular.equals($scope.tags.result, $scope.filteredTags.length);
-        $scope.$broadcast('update-tags');
-    }
-
-    function queryPeople(url) {
+    function doQuery(url) {
 
         var api, params;
 
@@ -36,8 +31,12 @@ angular.module('mobbr.controllers').controller('BoxController', function ($scope
             angular.forEach($scope.tags.result, function (keyword) {
                 $scope.filteredTags.push(keyword.keyword);
             });
-            refreshTags();
         });
+    }
+
+    function refresh() {
+        $scope.tagsChanged = $scope.tags && $scope.tags.result && angular.equals($scope.tags.result, $scope.filteredTags.length);
+        $scope.$broadcast('update-tags');
     }
 
     $scope.addTag = function () {
@@ -63,30 +62,12 @@ angular.module('mobbr.controllers').controller('BoxController', function ($scope
     };
 
     $scope.$on('$stateChangeStart', function (event, toState, toParams) {
-
         if (toState.name === 'box.crowds' || toState.name === 'box.tasks') {
-            queryPeople(toParams.task && $window.atob(toParams.task) || undefined);
-        }
-
-        if (toState.name.indexOf('box.crowds.task') === 0) {
-            queryPeople(toParams.task && $window.atob(toParams.task) || undefined);
-            //console.log('zettum');
-            //$scope.$emit('set-query');
-            //$scope.$emit('set-active-query');
+            doQuery(toParams.task && $window.atob(toParams.task) || undefined);
+        } else {
+            $scope.filteredTags = [];
         }
     });
-
-    /*$rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
-        $scope.tag = toParams.tag;
-        if ($state.includes('box.tasks')) {
-            queryFilter();
-        }
-    });*/
-
-    /*$scope.$on('set-tags', function (event, method, params) {
-        $scope.tags = MobbrKeywords[method](params);
-        $scope.tags.$promise.then($scope.resetTags);
-    });*/
 
     $scope.$on('set-query', function (event, query) {
         $scope.query = query;
@@ -96,13 +77,13 @@ angular.module('mobbr.controllers').controller('BoxController', function ($scope
         $scope.activeQuery = activeQuery;
     });
 
-    $scope.$on('filter-update', refreshTags);
+    $scope.$on('filter-update', refresh);
 
     $scope.$watch('filteredTags', function (newValue, oldValue) {
         if (newValue !== undefined) {
-            refreshTags();
+            refresh();
         }
     }, true);
 
-    queryPeople($state.params.task && $window.atob($state.params.task) || undefined);
+    doQuery($state.params.task && $window.atob($state.params.task) || undefined);
 });
