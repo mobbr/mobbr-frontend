@@ -1,10 +1,13 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('TaskPayController', function ($scope, $window, $state, MobbrPayment) {
+angular.module('mobbr.controllers').controller('PayController', function ($scope, $window, $state, MobbrPayment) {
 
     function preview() {
+
+        var data = $state.includes('box.task') && window.atob($state.params.task) || $scope.activeQuery;
+
         return $scope.payment = MobbrPayment.preview({
-            data: window.atob($state.params.task),
+            data: data,
             currency: $scope.currency.currency_iso,
             amount: $scope.amount,
             invoiced: $scope.invoiced || false,

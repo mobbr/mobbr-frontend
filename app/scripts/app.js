@@ -91,22 +91,26 @@ angular.module('mobbr', [
         url: '/settings/notifications',
         templateUrl: 'views/settings.notifications.html'
     }).state('wallet', {
+        url: '/wallet',
         templateUrl: 'views/wallet.html',
         controller: 'WalletController',
         data: {
             authenticated: true,
             redirectTo: 'main'
         }
-    }).state('wallet.default', {
-        url: '/wallet'
     }).state('wallet.pay', {
-        url: '/wallet/pay',
-        templateUrl: 'views/wallet.pay.html'
+        url: '/pay',
+            views: {
+                'pay@wallet': {
+                    controller: 'PayController',
+                    templateUrl: 'views/pay.html'
+                }
+            }
     }).state('wallet.deposit', {
-        url: '/wallet/deposit',
+        url: '/deposit',
         templateUrl: 'views/wallet.deposit.html'
     }).state('wallet.withdraw', {
-        url: '/wallet/withdraw',
+        url: '/withdraw',
         templateUrl: 'views/wallet.withdraw.html'
     }).state('payments', {
 
@@ -208,8 +212,8 @@ angular.module('mobbr', [
             url: '/pay',
             views: {
                 'pay@box': {
-                    controller: 'TaskPayController',
-                    templateUrl: 'views/task.pay.html'
+                    controller: 'PayController',
+                    templateUrl: 'views/pay.html'
                 }
             }
         }
