@@ -78,7 +78,7 @@ angular.module('mobbr.controllers').controller('PaymentsController', function ($
     $scope.revokeSelectedShares = function () {
         var selected = $scope.filterSelectedIds($scope.unclaimedTable.data);
         if (selected && selected.length > 0) {
-            MobbrPayment.unclaimShares({ids: selected}).$promise.then(function () {
+            MobbrPayment.unclaimShares({share_ids: selected}).$promise.then(function () {
                 retrieveUnclaimedShares();
             });
 

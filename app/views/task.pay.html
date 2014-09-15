@@ -3,7 +3,7 @@
         <div class="row pay-task">
             <form class="col-md-12">
                 <div class="row">
-                    <fieldset ng-disabled="!task.$resolved || payment" class="col-md-6">
+                <fieldset ng-disabled="!activeQuery || payment" class="col-md-6">
                         <div class="row">
                             <div class="col-md-4">
                                 <select class="form-control"
@@ -30,7 +30,7 @@
                             </div>
                         </div>
                     </fieldset>
-                    <fieldset ng-disabled="!task.$resolved || (payment && !payment.$resolved)" class="col-md-6">
+                    <fieldset ng-disabled="!activeQuery || (payment && !payment.$resolved)" class="col-md-6">
                         <div class="row">
                             <div class="col-md-4">
                                 <button ng-disabled="!currency || !amount || payment"
@@ -49,7 +49,7 @@
                                 </button>
                             </div>
                             <div class="col-md-2">
-                                <a ng-href="{{ state.href('tasks.view.task') }}"
+                                <a ng-href="{{ state.href('box.task.view') }}"
                                    class="btn btn-danger btn-block"
                                    type="submit">
                                     X

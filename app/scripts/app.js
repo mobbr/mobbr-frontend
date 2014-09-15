@@ -65,6 +65,7 @@ angular.module('mobbr', [
         controller: 'JoinController',
         data: { authenticated: false, redirectTo: 'table.wallet.credit' }
     }).state('settings', {
+        url: '/settings',
         templateUrl: 'views/settings.html',
         controller: 'UserSettingsController',
         data: { authenticated: true, redirectTo: 'main' }
@@ -121,46 +122,6 @@ angular.module('mobbr', [
         url: '/payments/unclaimed'
     }).state('payments.payments', {
         url: '/payments/payments'
-    }).state('domain', {
-        url: '/domain/:url',
-        templateUrl: 'views/domain.html',
-        controller: 'DomainController'
-    }).state('claim payment', {
-        url: '/claimpayment',
-        templateUrl: 'views/claim_payment.html',
-        controller: 'ClaimPaymentController'
-    }).state('generatebutton', {
-        url: '/generatebutton',
-        templateUrl: 'views/generate_button.html',
-        controller: 'CreateButtonController'
-    }).state('exchangerate', {
-        url: '/exchangerate',
-        templateUrl: 'views/exchangerate.html',
-        controller: 'ExchangeRateController'
-    }).state('integration', {
-        url: '/integration',
-        templateUrl: 'views/integration.html'
-    }).state('api', {
-        url: '/api',
-        templateUrl: 'views/api.html'
-    }).state('usecases', {
-        url: '/usecases',
-        templateUrl: 'views/usecases.html'
-    }).state('siteconnector', {
-        url: '/siteconnector',
-        templateUrl: 'views/siteconnector.html'
-    }).state('features', {
-        url: '/features',
-        templateUrl: 'views/features.html'
-    }).state('gettingstarted', {
-        url: '/gettingstarted',
-        templateUrl: 'views/gettingstarted.html'
-    }).state('company', {
-        url: '/company',
-        templateUrl: 'views/company.html'
-    }).state('validator', {
-        url: '/validator',
-        templateUrl: 'views/validator.html'
     }).state('payment', {
         url: '/payment/:id',
         templateUrl: 'views/payment.html',
@@ -246,7 +207,7 @@ angular.module('mobbr', [
     }).state('box.task.view.pay', {
             url: '/pay',
             views: {
-                'pay@tasks': {
+                'pay@box': {
                     controller: 'TaskPayController',
                     templateUrl: 'views/task.pay.html'
                 }
@@ -291,7 +252,6 @@ angular.module('mobbr', [
             response.result.forEach(function (item) {
                 $rootScope.currenciesMap[item.currency_iso] = item;
             });
-            console.log($rootScope.currenciesMap);
         });
         $rootScope.languages = MobbrApi.isoLanguages(function (response) {
             response.result.forEach(function (item) {
@@ -340,7 +300,7 @@ angular.module('mobbr', [
             $location.path('/');
         };
 
-        function paymentModal(id, external) {
+        /*function paymentModal(id, external) {
             return mobbrModal.open({
                 backdrop: true,
                 keyboard: true,
@@ -358,16 +318,16 @@ angular.module('mobbr', [
                     }
                 }
             });
-        }
+        }*/
 
         $rootScope.openExternalPayment = function (item) {
-            //$location.path('/x-payment/' + item.id);
-            return paymentModal(item.id, true);
+            $state.go('x-payment', { id: item.id });
+            //return paymentModal(item.id, true);
         }
 
         $rootScope.openPayment = function (item) {
-            //$location.path('/payment/' + item.id);
-            return paymentModal(item.id);
+            $state.go('payment', { id: item.id });
+            //return paymentModal(item.id);
         }
 
         $rootScope.getPaymentUrl = function (id, external) {

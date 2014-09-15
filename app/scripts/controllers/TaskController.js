@@ -80,18 +80,6 @@ angular.module('mobbr.controllers').controller('TaskController', function ($scop
         });
     }
 
-    function resetTask() {
-
-        $scope.$emit('set-query');
-        $scope.$emit('set-active-query');
-        $scope.task = undefined;
-        $scope.url = undefined;
-        $scope.has_failed = false;
-        $scope.has_script = false;
-        $scope.has_payments = false;
-        $scope.has_participants = false;
-    }
-
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
 
         if ($state.includes('box.task.view') && toParams.task) {
@@ -101,7 +89,14 @@ angular.module('mobbr.controllers').controller('TaskController', function ($scop
         }
 
         if (toState.name.indexOf('box.task.view') !== 0) {
-            resetTask();
+            $scope.$emit('set-query');
+            $scope.$emit('set-active-query');
+            $scope.task = undefined;
+            $scope.url = undefined;
+            $scope.has_failed = false;
+            $scope.has_script = false;
+            $scope.has_payments = false;
+            $scope.has_participants = false;
         }
     });
 
