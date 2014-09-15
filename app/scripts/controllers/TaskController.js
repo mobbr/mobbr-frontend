@@ -2,46 +2,48 @@ angular.module('mobbr.controllers').controller('TaskController', function ($scop
     'use strict';
 
     function redirect() {
-
-        if ($scope.has_failed) {
-            switch ($state.current.name) {
-                case 'box.task.view':
-                case 'box.task.view.invite':
-                case 'box.task.view.payments':
-                case 'box.task.view.pay':
-                case 'box.task.view.persons':
-                    $state.go('box.task.view.domain');
-                    break;
+        if ($scope.task && $scope.task.$resolved) {
+            if ($scope.has_failed) {
+                switch ($state.current.name) {
+                    case 'box.task.view':
+                    case 'box.task.view.invite':
+                    case 'box.task.view.payments':
+                    case 'box.task.view.pay':
+                    case 'box.task.view.persons':
+                        $state.go('box.task.view.domain');
+                        break;
+                }
+                return;
             }
-            return;
-        }
 
-        if (!$scope.has_script) {
-            switch ($state.current.name) {
-                case 'box.task.view.invite':
-                case 'box.task.view.payments':
-                case 'box.task.view.pay':
-                case 'box.task.view.persons':
-                    $state.go('box.task.view');
-                    break;
+            if (!$scope.has_script) {
+                console.log('no script');
+                switch ($state.current.name) {
+                    case 'box.task.view.invite':
+                    case 'box.task.view.payments':
+                    case 'box.task.view.pay':
+                    case 'box.task.view.persons':
+                        $state.go('box.task.view');
+                        break;
+                }
+                return;
             }
-            return;
-        }
 
-        if (!$scope.has_payments) {
-            switch ($state.current.name) {
-                case 'box.task.view.payments':
-                    $state.go('box.task.view.pay');
-                    break;
+            if (!$scope.has_payments) {
+                switch ($state.current.name) {
+                    case 'box.task.view.payments':
+                        $state.go('box.task.view.pay');
+                        break;
+                }
+                return;
             }
-            return;
-        }
 
-        if (!$scope.has_participants) {
-            switch ($state.current.name) {
-                case 'box.task.view.persons':
-                    $state.go('box.task.view.invite');
-                    break;
+            if (!$scope.has_participants) {
+                switch ($state.current.name) {
+                    case 'box.task.view.persons':
+                        $state.go('box.task.view.invite');
+                        break;
+                }
             }
         }
     }
@@ -61,9 +63,12 @@ angular.module('mobbr.controllers').controller('TaskController', function ($scop
                 url = $scope.query;
             }
 
+            console.log(response.result);
+
             $scope.url = url;
             $scope.has_failed = false;
             $scope.has_script = response.result.script !== undefined && response.result.script.url !== undefined;
+            console.log($scope.has_script);
             $scope.has_payments = parseFloat(response.result.statistics.amount_total) > 0;
             $scope.has_participants = parseFloat(response.result.statistics.num_partipants) > 0;
             $scope.$emit('set-active-query', url);
@@ -80,18 +85,6 @@ angular.module('mobbr.controllers').controller('TaskController', function ($scop
         });
     }
 
-    function resetTask() {
-
-        $scope.$emit('set-query');
-        $scope.$emit('set-active-query');
-        $scope.task = undefined;
-        $scope.url = undefined;
-        $scope.has_failed = false;
-        $scope.has_script = false;
-        $scope.has_payments = false;
-        $scope.has_participants = false;
-    }
-
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
 
         if ($state.includes('box.task.view') && toParams.task) {
@@ -101,7 +94,14 @@ angular.module('mobbr.controllers').controller('TaskController', function ($scop
         }
 
         if (toState.name.indexOf('box.task.view') !== 0) {
-            resetTask();
+            $scope.$emit('set-query');
+            $scope.$emit('set-active-query');
+            $scope.task = undefined;
+            $scope.url = undefined;
+            $scope.has_failed = false;
+            $scope.has_script = false;
+            $scope.has_payments = false;
+            $scope.has_participants = false;
         }
     });
 

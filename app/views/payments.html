@@ -58,11 +58,11 @@
                         <tbody>
                         <tr ng-repeat="payment in pledgedTable.data | orderBy:pledgedTable.sortBy:pledgedTable.reverse">
                             <td><input type="checkbox" ng-model="payment.selected"></td>
-                            <td data-title="'Date'" sortable="'datetime'" ng-bind="payment.datetime | amDateFormat : 'YYYYMMDD HH:MM'"></td>
-                            <td data-title="'Title'" sortable="'title'" ng-bind="payment.title"></td>
-                            <td data-title="'Url'" sortable="'url'" ng-bind="payment.url"></td>
-                            <td data-title="'Currency'" sortable="'currency_iso'" ng-bind="payment.currency_iso"></td>
-                            <td data-title="'Amount'" sortable="'amount'" ng-bind="payment.amount | mobbrcurrency:''"></td>
+                            <td ng-click="openPayment(payment)" data-title="'Date'" sortable="'datetime'" ng-bind="payment.datetime | amDateFormat : 'YYYYMMDD HH:MM'"></td>
+                            <td ng-click="openPayment(payment)" data-title="'Title'" sortable="'title'" ng-bind="payment.title"></td>
+                            <td ng-click="openPayment(payment)" data-title="'Url'" sortable="'url'" ng-bind="payment.url"></td>
+                            <td ng-click="openPayment(payment)" data-title="'Currency'" sortable="'currency_iso'" ng-bind="payment.currency_iso"></td>
+                            <td ng-click="openPayment(payment)" data-title="'Amount'" sortable="'amount'" ng-bind="payment.amount | mobbrcurrency:''"></td>
                         </tr>
                         </tbody>
                     </table>
@@ -121,16 +121,16 @@
                         <tbody>
                         <tr ng-repeat="payment in unclaimedTable.data | orderBy:unclaimedTable.sortBy:unclaimedTable.reverse">
                             <td><input type="checkbox" ng-model="payment.selected"></td>
-                            <td>
+                            <td ng-click="openPayment(payment)">
                                 <img ng-src="https://secure.gravatar.com/avatar/{{ payment.username }}?s=50&default=https://mobbr.com/img/default-gravatar.png"
                                      class="gravatar img-rounded"
                                      width="50"
                                      height="50">
                                 <span ng-bind="payment.username"></span>
                             </td>
-                            <td ng-bind="payment.payment"></td>
-                            <td ng-bind="payment.currency_iso"></td>
-                            <td ng-bind="payment.amount"></td>
+                            <td ng-click="openPayment(payment)" ng-bind="payment.payment"></td>
+                            <td ng-click="openPayment(payment)" ng-bind="payment.currency_iso"></td>
+                            <td ng-click="openPayment(payment)" ng-bind="payment.amount"></td>
                         </tr>
                         </tbody>
                     </table>
@@ -185,10 +185,10 @@
                         <tbody>
                         <tr ng-repeat="payment in paymentTable.data | orderBy:paymentTable.sortBy:paymentTable.reverse">
                             <td><input type="checkbox" ng-model="payment.selected"></td>
-                            <td ng-bind="payment.datetime | amDateFormat : 'YYYYMMDD HH:MM'"></td>
-                            <td>{{payment.title?payment.title:payment.url}}</td>
-                            <td ng-bind="payment.currency_iso"></td>
-                            <td ng-bind="payment.amount | mobbrcurrency:''"></td>
+                            <td ng-click="openPayment(payment)" ng-bind="payment.datetime | amDateFormat : 'YYYYMMDD HH:MM'"></td>
+                            <td ng-click="openPayment(payment)">{{payment.title?payment.title:payment.url}}</td>
+                            <td ng-click="openPayment(payment)" ng-bind="payment.currency_iso"></td>
+                            <td ng-click="openPayment(payment)" ng-bind="payment.amount | mobbrcurrency:''"></td>
                         </tr>
                         </tbody>
                     </table>

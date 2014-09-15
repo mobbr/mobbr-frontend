@@ -17,6 +17,8 @@
     </div>
 </div>
 
+<div ui-view="pay" class="task-pay"></div>
+
 <div class="row top-info">
     <div class="container">
         <div class="row">
@@ -105,7 +107,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="payment in payments">
+                            <tr ng-repeat="payment in payments" ng-click="openExternalPayment(payment)">
                                 <td ng-bind="payment.paiddatetime?(payment.paiddatetime | amDateFormat : 'YYMMDD HH:MM'):payment.service_message"></td>
                                 <td ng-bind="payment.payment_service"></td>
                                 <td ng-bind="payment.currency_iso"></td>
@@ -168,7 +170,7 @@
                                 <fieldset ng-repeat="address in wallet.addresses">
                                     <label class="title control-label col-sm-3">Address</label>
                                     <div class="col-sm-7">
-                                        <input class="form-control" type="text" ng-model="address" disabled>
+                                        <input class="form-control" type="text" ng-model="address.bitcoin" disabled>
                                     </div>
                                 </fieldset>
                                 <fieldset>

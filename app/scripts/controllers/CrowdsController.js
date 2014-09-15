@@ -7,12 +7,9 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
         }
     }
 
-    $scope.form = {};
-    $scope.selectedPersons = [];
-
     function findPeopleOnTags(keywords) {
 
-        $scope.persons = MobbrPerson.taskCandidates({
+        $scope.persons = MobbrPerson.get({
             keywords: keywords,
             language: $scope.filter_language
         });
@@ -30,7 +27,7 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
     }
 
     function findPeopleOnUrl(url) {
-        $scope.persons = MobbrPerson.taskCandidates({
+        $scope.persons = MobbrPerson.get({
             url: url
         }, function () {
             $scope.$emit('set-active-query', url);
@@ -67,10 +64,18 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
     };
 
     $scope.$on('update-tags', function () {
+
         if($scope.filteredTags && $scope.filteredTags.length > 0){
             findPeopleOnTags($scope.filteredTags);
         } else {
             findPeopleOnUrl($scope.query);
+        }
+    });
+
+    $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
+        if (toState.name.indexOf('box.crowds') !== 0) {
+            $scope.$emit('set-query');
+            $scope.$emit('set-active-query');
         }
     });
 
@@ -79,4 +84,6 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
     }
 
     $scope.$watch('filter_language', filterUpdate);
+    $scope.form = {};
+    $scope.selectedPersons = [];
 });
