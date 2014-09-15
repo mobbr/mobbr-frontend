@@ -17,7 +17,6 @@ angular.module('mobbr.controllers').controller('TaskController', function ($scop
             }
 
             if (!$scope.has_script) {
-                console.log('no script');
                 switch ($state.current.name) {
                     case 'box.task.view.invite':
                     case 'box.task.view.payments':

@@ -2,14 +2,14 @@
     <div class="container">
         <div class="row">
             <fieldset ng-disabled="(tasks && !tasks.$resolved) || (tags && !tags.$resolved)" class="form-horizontal">
-                <div class="col-md-3 title">
+                <div class="col-md-6 title">
                     <span class="glyphicon glyphicon-ok"></span>
                     <strong>Filter by</strong>
                 </div>
                 <div class="col-md-3">
                     <div ng-show="mobbrSession.isAuthorized()" class="checkbox">
                         <label>
-                            <input type="checkbox" ng-model="user_tasks">
+                            <input type="checkbox" ng-click="user_tasks && $state.go('^') || $state.go('box.tasks.my')" ng-model="user_tasks">
                             My tasks
                         </label>
                     </div>
@@ -21,12 +21,12 @@
                         <option value="">Choose language</option>
                     </select>
                 </div>
-                <div class="col-md-3">
+                <!--<div class="col-md-3">
                     <select class="form-control"
                             ng-options="option.code as option.name for option in order_options"
                             ng-model="filter_order">
                     </select>
-                </div>
+                </div>-->
             </fieldset>
         </div>
     </div>
