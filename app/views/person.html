@@ -1,3 +1,13 @@
+<div class="row top-bar">
+    <div class="container">
+        <div class="row left-pad">
+            <div class="col-md-12">
+                <h1>Profile</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div id="persondetail">
 
     <div class="row">
@@ -10,9 +20,9 @@
                          height="200">
 
                 <div class="col-md-8">
-                    <div>
+                    <h2>
                         {{ person.user.firstname }} {{ person.user.lastname }} <span class="" ng-show="person.user.kyc_level == 'regular'"></span> <span ng-show="person.user.kyc_level == 'regular'">|</span>
-                    </div>
+                    </h2>
                     <div ng-show="person.user.occupation" ng-bind="person.user.occupation">
 
                     </div>
@@ -47,9 +57,7 @@
             Performance
             <span class="pull-right">
                 <span ng-show="person.stats.num_domain">{{person.stats.num_domain}} domains</span>
-                <button class="btn btn-primary" href="/tasks">View {{person.stats.num_urls}} tasks</button>
-            </span>
-
+                <span ng-show="person.stats.num_urls">{{person.stats.num_urls}} tasks</button>
             </span>
         </div>
     </div>
