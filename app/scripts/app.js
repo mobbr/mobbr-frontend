@@ -161,8 +161,8 @@ angular.module('mobbr', [
         data: {
             title: 'Explore tasks'
         }
-    }).state('box.tasks.tag', {
-        url: '/:tag'
+    }).state('box.tasks.my', {
+        url: '/my'
     }).state('box.task', {
         abstract: true,
         views: {

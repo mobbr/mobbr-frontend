@@ -1,9 +1,18 @@
 angular.module('mobbr.controllers').controller('CrowdsController', function ($scope, $state, $window, $rootScope, mobbrSession, MobbrUri, MobbrPerson, MobbrKeywords) {
     'use strict';
 
-    function filterUpdate(newValue, oldValue) {
-        if (newValue !== oldValue) {
-            $scope.$emit('filter-update');
+    function languageUpdate(newValue, oldValue) {
+        if (newValue && newValue !== oldValue) {
+            $scope.$emit('language-update', newValue);
+            queryPeople();
+        }
+    }
+
+    function queryPeople() {
+        if($scope.filteredTags && $scope.filteredTags.length > 0){
+            findPeopleOnTags($scope.filteredTags);
+        } else {
+            findPeopleOnUrl($scope.query);
         }
     }
 
@@ -63,27 +72,26 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
         });
     };
 
-    $scope.$on('update-tags', function () {
-
-        if($scope.filteredTags && $scope.filteredTags.length > 0){
-            findPeopleOnTags($scope.filteredTags);
-        } else {
-            findPeopleOnUrl($scope.query);
+    $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState) {
+        if (fromState.name === 'box.crowds.task' && toState.name !== 'box.crowds.task') {
+            $scope.$emit('set-active-query');
+            $scope.$emit('set-query');
         }
     });
 
-    $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
-        if (toState.name.indexOf('box.crowds') !== 0) {
-            $scope.$emit('set-query');
-            $scope.$emit('set-active-query');
+    $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+        if (toState.name.indexOf('box.crowds') === 0 && toParams.task) {
+            $scope.$emit('set-active-query', $window.atob(toParams.task));
         }
     });
 
     if ($state.params.task) {
         $scope.$emit('set-query', $window.atob($state.params.task));
+        $scope.$emit('set-active-query', $window.atob($state.params.task));
     }
 
-    $scope.$watch('filter_language', filterUpdate);
+    $scope.$on('update-tags', queryPeople);
+    $scope.$watch('filter_language', languageUpdate, true);
     $scope.form = {};
     $scope.selectedPersons = [];
 });
