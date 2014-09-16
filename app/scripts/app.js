@@ -108,7 +108,7 @@ angular.module('mobbr', [
     }).state('wallet.addresses', {
         url: '/addresses'
     }).state('payments', {
-
+        url: '/payments',
         templateUrl: 'views/payments.html',
         controller: 'PaymentsController',
         data: {
@@ -116,11 +116,9 @@ angular.module('mobbr', [
             redirectTo: 'main'
         }
     }).state('payments.pledges', {
-        url: '/payments'
+        url: '/pledges'
     }).state('payments.unclaimed', {
-        url: '/payments/unclaimed'
-    }).state('payments.payments', {
-        url: '/payments/payments'
+        url: '/unclaimed'
     }).state('payment', {
         url: '/payment/:id',
         templateUrl: 'views/payment.html',
