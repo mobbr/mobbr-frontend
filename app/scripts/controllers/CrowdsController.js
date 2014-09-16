@@ -79,7 +79,7 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
         }
     });
 
-    if ($state.params.task) {
+    if ($state.params && $state.params.task) {
         $scope.$emit('set-query', $window.atob($state.params.task));
     }
 
