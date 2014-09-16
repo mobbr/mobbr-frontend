@@ -3,19 +3,16 @@
         <div class="row pay-task">
             <form class="col-md-12">
                 <div class="row">
-                    <fieldset ng-if="!activeQuery">
+                    <fieldset ng-show="!activeQuery">
                         <div class="row">
                             <div class="col-md-12">
                                 <input class="form-control"
                                        required
-                                       ng-model="activeQuery"
-                                       step="any"
-                                       min="0"
-                                       max="1000000000">
+                                       ng-model="payQuery">
                             </div>
                         </div>
                     </fieldset>
-                    <fieldset ng-disabled="!activeQuery || payment" class="col-md-6">
+                    <fieldset ng-disabled="(!activeQuery && !payQuery) || (payment && !payError)" class="col-md-6">
                         <div class="row">
                             <div class="col-md-4">
                                 <select class="form-control"
@@ -45,7 +42,7 @@
                     <fieldset class="col-md-6">
                         <div class="row">
                             <div class="col-md-4">
-                                <button ng-disabled="!currency || !amount || payment"
+                                <button ng-disabled="!currency || !amount || (payment && !payError)"
                                         ng-click="preview()"
                                         class="btn btn-default btn-block"
                                         type="submit">
@@ -53,6 +50,7 @@
                                 </button>
                             </div>
                             <div class="col-md-6">
+                                <span ng-bind="confirm.message.type"></span>
                                 <button ng-disabled="!currency || !amount || confirm.$resolved"
                                         ng-click="payment.result.hash ? pay() : previewPay()"
                                         ng-bind="confirm.message.text || task.result.script.pledge && 'Pledge' || 'Pay'"

@@ -4,7 +4,7 @@ angular.module('mobbr.controllers').controller('PayController', function ($scope
 
     function preview() {
 
-        var data = $state.includes('box.task') && window.atob($state.params.task) || $scope.activeQuery;
+        var data = $state.includes('box.task') && window.atob($state.params.task) || $scope.activeQuery || $scope.payQuery;
 
         return $scope.payment = MobbrPayment.preview({
             data: data,
@@ -12,17 +12,26 @@ angular.module('mobbr.controllers').controller('PayController', function ($scope
             amount: $scope.amount,
             invoiced: $scope.invoiced || false,
             referrer: $window.location.href
+        }, function () {
+            $scope.confirm = undefined;
+            $scope.payError = false;
         });
     }
 
     $scope.preview = function () {
         $scope.show_preview = true;
-        return preview();
+        preview();
     }
 
     $scope.pay = function () {
         $scope.confirm = MobbrPayment.confirm({
             hash: $scope.payment.result.hash
+        }, function (response) {
+            $scope.payment = undefined;
+            $scope.payError = false;
+        }, function (response) {
+            $scope.payment = undefined;
+            $scope.payError = true;
         });
     }
 
