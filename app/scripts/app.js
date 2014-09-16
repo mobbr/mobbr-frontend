@@ -117,6 +117,8 @@ angular.module('mobbr', [
         }
     }).state('payments.pledges', {
         url: '/pledges'
+    }).state('payments.payments', {
+        url: '/payments'
     }).state('payments.unclaimed', {
         url: '/unclaimed'
     }).state('payment', {
