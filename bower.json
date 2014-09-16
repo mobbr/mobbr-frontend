@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "dependencies": {
     "angular": "1.2.20",
-    "angular-route": "~1.2.20",
-    "angular-resource": "1.2.20",
-    "angular-animate": "1.2.20",
+    "angular-route": "~1.2.24",
+    "angular-resource": "1.2.24",
+    "angular-animate": "1.2.24",
     "ngstorage": "~0.3.0",
     "angular-bootstrap": "0.11.0",
     "modernizr": "~2.6.2",
@@ -23,8 +23,8 @@
     "purl": "2.3.1"
   },
   "devDependencies": {
-    "angular-mocks": "1.2.20",
-    "angular-scenario": "1.2.20"
+    "angular-mocks": "1.2.24",
+    "angular-scenario": "1.2.24"
   },
   "ignore": [
     "**/.*",
