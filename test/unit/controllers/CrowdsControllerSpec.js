@@ -102,7 +102,7 @@ describe('mobbr.controllers: CrowdsController', function () {
     }
 
     function expectArtikel() {
-        expectTagsOnArtikel();
+//        expectTagsOnArtikel();
         expectPeopleOnUrl();
     }
 
