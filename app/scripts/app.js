@@ -228,8 +228,17 @@ angular.module('mobbr', [
             data: {
                 title: 'Find crowds'
             }
-        }).state('box.crowds.task', {
+        }
+    ).state('box.crowds.task', {
             url: '/:task'
+        }
+    ).state('person', {
+            url: '/person/:username',
+            controller: 'PersonController',
+            templateUrl: 'views/person.html',
+            data: {
+                title: 'Profile'
+            }
         });
 
 
@@ -355,6 +364,11 @@ angular.module('mobbr', [
             $location.hash(id);
             $anchorScroll();
         };
+
+        $rootScope.idProviders = [];
+        MobbrApi.idProviders().$promise.then(function(response){
+            $rootScope.idProviders = response.result;
+        });
 
 
     }
