@@ -100,11 +100,13 @@ angular.module('mobbr', [
                 }
             }
     }).state('wallet.deposit', {
-        url: '/deposit',
-        templateUrl: 'views/wallet.deposit.html'
+        url: '/deposit'
     }).state('wallet.withdraw', {
-        url: '/withdraw',
-        templateUrl: 'views/wallet.withdraw.html'
+        url: '/withdraw'
+    }).state('wallet.x-payments', {
+        url: '/x-payments'
+    }).state('wallet.addresses', {
+        url: '/addresses'
     }).state('payments', {
 
         templateUrl: 'views/payments.html',
