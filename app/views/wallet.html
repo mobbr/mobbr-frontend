@@ -73,16 +73,14 @@
     </div>
 </div>
 
-<accordion>
-    <accordion-group is-open="xpayments.open">
+<accordion state-accordion="wallet">
+    <accordion-group is-open="stateAccordion['wallet.x-payments']">
         <accordion-heading>
             <div class="container">
                 <div class="row no-pad">
                     <div class="col-xs-10 title">
-                        <a ui-sref="wallet.x-payments">
-                            <span class="glyphicon glyphicon-ok"></span>
-                            <strong>Deposits & withdrawls</strong>
-                        </a>
+                        <span class="glyphicon glyphicon-ok"></span>
+                        <strong>Deposits & withdrawls</strong>
                     </div>
                     <div class="icons">
                         <div class="col-xs-1 text-center icon">
@@ -122,15 +120,13 @@
             </div>
         </div>
     </accordion-group>
-    <accordion-group is-open="addresses.open">
+    <accordion-group is-open="stateAccordion['wallet.addresses']">
         <accordion-heading>
             <div class="container">
                 <div class="row no-pad">
                     <div class="col-xs-10 title">
-                        <a ui-sref="wallet.addresses">
-                            <span class="glyphicon glyphicon-ok"></span>
-                            <strong>Wallet addresses</strong>
-                        </a>
+                        <span class="glyphicon glyphicon-ok"></span>
+                        <strong>Wallet addresses</strong>
                     </div>
                     <div class="icons">
                         <div class="col-xs-1 text-center icon">
