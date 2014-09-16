@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('UserSettingsController', function ($scope, $rootScope, $upload, $http, $window, $interval, apiUrl, uiUrl, MobbrUser, mobbrMsg, mobbrSession, MobbrApi) {
+angular.module('mobbr.controllers').controller('UserSettingsController', function ($scope, $state, $rootScope, $upload, $http, $window, $interval, apiUrl, uiUrl, MobbrUser, mobbrMsg, mobbrSession, MobbrApi) {
 
     var popup_url,
         oauth_popup;
@@ -41,7 +41,6 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
         }
 
     });
-
 
     $scope.uploadIdentityProof = function (files) {
         MobbrUser.updateUser({ user: $rootScope.$mobbrStorage.user }, function () {
