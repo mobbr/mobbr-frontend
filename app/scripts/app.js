@@ -70,26 +70,19 @@ angular.module('mobbr', [
         controller: 'UserSettingsController',
         data: { authenticated: true, redirectTo: 'main' }
     }).state('settings.account', {
-        url: '/settings',
-        templateUrl: 'views/settings.account.html'
+        url: '/account'
     }).state('settings.identity', {
-        url: '/settings/identity',
-        templateUrl: 'views/settings.identity.html'
+        url: '/identity'
     }).state('settings.proof', {
-        url: '/settings/proof',
-        templateUrl: 'views/settings.proof.html'
+        url: '/proof'
     }).state('settings.invoicing', {
-        url: '/settings/invoicing',
-        templateUrl: 'views/settings.invoicing.html'
+        url: '/invoicing'
     }).state('settings.display', {
-        url: '/settings/display',
-        templateUrl: 'views/settings.display.html'
+        url: '/display'
     }).state('settings.privacy', {
-        url: '/settings/privacy',
-        templateUrl: 'views/settings.privacy.html'
+        url: '/privacy'
     }).state('settings.notifications', {
-        url: '/settings/notifications',
-        templateUrl: 'views/settings.notifications.html'
+        url: '/notifications'
     }).state('wallet', {
         url: '/wallet',
         templateUrl: 'views/wallet.html',

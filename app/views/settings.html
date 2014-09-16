@@ -15,8 +15,10 @@
                 <div class="container">
                     <div class="row no-pad">
                         <div class="col-xs-10 title">
-                            <span class="glyphicon glyphicon-ok"></span>
-                            <strong>My Account</strong>
+                            <a ui-sref="settings.account">
+                                <span class="glyphicon glyphicon-ok"></span>
+                                <strong>My Account</strong>
+                            </a>
                         </div>
                         <div class="icons">
                             <div class="col-xs-1 text-center icon">
@@ -36,9 +38,11 @@
                 <div class="container">
                     <div class="row no-pad">
                         <div class="col-xs-10 title">
-                            <span ng-class="countIdentityCompleted() == 6 ? 'glyphicon-ok' : 'glyphicon-warning-sign'"
-                                  class="glyphicon"></span>
-                            <strong>My Identity</strong> {{countIdentityCompleted()}} / 6 completed
+                            <a ui-sref="settings.identity">
+                                <span ng-class="countIdentityCompleted() == 6 ? 'glyphicon-ok' : 'glyphicon-warning-sign'"
+                                      class="glyphicon"></span>
+                                <strong>My Identity</strong> {{countIdentityCompleted()}} / 6 completed
+                            </a>
                         </div>
                         <div class="icons">
                             <div class="col-xs-1 text-center icon">
@@ -58,9 +62,11 @@
                 <div class="container">
                     <div class="row no-pad">
                         <div class="col-xs-10 title">
-                            <span ng-class="countProofCompleted() == 3 ? 'glyphicon-ok' : 'glyphicon-warning-sign'"
-                                  class="glyphicon"></span>
-                            <strong>Proof</strong> {{countProofCompleted()}} / 3 completed
+                            <a ui-sref="settings.proof">
+                                <span ng-class="countProofCompleted() == 3 ? 'glyphicon-ok' : 'glyphicon-warning-sign'"
+                                      class="glyphicon"></span>
+                                <strong>Proof</strong> {{countProofCompleted()}} / 3 completed
+                            </a>
                         </div>
                         <div class="icons">
                             <div class="col-xs-1 text-center icon">
@@ -80,9 +86,11 @@
                 <div class="container">
                     <div class="row no-pad">
                         <div class="col-xs-10 title">
-                            <span ng-class="countInvoicingCompleted() == 2 ? 'glyphicon-ok' : 'glyphicon-warning-sign'"
-                                  class="glyphicon"></span>
-                            <strong>Invoicing</strong> {{countInvoicingCompleted()}} / 2 completed
+                            <a ui-sref="settings.invoicing">
+                                <span ng-class="countInvoicingCompleted() == 2 ? 'glyphicon-ok' : 'glyphicon-warning-sign'"
+                                      class="glyphicon"></span>
+                                <strong>Invoicing</strong> {{countInvoicingCompleted()}} / 2 completed
+                            </a>
                         </div>
                         <div class="icons">
                             <div class="col-xs-1 text-center icon">
@@ -102,9 +110,11 @@
                 <div class="container">
                     <div class="row no-pad">
                         <div class="col-xs-10 title">
-                            <span ng-class="countDisplayCompleted() == 3 ? 'glyphicon-ok' : 'glyphicon-warning-sign'"
-                                  class="glyphicon"></span>
-                            <strong>Display</strong> {{countDisplayCompleted()}} / 3 completed
+                            <a ui-sref="settings.display">
+                                <span ng-class="countDisplayCompleted() == 3 ? 'glyphicon-ok' : 'glyphicon-warning-sign'"
+                                      class="glyphicon"></span>
+                                <strong>Display</strong> {{countDisplayCompleted()}} / 3 completed
+                            </a>
                         </div>
                         <div class="icons">
                             <div class="col-xs-1 text-center icon">
@@ -124,8 +134,10 @@
                 <div class="container">
                     <div class="row no-pad">
                         <div class="col-xs-10 title">
-                            <span class="glyphicon glyphicon-ok"></span>
-                            <strong>Privacy</strong>
+                            <a ui-sref="settings.privacy">
+                                <span class="glyphicon glyphicon-ok"></span>
+                                <strong>Privacy</strong>
+                            </a>
                         </div>
                         <div class="icons">
                             <div class="col-xs-1 text-center icon">
@@ -145,8 +157,10 @@
                 <div class="container">
                     <div class="row no-pad">
                         <div class="col-xs-10 title">
-                            <span class="glyphicon glyphicon-ok"></span>
-                            <strong>Notifications</strong>
+                            <a ui-sref="settings.notifications">
+                                <span class="glyphicon glyphicon-ok"></span>
+                                <strong>Notifications</strong>
+                            </a>
                         </div>
                         <div class="icons">
                             <div class="col-xs-1 text-center icon">
