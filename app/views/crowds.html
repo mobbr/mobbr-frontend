@@ -35,8 +35,8 @@
 
 <div ng-class="{ loading: persons && !persons.$resolved }" class="row data-cards data-cards-persons">
     <div ng-repeat="person in persons.result" class="col-md-3 data-card-container">
-        <div class="data-card" ng-click="$scope.tags.$resolved && (person.selected = !person.selected);$scope.tags.$resolved && addPerson(person);">
-            <input ng-show="$scope.tags.$resolved" type="checkbox" ng-model="person.selected"  class="pull-right">
+        <div class="data-card" ng-click="tags.$resolved && (person.selected = !person.selected);tags.$resolved && addPerson(person);">
+            <input ng-show="tags.$resolved" type="checkbox" ng-model="person.selected"  class="pull-right">
             <img ng-src="https://secure.gravatar.com/avatar/{{ person['gravatar'] }}?s=50&default=https://mobbr.com/img/default-gravatar.png"
                  width="50"
                  height="50"
