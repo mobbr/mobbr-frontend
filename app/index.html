@@ -59,7 +59,7 @@
         <script src="components/mobbr-button/mobbr.js"></script>
         <!-- endbuild -->
     </head>
-    <body ng-app="mobbrWeb" id="ng-app" idle-timeout ng-class="{ 'mobbr-test': isTest(), 'ng-app': true, 'loading': loading, 'payments': $state.includes('wallet') || $state.includes('payments') || $state.includes('payment') || $state.includes('x-payment'), 'updates': $state.includes('updates'), 'crowds': $state.includes('box.crowds') }">
+    <body ng-app="mobbrWeb" id="ng-app" idle-timeout ng-class="{ 'mobbr-test': isTest(), 'ng-app': true, 'loading': loading, 'payments': $state.includes('wallet') || $state.includes('payments') || $state.includes('payment') || $state.includes('x-payment'), 'updates': $state.includes('updates'), 'crowds': $state.includes('box.crowds') || $state.includes('person') }">
         <!--[if lt IE 10]>
         <p class="chromeframe">
             You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser
@@ -203,9 +203,9 @@
                                     </ul>
 
                                     <ul ng-show="mobbrSession && mobbrSession.isAuthorized()" class="dropdown-menu logo-menu" role="menu">
-                                        <!--<li>
-                                            <a href="#">My profile</a>
-                                        </li>--->
+                                        <li>
+                                            <a ng-href="{{ $state.href('person', { username: $mobbrStorage.user.username }) }}">My profile</a>
+                                        </li>
                                         <li>
                                             <a ng-href="{{ $state.href('settings') }}">Settings</a>
                                         </li>
@@ -261,6 +261,7 @@
         <script src="scripts/controllers/UpdateEmailController.js"></script>
         <script src="scripts/controllers/UpdatesController.js"></script>
         <script src="scripts/controllers/JoinController.js"></script>
+        <script src="scripts/controllers/PersonController.js"></script>
         <script src="scripts/controllers/PaymentsController.js"></script>
         <script src="scripts/controllers/TaskController.js"></script>
         <script src="scripts/controllers/TaskDomainController.js"></script>
