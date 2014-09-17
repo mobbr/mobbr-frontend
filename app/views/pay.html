@@ -50,7 +50,6 @@
                                 </button>
                             </div>
                             <div class="col-md-6">
-                                <span ng-bind="confirm.message.type"></span>
                                 <button ng-disabled="!currency || !amount || confirm.$resolved"
                                         ng-click="payment.result.hash ? pay() : previewPay()"
                                         ng-bind="confirm.message.text || task.result.script.pledge && 'Pledge' || 'Pay'"

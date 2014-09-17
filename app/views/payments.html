@@ -32,7 +32,7 @@
             <div class="row no-margin">
                 <div class="col-md-12">
                     <button ng-click="removePledes()" class="btn btn-primary"
-                            ng-show="filterSelectedIds(pledgedTable.data).length > 0">Delete selected pledges
+                            ng-disabled="filterSelectedIds(pledgedTable.data).length == 0">Delete selected pledges
                     </button>
                     <table class="table">
                         <thead>
@@ -43,9 +43,6 @@
                             </th>
                             <th ng-click="pledgedTable.sortBy='title'; pledgedTable.reverse=!pledgedTable.reverse">
                                 Title
-                            </th>
-                            <th ng-click="pledgedTable.sortBy='url'; pledgedTable.reverse=!pledgedTable.reverse">
-                                Url
                             </th>
                             <th ng-click="pledgedTable.sortBy='currency_iso'; pledgedTable.reverse=!pledgedTable.reverse">
                                 Currency
@@ -58,11 +55,12 @@
                         <tbody>
                         <tr ng-repeat="payment in pledgedTable.data | orderBy:pledgedTable.sortBy:pledgedTable.reverse">
                             <td><input type="checkbox" ng-model="payment.selected"></td>
-                            <td ng-click="openPayment(payment)" data-title="'Date'" sortable="'datetime'" ng-bind="payment.datetime | amDateFormat : 'YYYYMMDD HH:MM'"></td>
-                            <td ng-click="openPayment(payment)" data-title="'Title'" sortable="'title'" ng-bind="payment.title"></td>
-                            <td ng-click="openPayment(payment)" data-title="'Url'" sortable="'url'" ng-bind="payment.url"></td>
+                            <td ng-click="openPayment(payment)" data-title="'Date'" sortable="'paiddatetime'" title="{{ payment.paiddatetime }}">
+                                <time am-time-ago="payment.paiddatetime" datetime="{{ payment.paiddatetime }}"></time>
+                            </td>
+                            <td ng-click="openPayment(payment)" data-title="'Title'" sortable="'title'" ng-bind="payment.title?payment.title:payment.url"></td>
                             <td ng-click="openPayment(payment)" data-title="'Currency'" sortable="'currency_iso'" ng-bind="payment.currency_iso"></td>
-                            <td ng-click="openPayment(payment)" data-title="'Amount'" sortable="'amount'" ng-bind="payment.amount | mobbrcurrency:''"></td>
+                            <td ng-click="openPayment(payment)" data-title="'Amount'" sortable="'amount'" ng-bind-html="payment.amount | mobbrcurrency:'':true:true"></td>
                         </tr>
                         </tbody>
                     </table>
@@ -93,11 +91,7 @@
             <div class="row no-margin">
                 <div class="col-md-12">
                     <button ng-click="revokeSelectedShares()" class="btn btn-primary"
-                            ng-show="filterSelectedIds(unclaimedTable.data).length > 0">Delete selected shares
-                    </button>
-
-                    <button ng-click="downloadInvoiceSelectedShares()" class="btn btn-primary"
-                            ng-show="filterSelectedIds(unclaimedTable.data).length > 0">Download invoice selected
+                            ng-disabled="filterSelectedIds(unclaimedTable.data).length == 0">Delete selected shares
                     </button>
 
                     <table class="table" >
@@ -107,8 +101,11 @@
                             <th ng-click="unclaimedTable.sortBy='username'; unclaimedTable.reverse=!unclaimedTable.reverse">
                                 Participant
                             </th>
-                            <th ng-click="unclaimedTable.sortBy='payment'; unclaimedTable.reverse=!unclaimedTable.reverse">
-                                Payment
+                            <th ng-click="pledgedTable.sortBy='datetime'; pledgedTable.reverse=!pledgedTable.reverse">
+                                Date
+                            </th>
+                            <th ng-click="unclaimedTable.sortBy='title'; unclaimedTable.reverse=!unclaimedTable.reverse">
+                                Title
                             </th>
                             <th ng-click="unclaimedTable.sortBy='currency_iso'; unclaimedTable.reverse=!unclaimedTable.reverse">
                                 Currency
@@ -121,16 +118,21 @@
                         <tbody>
                         <tr ng-repeat="payment in unclaimedTable.data | orderBy:unclaimedTable.sortBy:unclaimedTable.reverse">
                             <td><input type="checkbox" ng-model="payment.selected"></td>
-                            <td ng-click="openPayment(payment)">
-                                <img ng-src="https://secure.gravatar.com/avatar/{{ payment.username }}?s=50&default=https://mobbr.com/img/default-gravatar.png"
-                                     class="gravatar img-rounded"
-                                     width="50"
-                                     height="50">
-                                <span ng-bind="payment.username"></span>
+                            <td>
+                                <a ng-href="{{ payment.recipient_id }}" target="_blank">
+                                    <img ng-src="https://secure.gravatar.com/avatar/{{ payment.gravatar }}?s=50&default=https://mobbr.com/img/default-gravatar.png"
+                                         class="gravatar img-rounded"
+                                         width="30"
+                                         height="30">
+                                    <span ng-bind="payment.recipient_id"></span>
+                                </a>
                             </td>
-                            <td ng-click="openPayment(payment)" ng-bind="payment.payment"></td>
+                            <td ng-click="openPayment(payment)" data-title="'Date'" sortable="'datetime'" title="{{ payment.datetime }}">
+                                <time am-time-ago="payment.datetime" datetime="{{ payment.datetime }}"></time>
+                            </td>
+                            <td ng-click="openPayment(payment)" ng-bind="payment.title?payment.title:payment.url"></td>
                             <td ng-click="openPayment(payment)" ng-bind="payment.currency_iso"></td>
-                            <td ng-click="openPayment(payment)" ng-bind="payment.amount"></td>
+                            <td ng-click="openPayment(payment)" ng-bind-html="payment.amount | mobbrcurrency:'':true:true"></td>
                         </tr>
                         </tbody>
                     </table>
@@ -161,7 +163,7 @@
             <div class="row no-margin">
                 <div class="col-md-12">
                     <button ng-click="downloadInvoiceSelectedPayments()" class="btn btn-primary"
-                            ng-show="filterSelectedIds(paymentTable.data).length > 0">Download invoice selected
+                            ng-disabled="filterSelectedIds(paymentTable.data).length == 0">Download invoice selected
                     </button>
                     <input type="text" ng-model="paymentTable.search">
                     <table class="table">
@@ -184,11 +186,13 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="payment in paymentTable.data | orderBy:paymentTable.sortBy:paymentTable.reverse">
-                            <td><input type="checkbox" ng-model="payment.selected"></td>
-                            <td ng-click="openPayment(payment)" ng-bind="payment.datetime | amDateFormat : 'YYYYMMDD HH:MM'"></td>
+                            <td><input ng-disabled="!payment.invoiced" type="checkbox" ng-model="payment.selected"></td>
+                            <td ng-click="openPayment(payment)" title="{{ payment.datetime }}">
+                                <time am-time-ago="payment.datetime" datetime="{{ payment.datetime }}"></time>
+                            </td>
                             <td ng-click="openPayment(payment)">{{payment.title?payment.title:payment.url}}</td>
                             <td ng-click="openPayment(payment)" ng-bind="payment.currency_iso"></td>
-                            <td ng-click="openPayment(payment)" ng-bind="payment.amount | mobbrcurrency:''"></td>
+                            <td ng-click="openPayment(payment)" ng-bind-html="payment.amount | mobbrcurrency:'':true:true"></td>
                         </tr>
                         </tbody>
                     </table>
