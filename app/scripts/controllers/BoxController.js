@@ -1,34 +1,47 @@
 /* global purl */
-angular.module('mobbr.controllers').controller('BoxController', function ($scope, $rootScope, $state, $window, mobbrSession, MobbrKeywords) {
+angular.module('mobbr.controllers').controller('BoxController', function ($scope, $rootScope, $state, $window, mobbrSession, MobbrKeywords, MobbrUri) {
     'use strict';
 
     var language;
 
-    function filterTags() {
+    function filterTags(tags) {
+        tags = tags || $scope.tags.result;
         $scope.filteredTags = [];
-        angular.forEach($scope.tags.result, function (keyword) {
-            $scope.filteredTags.push(keyword.keyword);
+        angular.forEach(tags, function (keyword) {
+            $scope.filteredTags.push(keyword.keyword || keyword);
         });
     }
 
     function topTags() {
         $scope.tags = MobbrKeywords.get({
             language: language
-        }, filterTags);
+        }, function () {
+            filterTags();
+        });
     }
 
     function userTags() {
         $scope.tags = MobbrKeywords.person({
             language: language,
             username: $rootScope.$mobbrStorage.user.username
-        }, filterTags);
+        }, function () {
+            filterTags();
+        });
     }
 
     function urlTags(url) {
-        $scope.tags = MobbrKeywords.uri({
-            language: language,
+        $scope.tags = MobbrUri.info({
+            //include_statistics: false,
             url: url
-        }, filterTags);
+        }, function (response) {
+            $scope.query = url;
+            $scope.activeQuery = url;
+            filterTags(response.result.script.keywords || []);
+        }, function () {
+            $scope.query = null;
+            $scope.activeQuery = null;
+            $state.go('^');
+        });
     }
 
     $scope.resetTags = function () {
@@ -74,6 +87,8 @@ angular.module('mobbr.controllers').controller('BoxController', function ($scope
         if (toState.name.split('.')[1] !== fromState.name.split('.')[1]) {
             $scope.tags = null;
             $scope.filteredTags = null;
+            $scope.query = null;
+            $scope.activeQuery = null;
         }
     });
 
