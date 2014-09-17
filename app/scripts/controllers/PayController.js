@@ -10,7 +10,7 @@ angular.module('mobbr.controllers').controller('PayController', function ($scope
             data: data,
             currency: $scope.currency.currency_iso,
             amount: $scope.amount,
-            invoiced: $scope.invoiced || false,
+            invoiced: $scope.invoices || false,
             referrer: $window.location.href
         }, function () {
             $scope.confirm = undefined;
