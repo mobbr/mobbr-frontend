@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('TasksController', function ($scope, $rootScope, $state, $stateParams, mobbrSession, MobbrUri, MobbrKeywords, MobbrApi) {
+angular.module('mobbr.controllers').controller('TasksController', function ($scope, $rootScope, MobbrUri) {
 
     function languageUpdate(newValue, oldValue) {
         if (newValue && newValue !== oldValue) {
@@ -12,7 +12,8 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
     function queryTasks() {
         $scope.tasks = MobbrUri.get({
             language: $scope.filter_language,
-            keywords: $scope.filteredTags
+            keywords: $scope.user_tasks ? null : $scope.filteredTags,
+            username: $scope.user_tasks ? $rootScope.$mobbrStorage.user.username : null
         });
     }
 

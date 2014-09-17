@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('UserSettingsController', function ($scope, $state, $rootScope, $upload, $http, $window, $interval, apiUrl, uiUrl, MobbrUser, mobbrMsg, mobbrSession, MobbrApi) {
+angular.module('mobbr.controllers').controller('UserSettingsController', function ($scope, $state, $rootScope, $upload, $http, $window, $interval, apiUrl, uiUrl, MobbrUser, mobbrMsg, mobbrSession) {
 
     var popup_url,
         oauth_popup;
