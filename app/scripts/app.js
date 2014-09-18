@@ -103,6 +103,9 @@ angular.module('mobbr', [
                 resolve: {
                     balance: function (MobbrBalance) {
                         return MobbrBalance.get().$promise;
+                    },
+                    supportedCurrencies: function (MobbrXPayment) {
+                        return MobbrXPayment.supportedCurrencies().$promise;
                     }
                 }
             }).state('wallet.pay', {
@@ -152,13 +155,7 @@ angular.module('mobbr', [
                 url: '/addresses',
                 views: {
                     'addresses@wallet': {
-                        controller: 'AddressesController',
                         templateUrl: 'views/addresses.html'
-                    }
-                },
-                resolve: {
-                    supportedCurrencies: function (MobbrXPayment) {
-                        return MobbrXPayment.supportedCurrencies().$promise;
                     }
                 }
             }).state('payments', {

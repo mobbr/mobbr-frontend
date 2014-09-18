@@ -52,7 +52,7 @@
                                     Use there public addresses to recieve money from external accounts. Give there to anyone who needs to fund your Mobbr account.
                                 </span>
                 </div>
-                <div ng-repeat="wallet in walletAddresses">
+                <div ng-repeat="wallet in supportedCurrencies.result">
                     <div class="row">
                         <fieldset ng-if="wallet.currency == 'BTC'">
                             <fieldset ng-repeat="address in wallet.addresses" class="form-group">
@@ -62,7 +62,7 @@
                             </fieldset>
                             <fieldset class="form-group">
                                 <div class="col-sm-3">
-                                    <button class="btn btn-success" ng-click="addBitcoinAddress(wallet.currency)">Add another</button>
+
                                 </div>
                             </fieldset>
                         </fieldset>
@@ -116,6 +116,7 @@
             <div class="row">
                 <fieldset class="form-group" ng-disabled="depositing && !depositing.$resolved">
                     <div class="col-xs-10 col-sm-offset-9 col-sm-2">
+                        <button class="btn btn-success btn-block" ng-click="addBitcoinAddress(wallet.currency)" ng-show="!bankwire && deposit_type.type == 'btc'">Add another</button>
                         <button type="submit" ng-disabled="!currency || !amount" class="btn btn-success btn-block" ng-show="!bankwire && deposit_type.type != 'btc'">
                             Confirm
                         </button>
