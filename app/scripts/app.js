@@ -106,6 +106,9 @@ angular.module('mobbr', [
                     },
                     supportedCurrencies: function (MobbrXPayment) {
                         return MobbrXPayment.supportedCurrencies().$promise;
+                    },
+                    xpayments: function (MobbrXPayment) {
+                        return MobbrXPayment.get().$promise;
                     }
                 }
             }).state('wallet.pay', {
@@ -139,25 +142,9 @@ angular.module('mobbr', [
                 onEnter: blockUI,
                 onExit: unblockUI
             }).state('wallet.x-payments', {
-                url: '/x-payments',
-                views: {
-                    'xpayments@wallet': {
-                        controller: 'XPaymentsController',
-                        templateUrl: 'views/xpayments.html'
-                    }
-                },
-                resolve: {
-                    xpayments: function (MobbrXPayment) {
-                        return MobbrXPayment.get().$promise;
-                    }
-                }
+                url: '/x-payments'
             }).state('wallet.addresses', {
-                url: '/addresses',
-                views: {
-                    'addresses@wallet': {
-                        templateUrl: 'views/addresses.html'
-                    }
-                }
+                url: '/addresses'
             }).state('payments', {
                 url: '/payments',
                 templateUrl: 'views/payments.html',

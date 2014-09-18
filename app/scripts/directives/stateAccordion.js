@@ -8,6 +8,9 @@ angular.module('mobbr.directives').directive('stateAccordion', function factory(
             scope.stateAccordion = {};
 
             function setAccordion() {
+                angular.forEach(scope.stateAccordion, function (item, key) {
+                    scope.stateAccordion[key] = false;
+                });
                 scope.stateAccordion[$state.current.name] = true;
             }
 
