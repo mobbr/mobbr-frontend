@@ -142,9 +142,9 @@
                     </div>
                 </div>
             </accordion-heading>
-            <div ui-view="xpayments"></div>
+            <div ng-include="'views/xpayments.html'"></div>
         </accordion-group>
-        <accordion-group is-open="stateAccordion['wallet.addresses']">
+        <accordion-group is-open="stateAccordion['wallet.addresses']" is-disabled="true">
             <accordion-heading>
                 <div class="container">
                     <div class="row">
@@ -163,7 +163,7 @@
                     </div>
                 </div>
             </accordion-heading>
-            <div ui-view="addresses"></div>
+            <div ng-include="'views/addresses.html'"></div>
         </accordion-group>
     </accordion>
 </div>
