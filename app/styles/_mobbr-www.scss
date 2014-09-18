@@ -193,6 +193,22 @@
   @include box-shadow(inset 0 0 0 rgba(0,0,0,.075));
 }
 
+.task-pay .form-control {
+  background: $white;
+}
+
+.form-control[disabled],
+.form-control[readonly],
+fieldset[disabled] .form-control,
+.btn.disabled,
+.btn[disabled],
+fieldset[disabled] .btn {
+  background: tint($gray, 75%);
+  color: shade($gray, 25%);
+}
+
+
+
 .form-horizontal .control-label {
   text-align: left;
 }
@@ -262,8 +278,13 @@ label.title {
 .top-info {
   border-top: 1px solid $mobbrlightblue;
 
+  .cards-wrapper {
+    margin-top: $grid-gutter-width;
+  }
+
   .card-container {
     perspective: 970px;
+    margin-bottom: $grid-gutter-width;
   }
 
   .card-container:hover .card,
@@ -294,7 +315,7 @@ label.title {
 
   .card {
     border: 1px solid #9ebd5b;
-    height: 220px;
+    height: 170px;
 
     .txt {
       font-size: 26px;
@@ -332,6 +353,29 @@ label.title {
       span {
         text-align: right;
       }
+    }
+
+    .bottom {
+      position: absolute;
+      bottom: 5px;
+      left: 0;
+      right: 0;
+      margin: 0;
+
+      .btn {
+        font-family: $mobbrFontCondensed;
+        background: $mobbrgreen;
+        color: $white;
+        font-size: 12px;
+        text-transform: uppercase;
+        line-height: 40px;
+      }
+    }
+  }
+
+  @media (min-width: $screen-md-min) {
+    .card {
+      height: 220px;
     }
   }
 
@@ -548,6 +592,36 @@ accordion .info-bar {
   border-bottom-width: 1px;
 }
 
+.table {
+
+  tr.callout {
+    background: $mobbrcallout;
+    font-weight: bold;
+
+    .nice-amount {
+      color: $mobbrcallout;
+    }
+
+    td {
+      border-top-color: $state-warning-bg;
+    }
+  }
+
+  tr.warning {
+    font-weight: bold;
+    color: $mobbrcallout;
+
+    .nice-amount {
+      color: $mobbrcallout;
+    }
+
+    td {
+      border-top-color: $mobbrcallout;
+    }
+  }
+  margin-bottom: 0;
+}
+
 .btn {
   border: 0;
 }
@@ -588,15 +662,20 @@ accordion {
     border-color: $gray;
   }
 
+  .panel-group {
+    margin-bottom: 10px;
+  }
+
   .panel-group .panel + .panel {
     margin-top: 0;
   }
 
   .panel-body {
-    padding: $grid-gutter-width;
+    padding: 0;
   }
 
   .panel-default > .panel-heading {
+    padding: 0;
     padding-top: 20px;
     padding-bottom: 20px;
     background: transparent;
@@ -660,10 +739,6 @@ accordion {
   .info-bar,
   .bar {
     padding-bottom: $grid-gutter-width;
-    margin-left: -$grid-gutter-width;
-    margin-right: -$grid-gutter-width;
-    padding-left: $grid-gutter-width;
-    padding-right: $grid-gutter-width;
   }
 
   .bar:not(:last-child) {
@@ -745,6 +820,28 @@ body {
   padding-top: $navbar-height;
   font-family: $mobbrFont;
   background: $gray;
+}
+
+body.blocked:after {
+  content: '';
+  display: block;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, .5);
+  z-index: 1031;
+}
+
+body.blocked .task-pay > .clearfix {
+  background: $gray;
+  position: relative;
+  z-index: 1032;
+}
+
+body.blocked .unblocked {
+  background: $white;
 }
 
 .navbar-default .navbar-nav > .open > a,
@@ -964,26 +1061,29 @@ body {
 
 .top-bar {
   color: $white;
+  padding-top: $grid-gutter-width * 1.5;
+  padding-bottom: $grid-gutter-width * 1.5;
 
   h1 {
     font-size: 26px;
     text-transform: uppercase;
-    line-height: 26px;
-    margin: 37px 0;
+    line-height: 52px;
+    margin-top: $grid-gutter-width / 2;
+    margin-bottom: $grid-gutter-width / 2;
   }
 
   .btn-call {
-    margin: 24px 0;
+    margin-top: $grid-gutter-width / 2;
+    margin-bottom: $grid-gutter-width / 2;
     padding: 12px 17px;
   }
 }
 
 .top-info {
   color: $white;
-  padding-bottom: $grid-gutter-width * 2;
 
   h2 {
-    margin-top: 16px;
+    margin-top: 0;
     margin-bottom: 0;
     font-size: 20px;
     line-height: 20px;
@@ -1195,8 +1295,7 @@ body {
 }
 
 .pay-task {
-  padding-top: $grid-gutter-width;
-  padding-bottom: $grid-gutter-width;
+  padding-top: 15px;
 
   input,
   select {

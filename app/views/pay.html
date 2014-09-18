@@ -3,33 +3,36 @@
         <div class="row pay-task">
             <form class="col-md-12">
                 <div class="row">
-                    <fieldset ng-show="!activeQuery">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <input class="form-control"
-                                       required
-                                       ng-model="payQuery">
-                            </div>
-                        </div>
+                    <fieldset ng-show="!activeQuery" class="col-md-12 form-group">
+                        <input class="form-control"
+                               placeholder="Any url or user ID"
+                               required
+                               ng-model="payQuery">
                     </fieldset>
-                    <fieldset ng-disabled="(!activeQuery && !payQuery) || (payment && !payError)" class="col-md-6">
+                    <fieldset ng-disabled="(payment && !payError)" class="col-sm-6">
                         <div class="row">
-                            <div class="col-md-4">
-                                <select class="form-control"
-                                        required
-                                        ng-model="currency"
-                                        ng-options="key for (key, value) in currenciesMap"></select>
+                            <div class="form-group col-sm-8">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <select class="form-control"
+                                                required
+                                                ng-init="currency = $mobbrStorage.user.currency_iso || 'EUR'"
+                                                ng-model="currency"
+                                                ng-options="value.currency_iso as value.currency_iso for (key, value) in currenciesMap"></select>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <input class="form-control"
+                                               placeholder="0.00"
+                                               required
+                                               type="number"
+                                               ng-model="amount"
+                                               step="any"
+                                               min="0"
+                                               max="1000000000">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-4">
-                                <input class="form-control"
-                                       required
-                                       type="number"
-                                       ng-model="amount"
-                                       step="any"
-                                       min="0"
-                                       max="1000000000">
-                            </div>
-                            <div class="col-md-4">
+                            <div class="form-group col-md-4">
                                 <div class="checkbox">
                                     <label>
                                         <input type="checkbox" ng-model="invoices">
@@ -39,17 +42,17 @@
                             </div>
                         </div>
                     </fieldset>
-                    <fieldset class="col-md-6">
+                    <fieldset class="col-sm-6 form-group">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-xs-5">
                                 <button ng-disabled="!currency || !amount || (payment && !payError)"
                                         ng-click="preview()"
                                         class="btn btn-default btn-block"
                                         type="submit">
-                                    Preview payment
+                                    Preview
                                 </button>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-xs-5">
                                 <button ng-disabled="!currency || !amount || confirm.$resolved"
                                         ng-click="payment.result.hash ? pay() : previewPay()"
                                         ng-bind="confirm.message.text || task.result.script.pledge && 'Pledge' || 'Pay'"
@@ -57,7 +60,7 @@
                                         type="submit">
                                 </button>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-xs-2">
                                 <button ng-click="$state.go('^')" class="btn btn-danger btn-block">X</button>
                             </div>
                         </div>

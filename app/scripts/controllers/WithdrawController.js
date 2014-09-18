@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('WithdrawController', function ($scope, $modalInstance, MobbrXPayment) {
+angular.module('mobbr.controllers').controller('WithdrawController', function ($scope, $state, MobbrXPayment) {
 
     $scope.networks = {
         btc: {
@@ -65,14 +65,8 @@ angular.module('mobbr.controllers').controller('WithdrawController', function ($
     $scope.network_method = $scope.networks['iban'];
 
     $scope.confirm = function () {
-        $scope.waiting = true;
-        MobbrXPayment.withdraw($scope.network_method.send, function (response) {
-            $scope.waiting = false;
-            $scope.network_method.send = {};
-            $modalInstance.close();
-
-        }, function (response) {
-            $scope.waiting = false;
+        $scope.withdrawing = MobbrXPayment.withdraw($scope.network_method.send, function (response) {
+            $state.go('^');
         });
     }
 });

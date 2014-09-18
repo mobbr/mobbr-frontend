@@ -1,6 +1,8 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('DepositController', function ($scope, $modalInstance, $window, MobbrXPayment) {
+angular.module('mobbr.controllers').controller('DepositController', function ($scope, $state, $window, MobbrXPayment) {
+
+    var popup_url, oauth_popup;
 
     $scope.networks = {
         btc: {
@@ -25,38 +27,39 @@ angular.module('mobbr.controllers').controller('DepositController', function ($s
 
     $scope.deposit_type = $scope.networks.creditcard;
 
-    function loadCurrencies() {
-        $scope.supportedCurrencies = MobbrXPayment.supportedCurrencies();
+    function popupMessage(e) {
+        if (e.data === 'oauth-popup') {
+            oauth_popup.close();
+            $window.removeEventListener('message', popupMessage);
+            $state.go('wallet.x-payments');
+        }
     }
-
-    $scope.generateAddress = function (currency) {
-        $scope.generating = MobbrXPayment.newAccountAddress({
-                currency: currency
-            },
-            loadCurrencies
-        );
-    }
-
-    loadCurrencies();
 
     $scope.confirm = function () {
-        $scope.waiting = true;
-        MobbrXPayment.deposit({
+
+        if ($scope.deposit_type.type === 'creditcard') {
+
+            popup_url = $window.location.origin + '/popup.html',
+            oauth_popup = $window.open(popup_url, 'oauth-popup');
+        }
+
+        $scope.depositing = MobbrXPayment.deposit({
             type: $scope.deposit_type.type,
             currency: $scope.deposit_type.currency,
-            amount: $scope.deposit_amount,
-            note: $scope.deposit_note,
-            return_url: $window.location.href
+            amount: $scope.amount,
+            note: $scope.note,
+            return_url: popup_url
         }, function (data) {
-            $scope.waiting = false;
+
             if (data.result.type === 'bankwire') {
                 $scope.bankwire = data.result;
             }
+
             if (data.result.type === 'creditcard') {
-                $window.location.href = data.result.url;
+
+                $window.addEventListener('message', popupMessage, false);
+                oauth_popup.location.href = data.result.url;
             }
-        }, function (response) {
-            $scope.waiting = false;
         });
     }
 });

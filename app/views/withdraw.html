@@ -1,0 +1,173 @@
+<div class="row pay-task">
+    <div class="container">
+        <form name="withdraw" ng-submit="confirm()">
+            <fieldset class="form-group" ng-disabled="withdrawing && !withdrawing.$resolved">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <select id="method"
+                                class="form-control"
+                                ng-model="network_method"
+                                ng-options="value.name for (key, value) in networks"></select>
+                        </select>
+                    </div>
+                    <div class="col-xs-3">
+                        <select class="form-control"
+                                ng-hide="deposit_type.type == 'btc'"
+                                required
+                                ng-init="currency = $mobbrStorage.user.currency_iso || 'EUR'"
+                                ng-model="network_method.send.currency"
+                                ng-options="currency for currency in network_method.currencies"></select>
+                    </div>
+                    <div class="col-xs-3">
+                        <input class="form-control"
+                               placeholder="0.00"
+                               required
+                               type="number"
+                               ng-hide="deposit_type.type == 'btc'"
+                               ng-model="network_method.send.amount"
+                               step="any"
+                               min="0"
+                               max="1000000000">
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="row" ng-disabled="withdrawing && !withdrawing.$resolved">
+                <div class="col-sm-6 form-group"
+                     ng-if="network_method != networks['btc'] && network_method != networks['iban']">
+                    <input id="accountnumber"
+                           type="text"
+                           class="form-control"
+                           placeholder="Account number"
+                           name="accountnumber"
+                           pattern="{{ network_method == networks['ca'] && '^\w{1,50}$' || '^\d+$' }}"
+                           ng-model="network_method.send.address.accountnumber"
+                           required>
+                </div>
+                <div class="col-sm-6 form-group"
+                     ng-if="network_method == networks['uk']">
+                    <input id="sortcode"
+                           type="text"
+                           class="form-control"
+                           placeholder="Sort code"
+                           name="sortcode"
+                           pattern="^\d+$"
+                           ng-model="network_method.send.address.sortcode"
+                           required>
+                </div>
+                <div class="col-sm-6 form-group"
+                     ng-if="network_method == networks['us']">
+                    <input id="aba"
+                           type="text"
+                           class="form-control"
+                           placeholder="ABA"
+                           name="aba"
+                           pattern="/^$\d{9}"
+                           ng-model="network_method.send.address.aba"
+                           required>
+                </div>
+                <div class="col-sm-6 form-group" ng-if="network_method == networks['ca']">
+                    <input id="institutionnumber"
+                           type="text"
+                           class="form-control"
+                           placeholder="Instutution number"
+                           name="institutionnumber"
+                           pattern="^\d{3,4}$"
+                           ng-model="network_method.send.address.institutionnumber"
+                           required>
+                </div>
+                <div class="col-sm-6 form-group" ng-if="network_method == networks['ca']">
+                    <input id="branchcode"
+                           type="text"
+                           placeholder="Branch code"
+                           class="form-control"
+                           name="branchcode"
+                           pattern="^\d{5}$"
+                           ng-model="network_method.send.address.branchcode"
+                           required>
+                </div>
+                <div class="col-sm-6 form-group" ng-if="network_method == networks['ca']">
+                    <input id="bankname"
+                           type="text"
+
+                           class="form-control"
+                           placeholder="Bank name"
+                           name="bankname"
+                           pattern="^\d{1,20}$"
+                           ng-model="network_method.send.address.bankname"
+                           required>
+                </div>
+                <div class="col-sm-6 form-group" ng-if="network_method == networks['iban']">
+                    <input id="iban"
+                           class="form-control"
+                           type="text" pattern="[a-zA-Z]{2}[0-9]{2}[a-zA-Z0-9]{4}[0-9]{7}([a-zA-Z0-9]?){0,16}"
+                           placeholder="ÏBAN"
+                           name="iban"
+                           ng-model="network_method.send.address.iban"
+                           required>
+                </div>
+                <div class="col-sm-6 form-group" ng-if="network_method == networks['other'] || network_method == networks['iban']">
+                    <input id="bic"
+                           class="form-control"
+                           type="text"
+                           pattern="^[A-Z]{6}[A-Z0-9]{2}([A-Z0-9]{3})?$"
+                           placeholder="BIC"
+                           name="bic"
+                           ng-model="network_method.send.address.bic"
+                           required>
+                </div>
+                <div class="col-sm-6 form-group" ng-if="network_method != networks['btc']">
+                    <input id="name"
+                           class="form-control"
+                           type="text"
+                           name="name"
+                           placeholder="Name"
+                           ng-model="network_method.send.address.name"
+                           required>
+                </div>
+                <div class="col-sm-6 form-group" ng-if="network_method != networks['btc']">
+                    <input id="address"
+                           class="form-control"
+                           type="text" name="address"
+                           placeholder="Address"
+                           ng-model="network_method.send.address.address"
+                           required>
+                </div>
+                <div class="col-sm-12 form-group" ng-if="network_method == networks['other']">
+                    <select class="form-control"
+                            id="country"
+                            name="country"
+                            ng-init="network_method.send.address.country = $mobbrStorage.user.country_of_residence"
+                            ng-model="network_method.send.address.country"
+                            ng-options="country.code as country.name for country in countries.result | orderBy: 'name'">
+                    </select>
+                </div>
+                <div class="col-sm-12 form-group" ng-if="network_method == networks['btc']">
+                    <input id="btc_address"
+                           class="form-control"
+                           type="text"
+                           pattern="^[13][1-9A-Za-z][^OIl]{20,40}"
+                           placeholder="Bitcoin address"
+                           name="address"
+                           ng-model="network_method.send.address"
+                           required>
+                </div>
+            </fieldset>
+
+            <div class="row">
+                <fieldset class="form-group" ng-disabled="withdrawing && !withdrawing.$resolved">
+                    <div class="col-xs-10 col-sm-offset-9 col-sm-2">
+                        <button ng-disabled="!network_method.send.currency || !network_method.send.amount" type="submit" class="btn btn-success btn-block" ng-show="!bankwire && deposit_type.type != 'btc'">
+                            Confirm
+                        </button>
+                    </div>
+                    <div class="col-xs-2 col-sm-1">
+                        <button ng-click="$state.go('^')" class="btn btn-danger btn-block">
+                            X
+                        </button>
+                    </div>
+                </fieldset>
+            </div>
+        </form>
+    </div>
+</div>
