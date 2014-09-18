@@ -60,6 +60,8 @@ angular.module('mobbr.controllers').controller('DepositController', function ($s
                 $window.addEventListener('message', popupMessage, false);
                 oauth_popup.location.href = data.result.url;
             }
+        }, function () {
+            oauth_popup.close();
         });
     }
 });
