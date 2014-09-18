@@ -56,18 +56,19 @@
                     <div class="col-md-12">
                         <h3>
                             <span class="glyphicon glyphicon-bookmark"></span>
-                            My active tasks
+                            Tasks you worked on
                         </h3>
                     </div>
                 </div>
                 <div class="row">
                     <span class="xlarge col-md-12">
-                        {{dashboard.activeTasks}}
+                        <span ng-show="person.stats.num_domain">{{person.stats.num_domain}} domains</span>
+                        <span ng-show="person.stats.num_urls">{{person.stats.num_urls}} tasks</button>
                     </span>
                 </div>
                 <div class="row bottom">
                     <div class="col-md-12">
-                        <a ng-href="{{ $state.href('tasks') }}" class="btn btn-block">Start a new task</a>
+                        <a ng-href="{{ $state.href('tasks') }}" class="btn btn-block">View new tasks</a>
                     </div>
                 </div>
             </div>

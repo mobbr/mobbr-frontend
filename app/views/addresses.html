@@ -1,0 +1,55 @@
+<div class="info-bar">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                            <span class="info-box">
+                                <span class="glyphicon glyphicon-info-sign"></span>
+                                Use these public addresses to recieve money from external accounts. Give there to anyone who needs to fund your Mobbr account.
+                            </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-repeat="wallet in supportedCurrencies.result" class="bar">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div ng-if="wallet.currency == 'BTC'">
+                    <fieldset class="form-group">
+                        <label class="title control-label col-sm-3" ng-bind="wallet.currency"></label>
+                        <div class="col-sm-7">
+                                        <span class="info-box">
+                                            <span class="glyphicon glyphicon-info-sign"></span>
+                                            <span ng-bind="wallet.message"></span>
+                                        </span>
+                        </div>
+                    </fieldset>
+                    <fieldset class="form-group" ng-repeat="address in wallet.addresses">
+                        <label class="title control-label col-sm-3">Address</label>
+                        <div class="col-sm-7">
+                            <input class="form-control" type="text" ng-model="address.bitcoin" disabled>
+                        </div>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label class="title control-label col-xs-10 col-sm-11">Add another</label>
+                        <div class="col-xs-2 col-sm-1">
+                            <button class="btn btn-success btn-square pull-right" ng-click="addBitcoinAddress(wallet.currency)">+</button>
+                        </div>
+                    </fieldset>
+                </div>
+                <div ng-if="wallet.currency != 'BTC'">
+                    <fieldset>
+                        <label class="title control-label col-sm-3" ng-bind="wallet.currency"></label>
+                        <div class="col-sm-7">
+                                        <span class="info-box">
+                                            <span class="glyphicon glyphicon-info-sign"></span>
+                                            <span ng-bind="wallet.message"></span>
+                                        </span>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
