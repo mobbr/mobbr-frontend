@@ -856,36 +856,17 @@ body.blocked .unblocked {
   color: #fff;
 }
 
+.col-55 {
+  float: left;
+  width: 45px;
+
+  @media (min-width: $screen-sm-min) {
+    width: 60px;
+  }
+}
+
 .navbar-fixed-top {
   border: 0;
-
-  .row.expand-pad [class*='col-'] {
-    padding-right: 0;
-    padding-left: 0;
-  }
-
-  /*.row.expand-pad {
-    margin-right: 0;
-  }
-
-  @media (min-width: $screen-sm-min) {
-    .row.expand-pad {
-      margin-left: -$grid-gutter-width * 1.5;
-      margin-right: -$grid-gutter-width;
-    }
-  }*/
-
-  @media (max-width: $screen-xs-max) {
-    .row.expand-pad {
-      padding-right: $grid-gutter-width;
-    }
-  }
-
-  @media (min-width: $screen-sm-min) {
-    .row.expand-pad {
-      margin-left: -$grid-gutter-width * 1.5;
-    }
-  }
 
   .logo:hover,
   .open .logo,
@@ -893,56 +874,71 @@ body.blocked .unblocked {
     background-color: $white;
   }
 
+  .caret {
+    margin-left: $grid-gutter-width;
+    margin-right: $grid-gutter-width;
+  }
+
+  @media (min-width: $screen-sm-min) {
+    .caret {
+      margin-top: 16px;
+    }
+  }
+
+  .col-logo,
+  .main-menu,
+  .user-menu {
+    padding: 0;
+  }
+
   .logo {
-    padding-top: 13px;
-    padding-bottom: 14px;
-    line-height: 33px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 3px;
+    padding-right: 0;
+    line-height: 20px;
     position: relative;
-    z-index: 1001;
+    z-index: 2005;
+
+    @media (min-width: $screen-sm-min) {
+      line-height: 33px;
+      padding-top: 13px;
+      padding-left: $grid-gutter-width /2;
+      padding-bottom: 14px;
+
+      .caret {
+        float: right;
+      }
+    }
+
+    @media (min-width: $screen-md-min) {
+      .caret {
+        margin-right: 40px;
+      }
+    }
 
     .crop {
       display: block;
       float: left;
       overflow: hidden;
-      width: 33px;
-      height: 33px;
-
-      @media (min-width: $screen-xs-min) {
-        width: 118px;
-      }
+      width: 70px;
+      height: 20px;
 
       img {
-        height: 33px;
-        width: 118px;
+        display: block;
+        width: 70px;
+        height: 20px;
       }
-    }
-  }
 
-  .logo.user {
-    padding: 0;
-  }
+      @media (min-width: $screen-sm-min) {
+        width: 118px;
+        height: 33px;
 
-  .loggedin-msg {
-    display: block;
-    padding-top: 5px;
-    padding-right: 5px;
-
-    .caret {
-      margin-top: $grid-gutter-width * 2;
-      margin-left: $grid-gutter-width * 1.5;
-    }
-
-    img {
-      margin-left: 5px;
-    }
-  }
-
-  .user-msg {
-    padding-top: $grid-gutter-width * 1.25;
-
-    .caret {
-      margin-top: $grid-gutter-width * 1.25;
-      margin-left: $grid-gutter-width * 1.5;
+        img {
+          height: 33px;
+          width: 118px;
+        }
+      }
     }
   }
 
@@ -950,12 +946,19 @@ body.blocked .unblocked {
     font-family: 'Roboto Condensed';
     font-size: 1.2em;
     top: 0;
-    padding-top: 59px;
+    padding-top: 26px;
     min-width: auto;
     left: 0;
     right: 0;
     padding-left: 5px;
     padding-right: 5px;
+    border: 0;
+    margin-top: 0;
+    z-index: 2004;
+
+    @media (min-width: $screen-sm-min) {
+      padding-top: 60px;
+    }
 
     a {
       background-color: $gray;
@@ -981,63 +984,120 @@ body.blocked .unblocked {
     display: block;
   }
 
+  .main-menu {
+    z-index: 2003;
+  }
+
   .menu li a,
   .user-icon {
-    padding-top: 15px;
-    padding-bottom: 3px;
+    padding-top: 5px;
+    padding-bottom: 0;
     padding-left: 3px;
     padding-right: 3px;
     line-height: 0px;
 
+    @media (min-width: $screen-sm-min) {
+      padding-top: 15px;
+      padding-bottom: 3px;
+    }
+
     .glyphicon {
       display: block;
-      font-size: 25px;
+      font-size: 17px;
 
-      @media (max-width: 319px) {
-        font-size: 21px;
-        padding-top: 4px;
-        padding-bottom: 21px;
+      @media (min-width: $screen-sm-min) {
+        font-size: 25px;
       }
     }
 
     small {
+      font-family: $mobbrFontCondensed;
       font-size: .6em;
       text-transform: uppercase;
-      line-height: 17px;
+      line-height: 12px;
 
-      @media (max-width: 319px) {
+      @media (min-width: $screen-sm-min) {
+        line-height: 17px;
+      }
+    }
+  }
+
+  @media (min-width: $screen-sm-min) {
+    .menu li:first-child .col-55 {
+      margin-left: 60px;
+    }
+  }
+
+  @media (max-width: $screen-xs-max) {
+    .main-menu {
+      width: auto;
+    }
+  }
+
+  .user-menu .logo-menu {
+    z-index: 2002;
+  }
+
+  .user-menu .dropdown-toggle {
+    padding: 0;
+    margin-right: 5px;
+    z-index: 2003;
+  }
+
+  @media (min-width: $screen-sm-min) {
+    .user-menu .dropdown-toggle {
+      line-height: 60px;
+      height: 60px;
+    }
+  }
+
+  .user-menu .dropdown-toggle:hover,
+  .user-menu .open .dropdown-toggle {
+    background: $white;
+  }
+
+  .user-menu .caret {
+    margin-top: $grid-gutter-width * 1.25;
+  }
+
+  @media (min-width: $screen-sm-min) {
+
+    .user-menu .caret {
+      margin-top: 29px;
+    }
+  }
+
+  @media (max-width: $screen-xs-max) {
+
+    .user-menu .logo-menu {
+      position: fixed;
+      left: 0;
+      top: 26px;
+      padding-top: 34px;
+      right: 0;
+    }
+
+    .user-menu {
+      float: right;
+      width: auto;
+
+      .txt {
         display: none;
       }
     }
   }
 
-  .menu li.user-welcome {
-    padding-top: 5px;
-    padding-right: 5px;
+  .user-menu .col-55 {
+    float: right;
+  }
 
-    .msg {
-      font-size: 1.2em;
-      font-family: $mobbrFontCondensed;
-      padding-right: $grid-gutter-width / 2;
-    }
+  .user-menu img {
+    width: 30px;
+    height: 30px;
 
-    img {
-      margin-right: 5px;
-    }
-
-    @media (max-width: $screen-sm-min) {
-      .msg {
-        display: none;
-      }
-    }
-
-    @media (max-width: 480px) {
-      padding-top: 14px;
-
-      img {
-        width: 26px;
-        height: 26px;
-      }
+    @media (min-width: $screen-sm-min) {
+      width: 50px;
+      height: 50px;
     }
   }
 }
@@ -1053,10 +1113,6 @@ body.blocked .unblocked {
 
 .user-thumb {
   margin-left: $grid-gutter-width / 2;
-}
-
-.user-menu {
-  min-width: 315px;
 }
 
 .top-bar {
