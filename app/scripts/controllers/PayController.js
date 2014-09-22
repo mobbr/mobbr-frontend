@@ -8,7 +8,7 @@ angular.module('mobbr.controllers').controller('PayController', function ($scope
 
         return $scope.payment = MobbrPayment.preview({
             data: data,
-            currency: $scope.currency.currency_iso,
+            currency: $scope.currency,
             amount: $scope.amount,
             invoiced: $scope.invoices || false,
             referrer: $window.location.href
