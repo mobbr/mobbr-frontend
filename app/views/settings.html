@@ -31,6 +31,27 @@
             </accordion-heading>
             <div ng-include="'views/settings.account.html'"></div>
         </accordion-group>
+        <accordion-group is-open="stateAccordion['settings.ids']" is-disabled="true">
+            <accordion-heading>
+                <div class="container">
+                    <div class="row no-pad">
+                        <div class="col-xs-10 title" ng-click="$state.is('settings.ids') ? $state.go('^') : $state.go('settings.ids')">
+                            <span class="glyphicon glyphicon-ok"></span>
+                            <strong>ID's</strong>
+                        </div>
+                        <div class="icons">
+                            <div class="col-xs-1 text-center icon">
+                                <span class="glyphicon glyphicon-info-sign"></span>
+                            </div>
+                            <div class="col-xs-1 text-center icon" ng-click="$state.is('settings.ids') ? $state.go('^') : $state.go('settings.ids')">
+                                <span ng-class="$state.is('settings.ids') ? 'glyphicon-minus' : 'glyphicon-plus'" class="glyphicon"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </accordion-heading>
+            <div ng-include="'views/settings.ids.html'"></div>
+        </accordion-group>
         <accordion-group ng-class="{ 'warning': countIdentityCompleted() != 6 }" is-open="stateAccordion['settings.identity']" is-disabled="true">
             <accordion-heading>
                 <div class="container">
