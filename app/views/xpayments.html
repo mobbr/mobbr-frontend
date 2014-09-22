@@ -7,6 +7,7 @@
                 <th>Status</th>
                 <th>Service</th>
                 <th>Currency</th>
+                <th>Costs</th>
                 <th>Amount</th>
             </tr>
             </thead>
@@ -21,6 +22,7 @@
                 <td ng-bind="(payment.paiddatetime && 'Succeeded') || (payment.faileddatetime && 'Failed') || (payment.announceddatetime && 'Pending')"></td>
                 <td ng-bind="payment.payment_service"></td>
                 <td ng-bind="payment.currency_iso"></td>
+                <td ng-bind-html="payment.costs | mobbrcurrency:'':true:true"></td>
                 <td ng-bind-html="payment.amount | mobbrcurrency:'':true:true"></td>
             </tr>
             </tbody>
