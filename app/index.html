@@ -76,11 +76,11 @@
 
         <header class="navbar navbar-fixed-top navbar-default" role="navigation">
             <div class="container">
-                <div class="row expand-pad">
-                    <div class="col-md-3 col-sm-3 col-xs-4 col-logo">
+                <div class="row">
+                    <div class="col-sm-3 col-logo">
                         <ul class="nav">
                             <li class="dropdown">
-                                <a class="dropdown-toggle logo text-right" data-toggle="dropdown">
+                                <a class="dropdown-toggle logo clearfix" data-toggle="dropdown">
                                     <span class="crop">
                                         <img ng-click="state.go('main')" src="img/logo-mobbr.png">
                                     </span>
@@ -108,117 +108,120 @@
                         </ul>
                     </div>
 
-                    <ul class="nav menu">
-                        <li ng-class="{ 'active': state.includes('updates') }" class="col-md-offset-1 col-sm-offset-1 col-xs-offset-0 col-md-1 col-sm-1 col-xs-1">
-                            <a ng-href="{{ state.href('updates') }}" class="text-center">
-                                <span class="glyphicon glyphicon-bullhorn"></span>
-                                <small>Updates</small>
-                            </a>
-                        </li>
-                        <li ng-class="{ 'active': state.includes('box.tasks') || state.includes('box.task') }" class="col-md-1 col-sm-1 col-xs-1">
-                            <a ng-href="{{ state.href('box.tasks') }}" class="text-center">
-                                <span class="glyphicon glyphicon-tasks"></span>
-                                <small>Tasks</small>
-                            </a>
-                        </li>
-                        <li ng-class="{ 'active': state.includes('box.crowds') }" class="col-md-1 col-sm-1 col-xs-1">
-                            <a ng-href="{{ state.href('box.crowds') }}" class="text-center">
-                                <span class="glyphicon glyphicon-glass"></span>
-                                <small>Crowds</small>
-                            </a>
-                        </li>
-                        <li ng-class="{ 'active': state.includes('payments') }" class="col-md-1 col-sm-1 col-xs-1">
-                            <a ng-href="{{ state.href('payments.pledges') }}" class="text-center">
-                                <span class="glyphicon glyphicon-transfer"></span>
-                                <small>Payments</small>
-                            </a>
-                        </li>
-                        <li ng-class="{ 'active': state.includes('wallet') }" class="col-md-1 col-sm-1 col-xs-1">
-                            <a ng-href="{{ state.href('wallet') }}" class="text-center">
-                                <span class="glyphicon glyphicon-briefcase"></span>
-                                <small>Wallet</small>
-                            </a>
-                        </li>
-                    </ul>
+                    <div class="col-xs-6 main-menu">
+                        <ul class="nav menu">
+                            <li ng-class="{ 'active': state.includes('updates') }" class="col-55">
+                                <a ng-href="{{ state.href('updates') }}" class="text-center">
+                                    <span class="glyphicon glyphicon-bullhorn"></span>
+                                    <small>Updates</small>
+                                </a>
+                            </li>
+                            <li ng-class="{ 'active': state.includes('box.tasks') || state.includes('box.task') }" class="col-55">
+                                <a ng-href="{{ state.href('box.tasks') }}" class="text-center">
+                                    <span class="glyphicon glyphicon-tasks"></span>
+                                    <small>Tasks</small>
+                                </a>
+                            </li>
+                            <li ng-class="{ 'active': state.includes('box.crowds') }" class="col-55">
+                                <a ng-href="{{ state.href('box.crowds') }}" class="text-center">
+                                    <span class="glyphicon glyphicon-glass"></span>
+                                    <small>Crowds</small>
+                                </a>
+                            </li>
+                            <li ng-class="{ 'active': state.includes('payments') }" class="col-55">
+                                <a ng-href="{{ state.href('payments.pledges') }}" class="text-center">
+                                    <span class="glyphicon glyphicon-transfer"></span>
+                                    <small>Payments</small>
+                                </a>
+                            </li>
+                            <li ng-class="{ 'active': state.includes('wallet') }" class="col-55">
+                                <a ng-href="{{ state.href('wallet') }}" class="text-center">
+                                    <span class="glyphicon glyphicon-briefcase"></span>
+                                    <small>Wallet</small>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
 
-                    <div class="col-sm-3 col-xs-3">
-                        <div class="row">
-                            <ul class="nav">
-                                <li class="dropdown">
-                                    <a class="dropdown-toggle logo user text-right" data-toggle="dropdown">
+                    <div class="col-xs-6 col-sm-3 user-menu">
+                        <ul class="nav">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle text-right" data-toggle="dropdown">
                                         <span ng-show="mobbrSession && !mobbrSession.isAuthorized()">
-                                            <span class="col-xs-8 user-msg">
+                                            <span class="user-msg">
                                                 <span class="caret pull-left"></span>
-                                                Register/login
+                                                <span class="txt">Register/login</span>
                                             </span>
-                                            <span ng-class="{ 'active': state.includes('tasks') }" class="col-xs-4">
+                                            <span ng-class="{ 'active': state.includes('tasks') }" class="col-55">
                                                 <span class="user-icon text-center">
                                                     <span class="glyphicon glyphicon-user"></span>
+                                                    <small>User</small>
                                                 </span>
                                             </span>
                                         </span>
 
-                                        <span ng-show="mobbrSession && mobbrSession.isAuthorized()" class="loggedin-msg">
-                                            <span class="msg">
+                                        <span ng-show="mobbrSession && mobbrSession.isAuthorized()" >
+                                            <span class="user-msg">
                                                 <span class="caret pull-left"></span>
-                                                <span ng-bind="'Hi ' + $mobbrStorage.user.username"></span>
+                                                <span class="txt" ng-bind="'Hi ' + $mobbrStorage.user.username"></span>
                                             </span>
-                                            <img ng-src="{{ $mobbrStorage.user.thumbnail }}" width="50" height="50">
+                                            <span>
+                                                <img ng-src="{{ $mobbrStorage.user.thumbnail }}"  width="50" height="50">
+                                            </span>
                                         </span>
-                                    </a>
+                                </a>
 
-                                    <ul ng-show="mobbrSession && !mobbrSession.isAuthorized()" class="dropdown-menu logo-menu" role="menu">
-                                        <li>
-                                            <input ng-model="username"
-                                                   auto-fill-sync
-                                                   class="form-control"
-                                                   type="text"
-                                                   name="username"
-                                                   placeholder="username"
-                                                   required>
-                                        </li>
-                                        <li>
-                                            <input ng-model="password"
-                                                   auto-fill-sync
-                                                   class="form-control"
-                                                   type="password"
-                                                   name="password"
-                                                   placeholder="password"
-                                                   required>
-                                        </li>
-                                        <li>
-                                            <button ng-disabled="authenticating && !authenticating.$resolved"
-                                                    ng-click="login(username, password)"
-                                                    class="btn btn-block">
-                                                <i class="glyphicon mobbrloader" ng-show="authenticating && !authenticating.$resolved"></i>
-                                                Log in
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <a ng-href="{{ $state.href('recover') }}">Recover password</a>
-                                        </li>
-                                        <li>
-                                            <a class="link-call" ng-href="{{ $state.href('join') }}">Register me now</a>
-                                        </li>
-                                    </ul>
+                                <ul ng-show="mobbrSession && !mobbrSession.isAuthorized()" class="dropdown-menu logo-menu" role="menu">
+                                    <li>
+                                        <input ng-model="username"
+                                               auto-fill-sync
+                                               class="form-control"
+                                               type="text"
+                                               name="username"
+                                               placeholder="username"
+                                               required>
+                                    </li>
+                                    <li>
+                                        <input ng-model="password"
+                                               auto-fill-sync
+                                               class="form-control"
+                                               type="password"
+                                               name="password"
+                                               placeholder="password"
+                                               required>
+                                    </li>
+                                    <li>
+                                        <button ng-disabled="authenticating && !authenticating.$resolved"
+                                                ng-click="login(username, password)"
+                                                class="btn btn-block">
+                                            <i class="glyphicon mobbrloader" ng-show="authenticating && !authenticating.$resolved"></i>
+                                            Log in
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <a ng-href="{{ $state.href('recover') }}">Recover password</a>
+                                    </li>
+                                    <li>
+                                        <a class="link-call" ng-href="{{ $state.href('join') }}">Register me now</a>
+                                    </li>
+                                </ul>
 
-                                    <ul ng-show="mobbrSession && mobbrSession.isAuthorized()" class="dropdown-menu logo-menu" role="menu">
-                                        <li>
-                                            <a ng-href="{{ $state.href('person', { username: $mobbrStorage.user.username }) }}">My profile</a>
-                                        </li>
-                                        <li>
-                                            <a ng-href="{{ $state.href('settings') }}">Settings</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" ng-click="logout()">Log out</a>
-                                        </li>
-                                        <li ng-repeat="paymentID in $mobbrStorage.user.id">
-                                            <a ng-href="{{ paymentID }}" ng-bind="paymentID" target="_blank"></a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
+                                <ul ng-show="mobbrSession && mobbrSession.isAuthorized()" class="dropdown-menu logo-menu" role="menu">
+                                    <li>
+                                        <a ng-href="{{ $state.href('person', { username: $mobbrStorage.user.username }) }}">My profile</a>
+                                    </li>
+                                    <li>
+                                        <a ng-href="{{ $state.href('settings') }}">Settings</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" ng-click="logout()">Log out</a>
+                                    </li>
+                                    <li ng-repeat="paymentID in $mobbrStorage.user.id">
+                                        <a ng-href="{{ paymentID }}" ng-bind="paymentID" target="_blank"></a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
