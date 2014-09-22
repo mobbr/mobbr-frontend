@@ -90,6 +90,10 @@ angular.module('mobbr.controllers').controller('BoxController', function ($scope
             $scope.query = null;
             $scope.activeQuery = null;
         }
+        if (!toParams.task) {
+            $scope.query = null;
+            $scope.activeQuery = null;
+        }
     });
 
     $scope.$on('$stateChangeSuccess', $scope.resetTags);

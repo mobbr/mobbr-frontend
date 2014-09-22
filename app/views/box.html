@@ -41,7 +41,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h2>{{ ($state.includes('box.crowds') && 'Required expertise' + (activeQuery && ' for ' + activeQuery)) || (activeQuery && 'Tags on this task' || 'Top tags') }}</h2>
+                <h2>{{ ($state.includes('box.crowds') && 'Required expertise' + (activeQuery && (' for ' + activeQuery) || '')) || (activeQuery && 'Tags on this task' || 'Top tags') }}</h2>
                 <ul class="tasks-tags list-inline">
                     <li ng-show="tagsChanged">
                         <a ng-click="resetTags(); tagsChanged = false;"><span class="label label-default">Reset</span></a>

@@ -21,6 +21,7 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
     }
 
     $scope.addPerson = function (person) {
+        console.log(person);
         if (person.selected === true) {
             $scope.selectedPersons.push(person);
         } else {
@@ -43,7 +44,7 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
             ids.push('https://api.mobbr.com/id/' + person.id);
         });
 
-        $scope.invite = MobbrPerson.invite({ids: ids, url: $scope.url});
+        $scope.invite = MobbrPerson.invite({ids: ids, url: $scope.activeQuery});
         $scope.invite.$promise.then(function () {
             $state.go($state.current, {}, {reload: true});
         });
