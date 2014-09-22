@@ -94,6 +94,8 @@ angular.module('mobbr', [
                 url: '/privacy'
             }).state('settings.notifications', {
                 url: '/notifications'
+            }).state('settings.ids', {
+                url: '/ids'
             }).state('wallet', {
                 url: '/wallet',
                 templateUrl: 'views/wallet.html',
@@ -314,6 +316,12 @@ angular.module('mobbr', [
         $rootScope.languages = MobbrApi.isoLanguages(function (response) {
             response.result.forEach(function (item) {
                 $rootScope.languagesMap[item.code] = item.name;
+            });
+        });
+
+        $rootScope.translations = MobbrApi.translations(function (response) {
+            response.result.forEach(function (item) {
+                $rootScope.translationsMap[item.code] = item.name;
             });
         });
 
