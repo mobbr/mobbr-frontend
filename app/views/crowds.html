@@ -35,14 +35,15 @@
 
 <div ng-class="{ loading: persons && !persons.$resolved }" class="row data-cards data-cards-persons">
     <div ng-repeat="person in persons.result" ng-class="{ 'data-card-highlight': person.match_percentage > 90 }" class="col-md-3 data-card-container">
-        <div class="data-card" ng-click="tags.$resolved && (person.selected = !person.selected);tags.$resolved && addPerson(person);">
-            <input ng-show="tags.$resolved" type="checkbox" ng-model="person.selected"  class="pull-right">
+        <div class="data-card" ng-init="person.selected = false" ng-click="activeQuery && (person.selected = !person.selected);activeQuery && addPerson(person);">
+            <input ng-show="activeQuery" type="checkbox" ng-model="person.selected"  class="pull-right">
             <img ng-src="https://secure.gravatar.com/avatar/{{ person['gravatar'] }}?s=50&default=https://mobbr.com/img/default-gravatar.png"
                  width="50"
                  height="50"
                  class="pull-left">
-            <h3 ng-bind="person.uername"></h3>
+            <h3 ng-bind="person.username"></h3>
             <span ng-show="person.verified_identity">Verified</span>
+            <span ng-show="person.invoicable">Invoicable</span>
 
             <ul class="list-unstyled">
                 <li ng-repeat="role in person.role">
@@ -51,12 +52,9 @@
             </ul>
 
             <div>
-                <div class="item large participants" ng-bind="person.match_percentage"></div>
+                <div class="item large participants" ng-bind="person.match_percentage + '%'"></div>
                 <div class="item large amount" ng-bind="person.num_participated_tasks"></div>
                 <div class="item large" ng-bind="person.num_participated_domains"></div>
-            </div>
-            <div ng-show="$scope.tags.$resolved" class="bottom">
-                Invite now
             </div>
         </div>
     </div>
