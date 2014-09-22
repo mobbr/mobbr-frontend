@@ -40,7 +40,7 @@
                 <p ng-bind="url.description"></p>
                 <div class="bottom">
                     <div class="item large amount" ng-bind-html="url.amount_total | mobbrcurrency:url.currency_iso:true"></div>
-                    <div class="item large participants" class="participants" ng-bind="url.num_recipients"></div>
+                    <div class="item large participants" class="participants" ng-bind="url.match_percentage + '%'"></div>
                     <div class="item" ng-bind="url.domain"></div>
                 </div>
             </div>
