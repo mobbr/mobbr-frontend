@@ -30,7 +30,9 @@ angular.module('mobbr.services').run(function ($rootScope, $state, $timeout, $mo
             if(mobbrSession.isAuthorized() === false){
                 mobbrMsg.add({ msg: 'Please login at the account menu' });
             }
+            cancelTimeout();
             $state.go(toState.data.redirectTo);
+            return false;
         }
     }
 
