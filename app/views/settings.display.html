@@ -9,7 +9,7 @@
                         <select class="form-control"
                                 ng-model="$mobbrStorage.user.currency_iso"
                                 name="currency_iso"
-                                ng-options="currency.currency_iso as currency.currency_description for currency in currencies.result | orderBy: 'currency_iso'"
+                                ng-options="value.currency_iso as value.currency_iso for (key, value) in currenciesMap"
                                 title="the currency to which other currencies are converted when displayed">
                         </select>
                     </div>
@@ -19,7 +19,7 @@
                     <label class="control-label col-sm-3 col-md-2">Language</label>
                     <div class="col-sm-7 col-md-8">
                         <select class="form-control"
-                                ng-options="country.code as country.name for country in translations.result | orderBy: 'code'"
+                                ng-options="country.translation as country.translation for country in translations.result | orderBy: 'code'"
                                 ng-model="$mobbrStorage.user.language_iso"
                                 title="the available languages">
                         </select>

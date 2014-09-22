@@ -297,6 +297,7 @@ angular.module('mobbr', [
         $rootScope.languagesMap = {};
         $rootScope.countriesMap = {};
         $rootScope.idProviders = [];
+        $rootScope.translationsMap = [];
 
         $rootScope.$state = $rootScope.state = $state;
         $rootScope.mobbrMsg = mobbrMsg;
