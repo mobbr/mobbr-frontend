@@ -84,7 +84,22 @@
                     <ul>
                         <li ng-repeat="domain in person.domain | limitTo:domainLimit" ><img ng-src="{{domain.favicon}}"> {{domain.host}}</li>
                     </ul>
-                    <button class="btn" ng-click="domainLimit = 1000" ng-show="domainLimit == domainLimitDefault && keywords.result.length > domainLimit">More</button>
+                    <button class="btn" ng-click="domainLimit = 1000" ng-show="domainLimit == domainLimitDefault && person.domain.length > domainLimit">More</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" ng-show="person && person.user.id" ng-init="idLimitDefault = 10; idLimit = idLimitDefault">
+        <div class="container">
+            {{person.user.firstname}}'s verified accounts
+            <div class="row">
+                <div class="col-md-12">
+                    <ul>
+                        <li ng-repeat="id in person.user.id | limitTo:domainLimit" >{{id}}</li>
+                    </ul>
+                    <button class="btn" ng-click="idLimit = 1000" ng-show="idLimit == idLimitDefault && person.user.id.length > idLimit">More</button>
 
                 </div>
             </div>
