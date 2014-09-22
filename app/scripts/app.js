@@ -46,11 +46,13 @@ angular.module('mobbr', [
         $stateProvider.state('main', {
                 url: '/',
                 templateUrl: 'views/main.html',
-                controller: 'MainController'
+                controller: 'MainController',
+                data: { authenticated: false, redirectTo: 'updates' }
             }).state('updates', {
                 url: '/updates',
                 templateUrl: 'views/updates.html',
-                controller: 'UpdatesController'
+                controller: 'UpdatesController',
+                data: { authenticated: true, redirectTo: 'main' }
             }).state('login', {
                 url: '/login/:hash',
                 templateUrl: 'views/link-login.html',
@@ -67,12 +69,12 @@ angular.module('mobbr', [
                 url: '/recover',
                 templateUrl: 'views/recover-password.html',
                 controller: 'ResetPasswordController',
-                data: { authenticated: false, redirectTo: 'table.wallet.credit' }
+                data: { authenticated: false, redirectTo: 'updates' }
             }).state('join', {
                 url: '/join',
                 templateUrl: 'views/join.html',
                 controller: 'JoinController',
-                data: { authenticated: false, redirectTo: 'table.wallet.credit' }
+                data: { authenticated: false, redirectTo: 'updates' }
             }).state('settings', {
                 url: '/settings',
                 templateUrl: 'views/settings.html',
@@ -335,7 +337,6 @@ angular.module('mobbr', [
 
         $rootScope.logout = function () {
             MobbrUser.logout();
-            $location.path('/');
         };
 
         $rootScope.openExternalPayment = function (item) {

@@ -214,7 +214,7 @@
                                         <a ng-href="{{ $state.href('settings') }}">Settings</a>
                                     </li>
                                     <li>
-                                        <a href="#" ng-click="logout()">Log out</a>
+                                        <span ng-click="logout()">Log out</span>
                                     </li>
                                     <li ng-repeat="paymentID in $mobbrStorage.user.id">
                                         <a ng-href="{{ paymentID }}" ng-bind="paymentID" target="_blank"></a>
