@@ -77,12 +77,14 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
     $scope.submitSettings = function (form) {
         $scope.waitingsettings = MobbrUser.updateUser({ user: $rootScope.$mobbrStorage.user }, function () {
             form && form.$setPristine();
+            $state.go('settings');
         });
     };
 
     $scope.submitEmail = function (form) {
         $scope.waitingemail = MobbrUser.updateEmail({ new_email: form.email.$modelValue }, function () {
             form && form.$setPristine();
+            $state.go('settings');
         });
     };
 
@@ -91,6 +93,7 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
             $scope.waitingpassword = MobbrUser.updatePassword({ new_password: form.new_password.$modelValue }, function () {
                 $scope.passwordHolder = {};
                 form && form.$setPristine();
+                $state.go('settings');
             });
         }
     };
