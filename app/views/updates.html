@@ -120,12 +120,12 @@
                             <strong>Filter by</strong>
                         </div>
                         <div class="col-md-3">
-                            <select class="form-inline form-control" ng-model="notificationType" ng-options="type.type as type.type for type in notifications.result | unique:'type'">
+                            <select class="form-inline form-control" ng-disabled="notifications.result.length == 0" ng-model="notificationType" ng-options="type.type as eventTypesMap[type.type].description for type in notifications.result | unique:'type'">
                                 <option value="">Choose a notificationtype</option>
                             </select>
                         </div>
                         <div class="col-md-3">
-                            <button class="btn btn-primary btn-block" ng-click="notifications.$delete()">Clear notifications</button>
+                            <button class="btn btn-primary btn-block" ng-disabled="notifications.result.length == 0" ng-click="notifications.$delete()">Clear notifications</button>
                         </div>
                     </div>
                 </div>

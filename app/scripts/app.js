@@ -306,6 +306,13 @@ angular.module('mobbr', [
         $rootScope.incomerangeMap = MobbrApi.kycIncomeRanges();
         $rootScope.host = $location.host();
         $rootScope.oAuthProviders = MobbrApi.oauthProviders();
+        $rootScope.eventTypesMap = {};
+
+        $rootScope.eventTypes = MobbrApi.eventTypes(function (response) {
+            response.result.forEach(function (item) {
+                $rootScope.eventTypesMap[item.event] = item;
+            });
+        });
 
         $rootScope.currencies = MobbrApi.currencies(function (response) {
             response.result.forEach(function (item) {
