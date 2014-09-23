@@ -52,7 +52,18 @@ angular.module('mobbr', [
                 url: '/updates',
                 templateUrl: 'views/updates.html',
                 controller: 'UpdatesController',
-                data: { authenticated: true, redirectTo: 'main' }
+                data: { authenticated: true, redirectTo: 'main' },
+                resolve: {
+                    balance: function (MobbrBalance) {
+                        return MobbrBalance.get().$promise;
+                    },
+                    notifications: function (MobbrNotifications) {
+                        return MobbrNotifications.get().$promise;
+                    },
+                    person: function (MobbrPerson, $rootScope) {
+                        return MobbrPerson.info({ username: $rootScope.$mobbrStorage.user.username }).$promise;
+                    }
+                }
             }).state('login', {
                 url: '/login/:hash',
                 templateUrl: 'views/link-login.html',
@@ -171,18 +182,6 @@ angular.module('mobbr', [
                 url: '/x-payment/:id',
                 templateUrl: 'views/payment.html',
                 controller: 'PaymentReceiptController'
-            }).state('url', {
-                url: '/url/:url',
-                templateUrl: 'views/url.html',
-                controller: 'UrlReceiptController',
-                resolve: {
-                    payment: function ($window, $stateParams, $state, $q, MobbrPayment) {
-                        return MobbrPayment.preview({
-                            data: $window.atob($stateParams.url),
-                            referrer: $window.location.href
-                        }).$promise;
-                    }
-                }
             }).state('box', {
                 abstract: true,
                 controller: 'BoxController',

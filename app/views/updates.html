@@ -40,7 +40,7 @@
                 </div>
                 <div class="row">
                     <span class="xlarge col-md-12">
-                        {{$mobbrStorage.user.complete?$mobbrStorage.user.complete:'0'}}%
+                        {{countProfileCompleted() * 100 | number:0}}%
                     </span>
                 </div>
                 <div class="row bottom">
@@ -62,13 +62,12 @@
                 </div>
                 <div class="row">
                     <span class="xlarge col-md-12">
-                        <span ng-show="person.stats.num_domain">{{person.stats.num_domain}} domains</span>
-                        <span ng-show="person.stats.num_urls">{{person.stats.num_urls}} tasks</button>
+                        <span>{{person.result.stats.num_urls}}</button>
                     </span>
                 </div>
                 <div class="row bottom">
                     <div class="col-md-12">
-                        <a ng-href="{{ $state.href('tasks') }}" class="btn btn-block">View new tasks</a>
+                        <a ng-href="{{ $state.href('box.tasks.my') }}" class="btn btn-block">My tasks</a>
                     </div>
                 </div>
             </div>
@@ -83,16 +82,16 @@
                 </div>
                 <div class="row">
                     <div class="txt col-md-12">
-                        <ul>
+                        <ul class="list-unstyled list-inline">
                             <li ng-repeat="provider in parsedIds">
-                                <img ng-src="provider.favicon" ng-show="provider.favicon">
+                                <img width="20" height="20" ng-src="{{ provider.icon }}" ng-show="provider.icon">
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="row bottom">
                     <div class="col-md-12">
-                        <a ng-href="{{ $state.href('settings.identity') }}" class="btn btn-block">Add more accounts</a>
+                        <a ng-href="{{ $state.href('settings.ids') }}" class="btn btn-block">Add more accounts</a>
                     </div>
                 </div>
             </div>
@@ -101,21 +100,13 @@
 </div>
 
 <accordion>
-    <accordion-group is-open="updates.open">
+    <accordion-group is-open="updates.open" is-disabled="true">
         <accordion-heading>
             <div class="container">
                 <div class="row no-pad">
-                    <div class="col-xs-10 title">
+                    <div class="col-xs-12 title">
                         <span class="glyphicon glyphicon-ok"></span>
                         <strong>Updates and activity</strong>
-                    </div>
-                    <div class="icons">
-                        <div class="col-xs-1 text-center icon">
-                            <span class="glyphicon glyphicon-info-sign"></span>
-                        </div>
-                        <div class="col-xs-1 text-center icon">
-                            <span ng-class="account.open ? 'glyphicon-minus' : 'glyphicon-plus'" class="glyphicon"></span>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -134,7 +125,7 @@
                             </select>
                         </div>
                         <div class="col-md-3">
-                            <button class="btn btn-primary btn-block" ng-click="deleteAll()">Clear notifications</button>
+                            <button class="btn btn-primary btn-block" ng-click="notifications.$delete()">Clear notifications</button>
                         </div>
                     </div>
                 </div>
@@ -143,7 +134,7 @@
                 <div class="row">
                     <table class="table">
                         <tbody>
-                        <tr ng-repeat="notification in notifications | filter:notificationType">
+                        <tr ng-repeat="notification in notifications.result | filter:notificationType">
                             <td>plaatje {{notification.type}}</td>
                             <td>{{notification.type}}</td>
                             <td am-time-ago="notification.timestamp" ></td>
