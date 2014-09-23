@@ -32,12 +32,10 @@ angular.module('mobbr.controllers').controller('UpdatesController', function ($s
 
     $scope.$watch('$mobbrStorage.user.id', function () {
         if ($scope.oAuthProviders && $scope.oAuthProviders.$resolved) {
-            console.log('parse ids instant');
             parseIds();
         } else {
             $q.when($scope.oAuthProviders).then(function () {
                 if ($scope.$mobbrStorage.user && $scope.$mobbrStorage.user.id) {
-                    console.log('parse ids on load');
                     parseIds();
                 }
             });
