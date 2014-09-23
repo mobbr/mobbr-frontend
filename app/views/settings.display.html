@@ -9,7 +9,7 @@
                         <select class="form-control"
                                 ng-model="$mobbrStorage.user.currency_iso"
                                 name="currency_iso"
-                                ng-options="value.currency_iso as value.currency_iso for (key, value) in currenciesMap"
+                                ng-options="value.currency_iso as value.description for (key, value) in currenciesMap"
                                 title="the currency to which other currencies are converted when displayed">
                         </select>
                     </div>
