@@ -9,11 +9,11 @@
 </div>
 
 <accordion state-accordion="payments">
-    <accordion-group is-open="stateAccordion['payments.pledges']">
+    <accordion-group is-open="stateAccordion['payments.pledges']" is-disabled="true">
         <accordion-heading>
             <div class="container">
                 <div class="row no-pad">
-                    <div class="col-xs-10 title">
+                    <div class="col-xs-10 title" ng-click="$state.is('payments.pledges') ? $state.go('^') : $state.go('payments.pledges')">
                         <span class="glyphicon glyphicon-ok"></span>
                         <strong>Pledges</strong>
                     </div>
@@ -21,8 +21,8 @@
                         <div class="col-xs-1 text-center icon">
                             <span class="glyphicon glyphicon-info-sign"></span>
                         </div>
-                        <div class="col-xs-1 text-center icon">
-                            <span ng-class="account.open ? 'glyphicon-minus' : 'glyphicon-plus'" class="glyphicon"></span>
+                        <div class="col-xs-1 text-center icon" ng-click="$state.is('payments.pledges') ? $state.go('^') : $state.go('settings.notifications')">
+                            <span ng-class="$state.is('payments.pledges') ? 'glyphicon-minus' : 'glyphicon-plus'" class="glyphicon"></span>
                         </div>
                     </div>
                 </div>
@@ -68,11 +68,11 @@
             </div>
         </div>
     </accordion-group>
-    <accordion-group is-open="stateAccordion['payments.unclaimed']">
+    <accordion-group is-open="stateAccordion['payments.unclaimed']" is-disabled="true">
         <accordion-heading>
             <div class="container">
                 <div class="row no-pad">
-                    <div class="col-xs-10 title">
+                    <div class="col-xs-10 title" ng-click="$state.is('payments.unclaimed') ? $state.go('^') : $state.go('payments.unclaimed')">
                         <span class="glyphicon glyphicon-ok"></span>
                         <strong>Unclaimed</strong>
                     </div>
@@ -80,8 +80,8 @@
                         <div class="col-xs-1 text-center icon">
                             <span class="glyphicon glyphicon-info-sign"></span>
                         </div>
-                        <div class="col-xs-1 text-center icon">
-                            <span ng-class="account.open ? 'glyphicon-minus' : 'glyphicon-plus'" class="glyphicon"></span>
+                        <div class="col-xs-1 text-center icon" ng-click="$state.is('payments.unclaimed') ? $state.go('^') : $state.go('payments.unclaimed')">
+                            <span ng-class="$state.is('payments.unclaimed') ? 'glyphicon-minus' : 'glyphicon-plus'" class="glyphicon"></span>
                         </div>
                     </div>
                 </div>
@@ -98,14 +98,14 @@
                         <thead>
                         <tr>
                             <th></th>
-                            <th ng-click="unclaimedTable.sortBy='username'; unclaimedTable.reverse=!unclaimedTable.reverse">
-                                Participant
-                            </th>
                             <th ng-click="pledgedTable.sortBy='datetime'; pledgedTable.reverse=!pledgedTable.reverse">
                                 Date
                             </th>
+                            <th ng-click="unclaimedTable.sortBy='username'; unclaimedTable.reverse=!unclaimedTable.reverse">
+                                Participant
+                            </th>
                             <th ng-click="unclaimedTable.sortBy='title'; unclaimedTable.reverse=!unclaimedTable.reverse">
-                                Title
+                                Domain
                             </th>
                             <th ng-click="unclaimedTable.sortBy='currency_iso'; unclaimedTable.reverse=!unclaimedTable.reverse">
                                 Currency
@@ -118,6 +118,9 @@
                         <tbody>
                         <tr ng-repeat="payment in unclaimedTable.data | orderBy:unclaimedTable.sortBy:unclaimedTable.reverse">
                             <td><input type="checkbox" ng-model="payment.selected"></td>
+                            <td ng-click="openPayment(payment)" data-title="'Date'" sortable="'datetime'" title="{{ payment.datetime }}">
+                                <time am-time-ago="payment.datetime" datetime="{{ payment.datetime }}"></time>
+                            </td>
                             <td>
                                 <a ng-href="{{ payment.recipient_id }}" target="_blank">
                                     <img ng-src="https://secure.gravatar.com/avatar/{{ payment.gravatar }}?s=50&default=https://mobbr.com/img/default-gravatar.png"
@@ -127,10 +130,7 @@
                                     <span ng-bind="payment.recipient_id"></span>
                                 </a>
                             </td>
-                            <td ng-click="openPayment(payment)" data-title="'Date'" sortable="'datetime'" title="{{ payment.datetime }}">
-                                <time am-time-ago="payment.datetime" datetime="{{ payment.datetime }}"></time>
-                            </td>
-                            <td ng-click="openPayment(payment)" ng-bind="payment.title?payment.title:payment.url"></td>
+                            <td ng-click="openPayment(payment)" ng-bind="payment.url | domain"></td>
                             <td ng-click="openPayment(payment)" ng-bind="payment.currency_iso"></td>
                             <td ng-click="openPayment(payment)" ng-bind-html="payment.amount | mobbrcurrency:'':true:true"></td>
                         </tr>
@@ -140,11 +140,11 @@
             </div>
         </div>
     </accordion-group>
-    <accordion-group is-open="stateAccordion['payments.payments']">
+    <accordion-group is-open="stateAccordion['payments.payments']" is-disabled="true">
         <accordion-heading>
             <div class="container">
                 <div class="row no-pad">
-                    <div class="col-xs-10 title">
+                    <div class="col-xs-10 title" ng-click="$state.is('payments.payments') ? $state.go('^') : $state.go('payments.payments')">
                         <span class="glyphicon glyphicon-ok"></span>
                         <strong>Payments</strong>
                     </div>
@@ -152,8 +152,8 @@
                         <div class="col-xs-1 text-center icon">
                             <span class="glyphicon glyphicon-info-sign"></span>
                         </div>
-                        <div class="col-xs-1 text-center icon">
-                            <span ng-class="account.open ? 'glyphicon-minus' : 'glyphicon-plus'" class="glyphicon"></span>
+                        <div class="col-xs-1 text-center icon" ng-click="$state.is('payments.payments') ? $state.go('^') : $state.go('payments.payments')">
+                            <span ng-class="$state.is('payments.payments') ? 'glyphicon-minus' : 'glyphicon-plus'" class="glyphicon"></span>
                         </div>
                     </div>
                 </div>
