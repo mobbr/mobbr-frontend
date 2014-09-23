@@ -84,7 +84,7 @@
                     <div class="txt col-md-12">
                         <ul class="list-unstyled list-inline">
                             <li ng-repeat="provider in parsedIds">
-                                <img width="20" height="20" ng-src="{{ provider.icon }}" ng-show="provider.icon">
+                                <img width="20" height="20" ng-class="provider.active ? '' : 'inactive'" ng-src="{{ provider.icon }}" ng-show="provider.icon">
                             </li>
                         </ul>
                     </div>
@@ -120,7 +120,7 @@
                             <strong>Filter by</strong>
                         </div>
                         <div class="col-md-3">
-                            <select class="form-inline form-control" ng-model="notificationType" ng-options="type.type as type.type for type in notifications | unique:'type'">
+                            <select class="form-inline form-control" ng-model="notificationType" ng-options="type.type as type.type for type in notifications.result | unique:'type'">
                                 <option value="">Choose a notificationtype</option>
                             </select>
                         </div>
