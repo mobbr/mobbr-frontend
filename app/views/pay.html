@@ -87,10 +87,12 @@
                 <tbody>
                 <tr ng-repeat="participant in payment.result.script.participants">
                     <td>
-                        <img ng-src="https://secure.gravatar.com/avatar/{{ participant['.gravatar'] }}?s=20&default=https://mobbr.com/img/default-gravatar.png"
-                             width="20"
-                             height="20">
-                        <span ng-bind="participant['.x-id']"></span>
+                        <a ng-href="{{ participant.id }}" target="_blank">
+                            <img ng-src="https://secure.gravatar.com/avatar/{{ participant['.gravatar'] }}?s=20&default=https://mobbr.com/img/default-gravatar.png"
+                                 width="20"
+                                 height="20">
+                            <span ng-bind="participant.id"></span>
+                        </a>
                     </td>
                     <td ng-bind="participant.role"></td>
                     <td ng-bind="(participant['.percentage'] | number:2) + '%'"></td>
