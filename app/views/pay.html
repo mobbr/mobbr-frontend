@@ -86,23 +86,23 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="participant in payment.result.script.participants">
-                    <td ng-bind="participant.datetime">
-                        <img ng-src="https://secure.gravatar.com/avatar/{{ participant['gravatar'] }}?s=20&default=https://mobbr.com/img/default-gravatar.png"
+                    <td>
+                        <img ng-src="https://secure.gravatar.com/avatar/{{ participant['.gravatar'] }}?s=20&default=https://mobbr.com/img/default-gravatar.png"
                              width="20"
                              height="20">
-                        <span ng-bind="participant.username"></span>
+                        <span ng-bind="participant['.x-id']"></span>
                     </td>
                     <td ng-bind="participant.role"></td>
-                    <td ng-bind="participant.share"></td>
-                    <td ng-bind="participant.currency_iso"></td>
-                    <td ng-bind="participant.amount | mobbrcurrency:''"></td>
+                    <td ng-bind="(participant['.percentage'] | number:2) + '%'"></td>
+                    <td ng-bind="payment.result.script['.currency']"></td>
+                    <td ng-bind-html="participant['.amount'] | mobbrcurrency:'':true"></td>
                 </tr>
                 <tr>
                     <td></td>
                     <td>Total</td>
                     <td>100%</td>
                     <td ng-bind="payment.result.script['.currency']"></td>
-                    <td ng-bind="payment.result.script['.amount'] | mobbrcurrency:''"></td>
+                    <td ng-bind-html="payment.result.script['.amount'] | mobbrcurrency:'':true"></td>
                 </tr>
                 </tbody>
             </table>
