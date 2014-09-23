@@ -30,11 +30,11 @@ angular.module('mobbr.controllers').controller('BoxController', function ($scope
     }
 
     function urlTags(url) {
+        $scope.query = url;
         $scope.tags = MobbrUri.info({
             //include_statistics: false,
             url: url
         }, function (response) {
-            $scope.query = url;
             $scope.activeQuery = url;
             filterTags(response.result.script.keywords || []);
         }, function () {
@@ -47,10 +47,16 @@ angular.module('mobbr.controllers').controller('BoxController', function ($scope
     $scope.resetTags = function () {
         if ($state.params.task) {
             urlTags($window.atob($state.params.task));
-        } else if (mobbrSession.isAuthorized()) {
-            userTags();
-        } else {
-            topTags();
+        } else if($state.includes('box.tasks')) {
+            if (mobbrSession.isAuthorized()) {
+                userTags();
+            } else {
+                topTags();
+            }
+        } else if($state.includes('box.crowds')) {
+            $scope.tags = null;
+            $scope.filteredTags = null;
+            $scope.$broadcast('update-tags');
         }
     }
 

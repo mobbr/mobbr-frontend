@@ -2,26 +2,28 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
     'use strict';
 
     function queryPeople() {
-
-        $scope.persons = MobbrPerson.get({
-            keywords: $scope.filteredTags,
-            language: $scope.filter_language
-        });
-
-        $scope.persons.$promise.then(function () {
-            angular.forEach($scope.selectedPersons, function (selectedPerson) {
-                for (var i = 0; i < $scope.persons.result.length; i++) {
-                    var person = $scope.persons.result[i];
-                    if (selectedPerson.id === person.id) {
-                        $scope.persons.result[i] = selectedPerson;
-                    }
-                }
+        if ($scope.filteredTags) {
+            $scope.persons = MobbrPerson.get({
+                keywords: $scope.filteredTags,
+                language: $scope.filter_language
             });
-        });
+
+            $scope.persons.$promise.then(function () {
+                angular.forEach($scope.selectedPersons, function (selectedPerson) {
+                    for (var i = 0; i < $scope.persons.result.length; i++) {
+                        var person = $scope.persons.result[i];
+                        if (selectedPerson.id === person.id) {
+                            $scope.persons.result[i] = selectedPerson;
+                        }
+                    }
+                });
+            });
+        } else {
+            $scope.persons = null;
+        }
     }
 
     $scope.addPerson = function (person) {
-        console.log(person);
         if (person.selected === true) {
             $scope.selectedPersons.push(person);
         } else {
@@ -30,10 +32,17 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
     };
 
     $scope.removePerson = function (person) {
-        if(person.selected === true){
-            person.selected = false;
+        if (person) {
+            if(person.selected === true){
+                person.selected = false;
+            }
+            $scope.selectedPersons.splice($scope.selectedPersons.indexOf(person), 1);
+        } else {
+            angular.forEach($scope.selectedPersons, function (item) {
+                item.selected = false;
+            });
+            $scope.selectedPersons = [];
         }
-        $scope.selectedPersons.splice($scope.selectedPersons.indexOf(person), 1);
     };
 
     $scope.invitePeople = function () {

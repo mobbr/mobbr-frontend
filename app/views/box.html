@@ -37,7 +37,7 @@
     </div>
 </div>
 
-<div class="row top-info tags" ng-show="!$state.includes('box.task.view')">
+<div class="row top-info tags" ng-show="!$state.includes('box.task.view') && !$state.is('box.crowds') && (tags && tags.$resolved)">
     <div class="container">
         <div class="row">
             <div class="col-md-12">

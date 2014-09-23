@@ -261,7 +261,7 @@ angular.module('mobbr', [
                     }
                 },
                 data: {
-                    title: 'Find crowds'
+                    title: 'Invite workforce'
                 }
             }).state('box.crowds.task', {
                 url: '/:task'
@@ -325,6 +325,8 @@ angular.module('mobbr', [
                 $rootScope.languagesMap[item.code] = item.name;
             });
         });
+
+        $rootScope.usedLanguages = MobbrApi.isoLanguages({ include_unused: false });
 
         $rootScope.translations = MobbrApi.translations(function (response) {
             response.result.forEach(function (item) {
