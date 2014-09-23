@@ -349,11 +349,11 @@ angular.module('mobbr', [
         };
 
         $rootScope.openExternalPayment = function (item) {
-            $state.go('x-payment', { id: item.id });
+            $state.go('x-payment', { id: item.id || item.payment_id });
         }
 
         $rootScope.openPayment = function (item) {
-            $state.go('payment', { id: item.id });
+            $state.go('payment', { id: item.id || item.payment_id });
         }
 
         $rootScope.isTest = function () {
