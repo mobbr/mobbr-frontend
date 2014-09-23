@@ -1,54 +1,72 @@
-angular.module('mobbr.controllers').controller('UpdatesController', function ($scope, $q, MobbrNotifications, MobbrBalance) {
+angular.module('mobbr.controllers').controller('UpdatesController', function ($scope, $q, $rootScope, notifications, balance, person, MobbrNotifications) {
     'use strict';
 
+    var profileFields = [
+        'firstname',
+        'lastname',
+        'birthday',
+        'address',
+        'country_of_residence',
+        'nationality', 'occupation',
+        'income_range',
+        'companyname',
+        'vat_number',
+        'currency_iso',
+        'language_iso',
+        'timezone'
+    ];
 
-    $scope.dashboard = {};
+    $scope.dashboard = balance.result;
+    $scope.notifications = notifications;
+    $scope.person = person;
 
     function parseIds() {
         $scope.parsedIds = [];
-        angular.forEach($scope.oAuthProviders, function (providerObj) {
+        angular.forEach($scope.oAuthProviders.result, function (providerObj) {
             angular.forEach($scope.$mobbrStorage.user.id, function (id) {
-                if (providerObj && id.indexOf(providerObj.host) > -1) {
-                    $scope.parsedIds.push(providerObj);
-                }
+                providerObj.active = providerObj.active || (providerObj && id.indexOf(providerObj.host) > -1);
             });
+            $scope.parsedIds.push(providerObj);
         });
     }
 
     $scope.$watch('$mobbrStorage.user.id', function () {
-        if ($scope.oAuthProviders && $scope.oAuthProviders.length > 0) {
-
+        if ($scope.oAuthProviders && $scope.oAuthProviders.$resolved) {
+            console.log('parse ids instant');
             parseIds();
         } else {
             $q.when($scope.oAuthProviders).then(function () {
                 if ($scope.$mobbrStorage.user && $scope.$mobbrStorage.user.id) {
+                    console.log('parse ids on load');
                     parseIds();
                 }
             });
         }
     });
 
-    $scope.refreshNotifications = function() {
-        $scope.notifications = MobbrNotifications.get(function (response) {
-            $scope.notifications = response.result;
+    var countFields = function (fields) {
+        var count = 0;
+        if ($scope.$mobbrStorage.user) {
+            angular.forEach(fields, function (field) {
+                if ($scope.$mobbrStorage.user[field]) {
+                    count = count + 1;
+                }
+            });
+        }
 
-        });
-    }
-
-    $scope.refreshNotifications();
-
-    $scope.deleteAll = function () {
-        MobbrNotifications.delete(function () {
-            $scope.refreshNotifications();
-        });
+        return count;
     };
 
-    MobbrBalance.get(function (response) {
-        if(response && response.result){
-            $scope.dashboard.total_currency_iso = response.result.total_currency_iso;
-            $scope.dashboard.total_amount = response.result.total_amount;
+    $scope.countProfileCompleted = function () {
+
+        var count = countFields(profileFields);
+
+        if ($scope.$mobbrStorage.user.mangopay_identity_proof === 'VALIDATION_ASKED' || $scope.$mobbrStorage.user.kyc_level === 'regular') {
+            count++;
         }
-    });
+
+        return count / 14;
+    };
 
     $scope.updates = { open: true };
 

@@ -173,7 +173,14 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
 
     var proofFields = ['occupation', 'income_range'];
     $scope.countProofCompleted = function () {
-        return countFields(proofFields);
+
+        var count = countFields(proofFields);
+
+        if ($scope.$mobbrStorage.user.mangopay_identity_proof === 'VALIDATION_ASKED' || $scope.$mobbrStorage.user.kyc_level === 'regular') {
+            count++;
+        }
+
+        return count;
     };
 
     var invoicingFields = ['companyname', 'vat_number'];
