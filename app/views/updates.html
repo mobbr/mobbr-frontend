@@ -83,8 +83,8 @@
                 <div class="row">
                     <div class="txt col-md-12">
                         <ul class="list-unstyled list-inline">
-                            <li ng-repeat="provider in parsedIds">
-                                <img width="20" height="20" ng-class="provider.active ? '' : 'inactive'" ng-src="{{ provider.icon }}" ng-show="provider.icon">
+                            <li ng-repeat="provider in parsedIds" ng-show="provider.icon">
+                                <img width="20" height="20" ng-class="provider.active ? '' : 'inactive'" ng-src="{{ provider.icon }}">
                             </li>
                         </ul>
                     </div>
@@ -135,8 +135,8 @@
                     <table class="table">
                         <tbody>
                         <tr ng-repeat="notification in notifications.result | filter:notificationType">
-                            <td>plaatje {{notification.type}}</td>
-                            <td>{{notification.type}}</td>
+                            <td ng-class="notification.type"></td>
+                            <td>{{eventTypesMap[notification.type].description}}</td>
                             <td am-time-ago="notification.timestamp" ></td>
                         </tr>
                         </tbody>
