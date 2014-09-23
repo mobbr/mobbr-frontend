@@ -15,6 +15,10 @@ angular.module('mobbr.controllers').controller('PayController', function ($scope
         }, function () {
             $scope.confirm = undefined;
             $scope.payError = false;
+        }, function () {
+            $scope.show_preview = false;
+            $scope.payment = null;
+            $scope.confirm = null;
         });
     }
 
@@ -30,6 +34,7 @@ angular.module('mobbr.controllers').controller('PayController', function ($scope
             $scope.payment = undefined;
             $scope.payError = false;
         }, function (response) {
+            $scope.confirm = null;
             $scope.payment = undefined;
             $scope.payError = true;
         });
