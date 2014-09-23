@@ -21,7 +21,9 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
         send_monthly_reports: 'Send monthly reports',
         send_newsletter: 'Send me newsletters to keep me informed',
         send_payment_expired_notification: 'Send payment expire notifications',
-        send_payment_received_notification: 'Send payment recieved notifications'
+        send_payment_received_notification: 'Send payment recieved notifications',
+        send_invoice_download_notification: 'Send invoice download notifications',
+        send_task_invitation_notification: 'Send task invitation notifications'
     };
 
 
@@ -124,19 +126,20 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
 
     $scope.addExternalId = function () {
 
-        popup_url = $window.location.origin + '/popup.html';
-        oauth_popup = $window.open(popup_url, 'oauth-popup');
-
         if ($scope.formHolder.addPaymentIdForm.$valid && $scope.addPaymentIdHolder.idType) {
             if ($scope.addPaymentIdHolder.idType === 'EMAIL') {
                 $scope.waitingAddId = MobbrUser.addEmailId({new_email: $scope.addPaymentIdHolder.email}, clearPaymentIdHolder);
             } else if ($scope.addPaymentIdHolder.idType === 'OAUTH') {
+                popup_url = $window.location.origin + '/popup.html';
+                oauth_popup = $window.open(popup_url, 'oauth-popup');
                 $scope.waitingAddId = MobbrUser.oAuthUrl({
                     provider: $scope.addPaymentIdHolder.oAuthProvider.provider,
                     redirect_url: popup_url
                 }, function (response) {
                     $window.addEventListener('message', popupMessage, false);
                     oauth_popup.location.href = response.result;
+                }, function () {
+                    oauth_popup.close();
                 });
             }
         }
