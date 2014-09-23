@@ -285,12 +285,17 @@ label.title {
   .card-container {
     perspective: 970px;
     margin-bottom: $grid-gutter-width;
+    backface-visibility: hidden;
   }
 
   .card-container:hover .card,
   .active .card,
   .active:hover .card {
     transform: rotateY(180deg);
+  }
+
+  .card-container:hover .card.fixed {
+    transform: none;
   }
 
   .card {
@@ -371,6 +376,11 @@ label.title {
         line-height: 40px;
       }
     }
+  }
+
+  .fixed {
+    background: $white;
+    color: $mobbrgreen;
   }
 
   @media (min-width: $screen-md-min) {
