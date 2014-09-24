@@ -192,7 +192,7 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="payment in paymentTable.data | orderBy:paymentTable.sortBy:paymentTable.reverse">
-                            <td><input ng-disabled="!payment.invoiced" type="checkbox" ng-model="payment.selected"></td>
+                            <td><input ng-disabled="payment.invoiced == '0'" type="checkbox" ng-model="payment.selected"></td>
                             <td ng-click="openPayment(payment)" title="{{ payment.datetime }}">
                                 <time am-time-ago="payment.datetime" datetime="{{ payment.datetime }}"></time>
                             </td>
