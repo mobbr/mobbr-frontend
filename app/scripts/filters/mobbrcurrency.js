@@ -12,7 +12,7 @@ angular.module('mobbr.filters').filter('mobbrcurrency', function ($rootScope, $s
         is_html = is_html || false;
         decorate = decorate || false;
 
-        if (amount) {
+        if (amount !== undefined) {
 
             negative = amount < 0;
             amount = parseFloat(amount);

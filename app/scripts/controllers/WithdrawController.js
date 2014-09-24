@@ -1,6 +1,8 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('WithdrawController', function ($scope, $state, MobbrXPayment) {
+angular.module('mobbr.controllers').controller('WithdrawController', function ($scope, $state, $timeout, MobbrXPayment) {
+
+    var feeTimeout;
 
     $scope.networks = {
         btc: {
@@ -69,5 +71,16 @@ angular.module('mobbr.controllers').controller('WithdrawController', function ($
             $state.go('^');
         });
     }
+
+    $scope.getFee = function () {
+        if ($scope.withdraw && $scope.withdraw.$valid) {
+            $scope.fee = MobbrXPayment.withdrawFee($scope.network_method.send);
+        }
+    }
+
+    $scope.$watch('network_method', function (oldValue, newValue) {
+        feeTimeout && $timeout.cancel(feeTimeout);
+        feeTimeout = $timeout($scope.getFee, 1000);
+    }, true);
 });
 
