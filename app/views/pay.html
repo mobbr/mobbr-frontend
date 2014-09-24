@@ -18,7 +18,7 @@
                                                 required
                                                 ng-init="currency = $mobbrStorage.user.currency_iso || 'EUR'"
                                                 ng-model="currency"
-                                                ng-options="value.currency_iso as value.currency_iso for (key, value) in currenciesMap"></select>
+                                                ng-options="curr.currency_iso as curr.currency_iso for curr in userBalance"></select>
                                     </div>
                                     <div class="col-xs-6">
                                         <input class="form-control"
@@ -67,6 +67,13 @@
                     </fieldset>
                 </div>
             </form>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                    <span class="info-box">
+                        <span class="mobbricon mobbricon-softalert"></span> Your fee will be 5% or 9 EUR per month, whichever is least.
+                    </span>
+            </div>
         </div>
     </div>
 </div>

@@ -277,7 +277,7 @@ angular.module('mobbr', [
 
         $urlRouterProvider.otherwise('/');
 
-    }).run(function ($http, $rootScope, $state, $location, $window, $anchorScroll, MobbrApi, MobbrUser, MobbrBalance, mobbrMsg, mobbrSession, apiUrl, uiUrl, lightboxUrl, environment) {
+    }).run(function ($http, $rootScope, $state, $location, $window, $anchorScroll, MobbrApi, MobbrUser, MobbrBalance, MobbrXPayment, mobbrMsg, mobbrSession, apiUrl, uiUrl, lightboxUrl, environment) {
 
         if (environment !== 'production') {
             $window.mobbr.setApiUrl(apiUrl);
@@ -288,25 +288,33 @@ angular.module('mobbr', [
 
         $rootScope.$on('mobbrApi:authchange', function () {
             if (mobbrSession.isAuthorized()) {
-                $rootScope.userBalance = MobbrBalance.get();
+                MobbrBalance.get(function (response) {
+                    $rootScope.userBalance = response.result.balances;
+                });
+            } else {
+                MobbrXPayment.supportedCurrencies(function (response) {
+                    $rootScope.userBalance = response.result;
+                });
             }
         });
+
+        $rootScope.$state = $rootScope.state = $state;
+        $rootScope.host = $location.host();
+        $rootScope.mobbrMsg = mobbrMsg;
+        $rootScope.mobbrSession = mobbrSession;
+        $rootScope.uiUrl = uiUrl;
 
         $rootScope.currenciesMap = {};
         $rootScope.languagesMap = {};
         $rootScope.countriesMap = {};
         $rootScope.idProviders = [];
         $rootScope.translationsMap = [];
+        $rootScope.eventTypesMap = {};
 
-        $rootScope.$state = $rootScope.state = $state;
-        $rootScope.mobbrMsg = mobbrMsg;
-        $rootScope.mobbrSession = mobbrSession;
-        $rootScope.uiUrl = uiUrl;
         $rootScope.timezones = MobbrApi.isoTimezones();
         $rootScope.incomerangeMap = MobbrApi.kycIncomeRanges();
-        $rootScope.host = $location.host();
         $rootScope.oAuthProviders = MobbrApi.oauthProviders();
-        $rootScope.eventTypesMap = {};
+        $rootScope.usedLanguages = MobbrApi.isoLanguages({ include_unused: false });
 
         $rootScope.eventTypes = MobbrApi.eventTypes(function (response) {
             response.result.forEach(function (item) {
@@ -325,8 +333,6 @@ angular.module('mobbr', [
                 $rootScope.languagesMap[item.code] = item.name;
             });
         });
-
-        $rootScope.usedLanguages = MobbrApi.isoLanguages({ include_unused: false });
 
         $rootScope.translations = MobbrApi.translations(function (response) {
             response.result.forEach(function (item) {
