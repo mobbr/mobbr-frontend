@@ -50,12 +50,13 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
         var ids = [];
 
         angular.forEach($scope.selectedPersons, function (person) {
-            ids.push('https://api.mobbr.com/id/' + person.id);
+            ids.push(person.username);
         });
 
         $scope.invite = MobbrPerson.invite({ids: ids, url: $scope.activeQuery});
         $scope.invite.$promise.then(function () {
-            $state.go($state.current, {}, {reload: true});
+            $scope.selectedPersons = [];
+            $scope.removePerson();
         });
     };
 

@@ -38,7 +38,7 @@
                         Clear invites
                         <span class="mobbricon mobbricon-hardclose"></span>
                     </button>
-                    <button class="btn btn-primary" ng-click="invitePeople()" ng-disabled="selectedPersons.length == 0">
+                    <button class="btn btn-primary" ng-click="invitePeople()" ng-show="selectedPersons.length > 0">
                         Invite these people
                         <span class="mobbricon mobbricon-crowd"></span>
                     </button>
