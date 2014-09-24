@@ -147,7 +147,7 @@
                                       class="mobbricon"></span>
                             </td>
                             <td>{{eventTypesMap[notification.type].description}}</td>
-                            <td am-time-ago="notification.timestamp" ></td>
+                            <td ng-bind="notification.timestamp | amCalendar"></td>
                         </tr>
                         </tbody>
                     </table>

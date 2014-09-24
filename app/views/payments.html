@@ -58,7 +58,7 @@
                         <tr ng-repeat="payment in pledgedTable.data | orderBy:pledgedTable.sortBy:pledgedTable.reverse">
                             <td><input type="checkbox" ng-model="payment.selected"></td>
                             <td ng-click="openPayment(payment)" data-title="'Date'" sortable="'paiddatetime'" title="{{ payment.paiddatetime }}">
-                                <time am-time-ago="payment.paiddatetime" datetime="{{ payment.paiddatetime }}"></time>
+                                <time ng-bind="payment.datetime | amCalendar" datetime="{{ payment.paiddatetime }}"></time>
                             </td>
                             <td ng-click="openPayment(payment)" data-title="'Title'" sortable="'title'" ng-bind="payment.title?payment.title:payment.url"></td>
                             <td ng-click="openPayment(payment)" data-title="'Currency'" sortable="'currency_iso'" ng-bind="payment.currency_iso"></td>
@@ -123,7 +123,7 @@
                         <tr ng-repeat="payment in unclaimedTable.data | orderBy:unclaimedTable.sortBy:unclaimedTable.reverse">
                             <td><input type="checkbox" ng-model="payment.selected"></td>
                             <td ng-click="openPayment(payment)" data-title="'Date'" sortable="'datetime'" title="{{ payment.datetime }}">
-                                <time am-time-ago="payment.datetime" datetime="{{ payment.datetime }}"></time>
+                                <time ng-bind="payment.datetime | amCalendar" datetime="{{ payment.datetime }}"></time>
                             </td>
                             <td>
                                 <a ng-href="{{ payment.recipient_id }}" target="_blank">
@@ -194,7 +194,7 @@
                         <tr ng-repeat="payment in paymentTable.data | orderBy:paymentTable.sortBy:paymentTable.reverse">
                             <td><input ng-disabled="payment.invoiced == '0'" type="checkbox" ng-model="payment.selected"></td>
                             <td ng-click="openPayment(payment)" title="{{ payment.datetime }}">
-                                <time am-time-ago="payment.datetime" datetime="{{ payment.datetime }}"></time>
+                                <time ng-bind="payment.datetime | amCalendar" datetime="{{ payment.datetime }}"></time>
                             </td>
                             <td ng-click="openPayment(payment)">{{payment.title?payment.title:payment.url}}</td>
                             <td ng-click="openPayment(payment)" ng-bind="payment.currency_iso"></td>

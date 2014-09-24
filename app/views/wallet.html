@@ -84,7 +84,7 @@
                             <div class="back">
                                 <div class="row">
                                     <small class="first col-md-12">
-                                        Last updated <time am-time-ago="balance.updatedatetime" datetime="{{ balance.updatedatetime }}"></time>
+                                        Last updated <time ng-bind="balance.updatedatetime | amCalendar" datetime="{{ balance.updatedatetime }}"></time>
 
                                     </small>
                                 </div>
