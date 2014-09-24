@@ -69,8 +69,8 @@
                     </div>
                 </div>
 
-                <div ng-class="state.is('box.task.view') ? 'active' : ''"
-                     ng-click="state.go('box.task.view')"
+                <div ng-class="state.is('box.task.view.script') ? 'active' : ''"
+                     ng-click="state.is('box.task.view.script') ? state.go('^') : state.go('box.task.view.script')"
                      class="card-container col-xs-6 col-md-3">
                     <div class="card" ng-class="has_script ? '' : 'failed'">
                         <div ng-show="has_script">

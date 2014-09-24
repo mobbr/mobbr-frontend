@@ -4,7 +4,6 @@ angular.module('mobbr.controllers').controller('TaskController', function ($scop
     function queryTask(task) {
 
         var url = $window.atob(task);
-
         $scope.$emit('set-query', url);
         $scope.domain = purl(url).hostname;
         $scope.task = MobbrUri.info({ url: url }, function (response) {
