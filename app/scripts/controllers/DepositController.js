@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('DepositController', function ($scope, $state, $window, MobbrXPayment) {
+angular.module('mobbr.controllers').controller('DepositController', function ($scope, $state, $window, $timeout, MobbrXPayment) {
 
-    var popup_url, oauth_popup;
+    var popup_url, oauth_popup, feeTimeout;;
 
     $scope.networks = {
         btc: {
@@ -46,7 +46,7 @@ angular.module('mobbr.controllers').controller('DepositController', function ($s
         $scope.depositing = MobbrXPayment.deposit({
             type: $scope.deposit_type.type,
             currency: $scope.deposit_type.currency,
-            amount: $scope.amount,
+            amount: $scope.deposit_type.amount,
             note: $scope.note,
             return_url: popup_url
         }, function (data) {
@@ -64,5 +64,20 @@ angular.module('mobbr.controllers').controller('DepositController', function ($s
             oauth_popup.close();
         });
     }
+
+    $scope.getFee = function () {
+        if ($scope.deposit && $scope.deposit.$valid) {
+            $scope.fee = MobbrXPayment.depositFee({
+                type: $scope.deposit_type.type,
+                currency: $scope.deposit_type.currency,
+                amount: $scope.deposit_type.amount
+            });
+        }
+    }
+
+    $scope.$watch('deposit_type', function (oldValue, newValue) {
+        feeTimeout && $timeout.cancel(feeTimeout);
+        feeTimeout = $timeout($scope.getFee, 1000);
+    }, true);
 });
 

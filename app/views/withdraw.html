@@ -154,8 +154,16 @@
                 </div>
             </fieldset>
 
+            <div class="row" ng-show="fee.$resolved">
+                <div class="col-md-12">
+                    <span class="info-box">
+                        <span class="mobbricon mobbricon-softalert"></span> Your fee will be {{ fee.result.amount | mobbrcurrency:fee.result.currency }}.
+                    </span>
+                </div>
+            </div>
+
             <div class="row">
-                <fieldset class="form-group" ng-disabled="withdrawing && !withdrawing.$resolved">
+                <fieldset class="form-group" ng-disabled="(fee && !fee.$resolved) || (withdrawing && !withdrawing.$resolved)">
                     <div class="col-xs-10 col-sm-offset-9 col-sm-2">
                         <button ng-disabled="!network_method.send.currency || !network_method.send.amount" type="submit" class="btn btn-success btn-block" ng-show="!bankwire && deposit_type.type != 'btc'">
                             Confirm
@@ -163,7 +171,7 @@
                     </div>
                     <div class="col-xs-2 col-sm-1">
                         <button ng-click="$state.go('^')" class="btn btn-danger btn-block">
-                            X
+                            <span class="mobbricon mobbricon-hardclose"></span>
                         </button>
                     </div>
                 </fieldset>

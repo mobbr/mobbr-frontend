@@ -16,7 +16,7 @@
                                 ng-hide="deposit_type.type == 'btc'"
                                 required
                                 ng-init="currency = $mobbrStorage.user.currency_iso || 'EUR'"
-                                ng-model="currency"
+                                ng-model="deposit_type.currency"
                                 ng-options="value.currency_iso as value.currency_iso for (key, value) in currenciesMap"></select>
                     </div>
                     <div class="col-xs-3">
@@ -25,7 +25,7 @@
                                required
                                type="number"
                                ng-hide="deposit_type.type == 'btc'"
-                               ng-model="amount"
+                               ng-model="deposit_type.amount"
                                step="any"
                                min="0"
                                max="1000000000">
@@ -113,8 +113,16 @@
                 </div>
             </fieldset>
 
+            <div class="row" ng-show="fee.$resolved">
+                <div class="col-md-12">
+                    <span class="info-box">
+                        <span class="mobbricon mobbricon-softalert"></span> Your fee will be {{ fee.result.amount | mobbrcurrency:fee.result.currency }}.
+                    </span>
+                </div>
+            </div>
+
             <div class="row">
-                <fieldset class="form-group" ng-disabled="depositing && !depositing.$resolved">
+                <fieldset class="form-group" ng-disabled="(fee && !fee.$resolved) || (depositing && !depositing.$resolved)">
                     <div class="col-xs-10 col-sm-offset-9 col-sm-2">
                         <button class="btn btn-success btn-block" ng-click="addBitcoinAddress(wallet.currency)" ng-show="!bankwire && deposit_type.type == 'btc'">Add another</button>
                         <button type="submit" ng-disabled="!currency || !amount" class="btn btn-success btn-block" ng-show="!bankwire && deposit_type.type != 'btc'">
@@ -123,7 +131,7 @@
                     </div>
                     <div class="col-xs-2 col-sm-1">
                         <button ng-click="$state.go('^')" class="btn btn-danger btn-block">
-                            X
+                            <span class="mobbricon mobbricon-hardclose"></span>
                         </button>
                     </div>
                 </fieldset>
