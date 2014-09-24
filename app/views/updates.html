@@ -15,7 +15,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h3>
-                            <span class="glyphicon glyphicon-bookmark"></span>
+                            <span class="mobbricon mobbricon-wallet"></span>
                             Balances in {{dashboard.total_currency_iso}}
                         </h3>
                     </div>
@@ -33,7 +33,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h3>
-                            <span class="glyphicon glyphicon-cog"></span>
+                            <span class="mobbricon mobbricon-settings"></span>
                             Settings & profile
                         </h3>
                     </div>
@@ -55,7 +55,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h3>
-                            <span class="glyphicon glyphicon-bookmark"></span>
+                            <span class="mobbricon mobbricon-tasks"></span>
                             Tasks you worked on
                         </h3>
                     </div>
@@ -75,7 +75,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h3>
-                            <span class="glyphicon glyphicon-bookmark"></span>
+                            <span class="mobbricon mobbricon-domain"></span>
                             Linked accounts
                         </h3>
                     </div>
@@ -105,7 +105,7 @@
             <div class="container">
                 <div class="row no-pad">
                     <div class="col-xs-12 title">
-                        <span class="glyphicon glyphicon-ok"></span>
+                        <span class="mobbricon mobbricon-mobbricon"></span>
                         <strong>Updates and activity</strong>
                     </div>
                 </div>
@@ -116,7 +116,7 @@
                 <div class="container">
                     <div class="row no-margin">
                         <div class="col-md-6 title">
-                            <span class="glyphicon glyphicon-ok"></span>
+                            <span class="mobbricon mobbricon-filter"></span>
                             <strong>Filter by</strong>
                         </div>
                         <div class="col-md-3">
@@ -125,7 +125,10 @@
                             </select>
                         </div>
                         <div class="col-md-3">
-                            <button class="btn btn-primary btn-block" ng-disabled="notifications.result.length == 0" ng-click="notifications.$delete()">Clear notifications</button>
+                            <button class="btn btn-primary btn-block" ng-disabled="notifications.result.length == 0" ng-click="notifications.$delete()">
+                                Clear notifications
+                                <span class="pull-right mobbricon mobbricon-hardclose"></span>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -135,7 +138,14 @@
                     <table class="table">
                         <tbody>
                         <tr ng-repeat="notification in notifications.result | filter:notificationType">
-                            <td ng-class="notification.type"></td>
+                            <td ng-class="notification.type">
+                                <span ng-class="{
+                                        'mobbricon-transaction': notification.type == 'payment_received' || notification.type == 'payment_revocation' || notification.type == 'xpayment_failure' || notification.type == 'xpayment_received',
+                                        'mobbricon-person': notification.type == 'login' || notification.type == 'logout',
+                                        'mobbricon-login': notification.type == 'auto_logout'
+                                        }"
+                                      class="mobbricon"></span>
+                            </td>
                             <td>{{eventTypesMap[notification.type].description}}</td>
                             <td am-time-ago="notification.timestamp" ></td>
                         </tr>

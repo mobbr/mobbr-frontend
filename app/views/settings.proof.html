@@ -3,16 +3,16 @@
         <div class="row no-margin">
             <div class="col-md-12">
                 <span ng-if="$mobbrStorage.user.mangopay_identity_proof == 'PROOF_REQUIRED'" class="info-box">
-                    <span class="glyphicon glyphicon-info-sign"></span> Without this information, your account is limited to receive max. €2,500 (or equivalent) and/or send max. €1,000 (or equivalent), cumulated per legal year. These limits only apply to the USD, GBP, CHF, SEK, NOK, DKK, EUR, PLN currencies.
+                    <span class="mobbricon mobbricon-softalert"></span> Without this information, your account is limited to receive max. €2,500 (or equivalent) and/or send max. €1,000 (or equivalent), cumulated per legal year. These limits only apply to the USD, GBP, CHF, SEK, NOK, DKK, EUR, PLN currencies.
                 </span>
                 <span ng-if="$mobbrStorage.user.mangopay_identity_proof == 'VALIDATION_ASKED'" class="info-box">
-                    <span class="glyphicon glyphicon-info-sign"></span> Your request has been submitted, it will be confirmed within 24-48 hours, in the meantime your account still has limits
+                    <span class="mobbricon mobbricon-softalert"></span> Your request has been submitted, it will be confirmed within 24-48 hours, in the meantime your account still has limits
                 </span>
                 <span ng-if="$mobbrStorage.user.mangopay_identity_proof == 'REFUSED'" class="info-box">
-                    <span class="glyphicon glyphicon-info-sign"></span> Your request has been refused, please try again, make sure you have uploaded a readable copy of a valid ID (e.g. passport, drivers license)
+                    <span class="mobbricon mobbricon-softalert"></span> Your request has been refused, please try again, make sure you have uploaded a readable copy of a valid ID (e.g. passport, drivers license)
                 </span>
                 <span ng-if="$mobbrStorage.user.mangopay_identity_proof == 'CONFIRMED'" class="info-box">
-                    <span class="glyphicon glyphicon-info-sign"></span> This information can no longer be changed because you have a confirmed identity.
+                    <span class="mobbricon mobbricon-softalert"></span> This information can no longer be changed because you have a confirmed identity.
                 </span>
             </div>
         </div>
@@ -83,7 +83,7 @@
                             <button ng-disabled="(waitingsettings && !waitingsettings.$resolved) || proof.$pristine"
                                     ng-click="submitSettings(settings)"
                                     class="btn btn-success btn-block">
-                                <i class="glyphicon mobbrloader" ng-show="waitingsettings && !waitingsettings.$resolved"></i>
+                                <i class="mobbricon mobbrloader" ng-show="waitingsettings && !waitingsettings.$resolved"></i>
                                 Save
                             </button>
                         </div>

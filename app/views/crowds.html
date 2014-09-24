@@ -3,7 +3,7 @@
         <div class="row">
             <fieldset ng-disabled="(tasks && !tasks.$resolved) || (!tags.$resolved)" class="form-horizontal">
                 <div class="col-md-9 title">
-                    <span class="glyphicon glyphicon-ok"></span>
+                    <span class="mobbricon mobbricon-filter"></span>
                     <strong>Filter by</strong>
                 </div>
                 <div class="col-md-3">
@@ -24,7 +24,7 @@
         <div class="row">
             <fieldset ng-disabled="(tasks && !tasks.$resolved) || (!tags.$resolved)" class="form-horizontal">
                 <div class="col-md-3 title">
-                    <span class="glyphicon glyphicon-ok"></span>
+                    <span class="mobbricon mobbricon-crowd"></span>
                     <strong>My future team</strong>
                 </div>
                 <div class="col-md-9 text-right">
@@ -34,8 +34,14 @@
                          width="50"
                          height="50"
                          ng-click="removePerson(person)">
-                    <button class="btn btn-danger" ng-click="removePerson()" ng-show="selectedPersons.length > 0">Clear invites</button>
-                    <button class="btn btn-primary" ng-click="invitePeople()" ng-disabled="selectedPersons.length == 0">Invite these people</button>
+                    <button class="btn btn-danger" ng-click="removePerson()" ng-show="selectedPersons.length > 0">
+                        Clear invites
+                        <span class="mobbricon mobbricon-hardclose"></span>
+                    </button>
+                    <button class="btn btn-primary" ng-click="invitePeople()" ng-disabled="selectedPersons.length == 0">
+                        Invite these people
+                        <span class="mobbricon mobbricon-crowd"></span>
+                    </button>
                 </div>
             </fieldset>
         </div>
@@ -47,14 +53,6 @@
 <div ng-class="{ loading: persons && !persons.$resolved }" class="row data-cards data-cards-persons">
     <div ng-repeat="person in persons.result" ng-class="{ 'data-card-highlight': person.match_percentage > 90 }" class="col-md-3 data-card-container">
         <div class="data-card" ng-init="person.selected = false" ng-click="activeQuery && (person.selected = !person.selected);activeQuery && addPerson(person);">
-            <div class="pull-right">
-                <div class="checkbox">
-                    <label>
-                        <input ng-show="activeQuery" type="checkbox" ng-model="person.selected" disabled>
-                        Invite for this task
-                    </label>
-                </div>
-            </div>
             <img ng-src="https://secure.gravatar.com/avatar/{{ person['gravatar'] }}?s=50&default=https://mobbr.com/img/default-gravatar.png"
                  width="50"
                  height="50"
@@ -70,9 +68,25 @@
             </ul>
 
             <div>
-                <div class="item large participants" ng-bind="person.match_percentage + '%'"></div>
-                <div class="item large amount" ng-bind="person.num_participated_tasks"></div>
-                <div class="item large" ng-bind="person.num_participated_domains"></div>
+                <div class="item large participants">
+                    <span ng-bind="person.match_percentage + '%'"></span>
+                    <span class="mobbricon mobbricon-unclaimed"></span>
+                </div>
+                <div class="item large tasks">
+                    <span ng-bind="person.num_participated_tasks"></span>
+                    <span class="mobbricon mobbricon-tasks"></span>
+                </div>
+                <div class="item large">
+                    <span ng-bind="person.num_participated_domains"></span>
+                    <span class="mobbricon mobbricon-domain"></span>
+                </div>
+            </div>
+
+            <div class="checkbox">
+                <label>
+                    <input ng-show="activeQuery" type="checkbox" ng-model="person.selected" disabled>
+                    Invite for this task
+                </label>
             </div>
         </div>
     </div>

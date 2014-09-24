@@ -12,9 +12,9 @@
                         <button ng-click="removePaymentID(paymentID,$index)"
                                 type="button"
                                 class="btn btn-danger btn-square">
-                            <i class="glyphicon mobbrloader"
+                            <i class="mobbricon mobbrloader"
                                ng-show="waitingRemoveId && waitingRemoveId[$index] && !waitingRemoveId[$index].$resolved"></i>
-                            x
+                            <span class="mobbricon mobbricon-hardclose"></span>
                         </button>
                     </div>
                 </fieldset>
@@ -47,9 +47,9 @@
                     <div class="col-sm-1 col-xs-2 col-md-1">
                         <button type="submit" class="btn btn-success btn-square"
                                 ng-disabled="!(formHolder.addPaymentIdForm.$valid && formHolder.addPaymentIdForm.$dirty && addPaymentIdHolder.idType)">
-                            <i class="glyphicon mobbrloader"
+                            <i class="mobbricon mobbrloader"
                                ng-show="waitingAddId && !waitingAddId.$resolved"></i>
-                            +
+                            <span class="mobbricon mobbricon-addopen"></span>
                         </button>
                     </div>
                 </fieldset>

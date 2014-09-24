@@ -12,7 +12,7 @@
                              class="img-rounded user-thumb pull-left">
                         <div class="col-sm-6 col-md-7 col-xs-10">
                             <span class="info-box">
-                                <span class="glyphicon glyphicon-info-sign"></span>
+                                <span class="mobbricon mobbricon-softalert"></span>
                                 We use gravatars, linked to your email address. Create your profile
                                 <a target="_blank" href="http://gravatar.com">here</a>.
                             </span>
@@ -51,7 +51,7 @@
                                 ng-disabled="((waitingemail && !waitingemail.$resolved) || !changeemail.$valid || $mobbrStorage.user.email == new_email)"
                                 type="submit"
                                 class="btn btn-success btn-block">
-                            <i class="glyphicon mobbrloader" ng-show="waitingemail && !waitingemail.$resolved"></i>
+                            <i class="mobbricon mobbrloader" ng-show="waitingemail && !waitingemail.$resolved"></i>
                             update
                         </button>
                     </div>
@@ -85,7 +85,7 @@
                                 ng-disabled="(!changepassword.$valid || (waitingpassword && !waitingpassword.$resolved) || !changepassword.$dirty)"
                                 type="submit"
                                 class="btn btn-success btn-block">
-                            <i class="glyphicon mobbrloader" ng-show="waitingpassword && !waitingpassword.$resolved"></i>
+                            <i class="mobbricon mobbrloader" ng-show="waitingpassword && !waitingpassword.$resolved"></i>
                             update
                         </button>
                     </div>

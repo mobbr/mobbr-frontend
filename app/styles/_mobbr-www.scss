@@ -589,7 +589,7 @@ accordion .info-bar {
   font-size: 16px;
   border-bottom: 1px solid $gray;
 
-  .glyphicon {
+  .mobbricon {
     margin-right: $grid-gutter-width;
   }
 }
@@ -694,7 +694,7 @@ accordion {
     padding-bottom: 20px;
     background: transparent;
 
-    .title .glyphicon {
+    .title .mobbricon {
       margin-right: $grid-gutter-width / 2;
     }
 
@@ -780,7 +780,7 @@ accordion {
     padding-top: $grid-gutter-width / 3;
     padding-left: $grid-gutter-width * 2;
 
-    .glyphicon-info-sign {
+    .mobbricon-softalert {
       display: block;
       float: left;
       font-size: 20px;
@@ -1015,7 +1015,7 @@ body.blocked .unblocked {
       padding-bottom: 3px;
     }
 
-    .glyphicon {
+    .mobbricon {
       display: block;
       font-size: 17px;
 
@@ -1292,6 +1292,10 @@ body.blocked .unblocked {
 
   .amount {
     color: $mobbrgreen;
+  }
+
+  .tasks {
+    color: $mobbrblue;
   }
 
   .item {

@@ -41,24 +41,30 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h2>{{ ($state.includes('box.crowds') && 'Required expertise' + (activeQuery && (' for ' + activeQuery) || '')) || (activeQuery && 'Tags on this task' || 'Top tags') }}</h2>
+                <h2><span class="mobbricon mobbricon-tag"></span> {{ ($state.includes('box.crowds') && 'Required expertise' + (activeQuery && (' for ' + activeQuery) || '')) || (activeQuery && 'Tags on this task' || 'Top tags') }}</h2>
                 <ul class="tasks-tags list-inline">
                     <li ng-show="tagsChanged">
-                        <a ng-click="resetTags(); tagsChanged = false;"><span class="label label-default">Reset</span></a>
+                        <a ng-click="resetTags(); tagsChanged = false;"><span class="label label-default">Reset <span class="mobbricon mobbricon-tag"></span></span></a>
                     </li>
                     <li ng-show="filteredTags.length == 0">
-                        <a ng-click="topTags(); tagsChanged = true;"><span class="label label-default">No tags to display, click here for top tags</span></a>
+                        <a ng-click="topTags(); tagsChanged = true;"><span class="label label-default">No tags to display, click here for top tags <span class="mobbricon mobbricon-tag"></span></span></a>
                     </li>
                     <li ng-repeat="tag in filteredTags" >
                         <a ng-click="removeTag(tag)" href="">
                             <span class="label label-default">
-                                {{tag}} x
+                                <span class="mobbricon mobbricon-tag"></span>
+                                {{tag}}
+                                <span class="mobbricon mobbricon-hardclose"></span>
                             </span>
                         </a>
                     </li>
                     <li>
                         <form ng-submit="addTag()" name="addTagForm">
-                            <input type="text" ng-model="form.newTag"><input class="btn btn-primary" type="submit" value="Add">
+                            <input type="text" ng-model="form.newTag">
+                            <button class="btn btn-primary" type="submit">
+                                Add
+                                <span class="mobbricon mobbricon-addopen"></span>
+                            </button>
                         </form>
                     </li>
                 </ul>

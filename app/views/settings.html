@@ -15,15 +15,15 @@
                 <div class="container">
                     <div class="row no-pad">
                         <div class="col-xs-10 title" ng-click="$state.is('settings.account') ? $state.go('^') : $state.go('settings.account')">
-                            <span class="glyphicon glyphicon-ok"></span>
+                            <span class="mobbricon mobbricon-done"></span>
                             <strong>My Account</strong>
                         </div>
                         <div class="icons">
                             <div class="col-xs-1 text-center icon">
-                                <span class="glyphicon glyphicon-info-sign"></span>
+                                <span class="mobbricon mobbricon-info"></span>
                             </div>
                             <div class="col-xs-1 text-center icon" ng-click="$state.is('settings.account') ? $state.go('^') : $state.go('settings.account')">
-                                <span ng-class="$state.is('settings.account') ? 'glyphicon-minus' : 'glyphicon-plus'" class="glyphicon"></span>
+                                <span ng-class="$state.is('settings.account') ? 'mobbricon-softclose' : 'mobbricon-addopen'" class="mobbricon"></span>
                             </div>
                         </div>
                     </div>
@@ -36,15 +36,15 @@
                 <div class="container">
                     <div class="row no-pad">
                         <div class="col-xs-10 title" ng-click="$state.is('settings.ids') ? $state.go('^') : $state.go('settings.ids')">
-                            <span class="glyphicon glyphicon-ok"></span>
+                            <span class="mobbricon mobbricon-done"></span>
                             <strong>ID's</strong>
                         </div>
                         <div class="icons">
                             <div class="col-xs-1 text-center icon">
-                                <span class="glyphicon glyphicon-info-sign"></span>
+                                <span class="mobbricon mobbricon-info"></span>
                             </div>
                             <div class="col-xs-1 text-center icon" ng-click="$state.is('settings.ids') ? $state.go('^') : $state.go('settings.ids')">
-                                <span ng-class="$state.is('settings.ids') ? 'glyphicon-minus' : 'glyphicon-plus'" class="glyphicon"></span>
+                                <span ng-class="$state.is('settings.ids') ? 'mobbricon-softclose' : 'mobbricon-addopen'" class="mobbricon"></span>
                             </div>
                         </div>
                     </div>
@@ -57,16 +57,16 @@
                 <div class="container">
                     <div class="row no-pad">
                         <div class="col-xs-10 title" ng-click="$state.is('settings.identity') ? $state.go('^') : $state.go('settings.identity')">
-                            <span ng-class="countIdentityCompleted() == 6 ? 'glyphicon-ok' : 'glyphicon-warning-sign'"
-                                  class="glyphicon"></span>
+                            <span ng-class="countIdentityCompleted() == 6 ? 'mobbricon-done' : 'mobbricon-hardalert'"
+                                  class="mobbricon"></span>
                             <strong>My Identity</strong> <span ng-show="countIdentityCompleted() < 6">Incomplete</span>
                         </div>
                         <div class="icons">
                             <div class="col-xs-1 text-center icon">
-                                <span class="glyphicon glyphicon-info-sign"></span>
+                                <span class="mobbricon mobbricon-info"></span>
                             </div>
                             <div class="col-xs-1 text-center icon" ng-click="$state.is('settings.identity') ? $state.go('^') : $state.go('settings.identity')">
-                                <span ng-class="$state.is('settings.identity') ? 'glyphicon-minus' : 'glyphicon-plus'" class="glyphicon"></span>
+                                <span ng-class="$state.is('settings.identity') ? 'mobbricon-softclose' : 'mobbricon-addopen'" class="mobbricon"></span>
                             </div>
                         </div>
                     </div>
@@ -79,16 +79,16 @@
                 <div class="container">
                     <div class="row no-pad">
                         <div class="col-xs-10 title" ng-click="$state.is('settings.proof') ? $state.go('^') : $state.go('settings.proof')">
-                            <span ng-class="countProofCompleted() == 3 ? 'glyphicon-ok' : 'glyphicon-warning-sign'"
-                                  class="glyphicon"></span>
+                            <span ng-class="countProofCompleted() == 3 ? 'mobbricon-done' : 'mobbricon-hardalert'"
+                                  class="mobbricon"></span>
                             <strong>Proof</strong>  <span ng-show="countProofCompleted() < 3">Incomplete</span>
                         </div>
                         <div class="icons">
                             <div class="col-xs-1 text-center icon">
-                                <span class="glyphicon glyphicon-info-sign"></span>
+                                <span class="mobbricon mobbricon-info"></span>
                             </div>
                             <div class="col-xs-1 text-center icon" ng-click="$state.is('settings.proof') ? $state.go('^') : $state.go('settings.proof')">
-                                <span ng-class="$state.is('settings.proof') ? 'glyphicon-minus' : 'glyphicon-plus'" class="glyphicon"></span>
+                                <span ng-class="$state.is('settings.proof') ? 'mobbricon-softclose' : 'mobbricon-addopen'" class="mobbricon"></span>
                             </div>
                         </div>
                     </div>
@@ -101,16 +101,16 @@
                 <div class="container">
                     <div class="row no-pad">
                         <div class="col-xs-10 title" ng-click="$state.is('settings.invoicing') ? $state.go('^') : $state.go('settings.invoicing')">
-                            <span ng-class="countInvoicingCompleted() == 2 ? 'glyphicon-ok' : 'glyphicon-warning-sign'"
-                                  class="glyphicon"></span>
+                            <span ng-class="countInvoicingCompleted() == 2 ? 'mobbricon-done' : 'mobbricon-hardalert'"
+                                  class="mobbricon"></span>
                             <strong>Invoicing</strong>  <span ng-show="countInvoicingCompleted() < 2">Incomplete</span>
                         </div>
                         <div class="icons">
                             <div class="col-xs-1 text-center icon">
-                                <span class="glyphicon glyphicon-info-sign"></span>
+                                <span class="mobbricon mobbricon-info"></span>
                             </div>
                             <div class="col-xs-1 text-center icon" ng-click="$state.is('settings.invoicing') ? $state.go('^') : $state.go('settings.invoicing')">
-                                <span ng-class="$state.is('settings.invoicing') ? 'glyphicon-minus' : 'glyphicon-plus'" class="glyphicon"></span>
+                                <span ng-class="$state.is('settings.invoicing') ? 'mobbricon-softclose' : 'mobbricon-addopen'" class="mobbricon"></span>
                             </div>
                         </div>
                     </div>
@@ -123,16 +123,16 @@
                 <div class="container">
                     <div class="row no-pad">
                         <div class="col-xs-10 title" ng-click="$state.is('settings.display') ? $state.go('^') : $state.go('settings.display')">
-                            <span ng-class="countDisplayCompleted() == 3 ? 'glyphicon-ok' : 'glyphicon-warning-sign'"
-                                  class="glyphicon"></span>
+                            <span ng-class="countDisplayCompleted() == 3 ? 'mobbricon-done' : 'mobbricon-hardalert'"
+                                  class="mobbricon"></span>
                             <strong>Display</strong>  <span ng-show="countDisplayCompleted() < 3">Incomplete</span>
                         </div>
                         <div class="icons">
                             <div class="col-xs-1 text-center icon">
-                                <span class="glyphicon glyphicon-info-sign"></span>
+                                <span class="mobbricon mobbricon-info"></span>
                             </div>
                             <div class="col-xs-1 text-center icon" ng-click="$state.is('settings.display') ? $state.go('^') : $state.go('settings.display')">
-                                <span ng-class="$state.is('settings.display') ? 'glyphicon-minus' : 'glyphicon-plus'" class="glyphicon"></span>
+                                <span ng-class="$state.is('settings.display') ? 'mobbricon-softclose' : 'mobbricon-addopen'" class="mobbricon"></span>
                             </div>
                         </div>
                     </div>
@@ -145,15 +145,15 @@
                 <div class="container">
                     <div class="row no-pad">
                         <div class="col-xs-10 title" ng-click="$state.is('settings.privacy') ? $state.go('^') : $state.go('settings.privacy')">
-                            <span class="glyphicon glyphicon-ok"></span>
+                            <span class="mobbricon mobbricon-done"></span>
                             <strong>Privacy</strong>
                         </div>
                         <div class="icons">
                             <div class="col-xs-1 text-center icon">
-                                <span class="glyphicon glyphicon-info-sign"></span>
+                                <span class="mobbricon mobbricon-info"></span>
                             </div>
                             <div class="col-xs-1 text-center icon" ng-click="$state.is('settings.privacy') ? $state.go('^') : $state.go('settings.privacy')">
-                                <span ng-class="$state.is('settings.privacy') ? 'glyphicon-minus' : 'glyphicon-plus'" class="glyphicon"></span>
+                                <span ng-class="$state.is('settings.privacy') ? 'mobbricon-softclose' : 'mobbricon-addopen'" class="mobbricon"></span>
                             </div>
                         </div>
                     </div>
@@ -166,15 +166,15 @@
                 <div class="container">
                     <div class="row no-pad">
                         <div class="col-xs-10 title" ng-click="$state.is('settings.notifications') ? $state.go('^') : $state.go('settings.notifications')">
-                            <span class="glyphicon glyphicon-ok"></span>
+                            <span class="mobbricon mobbricon-done"></span>
                             <strong>Notifications</strong>
                         </div>
                         <div class="icons">
                             <div class="col-xs-1 text-center icon">
-                                <span class="glyphicon glyphicon-info-sign"></span>
+                                <span class="mobbricon mobbricon-info"></span>
                             </div>
                             <div class="col-xs-1 text-center icon" ng-click="$state.is('settings.notifications') ? $state.go('^') : $state.go('settings.notifications')">
-                                <span ng-class="$state.is('settings.notifications') ? 'glyphicon-minus' : 'glyphicon-plus'" class="glyphicon"></span>
+                                <span ng-class="$state.is('settings.notifications') ? 'mobbricon-softclose' : 'mobbricon-addopen'" class="mobbricon"></span>
                             </div>
                         </div>
                     </div>
