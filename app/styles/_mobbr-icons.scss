@@ -1,0 +1,88 @@
+//= depend_on "bootstrap/mobbricons-halflings-regular.eot"
+//= depend_on "bootstrap/mobbricons-halflings-regular.svg"
+//= depend_on "bootstrap/mobbricons-halflings-regular.ttf"
+//= depend_on "bootstrap/mobbricons-halflings-regular.woff"
+//
+// mobbricons for Bootstrap
+//
+// Since icons are fonts, they can be placed anywhere text is placed and are
+// thus automatically sized to match the surrounding child. To use, create an
+// inline element with the appropriate classes, like so:
+//
+// <a href="#"><span class="mobbricon mobbricon-star"></span> Star</a>
+
+// Import the fonts
+@font-face {
+  font-family: 'mobbricon';
+  src: url(if($bootstrap-sass-asset-helper, twbs-font-path('#{$icon-font-path}#{$icon-font-name}.eot'), '#{$icon-font-path}#{$icon-font-name}.eot'));
+  src: url(if($bootstrap-sass-asset-helper, twbs-font-path('#{$icon-font-path}#{$icon-font-name}.eot?#iefix'), '#{$icon-font-path}#{$icon-font-name}.eot?#iefix')) format('embedded-opentype'),
+  url(if($bootstrap-sass-asset-helper, twbs-font-path('#{$icon-font-path}#{$icon-font-name}.woff'), '#{$icon-font-path}#{$icon-font-name}.woff')) format('woff'),
+  url(if($bootstrap-sass-asset-helper, twbs-font-path('#{$icon-font-path}#{$icon-font-name}.ttf'), '#{$icon-font-path}#{$icon-font-name}.ttf')) format('truetype'),
+  url(if($bootstrap-sass-asset-helper, twbs-font-path('#{$icon-font-path}#{$icon-font-name}.svg##{$icon-font-svg-id}'), '#{$icon-font-path}#{$icon-font-name}.svg##{$icon-font-svg-id}')) format('svg');
+}
+
+// Catchall baseclass
+.mobbricon {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'mobbricon';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Individual icons
+.mobbricon-softalert                    { &:before { content: "a"; } }
+.mobbricon-myprofile                    { &:before { content: "b"; } }
+.mobbricon-develop                      { &:before { content: "c"; } }
+.mobbricon-connect                      { &:before { content: "d"; } }
+.mobbricon-addopen                      { &:before { content: "e"; } }
+.mobbricon-up                           { &:before { content: "f"; } }
+.mobbricon-radio                        { &:before { content: "g"; } }
+.mobbricon-allout                       { &:before { content: "h"; } }
+.mobbricon-script                       { &:before { content: "i"; } }
+.mobbricon-completed                    { &:before { content: "j"; } }
+.mobbricon-top                          { &:before { content: "k"; } }
+.mobbricon-done                         { &:before { content: "l"; } }
+.mobbricon-neutral                      { &:before { content: "m"; } }
+.mobbricon-person                       { &:before { content: "n"; } }
+.mobbricon-down                         { &:before { content: "o"; } }
+.mobbricon-tag                          { &:before { content: "p"; } }
+.mobbricon-settings                     { &:before { content: "q"; } }
+.mobbricon-updates                      { &:before { content: "r"; } }
+.mobbricon-tasks                        { &:before { content: "s"; } }
+.mobbricon-payments                     { &:before { content: "t"; } }
+.mobbricon-wallet                       { &:before { content: "u"; } }
+.mobbricon-starttask                    { &:before { content: "v"; } }
+.mobbricon-mobbrmenu                    { &:before { content: "w"; } }
+.mobbricon-pulldown                     { &:before { content: "x"; } }
+.mobbricon-mobbricon                    { &:before { content: "y"; } }
+.mobbricon-filter                       { &:before { content: "z"; } }
+.mobbricon-checkbox                     { &:before { content: "A"; } }
+.mobbricon-crowd                        { &:before { content: "B"; } }
+.mobbricon-domain                       { &:before { content: "C"; } }
+.mobbricon-hardalert                    { &:before { content: "D"; } }
+.mobbricon-info                         { &:before { content: "E"; } }
+.mobbricon-hardclose                    { &:before { content: "F"; } }
+.mobbricon-pledge                       { &:before { content: "G"; } }
+.mobbricon-receipt                      { &:before { content: "H"; } }
+.mobbricon-twitter                      { &:before { content: "I"; } }
+.mobbricon-facebook                     { &:before { content: "J"; } }
+.mobbricon-google                       { &:before { content: "K"; } }
+.mobbricon-share                        { &:before { content: "L"; } }
+.mobbricon-mail                         { &:before { content: "M"; } }
+.mobbricon-feedback                     { &:before { content: "N"; } }
+.mobbricon-transaction                  { &:before { content: "O"; } }
+.mobbricon-view                         { &:before { content: "P"; } }
+.mobbricon-search                       { &:before { content: "Q"; } }
+.mobbricon-preview                      { &:before { content: "R"; } }
+.mobbricon-login                        { &:before { content: "S"; } }
+.mobbricon-printer                      { &:before { content: "T"; } }
+.mobbricon-download                     { &:before { content: "U"; } }
+.mobbricon-softclose                    { &:before { content: "V"; } }
+.mobbricon-unclaimed                    { &:before { content: "W"; } }
+.mobbricon-video                        { &:before { content: "X"; } }
+.mobbricon-plugin                       { &:before { content: "Y"; } }

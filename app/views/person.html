@@ -41,6 +41,7 @@
     </div>
     <div class="row" ng-show="person.user.ids">
         <div class="container">
+            <span class="mobbricon mobbricon-domain"></span>
             Active accounts
             <div class="row">
                 <a ng-repeat="id in person.user.ids" ng-href="id.id" target="_blank">
@@ -54,21 +55,32 @@
 
     <div class="row">
         <div class="container">
+            <span class="mobbricon mobbricon-mobbricon"></span>
             Performance
             <span class="pull-right">
-                <span ng-show="person.stats.num_domain">{{person.stats.num_domain}} domains</span>
-                <span ng-show="person.stats.num_urls">{{person.stats.num_urls}} tasks</button>
+                <span ng-show="person.stats.num_domain">
+                    {{person.stats.num_domain}} domains
+                    <span class="mobbricon mobbricon-domain"></span>
+                </span>
+                <span ng-show="person.stats.num_urls">
+                    {{person.stats.num_urls}} tasks
+                    <span class="mobbricon mobbricon-tasks"></span>
+                </span>
             </span>
         </div>
     </div>
 
     <div class="row" ng-show="keywords && keywords.result" ng-init="keywordsLimitDefault = 10; keywordsLimit = keywordsLimitDefault">
         <div class="container">
+            <span class="mobbricon mobbricon-tag"></span>
             {{person.user.firstname}}'s tags
             <div class="row">
                 <div class="col-md-12">
                     <ul>
-                        <li ng-repeat="keyword in keywords.result | limitTo:keywordsLimit" ng-bind="keyword.keyword"></li>
+                        <li ng-repeat="keyword in keywords.result | limitTo:keywordsLimit">
+                            <span class="mobbricon mobbricon-tag"></span>
+                            <span ng-bind="keyword.keyword"></span>
+                        </li>
                     </ul>
                     <button class="btn" ng-click="keywordsLimit = 1000" ng-show="keywordsLimit == keywordsLimitDefault && keywords.result.length > keywordsLimit">More</button>
                 </div>
@@ -78,7 +90,7 @@
 
     <div class="row" ng-show="person && person.domain" ng-init="domainLimitDefault = 10; domainLimit = domainLimitDefault">
         <div class="container">
-            {{person.user.firstname}}'s domains
+            <span class="mobbricon mobbricon-domain"></span> {{person.user.firstname}}'s domains
             <div class="row">
                 <div class="col-md-12">
                     <ul>
@@ -93,7 +105,7 @@
 
     <div class="row" ng-show="person && person.user.id" ng-init="idLimitDefault = 10; idLimit = idLimitDefault">
         <div class="container">
-            {{person.user.firstname}}'s verified accounts
+            <span class="mobbricon mobbricon-domain"></span> {{person.user.firstname}}'s verified accounts
             <div class="row">
                 <div class="col-md-12">
                     <ul>

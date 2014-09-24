@@ -3,7 +3,7 @@
         <div class="row">
             <fieldset ng-disabled="(tasks && !tasks.$resolved) || (tags && !tags.$resolved)" class="form-horizontal">
                 <div class="col-md-6 title">
-                    <span class="glyphicon glyphicon-ok"></span>
+                    <span class="mobbricon mobbricon-filter"></span>
                     <strong>Filter by</strong>
                 </div>
                 <div class="col-md-3">
@@ -40,9 +40,18 @@
                 <h3 ng-bind="url.title"></h3>
                 <p ng-bind="url.description"></p>
                 <div class="bottom">
-                    <div class="item large amount" ng-bind-html="url.amount_total | mobbrcurrency:url.currency_iso:true"></div>
-                    <div class="item large participants" class="participants" ng-bind="url.match_percentage + '%'"></div>
-                    <div class="item" ng-bind="url.domain"></div>
+                    <div class="item large amount">
+                        <span ng-bind-html="url.amount_total | mobbrcurrency:url.currency_iso:true"></span>
+                        <span class="mobbricon mobbricon-payments"></span>
+                    </div>
+                    <div class="item large tasks" class="participants">
+                        <span ng-bind="url.match_percentage + '%'"></span>
+                        <span class="mobbricon mobbricon-unclaimed"></span>
+                    </div>
+                    <div class="item">
+                        <span ng-bind="url.domain"></span>
+                        <span class="mobbricon mobbricon-domain"></span>
+                    </div>
                 </div>
             </div>
         </div>

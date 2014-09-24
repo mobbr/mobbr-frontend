@@ -5,13 +5,22 @@
                 <h1>My money</h1>
             </div>
             <div class="col-xs-4 col-sm-3">
-                <a ng-href="{{ $state.href('wallet.pay') }}" ng-class="{ unblocked: $state.is('wallet.pay') }" class="btn btn-call btn-block">Pay</a>
+                <a ng-href="{{ $state.href('wallet.pay') }}" ng-class="{ unblocked: $state.is('wallet.pay') }" class="btn btn-call btn-block">
+                    Pay
+                    <span class="mobbricon mobbricon-transaction pull-right"></span>
+                </a>
             </div>
             <div class="col-xs-4 col-sm-3">
-                <a ng-href="{{ $state.href('wallet.withdraw') }}" ng-class="{ unblocked: $state.is('wallet.withdraw') }" class="btn btn-call btn-block">Withdraw</a>
+                <a ng-href="{{ $state.href('wallet.withdraw') }}" ng-class="{ unblocked: $state.is('wallet.withdraw') }" class="btn btn-call btn-block">
+                    Withdraw
+                    <span class="mobbricon mobbricon-transaction pull-right"></span>
+                </a>
             </div>
             <div class="col-xs-4 col-sm-3">
-                <a ng-href="{{ $state.href('wallet.deposit') }}" ng-class="{ unblocked: $state.is('wallet.deposit') }" class="btn btn-call btn-block">Deposit</a>
+                <a ng-href="{{ $state.href('wallet.deposit') }}" ng-class="{ unblocked: $state.is('wallet.deposit') }" class="btn btn-call btn-block">
+                    Deposit
+                    <span class="mobbricon mobbricon-transaction pull-right"></span>
+                </a>
             </div>
         </div>
     </div>
@@ -27,7 +36,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12" ng-click="$state.go('wallet')" collapse="$state.is('wallet')">
-                <h2>Total balance: <span ng-bind-html="dashboard.result.total_amount | mobbrcurrency:dashboard.result.total_currency_iso:true"></span></h2>
+                <h2><span class="mobbricon mobbricon-wallet"></span> Total balance: <span ng-bind-html="dashboard.result.total_amount | mobbrcurrency:dashboard.result.total_currency_iso:true"></span></h2>
             </div>
 
             <div class="col-md-12" collapse="!$state.is('wallet')">
@@ -113,15 +122,15 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-xs-10 title" ng-click="$state.is('wallet.x-payments') ? $state.go('^') : $state.go('wallet.x-payments')">
-                            <span class="glyphicon glyphicon-ok"></span>
+                            <span class="mobbricon mobbricon-transaction"></span>
                             <strong>Deposits & withdrawls</strong></a>
                         </div>
                         <div class="icons">
                             <div class="col-xs-1 text-center icon">
-                                <span class="glyphicon glyphicon-info-sign"></span>
+                                <span class="mobbricon mobbricon-info"></span>
                             </div>
                             <div class="col-xs-1 text-center icon" ng-click="$state.is('wallet.x-payments') ? $state.go('^') : $state.go('wallet.x-payments')">
-                                <span ng-class="$state.is('wallet.x-payments') ? 'glyphicon-minus' : 'glyphicon-plus'" class="glyphicon"></span>
+                                <span ng-class="$state.is('wallet.x-payments') ? 'mobbricon-softclose' : 'mobbricon-addopen'" class="mobbricon"></span>
                             </div>
                         </div>
                     </div>
@@ -134,15 +143,15 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-xs-10 title" ng-click="$state.is('wallet.addresses') ? $state.go('^') : $state.go('wallet.addresses')">
-                            <span class="glyphicon glyphicon-ok"></span>
+                            <span class="mobbricon mobbricon-transaction"></span>
                             <strong>Wallet addresses</strong>
                         </div>
                         <div class="icons">
                             <div class="col-xs-1 text-center icon">
-                                <span class="glyphicon glyphicon-info-sign"></span>
+                                <span class="mobbricon mobbricon-info"></span>
                             </div>
                             <div class="col-xs-1 text-center icon" ng-click="$state.is('wallet.addresses') ? $state.go('^') : $state.go('wallet.addresses')">
-                                <span ng-class="$state.is('wallet.addresses') ? 'glyphicon-minus' : 'glyphicon-plus'" class="glyphicon"></span>
+                                <span ng-class="$state.is('wallet.addresses') ? 'mobbricon-softclose' : 'mobbricon-addopen'" class="mobbricon"></span>
                             </div>
                         </div>
                     </div>

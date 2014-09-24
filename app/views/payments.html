@@ -14,15 +14,15 @@
             <div class="container">
                 <div class="row no-pad">
                     <div class="col-xs-10 title" ng-click="$state.is('payments.pledges') ? $state.go('^') : $state.go('payments.pledges')">
-                        <span class="glyphicon glyphicon-ok"></span>
+                        <span class="mobbricon mobbricon-pledge"></span>
                         <strong>Pledges</strong>
                     </div>
                     <div class="icons">
                         <div class="col-xs-1 text-center icon">
-                            <span class="glyphicon glyphicon-info-sign"></span>
+                            <span class="mobbricon mobbricon-info"></span>
                         </div>
                         <div class="col-xs-1 text-center icon" ng-click="$state.is('payments.pledges') ? $state.go('^') : $state.go('settings.notifications')">
-                            <span ng-class="$state.is('payments.pledges') ? 'glyphicon-minus' : 'glyphicon-plus'" class="glyphicon"></span>
+                            <span ng-class="$state.is('payments.pledges') ? 'mobbricon-softclose' : 'mobbricon-addopen'" class="mobbricon"></span>
                         </div>
                     </div>
                 </div>
@@ -32,7 +32,9 @@
             <div class="row no-margin">
                 <div class="col-md-12">
                     <button ng-click="removePledes()" class="btn btn-primary"
-                            ng-disabled="filterSelectedIds(pledgedTable.data).length == 0">Delete selected pledges
+                            ng-disabled="filterSelectedIds(pledgedTable.data).length == 0">
+                        Delete selected pledges
+                        <span class="mobbricon mobbricon-hardclose"></span>
                     </button>
                     <table class="table">
                         <thead>
@@ -73,15 +75,15 @@
             <div class="container">
                 <div class="row no-pad">
                     <div class="col-xs-10 title" ng-click="$state.is('payments.unclaimed') ? $state.go('^') : $state.go('payments.unclaimed')">
-                        <span class="glyphicon glyphicon-ok"></span>
+                        <span class="mobbricon mobbricon-unclaimed"></span>
                         <strong>Unclaimed</strong>
                     </div>
                     <div class="icons">
                         <div class="col-xs-1 text-center icon">
-                            <span class="glyphicon glyphicon-info-sign"></span>
+                            <span class="mobbricon mobbricon-info"></span>
                         </div>
                         <div class="col-xs-1 text-center icon" ng-click="$state.is('payments.unclaimed') ? $state.go('^') : $state.go('payments.unclaimed')">
-                            <span ng-class="$state.is('payments.unclaimed') ? 'glyphicon-minus' : 'glyphicon-plus'" class="glyphicon"></span>
+                            <span ng-class="$state.is('payments.unclaimed') ? 'mobbricon-softclose' : 'mobbricon-addopen'" class="mobbricon"></span>
                         </div>
                     </div>
                 </div>
@@ -91,7 +93,9 @@
             <div class="row no-margin">
                 <div class="col-md-12">
                     <button ng-click="revokeSelectedShares()" class="btn btn-primary"
-                            ng-disabled="filterSelectedIds(unclaimedTable.data).length == 0">Delete selected shares
+                            ng-disabled="filterSelectedIds(unclaimedTable.data).length == 0">
+                        Delete selected shares
+                        <span class="mobbricon mobbricon-hardclose"></span>
                     </button>
 
                     <table class="table" >
@@ -145,15 +149,15 @@
             <div class="container">
                 <div class="row no-pad">
                     <div class="col-xs-10 title" ng-click="$state.is('payments.payments') ? $state.go('^') : $state.go('payments.payments')">
-                        <span class="glyphicon glyphicon-ok"></span>
+                        <span class="mobbricon mobbricon-payments"></span>
                         <strong>Payments</strong>
                     </div>
                     <div class="icons">
                         <div class="col-xs-1 text-center icon">
-                            <span class="glyphicon glyphicon-info-sign"></span>
+                            <span class="mobbricon mobbricon-info"></span>
                         </div>
                         <div class="col-xs-1 text-center icon" ng-click="$state.is('payments.payments') ? $state.go('^') : $state.go('payments.payments')">
-                            <span ng-class="$state.is('payments.payments') ? 'glyphicon-minus' : 'glyphicon-plus'" class="glyphicon"></span>
+                            <span ng-class="$state.is('payments.payments') ? 'mobbricon-softclose' : 'mobbricon-addopen'" class="mobbricon"></span>
                         </div>
                     </div>
                 </div>
@@ -163,7 +167,9 @@
             <div class="row no-margin">
                 <div class="col-md-12">
                     <button ng-click="downloadInvoiceSelectedPayments()" class="btn btn-primary"
-                            ng-disabled="filterSelectedIds(paymentTable.data).length == 0">Download invoice selected
+                            ng-disabled="filterSelectedIds(paymentTable.data).length == 0">
+                        Download invoice selected
+                        <span class="mobbricon mobbricon-download"></span>
                     </button>
                     <input type="text" ng-model="paymentTable.search">
                     <table class="table">

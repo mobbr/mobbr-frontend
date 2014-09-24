@@ -3,11 +3,11 @@
         <div class="row no-margin">
             <div class="col-md-12">
                 <span ng-if="$mobbrStorage.user.kyc_level == 'none'" class="info-box">
-                    <span class="glyphicon glyphicon-info-sign"></span> Without this information, you cannot use our FIAT-currencies (USD, GBP, CHF, SEK, NOK, DKK, EUR, PLN). These restrictions do not apply to other currencies.
+                    <span class="mobbricon mobbricon-softalert"></span> Without this information, you cannot use our FIAT-currencies (USD, GBP, CHF, SEK, NOK, DKK, EUR, PLN). These restrictions do not apply to other currencies.
                 </span>
 
                 <span ng-if="$mobbrStorage.user.kyc_level == 'regular'" class="info-box">
-                    <span class="glyphicon glyphicon-info-sign"></span> This information can no longer be changed because you have a confirmed identity.
+                    <span class="mobbricon mobbricon-softalert"></span> This information can no longer be changed because you have a confirmed identity.
                 </span>
             </div>
         </div>
@@ -101,7 +101,7 @@
                             <button ng-disabled="(waitingsettings && !waitingsettings.$resolved) || ($mobbrStorage.user.kyc_level == 'none' && accept_mango == 0) || identity.$pristine"
                                     ng-click="submitSettings(settings)"
                                     class="btn btn-success btn-block">
-                                <i class="glyphicon mobbrloader" ng-show="waitingsettings && !waitingsettings.$resolved"></i>
+                                <i class="mobbricon mobbrloader" ng-show="waitingsettings && !waitingsettings.$resolved"></i>
                                 <span ng-bind="'Save'"></span>
                             </button>
                         </div>
