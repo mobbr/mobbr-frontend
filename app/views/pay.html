@@ -85,7 +85,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="participant in payment.result.script.participants">
+                <tr ng-class="participant['.percentage'] ? '' : 'disabled'" ng-repeat="participant in payment.result.script.participants" title="{{ participant['no-pay-reason']}}">
                     <td>
                         <a ng-href="{{ participant.id }}" target="_blank">
                             <img ng-src="https://secure.gravatar.com/avatar/{{ participant['.gravatar'] }}?s=20&default=https://mobbr.com/img/default-gravatar.png"
@@ -95,8 +95,8 @@
                         </a>
                     </td>
                     <td ng-bind="participant.role"></td>
-                    <td ng-bind="(participant['.percentage'] | number:2) + '%'"></td>
-                    <td ng-bind="payment.result.script['.currency']"></td>
+                    <td ng-bind="participant['.percentage'] && ((participant['.percentage'] | number:2) + '%')"></td>
+                    <td ng-bind="participant['.percentage'] && payment.result.script['.currency']"></td>
                     <td ng-bind-html="participant['.amount'] | mobbrcurrency:'':true"></td>
                 </tr>
                 <tr>

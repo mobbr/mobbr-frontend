@@ -633,6 +633,12 @@ accordion .info-bar {
       border-top-color: $mobbrcallout;
     }
   }
+
+  tr.disabled {
+    -moz-filter: grayscale(100%);
+    -webkit-filter: grayscale(100%);
+    opacity: 0.4;
+  }
   margin-bottom: 0;
 }
 
