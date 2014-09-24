@@ -45,7 +45,7 @@ angular.module('mobbr.controllers').controller('BoxController', function ($scope
     }
 
     $scope.resetTags = function () {
-        if ($state.params.task) {
+        if (!$state.includes('box.task') && $state.params.task) {
             urlTags($window.atob($state.params.task));
         } else if($state.includes('box.tasks')) {
             if (mobbrSession.isAuthorized()) {

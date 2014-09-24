@@ -220,6 +220,13 @@ angular.module('mobbr', [
                         templateUrl: 'views/task.domain.html'
                     }
                 }
+            }).state('box.task.view.script', {
+                url: '/script',
+                views: {
+                    'task-section': {
+                        templateUrl: 'views/task.script.html'
+                    }
+                }
             }).state('box.task.view.payments', {
                 url: '/payments',
                 views: {
