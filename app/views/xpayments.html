@@ -16,7 +16,7 @@
                 ng-click="openExternalPayment(payment)"
                 title="{{ (payment.faileddatetime || payment.paiddatetime || ('Pending since ' + payment.announceddatetime )) + ' ' + (payment.service_message || '') }}">
                 <td>
-                    <time am-time-ago="payment.paiddatetime || payment.faileddatetime || payment.announceddatetime" datetime="{{ payment.paiddatetime || payment.faileddatetime || payment.announceddatetime }}"></time>
+                    <time ng-bind="(payment.paiddatetime || payment.faileddatetime || payment.announceddatetime) | amCalendar" datetime="{{ payment.paiddatetime || payment.faileddatetime || payment.announceddatetime }}"></time>
                 </td>
                 <td ng-bind="(payment.paiddatetime && 'Succeeded') || (payment.faileddatetime && 'Failed') || (payment.announceddatetime && 'Pending')"></td>
                 <td ng-bind="payment.currency_iso"></td>
