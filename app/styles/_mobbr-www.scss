@@ -199,15 +199,28 @@
 
 .form-control[disabled],
 .form-control[readonly],
-fieldset[disabled] .form-control,
+fieldset[disabled] .form-control {
+  background: tint($gray, 50%);
+  color: shade($gray, 25%);
+  opacity: 1;
+}
+
 .btn.disabled,
 .btn[disabled],
 fieldset[disabled] .btn {
-  background: tint($gray, 75%);
+  background: $gray;
   color: shade($gray, 25%);
+  opacity: 1;
 }
 
-
+.task-pay {
+  .btn.disabled,
+  .btn[disabled],
+  fieldset[disabled] .btn {
+    background: shade($gray, 25%);
+    color: shade($gray, 50%);
+  }
+}
 
 .form-horizontal .control-label {
   text-align: left;
@@ -326,7 +339,7 @@ label.title {
       font-size: 26px;
       font-weight: bold;
       line-height: 26px;
-      padding: 15px 0;
+      padding: ($grid-gutter-width * 1.25) 0;
     }
 
     small {
@@ -692,6 +705,7 @@ accordion {
 
   .panel-body {
     padding: 0;
+    padding-top: $grid-gutter-width * 1.25;
   }
 
   .panel-default > .panel-heading {
@@ -704,16 +718,11 @@ accordion {
       margin-right: $grid-gutter-width / 2;
     }
 
-    /*@media (max-width: $screen-md-min) {
-      .accordion-toggle .no-pad {
-        margin-left: -$grid-gutter-width / 2;
-        margin-right: -$grid-gutter-width;
-      }
-    }*/
-
     .icons {
+      float: right;
 
       .icon {
+        width: 60px;
         padding-top: 20px;
         margin-top: -20px;
         margin-bottom: -20px;
@@ -748,10 +757,9 @@ accordion {
   .line-bar,
   .info-bar {
     border-bottom: 1px solid $gray;
-    margin-bottom: $grid-gutter-width;
+    margin-bottom: $grid-gutter-width * 1.25;
 
     .form-group {
-      padding-bottom: $grid-gutter-width / 2;
       margin-bottom: 0;
     }
   }
@@ -768,11 +776,8 @@ accordion {
   }
 
   .save-bar {
-    padding-top: $grid-gutter-width;
-    margin-left: -$grid-gutter-width;
-    margin-right: -$grid-gutter-width;
-    padding-left: $grid-gutter-width;
-    padding-right: $grid-gutter-width;
+    padding-top: $grid-gutter-width * 1.25;
+    padding-bottom: $grid-gutter-width * 1.25;
     border-top: 1px solid $gray;
 
     .form-group {
@@ -783,15 +788,15 @@ accordion {
   .info-box {
     line-height: 16px;
     display: block;
-    padding-top: $grid-gutter-width / 3;
-    padding-left: $grid-gutter-width * 2;
+    padding-left: 24px;
+    padding-top: 3px;
 
     .mobbricon-softalert {
       display: block;
       float: left;
       font-size: 20px;
-      margin-top: -$grid-gutter-width / 3;
-      margin-left: -$grid-gutter-width * 2;
+      margin-top: -3px;
+      margin-left: -26px;
     }
   }
 }
@@ -1017,7 +1022,7 @@ body.blocked .unblocked {
     line-height: 0px;
 
     @media (min-width: $screen-sm-min) {
-      padding-top: 15px;
+      padding-top: $grid-gutter-width * 1.25;
       padding-bottom: 3px;
     }
 
@@ -1124,7 +1129,7 @@ body.blocked .unblocked {
 
 .page-white {
   background-color: $white;
-  padding-top: 15px;
+  padding-top: $grid-gutter-width * 1.25;
 }
 
 /*
@@ -1375,7 +1380,7 @@ body.blocked .unblocked {
 }
 
 .pay-task {
-  padding-top: 15px;
+  padding-top: $grid-gutter-width * 1.25;
 
   input,
   select {
