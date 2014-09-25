@@ -197,6 +197,8 @@ angular.module('mobbr', [
                 data: {
                     title: 'Explore tasks'
                 }
+            }).state('box.tasks.person', {
+                url: '/:person'
             }).state('box.tasks.my', {
                 url: '/my'
             }).state('box.task', {
@@ -345,7 +347,6 @@ angular.module('mobbr', [
             if (mobbrSession.isAuthorized()) {
                 MobbrBalance.get(function (response) {
                     $rootScope.userCurrencies = response.result.balances;
-                    console.log($rootScope.userCurrencies);
                 });
             } else {
                 if ($rootScope.currencies.$resolved) {
@@ -355,7 +356,6 @@ angular.module('mobbr', [
                         $rootScope.userCurrencies = filterFilter($rootScope.currencies.result, { wallet_support: true });
                     });
                 }
-                console.log($rootScope.userCurrencies);
             }
         });
 

@@ -9,7 +9,7 @@
                 <div class="col-md-3">
                     <div ng-show="mobbrSession.isAuthorized()" class="checkbox">
                         <label>
-                            <input type="checkbox" ng-click="user_tasks && $state.go('^') || $state.go('box.tasks.my')" ng-model="user_tasks">
+                            <input type="checkbox" ng-init="user_tasks = ($state.params.person === $mobbrStorage.user.username)" ng-click="!user_tasks && $state.go('box.tasks.person', { person: $mobbrStorage.user.username }) || $state.go('^')" ng-model="user_tasks">
                             My tasks
                         </label>
                     </div>
