@@ -284,7 +284,7 @@ angular.module('mobbr', [
 
         $urlRouterProvider.otherwise('/');
 
-    }).run(function ($http, $rootScope, $state, $location, $window, $anchorScroll, MobbrApi, MobbrUser, MobbrBalance, MobbrXPayment, mobbrMsg, mobbrSession, apiUrl, uiUrl, lightboxUrl, environment) {
+    }).run(function ($http, $rootScope, $state, $location, $window, $anchorScroll, filterFilter, MobbrApi, MobbrUser, MobbrBalance, MobbrXPayment, mobbrMsg, mobbrSession, apiUrl, uiUrl, lightboxUrl, environment) {
 
         if (environment !== 'production') {
             $window.mobbr.setApiUrl(apiUrl);
@@ -292,18 +292,6 @@ angular.module('mobbr', [
             $window.mobbr.setLightboxUrl(lightboxUrl);
             $window.mobbr.createDiv();
         }
-
-        $rootScope.$on('mobbrApi:authchange', function () {
-            if (mobbrSession.isAuthorized()) {
-                MobbrBalance.get(function (response) {
-                    $rootScope.userBalance = response.result.balances;
-                });
-            } else {
-                MobbrXPayment.supportedCurrencies(function (response) {
-                    $rootScope.userBalance = response.result;
-                });
-            }
-        });
 
         $rootScope.$state = $rootScope.state = $state;
         $rootScope.host = $location.host();
@@ -351,6 +339,24 @@ angular.module('mobbr', [
             response.result.forEach(function (item) {
                 $rootScope.countriesMap[item.code] = item.name;
             });
+        });
+
+        $rootScope.$on('mobbrApi:authchange', function () {
+            if (mobbrSession.isAuthorized()) {
+                MobbrBalance.get(function (response) {
+                    $rootScope.userCurrencies = response.result.balances;
+                    console.log($rootScope.userCurrencies);
+                });
+            } else {
+                if ($rootScope.currencies.$resolved) {
+                    $rootScope.userCurrencies = filterFilter($rootScope.currencies.result, { wallet_support: true });
+                } else {
+                    $rootScope.currencies.$promise.then(function () {
+                        $rootScope.userCurrencies = filterFilter($rootScope.currencies.result, { wallet_support: true });
+                    });
+                }
+                console.log($rootScope.userCurrencies);
+            }
         });
 
         MobbrApi.idProviders().$promise.then(function(response){
