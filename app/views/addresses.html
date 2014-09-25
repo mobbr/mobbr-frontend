@@ -15,9 +15,9 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div ng-if="wallet.currency == 'BTC'">
+                <div ng-if="wallet.currency_iso == 'BTC'">
                     <fieldset class="form-group">
-                        <label class="title control-label col-sm-3" ng-bind="wallet.currency"></label>
+                        <label class="title control-label col-sm-3" ng-bind="wallet.currency_iso"></label>
                         <div class="col-sm-7">
                                         <span class="info-box">
                                             <span class="mobbricon mobbricon-softalert"></span>
@@ -40,9 +40,9 @@
                         </div>
                     </fieldset>
                 </div>
-                <div ng-if="wallet.currency != 'BTC'">
+                <div ng-if="wallet.currency_iso != 'BTC'">
                     <fieldset>
-                        <label class="title control-label col-sm-3" ng-bind="wallet.currency"></label>
+                        <label class="title control-label col-sm-3" ng-bind="wallet.currency_iso"></label>
                         <div class="col-sm-7">
                                         <span class="info-box">
                                             <span class="mobbricon mobbricon-softalert"></span>

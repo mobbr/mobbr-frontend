@@ -17,7 +17,7 @@
                                 required
                                 ng-init="currency = $mobbrStorage.user.currency_iso || 'EUR'"
                                 ng-model="deposit_type.currency"
-                                ng-options="curr.currency_iso as curr.currency_iso for curr in userBalance"></select>
+                                ng-options="curr.currency_iso as curr.currency_iso for curr in userCurrencies"></select>
                     </div>
                     <div class="col-xs-3">
                         <input class="form-control"
@@ -54,7 +54,7 @@
                 </div>
                 <div ng-repeat="wallet in supportedCurrencies.result">
                     <div class="row">
-                        <fieldset ng-if="wallet.currency == 'BTC'">
+                        <fieldset ng-if="wallet.currency_iso == 'BTC'">
                             <fieldset ng-repeat="address in wallet.addresses" class="form-group">
                                 <div class="col-md-12">
                                     <input class="form-control" type="text" ng-model="address.bitcoin" readonly>
