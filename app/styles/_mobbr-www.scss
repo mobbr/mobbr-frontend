@@ -714,8 +714,13 @@ accordion {
     padding-bottom: 20px;
     background: transparent;
 
-    .title .mobbricon {
-      margin-right: $grid-gutter-width / 2;
+    .title {
+      line-height: 20px;
+
+      .mobbricon {
+        margin-right: $grid-gutter-width / 2;
+        font-size: 20px;
+      }
     }
 
     .icons {

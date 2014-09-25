@@ -21,10 +21,13 @@ angular.module('mobbr.controllers').controller('BoxController', function ($scope
     }
 
     function userTags() {
+        var username = $state.params.person || $rootScope.$mobbrStorage.user.username;
         $scope.tags = MobbrKeywords.person({
             language: language,
-            username: $rootScope.$mobbrStorage.user.username
+            username: username
         }, function () {
+            $scope.query = $state.params.person && username || null;
+            $scope.activeQuery = $state.params.person && username || null;
             filterTags();
         });
     }
@@ -48,7 +51,7 @@ angular.module('mobbr.controllers').controller('BoxController', function ($scope
         if (!$state.includes('box.task') && $state.params.task) {
             urlTags($window.atob($state.params.task));
         } else if($state.includes('box.tasks')) {
-            if (mobbrSession.isAuthorized()) {
+            if (mobbrSession.isAuthorized() || $state.params.person) {
                 userTags();
             } else {
                 topTags();

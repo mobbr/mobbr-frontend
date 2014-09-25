@@ -13,7 +13,7 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
         $scope.tasks = MobbrUri.get({
             language: $scope.filter_language,
             keywords: $scope.user_tasks ? null : $scope.filteredTags,
-            username: $scope.user_tasks ? $rootScope.$mobbrStorage.user.username : null
+            username: $state.params.person || null
         });
     }
 

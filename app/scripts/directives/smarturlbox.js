@@ -1,11 +1,11 @@
 angular.module('mobbr.directives').directive('mobbrSmartUrlBox', function factory() {
     'use strict';
     var placeholders = {
-        'URL': 'Enter any URL we\'ll analyze it',
-        'CROWDS': 'Enter a keyword',
-        'TASK': 'Enter a keyword',
-        'PEOPLE': 'Enter any email, username or profile id'
-    };
+            'TASK': 'Enter any URL we\'ll analyze it',
+            'CROWDS': 'Enter any URL, we\'ll find your workforce',
+            'TASKS': 'Enter a username or just ENTER to show fitting tasks',
+            'PROFILE': 'Enter any email, username or profile id'
+        };
 
     return {
         restrict: 'E',
@@ -21,12 +21,30 @@ angular.module('mobbr.directives').directive('mobbrSmartUrlBox', function factor
             scope.placeHolders = placeholders;
         },
         controller: function ($scope, $state, $window) {
+
+            $scope.setType = function (type) {
+
+                if ($scope.activeQuery && !$scope.savedQuery) {
+                    $scope.query = '';
+                    $scope.savedQuery = $scope.activeQuery;
+                    $scope.savedType = $scope.urlType;
+                }
+
+                if ($scope.savedType && $scope.savedType === type && $scope.savedQuery === $scope.activeQuery) {
+                    $scope.query = $scope.savedQuery;
+                    $scope.savedQuery = null;
+                    $scope.savedType = null;
+                }
+
+                $scope.urlType = type;
+            }
+
             $scope.gotoUrl = function (query) {
 
                 var url = $window.btoa(query);
 
                 switch ($scope.urlType) {
-                    case 'URL':
+                    case 'TASK':
                         $state.go($state.includes('box.task.view') ? $state.current.name : 'box.task.view', { task: url });
                         break;
                     case 'CROWDS':
@@ -36,12 +54,16 @@ angular.module('mobbr.directives').directive('mobbrSmartUrlBox', function factor
                             $state.go('box.crowds');
                         }
                         break;
-                    case 'TASK':
-                        $state.go('box.tasks.tag', { tag: url });
+                    case 'TASKS':
+                        if (query) {
+                            $state.go('box.tasks.person', { person: query });
+                        } else {
+                            $state.go('box.tasks');
+                        }
                         break;
-//                        case 'PEOPLE':
-//                            $location.path('/person/' + $window.btoa($scope.form.url));
-//                            break;
+                    case 'PROFILE':
+                        $state.go('person', { username: query });
+                        break;
                 }
             };
         }
