@@ -1,6 +1,6 @@
 <div class="row top-bar">
     <div class="container">
-        <div class="row left-pad">
+        <div class="row">
             <div class="col-md-12">
                 <h1>Settings</h1>
             </div>
@@ -13,8 +13,8 @@
         <accordion-group is-open="stateAccordion['settings.account']" is-disabled="true">
             <accordion-heading>
                 <div class="container">
-                    <div class="row no-pad">
-                        <div class="col-xs-10 title" ng-click="$state.is('settings.account') ? $state.go('^') : $state.go('settings.account')">
+                    <div class="row">
+                        <div class="col-xs-8 title" ng-click="$state.is('settings.account') ? $state.go('^') : $state.go('settings.account')">
                             <span class="mobbricon mobbricon-done"></span>
                             <strong>My Account</strong>
                         </div>
@@ -34,8 +34,8 @@
         <accordion-group is-open="stateAccordion['settings.ids']" is-disabled="true">
             <accordion-heading>
                 <div class="container">
-                    <div class="row no-pad">
-                        <div class="col-xs-10 title" ng-click="$state.is('settings.ids') ? $state.go('^') : $state.go('settings.ids')">
+                    <div class="row">
+                        <div class="col-xs-8 title" ng-click="$state.is('settings.ids') ? $state.go('^') : $state.go('settings.ids')">
                             <span class="mobbricon mobbricon-done"></span>
                             <strong>ID's</strong>
                         </div>
@@ -55,8 +55,8 @@
         <accordion-group ng-class="{ 'warning': countIdentityCompleted() != 6 }" is-open="stateAccordion['settings.identity']" is-disabled="true">
             <accordion-heading>
                 <div class="container">
-                    <div class="row no-pad">
-                        <div class="col-xs-10 title" ng-click="$state.is('settings.identity') ? $state.go('^') : $state.go('settings.identity')">
+                    <div class="row">
+                        <div class="col-xs-8 title" ng-click="$state.is('settings.identity') ? $state.go('^') : $state.go('settings.identity')">
                             <span ng-class="countIdentityCompleted() == 6 ? 'mobbricon-done' : 'mobbricon-hardalert'"
                                   class="mobbricon"></span>
                             <strong>My Identity</strong> <span ng-show="countIdentityCompleted() < 6">Incomplete</span>
@@ -77,8 +77,8 @@
         <accordion-group ng-class="{ 'warning': countProofCompleted() != 3 }" is-open="stateAccordion['settings.proof']" is-disabled="true">
             <accordion-heading>
                 <div class="container">
-                    <div class="row no-pad">
-                        <div class="col-xs-10 title" ng-click="$state.is('settings.proof') ? $state.go('^') : $state.go('settings.proof')">
+                    <div class="row">
+                        <div class="col-xs-8 title" ng-click="$state.is('settings.proof') ? $state.go('^') : $state.go('settings.proof')">
                             <span ng-class="countProofCompleted() == 3 ? 'mobbricon-done' : 'mobbricon-hardalert'"
                                   class="mobbricon"></span>
                             <strong>Proof</strong>  <span ng-show="countProofCompleted() < 3">Incomplete</span>
@@ -99,8 +99,8 @@
         <accordion-group ng-class="{ 'warning': countInvoicingCompleted() != 2 }" is-open="stateAccordion['settings.invoicing']" is-disabled="true">
             <accordion-heading>
                 <div class="container">
-                    <div class="row no-pad">
-                        <div class="col-xs-10 title" ng-click="$state.is('settings.invoicing') ? $state.go('^') : $state.go('settings.invoicing')">
+                    <div class="row">
+                        <div class="col-xs-8 title" ng-click="$state.is('settings.invoicing') ? $state.go('^') : $state.go('settings.invoicing')">
                             <span ng-class="countInvoicingCompleted() == 2 ? 'mobbricon-done' : 'mobbricon-hardalert'"
                                   class="mobbricon"></span>
                             <strong>Invoicing</strong>  <span ng-show="countInvoicingCompleted() < 2">Incomplete</span>
@@ -121,8 +121,8 @@
         <accordion-group ng-class="{ 'warning': countDisplayCompleted() != 3 }" is-open="stateAccordion['settings.display']" is-disabled="true">
             <accordion-heading>
                 <div class="container">
-                    <div class="row no-pad">
-                        <div class="col-xs-10 title" ng-click="$state.is('settings.display') ? $state.go('^') : $state.go('settings.display')">
+                    <div class="row">
+                        <div class="col-xs-8 title" ng-click="$state.is('settings.display') ? $state.go('^') : $state.go('settings.display')">
                             <span ng-class="countDisplayCompleted() == 3 ? 'mobbricon-done' : 'mobbricon-hardalert'"
                                   class="mobbricon"></span>
                             <strong>Display</strong>  <span ng-show="countDisplayCompleted() < 3">Incomplete</span>
@@ -143,8 +143,8 @@
         <accordion-group is-open="stateAccordion['settings.privacy']" is-disabled="true">
             <accordion-heading>
                 <div class="container">
-                    <div class="row no-pad">
-                        <div class="col-xs-10 title" ng-click="$state.is('settings.privacy') ? $state.go('^') : $state.go('settings.privacy')">
+                    <div class="row">
+                        <div class="col-xs-8 title" ng-click="$state.is('settings.privacy') ? $state.go('^') : $state.go('settings.privacy')">
                             <span class="mobbricon mobbricon-done"></span>
                             <strong>Privacy</strong>
                         </div>
@@ -164,8 +164,8 @@
         <accordion-group is-open="stateAccordion['settings.notifications']" is-disabled="true">
             <accordion-heading>
                 <div class="container">
-                    <div class="row no-pad">
-                        <div class="col-xs-10 title" ng-click="$state.is('settings.notifications') ? $state.go('^') : $state.go('settings.notifications')">
+                    <div class="row">
+                        <div class="col-xs-8 title" ng-click="$state.is('settings.notifications') ? $state.go('^') : $state.go('settings.notifications')">
                             <span class="mobbricon mobbricon-done"></span>
                             <strong>Notifications</strong>
                         </div>

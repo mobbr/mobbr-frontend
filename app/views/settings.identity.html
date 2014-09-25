@@ -1,6 +1,6 @@
-<div class="info-bar">
+<div class="info-bar" ng-if="$mobbrStorage.user.kyc_level == 'none' || $mobbrStorage.user.kyc_level == 'regular'">
     <div class="container">
-        <div class="row no-margin">
+        <div class="row">
             <div class="col-md-12">
                 <span ng-if="$mobbrStorage.user.kyc_level == 'none'" class="info-box">
                     <span class="mobbricon mobbricon-softalert"></span> Without this information, you cannot use our FIAT-currencies (USD, GBP, CHF, SEK, NOK, DKK, EUR, PLN). These restrictions do not apply to other currencies.
@@ -14,7 +14,7 @@
     </div>
 </div>
 
-<form class="form-horizontal" name="identity">
+<form name="identity" class="form-horizontal">
     <div class="container">
         <div class="row no-margin">
             <div class="col-md-12">

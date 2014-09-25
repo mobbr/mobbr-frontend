@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="row no-margin">
+    <div class="row">
         <div class="col-md-12">
             <form name="formHolder.addPaymentIdForm" class="form-horizontal" ng-submit="addExternalId()">
                 <fieldset class="form-group" ng-repeat="paymentID in $mobbrStorage.user.id">
@@ -8,12 +8,10 @@
                     <div class="col-sm-7 col-xs-10 col-md-8">
                         <input class="form-control" ng-model="paymentID" id="paymentID" type="text" disabled>
                     </div>
-                    <div class="col-sm-1 col-sm-offset-1 col-md-offset-1 col-xs-2 col-md-1">
+                    <div class="col-sm-1 col-sm-offset-1 col-md-offset-1 col-xs-2 col-md-1 text-center">
                         <button ng-click="removePaymentID(paymentID,$index)"
                                 type="button"
                                 class="btn btn-danger btn-square">
-                            <i class="mobbricon mobbrloader"
-                               ng-show="waitingRemoveId && waitingRemoveId[$index] && !waitingRemoveId[$index].$resolved"></i>
                             <span class="mobbricon mobbricon-hardclose"></span>
                         </button>
                     </div>
@@ -44,11 +42,9 @@
                             </select>
                         </span>
                     </div>
-                    <div class="col-sm-1 col-xs-2 col-md-1">
+                    <div class="col-sm-1 col-xs-2 col-md-1 text-center">
                         <button type="submit" class="btn btn-success btn-square"
                                 ng-disabled="!(formHolder.addPaymentIdForm.$valid && formHolder.addPaymentIdForm.$dirty && addPaymentIdHolder.idType)">
-                            <i class="mobbricon mobbrloader"
-                               ng-show="waitingAddId && !waitingAddId.$resolved"></i>
                             <span class="mobbricon mobbricon-addopen"></span>
                         </button>
                     </div>
