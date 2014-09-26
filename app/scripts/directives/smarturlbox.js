@@ -37,14 +37,11 @@ angular.module('mobbr.directives').directive('mobbrSmartUrlBox', function factor
                 }
 
                 $scope.urlType = type;
-                console.log($scope.urlType);
             }
 
             $scope.gotoUrl = function (query) {
 
                 var url = $window.btoa(query);
-
-                console.log('gotoUrl', $scope.urlType);
 
                 switch ($scope.urlType) {
                     case 'TASK':

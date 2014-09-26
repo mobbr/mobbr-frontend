@@ -203,7 +203,7 @@
                 </div>
 
                 <div ng-class="$state.includes('box.crowds') || $state.includes('box.task.view.persons') ? 'active' : ''"
-                     ng-click="has_participants ? $$state.go('box.task.view.persons') : $state.go('box.crowds.task', { task: $state.params.task })"
+                     ng-click="has_participants ? $state.go('box.task.view.persons') : $state.go('box.crowds.task', { task: $state.params.task })"
                      class="card-container col-xs-6 col-md-3">
                     <div class="card" ng-class="has_participants ? '' : 'failed'">
                         <div ng-show="has_participants">
