@@ -17,7 +17,7 @@
                 <div class="col-md-3">
                     <select class="form-control"
                             ng-options="language.code as language.name for language in usedLanguages.result"
-                            ng-init="filter_language = $mobbrStorage.user && $mobbrStorage.user.language_iso || getBrowserLanguage()"
+                            ng-init="filter_language = getLanguage()"
                             ng-model="filter_language">
                         <option value="">Choose language</option>
                     </select>
