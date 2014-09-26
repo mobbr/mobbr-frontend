@@ -1,12 +1,14 @@
+<smart-tags tags="tags" filtered-tags="filteredTags" reset-tags="resetTags" language="filter_language"></smart-tags>
+
 <div class="row top-info filter">
     <div class="container">
         <div class="row">
-            <fieldset ng-disabled="(tasks && !tasks.$resolved) || (!tags.$resolved)" class="form-horizontal">
-                <div class="col-md-9 title">
+            <fieldset ng-disabled="(persons && !persons.$resolved)" class="form-horizontal">
+                <div class="col-xs-9 title">
                     <span class="mobbricon mobbricon-filter"></span>
                     <strong>Filter by</strong>
                 </div>
-                <div class="col-md-3">
+                <div class="col-xs-3">
                     <select class="form-control"
                             ng-options="language.code as language.name for language in usedLanguages.result"
                             ng-init="filter_language = getLanguage()"
@@ -22,7 +24,7 @@
 <div class="row top-info filter">
     <div class="container">
         <div class="row">
-            <fieldset ng-disabled="(tasks && !tasks.$resolved) || (!tags.$resolved)" class="form-horizontal">
+            <fieldset ng-disabled="(persons && !persons.$resolved) || (!tags.$resolved)" class="form-horizontal">
                 <div class="col-md-3 title">
                     <span class="mobbricon mobbricon-crowd"></span>
                     <strong>My future team</strong>

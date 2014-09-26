@@ -1,7 +1,9 @@
+<smart-tags tags="tags" filtered-tags="filteredTags" reset-tags="resetTags" language="filter_language"></smart-tags>
+
 <div class="row top-info filter">
     <div class="container">
         <div class="row">
-            <fieldset ng-disabled="(tasks && !tasks.$resolved) || (tags && !tags.$resolved)" class="form-horizontal">
+            <fieldset ng-disabled="tasks && !tasks.$resolved" class="form-horizontal">
                 <div class="col-md-6 title">
                     <span class="mobbricon mobbricon-filter"></span>
                     <strong>Filter by</strong>

@@ -1,8 +1,8 @@
-angular.module('mobbr.controllers').controller('CrowdsController', function ($scope, $state, $window, $rootScope, mobbrSession, MobbrUri, MobbrPerson) {
+angular.module('mobbr.controllers').controller('CrowdsController', function ($scope, $state, $window, $rootScope, mobbrMsg, mobbrSession, MobbrUri, MobbrPerson) {
     'use strict';
 
     function queryPeople() {
-        if ($scope.filteredTags) {
+        if ($state.params.task) {
             $scope.persons = MobbrPerson.get({
                 keywords: $scope.filteredTags,
                 language: $scope.filter_language
@@ -20,6 +20,31 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
             });
         } else {
             $scope.persons = null;
+        }
+    }
+
+    $scope.resetTags = function () {
+
+        var url;
+
+        if ($state.params.task) {
+
+            url = $window.atob($state.params.task);
+
+            $scope.$emit('set-query', url);
+            MobbrUri.info({
+                url: url
+            }, function (response) {
+                $scope.$emit('set-active-query', url);
+                $scope.tags = response.result.script.keywords;
+            }, function () {
+                $scope.$emit('set-query');
+                $scope.$emit('set-active-query');
+                mobbrMsg.add({ msg: 'Invalid URL' });
+                $state.go('^');
+            });
+        } else {
+            $scope.tags = null;
         }
     }
 
@@ -60,14 +85,22 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
         });
     };
 
-    $scope.$on('update-tags', queryPeople);
+    $scope.$on('$stateChangeSuccess', $scope.resetTags);
     $scope.$watch('filter_language', function (newValue, oldValue) {
         if (newValue && newValue !== oldValue) {
-            $scope.$emit('language-update', newValue);
+            $scope.resetTags();
+        }
+    }, true);
+    $scope.$watch('filteredTags', function (newValue, oldValue) {
+        if (newValue && newValue !== oldValue) {
             queryPeople();
         }
     }, true);
-
+    $scope.$watch('filteredTags', function (newValue, oldValue) {
+        if (newValue && newValue !== oldValue) {
+            queryPeople();
+        }
+    });
     $scope.form = {};
     $scope.selectedPersons = [];
 });

@@ -184,8 +184,8 @@ angular.module('mobbr', [
                 controller: 'PaymentReceiptController'
             }).state('box', {
                 abstract: true,
-                controller: 'BoxController',
-                templateUrl: 'views/box.html'
+                templateUrl: 'views/box.html',
+                controller: 'BoxController'
             }).state('box.tasks', {
                 url: '/tasks',
                 views: {
@@ -199,8 +199,6 @@ angular.module('mobbr', [
                 }
             }).state('box.tasks.person', {
                 url: '/:person'
-            }).state('box.tasks.my', {
-                url: '/my'
             }).state('box.task', {
                 abstract: true,
                 views: {
