@@ -34,7 +34,7 @@
 </div>
 
 <div class="row data-cards">
-    <a ng-repeat="url in tasks.result" ng-href="{{ state.href('box.task.view', { task: encodeTask(url.url) }) }}">
+    <a ng-repeat="url in tasks.result" ui-sref="box.task.view({ task: encodeTask(url.url) })">
         <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2 data-card-container">
             <div class="data-card">
                 <h3 ng-bind="url.title"></h3>
