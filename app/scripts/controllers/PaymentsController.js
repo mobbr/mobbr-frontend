@@ -20,7 +20,7 @@ angular.module('mobbr.controllers').controller('PaymentsController', function ($
     };
 
     $scope.retrievePayments = function (searchParam) {
-        MobbrPayment.get({search: searchParam, offset: $scope.paymentTable.data.length, limit: 10}, function (response) {
+        MobbrPayment.get({search: $scope.paymentTable.search, offset: $scope.paymentTable.data.length, limit: 10}, function (response) {
             if (response.result) {
                 angular.forEach(response.result, function (item) {
                     $scope.paymentTable.data.push(item);
