@@ -111,31 +111,31 @@
                     <div class="col-xs-6 main-menu">
                         <ul class="nav menu">
                             <li ng-class="{ 'active': $state.includes('updates') }" class="col-55">
-                                <a ng-href="{{ $state.href('updates') }}" class="text-center">
+                                <a ng-href="#{{ $state.href('updates') }}" class="text-center">
                                     <span class="mobbricon mobbricon-updates"></span>
                                     <small>Updates</small>
                                 </a>
                             </li>
                             <li ng-class="{ 'active': $state.includes('box.tasks') || $state.includes('box.task') }" class="col-55">
-                                <a ng-href="{{ $state.href('box.tasks') }}" class="text-center">
+                                <a ng-href="#{{ $state.href('box.tasks') }}" class="text-center">
                                     <span class="mobbricon mobbricon-tasks"></span>
                                     <small>Tasks</small>
                                 </a>
                             </li>
                             <li ng-class="{ 'active': $state.includes('box.crowds') }" class="col-55">
-                                <a ng-href="{{ $state.href('box.crowds') }}" class="text-center">
+                                <a ng-href="#{{ $state.href('box.crowds') }}" class="text-center">
                                     <span class="mobbricon mobbricon-crowd"></span>
                                     <small>Workforce</small>
                                 </a>
                             </li>
                             <li ng-class="{ 'active': $state.includes('payments') }" class="col-55">
-                                <a ng-href="{{ $state.href('payments.pledges') }}" class="text-center">
+                                <a ng-href="#{{ $state.href('payments.pledges') }}" class="text-center">
                                     <span class="mobbricon mobbricon-payments"></span>
                                     <small>Payments</small>
                                 </a>
                             </li>
                             <li ng-class="{ 'active': $state.includes('wallet') }" class="col-55">
-                                <a ng-href="{{ $state.href('wallet') }}" class="text-center">
+                                <a ng-href="#{{ $state.href('wallet') }}" class="text-center">
                                     <span class="mobbricon mobbricon-wallet"></span>
                                     <small>Wallet</small>
                                 </a>
