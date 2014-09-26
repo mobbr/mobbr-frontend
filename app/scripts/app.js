@@ -58,7 +58,7 @@ angular.module('mobbr', [
                         return MobbrBalance.get().$promise;
                     },
                     notifications: function (MobbrNotifications) {
-                        return MobbrNotifications.get().$promise;
+                        return MobbrNotifications.get({ limit: 10 }).$promise;
                     },
                     person: function (MobbrPerson, $rootScope) {
                         return MobbrPerson.info({ username: $rootScope.$mobbrStorage.user.username }).$promise;
@@ -123,7 +123,7 @@ angular.module('mobbr', [
                         return MobbrXPayment.supportedCurrencies().$promise;
                     },
                     xpayments: function (MobbrXPayment) {
-                        return MobbrXPayment.get().$promise;
+                        return MobbrXPayment.get({ limit: 10 }).$promise;
                     }
                 }
             }).state('wallet.pay', {
@@ -295,7 +295,7 @@ angular.module('mobbr', [
             $window.mobbr.createDiv();
         }
 
-        $rootScope.$state = $rootScope.state = $state;
+        $rootScope.$state = $state;
         $rootScope.host = $location.host();
         $rootScope.mobbrMsg = mobbrMsg;
         $rootScope.mobbrSession = mobbrSession;
