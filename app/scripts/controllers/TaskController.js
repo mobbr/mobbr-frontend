@@ -17,8 +17,8 @@ angular.module('mobbr.controllers').controller('TaskController', function ($scop
             $scope.url = url;
             $scope.has_failed = false;
             $scope.has_script = response.result.script !== undefined && response.result.script.url !== undefined;
-            $scope.has_payments = parseFloat(response.result.statistics.amount_total) > 0;
-            $scope.has_participants = parseFloat(response.result.statistics.num_partipants) > 0;
+            $scope.has_payments = parseFloat(response.result.statistics.num_payments) > 0;
+            $scope.has_participants = (parseFloat(response.result.statistics.num_recipients) + parseFloat(response.result.statistics.num_senders)) > 0;
             $scope.$emit('set-active-query', url);
 
         }, function () {
