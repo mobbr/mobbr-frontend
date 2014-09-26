@@ -363,6 +363,10 @@ angular.module('mobbr', [
             $rootScope.idProviders = response.result;
         });
 
+        $rootScope.getBrowserLanguage = function () {
+            return ($window.navigator.userLanguage || $window.navigator.language).toUpperCase();
+        }
+
         $rootScope.login = function (username, password) {
             $rootScope.authenticating = MobbrUser.passwordLogin({ username: username, password: password });
         };
