@@ -2,7 +2,7 @@
 
 angular.module('mobbr.filters').filter('mobbrcurrency', function ($rootScope, $sce) {
 
-    var separator = Number('1.2').toLocaleString($rootScope.$mobbrStorage.user && $rootScope.$mobbrStorage.user.language_iso || 'EUR').substr(1,1);
+    var separator = Number('1.2').toLocaleString('EUR').substr(1,1);
 
     return function (amount, currency, is_html, decorate) {
 
@@ -17,8 +17,8 @@ angular.module('mobbr.filters').filter('mobbrcurrency', function ($rootScope, $s
             negative = amount < 0;
             amount = parseFloat(amount);
 
-            if (amount.toLocaleString && $rootScope.$mobbrStorage.user) {
-                localestring = (currency || '') + amount.toLocaleString($rootScope.$mobbrStorage.user.language_iso, {
+            if (amount.toLocaleString) {
+                localestring = (currency || '') + amount.toLocaleString($rootScope.getLanguage(), {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2
                 });
