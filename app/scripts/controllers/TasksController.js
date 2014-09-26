@@ -26,7 +26,6 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
         }, function () {
             $scope.$emit('set-query');
             $scope.$emit('set-active-query');
-            mobbrMsg.add({ msg: 'Invalid username' });
             $state.go('^');
         });
     }
