@@ -126,16 +126,6 @@ angular.module('mobbr', [
                         return MobbrXPayment.get({ limit: 10 }).$promise;
                     }
                 }
-            }).state('wallet.pay', {
-                url: '/pay',
-                views: {
-                    'pay@wallet': {
-                        controller: 'PayController',
-                        templateUrl: 'views/pay.html'
-                    }
-                },
-                onEnter: blockUI,
-                onExit: unblockUI
             }).state('wallet.deposit', {
                 url: '/deposit',
                 views: {
@@ -174,6 +164,16 @@ angular.module('mobbr', [
                 url: '/payments'
             }).state('payments.unclaimed', {
                 url: '/unclaimed'
+            }).state('payments.pay', {
+                url: '/pay',
+                views: {
+                    'pay@payments': {
+                        controller: 'PayController',
+                        templateUrl: 'views/pay.html'
+                    }
+                },
+                onEnter: blockUI,
+                onExit: unblockUI
             }).state('payment', {
                 url: '/payment/:id',
                 templateUrl: 'views/payment.html',
