@@ -37,14 +37,18 @@ angular.module('mobbr.directives').directive('mobbrSmartUrlBox', function factor
                 }
 
                 $scope.urlType = type;
+                console.log($scope.urlType);
             }
 
             $scope.gotoUrl = function (query) {
 
                 var url = $window.btoa(query);
 
+                console.log('gotoUrl', $scope.urlType);
+
                 switch ($scope.urlType) {
                     case 'TASK':
+                        console.log('state goo');
                         $state.go($state.includes('box.task.view') ? $state.current.name : 'box.task.view', { task: url });
                         break;
                     case 'CROWDS':
