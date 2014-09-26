@@ -2,7 +2,7 @@
   "name": "mobbr",
   "version": "0.0.0",
   "dependencies": {
-    "angular": "1.2.20",
+    "angular": "1.3.0-rc.3",
     "angular-route": "~1.2.24",
     "angular-resource": "1.2.24",
     "angular-animate": "1.2.24",
@@ -17,7 +17,7 @@
     "jspdf": "git://github.com/MrRio/jsPDF.git#a52028fe58f949a1bd32a7b5818a8e90ee954b3e",
     "mobbr-api-angular": "git://github.com/mobbr/mobbr-api-angular.git#e1c06c267f8f8ed36aeade534c11789f591edada",
     "mobbr-button": "https://handijk@bitbucket.org/mobbr/mobbr-button.git#f47a2b11242842efd93e51d78f36266242841ae6",
-    "angular-ui-router": "~0.2.10",
+    "angular-ui-router": "0.2.11",
     "angular-ui-utils": "0.1.1",
     "angular-moment": "0.8.0",
     "purl": "2.3.1"

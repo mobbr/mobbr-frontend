@@ -5,19 +5,19 @@
                 <h1>My money</h1>
             </div>
             <div class="col-xs-4 col-sm-3">
-                <a ng-href="{{ $state.href('wallet.pay') }}" ng-class="{ unblocked: $state.is('wallet.pay') }" class="btn btn-call btn-block">
+                <a ui-sref="wallet.pay" ng-class="{ unblocked: $state.is('wallet.pay') }" class="btn btn-call btn-block">
                     Pay
                     <span class="mobbricon mobbricon-transaction pull-right"></span>
                 </a>
             </div>
             <div class="col-xs-4 col-sm-3">
-                <a ng-href="{{ $state.href('wallet.withdraw') }}" ng-class="{ unblocked: $state.is('wallet.withdraw') }" class="btn btn-call btn-block">
+                <a ui-sref="wallet.withdraw" ng-class="{ unblocked: $state.is('wallet.withdraw') }" class="btn btn-call btn-block">
                     Withdraw
                     <span class="mobbricon mobbricon-transaction pull-right"></span>
                 </a>
             </div>
             <div class="col-xs-4 col-sm-3">
-                <a ng-href="{{ $state.href('wallet.deposit') }}" ng-class="{ unblocked: $state.is('wallet.deposit') }" class="btn btn-call btn-block">
+                <a ui-sref="wallet.deposit" ng-class="{ unblocked: $state.is('wallet.deposit') }" class="btn btn-call btn-block">
                     Deposit
                     <span class="mobbricon mobbricon-transaction pull-right"></span>
                 </a>

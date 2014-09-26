@@ -25,7 +25,7 @@
                 </div>
                 <div class="row bottom">
                     <div class="col-md-12">
-                        <a ng-href="{{ $state.href('wallet') }}" class="btn btn-block">Go to your wallet</a>
+                        <a ui-sref="wallet" class="btn btn-block">Go to your wallet</a>
                     </div>
                 </div>
             </div>
@@ -45,7 +45,7 @@
                 </div>
                 <div class="row bottom">
                     <div class="col-md-12">
-                        <a ng-href="{{ $state.href('settings') }}" class="btn btn-block">
+                        <a ui-sref="settings" class="btn btn-block">
                             {{$mobbrStorage.user.complete == 100?'Update your settings':'Complete your settings'}}
                         </a>
                     </div>
@@ -67,7 +67,7 @@
                 </div>
                 <div class="row bottom">
                     <div class="col-md-12">
-                        <a ng-href="{{ $state.href('box.tasks.my') }}" class="btn btn-block">My tasks</a>
+                        <a ui-sref="box.tasks.my" class="btn btn-block">My tasks</a>
                     </div>
                 </div>
             </div>
@@ -91,7 +91,7 @@
                 </div>
                 <div class="row bottom">
                     <div class="col-md-12">
-                        <a ng-href="{{ $state.href('settings.ids') }}" class="btn btn-block">Add more accounts</a>
+                        <a ui-sref="settings.ids" class="btn btn-block">Add more accounts</a>
                     </div>
                 </div>
             </div>
@@ -136,8 +136,8 @@
             <div class="container">
                 <div class="row">
                     <table class="table">
-                        <tbody>
-                        <tr ng-repeat="notification in notifications.result | filter:notificationType">
+                        <tbody ng-init="limiter = 10">
+                        <tr ng-repeat="notification in notifications.result | limitTo: limiter | filter:notificationType">
                             <td ng-class="notification.type">
                                 <span ng-class="{
                                         'mobbricon-transaction': notification.type == 'payment_received' || notification.type == 'payment_revocation' || notification.type == 'xpayment_failure' || notification.type == 'xpayment_received',
@@ -151,6 +151,7 @@
                         </tr>
                         </tbody>
                     </table>
+                    <button class="btn btn-primary" ng-click="limiter = limiter + 10; notifications.$get({ limit: limiter })">More</button>
                 </div>
             </div>
         </div>
