@@ -2,14 +2,24 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <span class="mobbricon mobbricon-ok"></span>
-                <strong>Lorum Ipsum title</strong>
+                <strong ng-if="has_script">Lorum Ipsum title</strong>
+                <strong ng-if="!has_script">Instructions</strong>
             </div>
         </div>
    </div>
 </div>
 
-<div class="row">
+<div ng-if="!has_failed && !has_script" class="row task-instructions">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <p>Make sure it gets connected!!!!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-if="!has_failed && has_script" class="row">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
