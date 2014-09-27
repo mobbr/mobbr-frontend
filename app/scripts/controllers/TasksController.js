@@ -12,22 +12,30 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
 
     $scope.resetTags = function () {
 
-        var username = $state.params.person || $rootScope.$mobbrStorage.user.username;
+        var username = $state.params.person || ($rootScope.$mobbrStorage.user && $rootScope.$mobbrStorage.user.username);
 
-        $scope.$emit('set-query', $state.params.person || null);
+        if (username) {
+            $scope.$emit('set-query', $state.params.person || null);
 
-        MobbrKeywords.person({
-            language: $scope.filter_language,
-            username: username
-        }, function (response) {
-            $scope.$emit('set-active-query', $state.params.person || null);
-            $scope.userTasks = ($rootScope.$mobbrStorage.user && $rootScope.$mobbrStorage.user.username) === $state.params.person;
-            $scope.tags = response.result
-        }, function () {
-            $scope.$emit('set-query');
-            $scope.$emit('set-active-query');
-            $state.go('^');
-        });
+            MobbrKeywords.person({
+                language: $scope.filter_language,
+                username: username
+            }, function (response) {
+                $scope.$emit('set-active-query', $state.params.person || null);
+                $scope.userTasks = ($rootScope.$mobbrStorage.user && $rootScope.$mobbrStorage.user.username) === $state.params.person;
+                $scope.tags = response.result
+            }, function () {
+                $scope.$emit('set-query');
+                $scope.$emit('set-active-query');
+                $state.go('^');
+            });
+        } else {
+            MobbrKeywords.get({
+                language: $scope.language
+            }, function (response) {
+                $scope.tags = response.result;
+            });
+        }
     }
 
     $scope.$on('$stateChangeSuccess', $scope.resetTags);

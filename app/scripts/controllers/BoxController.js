@@ -4,18 +4,24 @@ angular.module('mobbr.controllers').controller('BoxController', function ($scope
 
     $scope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
 
-        if (fromParams.task && fromParams.task !== toParams.task) {
-            $scope.query = null;
-            $scope.activeQuery = null;
-        }
+        var toName = toState.name.split('.'),
+            fromName = toState.name.split('.');
 
-        if (fromParams.person && fromParams.person !== toParams.person) {
-            $scope.query = null;
-            $scope.activeQuery = null;
+        if (fromName[1] !== toName[1]) {
+            if (fromParams.task && fromParams.task !== toParams.task) {
+                $scope.query = null;
+                $scope.activeQuery = null;
+            }
+
+            if (fromParams.person && fromParams.person !== toParams.person) {
+                $scope.query = null;
+                $scope.activeQuery = null;
+            }
         }
     });
 
     $scope.$on('set-query', function (event, query) {
+        console.log(query);
         $scope.query = query;
     });
 

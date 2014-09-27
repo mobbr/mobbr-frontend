@@ -12,7 +12,7 @@ angular.module('mobbr.directives').directive('smartTags', function factory(Mobbr
             resetTags: '=',
             language: '='
         },
-        controller: function ($scope) {
+        link: function ($scope) {
 
             function filterTags() {
                 $scope.filteredTags = [];
