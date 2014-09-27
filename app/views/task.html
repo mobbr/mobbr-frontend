@@ -28,16 +28,6 @@
                                     <span class="large col-md-12" ng-bind="domain"></span>
                                 </div>
                             </div>
-                            <div class="back">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <h3>
-                                            <span class="mobbricon mobbricon-bookmark"></span>
-                                            blabla
-                                        </h3>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div ng-show="has_failed">
                             <div class="front">
@@ -53,16 +43,6 @@
                                                 <span class="large col-md-12">
                                                     Click here for more info
                                                 </span>
-                                </div>
-                            </div>
-                            <div class="back">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <h3>
-                                            <span class="mobbricon mobbricon-bookmark"></span>
-                                            blabla
-                                        </h3>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -87,30 +67,6 @@
                                     <span class="large col-md-12" ng-bind="domain"></span>
                                 </div>
                             </div>
-                            <div class="back">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <h3>
-                                            <span class="mobbricon mobbricon-bookmark"></span>
-                                            First payment at
-                                        </h3>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <span class="large col-md-12" ng-bind="task.result.statistics.firstpaiddatetime | amDateFormat : 'DD-MM-YYYY HH:MM'"></span>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <h3>
-                                            <span class="mobbricon mobbricon-bookmark"></span>
-                                            Last payment at
-                                        </h3>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <span class="large col-md-12" ng-bind="task.result.statistics.lastpaiddatetime | amDateFormat : 'DD-MM-YYYY HH:MM'"></span>
-                                </div>
-                            </div>
                         </div>
                         <div ng-hide="has_script">
                             <div class="front">
@@ -124,16 +80,6 @@
                                 </div>
                                 <div class="row">
                                     <h3 ng-show="!has_failed">Click here for instructions</h3>
-                                </div>
-                            </div>
-                            <div class="back">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <h3>
-                                            <span class="mobbricon mobbricon-bookmark"></span>
-                                            blabla
-                                        </h3>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -156,30 +102,6 @@
                                 </div>
                                 <div class="row">
                                     <span class="large col-md-12" ng-bind-html="task.result.statistics.amount_total | mobbrcurrency: task.result.statistics.amount_currency:true"></span>
-                                </div>
-                            </div>
-                            <div class="back">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <h3>
-                                            <span class="mobbricon mobbricon-bookmark"></span>
-                                            Average payment amount
-                                        </h3>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <span class="large col-md-12" ng-bind-html="task.result.statistics.amount_average | mobbrcurrency: task.result.statistics.amount_currency:true"></span>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <h3>
-                                            <span class="mobbricon mobbricon-bookmark"></span>
-                                            Number of payments
-                                        </h3>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <span class="large col-md-12" ng-bind="task.result.statistics.num_payments"></span>
                                 </div>
                             </div>
                         </div>
@@ -218,30 +140,6 @@
                                 </div>
                                 <div class="row">
                                     <span class="large col-md-12" ng-bind="task.result.statistics.num_partipants"></span>
-                                </div>
-                            </div>
-                            <div class="back">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <h3>
-                                            <span class="mobbricon mobbricon-bookmark"></span>
-                                            Recipients
-                                        </h3>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <span class="large col-md-12" ng-bind="task.result.statistics.num_recipients"></span>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <h3>
-                                            <span class="mobbricon mobbricon-bookmark"></span>
-                                            Senders
-                                        </h3>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <span class="large col-md-12" ng-bind="task.result.statistics.num_senders"></span>
                                 </div>
                             </div>
                         </div>
