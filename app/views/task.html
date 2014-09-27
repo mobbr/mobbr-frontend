@@ -10,8 +10,8 @@
     <div class="row top-info tasks-summary">
         <div class="container">
             <div class="row">
-                <div ng-class="$state.is('box.task.view.domain') ? 'active' : ''"
-                     ng-click="$state.go('box.task.view.domain')"
+                <a ng-class="$state.is('box.task.view.domain') ? 'active' : ''"
+                   ng-href="#{{ $state.is('box.task.view.domain') ? $state.href('^') : $state.href('box.task.view.domain') }}"
                      class="card-container col-xs-6 col-md-3">
                     <div class="card" ng-class="has_failed ? 'failed' : ''">
                         <div ng-hide="has_failed">
@@ -20,7 +20,7 @@
                                     <div class="col-md-12">
                                         <h3>
                                             <span class="mobbricon mobbricon-bookmark"></span>
-                                            Task hosted on
+                                            Domain
                                         </h3>
                                     </div>
                                 </div>
@@ -47,24 +47,24 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
 
-                <div ng-class="$state.is('box.task.view.script') ? 'active' : ''"
-                     ng-click="$state.is('box.task.view.script') ? $state.go('^') : $state.go('box.task.view.script')"
+                <a ng-class="$state.is('box.task.view.script') ? 'active' : ''"
+                     ng-href="#{{ $state.is('box.task.view.script') ? $state.href('^') : $state.href('box.task.view.script') }}"
                      class="card-container col-xs-6 col-md-3">
-                    <div class="card" ng-class="has_script ? '' : 'failed'">
+                    <div class="card" ng-class="!has_failed && has_script ? '' : 'failed'">
                         <div ng-show="has_script">
                             <div class="front">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <h3>
                                             <span class="mobbricon mobbricon-bookmark"></span>
-                                            Connected
+                                            Task
                                         </h3>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <span class="large col-md-12" ng-bind="domain"></span>
+                                    <span class="large col-md-12" ng-bind="task.result.statistics.lastpaiddatetime | amCalendar"></span>
                                 </div>
                             </div>
                         </div>
@@ -84,19 +84,19 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
 
-                <div ng-class="$state.is('box.task.view.payments') ? 'active' : ''"
-                     ng-click="has_payments && $state.go('box.task.view.payments') || $state.go('box.task.view.pay')"
+                <div ng-class="$state.is('box.task.view.payments') || $state.is('box.task.view.pay') ? 'active' : ''"
                      class="card-container col-xs-6 col-md-3">
-                    <div class="card" ng-class="has_payments ? '' : 'failed'">
-                        <div ng-show="has_payments">
+                    <div class="card" ng-class="has_script && has_payments ? '' : 'failed'">
+                        <a ng-href="#{{ $state.is('box.task.view.payments') ? $state.href('^') : $state.href('box.task.view.payments') }}"
+                           ng-show="has_script && has_payments">
                             <div class="front">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <h3>
                                             <span class="mobbricon mobbricon-bookmark"></span>
-                                            Total payment amount
+                                            Payments
                                         </h3>
                                     </div>
                                 </div>
@@ -104,15 +104,16 @@
                                     <span class="large col-md-12" ng-bind-html="task.result.statistics.amount_total | mobbrcurrency: task.result.statistics.amount_currency:true"></span>
                                 </div>
                             </div>
-                        </div>
+                        </a>
 
-                        <div ng-hide="has_payments">
+                        <a ng-hide="has_script && has_payments"
+                           ng-href="#{{ $state.is('box.task.view.pay') ? $state.href('^') : $state.href('box.task.view.pay') }}">
                             <div class="front">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <h3>
                                             <span class="mobbricon mobbricon-bookmark"></span>
-                                            No payments yet
+                                            Payments
                                         </h3>
                                     </div>
                                 </div>
@@ -120,37 +121,38 @@
                                     <span ng-show="has_script && !$state.is('tasks.view.task.pay')">Click here to make a payment</span>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
 
-                <div ng-class="$state.includes('box.crowds') || $state.includes('box.task.view.persons') ? 'active' : ''"
-                     ng-click="has_participants ? $state.go('box.task.view.persons') : $state.go('box.crowds.task', { task: $state.params.task })"
+                <div ng-class="$state.includes('box.task.view.persons') ? 'active' : ''"
                      class="card-container col-xs-6 col-md-3">
-                    <div class="card" ng-class="has_participants ? '' : 'failed'">
-                        <div ng-show="has_participants">
+                    <div class="card" ng-class="has_script && has_payments && has_participants ? '' : 'failed'">
+                        <a ng-show="has_script && has_payments && has_participants"
+                             ng-href="#{{ $state.is('box.task.view.persons') ? $state.href('^') : $state.href('box.task.view.persons') }}">
                             <div class="front">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <h3>
                                             <span class="mobbricon mobbricon-bookmark"></span>
-                                            Current participants
+                                            Workforce
                                         </h3>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <span class="large col-md-12" ng-bind="task.result.statistics.num_partipants"></span>
+                                    <span class="large col-md-12" ng-bind="task.result.statistics.num_recipients"></span>
                                 </div>
                             </div>
-                        </div>
+                        </a>
 
-                        <div ng-hide="has_participants">
+                        <a ng-hide="has_script && has_payments && has_participants"
+                             ng-href="#{{ $state.href('box.crowds', { task: $state.params.task })">
                             <div class="front">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <h3>
                                             <span class="mobbricon mobbricon-bookmark"></span>
-                                            No participants yet
+                                            Workforce
                                         </h3>
                                     </div>
                                 </div>
@@ -160,7 +162,7 @@
                                         </span>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
             </div>

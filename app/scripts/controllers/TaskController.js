@@ -23,7 +23,7 @@ angular.module('mobbr.controllers').controller('TaskController', function ($scop
 
         var url = $window.atob(task);
         $scope.$emit('set-query', url);
-        $scope.domain = purl(url).hostname;
+        $scope.domain = purl(url).data.attr.host;
         $scope.task = MobbrUri.info({ url: url }, function (response) {
 
             if (response.result.script && response.result.script.url && response.result.script.url !== url) {
