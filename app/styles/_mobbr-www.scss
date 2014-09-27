@@ -296,22 +296,25 @@ label.title {
   }
 
   .card-container {
-    perspective: 970px;
     margin-bottom: $grid-gutter-width;
+  }
+
+  .flip.card-container {
+    perspective: 970px;
     backface-visibility: hidden;
   }
 
-  .card-container:hover .card,
-  .active .card,
-  .active:hover .card {
+  .flip.card-container:hover .card,
+  .flip .active .card,
+  .flip .active:hover .card {
     transform: rotateY(180deg);
   }
 
-  .card-container:hover .card.fixed {
+  .flip.card-container:hover .card.fixed {
     transform: none;
   }
 
-  .card {
+  .flip .card {
     transition: 0.6s;
     transform-style: preserve-3d;
     backface-visibility: hidden;
@@ -319,10 +322,13 @@ label.title {
 
   .front, .back {
     padding: $grid-gutter-width * 1.5;
+  }
+
+  .flip .front, .flip .back {
     backface-visibility: hidden;
   }
 
-  .back {
+  .flip .back {
     position: absolute;
     top: 0;
     left: 0;
