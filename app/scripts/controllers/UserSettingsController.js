@@ -101,17 +101,17 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
     };
 
 
-    $scope.removePaymentID = function (paymentId, index) {
-        $scope.waitingRemoveId = {};
-        $scope.waitingRemoveId[index] = MobbrUser.deleteUserId({id: paymentId}, function () {
-            $scope.waitingRemoveId = undefined;
+    $scope.removePaymentID = function (paymentId) {
+        MobbrUser.deleteUserId({id: paymentId}, function (response) {
+            mobbrSession.setUser(response.data.result);
+            matchProviders();
         });
     };
 
 
     $scope.addPaymentIdHolder = {idType: undefined, oAuthProvider: undefined, email: undefined};
 
-    function clearPaymentIdHolder () {
+    function clearPaymentIdHolder() {
         $scope.addPaymentIdHolder = {};
         $scope.formHolder.addPaymentIdForm.$setPristine();
     }
@@ -124,24 +124,9 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
         }
     }
 
-    $scope.addExternalId = function () {
-
-        if ($scope.formHolder.addPaymentIdForm.$valid && $scope.addPaymentIdHolder.idType) {
-            if ($scope.addPaymentIdHolder.idType === 'EMAIL') {
-                $scope.waitingAddId = MobbrUser.addEmailId({new_email: $scope.addPaymentIdHolder.email}, clearPaymentIdHolder);
-            } else if ($scope.addPaymentIdHolder.idType === 'OAUTH') {
-                popup_url = $window.location.origin + '/popup.html';
-                oauth_popup = $window.open(popup_url, 'oauth-popup');
-                $scope.waitingAddId = MobbrUser.oAuthUrl({
-                    provider: $scope.addPaymentIdHolder.oAuthProvider.provider,
-                    redirect_url: popup_url
-                }, function (response) {
-                    $window.addEventListener('message', popupMessage, false);
-                    oauth_popup.location.href = response.result;
-                }, function () {
-                    oauth_popup.close();
-                });
-            }
+    $scope.addExtraEmail = function () {
+        if ($scope.formHolder.addPaymentIdForm.$valid) {
+            $scope.waitingAddId = MobbrUser.addEmailId({new_email: $scope.addPaymentIdHolder.email}, clearPaymentIdHolder);
         }
     };
 
@@ -193,9 +178,100 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
         return countFields(countDisplayCompleted);
     };
 
-    $scope.$watch('$mobbrStorage.user.birthday', function(newBirthDate){
-        if(newBirthDate && !(newBirthDate instanceof Date)){
-            $scope.$mobbrStorage.user.birthday = moment($scope.$mobbrStorage.user.birthday,'YYYY-MM-DD').toDate();
+    $scope.$watch('$mobbrStorage.user.birthday', function (newBirthDate) {
+        if (newBirthDate && !(newBirthDate instanceof Date)) {
+            $scope.$mobbrStorage.user.birthday = moment($scope.$mobbrStorage.user.birthday, 'YYYY-MM-DD').toDate();
         }
     });
+
+    var matchProviders = function () {
+        function addIdIfFound(provider) {
+            angular.forEach($scope.$mobbrStorage.user.id, function (id) {
+                if (id.indexOf(provider.host) > -1) {
+                    provider.id = id;
+                    provider.idConfirmed = true;
+                }
+            });
+        }
+
+        if ($scope.oAuthProviders && $scope.oAuthProviders.result) {
+            $scope.oAuthWithIdProviders = [];
+
+            angular.forEach($scope.oAuthProviders.result, function (provider) {
+                var copy = angular.copy(provider);
+                addIdIfFound(copy);
+                if(copy.id){
+                    $scope.oAuthWithIdProviders.unshift(copy);
+                }else {
+                    $scope.oAuthWithIdProviders.push(copy);
+                }
+            });
+        }
+
+        if ($scope.idProviders && $scope.idProviders.length > 0) {
+            $scope.idWithIdProviders = [];
+            angular.forEach($scope.idProviders, function (provider) {
+                var copy = angular.copy(provider);
+                addIdIfFound(copy);
+                if(copy.id){
+                    $scope.idWithIdProviders.unshift(copy);
+                }else{
+                    $scope.idWithIdProviders.push(copy);
+                }
+            });
+        }
+
+
+    };
+
+    $scope.$on('$stateChangeSuccess', matchProviders);
+
+    $scope.$watch('idProviders', function (newValue, oldValue) {
+        if (newValue && (!oldValue || oldValue.length === 0) && !$scope.idWithIdProviders) {
+            matchProviders();
+        }
+    });
+
+    $scope.$watch('oAuthProviders.result', function (newValue, oldValue) {
+        if (newValue && !oldValue && !$scope.oAuthWithIdProviders) {
+            matchProviders();
+        }
+    });
+
+    $scope.addIdentityProvider = function (provider) {
+        MobbrUser.addPublicId({provider: provider.provider, identity: provider.id}).$promise.then(function (response) {
+            mobbrSession.setUser(response.result);
+            matchProviders();
+        });
+    };
+
+    $scope.addOAuthProvider = function (provider) {
+        if (provider) {
+            popup_url = $window.location.origin + '/popup.html';
+            oauth_popup = $window.open(popup_url, 'oauth-popup');
+            $scope.waitingAddId = MobbrUser.oAuthUrl({
+                provider: provider.provider,
+                redirect_url: popup_url
+            }, function (response) {
+                $window.addEventListener('message', popupMessage, false);
+                oauth_popup.location.href = response.result;
+            }, function () {
+                oauth_popup.close();
+            });
+        }
+    };
+
+    $scope.$watch('$mobbrStorage.user.id', function () {
+        $scope.emailAddresses = [];
+        angular.forEach($scope.$mobbrStorage.user.id, function (id) {
+            if (id && (id.indexOf('http') > -1) && (id.indexOf('mobbr.com') > -1)) {
+
+                $scope.mobbrId = id;
+            }
+            else if (id && id.indexOf('mailto') > -1) {
+                $scope.emailAddresses.push(id);
+            }
+        });
+    });
+
 });

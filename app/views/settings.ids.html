@@ -1,52 +1,94 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <form name="formHolder.addPaymentIdForm" class="form-horizontal" ng-submit="addExternalId()">
-                <fieldset class="form-group" ng-repeat="paymentID in $mobbrStorage.user.id">
-                    <label class="control-label col-xs-12 col-sm-3 col-md-2" for="paymentID">External ID</label>
+
+                Internal
+                <fieldset class="form-group">
+                    <label class="control-label col-xs-12 col-sm-3 col-md-2" for="{{mobbrId}}">Mobbr</label>
 
                     <div class="col-sm-7 col-xs-10 col-md-8">
-                        <input class="form-control" ng-model="paymentID" id="paymentID" type="text" disabled>
+                        <input class="form-control" ng-model="mobbrId" id="{{mobbrId}}" type="text" disabled>
                     </div>
                     <div class="col-sm-1 col-sm-offset-1 col-md-offset-1 col-xs-2 col-md-1 text-center">
-                        <button ng-click="removePaymentID(paymentID,$index)"
-                                type="button"
-                                class="btn btn-danger btn-square">
+
+                    </div>
+                </fieldset>
+
+                E-mails
+
+                <fieldset class="form-group" ng-repeat="email in emailAddresses">
+                    <label class="control-label col-xs-12 col-sm-3 col-md-2" for="{{email}}">E-mail</label>
+
+                    <div class="col-sm-7 col-xs-10 col-md-8">
+                        <input class="form-control" ng-model="email" id="{{email}}" type="text" disabled>
+                    </div>
+                    <div class="col-sm-1 col-sm-offset-1 col-md-offset-1 col-xs-2 col-md-1 text-center">
+                        <button type="button" class="btn btn-danger btn-square" ng-click="removePaymentID(email)">
                             <span class="mobbricon mobbricon-hardclose"></span>
                         </button>
                     </div>
                 </fieldset>
 
+                <form name="formHolder.addPaymentIdForm" ng-submit="addExtraEmail()">
+                    <fieldset class="form-group">
+                        <label class="control-label col-xs-12 col-sm-3 col-md-2" >Add another E-mail</label>
 
-                <fieldset class="form-group">
-                    <label class="control-label col-xs-12 col-sm-3 col-md-2">Add another ID</label>
-
-                    <div class="col-sm-3 col-xs-5 col-md-4">
-                        <select ng-model="addPaymentIdHolder.idType" class="form-control">
-                            <option selected value="">Select an ID type</option>
-                            <option value="EMAIL">E-mail</option>
-                            <option value="OAUTH">oAuth provider (github, gmail, facebook, etc)</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-4 col-xs-5 col-md-4">
-                        <div ng-if="addPaymentIdHolder.idType != 'OAUTH'">
-                            <input ng-model="addPaymentIdHolder.email" ng-disabled="addPaymentIdHolder.idType != 'EMAIL'" class="form-control" type="email" name="addEmail" id="addEmail" required>
-                            <span ng-show="formHolder.addPaymentIdForm.addEmail.$dirty && formHolder.addPaymentIdForm.addEmail.$error.required"
-                                  class="help-inline">Enter a email address.</span>
-                            <span ng-show="formHolder.addPaymentIdForm.addEmail.$dirty && formHolder.addPaymentIdForm.addEmail.$error.email"
-                                  class="help-inline">Enter a valid email address.</span>
+                        <div class="col-sm-7 col-xs-10 col-md-8">
+                            <input class="form-control" ng-model="addPaymentIdHolder.email">
                         </div>
-                        <span ng-if="addPaymentIdHolder.idType == 'OAUTH'">
-                            <select ng-model="addPaymentIdHolder.oAuthProvider" ng-options="oAuthProvider as oAuthProvider.host for oAuthProvider in oAuthProviders.result" class="form-control" required="">
-                                <option selected value="">Select an oAuth provider</option>
-                            </select>
-                        </span>
+
+                        <div class="col-sm-1 col-sm-offset-1 col-md-offset-1 col-xs-2 col-md-1 text-center" >
+                            <button type="submit" class="btn btn-success btn-square"
+                                    ng-disabled="!(formHolder.addPaymentIdForm.$valid && formHolder.addPaymentIdForm.$dirty && addPaymentIdHolder.email)">
+                                <span class="mobbricon mobbricon-addopen"></span>
+                            </button>
+                        </div>
+                    </fieldset>
+                </form>
+
+                External accounts
+
+                <fieldset class="form-group" ng-repeat="oAuthProvider in oAuthWithIdProviders">
+
+                    <label class="control-label col-xs-12 col-sm-3 col-md-2" ng-bind="oAuthProvider.provider"></label>
+
+                    <div class="col-sm-7 col-xs-10 col-md-8">
+                        <input class="form-control" ng-model="oAuthProvider.id" disabled="disabled" style="background-size: 20px 20px;background-repeat: no-repeat;background-position: 98% center;"  ng-style="backgroundStyle" ng-init="backgroundStyle={'background-image': 'url(' + oAuthProvider.favicon + ')'}">
                     </div>
-                    <div class="col-sm-1 col-xs-2 col-md-1 text-center">
-                        <button type="submit" class="btn btn-success btn-square"
-                                ng-disabled="!(formHolder.addPaymentIdForm.$valid && formHolder.addPaymentIdForm.$dirty && addPaymentIdHolder.idType)">
+                    <div class="col-sm-1 col-sm-offset-1 col-md-offset-1 col-xs-2 col-md-1 text-center" ng-show="!oAuthProvider.id">
+                        <button type="button" class="btn btn-success btn-square" ng-click="addOAuthProvider(oAuthProvider)">
                             <span class="mobbricon mobbricon-addopen"></span>
                         </button>
+                    </div>
+                    <div class="col-sm-1 col-xs-2 col-md-1 text-center" ng-show="oAuthProvider.id">
+                        <button type="button" class="btn btn-danger btn-square" ng-click="removePaymentID(oAuthProvider.id)">
+                            <span class="mobbricon mobbricon-hardclose"></span>
+                        </button>
+
+                    </div>
+
+
+                </fieldset>
+
+
+                Identity providers
+                <fieldset class="form-group" ng-repeat="identityProvider in idWithIdProviders">
+
+                    <label class="control-label col-xs-12 col-sm-3 col-md-2" ng-bind="identityProvider.provider"></label>
+
+                    <div class="col-sm-7 col-xs-10 col-md-8">
+                        <input class="form-control" ng-model="identityProvider.id" ng-disabled="identityProvider.idConfirmed" style="background-size: 20px 20px;background-repeat: no-repeat;background-position: 98% center;"  ng-style="backgroundStyle" ng-init="backgroundStyle={'background-image': 'url(' + identityProvider.favicon + ')'}">
+                    </div>
+                    <div class="col-sm-1 col-sm-offset-1 col-md-offset-1 col-xs-2 col-md-1 text-center" ng-show="!identityProvider.idConfirmed">
+                        <button type="button" class="btn btn-success btn-square" ng-click="addIdentityProvider(identityProvider)" ng-disabled="!identityProvider.id">
+                            <span class="mobbricon mobbricon-addopen"></span>
+                        </button>
+                    </div>
+                    <div class="col-sm-1 col-xs-2 col-md-1 text-center" ng-show="identityProvider.idConfirmed">
+                        <button type="button" class="btn btn-danger btn-square" ng-click="removePaymentID(identityProvider.id)">
+                            <span class="mobbricon mobbricon-hardclose"></span>
+                        </button>
+
                     </div>
                 </fieldset>
             </form>
