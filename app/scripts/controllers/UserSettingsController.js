@@ -192,4 +192,10 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
     $scope.countDisplayCompleted = function () {
         return countFields(countDisplayCompleted);
     };
+
+    $scope.$watch('$mobbrStorage.user.birthday', function(newBirthDate){
+        if(newBirthDate && !(newBirthDate instanceof Date)){
+            $scope.$mobbrStorage.user.birthday = moment($mobbrStorage.user.birthday,'YYYY-MM-DD').toDate();
+        }
+    });
 });
