@@ -15,11 +15,10 @@ angular.module('mobbr.controllers').controller('TaskController', function ($scop
             }
 
             $scope.url = url;
-            $scope.has_failed = false;
-            $scope.has_script = response.result.script !== undefined && response.result.script.url !== undefined;
+            $scope.has_failed = response.result.script && response.result.script.error;
+            $scope.has_script = $scope.has_failed && false || response.result.script.url && true;
             $scope.has_payments = parseFloat(response.result.statistics.num_payments) > 0;
             $scope.has_participants = (parseFloat(response.result.statistics.num_recipients) + parseFloat(response.result.statistics.num_senders)) > 0;
-            console.log(url);
             $scope.$emit('set-active-query', url);
 
         }, function () {

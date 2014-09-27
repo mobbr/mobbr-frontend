@@ -3,7 +3,8 @@
         <div class="row">
             <div class="col-md-12">
                 <span class="mobbricon mobbricon-ok"></span>
-                <strong>Tasks at this domain</strong>
+                <strong ng-if="!has_failed">Tasks at this domain</strong>
+                <strong ng-if="has_failed">Your domain is not reachable by Mobbr</strong>
             </div>
         </div>
     </div>
@@ -34,7 +35,6 @@
                 </div>
 
                 <div ng-show="has_failed" class="col-md-12 task-tags" class="col-md-12">
-                    <h2>Your domain is not reachable by Mobbr</h2>
                     <p>Fix it!!!!</p>
                 </div>
             </div>

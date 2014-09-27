@@ -5,7 +5,9 @@ angular.module('mobbr.controllers').controller('BoxController', function ($scope
     $scope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
 
         var toName = toState.name.split('.'),
-            fromName = toState.name.split('.');
+            fromName = fromState.name.split('.');
+
+        console.log(toName, fromName);
 
         if (fromName[1] !== toName[1]) {
             if (fromParams.task && fromParams.task !== toParams.task) {
