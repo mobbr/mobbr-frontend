@@ -54,7 +54,7 @@ angular.module('mobbr.controllers').controller('TaskController', function ($scop
     }
 
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
-        if (toState.name.indexOf('box.task.view') === 0 && toParams.task) {
+        if (($scope.task === undefined || $scope.task.result.script.url !== $window.atob(toParams.task)) && toState.name.indexOf('box.task.view') === 0 && toParams.task) {
             queryTask(toParams.task);
         }
     });
