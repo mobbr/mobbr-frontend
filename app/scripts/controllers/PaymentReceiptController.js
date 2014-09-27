@@ -14,7 +14,7 @@ angular.module('mobbr.controllers').controller('PaymentReceiptController', funct
             });
 
         }
-    }
+    };
 
     function retrievePayment() {
         if ($state.includes('x-payment')) {
@@ -34,7 +34,7 @@ angular.module('mobbr.controllers').controller('PaymentReceiptController', funct
         if (selected && selected.length > 0) {
             var ids = [];
             angular.forEach(selected, function (elem) {
-                ids.push(elem.unclaim_id);
+                ids.push(elem.share_id);
             });
             return ids;
         }
@@ -45,33 +45,17 @@ angular.module('mobbr.controllers').controller('PaymentReceiptController', funct
     $scope.selectAll = {selected: false};
     $scope.$watch('selectAll.selected', function (newValue) {
         angular.forEach($scope.recieversAndSenders, function (participant) {
-            if (participant.unclaimed === '1') {
+            if (participant.share_id) {
                 participant.selected = newValue;
             }
         });
     });
 
-    $scope.mailSelected = function () {
-
-    };
-
-    $scope.revokeSelected = function () {
-        var selected = $scope.filterSelectedIds($scope.recieversAndSenders);
-        if (selected && selected.length > 0) {
-            MobbrPayment.unclaimShares({ids: selected}).$promise.then(function () {
-                retrievePayment();
-            });
-
-        }
-    };
-
     $scope.download = function () {
         var selected = $scope.filterSelectedIds($scope.recieversAndSenders);
         if (selected && selected.length > 0) {
-            MobbrInvoice.get({unclaimed_ids: selected}).$promise.then(function (data) {
-                var blob = new Blob([data], {});
-                var objectUrl = URL.createObjectURL(blob);
-                $window.open(objectUrl);
+            MobbrInvoice.get({share_ids: selected}).$promise.then(function (response) {
+                $window.saveAs(new Blob([ response.data ], { type: response.type }), 'mobbr-invoices.zip');
             });
 
         }

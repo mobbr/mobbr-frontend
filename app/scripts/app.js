@@ -178,6 +178,8 @@ angular.module('mobbr', [
                 url: '/payment/:id',
                 templateUrl: 'views/payment.html',
                 controller: 'PaymentReceiptController'
+            }).state('payment.persons', {
+
             }).state('x-payment', {
                 url: '/x-payment/:id',
                 templateUrl: 'views/payment.html',
