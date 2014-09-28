@@ -7,8 +7,6 @@ angular.module('mobbr.controllers').controller('BoxController', function ($scope
         var toName = toState.name.split('.'),
             fromName = fromState.name.split('.');
 
-        console.log(toName, fromName);
-
         if (fromName[1] !== toName[1]) {
             if (fromParams.task && fromParams.task !== toParams.task) {
                 $scope.query = null;
@@ -23,7 +21,6 @@ angular.module('mobbr.controllers').controller('BoxController', function ($scope
     });
 
     $scope.$on('set-query', function (event, query) {
-        console.log(query);
         $scope.query = query;
     });
 
