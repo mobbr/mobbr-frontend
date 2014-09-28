@@ -1,6 +1,6 @@
-<smart-tags tags="tags" filtered-tags="filteredTags" reset-tags="resetTags" language="filter_language"></smart-tags>
+<smart-tags ng-show="tags && tags.length !== undefined" tags="tags" filtered-tags="filteredTags" reset-tags="resetTags" language="filter_language"></smart-tags>
 
-<div class="row top-info filter">
+<div ng-show="tags && tags.length !== undefined" class="row top-info filter">
     <div class="container">
         <div class="row">
             <fieldset ng-disabled="(persons && !persons.$resolved)" class="form-horizontal">
@@ -53,7 +53,7 @@
 
 
 <div ng-class="{ loading: persons && !persons.$resolved }" class="row data-cards data-cards-persons">
-    <div ng-repeat="person in persons.result | filter:{ username: !$mobbrStorage.user.username }" ng-class="{ 'data-card-highlight': person.match_percentage > 90 }" class="col-md-3 data-card-container">
+    <div ng-repeat="person in persons.result | filter:filterUser" ng-class="{ 'data-card-highlight': person.match_percentage > 90 }" class="col-md-3 data-card-container">
         <div class="data-card" ng-init="person.selected = false" ng-click="activeQuery && (person.selected = !person.selected);activeQuery && addPerson(person);">
             <img ng-src="https://secure.gravatar.com/avatar/{{ person['gravatar'] }}?s=50&default=https://mobbr.com/img/default-gravatar.png"
                  width="50"
@@ -92,13 +92,13 @@
             </div>
         </div>
     </div>
-    <div class="col-md-12 text-center" ng-show="!tags">
+    <div class="col-md-12 text-center" ng-show="tags === undefined">
         <h2><em>Enter any URL to find your workforce...</em></h2>
     </div>
-    <div class="col-md-12 text-center" ng-show="(tags && !tags.$resolved) || (persons && !persons.$resolved)">
+    <div class="col-md-12 text-center" ng-show="tags === null && !persons.$resolved">
         <h2><em>Finding your workforce...</em></h2>
     </div>
     <div class="col-md-12 text-center" ng-show="persons.$resolved && persons.result.length == 0">
-        <h2><em>No people found...</em></h2>
+        <h2><em>No workforce found...</em></h2>
     </div>
 </div>

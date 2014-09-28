@@ -51,7 +51,11 @@ angular.module('mobbr.directives').directive('smartTags', function factory(Mobbr
                 });
             }
 
-            $scope.$watch('tags', filterTags);
+            $scope.$watch('tags', function () {
+                if ($scope.tags !== undefined && $scope.tags !== null) {
+                    filterTags();
+                }
+            }, true);
             $scope.$on('mobbrApi:authchange', $scope.resetTags);
         }
     };
