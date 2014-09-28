@@ -1,31 +1,15 @@
-<fieldset>
+<fieldset ng-mouseleave="isopen = false; unsetOpen()">
     <form ng-submit="gotoUrl(query)" class="input-group">
-        <span class="input-group-addon">
-            <ul class="list-unstyled">
-                <li class="dropdown">
-
-                    <a class="dropdown-toggle logo" data-toggle="dropdown">
-                        <span class="mobbricon mobbricon-mobbrmenu"></span>
-                    </a>
-
-                    <ul class="dropdown-menu logo-menu" role="menu">
-                        <li ng-click="setType('TASK')">
-                            <a>Create and manage tasks</a>
-                        </li>
-                        <li ng-click="setType('CROWDS')">
-                            <a>Find and invite crowdworkers</a>
-                        </li>
-                        <li ng-click="setType('TASKS')">
-                            <a>Find new tasks</a>
-                        </li>
-                        <li ng-click="setType('PROFILE')">
-                            <a>Find new persons</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+        <span class="input-group-addon" ng-mouseover="isopen = true">
+            <span class="mobbricon mobbricon-mobbrmenu"></span>
         </span>
-        <input type="{{ (urlType == 'CROWDS' || urlType == 'TASK') && 'url' || 'text' }}" class="form-control" ng-model="query" placeholder="{{placeHolders[urlType]}}">
+        <input type="{{ (urlType == 'CROWDS' || urlType == 'TASK') && 'url' || 'text' }}"
+               class="form-control"
+               ng-model="query"
+               placeholder="{{placeHolders[urlType]}}"
+               ng-mouseover="setOpen()"
+               ng-focus="isfocus = true"
+               ng-blur="isfocus = false">
         <span class="input-group-btn">
             <button ng-disabled="(activeQuery && activeQuery == query && !savedQuery)"
                     class="btn btn-default"
@@ -33,5 +17,23 @@
                 <span class="mobbricon mobbricon-mobbricon"></span>
             </button>
         </span>
+        <ul class="list-unstyled">
+            <li ng-show="isfocus || isopen">
+                <ul class="url-menu" role="menu">
+                    <li ng-click="setType('TASK')">
+                        <a>Create and manage tasks</a>
+                    </li>
+                    <li ng-click="setType('CROWDS')">
+                        <a>Find and invite crowdworkers</a>
+                    </li>
+                    <li ng-click="setType('TASKS')">
+                        <a>Find new tasks</a>
+                    </li>
+                    <li ng-click="setType('PROFILE')">
+                        <a>Find new persons</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
     </form>
 </fieldset>

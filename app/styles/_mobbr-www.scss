@@ -1404,6 +1404,14 @@ body.blocked .unblocked {
     line-height: 20px;
   }
 }
+
+.url-menu {
+  background: $white;
+  position: absolute;
+  z-index: 999;
+  left: 0;
+  top: 50px;
+}
 /*
 .user-thumb {
   margin: -5px 0 -5px;

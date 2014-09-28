@@ -20,7 +20,9 @@ angular.module('mobbr.directives').directive('mobbrSmartUrlBox', function factor
         link: function (scope, elem, attrs, $window) {
             scope.placeHolders = placeholders;
         },
-        controller: function ($scope, $state, $window) {
+        controller: function ($scope, $state, $window, $timeout) {
+
+            var opener;
 
             $scope.setType = function (type) {
 
@@ -37,6 +39,18 @@ angular.module('mobbr.directives').directive('mobbrSmartUrlBox', function factor
                 }
 
                 $scope.urlType = type;
+                $scope.isopen = false;
+            }
+
+            $scope.setOpen = function () {
+                $scope.unsetOpen();
+                opener = $timeout(function () {
+                    $scope.isopen = true;
+                }, 500);
+            }
+
+            $scope.unsetOpen = function () {
+                opener && $timeout.cancel(opener);
             }
 
             $scope.gotoUrl = function (query) {
