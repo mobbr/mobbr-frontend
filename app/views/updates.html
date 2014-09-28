@@ -120,7 +120,10 @@
                             <strong>Filter by</strong>
                         </div>
                         <div class="col-md-3">
-                            <select class="form-inline form-control" ng-disabled="notifications.result.length == 0" ng-model="notificationType" ng-options="type.type as eventTypesMap[type.type].description for type in notifications.result | unique:'type'">
+                            <select class="form-inline form-control"
+                                    ng-model="notificationType"
+                                    ng-options="type.event as type.description for type in eventTypes.result"
+                                    ng-change="notifications.$get({ limit: limiter, event_type: notificationType })">
                                 <option value="">Choose a notificationtype</option>
                             </select>
                         </div>
@@ -151,7 +154,7 @@
                         </tr>
                         </tbody>
                     </table>
-                    <button class="btn btn-primary" ng-click="limiter = limiter + 10; notifications.$get({ limit: limiter })">More</button>
+                    <button class="btn btn-primary" ng-hide="notifications.result.length < limiter" ng-click="limiter = limiter + 10; notifications.$get({ limit: limiter, event_type: notificationType })">More</button>
                 </div>
             </div>
         </div>
