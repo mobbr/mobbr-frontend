@@ -10,7 +10,8 @@ angular.module('mobbr.directives').directive('smartTags', function factory(Mobbr
             tags: '=',
             filteredTags: '=',
             resetTags: '=',
-            language: '='
+            language: '=',
+            tagsTitle: '='
         },
         link: function ($scope) {
 
