@@ -70,7 +70,7 @@ angular.module('mobbr.directives').directive('mobbrSmartUrlBox', function factor
                         break;
                     case 'TASKS':
                         if (query) {
-                            $state.go('box.tasks.person', { person: $window.encodeURIComponent(query) });
+                            $state.go('box.tasks.person', { username: $window.encodeURIComponent(query) });
                         } else {
                             $state.go('box.tasks');
                         }

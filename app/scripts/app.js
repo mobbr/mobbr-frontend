@@ -200,7 +200,7 @@ angular.module('mobbr', [
                     title: 'Explore tasks'
                 }
             }).state('box.tasks.person', {
-                url: '/:person'
+                url: '/:username'
             }).state('box.task', {
                 abstract: true,
                 views: {

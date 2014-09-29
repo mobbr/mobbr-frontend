@@ -45,7 +45,7 @@
                     <fieldset class="col-sm-6 form-group">
                         <div class="row">
                             <div class="col-xs-5">
-                                <button ng-disabled="!currency || !amount || (payment && !payError)"
+                                <button ng-disabled="!currency || !amount || (payment && !payError) || (invoices && !invoices_confirm)"
                                         ng-click="preview()"
                                         class="btn btn-default btn-block"
                                         type="submit">
@@ -53,7 +53,7 @@
                                 </button>
                             </div>
                             <div class="col-xs-5">
-                                <button ng-disabled="!currency || !amount || confirm.$resolved"
+                                <button ng-disabled="!currency || !amount || confirm.$resolved || (invoices && !invoices_confirm)"
                                         ng-click="payment.result.hash ? pay() : previewPay()"
                                         ng-bind="confirm.message.text || task.result.script.pledge && 'Pledge' || 'Pay'"
                                         class="btn btn-success btn-block"
@@ -73,6 +73,20 @@
                     <span class="info-box">
                         <span class="mobbricon mobbricon-softalert"></span> Your fee will be 5% or 9 EUR per month, whichever is least.
                     </span>
+            </div>
+        </div>
+        <div class="row" ng-show="invoices">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <div class="checkbox">
+                        <fieldset ng-disabled="!invoices">
+                            <label>
+                                <input type="checkbox" ng-model="invoices_confirm">
+                                I understand VAT is reverse charged and needs to be paid by me
+                            </label>
+                        </fieldset>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

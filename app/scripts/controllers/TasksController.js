@@ -6,23 +6,23 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
         $scope.tasks = MobbrUri.get({
             language: $scope.filter_language,
             keywords: $scope.filteredTags,
-            username: $state.params.person || null
+            username: $state.params.username || null
         });
     }
 
     $scope.resetTags = function () {
 
-        var username = $state.params.person || ($rootScope.$mobbrStorage.user && $rootScope.$mobbrStorage.user.username);
+        var username = $state.params.username || ($rootScope.$mobbrStorage.user && $rootScope.$mobbrStorage.user.username);
 
         if (username) {
-            $scope.$emit('set-query', $state.params.person || null);
+            $scope.$emit('set-query', $state.params.username || null);
 
-            MobbrKeywords.person({
+            MobbrKeywords.username({
                 language: $scope.filter_language,
                 username: username
             }, function (response) {
-                $scope.$emit('set-active-query', $state.params.person || null);
-                $scope.userTasks = ($rootScope.$mobbrStorage.user && $rootScope.$mobbrStorage.user.username) === $state.params.person;
+                $scope.$emit('set-active-query', $state.params.username || null);
+                $scope.userTasks = ($rootScope.$mobbrStorage.user && $rootScope.$mobbrStorage.user.username) === $state.params.username;
                 $scope.tags = response.result
             }, function () {
                 $scope.$emit('set-query');
