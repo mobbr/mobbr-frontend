@@ -274,13 +274,19 @@ angular.module('mobbr', [
                 }
             }).state('box.crowds.task', {
                 url: '/:task'
-            }).state('person', {
-                url: '/person/:username',
-                controller: 'PersonController',
-                templateUrl: 'views/person.html',
+            }).state('box.person', {
+                url: '/person',
+                views: {
+                    'tasks-section': {
+                        controller: 'PersonController',
+                        templateUrl: 'views/person.html'
+                    }
+                },
                 data: {
                     title: 'Profile'
                 }
+            }).state('box.person.profile', {
+                url: '/:username'
             });
 
 

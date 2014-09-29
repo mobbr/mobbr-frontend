@@ -1,9 +1,13 @@
-angular.module('mobbr.controllers').controller('PersonController', function ($scope, $stateParams, MobbrKeywords, MobbrPerson, MobbrGravatar, MobbrOneName) {
+angular.module('mobbr.controllers').controller('PersonController', function ($scope, $stateParams, $state, MobbrKeywords, MobbrPerson, MobbrGravatar, MobbrOneName) {
     'use strict';
 
-    $scope.username = $stateParams.username;
-
-    $scope.keywords = MobbrKeywords.person({username: $scope.username});
+    function reset() {
+        $scope.$emit('set-active-query');
+        $scope.personPromise = null;
+        $scope.keywords = null;
+        $scope.username = null;
+        $scope.person = null;
+    }
 
     function getFromLastPart(url) {
         var lastPart = url.substring(url.lastIndexOf('/') + 1);
@@ -29,7 +33,6 @@ angular.module('mobbr.controllers').controller('PersonController', function ($sc
         });
     }
 
-    $scope.personPromise = MobbrPerson.info({username: $scope.username});
     function findRemoteProfile() {
         var id = findPartInArray($scope.person.user.id, 'gravatar');
         if (id) {
@@ -46,33 +49,48 @@ angular.module('mobbr.controllers').controller('PersonController', function ($sc
         }
     }
 
-    $scope.personPromise.$promise.then(function (response) {
-        $scope.person = response.result;
+    function setProfile() {
+        if ($state.current.name === 'box.person.profile') {
+            $scope.username = $state.params.username;
+            $scope.$emit('set-query', $scope.username);
 
-        findRemoteProfile();
+            $scope.keywords = MobbrKeywords.person({username: $scope.username});
+            $scope.personPromise = MobbrPerson.info({username: $scope.username}, function (response) {
+                $scope.person = response.result;
 
-        if($scope.person && $scope.person.user && $scope.person.user.id){
-            var enrichedIds = [];
-            angular.forEach($scope.person.user.id, function(id){
-                var enrichedId = {};
-                enrichedId.id = id;
-                angular.forEach($scope.idProviders, function(provider){
-                    if(id.indexOf(provider.provider) > -1){
-                        enrichedId.host = provider.host;
-                        enrichedId.facicon = provider.favicon;
-                        enrichedId.provider = provider.provider;
+                $scope.$emit('set-active-query', $scope.username);
+
+                findRemoteProfile();
+
+                if($scope.person && $scope.person.user && $scope.person.user.id){
+                    var enrichedIds = [];
+                    angular.forEach($scope.person.user.id, function(id){
+                        var enrichedId = {};
+                        enrichedId.id = id;
+                        angular.forEach($scope.idProviders, function(provider){
+                            if(id.indexOf(provider.provider) > -1){
+                                enrichedId.host = provider.host;
+                                enrichedId.facicon = provider.favicon;
+                                enrichedId.provider = provider.provider;
+                            }
+                        });
+                        if(enrichedId.provider){
+                            enrichedIds.push(enrichedId);
+                        }
+                    });
+                    if(enrichedIds.length > 0){
+                        $scope.person.user.ids = enrichedIds;
                     }
-                });
-                if(enrichedId.provider){
-                    enrichedIds.push(enrichedId);
                 }
+            }, function () {
+                reset();
             });
-            if(enrichedIds.length > 0){
-                $scope.person.user.ids = enrichedIds;
-            }
+        } else {
+            reset();
+            $scope.$emit('set-query');
         }
-    });
+    }
+    $scope.$on('$stateChangeSuccess', setProfile);
 
-
-
+    //setProfile();
 });
