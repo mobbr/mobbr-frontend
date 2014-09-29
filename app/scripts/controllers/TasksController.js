@@ -14,8 +14,13 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
 
         var username = $state.params.username || ($rootScope.$mobbrStorage.user && $rootScope.$mobbrStorage.user.username);
 
+        $scope.tasks = null;
+
         if (username) {
             $scope.$emit('set-query', $state.params.username || null);
+
+            $scope.tags = null;
+            $scope.filteredTags = null;
 
             MobbrKeywords.person({
                 language: $scope.filter_language,
@@ -49,9 +54,4 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
             queryTasks();
         }
     }, true);
-    $scope.$watch('filteredTags', function (newValue, oldValue) {
-        if (newValue && newValue.length > 0 && newValue !== oldValue) {
-            queryTasks();
-        }
-    });
 });

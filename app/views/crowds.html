@@ -1,4 +1,4 @@
-<smart-tags ng-show="tags && tags.length !== undefined" tags="tags" filtered-tags="filteredTags" reset-tags="resetTags" language="filter_language"></smart-tags>
+<smart-tags ng-show="tags && tags.length !== undefined" tags-title="activeQuery && 'Tags on this task' || 'Enter any URL to display tags'" tags="tags" filtered-tags="filteredTags" reset-tags="resetTags" language="filter_language"></smart-tags>
 
 <div ng-show="tags && tags.length !== undefined" class="row top-info filter">
     <div class="container">
