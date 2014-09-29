@@ -138,7 +138,10 @@
             </div>
             <div class="container">
                 <div class="row">
-                    <table class="table">
+                    <div class="col-md-12 text-center" ng-show="notifications.result.length == 0">
+                        <h2><em>No notifications found...</em></h2>
+                    </div>
+                    <table class="table" ng-show="notifications.result.length > 0">
                         <tbody ng-init="limiter = 10">
                         <tr ng-repeat="notification in notifications.result | limitTo: limiter | filter:notificationType">
                             <td ng-class="notification.type">

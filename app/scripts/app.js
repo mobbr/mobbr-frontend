@@ -157,6 +157,17 @@ angular.module('mobbr', [
                 data: {
                     authenticated: true,
                     redirectTo: 'main'
+                },
+                resolve: {
+                    payments: function (MobbrPayment) {
+                        return MobbrPayment.get().$promise;
+                    },
+                    pledges: function (MobbrPayment) {
+                        return MobbrPayment.pledged().$promise;
+                    },
+                    unclaimed: function (MobbrPayment) {
+                        return MobbrPayment.unclaimedShares().$promise;
+                    }
                 }
             }).state('payments.pledges', {
                 url: '/pledges'

@@ -17,7 +17,7 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
         if (username) {
             $scope.$emit('set-query', $state.params.username || null);
 
-            MobbrKeywords.username({
+            MobbrKeywords.person({
                 language: $scope.filter_language,
                 username: username
             }, function (response) {
