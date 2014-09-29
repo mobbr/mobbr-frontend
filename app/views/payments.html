@@ -25,9 +25,10 @@
         <accordion-heading>
             <div class="container">
                 <div class="row no-pad">
-                    <div class="col-xs-10 title" ng-click="$state.is('payments.pledges') ? $state.go('^') : $state.go('payments.pledges')">
+                    <div class="col-xs-10 title" ng-click="data.pledges.result.length > 0 && ($state.is('payments.pledges') ? $state.go('^') : $state.go('payments.pledges'))">
                         <span class="mobbricon mobbricon-pledge"></span>
                         <strong>Pledges</strong>
+                        <span ng-show="data.pledges.result.length == 0">No pledged payments</span>
                     </div>
                     <div class="icons">
                         <div class="col-xs-1 text-center icon">
@@ -44,7 +45,7 @@
             <div class="row no-margin">
                 <div class="col-md-12">
                     <button ng-click="removePledes()" class="btn btn-primary"
-                            ng-disabled="filterSelectedIds(pledgedTable.data).length == 0">
+                            ng-disabled="filterSelectedIds(data.pledges.result).length == 0">
                         Delete selected pledges
                         <span class="mobbricon mobbricon-hardclose"></span>
                     </button>
@@ -67,7 +68,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="payment in pledgedTable.data | orderBy:pledgedTable.sortBy:pledgedTable.reverse">
+                        <tr ng-repeat="payment in data.pledges.result | orderBy:pledgedTable.sortBy:pledgedTable.reverse">
                             <td><input type="checkbox" ng-model="payment.selected"></td>
                             <td ng-click="openPayment(payment)" data-title="'Date'" sortable="'paiddatetime'" title="{{ payment.paiddatetime }}">
                                 <time ng-bind="payment.datetime | amCalendar" datetime="{{ payment.paiddatetime }}"></time>
@@ -86,9 +87,10 @@
         <accordion-heading>
             <div class="container">
                 <div class="row no-pad">
-                    <div class="col-xs-10 title" ng-click="$state.is('payments.unclaimed') ? $state.go('^') : $state.go('payments.unclaimed')">
+                    <div class="col-xs-10 title" ng-click="data.unclaimed.result.length > 0 && ($state.is('payments.unclaimed') ? $state.go('^') : $state.go('payments.unclaimed'))">
                         <span class="mobbricon mobbricon-unclaimed"></span>
                         <strong>Unclaimed</strong>
+                        <span ng-show="data.unclaimed.result.length == 0">No unclaimed shares</span>
                     </div>
                     <div class="icons">
                         <div class="col-xs-1 text-center icon">
@@ -105,7 +107,7 @@
             <div class="row no-margin">
                 <div class="col-md-12">
                     <button ng-click="revokeSelectedShares()" class="btn btn-primary"
-                            ng-disabled="filterSelectedIds(unclaimedTable.data).length == 0">
+                            ng-disabled="filterSelectedIds(data.unclaimed.result).length == 0">
                         Delete selected shares
                         <span class="mobbricon mobbricon-hardclose"></span>
                     </button>
@@ -132,7 +134,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="payment in unclaimedTable.data | orderBy:unclaimedTable.sortBy:unclaimedTable.reverse">
+                        <tr ng-repeat="payment in data.unclaimed.result | orderBy:unclaimedTable.sortBy:unclaimedTable.reverse">
                             <td><input type="checkbox" ng-model="payment.selected"></td>
                             <td ng-click="openPayment(payment)" data-title="'Date'" sortable="'datetime'" title="{{ payment.datetime }}">
                                 <time ng-bind="payment.datetime | amCalendar" datetime="{{ payment.datetime }}"></time>
@@ -160,9 +162,10 @@
         <accordion-heading>
             <div class="container">
                 <div class="row no-pad">
-                    <div class="col-xs-10 title" ng-click="$state.is('payments.payments') ? $state.go('^') : $state.go('payments.payments')">
+                    <div class="col-xs-10 title" ng-click="(!filterText && data.payments.result.length > 0) && ($state.is('payments.payments') ? $state.go('^') : $state.go('payments.payments'))">
                         <span class="mobbricon mobbricon-payments"></span>
                         <strong>Payments</strong>
+                        <span ng-show="data.payments.$resolved && !filterText && data.payments.result.length == 0">No payments</span>
                     </div>
                     <div class="icons">
                         <div class="col-xs-1 text-center icon">
@@ -179,11 +182,11 @@
             <div class="row no-margin">
                 <div class="col-md-12">
                     <button ng-click="downloadInvoiceSelectedPayments()" class="btn btn-primary"
-                            ng-disabled="filterSelectedIds(paymentTable.data).length == 0">
+                            ng-disabled="filterSelectedIds(data.payments.result).length == 0">
                         Download invoice selected
                         <span class="mobbricon mobbricon-download"></span>
                     </button>
-                    <input type="text" ng-model="paymentTable.search">
+                    <input type="text" ng-model="filterText" ng-change="data.payments.$get({ limit: limiter, search: filterText || null })" ng-model-options="{ debounce: 1000 }">
                     <table class="table">
                         <thead>
                         <tr>
@@ -202,8 +205,8 @@
                             </th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr ng-repeat="payment in paymentTable.data | orderBy:paymentTable.sortBy:paymentTable.reverse">
+                        <tbody ng-init="limiter = 10">
+                        <tr ng-repeat="payment in data.payments.result | limitTo: limiter | filter: filterText | orderBy:paymentTable.sortBy:paymentTable.reverse">
                             <td><input ng-disabled="payment.invoiced == '0'" type="checkbox" ng-model="payment.selected"></td>
                             <td ng-click="openPayment(payment)" title="{{ payment.datetime }}">
                                 <time ng-bind="payment.datetime | amCalendar" datetime="{{ payment.datetime }}"></time>
@@ -214,7 +217,7 @@
                         </tr>
                         </tbody>
                     </table>
-                    <button class="btn btn-primary" ng-click="retrievePayments()">More</button>
+                    <button class="btn btn-primary" ng-hide="data.payments.result.length < limiter" ng-click="limiter = limiter + 10; data.payments.$get({ limit: limiter, search: filterText })">More</button>
                 </div>
             </div>
         </div>
