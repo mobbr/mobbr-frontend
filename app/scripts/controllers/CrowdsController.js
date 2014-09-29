@@ -40,7 +40,12 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
                 url: url
             }, function (response) {
                 $scope.$emit('set-active-query', url);
-                $scope.tags = response.result.script.keywords || [];
+                if (!response.result.script) {
+                    $scope.no_script = true;
+                } else {
+                    $scope.no_script = false;
+                    $scope.tags = response.result.script.keywords || [];
+                }
             }, function () {
                 $scope.$emit('set-query');
                 $scope.$emit('set-active-query');
