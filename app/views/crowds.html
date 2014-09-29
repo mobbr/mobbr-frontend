@@ -92,10 +92,13 @@
             </div>
         </div>
     </div>
+    <div class="col-md-12 text-center" ng-show="no_script">
+        <h2><em>this page has no Mobbr support button <a ui-sref="box.task.view({ task: $state.params.task })">Prepare page</a></em></h2>
+    </div>
     <div class="col-md-12 text-center" ng-show="tags === undefined">
         <h2><em>Enter any URL to find your workforce...</em></h2>
     </div>
-    <div class="col-md-12 text-center" ng-show="tags === null && !persons.$resolved">
+    <div class="col-md-12 text-center" ng-show="!no_script && tags === null && !persons.$resolved">
         <h2><em>Finding your workforce...</em></h2>
     </div>
     <div class="col-md-12 text-center" ng-show="persons.$resolved && persons.result.length == 0">
