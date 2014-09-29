@@ -1,5 +1,5 @@
 /* global purl */
-angular.module('mobbr.controllers').controller('BoxController', function ($scope, $rootScope, $state, $window, mobbrSession, MobbrKeywords, MobbrUri, mobbrMsg) {
+angular.module('mobbr.controllers').controller('BoxController', function ($scope) {
     'use strict';
 
     $scope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
@@ -13,7 +13,7 @@ angular.module('mobbr.controllers').controller('BoxController', function ($scope
                 $scope.activeQuery = null;
             }
 
-            if (fromParams.person && fromParams.person !== toParams.person) {
+            if (fromParams.username && fromParams.username !== toParams.username) {
                 $scope.query = null;
                 $scope.activeQuery = null;
             }
