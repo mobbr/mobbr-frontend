@@ -100,15 +100,21 @@
 </div>
 
 <accordion>
-    <accordion-group is-open="updates.open" is-disabled="true">
-        <div>
+    <accordion-group is-open="updates.open" is-disabled="false">
+        <accordion-heading>
+-            <div class="container">
+-                <div class="row no-pad">
+-                    <div class="col-xs-12 title">
+-                        <span class="mobbricon mobbricon-mobbricon"></span>
+-                        <strong>Notifications</strong>
+-                    </div>
+-                </div>
+-            </div>
+-        </accordion-heading>
+         <div>
             <div class="info-bar">
                 <div class="container">
                     <div class="row no-margin">
-                        <div class="col-md-6 title">
-                            <span class="mobbricon mobbricon-filter"></span>
-                            <strong>Notifications</strong>
-                        </div>
                         <div class="col-md-3">
                             <select class="form-inline form-control"
                                     ng-model="notificationType"
