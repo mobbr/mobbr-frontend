@@ -210,7 +210,7 @@
             </accordion-heading>
             <div class="container">
                 <div class="row">
-                    <input type="text" ng-model="filterText" ng-change="payments.$get({ limit: limiter, search: filterText || null })" ng-model-options="{ debounce: 1000 }">
+                    <input type="text" placeholder="External reference" ng-model="filterText" ng-change="payments.$get({ limit: limiter, search: filterText || null })" ng-model-options="{ debounce: 1000 }">
                     <table class="table">
                         <thead>
                         <tr>
