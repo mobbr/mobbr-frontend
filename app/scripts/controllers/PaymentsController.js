@@ -8,7 +8,7 @@ angular.module('mobbr.controllers').controller('PaymentsController', function ($
     $scope.data.unclaimed = unclaimed;
 
     function redirect() {
-        if ($scope.data[$state.current.name.split('.')[1]].result.length === 0) {
+        if ($state.includes('payments') && $scope.data[$state.current.name.split('.')[1]].result.length === 0) {
             $state.go('^');
         }
     }

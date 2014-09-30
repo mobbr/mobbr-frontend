@@ -76,6 +76,10 @@ angular.module('mobbr', [
                 url: '/email/:hash',
                 templateUrl: 'views/update-email.html',
                 controller: 'UpdateEmailController'
+            }).state('id', {
+                url: '/id/:hash',
+                templateUrl: 'views/update-email.html',
+                controller: 'UpdateEmailController'
             }).state('recover', {
                 url: '/recover',
                 templateUrl: 'views/recover-password.html',

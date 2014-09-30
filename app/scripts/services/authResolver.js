@@ -23,15 +23,19 @@ angular.module('mobbr.services').run(function ($rootScope, $state, $timeout, $mo
         });
     }
 
-    function authState(toState, event) {
+    function authState(toState, event, fromState) {
 
         if (toState.data && toState.data.authenticated !== undefined && toState.data.authenticated !== mobbrSession.isAuthorized()) {
             event && event.preventDefault();
-            if(mobbrSession.isAuthorized() === false){
+            if(mobbrSession.isAuthorized() === false) {
                 mobbrMsg.add({ msg: 'Please login at the account menu' });
             }
             cancelTimeout();
-            $state.go(toState.data.redirectTo);
+            if (fromState && fromState.name && (!fromState.data || !fromState.data.authenticated || fromState.data.authenticated === mobbrSession.isAuthorized())) {
+                $state.go(fromState.name);
+            } else {
+                $state.go(toState.data.redirectTo);
+            }
             return false;
         }
     }
@@ -39,7 +43,7 @@ angular.module('mobbr.services').run(function ($rootScope, $state, $timeout, $mo
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams, error) {
         cancelTimeout();
         timeout = $timeout(showProgress, 1000);
-        authState(toState, event);
+        authState(toState, event, fromState);
     });
 
     $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
@@ -48,15 +52,13 @@ angular.module('mobbr.services').run(function ($rootScope, $state, $timeout, $mo
 
         mobbrMsg.add({ msg: 'Something went wrong trying to open this page', type: 'danger' });
         if (toState.data && toState.data.redirectTo) {
-            $state.go(toState.data.redirectTo);
+            $state.go(fromState && fromState.name || toState.data.redirectTo);
         } else {
             $state.go('main');
         }
     });
 
-    $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams, error) {
-        cancelTimeout();
-    });
+    $rootScope.$on('$stateChangeSuccess', cancelTimeout);
 
     $rootScope.$on('mobbrApi:authchange', function () {
         authState($state.current);
