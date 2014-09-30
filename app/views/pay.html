@@ -3,7 +3,7 @@
         <div class="row pay-task">
             <form class="col-md-12">
                 <div class="row">
-                    <fieldset ng-show="!activeQuery" class="col-md-12 form-group">
+                    <fieldset ng-disabled="activeQuery || (payment && !payError)" ng-show="!activeQuery" class="col-md-12 form-group">
                         <input class="form-control"
                                placeholder="Any url or user ID"
                                required
@@ -45,7 +45,7 @@
                     <fieldset class="col-sm-6 form-group">
                         <div class="row">
                             <div class="col-xs-5">
-                                <button ng-disabled="!currency || !amount || (payment && !payError) || (invoices && !invoices_confirm)"
+                                <button ng-disabled="!currency || !amount || (payment && !payError) || (invoices && !invoices_confirm) || (!activeQuery && !payQuery)"
                                         ng-click="preview()"
                                         class="btn btn-default btn-block"
                                         type="submit">
@@ -53,7 +53,7 @@
                                 </button>
                             </div>
                             <div class="col-xs-5">
-                                <button ng-disabled="!currency || !amount || confirm.$resolved || (invoices && !invoices_confirm)"
+                                <button ng-disabled="!currency || !amount || confirm.$resolved || (invoices && !invoices_confirm) || (!activeQuery && !payQuery)"
                                         ng-click="payment.result.hash ? pay() : previewPay()"
                                         ng-bind="confirm.message.text || task.result.script.pledge && 'Pledge' || 'Pay'"
                                         class="btn btn-success btn-block"
