@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-6">
-                <h1>My money</h1>
+                <h1>Wallet</h1>
             </div>
             <div class="col-xs-6 col-sm-3">
                 <a ui-sref="wallet.withdraw" ng-class="{ unblocked: $state.is('wallet.withdraw') }" class="btn btn-call btn-block">
@@ -111,65 +111,13 @@
 
 <div class="row">
     <accordion state-accordion="wallet">
-        <accordion-group is-open="stateAccordion['wallet.x-payments']" is-disabled="true">
-            <accordion-heading>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xs-10 title" ng-click="(!filterText && payments.result.length > 0) && ($state.is('wallet.x-payments') ? $state.go('^') : $state.go('wallet.x-payments'))">
-                            <span class="mobbricon mobbricon-transaction"></span>
-                            <strong>Deposits & withdrawls</strong>
-                            <span ng-show="payments.$resolved && !filterText && payments.result.length == 0">No deposits or withdrawals</span>
-                        </div>
-                        <div class="icons">
-                            <div class="col-xs-1 text-center icon">
-                                <span class="mobbricon mobbricon-info"></span>
-                            </div>
-                            <div class="col-xs-1 text-center icon" ng-click="$state.is('wallet.x-payments') ? $state.go('^') : $state.go('wallet.x-payments')">
-                                <span ng-class="$state.is('wallet.x-payments') ? 'mobbricon-softclose' : 'mobbricon-addopen'" class="mobbricon"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </accordion-heading>
-            <div class="container">
-                <div class="row">
-                    <input type="text" ng-model="filterText" ng-change="payments.$get({ limit: limiter, search: filterText || null })" ng-model-options="{ debounce: 1000 }">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Status</th>
-                            <th>Currency</th>
-                            <th>Costs</th>
-                            <th>Amount</th>
-                        </tr>
-                        </thead>
-                        <tbody ng-init="limiter = 10">
-                        <tr ng-repeat="payment in payments.result | limitTo: limiter | filter: filterText"
-                            ng-class="{ warning: payment.faileddatetime, callout: !payment.faileddatetime && !payment.paiddatetime && payment.announceddatetime }"
-                            ng-click="openExternalPayment(payment)"
-                            title="{{ (payment.faileddatetime || payment.paiddatetime || ('Pending since ' + payment.announceddatetime )) + ' ' + (payment.service_message || '') }}">
-                            <td>
-                                <time ng-bind="(payment.paiddatetime || payment.faileddatetime || payment.announceddatetime) | amCalendar" datetime="{{ payment.paiddatetime || payment.faileddatetime || payment.announceddatetime }}"></time>
-                            </td>
-                            <td ng-bind="(payment.paiddatetime && 'Succeeded') || (payment.faileddatetime && 'Failed') || (payment.announceddatetime && 'Pending')"></td>
-                            <td ng-bind="payment.currency_iso"></td>
-                            <td ng-bind-html="payment.costs | mobbrcurrency:'':true:true"></td>
-                            <td ng-bind-html="payment.amount | mobbrcurrency:'':true:true"></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <button class="btn btn-primary" ng-hide="payments.result.length < limiter" ng-click="limiter = limiter + 10; payments.$get({ limit: limiter, search: filterText })">More</button>
-                </div>
-            </div>
-        </accordion-group>
         <accordion-group is-open="stateAccordion['wallet.addresses']" is-disabled="true">
             <accordion-heading>
                 <div class="container">
                     <div class="row">
                         <div class="col-xs-10 title" ng-click="$state.is('wallet.addresses') ? $state.go('^') : $state.go('wallet.addresses')">
                             <span class="mobbricon mobbricon-transaction"></span>
-                            <strong>Wallet addresses</strong>
+                            <strong>Deposit addresses</strong>
                         </div>
                         <div class="icons">
                             <div class="col-xs-1 text-center icon">
@@ -188,7 +136,7 @@
                         <div class="col-md-12">
                             <span class="info-box">
                                 <span class="mobbricon mobbricon-softalert"></span>
-                                Use these public addresses to recieve money from external accounts. Give there to anyone who needs to fund your Mobbr account.
+                                Share these with anyone who needs to send you money from outside Mobbr.
                             </span>
                         </div>
                     </div>
@@ -237,6 +185,58 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </accordion-group>
+        <accordion-group is-open="stateAccordion['wallet.x-payments']" is-disabled="true">
+            <accordion-heading>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-10 title" ng-click="(!filterText && payments.result.length > 0) && ($state.is('wallet.x-payments') ? $state.go('^') : $state.go('wallet.x-payments'))">
+                            <span class="mobbricon mobbricon-transaction"></span>
+                            <strong>Deposits and withdraws</strong>
+                            <span ng-show="payments.$resolved && !filterText && payments.result.length == 0">No deposits or withdrawals</span>
+                        </div>
+                        <div class="icons">
+                            <div class="col-xs-1 text-center icon">
+                                <span class="mobbricon mobbricon-info"></span>
+                            </div>
+                            <div class="col-xs-1 text-center icon" ng-click="$state.is('wallet.x-payments') ? $state.go('^') : $state.go('wallet.x-payments')">
+                                <span ng-class="$state.is('wallet.x-payments') ? 'mobbricon-softclose' : 'mobbricon-addopen'" class="mobbricon"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </accordion-heading>
+            <div class="container">
+                <div class="row">
+                    <input type="text" ng-model="filterText" ng-change="payments.$get({ limit: limiter, search: filterText || null })" ng-model-options="{ debounce: 1000 }">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Currency</th>
+                            <th>Costs</th>
+                            <th>Amount</th>
+                        </tr>
+                        </thead>
+                        <tbody ng-init="limiter = 10">
+                        <tr ng-repeat="payment in payments.result | limitTo: limiter | filter: filterText"
+                            ng-class="{ warning: payment.faileddatetime, callout: !payment.faileddatetime && !payment.paiddatetime && payment.announceddatetime }"
+                            ng-click="openExternalPayment(payment)"
+                            title="{{ (payment.faileddatetime || payment.paiddatetime || ('Pending since ' + payment.announceddatetime )) + ' ' + (payment.service_message || '') }}">
+                            <td>
+                                <time ng-bind="(payment.paiddatetime || payment.faileddatetime || payment.announceddatetime) | amCalendar" datetime="{{ payment.paiddatetime || payment.faileddatetime || payment.announceddatetime }}"></time>
+                            </td>
+                            <td ng-bind="(payment.paiddatetime && 'Succeeded') || (payment.faileddatetime && 'Failed') || (payment.announceddatetime && 'Pending')"></td>
+                            <td ng-bind="payment.currency_iso"></td>
+                            <td ng-bind-html="payment.costs | mobbrcurrency:'':true:true"></td>
+                            <td ng-bind-html="payment.amount | mobbrcurrency:'':true:true"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <button class="btn btn-primary" ng-hide="payments.result.length < limiter" ng-click="limiter = limiter + 10; payments.$get({ limit: limiter, search: filterText })">More</button>
                 </div>
             </div>
         </accordion-group>
