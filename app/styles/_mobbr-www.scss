@@ -712,6 +712,12 @@ a.btn-call {
 
 accordion {
 
+  .disabled {
+    -moz-filter: grayscale(100%);
+    -webkit-filter: grayscale(100%);
+    opacity: 0.4;
+  }
+
   .panel {
     border-width: 10px 0 0 0;
     border-color: $gray;
@@ -881,7 +887,7 @@ body.blocked:after {
   z-index: 1031;
 }
 
-body.blocked .task-pay > .clearfix {
+body.blocked .task-pay > .clearfix > div .row {
   background: $gray;
   position: relative;
   z-index: 1032;
@@ -1474,6 +1480,10 @@ fieldset[disabled] .btn {
   .mobbricon-softalert {
     margin-top: 3px;
   }
+}
+
+.form-group .checkbox {
+  margin-top: 12px;
 }
 /*
 .user-thumb {
