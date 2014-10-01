@@ -39,19 +39,19 @@
                     <div class="card-container flip col-xs-6 col-sm-3">
                         <div class="card fixed">
                             <div class="front">
-                                <div class="row">
-                                    <small class="col-md-12">Total balance</small>
+                                <div class="row top">
+                            <span class="col-md-12">
+                                <span class="mobbricon mobbricon-wallet"></span>
+                                Total balance in {{ dashboard.result.total_currency_iso }}
+                            </span>
                                 </div>
                                 <div class="row">
-                                    <span class="txt col-md-12" ng-bind-html="dashboard.result.total_amount | mobbrcurrency:'':true"></span>
-                                </div>
-                                <div class="row">
-                                    <span class="txt big col-md-12" ng-bind="dashboard.result.total_currency_iso"></span>
+                                    <span class="txt xbig col-md-12" ng-bind-html="dashboard.result.total_amount | mobbrcurrency:'':true"></span>
                                 </div>
                                 <div class="row bottom">
                                     <div class="col-md-12">
-                                        <button ng-click="$state.go('settings.display')" class="btn btn-block">
-                                            Change currency
+                                        <button ui-sref="settings.display" class="btn btn-block">
+                                            Change your currency
                                         </button>
                                     </div>
                                 </div>
