@@ -197,31 +197,6 @@
   background: $white;
 }
 
-.form-control[disabled],
-.form-control[readonly],
-fieldset[disabled] .form-control {
-  background: tint($gray, 50%);
-  color: shade($gray, 25%);
-  opacity: 1;
-}
-
-.btn.disabled,
-.btn[disabled],
-fieldset[disabled] .btn {
-  background: $gray;
-  color: shade($gray, 25%);
-  opacity: 1;
-}
-
-.task-pay {
-  .btn.disabled,
-  .btn[disabled],
-  fieldset[disabled] .btn {
-    background: shade($gray, 25%);
-    color: shade($gray, 50%);
-  }
-}
-
 .form-horizontal .control-label {
   text-align: left;
 }
@@ -321,7 +296,13 @@ label.title {
   }
 
   .front, .back {
-    padding: $grid-gutter-width * 1.5;
+    padding: $grid-gutter-width;
+  }
+
+  @media (min-width: $screen-md-min) {
+    .front, .back {
+      padding: $grid-gutter-width * 1.5;
+    }
   }
 
   .flip .front, .flip .back {
@@ -470,6 +451,11 @@ accordion .info-bar {
 .table > thead > tr > th {
   color: $mobbrblue;
   border-bottom-color: $gray;
+  text-transform: uppercase;
+}
+
+.table > thead:first-child > tr:first-child > th {
+  border-top: 1px solid $gray;
 }
 
 .info-box {
@@ -625,7 +611,23 @@ accordion .info-bar {
   border-bottom-width: 1px;
 }
 
+@media (max-width: $screen-sm-min) {
+  .tablecontainer {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
 .table {
+
+  time {
+    font-size: 10px;
+    @media (min-width: $screen-sm-min) {
+      font-size: 12px;
+    }
+  }
+
+  font-family: $mobbrFontCondensed;
 
   tr.callout {
     background: $mobbrcallout;
@@ -674,9 +676,14 @@ a.btn-call {
 }
 
 .btn-call {
+  font-size: 17px;
   background-color: $mobbrcallout;
   text-align: left;
   font-weight: bold;
+
+  .mobbricon {
+    line-height: 28px;
+  }
 }
 
 .btn-call.white {
@@ -690,6 +697,15 @@ a.btn-call {
   .frac {
     font-size: 50%;
     vertical-align: text-top;
+  }
+}
+
+.title {
+  line-height: 20px;
+
+  .mobbricon {
+    margin-right: $grid-gutter-width / 2;
+    font-size: 20px;
   }
 }
 
@@ -716,30 +732,25 @@ accordion {
 
   .panel-default > .panel-heading {
     padding: 0;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 18px;
+    padding-bottom: 18px;
     background: transparent;
-
-    .title {
-      line-height: 20px;
-
-      .mobbricon {
-        margin-right: $grid-gutter-width / 2;
-        font-size: 20px;
-      }
-    }
 
     .icons {
       float: right;
 
       .icon {
-        width: 60px;
+        width: 40px;
         padding-top: 20px;
-        margin-top: -20px;
-        margin-bottom: -20px;
+        margin-top: -18px;
+        margin-bottom: -18px;
         height: 60px;
         padding-left: 0;
         padding-right: 0;
+
+        @media (min-width: $screen-sm-min) {
+          width: 60px;
+        }
       }
 
       .icon:first-child {
@@ -1165,9 +1176,9 @@ body.blocked .unblocked {
   }
 
   .btn-call {
-    margin-top: $grid-gutter-width / 2;
-    margin-bottom: $grid-gutter-width / 2;
-    padding: 12px 17px;
+    margin-top: $grid-gutter-width / 4;
+    margin-bottom: $grid-gutter-width / 4;
+    padding: 9px 17px;
   }
 }
 
@@ -1183,6 +1194,10 @@ body.blocked .unblocked {
     padding-bottom: 25px;
     font-family: $mobbrFontCondensed;
   }
+}
+
+.input-group-addon {
+  border: 0;
 }
 
 .query-bar {
@@ -1411,6 +1426,54 @@ body.blocked .unblocked {
   z-index: 999;
   left: 0;
   top: 50px;
+}
+
+.more-bar {
+  margin-top: $grid-gutter-width * 1.25;
+  margin-bottom: $grid-gutter-width * 1.25;
+}
+
+.form-control[disabled],
+.form-control[readonly],
+fieldset[disabled] .form-control {
+  background: tint($gray, 50%);
+  color: shade($gray, 25%);
+  opacity: 1;
+}
+
+.btn-primary[disabled],
+.btn-primary[disabled]:hover,
+.btn.disabled,
+.btn[disabled],
+fieldset[disabled] .btn {
+  background: $gray;
+  color: shade($gray, 25%);
+  opacity: 1;
+}
+
+.task-pay {
+  .btn.disabled,
+  .btn[disabled],
+  fieldset[disabled] .btn {
+    background: shade($gray, 25%);
+    color: shade($gray, 50%);
+  }
+}
+
+.bar .form-group:last-child {
+  margin-bottom: 0;
+}
+
+.form-group label {
+  line-height: 35px;
+}
+
+.form-group .info-box {
+  line-height: 30px;
+
+  .mobbricon-softalert {
+    margin-top: 3px;
+  }
 }
 /*
 .user-thumb {
