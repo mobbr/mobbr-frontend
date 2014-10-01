@@ -9,7 +9,7 @@ angular.module('mobbr.controllers').controller('PaymentsController', function ($
 
     function redirect() {
         var nameParts = $state.current.name.split('.');
-        if (nameParts[0] === 'payments' && nameParts[1] !== undefined && $scope.data[nameParts[1]].result.length === 0) {
+        if (nameParts[0] === 'payments' && nameParts[1] !== undefined && $scope.data[nameParts[1]] !== undefined && $scope.data[nameParts[1]].result.length === 0) {
             $state.go('^');
         }
     }

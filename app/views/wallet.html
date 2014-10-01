@@ -115,7 +115,7 @@
             <accordion-heading>
                 <div class="container">
                     <div class="row">
-                        <div class="col-xs-10 title" ng-click="$state.is('wallet.addresses') ? $state.go('^') : $state.go('wallet.addresses')">
+                        <div class="col-xs-9 title" ng-click="$state.is('wallet.addresses') ? $state.go('^') : $state.go('wallet.addresses')">
                             <span class="mobbricon mobbricon-transaction"></span>
                             <strong>Deposit addresses</strong>
                         </div>
@@ -191,13 +191,13 @@
         <accordion-group is-open="stateAccordion['wallet.x-payments']" is-disabled="true">
             <accordion-heading>
                 <div class="container">
-                    <div class="row">
-                        <div class="col-xs-10 title" ng-click="(!filterText && payments.result.length > 0) && ($state.is('wallet.x-payments') ? $state.go('^') : $state.go('wallet.x-payments'))">
+                    <div class="row" ng-class="{ disabled: payments.result.length == 0 }">
+                        <div class="col-xs-9 title" ng-click="(!filterText && payments.result.length > 0) && ($state.is('wallet.x-payments') ? $state.go('^') : $state.go('wallet.x-payments'))">
                             <span class="mobbricon mobbricon-transaction"></span>
                             <strong>Deposits and withdraws</strong>
-                            <span ng-show="payments.$resolved && !filterText && payments.result.length == 0">No deposits or withdrawals</span>
+                            <span class="hidden-xs" ng-show="payments.$resolved && !filterText && payments.result.length == 0">No deposits or withdrawals</span>
                         </div>
-                        <div class="icons">
+                        <div class="icons" ng-show="payments.result.length > 0">
                             <div class="col-xs-1 text-center icon">
                                 <span class="mobbricon mobbricon-info"></span>
                             </div>
@@ -252,6 +252,11 @@
                                 <td class="text-center" ng-bind="payment.currency_iso"></td>
                                 <td class="text-right" ng-bind-html="payment.costs | mobbrcurrency:'':true:true"></td>
                                 <td class="text-right" ng-bind-html="payment.amount | mobbrcurrency:'':true:true"></td>
+                            </tr>
+                            <tr ng-show="payments.result.length == 0">
+                                <td colspan="5" class="text-center">
+                                    <em>No records have been found</em>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
