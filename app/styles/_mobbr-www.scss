@@ -251,8 +251,6 @@ label.title {
 }
 
 .top-info.filter {
-  background: $white;
-  color: $mobbrblue;
   padding-top: $grid-gutter-width;
   padding-bottom: $grid-gutter-width;
   font-size: 16px;
@@ -260,6 +258,10 @@ label.title {
 
   .title {
     line-height: 40px;
+  }
+
+  .mobbricon.pull-right {
+    line-height: 28px;
   }
 }
 
@@ -321,6 +323,21 @@ label.title {
   .card {
     border: 1px solid #9ebd5b;
     height: 170px;
+    font-family: $mobbrFontCondensed;
+
+    .top {
+      margin-top: -$grid-gutter-width * 1.5;
+      margin-left: -$grid-gutter-width * 1.5;
+      margin-right: -$grid-gutter-width * 1.5;
+      border-bottom: 1px solid;
+
+      .col-md-12 {
+        text-align: left;
+        padding: $grid-gutter-width / 2;
+        padding-top: $grid-gutter-width / 4;
+        padding-bottom: ($grid-gutter-width / 4) - 1;
+      }
+    }
 
     .txt {
       font-size: 26px;
@@ -336,7 +353,13 @@ label.title {
     }
 
     .big {
+      line-height: 30px;
       font-size: 30px;
+    }
+
+    .xbig {
+      line-height: 50px;
+      font-size: 50px;
     }
 
     .back .txt {
@@ -368,9 +391,8 @@ label.title {
       margin: 0;
 
       .btn {
+        transition: 0.6s;
         font-family: $mobbrFontCondensed;
-        background: $mobbrgreen;
-        color: $white;
         font-size: 12px;
         text-transform: uppercase;
         line-height: 40px;
@@ -380,7 +402,6 @@ label.title {
 
   .fixed {
     background: $white;
-    color: $mobbrgreen;
   }
 
   @media (min-width: $screen-md-min) {
@@ -504,11 +525,51 @@ accordion .info-bar {
     background: $mobbrgreen;
   }
 
+  .filter {
+    background: $white;
+    color: $mobbrblue;
+  }
+
   .top-info {
     border-color: $mobbrlightgreen;
 
+    .fixed {
+      background: $white;
+      color: $mobbrgreen;
+      border: 0;
+
+      img {
+        transition: 0.6s;
+        -moz-filter: grayscale(100%);
+        -webkit-filter: grayscale(100%);
+      }
+    }
+
     .card {
       border-color: $mobbrlightgreen;
+      .top {
+        border-color: $mobbrlightgreen;
+      }
+
+      .bottom .btn {
+        background: $mobbrgreen;
+        color: $white;
+      }
+    }
+
+    .fixed:hover {
+      background: $mobbrgreen;
+      color: $white;
+
+      .bottom .btn {
+        background: $white;
+        color: $mobbrgreen;
+      }
+
+      img {
+        -moz-filter: grayscale(0);
+        -webkit-filter: grayscale(0);
+      }
     }
   }
 
@@ -568,11 +629,56 @@ accordion .info-bar {
     background: $mobbryellow;
   }
 
+  .filter {
+    background: $white;
+    color: $mobbryellow;
+
+    select, .btn {
+      background: $mobbryellow;
+      color: $white;
+    }
+  }
+
   .top-info {
     border-color: $mobbrlightyellow;
 
+    .fixed {
+      background: transparent;
+      color: $white;
+      border: 0;
+
+      img {
+        transition: 0.6s;
+        -moz-filter: grayscale(100%);
+        -webkit-filter: grayscale(100%);
+      }
+    }
+
     .card {
       border-color: $mobbrlightyellow;
+      .top {
+        border-color: $mobbrlightyellow;
+      }
+
+      .bottom .btn {
+        background: $white;
+        color: $mobbryellow;
+      }
+    }
+
+    .fixed:hover {
+      background: $white;
+      color: $mobbrlightyellow;
+
+      .bottom .btn {
+        background: $mobbryellow;
+        color: $white;
+      }
+
+      img {
+        -moz-filter: grayscale(0);
+        -webkit-filter: grayscale(0);
+      }
     }
   }
 
@@ -582,6 +688,15 @@ accordion .info-bar {
 
   .info-box {
     color: $mobbryellow;
+  }
+
+  .btn-primary {
+    background-color: $mobbryellow;
+  }
+
+  .more-bar {
+    margin-top: 0;
+    margin-bottom: $grid-gutter-width;
   }
 }
 
@@ -858,11 +973,56 @@ accordion {
       }
     }
   }
+}
 
-  table tr {
-    background: $white;
-    border-bottom: $grid-gutter-width $gray solid;
-  }
+.updates table {
+  margin-top: $grid-gutter-width;
+}
+
+.updates table tr {
+  background: $white;
+  border-bottom: $grid-gutter-width $gray solid;
+}
+
+.updates table tr td {
+  border-top: 0;
+  padding: 5px;
+}
+
+.updates table tr td.time {
+  line-height: 33px;
+}
+
+.updates table tr td.login,
+.updates table tr td.logout,
+.updates table tr td.email_address_update,
+.updates table tr td.email_address_confirmation,
+.updates table tr td.profile_update,
+.updates table tr td.task_invitation {
+  background: $mobbryellow;
+}
+
+.updates table tr td.auto_logout {
+  background: $mobbrblue;
+}
+
+.updates table tr td.payment_received {
+  background: $mobbrgreen;
+}
+
+.updates table tr td:first-child {
+  width: 50px;
+  font-size: 18px;
+  line-height: 28px;
+  padding: 0;
+  padding-top: 8px;
+  color: $white;
+}
+
+.updates table tr td.title {
+  font-size: 16px;
+  line-height: 33px;
+  padding-left: $grid-gutter-width;
 }
 
 h1 {
@@ -1254,13 +1414,6 @@ body.blocked .unblocked {
 
   .card {
     border: 0;
-    h3 {
-      margin: 0;
-      padding: 0;
-      font-size: 14px;
-      line-height: 42px;
-      font-weight: normal;
-    }
 
     .large,
     .xlarge {
@@ -1457,7 +1610,8 @@ fieldset[disabled] .btn {
   opacity: 1;
 }
 
-.task-pay {
+.task-pay,
+.updates {
   .btn.disabled,
   .btn[disabled],
   fieldset[disabled] .btn {

@@ -1,6 +1,6 @@
 <div class="row top-bar">
     <div class="container">
-        <div class="row left-pad">
+        <div class="row">
             <div class="col-md-12">
                 <h1>Updates</h1>
             </div>
@@ -10,88 +10,94 @@
 
 <div class="row top-info">
     <div class="container">
-        <div class="row">
-            <div class="flatcard col-xs-6 col-md-3">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h3>
-                            <span class="mobbricon mobbricon-wallet"></span>
-                            Balances in {{dashboard.total_currency_iso}}
-                        </h3>
-                    </div>
-                </div>
-                <div class="row">
-                    <span class="large col-md-12" ng-bind-html="dashboard.total_amount | mobbrcurrency:'':true"></span>
-                </div>
-                <div class="row bottom">
-                    <div class="col-md-12">
-                        <a ui-sref="wallet" class="btn btn-block">Go to your wallet</a>
-                    </div>
-                </div>
-            </div>
-            <div class="flatcard col-xs-6 col-md-3">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h3>
-                            <span class="mobbricon mobbricon-settings"></span>
-                            Settings
-                        </h3>
-                    </div>
-                </div>
-                <div class="row">
-                    <span class="xlarge col-md-12">
-                        {{countProfileCompleted() * 100 | number:0}}%
-                    </span>
-                </div>
-                <div class="row bottom">
-                    <div class="col-md-12">
-                        <a ui-sref="settings" class="btn btn-block">
-                            {{$mobbrStorage.user.complete == 100?'Update your settings':'Complete your settings'}}
-                        </a>
+        <div class="row cards-wrapper">
+            <div class="card-container flip col-xs-6 col-sm-3">
+                <div class="card fixed">
+                    <div class="front">
+                        <div class="row top">
+                            <span class="col-md-12">
+                                <span class="mobbricon mobbricon-wallet"></span>
+                                Total balance in {{ dashboard.total_currency_iso }}
+                            </span>
+                        </div>
+                        <div class="row">
+                            <span class="txt xbig col-md-12" ng-bind-html="dashboard.total_amount | mobbrcurrency:'':true"></span>
+                        </div>
+                        <div class="row bottom">
+                            <div class="col-md-12">
+                                <button ui-sref="wallet" class="btn btn-block">
+                                    Go to your wallet
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="flatcard col-xs-6 col-md-3">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h3>
-                            <span class="mobbricon mobbricon-tasks"></span>
+            <div class="card-container flip col-xs-6 col-sm-3">
+                <div class="card fixed">
+                    <div class="front">
+                        <div class="row top">
+                            <span class="col-md-12">
+                                <span class="mobbricon mobbricon-settings"></span>
+                                Settings
+                            </span>
+                        </div>
+                        <div class="row">
+                            <span class="txt xbig col-md-12" ng-bind="(countProfileCompleted() * 100 | number:0) + '%'"></span>
+                        </div>
+                        <div class="row bottom">
+                            <div class="col-md-12">
+                                <button ui-sref="wallet"
+                                        class="btn btn-block"
+                                        ng-bind="$mobbrStorage.user.complete == 100?'Update your settings':'Complete your settings'"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-container flip col-xs-6 col-sm-3">
+                <div class="card fixed">
+                    <div class="front">
+                        <div class="row top">
+                            <span class="col-md-12">
+                                <span class="mobbricon mobbricon-tasks"></span>
                             Tasks you worked on
-                        </h3>
-                    </div>
-                </div>
-                <div class="row">
-                    <span class="xlarge col-md-12">
-                        <span>{{person.result.stats.num_urls}}</button>
-                    </span>
-                </div>
-                <div class="row bottom">
-                    <div class="col-md-12">
-                        <a ui-sref="box.tasks.person({ person: $mobbrStorage.user.username })" class="btn btn-block">My tasks</a>
+                            </span>
+                        </div>
+                        <div class="row">
+                            <span class="txt xbig col-md-12" ng-bind="person.result.stats.num_urls"></span>
+                        </div>
+                        <div class="row bottom">
+                            <div class="col-md-12">
+                                <a ui-sref="box.tasks.person({ person: $mobbrStorage.user.username })" class="btn btn-block">My tasks</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="flatcard col-xs-6 col-md-3">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h3>
-                            <span class="mobbricon mobbricon-domain"></span>
-                            Linked accounts
-                        </h3>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="txt col-md-12">
-                        <ul class="list-unstyled list-inline">
-                            <li ng-repeat="provider in parsedIds" ng-show="provider.icon">
-                                <img width="20" height="20" ng-class="provider.active ? '' : 'inactive'" ng-src="{{ provider.icon }}">
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="row bottom">
-                    <div class="col-md-12">
-                        <a ui-sref="settings.ids" class="btn btn-block">Add more accounts</a>
+            <div class="card-container flip col-xs-6 col-sm-3">
+                <div class="card fixed">
+                    <div class="front">
+                        <div class="row top">
+                            <span class="col-md-12">
+                                <span class="mobbricon mobbricon-domain"></span>
+                                Linked accounts
+                            </span>
+                        </div>
+                        <div class="row">
+                            <div class="txt col-md-12">
+                                <ul class="list-unstyled list-inline">
+                                    <li ng-repeat="provider in parsedIds" ng-show="provider.icon">
+                                        <img width="20" height="20" ng-class="provider.active ? '' : 'inactive'" ng-src="{{ provider.icon }}">
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row bottom">
+                            <div class="col-md-12">
+                                <a ui-sref="settings.ids" class="btn btn-block">Add more accounts</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -99,57 +105,61 @@
     </div>
 </div>
 
-<accordion>
-    <accordion-group is-open="updates.open" is-disabled="true">
-        <accordion-heading>
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-6 title">
-                        <span class="mobbricon mobbricon-mobbricon"></span>
-                        <strong>Notifications</strong>
-                    </div>
-                    <div class="col-xs-3">
-                        <select class="form-inline form-control"
-                                ng-model="notificationType"
-                                ng-options="type.event as type.description for type in eventTypes.result"
-                                ng-change="notifications.$get({ limit: limiter, event_type: notificationType })">
-                            <option value="">Choose notification type</option>
-                        </select>
-                    </div>
-                    <div class="col-xs-3">
-                        <button class="btn btn-primary btn-block" ng-disabled="notifications.result.length == 0" ng-click="notifications.$delete()">
-                            Clear notifications
-                            <span class="pull-right mobbricon mobbricon-hardclose"></span>
-                        </button>
-                    </div>
+<div class="row top-info filter">
+    <div class="container">
+        <div class="row">
+            <fieldset ng-disabled="tasks && !tasks.$resolved" class="form-horizontal">
+                <div class="col-xs-6 title">
+                    <span class="mobbricon mobbricon-mobbricon"></span>
+                    <strong>Notifications</strong>
                 </div>
-            </div>
-        </accordion-heading>
-        <div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 text-center" ng-show="notifications.result.length == 0">
-                        <h2><em>No notifications found...</em></h2>
-                    </div>
-                    <table class="table" ng-show="notifications.result.length > 0">
-                        <tbody ng-init="limiter = 10">
-                        <tr ng-repeat="notification in notifications.result | limitTo: limiter | filter:notificationType">
-                            <td ng-class="notification.type">
+                <div class="col-xs-3">
+                    <select class="form-inline form-control"
+                            ng-model="notificationType"
+                            ng-options="type.event as type.description for type in eventTypes.result"
+                            ng-change="notifications.$resolved = false; notifications.$get({ limit: limiter, event_type: notificationType })">
+                        <option value="">Choose notification type</option>
+                    </select>
+                </div>
+                <div class="col-xs-3">
+                    <button class="btn btn-primary btn-block" ng-disabled="notifications.result.length == 0" ng-click="notifications.$delete()">
+                        Clear notifications
+                        <span class="pull-right mobbricon mobbricon-hardclose"></span>
+                    </button>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 text-center" ng-show="notifications.result.length == 0">
+            <h2><em>No notifications found...</em></h2>
+        </div>
+        <table class="table" ng-show="notifications.result.length > 0">
+            <tbody ng-init="limiter = 10">
+            <tr ng-repeat="notification in notifications.result | limitTo: limiter | filter:notificationType">
+                <td class="text-center" ng-class="notification.type">
                                 <span ng-class="{
                                         'mobbricon-transaction': notification.type == 'payment_received' || notification.type == 'payment_revocation' || notification.type == 'xpayment_failure' || notification.type == 'xpayment_received',
-                                        'mobbricon-person': notification.type == 'login' || notification.type == 'logout',
+                                        'mobbricon-person': notification.type == 'login' || notification.type == 'logout' || notification.type == 'email_address_update' || notification.type == 'profile_update' || notification.type == 'email_address_confirmation' || notification.type == 'task_invitation',
                                         'mobbricon-login': notification.type == 'auto_logout'
                                         }"
                                       class="mobbricon"></span>
-                            </td>
-                            <td>{{eventTypesMap[notification.type].description}}</td>
-                            <td ng-bind="notification.timestamp | amCalendar"></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <button class="btn btn-primary" ng-hide="notifications.result.length < limiter" ng-click="limiter = limiter + 10; notifications.$get({ limit: limiter, event_type: notificationType })">More</button>
-                </div>
+                </td>
+                <td class="title">{{eventTypesMap[notification.type].description}}</td>
+                <td class="time pull-right" ng-bind="notification.timestamp | amCalendar"></td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="row more-bar">
+            <div class="col-md-12">
+                <button class="btn btn-primary btn-block"
+                        ng-bind="notifications && !notifications.$resolved && 'Loading more results' || notifications.result && notifications.result.length < limiter && 'The end' || 'Show more results'"
+                        ng-disabled="notifications.result.length < limiter"
+                        ng-click="limiter = limiter + 10; notifications.$resolved = false; notifications.$get({ limit: limiter, event_type: notificationType })"></button>
             </div>
         </div>
-    </accordion-group>
-</accordion>
+    </div>
+</div>
