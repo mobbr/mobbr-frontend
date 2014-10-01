@@ -11,6 +11,8 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
 
     $scope.new_email = $rootScope.$mobbrStorage.user.email;
 
+    $scope.minimumDate = moment().subtract('year',12).format('MM-DD-YYYY');
+
     $scope.settingsLabels = {
         hide_my_incoming_payments: 'Hide my incoming payments',
         hide_my_items: 'Hide my items',
