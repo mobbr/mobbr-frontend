@@ -1,10 +1,12 @@
-<smart-tags ng-show="tags && tags.length !== undefined"
+<smart-tags ng-show="task.$resolved && !no_script"
             tags="tags"
             filtered-tags="filteredTags"
             reset-tags="resetTags"
-            tags-limiter="tagsLimiter"></smart-tags>
+            tags-limiter="tagsLimiter"
+            suggested-tags="suggestedTags"
+            get-suggested-tags="getSuggestedTags"></smart-tags>
 
-<div class="row top-info filter">
+<div class="row top-info filter" ng-show="task.$resolved && !no_script">
     <div class="container">
         <div class="row">
             <fieldset ng-disabled="(persons && !persons.$resolved)" class="form-horizontal">
@@ -78,10 +80,10 @@
         <div class="col-md-12 text-center" ng-show="no_script">
             <h2><em>this page has no Mobbr support button <a ui-sref="box.task.view({ task: $state.params.task })">Prepare page</a></em></h2>
         </div>
-        <div class="col-md-12 text-center" ng-show="tags === undefined">
+        <div class="col-md-12 text-center" ng-show="task === undefined">
             <h2><em>Enter any URL to find your workforce...</em></h2>
         </div>
-        <div class="col-md-12 text-center" ng-show="!no_script && tags === null && !persons.$resolved">
+        <div class="col-md-12 text-center" ng-show="task && !task.$resolved || persons && !persons.$resolved">
             <h2><em>Finding your workforce...</em></h2>
         </div>
         <div class="col-md-12 text-center" ng-show="persons.$resolved && persons.result.length == 0">
