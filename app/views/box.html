@@ -1,10 +1,10 @@
 <div class="row top-bar">
     <div class="container">
-        <div class="row left-pad">
+        <div class="row">
             <div class="col-md-6">
                 <h1 ng-bind="$state.current.data.title"></h1>
             </div>
-            <div ng-if="$state.includes('box.task')">
+            <div ng-show="$state.includes('box.task')">
                 <div class="col-md-3">
                     <a ng-disabled="!activeQuery"
                        ng-href="{{ activeQuery }}"
@@ -16,6 +16,16 @@
                        ui-sref="box.task.view.pay"
                        ng-bind="'Make a ' + (task.result.script.type == 'donate' ? 'pledge' : 'payment')"
                        class="btn btn-block btn-call">Make a pledge</a>
+                </div>
+            </div>
+            <div ng-show="$state.includes('box.tasks') || $state.includes('box.crowds')">
+                <div class="col-md-3 col-md-offset-3">
+                    <select class="form-control"
+                            ng-options="language.code as language.name for language in usedLanguages.result"
+                            ng-init="filter_language = getLanguage()"
+                            ng-model="filter_language">
+                        <option value="">Choose language</option>
+                    </select>
                 </div>
             </div>
             <!--<div ng-if="$state.includes('box.crowds') || $state.includes('box.tasks')" class="col-md-3 col-md-offset-3">
@@ -31,7 +41,10 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <mobbr-smart-url-box active-query="activeQuery" url-type="{{ $state.includes('box.crowds') && 'CROWDS' || $state.includes('box.tasks') && 'TASKS' || $state.includes('box.person') && 'PROFILE' || 'TASK' }}" query="query"></mobbr-smart-url-box>
+                <mobbr-smart-url-box active-query="activeQuery"
+                                     url-type="{{ $state.includes('box.crowds') && 'CROWDS' || $state.includes('box.tasks') && 'TASKS' || $state.includes('box.person') && 'PROFILE' || 'TASK' }}"
+                                     query="query"
+                                     user="$mobbrStorage.user.username"></mobbr-smart-url-box>
             </div>
         </div>
     </div>

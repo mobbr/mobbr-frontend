@@ -10,16 +10,26 @@ angular.module('mobbr.directives').directive('smartTags', function factory(Mobbr
             tags: '=',
             filteredTags: '=',
             resetTags: '=',
-            language: '=',
-            tagsTitle: '='
+            tagsTitle: '=',
+            tagsLimiter: '='
         },
         link: function ($scope) {
+
+            var language;
 
             function filterTags() {
                 $scope.filteredTags = [];
                 angular.forEach($scope.tags, function (keyword) {
                     $scope.filteredTags.push(keyword.keyword || keyword);
                 });
+            }
+
+            $scope.getTags = function () {
+                $scope.tagsPromise && $scope.tagsPromise({
+                        limit: $scope.tagsLimiter,
+                        language: $scope.language }, function (response) {
+                    $scope.tags = response.result;
+                })
             }
 
             $scope.addTag = function () {
@@ -44,12 +54,20 @@ angular.module('mobbr.directives').directive('smartTags', function factory(Mobbr
             };
 
             $scope.topTags = function () {
-                MobbrKeywords.get({
-                    language: $scope.language
+                $scope.topTagsPromise = MobbrKeywords.get({
+                    limit: $scope.tagsLimiter,
+                    language: language
                 }, function (response) {
                     $scope.tags = response.result;
                     filterTags();
                 });
+            }
+
+            $scope.resetTopTags = function () {
+                $scope.topTagsPromise.$get({ limit: $scope.tagsLimiter, language: $scope.language }, function (response) {
+                    $scope.tags = response.result;
+                })
+                return true;
             }
 
             $scope.$watch('tags', function () {
@@ -57,7 +75,19 @@ angular.module('mobbr.directives').directive('smartTags', function factory(Mobbr
                     filterTags();
                 }
             }, true);
-            $scope.$on('mobbrApi:authchange', $scope.resetTags);
+
+            $scope.tagsLimiter = 20;
+
+            $scope.$on('mobbrApi:authchange', function () {
+                $scope.resetTags($scope.tagsLimiter);
+            });
+
+            $scope.$on('language-update', function (event, new_language) {
+                if (new_language !== language) {
+                    language = new_language;
+                    $scope.language = language;
+                }
+            }, true);
         }
     };
 });

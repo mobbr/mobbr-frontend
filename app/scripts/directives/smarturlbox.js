@@ -1,4 +1,4 @@
-angular.module('mobbr.directives').directive('mobbrSmartUrlBox', function factory() {
+angular.module('mobbr.directives').directive('mobbrSmartUrlBox', function factory(mobbrSession) {
     'use strict';
     var placeholders = {
             'TASK': 'Enter any URL we\'ll analyze it',
@@ -15,7 +15,8 @@ angular.module('mobbr.directives').directive('mobbrSmartUrlBox', function factor
         scope: {
             query: '=',
             activeQuery: '=',
-            urlType: '@'
+            urlType: '@',
+            user: '='
         },
         link: function (scope, elem, attrs, $window) {
             scope.placeHolders = placeholders;
@@ -23,6 +24,8 @@ angular.module('mobbr.directives').directive('mobbrSmartUrlBox', function factor
         controller: function ($scope, $state, $window, $timeout) {
 
             var opener;
+
+            $scope.mobbrSession = mobbrSession;
 
             $scope.setType = function (type) {
 

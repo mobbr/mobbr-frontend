@@ -646,9 +646,14 @@ accordion .info-bar {
     background: $white;
     color: $mobbryellow;
 
-    select, .btn {
-      background: $mobbryellow;
-      color: $white;
+    img {
+      margin-left: 4px;
+    }
+
+    .btn-link {
+      background: transparent;
+      color: $mobbryellow;
+      padding-right: 0;
     }
   }
 
@@ -835,7 +840,6 @@ a.btn-call {
     font-size: 20px;
   }
 }
-
 
 accordion {
 
@@ -1094,6 +1098,28 @@ body.blocked .unblocked {
   }
 }
 
+.logo-menu {
+  font-family: 'Roboto Condensed';
+  font-size: 1.2em;
+  min-width: auto;
+  padding-left: 5px;
+  padding-right: 5px;
+  border: 0;
+  margin-top: 0;
+  z-index: 2004;
+
+  a {
+    background-color: $gray;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid $white;
+  }
+
+  .link-call {
+    background-color: $mobbrcallout;
+  }
+}
+
 .navbar-fixed-top {
   border: 0;
 
@@ -1172,28 +1198,14 @@ body.blocked .unblocked {
   }
 
   .logo-menu {
-    font-family: 'Roboto Condensed';
-    font-size: 1.2em;
     top: 0;
     padding-top: 26px;
     min-width: auto;
     left: 0;
     right: 0;
-    padding-left: 5px;
-    padding-right: 5px;
-    border: 0;
-    margin-top: 0;
-    z-index: 2004;
 
     @media (min-width: $screen-sm-min) {
       padding-top: 60px;
-    }
-
-    a {
-      background-color: $gray;
-      padding-top: 10px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid $white;
     }
 
     .link-call {
@@ -1385,8 +1397,15 @@ body.blocked .unblocked {
 .query-bar {
   padding-bottom: 0;
   padding-top: $grid-gutter-width * 2;
-  border-bottom: 1px solid $mobbrblue;
+  padding-bottom: $grid-gutter-width * 2;
 
+  input {
+    background: $white;
+  }
+
+  .grayquery {
+    background: $gray;
+  }
 
   .form-control {
     padding: $grid-gutter-width;
@@ -1399,11 +1418,18 @@ body.blocked .unblocked {
     padding-bottom: 0;
     margin-top: $grid-gutter-width / 2;
     margin-bottom: $grid-gutter-width / 2;
+    border: 1px solid $white;
   }
 
   .input-group-btn .btn {
     height: 50px;
     width: 50px;
+    margin-left: 1px;
+  }
+
+  .input-group-btn .btn:hover {
+    background: $white;
+    color: $mobbrblue;
   }
 }
 
@@ -1595,12 +1621,35 @@ body.blocked .unblocked {
   }
 }
 
-.url-menu {
+.query-menu {
+  @include box-shadow(0 6px 12px rgba(0,0,0,.175));
+  padding: 1px;
+  padding-top: 1px;
   background: $white;
   position: absolute;
   z-index: 999;
-  left: 0;
+  left: $grid-gutter-width / 2;
   top: 50px;
+
+  a {
+    display: block;
+    padding: 3px 10px;
+    clear: both;
+    font-weight: normal;
+    line-height: 2;
+    color: #333333;
+    white-space: nowrap;
+
+    .mobbricon {
+      margin-right: 10px;
+    }
+  }
+
+  a:hover {
+    background: #000;
+    color: $white;
+    text-decoration: none;
+  }
 }
 
 .more-bar {
@@ -1661,10 +1710,83 @@ fieldset[disabled] .btn {
   border-top: 1px solid $gray;
 }
 
+.top-bar select {
+  margin-top: $grid-gutter-width;
+}
+
 @media (max-width: $screen-sm-min) {
   .pad-xs {
     margin-bottom: $grid-gutter-width;
   }
+}
+
+.tag {
+  font-size: 12px;
+  line-height: 28px;
+  padding: 0 4px;
+  border-radius: 0;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  font-weight: normal;
+  font-family: $mobbrFontCondensed;
+
+  .mobbricon {
+    margin: 0 4px;
+  }
+}
+
+.tag.reset {
+  padding-left: 8px;
+  background: #000;
+  color: $white;
+}
+
+tag.more {
+  background: #000;
+  color: $white;
+  padding-left: 8px;
+}
+
+.tag.toptags {
+  background: #000;
+  color: $white;
+  padding-right: 8px;
+}
+
+.tag.addtag {
+  background: $gray;
+  color: #000;
+  padding-left: 0;
+
+  input {
+    height: 28px;
+    line-height: 28px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  label {
+    line-height: 28px;
+    margin: 0;
+  }
+}
+
+.tag:hover {
+  background: #000;
+  color: $white;
+}
+
+.tag.addtag:hover {
+  background: $gray;
+  color: #000;
+}
+
+.tags h2 {
+  padding-top: 0;
+}
+
+.tags {
+  padding-bottom: 16px;
 }
 /*
 .user-thumb {

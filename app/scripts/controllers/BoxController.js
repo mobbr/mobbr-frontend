@@ -27,4 +27,10 @@ angular.module('mobbr.controllers').controller('BoxController', function ($scope
     $scope.$on('set-active-query', function (event, activeQuery) {
         $scope.activeQuery = activeQuery;
     });
+
+    $scope.$watch('filter_language', function (newValue, oldValue) {
+        if (newValue && newValue !== oldValue) {
+            $scope.$broadcast('language-update', newValue);
+        }
+    }, true);
 });
