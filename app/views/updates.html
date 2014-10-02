@@ -15,10 +15,10 @@
                 <div class="card fixed">
                     <div class="front">
                         <div class="row top">
-                            <span class="col-md-12">
+                            <div class="col-md-12">
                                 <span class="mobbricon mobbricon-wallet"></span>
                                 Total balance in {{ dashboard.total_currency_iso }}
-                            </span>
+                            </div>
                         </div>
                         <div class="row">
                             <span class="txt xbig col-md-12" ng-bind-html="dashboard.total_amount | mobbrcurrency:'':true"></span>
@@ -37,10 +37,10 @@
                 <div class="card fixed">
                     <div class="front">
                         <div class="row top">
-                            <span class="col-md-12">
+                            <div class="col-md-12">
                                 <span class="mobbricon mobbricon-settings"></span>
                                 Settings
-                            </span>
+                            </div>
                         </div>
                         <div class="row">
                             <span class="txt xbig col-md-12" ng-bind="(countProfileCompleted() * 100 | number:0) + '%'"></span>
@@ -59,10 +59,10 @@
                 <div class="card fixed">
                     <div class="front">
                         <div class="row top">
-                            <span class="col-md-12">
+                            <div class="col-md-12">
                                 <span class="mobbricon mobbricon-tasks"></span>
                             Tasks you worked on
-                            </span>
+                            </div>
                         </div>
                         <div class="row">
                             <span class="txt xbig col-md-12" ng-bind="person.result.stats.num_urls"></span>
@@ -79,10 +79,10 @@
                 <div class="card fixed">
                     <div class="front">
                         <div class="row top">
-                            <span class="col-md-12">
+                            <div class="col-md-12">
                                 <span class="mobbricon mobbricon-domain"></span>
                                 Linked accounts
-                            </span>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="txt col-md-12">
@@ -109,19 +109,19 @@
     <div class="container">
         <div class="row">
             <fieldset ng-disabled="tasks && !tasks.$resolved" class="form-horizontal">
-                <div class="col-xs-6 title">
+                <div class="col-sm-6 title">
                     <span class="mobbricon mobbricon-mobbricon"></span>
                     <strong>Notifications</strong>
                 </div>
-                <div class="col-xs-3">
-                    <select class="form-inline form-control"
+                <div class="col-sm-3 pad-xs">
+                    <select class="form-control"
                             ng-model="notificationType"
                             ng-options="type.event as type.description for type in eventTypes.result"
                             ng-change="notifications.$resolved = false; notifications.$get({ limit: limiter, event_type: notificationType })">
                         <option value="">Choose notification type</option>
                     </select>
                 </div>
-                <div class="col-xs-3">
+                <div class="col-sm-3">
                     <button class="btn btn-primary btn-block" ng-disabled="notifications.result.length == 0" ng-click="notifications.$delete()">
                         Clear notifications
                         <span class="pull-right mobbricon mobbricon-hardclose"></span>
@@ -149,7 +149,9 @@
                                       class="mobbricon"></span>
                 </td>
                 <td class="title">{{eventTypesMap[notification.type].description}}</td>
-                <td class="time pull-right" ng-bind="notification.timestamp | amCalendar"></td>
+                <td class="time pull-right">
+                    <time datetime="{{ notification.timestamp }}" ng-bind="notification.timestamp | amCalendar"></time>
+                </td>
             </tr>
             </tbody>
         </table>
