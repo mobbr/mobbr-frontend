@@ -1,3 +1,15 @@
+<div class="info-bar">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <span class="info-box">
+                    <span class="mobbricon mobbricon-softalert"></span> These are your id's
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -12,6 +24,24 @@
 
                     </div>
                 </fieldset>
+        </div>
+    </div>
+</div>
+
+            <div class="info-bar border-top-bar">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <span class="info-box">
+                                <span class="mobbricon mobbricon-softalert"></span> These are your email id's
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
 
                 <fieldset class="form-group" ng-repeat="email in emailAddresses">
                     <label class="control-label col-xs-12 col-sm-3 col-md-2" for="{{email}}">email</label>
@@ -25,6 +55,25 @@
                         </button>
                     </div>
                 </fieldset>
+
+        </div>
+    </div>
+</div>
+
+<div class="info-bar border-top-bar">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                            <span class="info-box">
+                                <span class="mobbricon mobbricon-softalert"></span> These are your oauth id's
+                            </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
 
                 <form name="formHolder.addPaymentIdForm" ng-submit="addExtraEmail()">
                     <fieldset class="form-group">
@@ -55,7 +104,7 @@
                             <span class="mobbricon mobbricon-addopen"></span>
                         </button>
                     </div>
-                    <div class="col-sm-1 col-xs-2 col-md-1 text-center" ng-show="oAuthProvider.id">
+                    <div class="col-sm-1 col-sm-offset-1 col-md-offset-1 col-xs-2 col-md-1 text-center" ng-show="oAuthProvider.id">
                         <button type="button" class="btn btn-danger btn-square" ng-click="removePaymentID(oAuthProvider.id)">
                             <span class="mobbricon mobbricon-hardclose"></span>
                         </button>
@@ -64,6 +113,24 @@
 
 
                 </fieldset>
+        </div>
+    </div>
+</div>
+
+<div class="info-bar border-top-bar">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                            <span class="info-box">
+                                <span class="mobbricon mobbricon-softalert"></span> These are your identity providers
+                            </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
 
                 <fieldset class="form-group" ng-repeat="identityProvider in idWithIdProviders">
 
@@ -77,7 +144,7 @@
                             <span class="mobbricon mobbricon-addopen"></span>
                         </button>
                     </div>
-                    <div class="col-sm-1 col-xs-2 col-md-1 text-center" ng-show="identityProvider.idConfirmed">
+                    <div class="col-sm-1 col-sm-offset-1 col-md-offset-1 col-xs-2 col-md-1 text-center" ng-show="identityProvider.idConfirmed">
                         <button type="button" class="btn btn-danger btn-square" ng-click="removePaymentID(identityProvider.id)">
                             <span class="mobbricon mobbricon-hardclose"></span>
                         </button>

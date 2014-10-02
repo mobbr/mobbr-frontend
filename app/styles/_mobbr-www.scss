@@ -326,9 +326,9 @@ label.title {
     font-family: $mobbrFontCondensed;
 
     .top {
-      margin-top: -$grid-gutter-width * 1.5;
-      margin-left: -$grid-gutter-width * 1.5;
-      margin-right: -$grid-gutter-width * 1.5;
+      margin-top: -$grid-gutter-width * 1;
+      margin-left: -$grid-gutter-width * 1;
+      margin-right: -$grid-gutter-width * 1;
       border-bottom: 1px solid;
 
       .col-md-12 {
@@ -336,6 +336,14 @@ label.title {
         padding: $grid-gutter-width / 2;
         padding-top: $grid-gutter-width / 4;
         padding-bottom: ($grid-gutter-width / 4) - 1;
+      }
+    }
+
+    @media (min-width: $screen-sm-min) {
+      .top {
+        margin-top: -$grid-gutter-width * 1.5;
+        margin-left: -$grid-gutter-width * 1.5;
+        margin-right: -$grid-gutter-width * 1.5;
       }
     }
 
@@ -395,7 +403,13 @@ label.title {
         font-family: $mobbrFontCondensed;
         font-size: 12px;
         text-transform: uppercase;
-        line-height: 40px;
+        line-height: 30px;
+      }
+
+      @media (min-width: $screen-sm-min) {
+        .btn {
+          line-height: 40px;
+        }
       }
     }
   }
@@ -534,9 +548,8 @@ accordion .info-bar {
     border-color: $mobbrlightgreen;
 
     .fixed {
-      background: $white;
-      color: $mobbrgreen;
-      border: 0;
+      background: $mobbrgreen;
+      color: $white;
 
       img {
         transition: 0.6s;
@@ -552,18 +565,18 @@ accordion .info-bar {
       }
 
       .bottom .btn {
-        background: $mobbrgreen;
-        color: $white;
+        background: $white;
+        color: $mobbrgreen;
       }
     }
 
     .fixed:hover {
-      background: $mobbrgreen;
-      color: $white;
+      background: $white;
+      color: $mobbrgreen;
 
       .bottom .btn {
-        background: $white;
-        color: $mobbrgreen;
+        background: $mobbrgreen;
+        color: $white;
       }
 
       img {
@@ -645,7 +658,6 @@ accordion .info-bar {
     .fixed {
       background: transparent;
       color: $white;
-      border: 0;
 
       img {
         transition: 0.6s;
@@ -990,7 +1002,9 @@ accordion {
 }
 
 .updates table tr td.time {
-  line-height: 33px;
+  line-height: 12px;
+  padding-top: 18px;
+  padding-bottom: 18px;
 }
 
 .updates table tr td.login,
@@ -1021,7 +1035,9 @@ accordion {
 
 .updates table tr td.title {
   font-size: 16px;
-  line-height: 33px;
+  line-height: 16px;
+  padding-top: 16px;
+  padding-bottom: 16px;
   padding-left: $grid-gutter-width;
 }
 
@@ -1636,8 +1652,19 @@ fieldset[disabled] .btn {
   }
 }
 
-.form-group .checkbox {
+.form-group .checkbox input {
   margin-top: 12px;
+}
+
+.border-top-bar {
+  padding-top: $grid-gutter-width;
+  border-top: 1px solid $gray;
+}
+
+@media (max-width: $screen-sm-min) {
+  .pad-xs {
+    margin-bottom: $grid-gutter-width;
+  }
 }
 /*
 .user-thumb {
