@@ -1,11 +1,13 @@
 angular.module('mobbr.controllers').controller('CrowdsController', function ($scope, $state, $window, $rootScope, mobbrMsg, mobbrSession, MobbrUri, MobbrPerson) {
     'use strict';
 
+    var language;
+
     function queryPeople() {
         if ($state.params.task) {
             $scope.persons = MobbrPerson.get({
                 keywords: $scope.filteredTags,
-                language: $scope.filter_language
+                language: language
             });
 
             $scope.persons.$promise.then(function () {
@@ -34,8 +36,8 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
             url = $window.atob($state.params.task);
             $scope.tags = null;
             $scope.filteredTags = null;
-
             $scope.$emit('set-query', url);
+
             MobbrUri.info({
                 url: url
             }, function (response) {
@@ -99,10 +101,12 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
         return item.username !== $rootScope.$mobbrStorage.user.username;
     }
 
+    $scope.tagsLimiter = 20;
     $scope.$on('$stateChangeSuccess', $scope.resetTags);
-    $scope.$watch('filter_language', function (newValue, oldValue) {
-        if (newValue && newValue !== oldValue) {
-            $scope.resetTags();
+    $scope.$on('language-update', function (event, new_language) {
+        if (new_language !== language) {
+            language = new_language;
+            queryPeople();
         }
     }, true);
     $scope.$watch('filteredTags', function (newValue, oldValue) {
