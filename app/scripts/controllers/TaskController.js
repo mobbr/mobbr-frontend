@@ -34,7 +34,7 @@ angular.module('mobbr.controllers').controller('TaskController', function ($scop
 
             $scope.url = url;
             $scope.has_failed = response.result.script && response.result.script.error;
-            $scope.has_script = $scope.has_failed && false || response.result.script.url && true;
+            $scope.has_script = $scope.has_failed && false || response.result.script && response.result.script.url && true;
             $scope.has_payments = parseFloat(response.result.statistics.num_payments) > 0;
             $scope.has_participants = parseFloat(response.result.statistics.num_recipients) > 0;
             $scope.$emit('set-active-query', url);
@@ -53,8 +53,8 @@ angular.module('mobbr.controllers').controller('TaskController', function ($scop
         });
     }
 
-    $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
-        if (($scope.task === undefined || $scope.task.result.script.url !== $window.atob(toParams.task)) && toState.name.indexOf('box.task.view') === 0 && toParams.task) {
+    $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+        if ($scope.task === undefined || toParams.task !== fromParams.task && toState.name.indexOf('box.task.view') === 0 && toParams.task) {
             queryTask(toParams.task);
         }
     });
