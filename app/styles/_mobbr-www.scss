@@ -1721,9 +1721,9 @@ fieldset[disabled] .btn {
 }
 
 .tag {
-  font-size: 12px;
-  line-height: 28px;
-  padding: 0 4px;
+  font-size: 18px;
+  line-height: 50px;
+  padding: 0 12px;
   border-radius: 0;
   margin-right: 8px;
   margin-bottom: 8px;
@@ -1747,6 +1747,10 @@ fieldset[disabled] .btn {
   padding-left: 8px;
 }
 
+.tag.suggested {
+  opacity: .4;
+}
+
 .tag.toptags {
   background: #000;
   color: $white;
@@ -1759,15 +1763,15 @@ fieldset[disabled] .btn {
   padding-left: 0;
 
   input {
-    height: 28px;
-    line-height: 28px;
+    height: 50px;
+    line-height: 50px;
     padding-top: 0;
     padding-bottom: 0;
   }
 
   label {
+    margin: 11px 0;
     line-height: 28px;
-    margin: 0;
   }
 }
 

@@ -1,77 +1,71 @@
-angular.module('mobbr.controllers').controller('CrowdsController', function ($scope, $state, $window, $rootScope, mobbrMsg, mobbrSession, MobbrUri, MobbrPerson) {
+angular.module('mobbr.controllers').controller('CrowdsController', function ($scope, $state, $window, $rootScope, mobbrMsg, mobbrSession, MobbrUri, MobbrPerson, MobbrKeywords) {
     'use strict';
 
     var language;
 
     function queryPeople() {
-        if ($state.params.task) {
-            $scope.persons = MobbrPerson.get({
-                keywords: $scope.filteredTags,
-                language: language
-            });
 
-            $scope.persons.$promise.then(function () {
-                angular.forEach($scope.selectedPersons, function (selectedPerson) {
-                    for (var i = 0; i < $scope.persons.result.length; i++) {
-                        var person = $scope.persons.result[i];
-                        if (selectedPerson.id === person.id) {
-                            $scope.persons.result[i] = selectedPerson;
-                        }
+        $scope.persons = MobbrPerson.get({
+            keywords: $scope.filteredTags,
+            language: language
+        });
+
+        $scope.persons.$promise.then(function () {
+            angular.forEach($scope.selectedPersons, function (selectedPerson) {
+                for (var i = 0; i < $scope.persons.result.length; i++) {
+                    var person = $scope.persons.result[i];
+                    if (selectedPerson.id === person.id) {
+                        $scope.persons.result[i] = selectedPerson;
                     }
-                });
+                }
             });
-        } else {
-            $scope.persons = null;
-        }
+        });
     }
 
-    $scope.resetTags = function () {
+    $scope.getSuggestedTags = function () {
 
-        var url;
+        MobbrKeywords.get({
+            limit: $scope.tagsLimiter.limit,
+            language: language,
+            related_to: $scope.filteredTags
+        }, function (response) {
+            $scope.suggestedTags = response.result;
+        });
+    }
 
-        $scope.persons = null;
+    $scope.setTask = function () {
 
-        if ($state.params.task) {
+        var url = $window.atob($state.params.task);
 
-            url = $window.atob($state.params.task);
-            $scope.tags = null;
-            $scope.filteredTags = null;
-            $scope.$emit('set-query', url);
+        $scope.$emit('set-query', url);
 
-            MobbrUri.info({
-                url: url
-            }, function (response) {
-                $scope.$emit('set-active-query', url);
-                if (!response.result.script) {
-                    $scope.no_script = true;
-                } else {
-                    $scope.no_script = false;
-                    $scope.tags = response.result.script.keywords || [];
-                }
-            }, function () {
-                $scope.$emit('set-query');
-                $scope.$emit('set-active-query');
-                mobbrMsg.add({ msg: 'Invalid URL' });
-                $state.go('^');
-            });
-        } else {
-            $scope.tags = undefined;
-        }
+        $scope.task = MobbrUri.info({ url: url }, function (response) {
+
+            $scope.$emit('set-active-query', url);
+
+            if (!response.result.script) {
+                $scope.no_script = true;
+            } else {
+                $scope.no_script = false;
+                $scope.filteredTags = response.result.script.keywords || [];
+            }
+
+        }, function () {
+            $scope.$emit('set-query');
+            $scope.$emit('set-active-query');
+            mobbrMsg.add({ msg: 'Invalid URL' });
+            $state.go('^');
+        });
     }
 
     $scope.addPerson = function (person) {
-        if (person.selected === true) {
-            $scope.selectedPersons.push(person);
-        } else {
-            $scope.removePerson(person);
-        }
+        person.selected === true && $scope.selectedPersons.push(person) || $scope.removePerson(person);
     };
 
     $scope.removePerson = function (person) {
-        if (person) {
-            if(person.selected === true){
-                person.selected = false;
-            }
+
+        if (person && person.selected === true) {
+            person.selected = false;
             $scope.selectedPersons.splice($scope.selectedPersons.indexOf(person), 1);
         } else {
             angular.forEach($scope.selectedPersons, function (item) {
@@ -101,19 +95,38 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
         return item.username !== $rootScope.$mobbrStorage.user.username;
     }
 
-    $scope.tagsLimiter = 20;
-    $scope.$on('$stateChangeSuccess', $scope.resetTags);
+    $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+
+        if ($scope.activeQuery) {
+            $scope.$emit('set-active-query');
+            $scope.$emit('set-query');
+            $scope.task = undefined;
+            $scope.persons = undefined;
+            $scope.filteredTags = undefined;
+            $scope.suggestedTags = undefined;
+        }
+
+        if (toParams.task) {
+            $scope.setTask();
+        }
+    });
+
     $scope.$on('language-update', function (event, new_language) {
         if (new_language !== language) {
             language = new_language;
+            $scope.getSuggestedTags();
             queryPeople();
         }
     }, true);
+
     $scope.$watch('filteredTags', function (newValue, oldValue) {
-        if (newValue && newValue !== oldValue) {
+        if (newValue !== undefined) {
+            $scope.getSuggestedTags();
             queryPeople();
         }
     }, true);
+
+    $scope.tagsLimiter = { limit: 10 };
     $scope.form = {};
     $scope.selectedPersons = [];
 });
