@@ -1403,7 +1403,7 @@ body.blocked .unblocked {
     background: $white;
   }
 
-  .grayquery {
+  .grayquery input {
     background: $gray;
   }
 
@@ -1424,7 +1424,30 @@ body.blocked .unblocked {
   .input-group-btn .btn {
     height: 50px;
     width: 50px;
+  }
+
+  .input-group-btn.border .btn {
     margin-left: 1px;
+  }
+
+  .input-group-btn.guide {
+    background: $white;
+    text-align: center;
+    width: 50px;
+    height: 50px;
+  }
+
+  .input-group-btn.guide .mobbricon {
+    font-size: 14px;
+    color: shade($gray, 12.5%);
+  }
+
+  .grayquery .input-group-btn.guide {
+    background: $gray;
+  }
+
+  .grayquery .input-group-btn.guide .mobbricon {
+    color: shade($gray, 25%);
   }
 
   .input-group-btn .btn:hover {

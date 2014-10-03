@@ -4,12 +4,6 @@
             <div class="col-md-12">
                 <h2 class="title"><span class="mobbricon mobbricon-tag"></span> Tags</h2>
                 <ul class="tasks-tags list-unstyled">
-                    <!--<li ng-show="filteredTags.length > 0">
-                        <a ng-click="filteredTags = []; tagsLimiter.limit = 10" class="label label-default tag reset pull-left">Clear <span class="mobbricon mobbricon-hardclose"></span></a>
-                    </li>
-                    <li ng-show="filteredTags.length == 0">
-                        <a ng-click="topTags(); tagsChanged = true; tagsLimiter = 20;" class="pull-left label tag toptags label-default"><span class="mobbricon mobbricon-tag"></span> No tags to display, click here for top tags</a>
-                    </li>-->
                     <li ng-repeat="tag in filteredTags">
                         <a ng-click="removeTag(tag)" class="label label-default tag pull-left">
                             <span class="mobbricon mobbricon-tag"></span>
