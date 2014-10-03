@@ -56,9 +56,8 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
 
             $scope.$emit('set-active-query', url);
 
-            if (!response.result.script) {
-                $scope.no_script = true;
-            } else {
+            if (response.result.script && response.result.script.length !== 0) {
+
                 $scope.no_script = false;
                 tags = response.result.script.keywords || [];
 
@@ -71,6 +70,17 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
                 } else {
                     getGlobalTags().$promise.then(queryPeople);
                 }
+            } else {
+
+                $scope.no_script = true;
+
+                if (response.result.metadata && response.result.metadata.keywords) {
+                    angular.forEach(response.result.metadata.keywords, function (keyword) {
+                        $scope.suggestedTags.push({ keyword: keyword });
+                    });
+                }
+
+                queryPeople();
             }
         }, function () {
             $scope.$emit('set-query');

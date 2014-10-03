@@ -4,7 +4,7 @@
             <span class="mobbricon mobbricon-mobbrmenu"></span>
         </span>
         <input type="{{ (urlType == 'CROWDS' || urlType == 'TASK') && 'url' || 'text' }}"
-               pattern="{{ !(urlType == 'CROWDS' || urlType == 'TASK') && '^[A-Za-z0-9_-]{4,32}$' }}"
+               pattern="{{ !(urlType == 'CROWDS' || urlType == 'TASK') && '^[A-Za-z0-9_-]{4,32}$' || '.*' }}"
                class="form-control"
                ng-model="query"
                placeholder="{{placeHolders[urlType]}}"

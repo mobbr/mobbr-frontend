@@ -1,4 +1,4 @@
-<smart-tags ng-show="task.$resolved && !no_script"
+<smart-tags ng-show="task.$resolved"
             tags="tags"
             filtered-tags="filteredTags"
             reset-tags="resetTags"
@@ -34,6 +34,21 @@
         </div>
     </div>
 </div>
+
+<div class="row top-info filter" ng-show="task.$resolved && no_script">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <span ng-show="selectedPersons && selectedPersons.length == 0" class="btn btn-link"><span class="mobbricon mobbricon-hardalert"></span> This page has no Mobbr support button</span>
+            </div>
+            <div class="col-md-3">
+                <a ui-sref="box.task.view({ task: $state.params.task })" class="btn btn-primary btn-block">Prepare page</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 
 <div class="container">
@@ -77,9 +92,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-12 text-center" ng-show="no_script">
-            <h2><em>this page has no Mobbr support button <a ui-sref="box.task.view({ task: $state.params.task })">Prepare page</a></em></h2>
-        </div>
+
         <div class="col-md-12 text-center" ng-show="task === undefined">
             <h2><em>Enter any URL to find your workforce...</em></h2>
         </div>
