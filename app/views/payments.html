@@ -45,7 +45,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-3">
-                <button ng-click="removePledes()" class="btn btn-primary btn-block"
+                <button ng-click="removePledges()" class="btn btn-primary btn-block"
                         ng-disabled="filterSelectedIds(data.pledges.result).length == 0">
                     Delete selected pledges
                     <span class="mobbricon mobbricon-hardclose"></span>
@@ -76,7 +76,7 @@
                     <tr ng-repeat="payment in data.pledges.result | orderBy:pledgedTable.sortBy:pledgedTable.reverse">
                         <td><input type="checkbox" ng-model="payment.selected"></td>
                         <td ng-click="openPayment(payment)" data-title="'Date'" sortable="'paiddatetime'" title="{{ payment.paiddatetime }}">
-                            <time ng-bind="payment.datetime | amCalendar" datetime="{{ payment.paiddatetime }}"></time>
+                            <time ng-bind="payment.paiddatetime | amCalendar" datetime="{{ payment.paiddatetime }}"></time>
                         </td>
                         <td ng-click="openPayment(payment)" data-title="'Title'" sortable="'title'" ng-bind="payment.title?payment.title:payment.url"></td>
                         <td class="text-center" ng-click="openPayment(payment)" data-title="'Currency'" sortable="'currency_iso'" ng-bind="payment.currency_iso"></td>
