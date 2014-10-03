@@ -8545,7 +8545,7 @@ fieldset[disabled] .btn {
 .tag.more {
   background: #000;
   color: white;
-  padding-left: 8px;
+  padding-left: 12px;
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031777}}
