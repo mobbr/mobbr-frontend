@@ -49,7 +49,7 @@
                             <div class="col-md-12">
                                 <button ui-sref="settings"
                                         class="btn btn-block"
-                                        ng-bind="$mobbrStorage.user.complete == 100?'Update your settings':'Complete your settings'"></button>
+                                        ng-bind="countProfileCompleted() == 1 ? 'Update your settings' : 'Complete your settings'"></button>
                             </div>
                         </div>
                     </div>
