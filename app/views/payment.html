@@ -10,9 +10,8 @@
 
                     <div class="col-md-3 pull-right">
                         <a ng-show="payment.uri"
-                           ng-href="{{ payment.uri }}"
-                           class="btn btn-call white btn-block"
-                           target="_blank">Go to task</a>
+                           ng-href="#{{ $state.href('box.task.view', { task: encodeTask(payment.uri) }) }}"
+                           class="btn btn-call white btn-block">Go to task</a>
                     </div>
                 </h1>
             </div>
