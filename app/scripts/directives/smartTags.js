@@ -34,6 +34,10 @@ angular.module('mobbr.directives').directive('smartTags', function factory(Mobbr
             $scope.filterKeyword = function (item) {
                 return !$scope.filteredTags || $scope.filteredTags.indexOf(item.keyword) === -1;
             };
+
+            $scope.$on('mobbrApi:authchange', function () {
+                $scope.getSuggestedTags();
+            });
         }
     };
 });
