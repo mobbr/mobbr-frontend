@@ -15,7 +15,8 @@
                     <strong>My future team</strong>
                 </div>
                 <div class="col-md-9 text-right">
-                    <span ng-show="selectedPersons && selectedPersons.length == 0" class="btn btn-link">Select people to invite for this task</span>
+                    <span ng-show="mobbrSession.isAuthorized() && selectedPersons && selectedPersons.length == 0" class="btn btn-link">Select people to invite for this task</span>
+                    <span ng-show="!mobbrSession.isAuthorized() && selectedPersons && selectedPersons.length == 0" class="btn btn-link">Login to find your workforce</span>
                     <img ng-repeat="person in selectedPersons"
                          ng-src="https://secure.gravatar.com/avatar/{{ person['gravatar'] }}?s=50&default=https://mobbr.com/img/default-gravatar.png"
                          width="40"
@@ -54,7 +55,7 @@
 <div class="container">
     <div ng-class="{ loading: persons && !persons.$resolved }" class="row data-cards data-cards-persons">
         <div ng-repeat="person in persons.result | filter:filterUser" ng-class="{ 'data-card-highlight': person.match_percentage > 90 }" class="col-md-3 col-sm-4 col-xs-1 data-card-container">
-            <div class="data-card" ng-init="person.selected = person.selected || false" ng-click="activeQuery && (person.selected = !person.selected);activeQuery && addPerson(person);">
+            <div class="data-card" ng-init="person.selected = person.selected || false" ng-click="mobbrSession.isAuthorized() && activeQuery && (person.selected = !person.selected);activeQuery && addPerson(person);">
                 <img ng-src="https://secure.gravatar.com/avatar/{{ person['gravatar'] }}?s=50&default=https://mobbr.com/img/default-gravatar.png"
                      width="50"
                      height="50"
@@ -84,9 +85,9 @@
                     </div>
                 </div>
 
-                <div class="checkbox">
+                <div class="checkbox" ng-show="activeQuery && mobbrSession.isAuthorized()">
                     <label>
-                        <input ng-show="activeQuery" type="checkbox" ng-model="person.selected" disabled>
+                        <input type="checkbox" ng-model="person.selected" disabled>
                         Invite for this task
                     </label>
                 </div>
