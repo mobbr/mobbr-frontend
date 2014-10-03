@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h2 class="title"><span class="mobbricon mobbricon-tag"></span> {{ filteredTags.length > 0 && 'Suggested' || 'Related' }} tags</h2>
+                <h2 class="title"><span class="mobbricon mobbricon-tag"></span> {{ filteredTags.length == 0 && 'Suggested' || 'Related' }} tags</h2>
                 <ul class="tasks-tags list-unstyled">
                     <li ng-repeat="tag in filteredTags">
                         <a ng-click="removeTag(tag)" class="label label-default tag pull-left">

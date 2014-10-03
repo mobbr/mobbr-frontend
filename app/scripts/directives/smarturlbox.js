@@ -62,7 +62,7 @@ angular.module('mobbr.directives').directive('mobbrSmartUrlBox', function factor
 
                 switch ($scope.urlType) {
                     case 'TASK':
-                        $state.go($state.includes('box.task.view') ? $state.current.name : 'box.task.view', { task: url });
+                        $state.go($state.includes('box.task.index') ? $state.current.name : 'box.task.index.view', { task: url });
                         break;
                     case 'CROWDS':
                         if (query) {
