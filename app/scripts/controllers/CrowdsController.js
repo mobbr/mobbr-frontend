@@ -5,8 +5,19 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
 
     function queryPeople() {
 
+        var tags;
+
+        if ($scope.filteredTags.length === 0) {
+            tags = [];
+            angular.forEach($scope.suggestedTags, function (item) {
+                tags.push(item.keyword);
+            });
+        }  else {
+            tags = $scope.filteredTags;
+        }
+
         $scope.persons = MobbrPerson.get({
-            keywords: $scope.filteredTags,
+            keywords: tags,
             language: language
         });
 
@@ -22,9 +33,9 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
         });
     }
 
-    $scope.getSuggestedTags = function () {
+    function getGlobalTags() {
 
-        MobbrKeywords.get({
+        return MobbrKeywords.get({
             limit: $scope.tagsLimiter.limit,
             language: language,
             related_to: $scope.filteredTags
@@ -33,13 +44,15 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
         });
     }
 
-    $scope.setTask = function () {
+    function getTaskTags() {
 
         var url = $window.atob($state.params.task);
 
         $scope.$emit('set-query', url);
 
-        $scope.task = MobbrUri.info({ url: url }, function (response) {
+        return $scope.task = MobbrUri.info({ url: url }, function (response) {
+
+            var tags;
 
             $scope.$emit('set-active-query', url);
 
@@ -47,15 +60,33 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
                 $scope.no_script = true;
             } else {
                 $scope.no_script = false;
-                $scope.filteredTags = response.result.script.keywords || [];
-            }
+                tags = response.result.script.keywords || [];
 
+                angular.forEach(tags, function (keyword) {
+                    $scope.suggestedTags.push({ keyword: keyword });
+                });
+
+                if ($scope.suggestedTags.length > 0) {
+                    queryPeople();
+                } else {
+                    getGlobalTags().$promise.then(queryPeople);
+                }
+            }
         }, function () {
             $scope.$emit('set-query');
             $scope.$emit('set-active-query');
             mobbrMsg.add({ msg: 'Invalid URL' });
             $state.go('^');
         });
+    }
+
+    $scope.getSuggestedTags = function () {
+
+        if ($scope.filteredTags.length > 0) {
+            getGlobalTags();
+        } else if (!$scope.task) {
+            getTaskTags();
+        }
     }
 
     $scope.addPerson = function (person) {
@@ -95,19 +126,20 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
         return item.username !== $rootScope.$mobbrStorage.user.username;
     }
 
-    $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-
+    $scope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
         if ($scope.activeQuery) {
             $scope.$emit('set-active-query');
             $scope.$emit('set-query');
             $scope.task = undefined;
             $scope.persons = undefined;
-            $scope.filteredTags = undefined;
-            $scope.suggestedTags = undefined;
+            $scope.filteredTags = [];
+            $scope.suggestedTags = [];
         }
+    });
 
+    $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
         if (toParams.task) {
-            $scope.setTask();
+            $scope.getSuggestedTags();
         }
     });
 
@@ -120,12 +152,14 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
     }, true);
 
     $scope.$watch('filteredTags', function (newValue, oldValue) {
-        if (newValue !== undefined) {
+        if (newValue && newValue.length > 0) {
             $scope.getSuggestedTags();
             queryPeople();
         }
     }, true);
 
+    $scope.suggestedTags = [];
+    $scope.filteredTags = [];
     $scope.tagsLimiter = { limit: 10 };
     $scope.form = {};
     $scope.selectedPersons = [];

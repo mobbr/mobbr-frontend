@@ -47,21 +47,19 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
         }
     }
 
-    $scope.tagsLimiter = { limit: 10 };
-
-    $scope.$on('$stateChangeSuccess', function () {
-
+    $scope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
         if ($scope.activeQuery) {
             $scope.$emit('set-active-query');
             $scope.$emit('set-query');
             $scope.tasks = undefined;
-            $scope.filteredTags = undefined;
-            $scope.suggestedTags = undefined;
+            $scope.filteredTags = [];
+            $scope.suggestedTags = [];
         }
+    });
 
-        $scope.filteredTags = [];
-        queryTasks();
+    $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
         $scope.getSuggestedTags();
+        queryTasks();
     });
 
     $scope.$on('language-update', function (event, new_language) {
@@ -74,13 +72,11 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
 
     $scope.$watch('filteredTags', function (newValue, oldValue) {
         if (newValue && newValue !== oldValue) {
-            console.log('refresh the value', newValue, oldValue);
             $scope.getSuggestedTags();
             queryTasks();
         }
     }, true);
 
-    $scope.$on('mobbrApi:authchange', function () {
-        $scope.getSuggestedTags();
-    });
+    $scope.filteredTags = [];
+    $scope.tagsLimiter = { limit: 10 };
 });
