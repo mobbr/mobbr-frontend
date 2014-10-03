@@ -47,7 +47,6 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
         }
     }
 
-    $scope.filteredTags = [];
     $scope.tagsLimiter = { limit: 10 };
 
     $scope.$on('$stateChangeSuccess', function () {
@@ -60,6 +59,7 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
             $scope.suggestedTags = undefined;
         }
 
+        $scope.filteredTags = [];
         queryTasks();
         $scope.getSuggestedTags();
     });
@@ -73,7 +73,8 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
     }, true);
 
     $scope.$watch('filteredTags', function (newValue, oldValue) {
-        if (newValue && newValue.length > 0 && newValue !== oldValue) {
+        if (newValue && newValue !== oldValue) {
+            console.log('refresh the value', newValue, oldValue);
             $scope.getSuggestedTags();
             queryTasks();
         }
