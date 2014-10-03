@@ -59,5 +59,10 @@ angular.module('mobbr.controllers').controller('TaskController', function ($scop
         }
     });
 
-    queryTask($state.params.task);
+
+    console.log($state.params.task);
+    if ($state.params.task) {
+        console.log($state.params.task);
+        queryTask($state.params.task);
+    }
 });

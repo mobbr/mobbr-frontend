@@ -10,8 +10,8 @@
     <div class="row top-info tasks-summary">
         <div class="container">
             <div class="row">
-                <a ng-class="$state.is('box.task.view.domain') ? 'active' : ''"
-                   ng-href="#{{ $state.is('box.task.view.domain') ? $state.href('^') : $state.href('box.task.view.domain') }}"
+                <a ng-class="$state.is('box.task.index.domain') ? 'active' : ''"
+                   ng-href="#{{ $state.is('box.task.index.domain') ? $state.href('box.task.index.view') : $state.href('box.task.index.domain') }}"
                      class="card-container col-xs-6 col-md-3">
                     <div class="card" ng-class="has_failed ? 'failed' : ''">
                         <div ng-hide="has_failed">
@@ -40,17 +40,17 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                                <span class="large col-md-12">
-                                                    Click here for more info
-                                                </span>
+                                    <span class="large col-md-12">
+                                        Click here for more info
+                                    </span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </a>
 
-                <a ng-class="$state.is('box.task.view.script') ? 'active' : ''"
-                     ng-href="#{{ $state.is('box.task.view.script') ? $state.href('^') : $state.href('box.task.view.script') }}"
+                <a ng-class="$state.is('box.task.script') ? 'active' : ''"
+                     ng-href="#{{ $state.is('box.task.index.script') ? $state.href('box.task.index.view') : $state.href('box.task.index.script') }}"
                      class="card-container col-xs-6 col-md-3">
                     <div class="card" ng-class="!has_failed && has_script ? '' : 'failed'">
                         <div ng-show="has_script">
@@ -86,10 +86,10 @@
                     </div>
                 </a>
 
-                <div ng-class="$state.is('box.task.view.payments') || $state.is('box.task.view.pay') ? 'active' : ''"
+                <div ng-class="$state.is('box.task.index.payments') || $state.is('box.task.index.pay') ? 'active' : ''"
                      class="card-container col-xs-6 col-md-3">
                     <div class="card" ng-class="has_script && has_payments ? '' : 'failed'">
-                        <a ng-href="#{{ $state.is('box.task.view.payments') ? $state.href('^') : $state.href('box.task.view.payments') }}"
+                        <a ng-href="#{{ $state.is('box.task.index.payments') ? $state.href('box.task.index.view') : $state.href('box.task.index.payments') }}"
                            ng-show="has_script && has_payments">
                             <div class="front">
                                 <div class="row">
@@ -107,7 +107,7 @@
                         </a>
 
                         <a ng-hide="has_script && has_payments"
-                           ng-href="#{{ $state.is('box.task.view.pay') ? $state.href('^') : $state.href('box.task.view.pay') }}">
+                           ng-href="#{{ $state.is('box.task.index.pay') ? $state.href('box.task.index.view') : $state.href('box.task.index.pay') }}">
                             <div class="front">
                                 <div class="row">
                                     <div class="col-md-12">
@@ -118,18 +118,18 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <span ng-show="has_script && !$state.is('tasks.view.task.pay')">Click here to make a payment</span>
+                                    <span ng-show="has_script && !$state.is('box.task.index.pay')">Click here to make a payment</span>
                                 </div>
                             </div>
                         </a>
                     </div>
                 </div>
 
-                <div ng-class="$state.includes('box.task.view.persons') ? 'active' : ''"
+                <div ng-class="$state.includes('box.task.persons') ? 'active' : ''"
                      class="card-container col-xs-6 col-md-3">
                     <div class="card" ng-class="has_script && has_payments && has_participants ? '' : 'failed'">
                         <a ng-show="has_script && has_payments && has_participants"
-                             ng-href="#{{ $state.is('box.task.view.persons') ? $state.href('^') : $state.href('box.task.view.persons') }}">
+                             ng-href="#{{ $state.is('box.task.index.persons') ? $state.href('box.task.index.view') : $state.href('box.task.index.persons') }}">
                             <div class="front">
                                 <div class="row">
                                     <div class="col-md-12">
@@ -146,7 +146,7 @@
                         </a>
 
                         <a ng-hide="has_script && has_payments && has_participants"
-                             ng-href="#{{ $state.href('box.crowds', { task: $state.params.task })">
+                             ng-href="#{{ $state.href('box.crowds.task', { task: $state.params.task })">
                             <div class="front">
                                 <div class="row">
                                     <div class="col-md-12">
@@ -157,7 +157,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                        <span class="large col-md-12" ng-show="has_script && !$state.is('box.task.view.invite')">
+                                        <span class="large col-md-12" ng-show="has_script && !$state.is('box.task.index.invite')">
                                             Click here to invite people
                                         </span>
                                 </div>
@@ -171,34 +171,7 @@
 
     <div class="row task-section-container">
         <div class="col-md-12">
-            <div collapse="$state.is('box.task.view')" ui-view="task-section" class="task-section" ></div>
-        </div>
-    </div>
-
-    <div class="row top-bar">
-        <div class="container">
-            <div ng-if="!has_failed && has_script" class="row">
-                <div class="container">
-                    <div class="row task-info-row">
-                        <div class="col-md-12 task-info">
-                            <h2 ng-bind="task.result.script.title"></h2>
-                            <p ng-bind="task.result.script.description"></p>
-                            <small ng-show="task.result.script.copyright" ng-bind="task.result.script.copyright"></small>
-                            <abbr ng-bind="languagesMap[task.result.script.language]"
-                                  lang="{{ task.result.script.language }}"
-                                  title="{{ languagesMap[task.result.script.language] }}"></abbr>
-                        </div>
-
-                        <div class="col-md-12 task-tags">
-                            <h2>Tags on this task</h2>
-                            <div class="task-tags">
-                                <span ng-repeat="keyword in task.result.script.keywords" ng-bind="keyword" class="label label-default"></span>
-                                <em ng-show="!task.result.script.keywords || task.result.script.keywords.length == 0">No tags defined</em>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div ui-view="task-section" class="task-section" ></div>
         </div>
     </div>
 </div>
