@@ -1,17 +1,19 @@
-<fieldset ng-mouseleave="isopen = false; unsetOpen()">
-    <form ng-submit="gotoUrl(query)" class="input-group">
-        <span class="input-group-addon" ng-mouseover="isopen = true">
+<fieldset>
+    <form ng-submit="gotoUrl(query)" ng-class="{ grayquery: (activeQuery && activeQuery == query && !savedQuery) }" class="input-group">
+        <span class="input-group-addon" ng-mouseover="isopen = true" ng-mouseleave="isopen = false">
             <span class="mobbricon mobbricon-mobbrmenu"></span>
         </span>
         <input type="{{ (urlType == 'CROWDS' || urlType == 'TASK') && 'url' || 'text' }}"
-               ng-class="{ grayquery: (activeQuery && activeQuery == query && !savedQuery) }"
+               pattern="{{ !(urlType == 'CROWDS' || urlType == 'TASK') && '^[A-Za-z0-9_-]{4,32}$' }}"
                class="form-control"
                ng-model="query"
                placeholder="{{placeHolders[urlType]}}"
-               ng-mouseover="setOpen()"
                ng-focus="isfocus = true"
                ng-blur="isfocus = false">
-        <span class="input-group-btn">
+        <span class="input-group-btn guide">
+            <span ng-class="{ 'mobbricon-person': urlType == 'TASKS' || urlType == 'PROFILE', 'mobbricon-domain': urlType == 'TASK' || urlType == 'CROWDS' }" class="mobbricon"></span>
+        </span>
+        <span class="input-group-btn border">
             <button ng-disabled="(activeQuery && activeQuery == query && !savedQuery)"
                     class="btn btn-default"
                     type="submit">
@@ -19,21 +21,21 @@
             </button>
         </span>
     </form>
-    <ul class="list-unstyled query-menu logo-menu" ng-show="isfocus || isopen" role="menu">
-        <li ng-click="setType('TASK')">
-            <a><span class="mobbricon mobbricon-tasks"></span> Create and manage tasks</a>
+    <ul class="list-unstyled query-menu logo-menu" ng-show="isopen" role="menu" ng-mouseover="isopen = true" ng-mouseleave="isopen = false">
+        <li>
+            <a ng-click="isopen = false; setType('TASK')" ui-sref="box.tasks"><span class="mobbricon mobbricon-tasks"></span> Create and manage tasks</a>
         </li>
-        <li ng-click="setType('CROWDS')">
-            <a><span class="mobbricon mobbricon-crowd"></span> Find and invite crowdworkers</a>
+        <li>
+            <a ng-click="isopen = false" ui-sref="box.crowds"><span class="mobbricon mobbricon-crowd"></span> Find and invite crowdworkers</a>
         </li>
-        <li ng-click="setType('TASKS')">
-            <a><span class="mobbricon mobbricon-tasks"></span> Find new tasks</a>
+        <li>
+            <a ng-click="isopen = false; setType('TASKS')" ui-sref="box.tasks"><span class="mobbricon mobbricon-tasks"></span> Find new tasks</a>
         </li>
-        <li ng-click="setType('PROFILE')">
-            <a><span class="mobbricon mobbricon-person"></span> Find new persons</a>
+        <li>
+            <a ng-click="isopen = false;" ui-sref="box.person"><span class="mobbricon mobbricon-person"></span> Find new persons</a>
         </li>
         <li ng-show="mobbrSession.isAuthorized()">
-            <a ui-sref="box.tasks.person({ username: user })"><span class="mobbricon mobbricon-person"></span> My tasks</a>
+            <a ng-click="isopen = false;" ui-sref="box.tasks.person({ username: user })"><span class="mobbricon mobbricon-person"></span> My tasks</a>
         </li>
     </ul>
 </fieldset>
