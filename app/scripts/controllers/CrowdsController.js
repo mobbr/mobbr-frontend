@@ -25,8 +25,8 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
             angular.forEach($scope.selectedPersons, function (selectedPerson) {
                 for (var i = 0; i < $scope.persons.result.length; i++) {
                     var person = $scope.persons.result[i];
-                    if (selectedPerson.id === person.id) {
-                        $scope.persons.result[i] = selectedPerson;
+                    if (selectedPerson.username === person.username) {
+                        $scope.persons.result[i].selected = true;
                     }
                 }
             });
@@ -162,7 +162,7 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
     }, true);
 
     $scope.$watch('filteredTags', function (newValue, oldValue) {
-        if (newValue && newValue.length > 0) {
+        if (newValue && newValue !== oldValue) {
             $scope.getSuggestedTags();
             queryPeople();
         }

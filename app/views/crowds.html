@@ -54,7 +54,7 @@
 <div class="container">
     <div ng-class="{ loading: persons && !persons.$resolved }" class="row data-cards data-cards-persons">
         <div ng-repeat="person in persons.result | filter:filterUser" ng-class="{ 'data-card-highlight': person.match_percentage > 90 }" class="col-md-3 col-sm-4 col-xs-1 data-card-container">
-            <div class="data-card" ng-init="person.selected = false" ng-click="activeQuery && (person.selected = !person.selected);activeQuery && addPerson(person);">
+            <div class="data-card" ng-init="person.selected = person.selected || false" ng-click="activeQuery && (person.selected = !person.selected);activeQuery && addPerson(person);">
                 <img ng-src="https://secure.gravatar.com/avatar/{{ person['gravatar'] }}?s=50&default=https://mobbr.com/img/default-gravatar.png"
                      width="50"
                      height="50"
