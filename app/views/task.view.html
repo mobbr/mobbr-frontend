@@ -1,10 +1,20 @@
-<div class="row top-bar">
+<div class="row wide-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <span class="mobbricon mobbricon-ok"></span>
+                <strong ng-bind="task.result.script.title">Tasks at this domain</strong>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
     <div class="container">
         <div class="row">
             <div class="container">
                 <div class="row task-info-row">
                     <div class="col-md-12 task-info">
-                        <h2 ng-bind="task.result.script.title"></h2>
                         <p ng-bind="task.result.script.description"></p>
                         <small ng-show="task.result.script.copyright" ng-bind="task.result.script.copyright"></small>
                         <abbr ng-bind="languagesMap[task.result.script.language]"
