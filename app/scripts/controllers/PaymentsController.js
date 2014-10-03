@@ -26,8 +26,8 @@ angular.module('mobbr.controllers').controller('PaymentsController', function ($
         return [];
     };
 
-    $scope.removePledes = function () {
-        var selected = $scope.filterSelectedIds($scope.data/pledges.result);
+    $scope.removePledges = function () {
+        var selected = $scope.filterSelectedIds($scope.data.pledges.result);
         if (selected && selected.length > 0) {
             MobbrPayment.unpledge({ids: selected}).$promise.then(function () {
                 pledges.$pledged(redirect);
