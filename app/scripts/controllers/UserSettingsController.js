@@ -118,14 +118,6 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
         $scope.formHolder.addPaymentIdForm.$setPristine();
     }
 
-    function popupMessage(e) {
-        if (e.data === 'oauth-popup') {
-            oauth_popup.close();
-            $scope.waitingAddId = MobbrUser.confirmOauthId({ redirected_url: oauth_popup.location.href });
-            $window.removeEventListener('message', popupMessage);
-        }
-    }
-
     $scope.addExtraEmail = function () {
         if ($scope.formHolder.addPaymentIdForm.$valid) {
             $scope.waitingAddId = MobbrUser.addEmailId({new_email: $scope.addPaymentIdHolder.email}, clearPaymentIdHolder);
@@ -247,6 +239,14 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
         });
     };
 
+    function popupMessage(e) {
+        if (e.data === 'oauth-popup') {
+            oauth_popup.close();
+            $scope.waitingAddId = MobbrUser.confirmOauthId({ redirected_url: oauth_popup.location.href });
+            $window.removeEventListener('message', popupMessage);
+        }
+    }
+
     $scope.addOAuthProvider = function (provider) {
         if (provider) {
             popup_url = $window.location.origin + '/popup.html';
@@ -255,8 +255,8 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
                 provider: provider.provider,
                 redirect_url: popup_url
             }, function (response) {
-                $window.addEventListener('message', popupMessage, false);
                 oauth_popup.location.href = response.result;
+                $window.addEventListener('message', popupMessage, false);
             }, function () {
                 oauth_popup.close();
             });
