@@ -6,15 +6,10 @@ angular.module('mobbr.controllers').controller('TaskController', function ($scop
             $state.go('box.task.index.domain');
         } else if (!$scope.has_script) {
             $state.go('box.task.index.script');
-        } else {
-
-            if (!$scope.has_payments && $state.is('box.task.index.payments')) {
-                $state.go('box.task.index.view');
-            }
-
-            if (!$scope.has_participants && $state.is('box.task.index.people')) {
-                $state.go('box.task.index.view');
-            }
+        } if (!$scope.has_participants) {
+            $state.go('box.task.index.invite');
+        } else if (!$scope.has_payments && $state.is('box.task.index.payments')) {
+            $state.go('box.task.index.view');
         }
     }
 
