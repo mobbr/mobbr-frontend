@@ -143,7 +143,7 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
     }
 
     $scope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-        if ($scope.activeQuery) {
+        if (fromState.name.indexOf('box.crowds') === 0 && $scope.activeQuery) {
             $scope.$emit('set-active-query');
             $scope.$emit('set-query');
             $scope.task = undefined;
