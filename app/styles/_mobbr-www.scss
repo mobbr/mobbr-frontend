@@ -193,6 +193,12 @@
   @include box-shadow(inset 0 0 0 rgba(0,0,0,.075));
 }
 
+.task-pay {
+  background: $gray;
+  position: relative;
+  z-index: 1032;
+}
+
 .task-pay .form-control {
   background: $white;
 }
@@ -370,6 +376,16 @@ label.title {
       font-size: 50px;
     }
 
+    .xsmall {
+      font-size: 16px;
+      font-weight: normal;
+      line-height: 16px;
+    }
+
+    .xsmall.nopad {
+      padding-top: 0;
+    }
+
     .back .txt {
       padding: 1px 0;
     }
@@ -472,6 +488,40 @@ label.title {
       opacity: 0.4;
     }
   }
+}
+
+.tasks-summary .card {
+  position: relative;
+}
+
+.tasks-summary .bottom-icon {
+  position: absolute;
+  bottom: 0;
+  left: 5px;
+  right: 5px;
+}
+
+.bottom-icon .icon {
+  width: 50px;
+  height: 50px;
+  font-size: 20px;
+  line-height: 50px;
+}
+
+.bottom-icon .icon.left {
+  border-right: 1px solid $mobbrlightblue;
+}
+
+.bottom-icon .icon.right {
+  border-left: 1px solid $mobbrlightblue;
+}
+
+.active .bottom-icon .icon {
+  border-bottom: 1px solid $mobbrlightblue;
+}
+
+.task .card-container {
+  margin-bottom: 0;
 }
 
 accordion .panel-default > .panel-heading {
@@ -1460,29 +1510,18 @@ body.blocked .unblocked {
   }
 }
 
+
 .tags {
   border: 0;
 }
 
 .tasks-summary {
-  padding-bottom: 0;
-  border-top: 0;
 
-  .container > .row {
-    margin: 0;
-  }
-
-  .card-container {
-    padding-right: 0;
-    padding-left: 1px;
-  }
-
-  .card-container:first-child {
-    padding-left: 0;
-  }
+  padding-top: 12px;
 
   .card {
-    border: 0;
+
+    border-color: $mobbrlightblue;
 
     .large,
     .xlarge {
@@ -1496,21 +1535,16 @@ body.blocked .unblocked {
       font-size: 72px;
       line-height: 72px;
     }
+  }
 
-    .front,
-    .back {
-      text-align:left;
-      height: 219px;
-      background: $white;
-      color: $mobbrblue;
-    }
+  .card-container .card {
+    color: $white;
+    background: $mobbrblue;
   }
 
   .active .card {
-    .front,
-    .back {
-      height: 220px;
-    }
+    background: $white;
+    color: $mobbrblue;
   }
 }
 
@@ -1572,12 +1606,6 @@ body.blocked .unblocked {
   .large {
     font-size: 24px;
   }
-}
-
-.failed.card .front,
-.failed.card .back {
-  color: #000;
-  background: $mobbrcallout;
 }
 
 .data-card:hover {
@@ -1816,8 +1844,86 @@ fieldset[disabled] .btn {
   padding-top: 0;
 }
 
-.tags {
-  padding-bottom: 16px;
+.tasks-summary .card .top {
+  border-bottom: 1px solid $mobbrlightblue;
+}
+
+.tasks-summary {
+  padding-bottom: 0;
+}
+
+.tasks-summary .card-container {
+  position: relative;
+  z-index: 1032;
+}
+
+.tasks-summary .active .card {
+  border-bottom-width: 0;
+}
+
+.task-data {
+  border-top: $grid-gutter-width solid $mobbrblue;
+  padding-top: $grid-gutter-width;
+}
+
+.task-section-container {
+  position: relative;
+  z-index: 1032;
+  background: $gray;
+}
+
+.tasks-summary .card-container .failed {
+  color: #000;
+  background: $mobbrcallout;
+}
+
+.tasks-summary .disabled .card {
+  background: $mobbrblue;
+  color: $mobbrlightblue;
+}
+
+.task-top {
+  border-top: 0;
+  background: $white;
+  color: $mobbrblue;
+}
+
+.task-warning {
+  background: $mobbrcallout;
+  color: #000;
+}
+
+.task-stats .list-inline {
+  margin-bottom: 0;
+}
+
+.task-section .tags {
+  padding-top: 25px;
+}
+
+.task-section .filter {
+  background: $white;
+  color: $mobbrblue;
+  border: 0;
+}
+
+.task-section .top-info.tags {
+  background: $mobbrcallout;
+  border-top: 0;
+  border-bottom: 0;
+  color: #000;
+
+  .tag {
+    color: #000;
+  }
+
+  .tag.more {
+    color: $white;
+  }
+
+  .tag:hover {
+    color: $white;
+  }
 }
 /*
 .user-thumb {

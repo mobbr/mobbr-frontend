@@ -2,16 +2,19 @@ angular.module('mobbr.controllers').controller('TaskController', function ($scop
     'use strict';
 
     function redirect() {
-        if ($scope.has_failed && !$state.is('box.task.index.domain')) {
+        if ($scope.has_failed) {
             $state.go('box.task.index.domain');
-        }
+        } else if (!$scope.has_script) {
+            $state.go('box.task.index.script');
+        } else {
 
-        if (!$scope.has_payments && $state.is('box.task.index.payments')) {
-            $state.go('box.task.index.view');
-        }
+            if (!$scope.has_payments && $state.is('box.task.index.payments')) {
+                $state.go('box.task.index.view');
+            }
 
-        if (!$scope.has_participants && $state.is('box.task.index.people')) {
-            $state.go('box.task.index.view');
+            if (!$scope.has_participants && $state.is('box.task.index.people')) {
+                $state.go('box.task.index.view');
+            }
         }
     }
 

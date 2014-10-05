@@ -44,58 +44,63 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
         });
     }
 
-    function getTaskTags() {
+    function setInvalidTask() {
+        $scope.$emit('set-query');
+        $scope.$emit('set-active-query');
+        mobbrMsg.add({ msg: 'Invalid URL' });
+        $state.go('^');
+    }
 
-        var url = $window.atob($state.params.task);
+    function setTaskTags(response) {
 
-        $scope.$emit('set-query', url);
+        var tags,
+            url = $window.atob($state.params.task);
 
-        return $scope.task = MobbrUri.info({ url: url }, function (response) {
+        $scope.$emit('set-active-query', url);
 
-            var tags;
+        if (response.result.script && response.result.script.length !== 0) {
 
-            $scope.$emit('set-active-query', url);
+            $scope.no_script = false;
+            tags = response.result.script.keywords || [];
 
-            if (response.result.script && response.result.script.length !== 0) {
+            angular.forEach(tags, function (keyword) {
+                $scope.suggestedTags.push({ keyword: keyword });
+            });
 
-                $scope.no_script = false;
-                tags = response.result.script.keywords || [];
+            if ($scope.suggestedTags.length > 0) {
+                queryPeople();
+            } else {
+                getGlobalTags().$promise.then(queryPeople);
+            }
+        } else {
 
-                angular.forEach(tags, function (keyword) {
+            $scope.no_script = true;
+
+            if (response.result.metadata && response.result.metadata.keywords) {
+                angular.forEach(response.result.metadata.keywords, function (keyword) {
                     $scope.suggestedTags.push({ keyword: keyword });
                 });
-
-                if ($scope.suggestedTags.length > 0) {
-                    queryPeople();
-                } else {
-                    getGlobalTags().$promise.then(queryPeople);
-                }
-            } else {
-
-                $scope.no_script = true;
-
-                if (response.result.metadata && response.result.metadata.keywords) {
-                    angular.forEach(response.result.metadata.keywords, function (keyword) {
-                        $scope.suggestedTags.push({ keyword: keyword });
-                    });
-                }
-
-                queryPeople();
             }
-        }, function () {
-            $scope.$emit('set-query');
-            $scope.$emit('set-active-query');
-            mobbrMsg.add({ msg: 'Invalid URL' });
-            $state.go('^');
-        });
+
+            queryPeople();
+        }
     }
 
     $scope.getSuggestedTags = function () {
 
+        var url = $window.atob($state.params.task);
+
         if ($scope.filteredTags.length > 0) {
             getGlobalTags();
         } else if (!$scope.task) {
-            getTaskTags();
+            $scope.$emit('set-query', url);
+            $scope.task = MobbrUri.info({ url: url }).$promise.then(setTaskTags, setInvalidTask);
+        } else {
+            if ($scope.task.$resolved) {
+                setTaskTags($scope.task.result);
+            } else {
+                $scope.task.$promise.then(setTaskTags);
+            }
         }
     }
 

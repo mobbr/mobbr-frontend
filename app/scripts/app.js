@@ -231,12 +231,7 @@ angular.module('mobbr', [
                 url: '/:task',
                 abstract: true
             }).state('box.task.index.view', {
-                url: '/view',
-                views: {
-                    'task-section': {
-                        templateUrl: 'views/task.view.html'
-                    }
-                }
+                url: '/view'
             }).state('box.task.index.domain', {
                 url: '/domain',
                 views: {
@@ -244,14 +239,18 @@ angular.module('mobbr', [
                         controller: 'TaskDomainController',
                         templateUrl: 'views/task.domain.html'
                     }
-                }
+                },
+                onEnter: blockUI,
+                onExit: unblockUI
             }).state('box.task.index.script', {
                 url: '/script',
                 views: {
                     'task-section': {
                         templateUrl: 'views/task.script.html'
                     }
-                }
+                },
+                onEnter: blockUI,
+                onExit: unblockUI
             }).state('box.task.index.payments', {
                 url: '/payments',
                 views: {
@@ -259,7 +258,9 @@ angular.module('mobbr', [
                         controller: 'TaskPaymentsController',
                         templateUrl: 'views/task.payments.html'
                     }
-                }
+                },
+                onEnter: blockUI,
+                onExit: unblockUI
             }).state('box.task.index.persons', {
                 url: '/persons',
                 views: {
@@ -267,15 +268,19 @@ angular.module('mobbr', [
                         controller: 'TaskPersonsController',
                         templateUrl: 'views/task.persons.html'
                     }
-                }
+                },
+                onEnter: blockUI,
+                onExit: unblockUI
             }).state('box.task.index.invite', {
                 url: '/invite',
                 views: {
                     'task-section': {
-                        controller: 'TaskInviteController',
-                        templateUrl: 'views/task.invite.html'
+                        controller: 'CrowdsController',
+                        templateUrl: 'views/crowds.html'
                     }
-                }
+                },
+                onEnter: blockUI,
+                onExit: unblockUI
             }).state('box.task.index.pay', {
                 url: '/pay',
                 views: {
@@ -283,7 +288,9 @@ angular.module('mobbr', [
                         controller: 'PayController',
                         templateUrl: 'views/pay.html'
                     }
-                }
+                },
+                onEnter: blockUI,
+                onExit: unblockUI
             }).state('box.crowds', {
                 url: '/crowds',
                 views: {
