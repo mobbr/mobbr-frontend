@@ -1,32 +1,43 @@
 <div class="task-payments">
 
-    <div class="row wide-header">
+    <div class="row top-info filter task-top" ng-class="!has_payments ? 'task-warning' : ''">
         <div class="container">
-            <div class="col-md-12">
-                <span class="mobbricon mobbricon-ok"></span>
-                <strong>Payments</strong>
+            <div class="row">
+                <div class="col-md-12 title">
+                    <span class="mobbricon mobbricon-payments"></span>
+                    <strong ng-show="has_payments">Funding</strong>
+                    <strong ng-show="!has_payments">No funding on this task yet</strong>
+                </div>
             </div>
         </div>
     </div>
-    <div class="row">
+
+    <div class="row" ng-show="has_payments">
         <div class="container">
             <div class="row" ng-class="{ loading: payments && !payments.$resolved }">
-                <div class="col-md-12">
+                <div class="col-md-12 tablecontainer">
                     <table class="table">
                         <thead>
                         <tr>
                             <th>Date</th>
-                            <th>Title</th>
-                            <th>Currency</th>
-                            <th>Amount</th>
+                            <th>Senders</th>
+                            <th class="text-center">Currency</th>
+                            <th class="text-right">Amount</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr ng-repeat="payment in payments.result">
                             <td ng-bind="payment.datetime"></td>
-                            <td ng-bind="payment.title"></td>
-                            <td ng-bind="payment.currency_iso"></td>
-                            <td ng-bind="payment.amount | mobbrcurrency:''"></td>
+                            <td>
+                                <div ng-repeat="sender in payment.senders">
+                                    <img ng-src="https://secure.gravatar.com/avatar/{{ sender.gravatar }}?s=20&default=https://mobbr.com/img/default-gravatar.png"
+                                         width="28"
+                                         height="28">
+                                    <span ng-bind="sender.username"></span>
+                                </div>
+                            </td>
+                            <td ng-bind="payment.currency_iso" class="text-center"></td>
+                            <td ng-bind-html="payment.amount | mobbrcurrency:'':true:true" class="text-right"></td>
                         </tr>
                         </tbody>
                     </table>
