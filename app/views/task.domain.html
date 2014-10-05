@@ -1,29 +1,31 @@
-<div class="row wide-header">
+<div class="row top-info filter task-top" ng-class="has_failed ? 'task-warning' : ''">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <span class="mobbricon mobbricon-ok"></span>
+            <div class="col-md-12 title">
+                <span class="mobbricon mobbricon-domain"></span>
                 <strong ng-if="!has_failed">Tasks at this domain</strong>
-                <strong ng-if="has_failed">Your domain is not reachable by Mobbr</strong>
+                <strong ng-if="has_failed">HTML validation</strong>
             </div>
         </div>
     </div>
 </div>
 
-<div ng-show="!has_failed && urls.result.length > 0" class="row data-cards" ng-class="{ loading: urls && !urls.$resolved }">
-    <a ng-repeat="url in urls.result" ui-sref="tasks.view.task({ task: encodeTask(url.url) })">
-        <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2 data-card-container">
-            <div class="data-card">
-                <h3 ng-bind="url.title"></h3>
-                <p ng-bind="url.description"></p>
-                <div class="bottom">
-                    <div class="item large amount" ng-bind-html="url.amount_total | mobbrcurrency:url.currency_iso:true"></div>
-                    <div class="item large participants" class="participants" ng-bind="url.num_recipients"></div>
-                    <div class="item" ng-bind="url.domain"></div>
+<div class="container">
+    <div ng-show="!has_failed && urls.result.length > 0" class="row data-cards" ng-class="{ loading: urls && !urls.$resolved }">
+        <a ng-repeat="url in urls.result" ui-sref="tasks.view.task({ task: encodeTask(url.url) })">
+            <div class="col-xs-1 col-sm-4 col-md-3 data-card-container">
+                <div class="data-card">
+                    <h3 ng-bind="url.title"></h3>
+                    <p ng-bind="url.description"></p>
+                    <div class="bottom">
+                        <div class="item large amount" ng-bind-html="url.amount_total | mobbrcurrency:url.currency_iso:true"></div>
+                        <div class="item large participants" class="participants" ng-bind="url.num_recipients"></div>
+                        <div class="item" ng-bind="url.domain"></div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </a>
+        </a>
+    </div>
 </div>
 
 <div class="row">
@@ -33,9 +35,31 @@
                 <div ng-hide="has_failed || (urls.$resolved && urls.result.length > 0) || !urls.$resolved" class="col-md-12">
                     <h2 class="text-center"><em>This domain has no tasks</em></h2>
                 </div>
-
                 <div ng-show="has_failed" class="col-md-12 task-tags" class="col-md-12">
-                    <p>Fix it!!!!</p>
+                    <div class="row">
+                        <div class="col-sm-3 col-md-2">
+                            <span class="mobbricon" ng-class="{ 'mobbricon-done': task.result.metadata.title, 'mobbricon-hardalert': !task.result.metadata.title }"></span>
+                            Title
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3 col-md-2">
+                            <span class="mobbricon" ng-class="{ 'mobbricon-done': task.result.metadata.description, 'mobbricon-hardalert': !task.result.metadata.description }"></span>
+                            Description
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3 col-md-2">
+                            <span class="mobbricon" ng-class="{ 'mobbricon-done': task.result.metadata.keywords, 'mobbricon-hardalert': !task.result.metadata.keywords }"></span>
+                            Keywords
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3 col-md-2">
+                            <span class="mobbricon" ng-class="{ 'mobbricon-done': task.result.metadata.language, 'mobbricon-hardalert': !task.result.metadata.language }"></span>
+                            Language
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

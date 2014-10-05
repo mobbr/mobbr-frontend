@@ -46,8 +46,7 @@ angular.module('mobbr', [
         $stateProvider.state('main', {
                 url: '/',
                 templateUrl: 'views/main.html',
-                controller: 'MainController',
-                data: { authenticated: false, redirectTo: 'updates' }
+                controller: 'MainController'
             }).state('updates', {
                 url: '/updates',
                 templateUrl: 'views/updates.html',
@@ -217,7 +216,7 @@ angular.module('mobbr', [
             }).state('box.tasks.person', {
                 url: '/:username'
             }).state('box.task', {
-                abstract: true,
+                url: '/task',
                 views: {
                     'tasks-section': {
                         controller: 'TaskController',
@@ -227,55 +226,70 @@ angular.module('mobbr', [
                 data: {
                     title: 'Task status'
                 }
-            }).state('box.task.view', {
-                url: '^/task/:task'
-            }).state('box.task.view.domain', {
+            }).state('box.task.index', {
+                url: '/:task',
+                abstract: true
+            }).state('box.task.index.view', {
+                url: '/view'
+            }).state('box.task.index.domain', {
                 url: '/domain',
                 views: {
                     'task-section': {
                         controller: 'TaskDomainController',
                         templateUrl: 'views/task.domain.html'
                     }
-                }
-            }).state('box.task.view.script', {
+                },
+                onEnter: blockUI,
+                onExit: unblockUI
+            }).state('box.task.index.script', {
                 url: '/script',
                 views: {
                     'task-section': {
                         templateUrl: 'views/task.script.html'
                     }
-                }
-            }).state('box.task.view.payments', {
+                },
+                onEnter: blockUI,
+                onExit: unblockUI
+            }).state('box.task.index.payments', {
                 url: '/payments',
                 views: {
                     'task-section': {
                         controller: 'TaskPaymentsController',
                         templateUrl: 'views/task.payments.html'
                     }
-                }
-            }).state('box.task.view.persons', {
+                },
+                onEnter: blockUI,
+                onExit: unblockUI
+            }).state('box.task.index.persons', {
                 url: '/persons',
                 views: {
                     'task-section': {
                         controller: 'TaskPersonsController',
                         templateUrl: 'views/task.persons.html'
                     }
-                }
-            }).state('box.task.view.invite', {
+                },
+                onEnter: blockUI,
+                onExit: unblockUI
+            }).state('box.task.index.invite', {
                 url: '/invite',
                 views: {
                     'task-section': {
-                        controller: 'TaskInviteController',
-                        templateUrl: 'views/task.invite.html'
+                        controller: 'CrowdsController',
+                        templateUrl: 'views/crowds.html'
                     }
-                }
-            }).state('box.task.view.pay', {
+                },
+                onEnter: blockUI,
+                onExit: unblockUI
+            }).state('box.task.index.pay', {
                 url: '/pay',
                 views: {
                     'pay@box': {
                         controller: 'PayController',
                         templateUrl: 'views/pay.html'
                     }
-                }
+                },
+                onEnter: blockUI,
+                onExit: unblockUI
             }).state('box.crowds', {
                 url: '/crowds',
                 views: {

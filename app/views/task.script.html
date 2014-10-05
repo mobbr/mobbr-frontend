@@ -1,12 +1,13 @@
-<div class="row wide-header">
+<div class="row top-info filter task-top" ng-class="!has_script ? 'task-warning' : ''">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <strong ng-if="has_script">Lorum Ipsum title</strong>
-                <strong ng-if="!has_script">Instructions</strong>
+            <div class="col-md-12 title">
+                <span class="mobbricon mobbricon-tasks"></span>
+                <strong ng-if="has_script">Currently reporting the following participation</strong>
+                <strong ng-if="!has_script">Script validation</strong>
             </div>
         </div>
-   </div>
+    </div>
 </div>
 
 <div ng-if="!has_failed && !has_script" class="row task-instructions">
@@ -19,75 +20,102 @@
     </div>
 </div>
 
-<div ng-if="!has_failed && has_script" class="row">
+<div ng-if="!has_failed && has_script" class="row task-stats">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <span ng-bind-html="task.result.statistics.amount_total | mobbrcurrency:task.result.statistics.amount_currency:true:true"></span>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                    <span class="info-box">
-                        <span class="mobbricon mobbricon-softalert"></span> <span ng-bind="task.result.script.message"></span>
-                    </span>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                Nationalities
-                <ul>
-                    <li ng-repeat="nationality in task.result.statistics.nationalities" ng-bind="nationality"></li>
-                </ul>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                Currencies
-                <ul>
-                    <li ng-repeat="currency in task.result.statistics.currencies" ng-bind="currency"></li>
-                </ul>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <span class="mobbricon mobbricon-payments"></span>
-                <span ng-bind="task.result.statistics.num_payments"></span>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <span class="mobbricon mobbricon-crowd"></span>
-                <span ng-bind="task.result.statistics.num_recipients"></span>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <span class="mobbricon mobbricon-crowd"></span>
-                <span ng-bind="task.result.statistics.num_senders"></span>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>Participant</th>
-                        <th>Role</th>
-                        <th>Share</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="participant in task.result.script.participants">
-                        <td>
-                            <a ng-bind="participant.id" ng-href="{{ participant.id }}" target="_blank"></a>
-                        </td>
-                        <td ng-bind="participant.role"></td>
-                        <td ng-bind="participant.share"></td>
-                    </tr>
-                    </tbody>
-                </table>
+                <div class="row">
+                    <div class="col-sm-3 col-md-2"><span class="mobbricon mobbricon-info"></span> Message</div>
+                    <div class="col-sm-7 col-md-8">
+                        <span ng-bind="task.result.script.message"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 col-md-2"><span class="mobbricon mobbricon-payments"></span> First payment</div>
+                    <div class="col-sm-7 col-md-8">
+                        <span ng-bind="task.result.statistics.firstpaiddatetime | amCalendar"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 col-md-2"><span class="mobbricon mobbricon-payments"></span> Last payment</div>
+                    <div class="col-sm-7 col-md-8">
+                        <span ng-bind="task.result.statistics.lastpaiddatetime | amCalendar"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 col-md-2"><span class="mobbricon mobbricon-domain"></span> Nationalities</div>
+                    <div class="col-sm-7 col-md-8">
+                        <ul class="list-inline">
+                            <li ng-repeat="nationality in task.result.statistics.nationalities" ng-bind="nationality"></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 col-md-2"><span class="mobbricon mobbricon-payments"></span> Currencies</div>
+                    <div class="col-sm-7 col-md-8">
+                        <ul class="list-inline">
+                            <li ng-repeat="currency in task.result.statistics.currencies" ng-bind="currency"></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 col-md-2"><span class="mobbricon mobbricon-crowd"></span> Participation</div>
+                    <div class="col-sm-7 col-md-8">
+                        {{ task.result.statistics.num_senders }} sender{{ task.result.statistics.num_senders > 1 && 's' || '' }} made {{ task.result.statistics.num_payments }} payment{{ task.result.statistics.num_payments > 1 && 's' || '' }} that {{ task.result.statistics.num_payments > 1 && 'were' || 'was' }} divided over {{ task.result.statistics.num_recipients }} recipients
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<accordion ng-if="!has_failed && has_script">
+    <accordion-group is-open="participants_open" is-disabled="task.result.script.participants.length == 0">
+        <accordion-heading>
+            <div class="container">
+                <div class="row" ng-class="{ disabled: task.result.script.participants.length == 0 }">
+                    <div class="col-xs-8 title">
+                        <span class="mobbricon mobbricon-crowd"></span>
+                        <strong>Participants ({{ task.result.script.participants.length }})</strong>
+                    </div>
+                    <div class="icons" ng-show="task.result.script.participants.length > 0">
+                        <div class="col-xs-1 text-center icon">
+                            <span class="mobbricon mobbricon-info"></span>
+                        </div>
+                        <div class="col-xs-1 text-center icon">
+                            <span ng-class="participants_open ? 'mobbricon-softclose' : 'mobbricon-addopen'" class="mobbricon"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </accordion-heading>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 tablecontainer">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>
+                                Participant
+                            </th>
+                            <th>
+                                Role
+                            </th>
+                            <th>
+                                Share
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="participant in task.result.script.participants">
+                            <td ng-bind="participant.id"></td>
+                            <td ng-bind="participant.role"></td>
+                            <td ng-bind="participant.share"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </accordion-group>
+</accordion>

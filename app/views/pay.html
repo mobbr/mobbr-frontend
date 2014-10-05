@@ -55,13 +55,13 @@
                             <div class="col-xs-5">
                                 <button ng-disabled="!currency || !amount || confirm.$resolved || (invoices && !invoices_confirm) || (!activeQuery && !payQuery)"
                                         ng-click="payment.result.hash ? pay() : previewPay()"
-                                        ng-bind="confirm.message.text || task.result.script.pledge && 'Pledge' || 'Pay'"
+                                        ng-bind="task.result.script.pledge && 'Pledge' || 'Pay'"
                                         class="btn btn-success btn-block"
                                         type="submit">
                                 </button>
                             </div>
                             <div class="col-xs-2">
-                                <button ng-click="$state.go('^')" class="btn btn-danger btn-block">X</button>
+                                <a ui-sref="box.task.index.view" class="btn btn-danger btn-block">X</a>
                             </div>
                         </div>
                     </fieldset>

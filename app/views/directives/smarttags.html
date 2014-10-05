@@ -2,30 +2,31 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h2><span class="mobbricon mobbricon-tag"></span> {{ tagsTitle }}</h2>
-                <ul class="tasks-tags list-inline">
-                    <li ng-show="tagsChanged">
-                        <a ng-click="resetTags(); tagsChanged = false;"><span class="label label-default">Reset <span class="mobbricon mobbricon-tag"></span></span></a>
-                    </li>
-                    <li ng-show="filteredTags.length == 0">
-                        <a ng-click="topTags(); tagsChanged = true;"><span class="label label-default">No tags to display, click here for top tags <span class="mobbricon mobbricon-tag"></span></span></a>
-                    </li>
-                    <li ng-repeat="tag in filteredTags" >
-                        <a ng-click="removeTag(tag)" href="">
-                            <span class="label label-default">
-                                <span class="mobbricon mobbricon-tag"></span>
-                                {{tag}}
-                                <span class="mobbricon mobbricon-hardclose"></span>
-                            </span>
+                <h2 class="title"><span class="mobbricon mobbricon-tag"></span> {{ filteredTags.length == 0 && 'Suggested' || 'Related' }} tags</h2>
+                <ul class="tasks-tags list-unstyled">
+                    <li ng-repeat="tag in filteredTags">
+                        <a ng-click="removeTag(tag)" class="label label-default tag pull-left">
+                            <span class="mobbricon mobbricon-tag"></span>
+                            {{tag}}
+                            <span class="mobbricon mobbricon-hardclose"></span>
                         </a>
                     </li>
-                    <li>
-                        <form ng-submit="addTag()" name="addTagForm">
-                            <input type="text" ng-model="form.newTag">
-                            <button class="btn btn-primary" type="submit">
-                                Add
+                    <li ng-repeat="tag in suggestedTags | limitTo: tagsLimiter.limit | filter: filterKeyword">
+                        <a ng-click="addTag(tag.keyword)" class="label suggested label-default tag pull-left">
+                            <span class="mobbricon mobbricon-tag"></span>
+                            {{ tag.keyword }}
+                            <span class="mobbricon mobbricon-addopen"></span>
+                        </a>
+                    </li>
+                    <li ng-show="suggestedTags.length >= tagsLimiter.limit" ng-click="tagsLimiter.limit = tagsLimiter.limit + 10; getSuggestedTags();">
+                        <a class="pull-left label tag more label-default">More <span class="mobbricon mobbricon-addopen"></span></a>
+                    </li>
+                    <li class="label label-default tag addtag pull-left">
+                        <form class="form-inline" ng-submit="addTag()">
+                            <input placeholder="Add keyword" class="form-control pull-left" type="text" ng-model="form.newTag">
+                            <label class="pull-left">
                                 <span class="mobbricon mobbricon-addopen"></span>
-                            </button>
+                            </label>
                         </form>
                     </li>
                 </ul>

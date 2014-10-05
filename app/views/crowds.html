@@ -1,46 +1,32 @@
-<smart-tags ng-show="tags && tags.length !== undefined" tags-title="activeQuery && 'Tags on this task' || 'Enter any URL to display tags'" tags="tags" filtered-tags="filteredTags" reset-tags="resetTags" language="filter_language"></smart-tags>
+<smart-tags ng-show="task.$resolved"
+            tags="tags"
+            filtered-tags="filteredTags"
+            reset-tags="resetTags"
+            tags-limiter="tagsLimiter"
+            suggested-tags="suggestedTags"
+            get-suggested-tags="getSuggestedTags"></smart-tags>
 
-<div ng-show="tags && tags.length !== undefined" class="row top-info filter">
+<div class="row top-info filter" ng-show="task.$resolved">
     <div class="container">
         <div class="row">
             <fieldset ng-disabled="(persons && !persons.$resolved)" class="form-horizontal">
-                <div class="col-xs-9 title">
-                    <span class="mobbricon mobbricon-filter"></span>
-                    <strong>Filter by</strong>
-                </div>
-                <div class="col-xs-3">
-                    <select class="form-control"
-                            ng-options="language.code as language.name for language in usedLanguages.result"
-                            ng-init="filter_language = getLanguage()"
-                            ng-model="filter_language">
-                        <option value="">Choose language</option>
-                    </select>
-                </div>
-            </fieldset>
-        </div>
-    </div>
-</div>
-
-<div class="row top-info filter">
-    <div class="container">
-        <div class="row">
-            <fieldset ng-disabled="(persons && !persons.$resolved) || (!tags.$resolved)" class="form-horizontal">
                 <div class="col-md-3 title">
                     <span class="mobbricon mobbricon-crowd"></span>
                     <strong>My future team</strong>
                 </div>
                 <div class="col-md-9 text-right">
-                    <span ng-show="selectedPersons && selectedPersons.length == 0">Select people to invite for this task</span>
+                    <span ng-show="mobbrSession.isAuthorized() && selectedPersons && selectedPersons.length == 0" class="btn btn-link">Select people to invite for this task</span>
+                    <span ng-show="!mobbrSession.isAuthorized() && selectedPersons && selectedPersons.length == 0" class="btn btn-link">Login to find your workforce</span>
                     <img ng-repeat="person in selectedPersons"
                          ng-src="https://secure.gravatar.com/avatar/{{ person['gravatar'] }}?s=50&default=https://mobbr.com/img/default-gravatar.png"
-                         width="50"
-                         height="50"
+                         width="40"
+                         height="40"
                          ng-click="removePerson(person)">
                     <button class="btn btn-danger" ng-click="removePerson()" ng-show="selectedPersons.length > 0">
                         Clear invites
                         <span class="mobbricon mobbricon-hardclose"></span>
                     </button>
-                    <button class="btn btn-primary" ng-click="invitePeople()" ng-show="selectedPersons.length > 0">
+                    <button class="btn btn-success" ng-click="invitePeople()" ng-show="selectedPersons.length > 0">
                         Invite these people
                         <span class="mobbricon mobbricon-crowd"></span>
                     </button>
@@ -50,58 +36,72 @@
     </div>
 </div>
 
-
-
-<div ng-class="{ loading: persons && !persons.$resolved }" class="row data-cards data-cards-persons">
-    <div ng-repeat="person in persons.result | filter:filterUser" ng-class="{ 'data-card-highlight': person.match_percentage > 90 }" class="col-md-3 data-card-container">
-        <div class="data-card" ng-init="person.selected = false" ng-click="activeQuery && (person.selected = !person.selected);activeQuery && addPerson(person);">
-            <img ng-src="https://secure.gravatar.com/avatar/{{ person['gravatar'] }}?s=50&default=https://mobbr.com/img/default-gravatar.png"
-                 width="50"
-                 height="50"
-                 class="pull-left">
-            <h3 ng-bind="person.username"></h3>
-            <span ng-show="person.verified_identity">Verified</span>
-            <span ng-show="person.invoicable">Invoicable</span>
-
-            <ul class="list-unstyled">
-                <li ng-repeat="role in person.role">
-                    <strong ng-bind="role"></strong>
-                </li>
-            </ul>
-
-            <div>
-                <div class="item large participants">
-                    <span ng-bind="person.match_percentage + '%'"></span>
-                    <span class="mobbricon mobbricon-unclaimed"></span>
-                </div>
-                <div class="item large tasks">
-                    <span ng-bind="person.num_participated_tasks"></span>
-                    <span class="mobbricon mobbricon-tasks"></span>
-                </div>
-                <div class="item large">
-                    <span ng-bind="person.num_participated_domains"></span>
-                    <span class="mobbricon mobbricon-domain"></span>
-                </div>
+<div class="row top-info filter" ng-show="task.$resolved && no_script">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <span ng-show="selectedPersons && selectedPersons.length == 0" class="btn btn-link"><span class="mobbricon mobbricon-hardalert"></span> This page has no Mobbr support button</span>
             </div>
-
-            <div class="checkbox">
-                <label>
-                    <input ng-show="activeQuery" type="checkbox" ng-model="person.selected" disabled>
-                    Invite for this task
-                </label>
+            <div class="col-md-3">
+                <a ui-sref="box.task.view({ task: $state.params.task })" class="btn btn-primary btn-block">Prepare page</a>
             </div>
         </div>
     </div>
-    <div class="col-md-12 text-center" ng-show="no_script">
-        <h2><em>this page has no Mobbr support button <a ui-sref="box.task.view({ task: $state.params.task })">Prepare page</a></em></h2>
-    </div>
-    <div class="col-md-12 text-center" ng-show="tags === undefined">
-        <h2><em>Enter any URL to find your workforce...</em></h2>
-    </div>
-    <div class="col-md-12 text-center" ng-show="!no_script && tags === null && !persons.$resolved">
-        <h2><em>Finding your workforce...</em></h2>
-    </div>
-    <div class="col-md-12 text-center" ng-show="persons.$resolved && persons.result.length == 0">
-        <h2><em>No workforce found...</em></h2>
+</div>
+
+
+
+
+<div class="container">
+    <div ng-class="{ loading: persons && !persons.$resolved }" class="row data-cards data-cards-persons">
+        <div ng-repeat="person in persons.result | filter:filterUser" ng-class="{ 'data-card-highlight': person.match_percentage > 90 }" class="col-md-3 col-sm-4 col-xs-1 data-card-container">
+            <div class="data-card" ng-init="person.selected = person.selected || false" ng-click="mobbrSession.isAuthorized() && activeQuery && (person.selected = !person.selected);activeQuery && addPerson(person);">
+                <img ng-src="https://secure.gravatar.com/avatar/{{ person['gravatar'] }}?s=50&default=https://mobbr.com/img/default-gravatar.png"
+                     width="50"
+                     height="50"
+                     class="pull-left">
+                <h3 ng-bind="person.username"></h3>
+                <span ng-show="person.verified_identity">Verified</span>
+                <span ng-show="person.invoicable">Invoicable</span>
+
+                <ul class="list-unstyled">
+                    <li ng-repeat="role in person.role">
+                        <strong ng-bind="role"></strong>
+                    </li>
+                </ul>
+
+                <div>
+                    <div class="item large participants">
+                        <span ng-bind="person.match_percentage + '%'"></span>
+                        <span class="mobbricon mobbricon-unclaimed"></span>
+                    </div>
+                    <div class="item large tasks">
+                        <span ng-bind="person.num_participated_tasks"></span>
+                        <span class="mobbricon mobbricon-tasks"></span>
+                    </div>
+                    <div class="item large">
+                        <span ng-bind="person.num_participated_domains"></span>
+                        <span class="mobbricon mobbricon-domain"></span>
+                    </div>
+                </div>
+
+                <div class="checkbox" ng-show="activeQuery && mobbrSession.isAuthorized()">
+                    <label>
+                        <input type="checkbox" ng-model="person.selected" disabled>
+                        Invite for this task
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12 text-center" ng-show="task === undefined">
+            <h2><em>Enter any URL to find your workforce...</em></h2>
+        </div>
+        <div class="col-md-12 text-center" ng-show="task && !task.$resolved || persons && !persons.$resolved">
+            <h2><em>Finding your workforce...</em></h2>
+        </div>
+        <div class="col-md-12 text-center" ng-show="persons.$resolved && persons.result.length == 0">
+            <h2><em>No workforce found...</em></h2>
+        </div>
     </div>
 </div>

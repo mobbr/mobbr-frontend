@@ -193,6 +193,12 @@
   @include box-shadow(inset 0 0 0 rgba(0,0,0,.075));
 }
 
+.task-pay {
+  background: $gray;
+  position: relative;
+  z-index: 1032;
+}
+
 .task-pay .form-control {
   background: $white;
 }
@@ -370,6 +376,16 @@ label.title {
       font-size: 50px;
     }
 
+    .xsmall {
+      font-size: 16px;
+      font-weight: normal;
+      line-height: 16px;
+    }
+
+    .xsmall.nopad {
+      padding-top: 0;
+    }
+
     .back .txt {
       padding: 1px 0;
     }
@@ -472,6 +488,40 @@ label.title {
       opacity: 0.4;
     }
   }
+}
+
+.tasks-summary .card {
+  position: relative;
+}
+
+.tasks-summary .bottom-icon {
+  position: absolute;
+  bottom: 0;
+  left: 5px;
+  right: 5px;
+}
+
+.bottom-icon .icon {
+  width: 50px;
+  height: 50px;
+  font-size: 20px;
+  line-height: 50px;
+}
+
+.bottom-icon .icon.left {
+  border-right: 1px solid $mobbrlightblue;
+}
+
+.bottom-icon .icon.right {
+  border-left: 1px solid $mobbrlightblue;
+}
+
+.active .bottom-icon .icon {
+  border-bottom: 1px solid $mobbrlightblue;
+}
+
+.task .card-container {
+  margin-bottom: 0;
 }
 
 accordion .panel-default > .panel-heading {
@@ -646,8 +696,17 @@ accordion .info-bar {
     background: $white;
     color: $mobbryellow;
 
-    select, .btn {
-      background: $mobbryellow;
+    img {
+      margin-left: 4px;
+    }
+
+    .btn-link {
+      background: transparent;
+      color: $mobbryellow;
+      padding-right: 0;
+    }
+
+    .btn-primary {
       color: $white;
     }
   }
@@ -835,7 +894,6 @@ a.btn-call {
     font-size: 20px;
   }
 }
-
 
 accordion {
 
@@ -1094,6 +1152,28 @@ body.blocked .unblocked {
   }
 }
 
+.logo-menu {
+  font-family: 'Roboto Condensed';
+  font-size: 1.2em;
+  min-width: auto;
+  padding-left: 5px;
+  padding-right: 5px;
+  border: 0;
+  margin-top: 0;
+  z-index: 2004;
+
+  a {
+    background-color: $gray;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid $white;
+  }
+
+  .link-call {
+    background-color: $mobbrcallout;
+  }
+}
+
 .navbar-fixed-top {
   border: 0;
 
@@ -1172,28 +1252,14 @@ body.blocked .unblocked {
   }
 
   .logo-menu {
-    font-family: 'Roboto Condensed';
-    font-size: 1.2em;
     top: 0;
     padding-top: 26px;
     min-width: auto;
     left: 0;
     right: 0;
-    padding-left: 5px;
-    padding-right: 5px;
-    border: 0;
-    margin-top: 0;
-    z-index: 2004;
 
     @media (min-width: $screen-sm-min) {
       padding-top: 60px;
-    }
-
-    a {
-      background-color: $gray;
-      padding-top: 10px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid $white;
     }
 
     .link-call {
@@ -1385,8 +1451,15 @@ body.blocked .unblocked {
 .query-bar {
   padding-bottom: 0;
   padding-top: $grid-gutter-width * 2;
-  border-bottom: 1px solid $mobbrblue;
+  padding-bottom: $grid-gutter-width * 2;
 
+  input {
+    background: $white;
+  }
+
+  .grayquery input {
+    background: $gray;
+  }
 
   .form-control {
     padding: $grid-gutter-width;
@@ -1399,37 +1472,56 @@ body.blocked .unblocked {
     padding-bottom: 0;
     margin-top: $grid-gutter-width / 2;
     margin-bottom: $grid-gutter-width / 2;
+    border: 1px solid $white;
   }
 
   .input-group-btn .btn {
     height: 50px;
     width: 50px;
   }
+
+  .input-group-btn.border .btn {
+    margin-left: 1px;
+  }
+
+  .input-group-btn.guide {
+    background: $white;
+    text-align: center;
+    width: 50px;
+    height: 50px;
+  }
+
+  .input-group-btn.guide .mobbricon {
+    font-size: 14px;
+    color: shade($gray, 12.5%);
+  }
+
+  .grayquery .input-group-btn.guide {
+    background: $gray;
+  }
+
+  .grayquery .input-group-btn.guide .mobbricon {
+    color: shade($gray, 25%);
+  }
+
+  .input-group-btn .btn:hover {
+    background: $white;
+    color: $mobbrblue;
+  }
 }
+
 
 .tags {
   border: 0;
 }
 
 .tasks-summary {
-  padding-bottom: 0;
-  border-top: 0;
 
-  .container > .row {
-    margin: 0;
-  }
-
-  .card-container {
-    padding-right: 0;
-    padding-left: 1px;
-  }
-
-  .card-container:first-child {
-    padding-left: 0;
-  }
+  padding-top: 12px;
 
   .card {
-    border: 0;
+
+    border-color: $mobbrlightblue;
 
     .large,
     .xlarge {
@@ -1443,21 +1535,16 @@ body.blocked .unblocked {
       font-size: 72px;
       line-height: 72px;
     }
+  }
 
-    .front,
-    .back {
-      text-align:left;
-      height: 219px;
-      background: $white;
-      color: $mobbrblue;
-    }
+  .card-container .card {
+    color: $white;
+    background: $mobbrblue;
   }
 
   .active .card {
-    .front,
-    .back {
-      height: 220px;
-    }
+    background: $white;
+    color: $mobbrblue;
   }
 }
 
@@ -1519,12 +1606,6 @@ body.blocked .unblocked {
   .large {
     font-size: 24px;
   }
-}
-
-.failed.card .front,
-.failed.card .back {
-  color: #000;
-  background: $mobbrcallout;
 }
 
 .data-card:hover {
@@ -1595,12 +1676,35 @@ body.blocked .unblocked {
   }
 }
 
-.url-menu {
+.query-menu {
+  @include box-shadow(0 6px 12px rgba(0,0,0,.175));
+  padding: 1px;
+  padding-top: 1px;
   background: $white;
   position: absolute;
   z-index: 999;
-  left: 0;
+  left: $grid-gutter-width / 2;
   top: 50px;
+
+  a {
+    display: block;
+    padding: 3px 10px;
+    clear: both;
+    font-weight: normal;
+    line-height: 2;
+    color: #333333;
+    white-space: nowrap;
+
+    .mobbricon {
+      margin-right: 10px;
+    }
+  }
+
+  a:hover {
+    background: #000;
+    color: $white;
+    text-decoration: none;
+  }
 }
 
 .more-bar {
@@ -1661,9 +1765,164 @@ fieldset[disabled] .btn {
   border-top: 1px solid $gray;
 }
 
+.top-bar select {
+  margin-top: $grid-gutter-width;
+}
+
 @media (max-width: $screen-sm-min) {
   .pad-xs {
     margin-bottom: $grid-gutter-width;
+  }
+}
+
+.tag {
+  font-size: 18px;
+  line-height: 50px;
+  padding: 0 12px;
+  border-radius: 0;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  font-weight: normal;
+  font-family: $mobbrFontCondensed;
+
+  .mobbricon {
+    margin: 0 4px;
+  }
+}
+
+.tag.reset {
+  padding-left: 8px;
+  background: #000;
+  color: $white;
+}
+
+.tag.more {
+  background: #000;
+  color: $white;
+  padding-left: 12px;
+}
+
+.tag.suggested {
+  opacity: .4;
+}
+
+.tag.toptags {
+  background: #000;
+  color: $white;
+  padding-right: 8px;
+}
+
+.tag.addtag {
+  background: $gray;
+  color: #000;
+  padding-left: 0;
+
+  input {
+    height: 50px;
+    line-height: 50px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  label {
+    margin: 11px 0;
+    line-height: 28px;
+  }
+}
+
+.tag:hover {
+  background: #000;
+  color: $white;
+}
+
+.tag.addtag:hover {
+  background: $gray;
+  color: #000;
+}
+
+.tags h2 {
+  padding-top: 0;
+}
+
+.tasks-summary .card .top {
+  border-bottom: 1px solid $mobbrlightblue;
+}
+
+.tasks-summary {
+  padding-bottom: 0;
+}
+
+.tasks-summary .card-container {
+  position: relative;
+  z-index: 1032;
+}
+
+.tasks-summary .active .card {
+  border-bottom-width: 0;
+}
+
+.task-data {
+  border-top: $grid-gutter-width solid $mobbrblue;
+  padding-top: $grid-gutter-width;
+}
+
+.task-section-container {
+  position: relative;
+  z-index: 1032;
+  background: $gray;
+}
+
+.tasks-summary .card-container .failed {
+  color: #000;
+  background: $mobbrcallout;
+}
+
+.tasks-summary .disabled .card {
+  background: $mobbrblue;
+  color: $mobbrlightblue;
+}
+
+.task-top {
+  border-top: 0;
+  background: $white;
+  color: $mobbrblue;
+}
+
+.task-stats .list-inline {
+  margin-bottom: 0;
+}
+
+.task-section .tags {
+  padding-top: 25px;
+}
+
+.task-section .filter {
+  background: $white;
+  color: $mobbrblue;
+  border: 0;
+}
+
+.filter.task-warning {
+  background: $mobbrcallout;
+  color: #000;
+}
+
+.task-section .top-info.tags {
+  background: $mobbrcallout;
+  border-top: 0;
+  border-bottom: 0;
+  color: #000;
+
+  .tag {
+    color: #000;
+  }
+
+  .tag.more {
+    color: $white;
+  }
+
+  .tag:hover {
+    color: $white;
   }
 }
 /*
