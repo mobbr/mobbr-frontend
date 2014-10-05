@@ -8726,6 +8726,67 @@ fieldset[disabled] .btn {
   color: white;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031929}}
+.home .line {
+  border-top: 1px solid #2fb3e7;
+  line-height: 19px;
+  color: white;
+  padding: 18px 0;
+  background: #009ee0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031936}}
+.home .line .btn-primary {
+  background: white;
+  color: #009ee0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031942}}
+.home .slide {
+  height: 640px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031947}}
+.home .top-bar {
+  background: transparent;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031951}}
+.home .filter {
+  background: transparent;
+  color: #000;
+  border: 0;
+  border-bottom: 1px solid #e1dfdf;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031958}}
+.home .content {
+  border-top: 1px solid white;
+  padding: 12px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031963}}
+.home section:nth-child(odd) {
+  background: #edebeb;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031967}}
+.home section:nth-child(even) {
+  background: white;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031971}}
+.home .pusher {
+  margin-top: 413px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031975}}
+.home .query-bar {
+  height: 563px;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  background: #009ee0 url(../img/home.jpg) top center no-repeat;
+}
+
 /*
 .user-thumb {
   margin: -5px 0 -5px;

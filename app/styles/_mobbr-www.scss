@@ -1925,6 +1925,59 @@ fieldset[disabled] .btn {
     color: $white;
   }
 }
+
+.home .line {
+  border-top: 1px solid $mobbrlightblue;
+  line-height: 19px;
+  color: $white;
+  padding: 18px 0;
+  background: $mobbrblue;
+
+  .btn-primary {
+    background: $white;
+    color: $mobbrblue;
+  }
+}
+
+.home .slide {
+  height: 640px;
+
+}
+
+.home .top-bar {
+  background: transparent;
+}
+
+.home .filter {
+  background: transparent;
+  color: #000;
+  border: 0;
+  border-bottom: 1px solid shade($gray, 5);
+}
+
+.home .content {
+  border-top: 1px solid $white;
+  padding: $grid-gutter-width 0;
+}
+
+.home section:nth-child(odd) {
+  background: $gray;
+}
+
+.home section:nth-child(even) {
+  background: $white;
+}
+
+.home .pusher {
+  margin-top: 413px;
+}
+
+.home .query-bar {
+  height: 563px;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  background: $mobbrblue url(../img/home.jpg) top center no-repeat;
+}
 /*
 .user-thumb {
   margin: -5px 0 -5px;
