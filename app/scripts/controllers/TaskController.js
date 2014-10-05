@@ -6,7 +6,7 @@ angular.module('mobbr.controllers').controller('TaskController', function ($scop
             $state.go('box.task.index.domain');
         } else if (!$scope.has_script) {
             $state.go('box.task.index.script');
-        } if (!$scope.has_participants) {
+        } else if (!$scope.has_participants) {
             $state.go('box.task.index.invite');
         } else if (!$scope.has_payments && $state.is('box.task.index.payments')) {
             $state.go('box.task.index.view');
