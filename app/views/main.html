@@ -1,12 +1,129 @@
-<div class="container">
-
-    <mobbr-smart-url-box></mobbr-smart-url-box>
-
-    <div class="col-md-3" ng-repeat="task in featuredTasks">
-
+<div class="row top-bar query-bar">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Pay and get paid for tasks anywhere on the web</h1>
+            </div>
+        </div>
+        <div class="row pusher">
+            <div class="col-md-12">
+                <mobbr-smart-url-box active-query="activeQuery"
+                                     url-type="{{ $state.includes('box.crowds') && 'CROWDS' || $state.includes('box.tasks') && 'TASKS' || $state.includes('box.person') && 'PROFILE' || 'TASK' }}"
+                                     query="query"
+                                     user="$mobbrStorage.user.username"></mobbr-smart-url-box>
+            </div>
+        </div>
     </div>
+</div>
+<div class="row line">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                Create a task [or collaboration] on any website and paste the link in the Mobbr box above.<br>
+                Pledge money and ask the online mob to do the work.
+            </div>
+            <div class="col-md-3">
+                <a href="" class="btn btn-block btn-primary">
+                    Watch our video
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text">
+    <section>
+        <div class="row top-info filter">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 title">
+                        <span class="mobbricon mobbricon-domain"></span>
+                        <strong>How it works</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                        blabla
+                    </div>
+                    <div class="col-md-3">
+                        <a href="" class="btn btn-block btn-primary">
+                            blablbla
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="row top-info filter">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 title">
+                        <span class="mobbricon mobbricon-domain"></span>
+                        <strong>Available plugins and domains</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                        blabla
+                    </div>
+                    <div class="col-md-3">
+                        <a href="" class="btn btn-block btn-primary">
+                            blablbla
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="row top-info filter">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 title">
+                        <span class="mobbricon mobbricon-domain"></span>
+                        <strong>Integrate your site with Mobbr</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                        blabla
+                    </div>
+                    <div class="col-md-3">
+                        <a href="" class="btn btn-block btn-primary">
+                            blablbla
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
 
 
+
+
+
+
+
+
+<!--<div class="container">
+    <div class="col-md-3" ng-repeat="task in featuredTasks"></div>
 
     <div class="row">
         <div class="bookmarklet text-right col-md-12">
@@ -159,4 +276,4 @@
     <h1 class="bottomline">Join the anytime anyplace economy</h1>
     <h3>For inquiries, please <a href="mailto:&#112;&#097;&#116;&#114;&#105;&#099;&#107;&#064;&#109;&#111;&#098;&#098;&#114;&#046;&#099;&#111;&#109;">email</a> us</h3>
 
-</div>
+</div>-->

@@ -46,7 +46,7 @@ angular.module('mobbr', [
         $stateProvider.state('main', {
                 url: '/',
                 templateUrl: 'views/main.html',
-                controller: 'MainController'
+                controller: 'MainController',
             }).state('updates', {
                 url: '/updates',
                 templateUrl: 'views/updates.html',
