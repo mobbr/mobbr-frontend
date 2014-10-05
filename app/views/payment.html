@@ -121,7 +121,7 @@
 
 
 
-<accordion state-accordion="payment">
+<accordion state-accordion="payment" ng-if="recieversAndSenders && recieversAndSenders.length > 0">
     <accordion-group is-open="stateAccordion['payment.persons']" is-disabled="true">
         <accordion-heading>
             <div class="container">
