@@ -1888,11 +1888,6 @@ fieldset[disabled] .btn {
   color: $mobbrblue;
 }
 
-.task-warning {
-  background: $mobbrcallout;
-  color: #000;
-}
-
 .task-stats .list-inline {
   margin-bottom: 0;
 }
@@ -1905,6 +1900,11 @@ fieldset[disabled] .btn {
   background: $white;
   color: $mobbrblue;
   border: 0;
+}
+
+.filter.task-warning {
+  background: $mobbrcallout;
+  color: #000;
 }
 
 .task-section .top-info.tags {
