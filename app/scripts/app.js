@@ -46,8 +46,7 @@ angular.module('mobbr', [
         $stateProvider.state('main', {
                 url: '/',
                 templateUrl: 'views/main.html',
-                controller: 'MainController',
-                data: { authenticated: false, redirectTo: 'updates' }
+                controller: 'MainController'
             }).state('updates', {
                 url: '/updates',
                 templateUrl: 'views/updates.html',
