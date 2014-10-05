@@ -97,7 +97,7 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
             $scope.task = MobbrUri.info({ url: url }).$promise.then(setTaskTags, setInvalidTask);
         } else {
             if ($scope.task.$resolved) {
-                setTaskTags($scope.task.result);
+                setTaskTags($scope.task);
             } else {
                 $scope.task.$promise.then(setTaskTags);
             }
