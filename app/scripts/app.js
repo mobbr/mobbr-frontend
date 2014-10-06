@@ -46,7 +46,7 @@ angular.module('mobbr', [
         $stateProvider.state('main', {
                 url: '/',
                 templateUrl: 'views/main.html',
-                controller: 'MainController'
+                controller: 'MainController',
             }).state('updates', {
                 url: '/updates',
                 templateUrl: 'views/updates.html',
@@ -355,6 +355,7 @@ angular.module('mobbr', [
         });
 
         $rootScope.currencies = MobbrApi.currencies(function (response) {
+            $rootScope.networkCurrencies = filterFilter($rootScope.currencies.result, { wallet_support: true });
             response.result.forEach(function (item) {
                 $rootScope.currenciesMap[item.currency_iso] = item;
             });
@@ -384,13 +385,7 @@ angular.module('mobbr', [
                     $rootScope.userCurrencies = response.result.balances;
                 });
             } else {
-                if ($rootScope.currencies.$resolved) {
-                    $rootScope.userCurrencies = filterFilter($rootScope.currencies.result, { wallet_support: true });
-                } else {
-                    $rootScope.currencies.$promise.then(function () {
-                        $rootScope.userCurrencies = filterFilter($rootScope.currencies.result, { wallet_support: true });
-                    });
-                }
+                $rootScope.userCurrencies = $rootScope.networkCurrencies;
             }
         });
 

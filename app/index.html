@@ -59,7 +59,7 @@
         <script src="components/mobbr-button/mobbr.js"></script>
         <!-- endbuild -->
     </head>
-    <body ng-app="mobbrWeb" id="ng-app" idle-timeout ng-class="{ 'blocked': blockUI, 'mobbr-test': isTest(), 'ng-app': true, 'loading': loading, 'payments': $state.includes('wallet') || $state.includes('payments') || $state.includes('payment') || $state.includes('x-payment'), 'updates': $state.includes('updates'), 'crowds': $state.includes('box.crowds'), 'task': $state.includes('box.task.index') || $state.includes('person') }">
+    <body ng-app="mobbrWeb" id="ng-app" idle-timeout ng-class="{ home: $state.is('main'), 'blocked': blockUI, 'mobbr-test': isTest(), 'ng-app': true, 'loading': loading, 'payments': $state.includes('wallet') || $state.includes('payments') || $state.includes('payment') || $state.includes('x-payment'), 'updates': $state.includes('updates'), 'crowds': $state.includes('box.crowds'), 'task': $state.includes('box.task.index') || $state.includes('person') }">
         <!--[if lt IE 10]>
         <p class="chromeframe">
             You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser
@@ -82,7 +82,7 @@
                             <li class="dropdown">
                                 <a class="dropdown-toggle logo clearfix" data-toggle="dropdown">
                                     <span class="crop">
-                                        <img ng-click="state.go('main')" src="img/logo-mobbr.png">
+                                        <img ng-click="$state.go('main')" src="img/logo-mobbr.png">
                                     </span>
                                     <span class="caret"></span>
                                 </a>

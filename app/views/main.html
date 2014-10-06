@@ -1,12 +1,294 @@
-<div class="container">
-
-    <mobbr-smart-url-box></mobbr-smart-url-box>
-
-    <div class="col-md-3" ng-repeat="task in featuredTasks">
-
+<div class="row top-bar query-bar">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Pay and get paid for tasks anywhere on the web</h1>
+            </div>
+        </div>
+        <div class="row pusher">
+            <div class="col-md-12">
+                <mobbr-smart-url-box active-query="activeQuery"
+                                     url-type="{{ $state.includes('box.crowds') && 'CROWDS' || $state.includes('box.tasks') && 'TASKS' || $state.includes('box.person') && 'PROFILE' || 'TASK' }}"
+                                     query="query"
+                                     user="$mobbrStorage.user.username"></mobbr-smart-url-box>
+            </div>
+        </div>
     </div>
+</div>
+<div class="row line">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                Create a task [or collaboration] on any website and paste the link in the Mobbr box above.<br>
+                Pledge money and ask the online mob to do the work.
+            </div>
+            <div class="col-md-3">
+                <a href="" class="btn btn-block btn-primary">
+                    Watch our video
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text">
+    <section>
+        <div class="row top-info filter">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-1">
+                        <button class="btn btn-block" ng-click="limiter = limiter > 4 ? limiter - 1 : limiter; taglimiter = taglimiter > 32 ? taglimiter - 12 : taglimiter">
+                            Left
+                        </button>
+                    </div>
+                    <div class="col-md-10 title text-center">
+                        <span class="mobbricon mobbricon-domain"></span>
+                        <strong>Happening on Mobbr right now</strong>
+                    </div>
+                    <div class="col-md-1">
+                        <button class="btn btn-block" ng-click="limiter = limiter < 12 ? limiter + 1 : limiter; taglimiter = taglimiter < 120 ? taglimiter + 12 : taglimiter">
+                            Right
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12" ng-init="limiter = 4; taglimiter = 32">
+                        <a ng-repeat="url in happening.result.uris | limitTo: limiter | limitTo: -4" ui-sref="box.task.index.view({ task: encodeTask(url.url) })">
+                            <div class="col-xs-12 col-sm-4 col-md-3 data-card-container">
+                                <div class="data-card">
+                                    <h3 ng-bind="url.title"></h3>
+                                    <p ng-bind="url.description"></p>
+                                    <div class="bottom">
+                                        <div class="item large amount">
+                                            <span ng-bind-html="url.amount_total | mobbrcurrency:url.currency_iso:true"></span>
+                                            <span class="mobbricon mobbricon-payments"></span>
+                                        </div>
+                                        <div class="item large tasks" class="participants">
+                                            <span ng-bind="url.match_percentage + '%'"></span>
+                                            <span class="mobbricon mobbricon-unclaimed"></span>
+                                        </div>
+                                        <div class="item">
+                                            <span ng-bind="url.domain"></span>
+                                            <span class="mobbricon mobbricon-domain"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-center taglist">
+                        <span ng-repeat="tag in tags | limitTo: taglimiter | limitTo: -32">
+                            <span ng-show="tag.type == 'person'" class="grvatarholder">
+                                <img ng-src="{{ tag.gravatar }}"
+                                     width="50"
+                                     height="50">
+                            </span>
+                            <span ng-show="tag.type == 'keyword'" class="label label-default tag">
+                                <span class="mobbricon mobbricon-tag"></span>
+                                <span ng-bind="tag.keyword"></span>
+                            </span>
+                            <span ng-show="tag.type == 'payment'" ng-bind-html="tag.amount | mobbrcurrency:tag.currency_iso:true:true" class="label label-default tag"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="row top-info filter">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 title">
+                        <span class="mobbricon mobbricon-domain"></span>
+                        <strong>How it works</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row content persons">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                        <img src="../img/person.png" class="pull-left">
+                        <p>
+                            - Lorem ipsum dolor sit amet<br>
+                            - consectetur adipiscing elit<br>
+                            - sed do eiusmod tempor incididunt<br>
+                            - ut labore et dolore magna aliqua
+                        </p>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="" class="btn btn-block btn-primary">
+                            blablbla
+                        </a>
+                        <a href="" class="btn btn-block btn-primary">
+                            blablbla
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <img src="../img/person.png" class="pull-left">
+                        <p>
+                            - Lorem ipsum dolor sit amet<br>
+                            - consectetur adipiscing elit<br>
+                            - sed do eiusmod tempor incididunt<br>
+                            - ut labore et dolore magna aliqua
+                        </p>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="" class="btn btn-block btn-primary">
+                            blablbla
+                        </a>
+                        <a href="" class="btn btn-block btn-primary">
+                            blablbla
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <img src="../img/person.png" class="pull-left">
+                        <p>
+                            - Lorem ipsum dolor sit amet<br>
+                            - consectetur adipiscing elit<br>
+                            - sed do eiusmod tempor incididunt<br>
+                            - ut labore et dolore magna aliqua
+                        </p>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="" class="btn btn-block btn-primary">
+                            blablbla
+                        </a>
+                        <a href="" class="btn btn-block btn-primary">
+                            blablbla
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="row top-info filter">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 title">
+                        <span class="mobbricon mobbricon-domain"></span>
+                        <strong>Available plugins and domains</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9 col-lg-6">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        </p>
+                        <p>
+                            Lorem ipsum nog wat ter afsluiting en design
+                        </p>
+                    </div>
+                    <div class="col-md-3 col-lg-offset-3">
+                        <a href="" class="btn btn-block btn-primary">
+                            blablbla
+                        </a>
+                        <a href="" class="btn btn-block btn-primary">
+                            blablbla
+                        </a>
+                        <a href="" class="btn btn-block btn-default">
+                            blablbla
+                        </a>
+                    </div>
+                </div>
+                <div class="row top-info filter">
+                    <div class="col-md-12 title">
+                        <strong>Available on</strong>
+                    </div>
+                </div>
+                <div class="row connections">
+                    <div class="col-md-3">
+                        <a href="" class="btn btn-block btn-default">
+                            blablbla
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="" class="btn btn-block btn-default">
+                            blablbla
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="" class="btn btn-block btn-default">
+                            blablbla
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="" class="btn btn-block btn-default">
+                            blablbla
+                        </a>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="row top-info filter">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 title">
+                        <span class="mobbricon mobbricon-domain"></span>
+                        <strong>Integrate your site with Mobbr</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9 col-lg-6">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        </p>
+                        <p>
+                            <img src="../img/scheme.png">
+                        </p>
+                    </div>
+                    <div class="col-md-3 col-lg-offset-3">
+                        <a href="" class="btn btn-block btn-primary">
+                            blablbla
+                        </a>
+                        <a href="" class="btn btn-block btn-primary">
+                            blablbla
+                        </a>
+                        <a href="" class="btn btn-block btn-default">
+                            blablbla
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
 
 
+
+
+
+
+
+
+<!--<div class="container">
+    <div class="col-md-3" ng-repeat="task in featuredTasks"></div>
 
     <div class="row">
         <div class="bookmarklet text-right col-md-12">
@@ -159,4 +441,4 @@
     <h1 class="bottomline">Join the anytime anyplace economy</h1>
     <h3>For inquiries, please <a href="mailto:&#112;&#097;&#116;&#114;&#105;&#099;&#107;&#064;&#109;&#111;&#098;&#098;&#114;&#046;&#099;&#111;&#109;">email</a> us</h3>
 
-</div>
+</div>-->

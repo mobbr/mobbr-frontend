@@ -6,12 +6,9 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
         oauth_popup;
 
     $scope.formHolder = {addPaymentIdForm: undefined};
-    $scope.datePopup = {open: false};
     $scope.passwordHolder = {};
-
     $scope.new_email = $rootScope.$mobbrStorage.user.email;
-
-    $scope.minimumDate = moment().subtract('year',12).format('MM-DD-YYYY');
+    $scope.birthdate = new Date($rootScope.$mobbrStorage.user.birthday);
 
     $scope.settingsLabels = {
         hide_my_incoming_payments: 'Hide my incoming payments',
@@ -172,11 +169,9 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
         return countFields(countDisplayCompleted);
     };
 
-    $scope.$watch('$mobbrStorage.user.birthday', function (newBirthDate) {
-        if (newBirthDate && !(newBirthDate instanceof Date)) {
-            $scope.$mobbrStorage.user.birthday = moment($scope.$mobbrStorage.user.birthday, 'YYYY-MM-DD').toDate();
-        }
-    });
+    $scope.updateBirthdate = function (newBirthDate) {
+        $scope.$mobbrStorage.user.birthday = newBirthDate;
+    }
 
     var matchProviders = function () {
         function addIdIfFound(provider) {
@@ -242,7 +237,7 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
     function popupMessage(e) {
         if (e.data === 'oauth-popup') {
             oauth_popup.close();
-            $scope.waitingAddId = MobbrUser.confirmOauthId({ redirected_url: oauth_popup.location.href });
+            $scope.waitingAddId = MobbrUser.confirmOauthId({ redirected_url: oauth_popup.location.href }, matchProviders);
             $window.removeEventListener('message', popupMessage);
         }
     }
