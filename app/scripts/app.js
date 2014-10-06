@@ -340,6 +340,10 @@ angular.module('mobbr', [
             }
         }
 
+        $rootScope.$on('$stateChangeSuccess', function () {
+            $window._gaq.push(['_trackPageView', $location.path()]);
+        });
+
         $rootScope.$state = $state;
         $rootScope.host = $location.host();
         $rootScope.mobbrMsg = mobbrMsg;
