@@ -88,20 +88,26 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
 
     $scope.getSuggestedTags = function () {
 
-        var url = $window.atob($state.params.task);
+        if ($state.params.task) {
 
-        if ($scope.filteredTags.length > 0) {
-            getGlobalTags();
-        } else if (!$scope.task) {
-            $scope.$emit('set-query', url);
-            $scope.task = MobbrUri.info({ url: url });
-            $scope.task.$promise.then(setTaskTags, setInvalidTask);
-        } else {
-            if ($scope.task.$resolved) {
-                setTaskTags($scope.task);
+            var url = $window.atob($state.params.task);
+
+            if ($scope.filteredTags.length > 0) {
+                getGlobalTags();
+            } else if (!$scope.task) {
+                $scope.$emit('set-query', url);
+                $scope.task = MobbrUri.info({ url: url });
+                $scope.task.$promise.then(setTaskTags, setInvalidTask);
             } else {
-                $scope.task.$promise.then(setTaskTags);
+                if ($scope.task.$resolved) {
+                    setTaskTags($scope.task);
+                } else {
+                    $scope.task.$promise.then(setTaskTags);
+                }
             }
+        } else {
+            getGlobalTags();
+            queryPeople();
         }
     }
 
@@ -152,9 +158,9 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
     });
 
     $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-        if (toParams.task) {
+        //if (toParams.task) {
             $scope.getSuggestedTags();
-        }
+        //}
     });
 
     $scope.$on('language-update', function (event, new_language) {
