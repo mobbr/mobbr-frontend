@@ -85,7 +85,7 @@
                     <div class="col-md-12 text-center taglist">
                         <span ng-repeat="tag in tags | limitTo: taglimiter | limitTo: -32">
                             <span ng-show="tag.type == 'person'" class="grvatarholder">
-                                <img ng-src="https://secure.gravatar.com/avatar/{{ tag.gravatar }}?s=50&default=https://mobbr.com/img/default-gravatar.png"
+                                <img ng-src="{{ tag.gravatar }}"
                                      width="50"
                                      height="50">
                             </span>
