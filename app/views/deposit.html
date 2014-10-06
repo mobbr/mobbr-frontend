@@ -17,7 +17,7 @@
                                 required
                                 ng-init="currency = $mobbrStorage.user.currency_iso || 'EUR'"
                                 ng-model="deposit_type.currency"
-                                ng-options="curr.currency_iso as curr.currency_iso for curr in userCurrencies"></select>
+                                ng-options="curr.currency_iso as curr.currency_iso for curr in networkCurrencies"></select>
                     </div>
                     <div class="col-xs-3">
                         <input class="form-control"
