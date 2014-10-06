@@ -1745,17 +1745,12 @@ fieldset[disabled] .btn {
   line-height: 19px;
   color: $white;
   padding: 18px 0;
-  background: $mobbrblue;
+  background: $mobbrblue url(../img/home-bottom.png) top center no-repeat;
 
   .btn-primary {
     background: $white;
     color: $mobbrblue;
   }
-}
-
-.home .slide {
-  height: 640px;
-
 }
 
 .home .top-bar {
@@ -1783,14 +1778,27 @@ fieldset[disabled] .btn {
 }
 
 .home .pusher {
-  margin-top: 413px;
+  margin-top: 433px;
 }
 
 .home .query-bar {
-  height: 563px;
+  height: 583px;
   padding-top: 18px;
   padding-bottom: 18px;
-  background: $mobbrblue url(../img/home.jpg) top center no-repeat;
+  background: $mobbrblue url(../img/home.png) top center no-repeat;
+}
+
+.home .btn {
+  text-align: left;
+}
+
+.home p {
+  line-height: 24px;
+  font-family: $mobbrFontCondensed;
+}
+
+.home .persons img {
+  margin-right: $grid-gutter-width * 2;
 }
 
 .task .card.funding .txt {
