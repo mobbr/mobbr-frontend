@@ -245,7 +245,7 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
     $scope.addOAuthProvider = function (provider) {
         if (provider) {
             popup_url = $window.location.origin + '/popup.html';
-            oauth_popup = $window.open(popup_url, 'oauth-popup');
+            oauth_popup = $window.open('about:blank', 'oauth-popup');
             $scope.waitingAddId = MobbrUser.oAuthUrl({
                 provider: provider.provider,
                 redirect_url: popup_url
