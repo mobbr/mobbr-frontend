@@ -46,7 +46,7 @@ angular.module('mobbr', [
         $stateProvider.state('main', {
                 url: '/',
                 templateUrl: 'views/main.html',
-                controller: 'MainController',
+                controller: 'MainController'
             }).state('updates', {
                 url: '/updates',
                 templateUrl: 'views/updates.html',
@@ -404,7 +404,9 @@ angular.module('mobbr', [
         }
 
         $rootScope.login = function (username, password) {
-            $rootScope.authenticating = MobbrUser.passwordLogin({ username: username, password: password });
+            $rootScope.authenticating = MobbrUser.passwordLogin({ username: username, password: password }, function () {
+                $state.go('updates');
+            });
         };
 
         $rootScope.encodeTask = function (url) {
