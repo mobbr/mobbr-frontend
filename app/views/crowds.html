@@ -1,5 +1,4 @@
-<smart-tags ng-show="task.$resolved"
-            tags="tags"
+<smart-tags tags="tags"
             filtered-tags="filteredTags"
             reset-tags="resetTags"
             tags-limiter="tagsLimiter"
@@ -94,9 +93,9 @@
             </div>
         </div>
 
-        <div class="col-md-12 text-center" ng-show="task === undefined">
+        <!--<div class="col-md-12 text-center" ng-show="task === undefined">
             <h2><em>Enter any URL to find your workforce...</em></h2>
-        </div>
+        </div>-->
         <div class="col-md-12 text-center" ng-show="task && !task.$resolved || persons && !persons.$resolved">
             <h2><em>Finding your workforce...</em></h2>
         </div>
