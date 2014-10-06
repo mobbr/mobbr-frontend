@@ -188,26 +188,26 @@
                 <div class="row">
                     <div class="col-md-12">
                         <a href="" target="_blank" class="label label-default tag pull-left">
-                            <img src="https://gitlab.org/ico/favicon.png">
+                            <img src="https://gitlab.org/ico/favicon.png" width="16">
                             gitlab.org
                         </a>
                         <a href="" target="_blank" class="label label-default tag pull-left">
-                            <img src="https://cdn.sstatic.net/stackexchange/img/favicon.ico">
+                            <img src="https://cdn.sstatic.net/stackexchange/img/favicon.ico" width="16">
                             stackoverflow.com
                         </a>
-                        <a href="" target="_blank" class="label label-default tag pull-left">
+                        <a href="" target="_blank" class="label label-default tag pull-left" width="16">
                             <img src="https://assets-cdn.github.com/favicon.ico">
                             github.com
                         </a>
-                        <a href="" target="_blank" class="label label-default tag pull-left">
+                        <a href="" target="_blank" class="label label-default tag pull-left" width="16">
                             <img src="https://www.google.com/s2/favicons?domain=question2answer.com">
                             question2answer.org
                         </a>
-                        <a href="" target="_blank" class="label label-default tag pull-left">
+                        <a href="" target="_blank" class="label label-default tag pull-left" width="16">
                             <img src="https://gravatar.com/favicon.ico">
                             gravatar.com
                         </a>
-                        <a href="" target="_blank" class="label label-default tag pull-left">
+                        <a href="" target="_blank" class="label label-default tag pull-left" width="16">
                             <img src="https://onename.io/static/favicon.ico">
                             onename.io
                         </a>
@@ -222,7 +222,7 @@
                 <div class="row">
                     <div class="col-md-12 title">
                         <span class="mobbricon mobbricon-domain"></span>
-                        <strong>Integrate your site with Mobbr</strong>
+                        <strong>Connect your site with Mobbr</strong>
                     </div>
                 </div>
             </div>
@@ -234,44 +234,47 @@
                     <div class="col-md-9">
                         <strong>Plugin</strong>
                         <p>
-                            - Create the task on a Mobbrized website<br>
-                            - Paste the URL in the box above<br>
-                            - Pledge money to reward contributions<br>
-                            - Find and invite contributors on the Mobbr site
+                            To integrate a site with Mobbr, it must have its own reputation or karma system. The Mobbr payments
+                            are divided according to that ratio. Easiest way is to install a plugin made especially for your websystem.
+                            This can be done by your system administrator.
                         </p>
                     </div>
                     <div class="col-md-3">
-                        <a href="https://github.com/mobbr" target="_blank" class="btn btn-block btn-call">
-                            Write a plugin
+                        <a href="https://github.com/mobbr?query=plugin" target="_blank" class="btn btn-block btn-call">
+                            Find a plugin
                         </a>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-9">
-                        <strong>Metadata</strong>
+                        <strong>HTML metadata</strong>
+                        <p>
+                            If no plugin for your system is available (yet), your web designer must generate some simple so called metadata into the
+                            HTML of the page. Upon payment the Mobbr server will do a callback to your page and find the distribution key for the payment.
+                            This is by far the best and most flexible way to integrate Mobbr.
+                        </p>
                         <p>
                             <img src="../img/scheme.png">
                         </p>
                     </div>
                     <div class="col-md-3">
-                        <a href="/#/" class="btn btn-block btn-call">
-                            CTA
+                        <a href="https://docs.mobbr.com/display/MobDoc/Integration+into+your+website" class="btn btn-block btn-call">
+                            Metadata integration How-To
                         </a>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-9">
-                        <strong>Api</strong>
+                        <strong>API</strong>
                         <p>
-                            - You have a social collaboration platform<br>
-                            - Setup a reputation/points system on your platform<br>
-                            - Connect your platform to Mobbr using API, HTML-script or plugins<br>
-                            - Mobbr distributes payments according to the reputation ranking
+                            Another possibility, the most technical one, is to make available some web-services or methods that Mobbr can use
+                            to get the required data. Most large collaborations sites have an API that the Mobbr team can use to integrate 
+                            that site into Mobbr natively. Like Mobbr has native Github, Gitlab and Stackexchange support.
                         </p>
                     </div>
                     <div class="col-md-3">
                         <a href="/#/" class="btn btn-block btn-call">
-                            CTA
+                            API integration How-To
                         </a>
                     </div>
                 </div>
