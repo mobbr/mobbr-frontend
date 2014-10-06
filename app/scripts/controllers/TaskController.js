@@ -34,7 +34,7 @@ angular.module('mobbr.controllers').controller('TaskController', function ($scop
             $scope.has_participants = parseFloat(response.result.statistics.num_recipients) > 0;
             $scope.$emit('set-active-query', url);
 
-            redirect();
+            //redirect();
 
         }, function () {
 
@@ -44,7 +44,7 @@ angular.module('mobbr.controllers').controller('TaskController', function ($scop
             $scope.has_participants = false;
             $scope.$emit('set-active-query', url);
 
-            redirect();
+            //redirect();
         });
     }
 
