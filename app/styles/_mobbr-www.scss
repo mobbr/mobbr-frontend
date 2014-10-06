@@ -1804,6 +1804,22 @@ fieldset[disabled] .btn {
 .task .card.funding .txt {
   padding-bottom: 0;
 }
+
+.home .taglist .tag {
+  display: inline-block;
+
+  .nice-amount {
+    line-height: 17px;
+  }
+}
+
+.home .taglist .gravatarholder {
+  display: inline-block;
+}
+
+.home .taglist img {
+
+}
 /*
 .user-thumb {
   margin: -5px 0 -5px;

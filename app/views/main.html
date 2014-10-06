@@ -36,9 +36,65 @@
         <div class="row top-info filter">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-12 title text-center">
+                    <div class="col-md-1">
+                        <button class="btn btn-block" ng-click="limiter = limiter > 4 ? limiter - 1 : limiter; taglimiter = taglimiter > 32 ? taglimiter - 12 : taglimiter">
+                            Left
+                        </button>
+                    </div>
+                    <div class="col-md-10 title text-center">
                         <span class="mobbricon mobbricon-domain"></span>
                         <strong>Happening on Mobbr right now</strong>
+                    </div>
+                    <div class="col-md-1">
+                        <button class="btn btn-block" ng-click="limiter = limiter < 12 ? limiter + 1 : limiter; taglimiter = taglimiter < 120 ? taglimiter + 12 : taglimiter">
+                            Right
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12" ng-init="limiter = 4; taglimiter = 32">
+                        <a ng-repeat="url in happening.result.uris | limitTo: limiter | limitTo: -4" ui-sref="box.task.index.view({ task: encodeTask(url.url) })">
+                            <div class="col-xs-12 col-sm-4 col-md-3 data-card-container">
+                                <div class="data-card">
+                                    <h3 ng-bind="url.title"></h3>
+                                    <p ng-bind="url.description"></p>
+                                    <div class="bottom">
+                                        <div class="item large amount">
+                                            <span ng-bind-html="url.amount_total | mobbrcurrency:url.currency_iso:true"></span>
+                                            <span class="mobbricon mobbricon-payments"></span>
+                                        </div>
+                                        <div class="item large tasks" class="participants">
+                                            <span ng-bind="url.match_percentage + '%'"></span>
+                                            <span class="mobbricon mobbricon-unclaimed"></span>
+                                        </div>
+                                        <div class="item">
+                                            <span ng-bind="url.domain"></span>
+                                            <span class="mobbricon mobbricon-domain"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-center taglist">
+                        <span ng-repeat="tag in tags | limitTo: taglimiter | limitTo: -32">
+                            <span ng-show="tag.type == 'person'" class="grvatarholder">
+                                <img ng-src="https://secure.gravatar.com/avatar/{{ tag.gravatar }}?s=50&default=https://mobbr.com/img/default-gravatar.png"
+                                     width="50"
+                                     height="50">
+                            </span>
+                            <span ng-show="tag.type == 'keyword'" class="label label-default tag">
+                                <span class="mobbricon mobbricon-tag"></span>
+                                <span ng-bind="tag.keyword"></span>
+                            </span>
+                            <span ng-show="tag.type == 'payment'" ng-bind-html="tag.amount | mobbrcurrency:tag.currency_iso:true:true" class="label label-default tag"></span>
+                        </span>
                     </div>
                 </div>
             </div>
