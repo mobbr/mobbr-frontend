@@ -110,9 +110,7 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
     };
 
     $scope.removePerson = function (person) {
-
-        if (person && person.selected === true) {
-            person.selected = false;
+        if (person) {
             $scope.selectedPersons.splice($scope.selectedPersons.indexOf(person), 1);
         } else {
             angular.forEach($scope.selectedPersons, function (item) {
