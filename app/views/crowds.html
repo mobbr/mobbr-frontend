@@ -52,8 +52,8 @@
 
 
 <div class="container">
-    <div ng-class="{ loading: persons && !persons.$resolved }" class="row data-cards data-cards-persons">
-        <div ng-repeat="person in persons.result | filter:filterUser" ng-class="{ 'data-card-highlight': person.match_percentage > 90 }" class="col-md-3 col-sm-4 col-xs-1 data-card-container">
+    <div ng-class="{ loading: personPromise && !personPromise.$resolved }" class="row data-cards data-cards-persons">
+        <div ng-repeat="person in persons | filter:filterUser" ng-class="{ 'data-card-highlight': person.match_percentage > 90 }" class="col-md-3 col-sm-4 col-xs-1 data-card-container">
             <div class="data-card" ng-init="person.selected = person.selected || false" ng-click="mobbrSession.isAuthorized() && activeQuery && (person.selected = !person.selected);activeQuery && addPerson(person);">
                 <img ng-src="https://secure.gravatar.com/avatar/{{ person['gravatar'] }}?s=50&default=https://mobbr.com/img/default-gravatar.png"
                      width="50"
@@ -96,11 +96,20 @@
         <!--<div class="col-md-12 text-center" ng-show="task === undefined">
             <h2><em>Enter any URL to find your workforce...</em></h2>
         </div>-->
-        <div class="col-md-12 text-center" ng-show="task && !task.$resolved || persons && !persons.$resolved">
+        <div class="col-md-12 text-center" ng-show="task && !task.$resolved || personPromise && !personPromise.$resolved">
             <h2><em>Finding your workforce...</em></h2>
         </div>
-        <div class="col-md-12 text-center" ng-show="persons.$resolved && persons.result.length == 0">
+        <div class="col-md-12 text-center" ng-show="personPromise.$resolved && personPromise.result.length == 0">
             <h2><em>No workforce found...</em></h2>
+        </div>
+    </div>
+    <div class="row more-bar">
+        <div class="col-md-12">
+            <button class="btn btn-primary btn-block"
+                    ng-show="personPromise && personPromise.$resolved"
+                    ng-bind="personPromise && !personPromise.$resolved && 'Loading more results' || persons && persons.length < limiter && 'The end' || 'Show more results'"
+                    ng-disabled="persons.length < limiter"
+                    ng-click="limiter = limiter + 20; queryPeople()"></button>
         </div>
     </div>
 </div>
