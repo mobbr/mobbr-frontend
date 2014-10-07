@@ -5,7 +5,7 @@
                 <h1>Pay and get paid for tasks anywhere on the web</h1>
             </div>
             <div class="col-md-3">
-                <button class="btn btn-block btn-call">Create a task</button>
+                <button class="btn btn-block btn-call">Create a task <span class="mobbricon mobbricon-starttask pull-right"></span></button>
             </div>
         </div>
         <div class="row pusher">
@@ -22,12 +22,13 @@
     <div class="container">
         <div class="row">
             <div class="col-md-9">
-                Create a task [or collaboration] on any website and paste the link in the Mobbr box above.<br>
-                Pledge money and ask the online mob to do the work.
+                Create a task or collaboration on any website and paste the link in the Mobbr box above..<br>
+                Pledge money and invite the online mob to do the work and earn 'social salary'.
             </div>
             <div class="col-md-3">
-                <a href="" class="btn btn-block btn-primary">
+                <a href="https://www.youtube.com/watch?v=uPxMpQv5Y1x" target="_blank" class="btn btn-block btn-primary">
                     Watch our video
+                    <span class="mobbricon mobbricon-video pull-right"></span>
                 </a>
             </div>
         </div>
@@ -40,26 +41,28 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-1">
-                        <button class="btn btn-block" ng-click="limiter = limiter > 4 ? limiter - 1 : limiter; taglimiter = taglimiter > 32 ? taglimiter - 12 : taglimiter">
-                            Left
-                        </button>
+                        <div class="btn-nav pull-left">
+                            <button class="btn btn-square"
+                                    ng-click="limiter = limiter > 4 ? limiter - 1 : limiter; taglimiter = taglimiter > 26 ? taglimiter - 13 : taglimiter">&#60;</button>
+                        </div>
                     </div>
                     <div class="col-md-10 title text-center">
-                        <span class="mobbricon mobbricon-domain"></span>
+                        <span class="mobbricon mobbricon-updates"></span>
                         <strong>Happening on Mobbr right now</strong>
                     </div>
                     <div class="col-md-1">
-                        <button class="btn btn-block" ng-click="limiter = limiter < 12 ? limiter + 1 : limiter; taglimiter = taglimiter < 120 ? taglimiter + 12 : taglimiter">
-                            Right
-                        </button>
+                        <div class="btn-nav right pull-right">
+                            <button class="btn btn-square"
+                                    ng-click="limiter = limiter < 12 ? limiter + 1 : limiter; taglimiter = taglimiter < 195 ? taglimiter + 13 : taglimiter">&#62;</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="container">
-                <div class="row">
-                    <div class="col-md-12" ng-init="limiter = 4; taglimiter = 32">
+                <div class="row happening">
+                    <div class="col-md-12" ng-init="limiter = 4; taglimiter = 26">
                         <a ng-repeat="url in happening.result.uris | limitTo: limiter | limitTo: -4" ui-sref="box.task.index.view({ task: encodeTask(url.url) })">
                             <div class="col-xs-12 col-sm-4 col-md-3 data-card-container">
                                 <div class="data-card">
@@ -74,9 +77,9 @@
                                             <span ng-bind="url.match_percentage"></span>
                                             <span class="mobbricon mobbricon-crowd"></span>
                                         </div>-->
-                                        <div class="item">
+                                        <div class="item domain">
                                             <span ng-bind="url.domain"></span>
-                                            <span class="mobbricon mobbricon-domain"></span>
+                                            <span class="mobbricon mobbricon-domain pull-right"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -86,8 +89,8 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12 text-center taglist">
-                        <span ng-repeat="tag in tags | limitTo: taglimiter | limitTo: -32">
-                            <span ng-show="tag.type == 'person'" class="grvatarholder">
+                        <span ng-repeat="tag in tags | limitTo: taglimiter | limitTo: -26" class="thing">
+                            <span ng-show="tag.type == 'person'" class="label label-default tag gravatarholder">
                                 <img ng-src="{{ tag.gravatar }}"
                                      width="50"
                                      height="50">
@@ -108,7 +111,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 title">
-                        <span class="mobbricon mobbricon-domain"></span>
+                        <span class="mobbricon mobbricon-plugin"></span>
                         <strong>How it works</strong>
                     </div>
                 </div>
@@ -130,7 +133,7 @@
                     </div>
                     <div class="col-md-3">
                         <a href="/#/crowds" class="btn btn-block btn-call">
-                            I have a task
+                            I have a task <span class="mobbricon mobbricon-starttask pull-right"></span>
                         </a>
                     </div>
                 </div>
@@ -147,7 +150,7 @@
                     </div>
                     <div class="col-md-3">
                         <a href="/#/tasks" class="btn btn-block btn-call">
-                            I want a task
+                            I want a task <span class="mobbricon mobbricon-tasks pull-right"></span>
                         </a>
                     </div>
                 </div>
@@ -164,7 +167,7 @@
                     </div>
                     <div class="col-md-3">
                         <a href="/#/task" class="btn btn-block btn-call">
-                            I host a task
+                            I host a task <span class="mobbricon mobbricon-domain pull-right"></span>
                         </a>
                     </div>
                 </div>
@@ -176,7 +179,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 title">
-                        <span class="mobbricon mobbricon-domain"></span>
+                        <span class="mobbricon mobbricon-plugin"></span>
                         <strong>Supported sites and connections</strong>
                     </div>
                 </div>
@@ -221,7 +224,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 title">
-                        <span class="mobbricon mobbricon-domain"></span>
+                        <span class="mobbricon mobbricon-plugin"></span>
                         <strong>Connect your site with Mobbr</strong>
                     </div>
                 </div>
@@ -242,6 +245,7 @@
                     <div class="col-md-3">
                         <a href="https://github.com/mobbr?query=plugin" target="_blank" class="btn btn-block btn-call">
                             Find a plugin
+                            <span class="mobbricon mobbricon-plugin pull-right"></span>
                         </a>
                     </div>
                 </div>
@@ -259,7 +263,8 @@
                     </div>
                     <div class="col-md-3">
                         <a href="https://docs.mobbr.com/display/MobDoc/Integration+into+your+website" class="btn btn-block btn-call">
-                            Metadata integration How-To
+                            Metadata integration
+                            <span class="mobbricon mobbricon-connect pull-right"></span>
                         </a>
                     </div>
                 </div>
@@ -275,6 +280,7 @@
                     <div class="col-md-3">
                         <a href="/#/" class="btn btn-block btn-call">
                             API integration How-To
+                            <span class="mobbricon mobbricon-develop pull-right"></span>
                         </a>
                     </div>
                 </div>

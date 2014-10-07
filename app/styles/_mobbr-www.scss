@@ -1568,9 +1568,11 @@ body.blocked .unblocked {
   h3 {
     margin: 0;
     padding: 0;
-    font-size: 16px;
+    font-size: 14px;
     font-family: $mobbrFontCondensed;
     font-weight: bold;
+    line-height: 18px;
+    margin-bottom: $grid-gutter-width / 2;
   }
 
    p {
@@ -1583,6 +1585,7 @@ body.blocked .unblocked {
     bottom: 0;
     left: $grid-gutter-width * 2;
     right: $grid-gutter-width * 2;
+    border-top: 1px solid $gray;
   }
 
   .participants {
@@ -1598,13 +1601,20 @@ body.blocked .unblocked {
   }
 
   .item {
+    line-height: 24px;
     text-align: right;
-    margin-top: $grid-gutter-width * 2;
-    margin-bottom: $grid-gutter-width * 2;
+    margin-top: $grid-gutter-width * 1.5;
+    margin-bottom: $grid-gutter-width * 1.5;
+    font-family: $mobbrFontCondensed;
   }
 
-  .large {
+  .large,
+  .mobbricon {
     font-size: 24px;
+  }
+
+  .domain .mobbricon {
+    margin-left: 4px;
   }
 }
 
@@ -1978,12 +1988,13 @@ fieldset[disabled] .btn {
   text-align: left;
 }
 
-.home p {
+.home .content p {
   line-height: 24px;
   font-family: $mobbrFontCondensed;
 }
 
 .home .persons img {
+  margin-top: $grid-gutter-width;
   margin-right: $grid-gutter-width * 2;
 }
 
@@ -1999,12 +2010,88 @@ fieldset[disabled] .btn {
   }
 }
 
-.home .taglist .gravatarholder {
-  display: inline-block;
+.home .thing {
+  position: relative;
 }
 
-.home .taglist img {
+.home .taglist .gravatarholder {
+  padding: 0;
+  width: 50px;
 
+  img {
+    position: absolute;
+    left: 0;
+    top: -17px;
+  }
+}
+
+.home .taglist .tag {
+  margin-right: 3px;
+  margin-bottom: 6px;
+}
+
+.home .taglist .tag:hover {
+  background: $white;
+}
+
+.home .btn-call {
+  color: #000;
+}
+
+.home section .btn-call {
+  font-size: 14px;
+}
+
+.home .top-bar .btn-call {
+  margin-top: $grid-gutter-width / 2;
+  margin-bottom: $grid-gutter-width / 2;
+}
+
+.line .btn-primary {
+  font-weight: bold;
+  font-family: $mobbrFontCondensed;
+
+  .mobbricon {
+    padding-top: 6px;
+  }
+}
+
+.home .tag:hover {
+  background: #000;
+}
+
+.home .btn-nav {
+  border-right: 1px solid $white;
+  margin-bottom: -$grid-gutter-width;
+  margin-top: -$grid-gutter-width;
+  height: 65px;
+  .btn {
+    text-align: center;
+    width: 50px;
+    height: 65px;
+    background: transparent;
+    border-right: 1px solid shade($gray, 5);
+    font-family: $mobbrFontCondensed;
+    font-size: 24px;
+  }
+}
+
+.home .btn-nav.right {
+  border-right: 0;
+  border-left: 1px solid $white;
+  .btn {
+    border-right: 0;
+    border-left: 1px solid shade($gray, 5);
+  }
+}
+
+.home .title strong {
+  font-family: $mobbrFontCondensed;
+}
+
+.home .happening {
+  margin-top: $grid-gutter-width;
+  margin-bottom: 3px;
 }
 /*
 .user-thumb {
