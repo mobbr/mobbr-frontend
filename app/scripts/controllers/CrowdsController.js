@@ -118,7 +118,8 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
                 }
             }
         } else {
-            getGlobalTags().$promise.then($scope.queryPeople);
+            getGlobalTags();
+            $scope.queryPeople();
         }
     }
 
@@ -153,8 +154,10 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
     };
 
     $scope.filterUser = function (item) {
-        if (!mobbrSession.isAuthorized()) return true;
-        return item.username !== $rootScope.$mobbrStorage.user.username;
+        if (item) {
+            if (!mobbrSession.isAuthorized()) return true;
+            return item.username !== $rootScope.$mobbrStorage.user.username;
+        }
     }
 
     $scope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
@@ -166,6 +169,7 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
             $scope.persons = [];
             $scope.filteredTags = [];
             $scope.suggestedTags = [];
+            $scope.limiter = initial_limit;
         }
     });
 
@@ -177,6 +181,8 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
 
     $scope.$on('language-update', function (event, new_language) {
         if (new_language !== language) {
+            $scope.persons = [];
+            $scope.limiter = initial_limit;
             language = new_language;
             $scope.getSuggestedTags();
             $scope.queryPeople();
@@ -185,6 +191,8 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
 
     $scope.$watch('filteredTags', function (newValue, oldValue) {
         if (newValue && newValue !== oldValue) {
+            $scope.persons = [];
+            $scope.limiter = initial_limit;
             $scope.getSuggestedTags();
             $scope.queryPeople();
         }

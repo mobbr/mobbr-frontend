@@ -75,6 +75,8 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
 
     $scope.$on('language-update', function (event, new_language) {
         if (new_language !== language) {
+            $scope.tasks = [];
+            $scope.limiter = initial_limit;
             language = new_language;
             $scope.getSuggestedTags();
             $scope.queryTasks();
@@ -83,6 +85,8 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
 
     $scope.$watch('filteredTags', function (newValue, oldValue) {
         if (newValue && newValue !== oldValue) {
+            $scope.tasks = [];
+            $scope.limiter = initial_limit;
             $scope.getSuggestedTags();
             $scope.queryTasks();
         }
