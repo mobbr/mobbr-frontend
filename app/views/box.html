@@ -13,9 +13,10 @@
                 </div>
                 <div class="col-md-3">
                     <a ng-disabled="!activeQuery"
+                       ng-show="task.result.script.type"
                        ui-sref="box.task.index.pay"
-                       ng-bind="'Make a ' + (task.result.script.type == 'donate' ? 'pledge' : 'payment')"
-                       class="btn btn-block btn-call">Make a pledge</a>
+                       ng-bind="'Make a ' + task.result.script.type"
+                       class="btn btn-block btn-call"></a>
                 </div>
             </div>
             <div ng-show="$state.includes('box.tasks') || $state.includes('box.crowds')">
