@@ -335,8 +335,8 @@ angular.module('mobbr', [
                 MobbrBalance.get(function (response) {
                     $rootScope.userCurrencies = response.result.balances;
                 });
-            } else {
-                $rootScope.userCurrencies = $rootScope.networkCurrencies;
+            } else if ($rootScope.networkCurrencies) {
+                $rootScope.userCurrencies = $rootScope.networkCurrencies
             }
         }
 
@@ -373,6 +373,7 @@ angular.module('mobbr', [
             response.result.forEach(function (item) {
                 $rootScope.currenciesMap[item.currency_iso] = item;
             });
+            setCurrencies();
         });
 
         $rootScope.languages = MobbrApi.isoLanguages(function (response) {
@@ -392,8 +393,6 @@ angular.module('mobbr', [
                 $rootScope.countriesMap[item.code] = item.name;
             });
         });
-
-        $rootScope.$on('mobbrApi:authchange', setCurrencies);
 
         MobbrApi.idProviders().$promise.then(function(response){
             $rootScope.idProviders = response.result;
@@ -428,5 +427,7 @@ angular.module('mobbr', [
         $rootScope.isTest = function () {
             return environment !== 'production';
         }
+
+        $rootScope.$on('mobbrApi:authchange', setCurrencies);
     }
 );
