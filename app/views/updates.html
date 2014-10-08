@@ -85,13 +85,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="txt col-md-12">
-                                <ul class="list-unstyled list-inline">
-                                    <li ng-repeat="provider in parsedIds" ng-show="provider.icon">
-                                        <img width="20" height="20" ng-class="provider.active ? '' : 'inactive'" ng-src="{{ provider.icon }}">
-                                    </li>
-                                </ul>
-                            </div>
+                            <span class="txt xbig col-md-12" ng-bind="$mobbrStorage.user.id.length"></span>
                         </div>
                         <div class="row bottom">
                             <div class="col-md-12">
