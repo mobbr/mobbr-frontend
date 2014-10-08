@@ -237,10 +237,13 @@
 
                 <div class="col-md-12 task-tags" ng-show="!has_failed">
                     <h2>Tags on this task</h2>
-                    <div class="task-tags">
-                        <span ng-repeat="keyword in (task.result.script.keywords || task.result.metadata.keywords)" ng-bind="keyword" class="label label-default"></span>
-                        <em ng-show="(!task.result.script.keywords || task.result.script.keywords.length == 0) && (!task.result.metadata.keywords || task.result.metadata.keywords.length == 0)">No tags defined</em>
-                    </div>
+                    <ul class="task-tags taglist list-unstyled">
+                        <li ng-repeat="keyword in (task.result.script.keywords || task.result.metadata.keywords)" class="label label-default tag pull-left">
+                            <span class="mobbricon mobbricon-tag"></span>
+                            <span ng-bind="keyword"></span>
+                        </li>
+                    </ul>
+                    <em ng-show="(!task.result.script.keywords || task.result.script.keywords.length == 0) && (!task.result.metadata.keywords || task.result.metadata.keywords.length == 0)">No tags defined</em>
                 </div>
             </div>
         </div>
