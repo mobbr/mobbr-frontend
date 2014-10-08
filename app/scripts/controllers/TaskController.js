@@ -34,6 +34,7 @@ angular.module('mobbr.controllers').controller('TaskController', function ($scop
             $scope.has_participants = parseFloat(response.result.statistics.num_recipients) > 0;
             $scope.$emit('set-active-query', url);
             $scope.$emit('set-task-type', response.result.script.type);
+            $scope.$emit('set-task-message', response.result.script.message);
 
             //redirect();
 

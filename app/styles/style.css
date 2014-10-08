@@ -7714,15 +7714,16 @@ accordion .save-bar {
 accordion .save-bar .form-group {
   margin-bottom: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031005}}
-accordion .info-box {
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031006}}
+.info-box {
   line-height: 16px;
   display: block;
   padding-left: 24px;
   padding-top: 3px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031011}}
-accordion .info-box .mobbricon-softalert {
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000031012}}
+.info-box .mobbricon-softalert {
   display: block;
   float: left;
   font-size: 20px;
@@ -8980,6 +8981,12 @@ fieldset[disabled] .btn {
 .home .happening {
   margin-top: 12px;
   margin-bottom: 3px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/Han\/phpstorm\/mobbr-frontend\/app\/styles\/_mobbr-www\.scss}line{font-family:\000032150}}
+.task-pay .info-bar {
+  border-top: 1px solid white;
+  padding: 12px 0;
 }
 
 /*

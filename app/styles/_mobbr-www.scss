@@ -1001,20 +1001,20 @@ accordion {
       margin-bottom: 0;
     }
   }
+}
 
-  .info-box {
-    line-height: 16px;
+.info-box {
+  line-height: 16px;
+  display: block;
+  padding-left: 24px;
+  padding-top: 3px;
+
+  .mobbricon-softalert {
     display: block;
-    padding-left: 24px;
-    padding-top: 3px;
-
-    .mobbricon-softalert {
-      display: block;
-      float: left;
-      font-size: 20px;
-      margin-top: -3px;
-      margin-left: -26px;
-    }
+    float: left;
+    font-size: 20px;
+    margin-top: -3px;
+    margin-left: -26px;
   }
 }
 
@@ -2145,6 +2145,11 @@ fieldset[disabled] .btn {
 .home .happening {
   margin-top: $grid-gutter-width;
   margin-bottom: 3px;
+}
+
+.task-pay .info-bar {
+  border-top: 1px solid $white;
+  padding: $grid-gutter-width 0 ;
 }
 /*
 .user-thumb {

@@ -32,6 +32,10 @@ angular.module('mobbr.controllers').controller('BoxController', function ($scope
         $scope.taskType = taskType;
     });
 
+    $scope.$on('set-task-message', function (event, taskMessage) {
+        $scope.taskMessage = taskMessage;
+    });
+
     $scope.$watch('filter_language', function (newValue, oldValue) {
         if (newValue && newValue !== oldValue) {
             $scope.$broadcast('language-update', newValue);

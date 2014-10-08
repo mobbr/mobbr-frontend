@@ -3,7 +3,7 @@
         <div class="row pay-task">
             <form class="col-md-12">
                 <div class="row">
-                    <fieldset ng-disabled="activeQuery || (payment && !payError)" ng-show="!activeQuery" class="col-md-12 form-group">
+                    <fieldset ng-disabled="activeQuery || (payment && !payError)" ng-show="!query && !activeQuery" class="col-md-12 form-group">
                         <input class="form-control"
                                placeholder="Any URL, email, username or ID"
                                required
@@ -55,7 +55,7 @@
                             <div class="col-xs-5">
                                 <button ng-disabled="!currency || !amount || confirm.$resolved || (invoices && !invoices_confirm) || (!activeQuery && !payQuery)"
                                         ng-click="payment.result.hash ? pay() : previewPay()"
-                                        ng-bind="task.result.script.pledge && 'Pledge' || 'Pay'"
+                                        ng-bind="taskType && ('Make a ' + taskType) || payment.result.script.type && ('Make a ' + payment.result.script.type) || 'Pay'"
                                         class="btn btn-success btn-block"
                                         type="submit">
                                 </button>
@@ -68,6 +68,10 @@
                 </div>
             </form>
         </div>
+    </div>
+</div>
+<div class="row info-bar border-top-bar">
+    <div class="container">
         <div class="row">
             <div class="col-md-12">
                     <span class="info-box">
@@ -75,7 +79,22 @@
                     </span>
             </div>
         </div>
-        <div class="row" ng-show="invoices">
+    </div>
+</div>
+<div class="row info-bar" ng-show="taskMessage || payment.result.script.message">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                    <span class="info-box">
+                        <span class="mobbricon mobbricon-softalert"></span> <span ng-bind="taskMessage || payment.result.script.message"></span>
+                    </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row info-bar" ng-show="invoices">
+    <div class="container">
+        <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
                     <div class="checkbox">
@@ -92,43 +111,46 @@
     </div>
 </div>
 
-<div ng-show="show_preview && payment && payment.$resolved" class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Participant</th>
-                    <th>Role</th>
-                    <th>%</th>
-                    <th>Currency</th>
-                    <th>Amount</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-class="participant['.percentage'] ? '' : 'disabled'" ng-repeat="participant in payment.result.script.participants" title="{{ participant['no-pay-reason']}}">
-                    <td>
-                        <a ng-href="{{ participant.id }}" target="_blank">
-                            <img ng-src="https://secure.gravatar.com/avatar/{{ participant['.gravatar'] }}?s=20&default=https://mobbr.com/img/default-gravatar.png"
-                                 width="20"
-                                 height="20">
-                            <span ng-bind="participant.id"></span>
-                        </a>
-                    </td>
-                    <td ng-bind="participant.role"></td>
-                    <td ng-bind="participant['.percentage'] && ((participant['.percentage'] | number:2) + '%')"></td>
-                    <td ng-bind="participant['.percentage'] && payment.result.script['.currency']"></td>
-                    <td ng-bind-html="participant['.amount'] | mobbrcurrency:'':true"></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>Total</td>
-                    <td>100%</td>
-                    <td ng-bind="payment.result.script['.currency']"></td>
-                    <td ng-bind-html="payment.result.script['.amount'] | mobbrcurrency:'':true"></td>
-                </tr>
-                </tbody>
-            </table>
+<div class="row info-bar" ng-show="show_preview && payment && payment.$resolved">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Participant</th>
+                        <th>Role</th>
+                        <th>%</th>
+                        <th>Currency</th>
+                        <th>Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-class="participant['.percentage'] ? '' : 'disabled'" ng-repeat="participant in payment.result.script.participants" title="{{ participant['no-pay-reason']}}">
+                        <td>
+                            <a ng-href="{{ participant.id }}" target="_blank">
+                                <img ng-src="https://secure.gravatar.com/avatar/{{ participant['.gravatar'] }}?s=20&default=https://mobbr.com/img/default-gravatar.png"
+                                     width="20"
+                                     height="20">
+                                <span ng-bind="participant.id"></span>
+                            </a>
+                        </td>
+                        <td ng-bind="participant.role"></td>
+                        <td ng-bind="participant['.percentage'] && ((participant['.percentage'] | number:2) + '%')"></td>
+                        <td ng-bind="participant['.percentage'] && payment.result.script['.currency']"></td>
+                        <td ng-bind-html="participant['.amount'] | mobbrcurrency:'':true"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Total</td>
+                        <td>100%</td>
+                        <td ng-bind="payment.result.script['.currency']"></td>
+                        <td ng-bind-html="payment.result.script['.amount'] | mobbrcurrency:'':true"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
+
 </div>
