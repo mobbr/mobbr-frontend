@@ -210,7 +210,28 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
             });
         }
 
+        $scope.otherIdProviders = [];
 
+        angular.forEach($scope.$mobbrStorage.user.id, function (id) {
+
+            var found = false;
+
+            angular.forEach($scope.oAuthWithIdProviders, function (item) {
+                if (item.id && id === item.id) {
+                    found = true;
+                }
+            });
+
+            angular.forEach($scope.idWithIdProviders, function (item) {
+                if (item.id && id === item.id) {
+                    found = true;
+                }
+            });
+
+            if (!found && id.indexOf('mobbr.com') === -1 && id.indexOf('mailto:') === -1) {
+                $scope.otherIdProviders.push(id);
+            }
+        });
     };
 
     $scope.$on('$stateChangeSuccess', matchProviders);
@@ -270,5 +291,4 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
             }
         });
     });
-
 });
