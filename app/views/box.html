@@ -4,7 +4,7 @@
             <div class="col-md-6">
                 <h1 ng-bind="$state.current.data.title"></h1>
             </div>
-            <div ng-show="$state.includes('box.task')">
+            <div ng-show="$state.includes('box.task') && taskType">
                 <div class="col-md-3">
                     <a ng-disabled="!activeQuery"
                        ng-href="{{ activeQuery }}"
@@ -13,7 +13,6 @@
                 </div>
                 <div class="col-md-3">
                     <a ng-disabled="!activeQuery"
-                       ng-show="taskType"
                        ui-sref="box.task.index.pay"
                        ng-bind="'Make a ' + taskType"
                        class="btn btn-block btn-call"></a>
