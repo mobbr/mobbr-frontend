@@ -60,8 +60,8 @@
                      height="50"
                      class="pull-left">
                 <h3 ng-bind="person.username"></h3>
-                <span ng-show="person.verified_identity">Verified</span>
-                <span ng-show="person.invoicable">Invoicable</span>
+                <span ng-show="person.verified_identity == '1'">Verified</span>
+                <span ng-show="person.invoicable == '1'">Invoicable</span>
 
                 <ul class="list-unstyled">
                     <li ng-repeat="role in person.role">
