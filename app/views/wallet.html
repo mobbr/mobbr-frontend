@@ -241,7 +241,7 @@
                             </tr>
                             </thead>
                             <tbody ng-init="limiter = 10">
-                            <tr ng-repeat="payment in payments.result | limitTo: limiter | filter: filterText"
+                            <tr ng-repeat="payment in payments.result | limitTo: limiter"
                                 ng-class="{ warning: payment.faileddatetime, callout: !payment.faileddatetime && !payment.paiddatetime && payment.announceddatetime }"
                                 ng-click="openExternalPayment(payment)"
                                 title="{{ (payment.faileddatetime || payment.paiddatetime || ('Pending since ' + payment.announceddatetime )) + ' ' + (payment.service_message || '') }}">
