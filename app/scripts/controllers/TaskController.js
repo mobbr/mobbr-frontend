@@ -33,6 +33,7 @@ angular.module('mobbr.controllers').controller('TaskController', function ($scop
             $scope.has_payments = parseFloat(response.result.statistics.num_payments) > 0;
             $scope.has_participants = parseFloat(response.result.statistics.num_recipients) > 0;
             $scope.$emit('set-active-query', url);
+            $scope.$emit('set-task-type', response.result.script.type);
 
             //redirect();
 
