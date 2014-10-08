@@ -232,7 +232,7 @@
                     </tr>
                     </thead>
                     <tbody ng-init="limiter = 10">
-                    <tr ng-repeat="payment in data.payments.result | limitTo: limiter | filter: filterText | orderBy:paymentTable.sortBy:paymentTable.reverse">
+                    <tr ng-repeat="payment in data.payments.result | limitTo: limiter | orderBy:paymentTable.sortBy:paymentTable.reverse">
                         <td><input ng-disabled="payment.invoiced == '0'" type="checkbox" ng-model="payment.selected"></td>
                         <td ng-click="openPayment(payment)" title="{{ payment.datetime }}">
                             <time ng-bind="payment.datetime | amCalendar" datetime="{{ payment.datetime }}"></time>
