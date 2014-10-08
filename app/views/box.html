@@ -13,9 +13,9 @@
                 </div>
                 <div class="col-md-3">
                     <a ng-disabled="!activeQuery"
-                       ng-show="task.result.script.type"
+                       ng-show="taskType"
                        ui-sref="box.task.index.pay"
-                       ng-bind="'Make a ' + task.result.script.type"
+                       ng-bind="'Make a ' + taskType"
                        class="btn btn-block btn-call"></a>
                 </div>
             </div>

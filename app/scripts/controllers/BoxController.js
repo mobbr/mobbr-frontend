@@ -28,6 +28,10 @@ angular.module('mobbr.controllers').controller('BoxController', function ($scope
         $scope.activeQuery = activeQuery;
     });
 
+    $scope.$on('set-task-type', function (event, taskType) {
+        $scope.taskType = taskType;
+    });
+
     $scope.$watch('filter_language', function (newValue, oldValue) {
         if (newValue && newValue !== oldValue) {
             $scope.$broadcast('language-update', newValue);
