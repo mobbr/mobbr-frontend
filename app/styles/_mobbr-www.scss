@@ -723,6 +723,10 @@ accordion .info-bar {
         -moz-filter: grayscale(100%);
         -webkit-filter: grayscale(100%);
       }
+
+      img.inactive {
+        opacity: .3;
+      }
     }
 
     .card {
