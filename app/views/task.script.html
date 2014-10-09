@@ -11,14 +11,145 @@
 </div>
 
 <div ng-if="!has_failed && !has_script" class="row task-instructions">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <p>Make sure it gets connected!!!!</p>
+    <section>
+        <div class="row top-info filter">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 title">
+                        <span class="mobbricon mobbricon-plugin"></span>
+                        <strong>Find task hosting websites and collaboration tools</strong>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+
+        <div class="row content borderbottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <a href="" target="_blank" class="label label-default tag pull-left">
+                            <img src="https://gitlab.com/assets/favicon-baaa14bade1248aa6165e9d34e7d83c0.ico" width="16">
+                            gitlab.org
+                        </a>
+                        <a href="" target="_blank" class="label label-default tag pull-left">
+                            <img src="https://cdn.sstatic.net/stackexchange/img/favicon.ico" width="16">
+                            stackoverflow.com
+                        </a>
+                        <a href="" target="_blank" class="label label-default tag pull-left">
+                            <img src="https://assets-cdn.github.com/favicon.ico" width="16">
+                            github.com
+                        </a>
+                        <a href="" target="_blank" class="label label-default tag pull-left">
+                            <img src="https://www.google.com/s2/favicons?domain=question2answer.com" width="16">
+                            question2answer.org
+                        </a>
+                        <a href="" target="_blank" class="label label-default tag pull-left">
+                            <img src="https://gravatar.com/favicon.ico" width="16">
+                            gravatar.com
+                        </a>
+                        <a href="" target="_blank" class="label label-default tag pull-left">
+                            <img src="https://onename.io/static/favicon.ico" width="16">
+                            onename.io
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row top-info filter bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 title">
+                        &nbsp;
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="row top-info filter">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 title">
+                        <span class="mobbricon mobbricon-plugin"></span>
+                        <strong>Start hosting tasks</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row content borderbottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="indent">
+                            <strong>Plugin</strong>
+                            <p>
+                                The easiest way to start hosting tasks is to install collaboration software for which 
+                                Mobbr has already built a plugin. Mobbr uses the software's reputation system as the 
+                                basis for distributing money. To let Mobbr know the distribution key the plugin connects 
+                                your site to Mobbr. Ask your system administrator to do this.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="https://github.com/mobbr?query=plugin" target="_blank" class="btn btn-block btn-call">
+                            Find a plugin
+                            <span class="mobbricon mobbricon-plugin pull-right"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="indent">
+                            <strong>HTML metadata</strong>
+                            <p>
+                                The most flexible way to host tasks is to have your web-designer generate a simple 
+                                script into the HTML of your site, which tells us how to distribute the money if a 
+                                payment is done to it. Upon payment Mobbr will do a callback to your page and find 
+                                the script. You can make the distribution key as simple or as complex as you like.
+                            </p>
+                            <p>
+                                <img src="../img/scheme.png">
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="https://docs.mobbr.com/display/MobDoc/Integration+into+your+website" class="btn btn-block btn-call">
+                            Metadata integration
+                            <span class="mobbricon mobbricon-connect pull-right"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="indent">
+                            <strong>Connect your API to Mobbr</strong>
+                            <p>
+                                If your site has an API in which Mobbr can find the contribution statistics for your 
+                                projects, we can integrate your site from our side. We already did this with Github,
+                                Gitlab and Stack Exchange. Please mail us if you would like your API to be connected.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="/#/" class="btn btn-block btn-call">
+                            API integration
+                            <span class="mobbricon mobbricon-develop pull-right"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row top-info filter bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 title">
+                        &nbsp;
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 <div ng-if="!has_failed && has_script" class="row task-stats">
     <div class="container">
