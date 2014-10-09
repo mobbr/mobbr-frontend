@@ -1970,7 +1970,8 @@ fieldset[disabled] .btn {
   }
 }
 
-.home .line {
+.home .line,
+.task-instructions .line {
   border-top: 1px solid $mobbrlightblue;
   line-height: 19px;
   color: $white;
@@ -1983,23 +1984,27 @@ fieldset[disabled] .btn {
   }
 }
 
-.home .top-bar {
+.home .top-bar,
+.task-instructions .top-bar {
   background: transparent;
 }
 
-.home .filter {
+.home .filter,
+.task-instructions .filter {
   background: transparent;
   color: #000;
   border: 0;
   border-bottom: 1px solid shade($gray, 5);
 }
 
-.home .filter.bottom {
+.home .filter.bottom,
+.task-instructions .filter.bottom {
   border-top: 1px solid shade($gray, 5);
   border-bottom: 0;
 }
 
-.home .content {
+.home .content,
+.task-instructions .content {
   border-bottom: 1px solid $white;
   border-top: 1px solid $white;
   padding: $grid-gutter-width 0;
@@ -2010,19 +2015,23 @@ fieldset[disabled] .btn {
    }
 }
 
-.home .happeningcontainer {
+.home .happeningcontainer,
+.task-instructions .happeningcontainer {
   border-top: 1px solid $white;
 }
 
-.home .borderbottom {
+.home .borderbottom,
+.task-instructions .borderbottom {
   border-bottom: 1px solid $white;
 }
 
-.home section:nth-child(odd) {
+.home section:nth-child(odd),
+.task-instructions section:nth-child(odd) {
   background: $gray;
 }
 
-.home section:nth-child(even) {
+.home section:nth-child(even),
+.task-instructions section:nth-child(even) {
   background: $white;
 }
 
@@ -2041,7 +2050,8 @@ fieldset[disabled] .btn {
   text-align: left;
 }
 
-.home .content p {
+.home .content p,
+.task-instructions .content p {
   line-height: 24px;
   font-family: $mobbrFontCondensed;
 }
