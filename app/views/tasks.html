@@ -34,7 +34,7 @@
     <div class="row more-bar">
         <div class="col-md-12">
             <button class="btn btn-primary btn-block"
-                    ng-show="tasksPromise $$ tasksPromise.$resolved"
+                    ng-show="tasksPromise && tasksPromise.$resolved"
                     ng-bind="tasksPromise && !tasksPromise.$resolved && 'Loading more results' || tasks && tasks.length < limiter && 'The end' || 'Show more results'"
                     ng-disabled="tasks.length < limiter"
                     ng-click="limiter = limiter + 20; queryTasks()"></button>
