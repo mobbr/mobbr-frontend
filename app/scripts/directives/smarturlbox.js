@@ -56,6 +56,8 @@ angular.module('mobbr.directives').directive('mobbrSmartUrlBox', function factor
                 opener && $timeout.cancel(opener);
             }
 
+            console.log($scope.user);
+
             $scope.gotoUrl = function (query) {
 
                 var url = $window.btoa(query);

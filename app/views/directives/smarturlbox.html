@@ -23,19 +23,19 @@
     </form>
     <ul class="list-unstyled query-menu logo-menu" ng-show="isopen" role="menu" ng-mouseover="isopen = true" ng-mouseleave="isopen = false">
         <li>
-            <a ng-click="isopen = false;" ui-sref="box.task"><span class="mobbricon mobbricon-tasks"></span> Create and manage task</a>
+            <a ng-click="isopen = false;" ui-sref="box.task"><span class="mobbricon mobbricon-settings"></span> Create and manage task</a>
         </li>
         <li>
             <a ng-click="isopen = false" ui-sref="box.crowds"><span class="mobbricon mobbricon-crowd"></span> Find and invite crowdworkers</a>
         </li>
         <li>
-            <a ng-click="isopen = false;" ui-sref="box.tasks"><span class="mobbricon mobbricon-tasks"></span> Find new tasks</a>
+            <a ng-click="isopen = false;" ui-sref="box.tasks"><span class="mobbricon mobbricon-digger"></span> Find new tasks</a>
         </li>
         <li>
             <a ng-click="isopen = false;" ui-sref="box.person"><span class="mobbricon mobbricon-person"></span> Find new persons</a>
         </li>
         <li ng-show="mobbrSession.isAuthorized()">
-            <a ng-click="isopen = false;" ui-sref="box.tasks.person({ username: user })"><span class="mobbricon mobbricon-person"></span> My tasks</a>
+            <a ng-click="isopen = false;" ui-sref="box.tasks.person({ username: user.username })"><img ng-src="{{ user.thumbnail }}"  width="32" height="32"> My tasks</a>
         </li>
     </ul>
 </fieldset>
