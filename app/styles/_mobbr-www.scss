@@ -2161,6 +2161,60 @@ fieldset[disabled] .btn {
   border-top: 1px solid $white;
   padding: $grid-gutter-width 0 ;
 }
+
+#persondetail .section {
+  padding-top: $grid-gutter-width;
+  padding-bottom: $grid-gutter-width;
+  border-top: 1px solid $gray;
+  background: $white;
+}
+
+#persondetail .section:first-child {
+  padding-top: $grid-gutter-width * 2;
+  padding-bottom: $grid-gutter-width * 2;
+}
+
+#persondetail .filter {
+  border-top: 1px solid $gray;
+}
+
+#persondetail .taglist {
+  margin-top: $grid-gutter-width;
+  margin-bottom: $grid-gutter-width / 2;
+}
+
+#persondetail .tag {
+  margin-right: $grid-gutter-width / 2;
+  margin-bottom: $grid-gutter-width / 2;
+}
+
+#persondetail a.tag {
+  background: $gray;
+  color: #000;
+}
+
+#persondetail a.tag:hover {
+  background: #000;
+  color: $white;
+}
+
+#persondetail li.tag {
+  background: $mobbryellow;
+  color: $white;
+}
+
+#persondetail li.tag:hover {
+  color: $white;
+}
+
+#persondetail .btn-call {
+  background: $mobbrblue;
+  color: $white;
+}
+
+a.logo img {
+  cursor: pointer;
+}
 /*
 .user-thumb {
   margin: -5px 0 -5px;
