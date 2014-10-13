@@ -111,7 +111,7 @@
             <div class="row" ng-show="fee.$resolved">
                 <div class="col-md-12">
                     <span class="info-box">
-                        <span class="mobbricon mobbricon-softalert"></span> Your fee will be {{ fee.result.amount | mobbrcurrency:fee.result.currency }}.
+                        <span class="mobbricon mobbricon-softalert"></span> Your fee will be <span ng-bind-html="fee.result.amount | mobbrcurrency:fee.result.currency_iso:true">.
                     </span>
                 </div>
             </div>
