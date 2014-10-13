@@ -1599,6 +1599,13 @@ body.blocked .unblocked {
   line-height: 20px;
   position: relative;
 
+  .top {
+    max-height: 126px;
+    overflow: hidden;
+    word-wrap: break-word;
+    word-break: break-word;
+  }
+
   h3 {
     margin: 0;
     padding: 0;
@@ -1606,12 +1613,11 @@ body.blocked .unblocked {
     font-family: $mobbrFontCondensed;
     font-weight: bold;
     line-height: 18px;
-    margin-bottom: $grid-gutter-width / 2;
   }
 
    p {
      font-size: 12px;
-     line-height: 16px;
+     line-height: 18px;
    }
 
   .bottom {
@@ -1896,7 +1902,7 @@ fieldset[disabled] .btn {
   padding-bottom: 0;
 }
 
-.tasks-summary .card-container {
+.blocked .tasks-summary .card-container {
   position: relative;
   z-index: 1032;
 }
