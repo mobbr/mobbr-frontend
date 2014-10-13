@@ -8,8 +8,10 @@
         <a ng-repeat="url in tasks" ui-sref="box.task.index.view({ task: encodeTask(url.url) })">
             <div class="col-xs-12 col-sm-4 col-md-3 data-card-container">
                 <div class="data-card">
-                    <h3 ng-bind="url.title"></h3>
-                    <p ng-bind="url.description"></p>
+                    <div class="top">
+                        <h3 ng-bind="url.title"></h3>
+                        <p ng-bind="url.description"></p>
+                    </div>
                     <div class="bottom">
                         <div class="item large amount">
                             <span ng-bind-html="url.amount_total | mobbrcurrency:url.currency_iso:true"></span>

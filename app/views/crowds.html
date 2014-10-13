@@ -55,19 +55,21 @@
     <div ng-class="{ loading: personPromise && !personPromise.$resolved }" class="row data-cards data-cards-persons">
         <div ng-repeat="person in persons | filter:filterUser" ng-class="{ 'data-card-highlight': person.match_percentage > 90 }" class="col-md-3 col-sm-4 col-xs-1 data-card-container">
             <div class="data-card" ng-init="person.selected = person.selected || false" ng-click="mobbrSession.isAuthorized() && activeQuery && (person.selected = !person.selected);activeQuery && addPerson(person);">
-                <img ng-src="https://secure.gravatar.com/avatar/{{ person['gravatar'] }}?s=50&default=https://mobbr.com/img/default-gravatar.png"
-                     width="50"
-                     height="50"
-                     class="pull-left">
-                <h3 ng-bind="person.username"></h3>
-                <span ng-show="person.verified_identity == '1'">Verified</span>
-                <span ng-show="person.invoicable == '1'">Invoicable</span>
+                <div class="top">
+                    <img ng-src="https://secure.gravatar.com/avatar/{{ person['gravatar'] }}?s=50&default=https://mobbr.com/img/default-gravatar.png"
+                         width="50"
+                         height="50"
+                         class="pull-left">
+                    <h3 ng-bind="person.username"></h3>
+                    <span ng-show="person.verified_identity == '1'">Verified</span>
+                    <span ng-show="person.invoicable == '1'">Invoicable</span>
 
-                <ul class="list-unstyled">
-                    <li ng-repeat="role in person.role">
-                        <strong ng-bind="role"></strong>
-                    </li>
-                </ul>
+                    <ul class="list-unstyled">
+                        <li ng-repeat="role in person.role">
+                            <strong ng-bind="role"></strong>
+                        </li>
+                    </ul>
+                </div>
 
                 <div>
                     <div class="item large participants">
