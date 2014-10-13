@@ -86,3 +86,6 @@
 .mobbricon-unclaimed                    { &:before { content: "W"; } }
 .mobbricon-video                        { &:before { content: "X"; } }
 .mobbricon-plugin                       { &:before { content: "Y"; } }
+.mobbricon-certified                    { &:before { content: "<"; } }
+.mobbricon-digger                       { &:before { content: ">"; } }
+.mobbricon-location                     { &:before { content: "}"; } }
