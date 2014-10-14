@@ -1667,6 +1667,11 @@ body.blocked .unblocked {
     margin-top: $grid-gutter-width * 1.5;
     margin-bottom: $grid-gutter-width * 1.5;
     font-family: $mobbrFontCondensed;
+
+    .mobbricon {
+      margin-left: $grid-gutter-width / 2;
+      float: right;
+    }
   }
 
   .large,
@@ -1679,7 +1684,8 @@ body.blocked .unblocked {
   }
 }
 
-.data-card:hover {
+.data-card:hover,
+.data-card-highlight {
   background: $mobbrblue;
   color: $white;
 
@@ -1688,7 +1694,8 @@ body.blocked .unblocked {
   }
 }
 
-.data-cards-persons .data-card:hover {
+.data-cards-persons .data-card:hover,
+.data-cards-persons .data-card-highlight {
   background: $mobbryellow;
 }
 

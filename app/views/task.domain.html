@@ -20,9 +20,14 @@
                         <p ng-bind="url.description"></p>
                     </div>
                     <div class="bottom">
-                        <div class="item large amount" ng-bind-html="url.amount_total | mobbrcurrency:url.currency_iso:true"></div>
-                        <div class="item large participants" class="participants" ng-bind="url.num_recipients"></div>
-                        <div class="item" ng-bind="url.domain"></div>
+                        <div class="item large amount">
+                            <span ng-bind-html="url.amount_total | mobbrcurrency:url.currency_iso:true"></span>
+                            <span class="mobbricon mobbricon-payments"></span>
+                        </div>
+                        <div class="item">
+                            <span ng-bind="url.domain"></span>
+                            <span class="mobbricon mobbricon-domain"></span>
+                        </div>
                     </div>
                 </div>
             </div>
