@@ -1452,7 +1452,9 @@ body.blocked .unblocked {
   h1 {
     font-size: 26px;
     text-transform: uppercase;
-    line-height: 52px;
+    line-height: 30px;
+    padding-top: 15px;
+    padding-bottom: 15px;
     margin-top: $grid-gutter-width / 2;
     margin-bottom: $grid-gutter-width / 2;
   }
@@ -2031,25 +2033,56 @@ fieldset[disabled] .btn {
   border-bottom: 1px solid $white;
 }
 
-.home section:nth-child(odd),
-.task-instructions section:nth-child(odd) {
+.home section:nth-child(odd) .content,
+.task-instructions section:nth-child(odd) .content,
+.home section:nth-child(odd) .top-info,
+.task-instructions section:nth-child(odd) .top-info {
   background: $gray;
 }
 
-.home section:nth-child(even),
-.task-instructions section:nth-child(even) {
+.home section:nth-child(even) .content,
+.task-instructions section:nth-child(even) .content,
+.home section:nth-child(even) .top-info,
+.task-instructions section:nth-child(even) .top-info {
   background: $white;
 }
 
 .home .pusher {
-  margin-top: 433px;
+  position: absolute;
+  bottom: 0;
+  left: $grid-gutter-width / 2;
+  right: $grid-gutter-width / 2;
+  /*margin-top: 433px;*/
+}
+
+.home .query-holder {
+  position: relative;
+  height: 360px;
+}
+
+@media (min-width: 450px) {
+  .home .query-holder {
+    height: 440px;
+  }
+}
+
+@media (min-width: $screen-sm-min) {
+  .home .query-holder {
+    height: 500px;
+  }
+}
+
+@media (min-width: $screen-md-min) {
+  .home .query-holder {
+    height: 583px;
+  }
 }
 
 .home .query-bar {
-  height: 583px;
   padding-top: 18px;
   padding-bottom: 18px;
-  background: $mobbrblue url(../img/home.png) top center no-repeat;
+  background: $mobbrblue url(../img/home.png) bottom center no-repeat;
+  background-size: contain;
 }
 
 .home .btn {
@@ -2220,6 +2253,12 @@ fieldset[disabled] .btn {
 
 a.logo img {
   cursor: pointer;
+}
+
+@media (max-width: $screen-xs-max) {
+  .videobutton {
+    margin-top: $grid-gutter-width;
+  }
 }
 /*
 .user-thumb {

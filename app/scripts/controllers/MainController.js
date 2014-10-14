@@ -1,4 +1,4 @@
-angular.module('mobbr.controllers').controller('MainController', function ($scope, MobbrApi) {
+angular.module('mobbr.controllers').controller('MainController', function ($scope, $window, MobbrApi) {
     'use strict';
 
     function shuffle(o){ //v1.0
@@ -26,6 +26,14 @@ angular.module('mobbr.controllers').controller('MainController', function ($scop
 
         shuffle($scope.tags);
     });
+
+    function setNumBlocks() {
+        var width = $window.innerWidth;
+        $scope.numblocks = width < 768 && 1 || width < 992 && 3 || 4;
+    }
+
+    $(window).resize(setNumBlocks);
+    setNumBlocks();
 
 //    MobbrUri.get({limit: 4}).$promise.then(function(response){
 //        $scope.featuredTasks = response.result;
