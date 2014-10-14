@@ -1,17 +1,17 @@
 <div class="row top-bar">
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-sm-6">
                 <h1 ng-bind="$state.current.data.title"></h1>
             </div>
             <div ng-show="$state.includes('box.task') && taskType">
-                <div class="col-md-3">
+                <div class="col-sm-3">
                     <a ng-disabled="!activeQuery"
                        ng-href="{{ activeQuery }}"
                        class="btn btn-call white btn-block"
                        target="_blank">Go to task</a>
                 </div>
-                <div class="col-md-3">
+                <div class="col-sm-3">
                     <a ng-disabled="!activeQuery"
                        ui-sref="box.task.index.pay"
                        ng-bind="'Make a ' + taskType"
@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div ng-show="$state.includes('box.tasks') || $state.includes('box.crowds')">
-                <div class="col-md-3 col-md-offset-3">
+                <div class="col-sm-3 col-sm-offset-3">
                     <select class="form-control"
                             ng-options="language.code as language.name for language in usedLanguages.result"
                             ng-init="filter_language = getLanguage()"
