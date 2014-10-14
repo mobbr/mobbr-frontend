@@ -14,7 +14,6 @@ bower install
 ```
 3. run the app with ```grunt server```
 4. build the app with ```grunt build```. This minifies and concatenates resources and copies them to the ```/dist``` directory.
-
 5. deployment
 - deploying user should copy his ssh key to the server
 - deploying user should be a member of www-data: ```sudo usermod -a -G www-data <username>```
