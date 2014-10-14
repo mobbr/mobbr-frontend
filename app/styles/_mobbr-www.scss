@@ -328,10 +328,11 @@ label.title {
 
   .card {
     border: 1px solid #9ebd5b;
-    height: 170px;
+    height: 34px;
     font-family: $mobbrFontCondensed;
 
     .top {
+      white-space: nowrap;
       margin-top: -$grid-gutter-width * 1;
       margin-left: -$grid-gutter-width * 1;
       margin-right: -$grid-gutter-width * 1;
@@ -345,7 +346,7 @@ label.title {
       }
     }
 
-    @media (min-width: $screen-sm-min) {
+    @media (min-width: $screen-md-min) {
       .top {
         margin-top: -$grid-gutter-width * 1.5;
         margin-left: -$grid-gutter-width * 1.5;
@@ -427,6 +428,22 @@ label.title {
           line-height: 40px;
         }
       }
+    }
+  }
+
+  @media (max-width: $screen-xs-max) {
+    .card .row {
+      display: none;
+    }
+
+    .card .row.top {
+      display: block;
+    }
+  }
+
+  @media (min-width: $screen-sm-min) {
+    .card {
+      height: 170px;
     }
   }
 
@@ -1469,16 +1486,17 @@ body.blocked .unblocked {
 
 .top-info {
   color: $white;
+}
 
-  h2 {
-    margin-top: 0;
-    margin-bottom: 0;
-    font-size: 20px;
-    line-height: 20px;
-    padding-top: 25px;
-    padding-bottom: 25px;
-    font-family: $mobbrFontCondensed;
-  }
+.top-info h2,
+.task-tags h2 {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 20px;
+  line-height: 20px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  font-family: $mobbrFontCondensed;
 }
 
 .input-group-addon {

@@ -12,7 +12,7 @@
 
 <div class="container" ng-show="has_participants">
     <div ng-class="{ loading: persons && !persons.$resolved }" class="row data-cards data-cards-persons">
-        <div ng-repeat="person in persons.result" class="col-xs-1 col-sm-4 col-md-3 data-card-container">
+        <div ng-repeat="person in persons.result" class="col-xs-12 col-sm-4 col-md-3 data-card-container">
             <div class="data-card">
                 <div class="top">
                     <img ng-src="https://secure.gravatar.com/avatar/{{ person['gravatar'] }}?s=50&default=https://mobbr.com/img/default-gravatar.png"

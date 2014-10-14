@@ -13,7 +13,7 @@
 <div class="container">
     <div ng-show="!has_failed && urls.result.length > 0" class="row data-cards" ng-class="{ loading: urls && !urls.$resolved }">
         <a ng-repeat="url in urls.result" ui-sref="tasks.view.task({ task: encodeTask(url.url) })">
-            <div class="col-xs-1 col-sm-4 col-md-3 data-card-container">
+            <div class="col-xs-12 col-sm-4 col-md-3 data-card-container">
                 <div class="data-card">
                     <div class="top">
                         <h3 ng-bind="url.title"></h3>
