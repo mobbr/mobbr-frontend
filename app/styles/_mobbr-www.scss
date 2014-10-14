@@ -1869,17 +1869,18 @@ fieldset[disabled] .btn {
   background: $gray;
   color: #000;
   padding-left: 0;
+  padding-right: 0;
+  width: 180px;
+
+  .mobbricon {
+    font-size: 18px;
+  }
 
   input {
     height: 50px;
     line-height: 50px;
     padding-top: 0;
     padding-bottom: 0;
-  }
-
-  label {
-    margin: 11px 0;
-    line-height: 28px;
   }
 }
 
