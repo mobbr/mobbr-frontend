@@ -20,6 +20,8 @@
                          height="50"
                          class="pull-left">
                     <h3 ng-bind="person.username"></h3>
+                    <span ng-show="person.verified_identity == '1'">Verified</span>
+                    <span ng-show="person.invoicable == '1'">Invoicable</span>
                     <p>
                         Active since<br>
                         <time ng-bind="person.datetime | amDateFormat : 'DD-MM-YYYY HH:MM'"></time>
