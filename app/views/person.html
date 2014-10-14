@@ -1,7 +1,7 @@
 <div id="persondetail">
 
     <div ng-show="personPromise.$resolved">
-        <div class="row">
+        <div class="row section">
             <div class="container">
                 <div class="row">
 
@@ -18,7 +18,7 @@
 
                         </div>
                         <div>
-                            Active since {{ person.user.registerdatetime | amDateFormat : 'DD-MM-YYYY' }} | Last active {{  person.user.lastlogindatetime}}
+                            Active since {{ person.user.registerdatetime | amCalendar }} | Last active {{  person.user.lastlogindatetime | amCalendar }}
                         </div>
                         <div ng-show="remoteProfile.aboutMe" ng-bind="remoteProfile.aboutMe">
 
@@ -30,45 +30,70 @@
                 </div>
             </div>
         </div>
-        <div class="row" ng-show="person.user.ids">
+
+        <div class="row top-info filter">
             <div class="container">
-                <span class="mobbricon mobbricon-domain"></span>
-                Active accounts
                 <div class="row">
-                    <a ng-repeat="id in person.user.ids" ng-href="id.id" target="_blank">
-                        {{id}}
-                        <img ng-src="{{id.favicon}}">
-                        {{id.provider}}
+                    <div class="col-md-12 title">
+                        <span class="mobbricon mobbricon-domain"></span>
+                        <strong>Active accounts</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row section" ng-show="person.user.ids">
+            <div class="container">
+                <div class="row taglist clearfix">
+                    <a ng-repeat="id in person.user.ids" ng-href="id.id" target="_blank" class="label label-default tag pull-left">
+                        <img ng-src="{{ id.facicon }}" width="16">
+                        {{ id.provider }}
                     </a>
                 </div>
             </div>
         </div>
 
-        <div class="row">
+        <div class="row top-info filter">
             <div class="container">
-                <span class="mobbricon mobbricon-mobbricon"></span>
-                Performance
-            <span class="pull-right">
-                <span ng-show="person.stats.num_domain">
-                    {{person.stats.num_domain}} domains
-                    <span class="mobbricon mobbricon-domain"></span>
-                </span>
-                <span ng-show="person.stats.num_urls">
-                    {{person.stats.num_urls}} tasks
-                    <span class="mobbricon mobbricon-tasks"></span>
-                </span>
-            </span>
+                <div class="row">
+                    <div class="col-md-6 title">
+                        <span class="mobbricon mobbricon-mobbricon"></span>
+                        <strong>Performance</strong>
+                    </div>
+                    <div class="col-md-3">
+                        <a ng-show="person.stats.num_domain" class="btn btn-block btn-call">
+                            {{person.stats.num_domain}} domains
+                            <span class="mobbricon mobbricon-domain pull-right"></span>
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <a ng-show="person.stats.num_urls" class="btn btn-block btn-call">
+                            {{person.stats.num_urls}} tasks
+                            <span class="mobbricon mobbricon-tasks pull-right"></span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="row" ng-show="keywords && keywords.result" ng-init="keywordsLimitDefault = 10; keywordsLimit = keywordsLimitDefault">
+        <div class="row top-info filter">
             <div class="container">
-                <span class="mobbricon mobbricon-tag"></span>
-                {{person.user.firstname}}'s tags
+                <div class="row">
+                    <div class="col-md-12 title">
+                        <span class="mobbricon mobbricon-tag"></span>
+                        <strong>{{person.user.firstname}}'s tags</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row section" ng-show="keywords && keywords.result.length > 0" ng-init="keywordsLimitDefault = 10; keywordsLimit = keywordsLimitDefault">
+            <div class="container">
+
                 <div class="row">
                     <div class="col-md-12">
-                        <ul>
-                            <li ng-repeat="keyword in keywords.result | limitTo:keywordsLimit">
+                        <ul class="list-unstyled taglist clearfix">
+                            <li ng-repeat="keyword in keywords.result | limitTo:keywordsLimit" class="label label-default tag pull-left">
                                 <span class="mobbricon mobbricon-tag"></span>
                                 <span ng-bind="keyword.keyword"></span>
                             </li>
@@ -79,31 +104,59 @@
             </div>
         </div>
 
-        <div class="row" ng-show="person && person.domain" ng-init="domainLimitDefault = 10; domainLimit = domainLimitDefault">
+        <div class="row top-info filter">
             <div class="container">
-                <span class="mobbricon mobbricon-domain"></span> {{person.user.firstname}}'s domains
                 <div class="row">
-                    <div class="col-md-12">
-                        <ul>
-                            <li ng-repeat="domain in person.domain | limitTo:domainLimit" ><img ng-src="{{domain.favicon}}"> {{domain.host}}</li>
-                        </ul>
-                        <button class="btn" ng-click="domainLimit = 1000" ng-show="domainLimit == domainLimitDefault && person.domain.length > domainLimit">More</button>
-
+                    <div class="col-md-12 title">
+                        <span class="mobbricon mobbricon-domain"></span>
+                        <strong>{{person.user.firstname}}'s domains</strong>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="row" ng-show="person && person.user.id" ng-init="idLimitDefault = 10; idLimit = idLimitDefault">
+        <div class="row section" ng-show="person && person.domain.length > 0" ng-init="domainLimitDefault = 10; domainLimit = domainLimitDefault">
             <div class="container">
-                <span class="mobbricon mobbricon-domain"></span> {{person.user.firstname}}'s verified accounts
                 <div class="row">
                     <div class="col-md-12">
-                        <ul>
-                            <li ng-repeat="id in person.user.id | limitTo:domainLimit" >{{id}}</li>
+                        <ul class="list-unstyled taglist clearfix">
+                            <li ng-repeat="domain in person.domain | limitTo:domainLimit">
+                                <a ng-href="{{ domain.host }}" class="label label-default tag pull-left">
+                                    <img ng-src="{{domain.favicon}}">
+                                    {{domain.host}}
+                                </a>
+                            </li>
+                        </ul>
+                        <button class="btn" ng-click="domainLimit = 1000" ng-show="domainLimit == domainLimitDefault && person.domain.length > domainLimit">More</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row top-info filter">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 title">
+                        <span class="mobbricon mobbricon-domain"></span>
+                        <strong>{{person.user.firstname}}'s verified accounts</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row section" ng-show="person && person.user.id" ng-init="idLimitDefault = 10; idLimit = idLimitDefault">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul class="list-unstyled taglist">
+                            <li ng-repeat="id in person.user.id | limitTo:domainLimit">
+                                <a ng-href="{{ id }}" class="label label-default tag pull-left">
+                                    <span class="mobbricon mobbricon-domain"></span>
+                                    <span ng-bind="id"></span>
+                                </a>
+                            </li>
                         </ul>
                         <button class="btn" ng-click="idLimit = 1000" ng-show="idLimit == idLimitDefault && person.user.id.length > idLimit">More</button>
-
                     </div>
                 </div>
             </div>
