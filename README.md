@@ -1,5 +1,5 @@
-mobbr angular app
-=================
+MOBBR front-end app
+===================
 
 Using grunt for running and building the app:
 
@@ -18,4 +18,14 @@ bower install
 5. deployment
 - deploying user should copy his ssh key to the server
 - deploying user should be a member of www-data: ```sudo usermod -a -G www-data <username>```
-- run ```grunt deploy``` with optional environment value of 'test' (default) or 'prod': ```grunt deploy --env=<environment>```
+- run ```grunt deploy``` with optional environment value of 'test' (default) or 'prod': ```grunt deploy --env=<environment>``` 
+
+Submitting bug-reports
+======================
+
+Please check our latest version at https://test-www.mobbr.com first!
+
+Contributing
+============
+
+Feel free to contribute. We will be pledging money and rewarding issues using the Mobbr system. Check this out at https://mobbr.com
