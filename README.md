@@ -20,6 +20,9 @@ bower install
 - deploying user should be a member of www-data: ```sudo usermod -a -G www-data <username>```
 - run ```grunt deploy``` with optional environment value of 'test' (default) or 'prod': ```grunt deploy --env=<environment>``` 
 
+The production API is at https://api.mobbr.com and the test API is at https://test-api.mobbr.com .  
+
+
 Submitting bug-reports
 ======================
 
