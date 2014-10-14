@@ -1,11 +1,11 @@
 <div class="row top-bar query-bar">
-    <div class="container">
+    <div class="container query-holder">
         <div class="row">
-            <div class="col-md-9">
+            <div class="col-sm-9">
                 <h1>Pay and get paid for tasks anywhere on the web</h1>
             </div>
-            <div class="col-md-3">
-                <a ng-href="#{{ $state.href('box.task') }}" class="btn btn-block btn-call"><span class="mobbricon mobbricon-starttask pull-right"></span>Create a task</a>
+            <div class="col-sm-3">
+                <a ng-href="#{{ $state.href('box.task') }}" class="btn btn-block btn-call"><span class="mobbricon mobbricon-starttask pull-right"></span> Create a task</a>
             </div>
         </div>
         <div class="row pusher">
@@ -21,12 +21,12 @@
 <div class="row line">
     <div class="container">
         <div class="row">
-            <div class="col-md-9">
+            <div class="col-sm-9">
                 Create a task or collaboration on any website and paste the link in the Mobbr box above.<br>
                 Pledge money and invite the online mob to do the work and earn 'social salary'.
             </div>
-            <div class="col-md-3">
-                <a href="https://www.youtube.com/watch?v=uPxMpQv5Y1x" target="_blank" class="btn btn-block btn-primary">
+            <div class="col-sm-3">
+                <a href="https://www.youtube.com/watch?v=uPxMpQv5Y1x" target="_blank" class="btn btn-block btn-primary videobutton">
                     Watch our video
                     <span class="mobbricon mobbricon-video pull-right"></span>
                 </a>
@@ -40,20 +40,20 @@
         <div class="row top-info filter">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-1">
+                    <div class="col-xs-1">
                         <div class="btn-nav pull-left">
                             <button class="btn btn-square"
-                                    ng-click="limiter = limiter > 4 ? limiter - 1 : limiter; taglimiter = taglimiter > 26 ? taglimiter - 13 : taglimiter">&#60;</button>
+                                    ng-click="taglimiter = limiter > numblocks ? taglimiter - (numblocks * 3) : taglimiter; limiter = limiter > numblocks ? limiter - 1 : limiter">&#60;</button>
                         </div>
                     </div>
-                    <div class="col-md-10 title text-center">
+                    <div class="col-xs-10 title text-center">
                         <span class="mobbricon mobbricon-updates"></span>
                         <strong>Happening on Mobbr right now</strong>
                     </div>
-                    <div class="col-md-1">
+                    <div class="col-xs-1">
                         <div class="btn-nav right pull-right">
                             <button class="btn btn-square"
-                                    ng-click="limiter = limiter < 12 ? limiter + 1 : limiter; taglimiter = taglimiter < 195 ? taglimiter + 13 : taglimiter">&#62;</button>
+                                    ng-click="taglimiter = limiter < 12 ? taglimiter + (numblocks * 3) : taglimiter; limiter = limiter < 12 ? limiter + 1 : limiter">&#62;</button>
                         </div>
                     </div>
                 </div>
@@ -62,8 +62,8 @@
         <div class="row borderbottom happeningcontainer">
             <div class="container">
                 <div class="row happening">
-                    <div class="col-md-12" ng-init="limiter = 4; taglimiter = 26">
-                        <a ng-repeat="url in happening.result.uris | limitTo: limiter | limitTo: -4" ui-sref="box.task.index.view({ task: encodeTask(url.url) })">
+                    <div class="col-md-12" ng-init="limiter = numblocks; taglimiter = numblocks * 6">
+                        <a ng-repeat="url in happening.result.uris | limitTo: limiter | limitTo: -numblocks" ui-sref="box.task.index.view({ task: encodeTask(url.url) })">
                             <div class="col-xs-12 col-sm-4 col-md-3 data-card-container">
                                 <div class="data-card">
                                     <h3 ng-bind="url.title"></h3>
@@ -89,7 +89,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12 text-center taglist">
-                        <span ng-repeat="tag in tags | limitTo: taglimiter | limitTo: -26" class="thing">
+                        <span ng-repeat="tag in tags | limitTo: taglimiter | limitTo: -(numblocks * 6)" class="thing">
                             <span ng-show="tag.type == 'person'" class="label label-default tag gravatarholder">
                                 <img ng-src="{{ tag.gravatar }}"
                                      width="50"
@@ -130,7 +130,7 @@
         <div class="row content persons borderbottom">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-9">
+                    <div class="col-sm-9">
                         <img src="../img/person.png" class="pull-left">
                         <strong>Crowdfunding and paying tasks</strong>
                         <p>
@@ -140,14 +140,14 @@
                             - Find and invite workers
                         </p>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-sm-3">
                         <a href="/#/crowds" class="btn btn-block btn-call">
                             <span class="mobbricon mobbricon-starttask pull-right"></span>I have a task
                         </a>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-9">
+                    <div class="col-sm-9">
                         <img src="../img/person.png" class="pull-left">
                         <strong>Executing tasks</strong>
                         <p>
@@ -157,14 +157,14 @@
                             - Receive money in your Mobbr wallet upon completion
                         </p>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-sm-3">
                         <a href="/#/tasks" class="btn btn-block btn-call">
                             <span class="mobbricon mobbricon-tasks pull-right"></span>I want a task
                         </a>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-9">
+                    <div class="col-sm-9">
                         <img src="../img/person.png" class="pull-left">
                         <strong>Hosting tasks</strong>
                         <p>
@@ -174,7 +174,7 @@
                             - Mobbr distributes payments according to the reputation ranking
                         </p>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-sm-3">
                         <a href="/#/task" class="btn btn-block btn-call">
                             <span class="mobbricon mobbricon-domain pull-right"></span>I host a task
                         </a>
@@ -261,7 +261,7 @@
         <div class="row content borderbottom">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-9">
+                    <div class="col-sm-9">
                         <div class="indent">
                             <strong>Plugin</strong>
                             <p>
@@ -272,14 +272,14 @@
                             </p>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-sm-3">
                         <a href="https://github.com/mobbr?query=plugin" target="_blank" class="btn btn-block btn-call">
                             <span class="mobbricon mobbricon-plugin pull-right"></span>Find a plugin
                         </a>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-9">
+                    <div class="col-sm-9">
                         <div class="indent">
                             <strong>HTML metadata</strong>
                             <p>
@@ -289,18 +289,18 @@
                                 the script. You can make the distribution key as simple or as complex as you like.
                             </p>
                             <p>
-                                <img src="../img/scheme.png">
+                                <img src="../img/scheme.png" width="100%">
                             </p>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-sm-3">
                         <a href="https://docs.mobbr.com/display/MobDoc/Integration+into+your+website" class="btn btn-block btn-call">
                             <span class="mobbricon mobbricon-connect pull-right"></span>Metadata integration
                         </a>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-9">
+                    <div class="col-sm-9">
                         <div class="indent">
                             <strong>Connect your API to Mobbr</strong>
                             <p>
@@ -310,7 +310,7 @@
                             </p>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-sm-3">
                         <a href="/#/" class="btn btn-block btn-call">
                             <span class="mobbricon mobbricon-develop pull-right"></span>API integration
                         </a>
