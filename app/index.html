@@ -46,6 +46,9 @@
         <!-- build:css styles/style.css -->
         <link href="styles/style.css" rel="stylesheet">
         <!-- endbuild -->
+        <!-- build:js mobbr.js -->
+        <script src="components/mobbr-button/mobbr.js"></script>
+        <!-- endbuild -->
         <script>
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
                 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -53,23 +56,6 @@
             })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
             ga('create', 'UA-46675002-1', 'mobbr.com');
-            ga('send', 'pageview');
-        </script>
-        <!-- build:js mobbr.js -->
-        <script src="components/mobbr-button/mobbr.js"></script>
-        <!-- endbuild -->
-        <script type="text/javascript">
-
-            var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', 'UA-46675002-1']);
-            _gaq.push(['_trackPageview']);
-
-            (function() {
-                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-            })();
-
         </script>
     </head>
     <body ng-app="mobbrWeb" id="ng-app" idle-timeout ng-class="{ home: $state.is('main'), 'blocked': blockUI, 'mobbr-test': isTest(), 'ng-app': true, 'loading': loading, 'payments': $state.includes('wallet') || $state.includes('payments') || $state.includes('payment') || $state.includes('x-payment'), 'updates': $state.includes('updates'), 'crowds': $state.includes('box.crowds') || $state.includes('box.person'), 'task': $state.includes('box.task.index') }">
