@@ -62,7 +62,9 @@ angular.module('mobbr.controllers').controller('DepositController', function ($s
                 $window.ga('send', 'event', 'finance', 'deposit creditcard', 'amount', $scope.deposit_type.amount);
             }
         }, function () {
-            oauth_popup.close();
+            if ($scope.deposit_type.type === 'creditcard') {
+                oauth_popup.close();
+            }
             $window.ga('send', 'event', 'error', 'deposit bankwire', 'amount', $scope.deposit_type.amount);
         });
     }
