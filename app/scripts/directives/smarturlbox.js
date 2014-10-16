@@ -56,11 +56,11 @@ angular.module('mobbr.directives').directive('mobbrSmartUrlBox', function factor
                 opener && $timeout.cancel(opener);
             }
 
-            console.log($scope.user);
-
             $scope.gotoUrl = function (query) {
 
                 var url = $window.btoa(query);
+
+                $window.ga('send', 'event', 'box', 'search ' + $scope.urlType.toLowerCase(), 'query', query);
 
                 switch ($scope.urlType) {
                     case 'TASK':

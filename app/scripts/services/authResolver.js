@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.services').run(function ($rootScope, $state, $timeout, $modal, mobbrMsg, mobbrSession) {
+angular.module('mobbr.services').run(function ($rootScope, $state, $timeout, $modal, $window, mobbrMsg, mobbrSession) {
 
     var timeout, modal;
 
@@ -50,6 +50,7 @@ angular.module('mobbr.services').run(function ($rootScope, $state, $timeout, $mo
 
         cancelTimeout();
 
+        $window.ga('send', 'event', 'error', 'openening state', 'name', toState.name);
         mobbrMsg.add({ msg: 'Something went wrong trying to open this page', type: 'danger' });
         if (toState.data && toState.data.redirectTo) {
             $state.go(fromState && fromState.name || toState.data.redirectTo);
