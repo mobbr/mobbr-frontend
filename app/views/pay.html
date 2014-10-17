@@ -132,7 +132,7 @@
                                 <img ng-src="https://secure.gravatar.com/avatar/{{ participant['.gravatar'] }}?s=20&default=https://mobbr.com/img/default-gravatar.png"
                                      width="20"
                                      height="20">
-                                <span ng-bind="participant.id"></span>
+                                <span ng-bind="participant.id | decodeuri"></span>
                             </a>
                         </td>
                         <td ng-bind="participant.role"></td>
