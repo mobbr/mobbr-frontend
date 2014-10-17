@@ -39,10 +39,10 @@ $nav-pills-active-link-hover-bg:          $mobbrblue;
 $nav-pills-active-link-hover-border-color:$mobbrblue;
 
 $mobbryellow:                             #ff9900;
-$mobbrgreen:                              #699900;
+$mobbrgreen:                              #8db600;
 $mobbrcallout:                            #ffcc00;
 $mobbrlightblue:                          #2fb3e7;
-$mobbrlightgreen:                         #8eb348;
+$mobbrlightgreen:                         tint($mobbrgreen, 30%);
 $mobbrlightyellow:                        #ffb348;
 
 $label-default-bg:                        $white;
