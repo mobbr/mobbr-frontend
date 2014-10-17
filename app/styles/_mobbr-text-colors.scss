@@ -1,0 +1,317 @@
+.task-pay {
+  background: $gray;
+}
+
+.task-pay .form-control {
+  background: $white;
+}
+
+label.title {
+  color: $mobbrblue;
+  font-weight: bold;
+}
+
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+  color: $mobbrblue;
+}
+
+.navbar-fixed-top .logo .crop img {
+  background-color: $mobbrblue;
+}
+
+.navbar-fixed-top .menu li.active a {
+  background: $mobbrblue;
+}
+
+.navbar-fixed-top .msg {
+  color: $mobbrblue;
+}
+
+.top-bar,
+.top-info {
+  background: $mobbrblue;
+}
+
+.top-info.filter {
+  padding-top: $grid-gutter-width;
+  padding-bottom: $grid-gutter-width;
+  font-size: 16px;
+  line-height: 24px;
+
+  .title {
+    line-height: 40px;
+  }
+
+  .mobbricon.pull-right {
+    line-height: 28px;
+  }
+}
+
+.top-info {
+  border-top: 1px solid $mobbrlightblue;
+}
+
+.bottom-icon .icon.left {
+  border-right: 1px solid $mobbrlightblue;
+}
+
+.bottom-icon .icon.right {
+  border-left: 1px solid $mobbrlightblue;
+}
+
+.active .bottom-icon .icon {
+  border-bottom: 1px solid $mobbrlightblue;
+}
+
+accordion .panel-default > .panel-heading {
+  color: $mobbrblue;
+}
+
+accordion .line-bar,
+accordion .info-bar {
+  color: $mobbrblue;
+}
+
+.table > thead > tr > th {
+  color: $mobbrblue;
+  border-bottom-color: $gray;
+  text-transform: uppercase;
+}
+
+.table > thead:first-child > tr:first-child > th {
+  border-top: 1px solid $gray;
+}
+
+.info-box {
+  color: $mobbrblue;
+}
+
+.payments {
+
+  a {
+    color: $mobbrgreen;
+  }
+
+  label.title {
+    color: $mobbrgreen;
+  }
+
+  accordion .panel-default > .panel-heading {
+    color: $mobbrgreen;
+  }
+
+  accordion .line-bar,
+  accordion .info-bar {
+    color: $mobbrgreen;
+  }
+
+  .navbar-default .navbar-nav > .open > a,
+  .navbar-default .navbar-nav > .open > a:hover,
+  .navbar-default .navbar-nav > .open > a:focus {
+    color: $mobbrgreen;
+  }
+
+  .navbar-fixed-top .logo .crop img {
+    background-color: $mobbrgreen;
+  }
+
+  .navbar-fixed-top .menu li.active a {
+    background: $mobbrgreen;
+  }
+
+  .navbar-fixed-top .msg {
+    color: $mobbrgreen;
+  }
+
+  .top-bar,
+  .top-info {
+    background: $mobbrgreen;
+  }
+
+  .filter {
+    background: $white;
+    color: $mobbrblue;
+  }
+
+  .top-info {
+    border-color: $mobbrlightgreen;
+
+    .fixed {
+      background: $mobbrgreen;
+      color: $white;
+
+      img {
+        transition: 0.6s;
+        -moz-filter: grayscale(100%);
+        -webkit-filter: grayscale(100%);
+      }
+    }
+
+    .card {
+      border-color: $mobbrlightgreen;
+      .top {
+        border-color: $mobbrlightgreen;
+      }
+
+      .bottom .btn {
+        background: $white;
+        color: $mobbrgreen;
+      }
+    }
+
+    .fixed:hover {
+      background: $white;
+      color: $mobbrgreen;
+
+      .bottom .btn {
+        background: $mobbrgreen;
+        color: $white;
+      }
+
+      img {
+        -moz-filter: grayscale(0);
+        -webkit-filter: grayscale(0);
+      }
+    }
+  }
+
+  .table > thead > tr > th {
+    color: $mobbrgreen;
+  }
+
+  .info-box {
+    color: $mobbrgreen;
+  }
+
+  .btn-primary {
+    background-color: $mobbrgreen;
+  }
+}
+
+.updates,
+.crowds {
+
+  a {
+    color: $mobbryellow;
+  }
+
+  label.title {
+    color: $mobbryellow;
+  }
+
+  accordion .panel-default > .panel-heading {
+    color: $mobbryellow;
+  }
+
+  accordion .line-bar,
+  accordion .info-bar {
+    color: $mobbryellow;
+  }
+
+  .navbar-default .navbar-nav > .open > a,
+  .navbar-default .navbar-nav > .open > a:hover,
+  .navbar-default .navbar-nav > .open > a:focus {
+    color: $mobbryellow;
+  }
+
+  .navbar-fixed-top .logo .crop img {
+    background-color: $mobbryellow;
+  }
+
+  .navbar-fixed-top .menu li.active a {
+    background: $mobbryellow;
+  }
+
+  .navbar-fixed-top .msg {
+    color: $mobbryellow;
+  }
+
+  .top-bar,
+  .top-info {
+    background: $mobbryellow;
+  }
+
+  .filter {
+    background: $white;
+    color: $mobbryellow;
+
+    img {
+      margin-left: 4px;
+    }
+
+    .btn-link {
+      background: transparent;
+      color: $mobbryellow;
+      padding-right: 0;
+    }
+
+    .btn-primary {
+      color: $white;
+    }
+  }
+
+  .top-info {
+    border-color: $mobbrlightyellow;
+
+    .fixed {
+      background: transparent;
+      color: $white;
+
+      img {
+        transition: 0.6s;
+        -moz-filter: grayscale(100%);
+        -webkit-filter: grayscale(100%);
+      }
+
+      img.inactive {
+        opacity: .3;
+      }
+    }
+
+    .card {
+      border-color: $mobbrlightyellow;
+      .top {
+        border-color: $mobbrlightyellow;
+      }
+
+      .bottom .btn {
+        background: $white;
+        color: $mobbryellow;
+      }
+    }
+
+    .fixed:hover {
+      background: $white;
+      color: $mobbrlightyellow;
+
+      .bottom .btn {
+        background: $mobbryellow;
+        color: $white;
+      }
+
+      img {
+        -moz-filter: grayscale(0);
+        -webkit-filter: grayscale(0);
+      }
+    }
+  }
+
+  .table > thead > tr > th {
+    color: $mobbryellow;
+  }
+
+  .info-box {
+    color: $mobbryellow;
+  }
+
+  .btn-primary {
+    background-color: $mobbryellow;
+  }
+
+  .more-bar {
+    margin-top: 0;
+    margin-bottom: $grid-gutter-width;
+  }
+}

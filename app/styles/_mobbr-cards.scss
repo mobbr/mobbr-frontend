@@ -1,0 +1,255 @@
+.top-info {
+  .cards-wrapper {
+    margin-top: $grid-gutter-width;
+  }
+
+  .card-container {
+    margin-bottom: $grid-gutter-width;
+  }
+
+  .flip.card-container {
+    perspective: 970px;
+    backface-visibility: hidden;
+  }
+
+  .flip.card-container:hover .card,
+  .flip .active .card,
+  .flip .active:hover .card {
+    transform: rotateY(180deg);
+  }
+
+  .flip.card-container:hover .card.fixed {
+    transform: none;
+  }
+
+  .flip .card {
+    transition: 0.6s;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+  }
+
+  .front, .back {
+    padding: $grid-gutter-width;
+  }
+
+  @media (min-width: $screen-md-min) {
+    .front, .back {
+      padding: $grid-gutter-width * 1.5;
+    }
+  }
+
+  .flip .front, .flip .back {
+    backface-visibility: hidden;
+  }
+
+  .flip .back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    transform: rotateY(180deg);
+  }
+
+  .card {
+    border: 1px solid #9ebd5b;
+    height: 34px;
+    font-family: $mobbrFontCondensed;
+
+    .top {
+      white-space: nowrap;
+      margin-top: -$grid-gutter-width * 1;
+      margin-left: -$grid-gutter-width * 1;
+      margin-right: -$grid-gutter-width * 1;
+      border-bottom: 1px solid;
+
+      .col-md-12 {
+        text-align: left;
+        padding: $grid-gutter-width / 2;
+        padding-top: $grid-gutter-width / 4;
+        padding-bottom: ($grid-gutter-width / 4) - 1;
+      }
+    }
+
+    @media (min-width: $screen-md-min) {
+      .top {
+        margin-top: -$grid-gutter-width * 1.5;
+        margin-left: -$grid-gutter-width * 1.5;
+        margin-right: -$grid-gutter-width * 1.5;
+      }
+    }
+
+    .txt {
+      font-size: 26px;
+      font-weight: bold;
+      line-height: 26px;
+      padding: ($grid-gutter-width * 1.25) 0;
+    }
+
+    small {
+      font-family: $mobbrFontCondensed;
+      font-size: .6em;
+      text-transform: uppercase;
+    }
+
+    .big {
+      line-height: 30px;
+      font-size: 30px;
+    }
+
+    .xbig {
+      line-height: 50px;
+      font-size: 50px;
+    }
+
+    .xsmall {
+      font-size: 16px;
+      font-weight: normal;
+      line-height: 16px;
+    }
+
+    .xsmall.nopad {
+      padding-top: 0;
+    }
+
+    .back .txt {
+      padding: 1px 0;
+    }
+
+    .back .first {
+      margin-bottom: $grid-gutter-width;
+    }
+
+    .front {
+      text-align: right;
+    }
+
+    .back {
+      background: $white;
+      color: #000;
+
+      span {
+        text-align: right;
+      }
+    }
+
+    .bottom {
+      position: absolute;
+      bottom: 5px;
+      left: 0;
+      right: 0;
+      margin: 0;
+
+      .btn {
+        transition: 0.6s;
+        font-family: $mobbrFontCondensed;
+        font-size: 12px;
+        text-transform: uppercase;
+        line-height: 30px;
+      }
+
+      @media (min-width: $screen-sm-min) {
+        .btn {
+          line-height: 40px;
+        }
+      }
+    }
+  }
+
+  @media (max-width: $screen-xs-max) {
+    .card .row {
+      display: none;
+    }
+
+    .card .row.top {
+      display: block;
+    }
+  }
+
+  @media (min-width: $screen-sm-min) {
+    .card {
+      height: 170px;
+    }
+  }
+
+  .fixed {
+    background: $white;
+  }
+
+  @media (min-width: $screen-md-min) {
+    .card {
+      height: 220px;
+    }
+  }
+
+  .flatcard {
+
+    height: 220px;
+
+    h3 {
+      margin: 0;
+      padding: 0;
+      font-size: 14px;
+      line-height: 42px;
+      border-bottom: 1px solid $mobbrlightyellow;
+      font-weight: normal;
+    }
+
+    .large,
+    .xlarge {
+      font-family: $mobbrFontCondensed;
+      font-size: 26px;
+      text-align: center;
+      line-height: 26px;
+      padding: 17px 0;
+      font-weight: bold;
+    }
+
+    .xlarge {
+      font-size: 72px;
+      line-height: 72px;
+    }
+
+    .bottom {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: 0;
+
+      .btn {
+        font-family: $mobbrFontCondensed;
+        background: $white;
+        font-size: 12px;
+        text-transform: uppercase;
+        line-height: 40px;
+      }
+    }
+
+    .inactive {
+      opacity: 0.4;
+    }
+  }
+}
+
+.tasks-summary .card {
+  position: relative;
+}
+
+.tasks-summary .bottom-icon {
+  position: absolute;
+  bottom: 0;
+  left: 5px;
+  right: 5px;
+}
+
+.bottom-icon .icon {
+  width: 50px;
+  height: 50px;
+  font-size: 20px;
+  line-height: 50px;
+}
+
+.task .card-container {
+  margin-bottom: 0;
+}
