@@ -1,0 +1,227 @@
+
+.navbar-fixed-top {
+  border: 0;
+
+  .logo:hover,
+  .open .logo,
+  .open .logo:hover {
+    background-color: $white;
+  }
+
+  .caret {
+    margin-left: $grid-gutter-width;
+    margin-right: $grid-gutter-width;
+  }
+
+  @media (min-width: $screen-sm-min) {
+    .caret {
+      margin-top: 16px;
+    }
+  }
+
+  .col-logo,
+  .main-menu,
+  .user-menu {
+    padding: 0;
+  }
+
+  .logo {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 3px;
+    padding-right: 0;
+    line-height: 20px;
+    position: relative;
+    z-index: 2005;
+
+    @media (min-width: $screen-sm-min) {
+      line-height: 33px;
+      padding-top: 13px;
+      padding-left: $grid-gutter-width /2;
+      padding-bottom: 14px;
+
+      .caret {
+        float: right;
+      }
+    }
+
+    @media (min-width: $screen-md-min) {
+      .caret {
+        margin-right: 40px;
+      }
+    }
+
+    .crop {
+      display: block;
+      float: left;
+      overflow: hidden;
+      width: 70px;
+      height: 20px;
+
+      img {
+        display: block;
+        width: 70px;
+        height: 20px;
+      }
+
+      @media (min-width: $screen-sm-min) {
+        width: 118px;
+        height: 33px;
+
+        img {
+          height: 33px;
+          width: 118px;
+        }
+      }
+    }
+  }
+
+  .logo-menu {
+    top: 0;
+    padding-top: 26px;
+    min-width: auto;
+    left: 0;
+    right: 0;
+
+    @media (min-width: $screen-sm-min) {
+      padding-top: 60px;
+    }
+
+    .link-call {
+      background-color: $mobbrcallout;
+    }
+  }
+
+  .menu.nav:before, .menu.nav:after {
+    content: none;
+  }
+
+  .menu li.active a {
+    color: $white;
+  }
+
+  .user-icon {
+    display: block;
+  }
+
+  .main-menu {
+    z-index: 2003;
+  }
+
+  .menu li a,
+  .user-icon {
+    padding-top: 5px;
+    padding-bottom: 0;
+    padding-left: 3px;
+    padding-right: 3px;
+    line-height: 0px;
+
+    @media (min-width: $screen-sm-min) {
+      padding-top: $grid-gutter-width * 1.25;
+      padding-bottom: 3px;
+    }
+
+    .mobbricon {
+      display: block;
+      font-size: 17px;
+
+      @media (min-width: $screen-sm-min) {
+        font-size: 25px;
+      }
+    }
+
+    small {
+      font-family: $mobbrFontCondensed;
+      font-size: .6em;
+      text-transform: uppercase;
+      line-height: 12px;
+
+      @media (min-width: $screen-sm-min) {
+        line-height: 17px;
+      }
+    }
+  }
+
+  @media (min-width: $screen-sm-min) {
+    .menu li:first-child .col-55 {
+      margin-left: 60px;
+    }
+  }
+
+  @media (max-width: $screen-xs-max) {
+    .main-menu {
+      width: auto;
+    }
+  }
+
+  .user-menu .logo-menu {
+    z-index: 2002;
+  }
+
+  .user-menu .dropdown-toggle {
+    padding: 0;
+    margin-right: 5px;
+    z-index: 2003;
+  }
+
+  @media (min-width: $screen-sm-min) {
+    .user-menu .dropdown-toggle {
+      line-height: 60px;
+      height: 60px;
+    }
+  }
+
+  .user-menu .dropdown-toggle:hover,
+  .user-menu .open .dropdown-toggle {
+    background: $white;
+  }
+
+  .user-menu .caret {
+    margin-top: $grid-gutter-width * 1.25;
+  }
+
+  @media (min-width: $screen-sm-min) {
+
+    .user-menu .caret {
+      margin-top: 29px;
+    }
+  }
+
+  @media (max-width: $screen-xs-max) {
+
+    .user-menu .logo-menu {
+      position: fixed;
+      left: 0;
+      top: 26px;
+      padding-top: 34px;
+      right: 0;
+    }
+
+    .user-menu {
+      float: right;
+      width: auto;
+
+      .txt {
+        display: none;
+      }
+    }
+  }
+
+  .user-menu .col-55 {
+    float: right;
+  }
+
+  .user-menu img {
+    width: 30px;
+    height: 30px;
+
+    @media (min-width: $screen-sm-min) {
+      width: 50px;
+      height: 50px;
+    }
+  }
+
+  .link-call:hover {
+    background: #000;
+  }
+}

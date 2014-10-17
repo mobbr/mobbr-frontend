@@ -49,6 +49,13 @@
 //@import "../components/bootstrap-sass-official/assets/stylesheets/bootstrap/carousel";
 
 // include mobbr styles
+@import "_mobbr-disable-lg";
+@import "_mobbr-reset";
+@import "_mobbr-cards";
+@import "_mobbr-text-colors";
+@import "_mobbr-accordion";
+@import "_mobbr-header";
+@import "_mobbr-table";
 @import "_mobbr-www";
 
 // Utility classes

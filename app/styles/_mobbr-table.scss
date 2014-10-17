@@ -1,0 +1,113 @@
+.table > thead > tr > th {
+  border-bottom-width: 1px;
+}
+
+@media (max-width: $screen-sm-min) {
+  .tablecontainer {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.table {
+
+  time {
+    font-size: 10px;
+    @media (min-width: $screen-sm-min) {
+      font-size: 12px;
+    }
+  }
+
+  font-family: $mobbrFontCondensed;
+
+  tr.callout {
+    background: $mobbrcallout;
+    font-weight: bold;
+
+    .nice-amount {
+      color: #000;
+    }
+
+    td {
+      border-top-color: $state-warning-bg;
+    }
+  }
+
+  tr.warning {
+    font-weight: bold;
+    color: $mobbrcallout;
+
+    .nice-amount {
+      color: $mobbrcallout;
+    }
+
+    td {
+      border-top-color: $mobbrcallout;
+    }
+  }
+
+  tr.disabled {
+    -moz-filter: grayscale(100%);
+    -webkit-filter: grayscale(100%);
+    opacity: 0.4;
+  }
+  margin-bottom: 0;
+}
+
+.updates {
+
+   table {
+    margin-top: $grid-gutter-width;
+  }
+
+  table tr {
+    background: $white;
+    border-bottom: $grid-gutter-width $gray solid;
+  }
+
+  table tr td {
+    border-top: 0;
+    padding: 5px;
+  }
+
+  table tr td.time {
+    line-height: 12px;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    padding-right: $grid-gutter-width;
+  }
+
+  table tr td.login,
+  table tr td.logout,
+  table tr td.email_address_update,
+  table tr td.email_address_confirmation,
+  table tr td.profile_update,
+  table tr td.task_invitation {
+    background: $mobbryellow;
+  }
+
+  table tr td.auto_logout {
+    background: $mobbrblue;
+  }
+
+  table tr td.payment_received {
+    background: $mobbrgreen;
+  }
+
+  table tr td:first-child {
+    width: 50px;
+    font-size: 18px;
+    line-height: 28px;
+    padding: 0;
+    padding-top: 8px;
+    color: $white;
+  }
+
+  table tr td.title {
+    font-size: 16px;
+    line-height: 16px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    padding-left: $grid-gutter-width;
+  }
+}
