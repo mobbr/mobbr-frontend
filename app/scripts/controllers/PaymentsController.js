@@ -26,10 +26,30 @@ angular.module('mobbr.controllers').controller('PaymentsController', function ($
         return [];
     };
 
+    $scope.filterSelectedUrl = function (data) {
+        var selected = filterFilter(data, { selected: true });
+        if (selected && selected.length > 0) {
+            var url;
+            angular.forEach(selected, function (elem) {
+                url = elem.url;
+            });
+            return url;
+        }
+    };
+
     $scope.removePledges = function () {
         var selected = $scope.filterSelectedIds($scope.data.pledges.result);
         if (selected && selected.length > 0) {
             MobbrPayment.unpledge({ids: selected}).$promise.then(function () {
+                pledges.$pledged(redirect);
+            });
+        }
+    };
+
+    $scope.claimPledges = function () {
+        var url = $scope.filterSelectedUrl($scope.data.pledges.result);
+        if (url) {
+            MobbrPayment.claim({url: url}).$promise.then(function () {
                 pledges.$pledged(redirect);
             });
         }
