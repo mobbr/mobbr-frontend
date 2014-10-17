@@ -50,6 +50,13 @@
                     <span class="mobbricon mobbricon-hardclose"></span>
                 </button>
             </div>
+            <div class="col-md-3">
+                <button ng-click="claimPledges()" class="btn btn-primary btn-block"
+                        ng-disabled="filterSelectedIds(data.pledges.result).length == 0 || filterSelectedIds(data.pledges.result).length > 1">
+                    Claim selected pledge
+                    <span class="mobbricon mobbricon-tasks"></span>
+                </button>
+            </div>
         </div>
         <div class="row">
             <div class="col-md-12 tablecontainer">
