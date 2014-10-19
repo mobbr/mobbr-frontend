@@ -37,3 +37,5 @@ Artwork and materials
 
 - Our colour palette: http://www.colourlovers.com/palette/3522874/Mobbr
 - Our initial design PNG's, incl. fontset, icons: https://drive.google.com/folderview?id=0B9SEhDYgR2G6MVpGUTNPNFktVkU&usp=sharing
+- Our design guide PSD: https://drive.google.com/file/d/0B6O4AYSALnr_cFYyQzhSQXcxUkE/view?usp=sharing
+- The MOBBR cartoon people, full colour: https://drive.google.com/file/d/0B6O4AYSALnr_OFFyOHhkRGtJU1U/view?usp=sharing
