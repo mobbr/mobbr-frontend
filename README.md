@@ -36,4 +36,4 @@ Artwork and materials
 =====================
 
 - Our colour palette: http://www.colourlovers.com/palette/3522874/Mobbr
-- Our initial design PNG's: https://drive.google.com/folderview?id=0B9SEhDYgR2G6MVpGUTNPNFktVkU&usp=sharing
+- Our initial design PNG's, incl. fontset, icons: https://drive.google.com/folderview?id=0B9SEhDYgR2G6MVpGUTNPNFktVkU&usp=sharing
