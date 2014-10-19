@@ -31,3 +31,9 @@ Contributing
 ============
 
 Feel free to contribute. We will be pledging money and rewarding issues using the Mobbr system. Check this out at https://mobbr.com
+
+Artwork and materials
+=====================
+
+- Our colour palette: http://www.colourlovers.com/palette/3522874/Mobbr
+- Our initial design PNG's: https://drive.google.com/folderview?id=0B9SEhDYgR2G6MVpGUTNPNFktVkU&usp=sharing
