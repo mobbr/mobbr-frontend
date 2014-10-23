@@ -1,10 +1,9 @@
-<div class="row top-info filter task-top" ng-class="!has_script ? 'task-warning' : ''">
+<div class="row top-info filter task-top task-warning" ng-if="!has_script">
     <div class="container">
         <div class="row">
             <div class="col-md-12 title">
                 <span class="mobbricon mobbricon-tasks"></span>
-                <strong ng-if="has_script">Currently reporting the following participation</strong>
-                <strong ng-if="!has_script">Script validation</strong>
+                <strong>Script validation</strong>
             </div>
         </div>
     </div>
@@ -149,7 +148,7 @@
     </section>
 </div>
 
-<div ng-if="!has_failed && has_script" class="row task-stats">
+<!--<div ng-if="!has_failed && has_script" class="row task-stats">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -196,55 +195,46 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->
 
-<accordion ng-if="!has_failed && has_script">
-    <accordion-group is-open="participants_open" is-disabled="task.result.script.participants.length == 0">
-        <accordion-heading>
-            <div class="container">
-                <div class="row" ng-class="{ disabled: task.result.script.participants.length == 0 }">
-                    <div class="col-xs-8 title">
-                        <span class="mobbricon mobbricon-crowd"></span>
-                        <strong>Participants ({{ task.result.script.participants.length }})</strong>
-                    </div>
-                    <div class="icons" ng-show="task.result.script.participants.length > 0">
-                        <div class="col-xs-1 text-center icon">
-                            <span class="mobbricon mobbricon-info"></span>
-                        </div>
-                        <div class="col-xs-1 text-center icon">
-                            <span ng-class="participants_open ? 'mobbricon-softclose' : 'mobbricon-addopen'" class="mobbricon"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </accordion-heading>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 tablecontainer">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>
-                                Participant
-                            </th>
-                            <th>
-                                Role
-                            </th>
-                            <th>
-                                Share
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr ng-repeat="participant in task.result.script.participants">
-                            <td ng-bind="participant.id"></td>
-                            <td ng-bind="participant.role"></td>
-                            <td ng-bind="participant.share"></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
+<div class="row top-info filter payment-filter" ng-if="!has_failed && has_script">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 title">
+                <span class="mobbricon mobbricon-crowd"></span>
+                <strong>Participants ({{ task.result.script.participants.length }})</strong>
             </div>
         </div>
-    </accordion-group>
-</accordion>
+    </div>
+</div>
+
+<div class="row" ng-if="!has_failed && has_script">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 tablecontainer">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>
+                            Participant
+                        </th>
+                        <th>
+                            Role
+                        </th>
+                        <th>
+                            Share
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="participant in task.result.script.participants">
+                        <td ng-bind="participant.id | decodeuri"></td>
+                        <td ng-bind="participant.role"></td>
+                        <td ng-bind="participant.share"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
