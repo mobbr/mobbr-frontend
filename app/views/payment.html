@@ -1,19 +1,18 @@
 <div class="row top-bar">
     <div class="container">
-        <div class="row left-pad">
-            <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-9">
                 <h1>
                     Payment receipt
-                    <span ng-if="payment.paiddatetime" ng-bind="payment.paiddatetime | amDateFormat : 'YYYYMMDD HH:MM'"></span>
+                    <!--<span ng-if="payment.paiddatetime" ng-bind="payment.paiddatetime | amDateFormat : 'YYYYMMDD HH:MM'"></span>
                     <span ng-if="!payment.paiddatetime && payment.faileddatetime" ng-bind="payment.faileddatetime | amDateFormat : 'YYYYMMDD HH:MM'"></span>
-                    <span ng-if="payment.faileddatetime && payment.service_message" ng-bind="payment.service_message"></span>
-
-                    <div class="col-md-3 pull-right">
-                        <a ng-show="payment.uri"
-                           ng-href="#{{ $state.href('box.task.index.view', { task: encodeTask(payment.uri) }) }}"
-                           class="btn btn-call white btn-block">Go to task</a>
-                    </div>
+                    <span ng-if="payment.faileddatetime && payment.service_message" ng-bind="payment.service_message"></span>-->
                 </h1>
+            </div>
+            <div class="col-md-3">
+                <a ng-show="payment.uri"
+                   ng-href="#{{ $state.href('box.task.index.view', { task: encodeTask(payment.uri) }) }}"
+                   class="btn btn-call btn-block">Go to task</a>
             </div>
         </div>
     </div>
@@ -26,42 +25,46 @@
                 <div class="card-container col-xs-6 col-sm-3">
                     <div class="card fixed">
                         <div class="front">
-                            <div class="row">
-                                <small class="col-md-12">Amount</small>
+                            <div class="row top">
+                                <div class="col-md-12">
+                                    <span class="mobbricon mobbricon-payments"></span>
+                                    Amount
+                                </div>
                             </div>
                             <div class="row">
-                                <span class="txt big col-md-12" ng-bind="payment.amount | mobbrcurrency"></span>
-                            </div>
-                            <div class="row">
-                                <span class="txt big col-md-12" ng-bind="payment.currency_iso"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-container col-xs-6 col-sm-3">
-                    <div class="card fixed">
-                        <div class="front">
-                            <div class="row">
-                                <small class="col-md-12">#recipients / #unclaimed</small>
-                            </div>
-                            <div class="row">
-                                <span class="txt big col-md-12" ng-bind="payment.receivers.length + ' / ' + (payment.receivers | filter : {unclaimed:'1'}).length"></span>
+                                <span class="txt big col-md-12" ng-bind-html="payment.amount | mobbrcurrency:payment.currency_iso:true"></span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="card-container col-xs-6 col-sm-3">
+                <div class="card-container col-xs-6 col-sm-3" ng-if="!payment.ext_trx_id">
                     <div class="card fixed">
                         <div class="front">
-                            <div class="row">
-                                <small class="col-md-12">
-                                    Invoiced </small>
+                            <div class="row top">
+                                <div class="col-md-12">
+                                    <span class="mobbricon mobbricon-unclaimed"></span>
+                                    Unclaimed shares
+                                </div>
                             </div>
                             <div class="row">
-                                <span class="txt col-md-12">
-                                    <i ng-show="payment.invoiced == '1'" class="mobbricon mobbricon-completed"></i>
+                                <span class="txt col-md-12" ng-bind="(payment.receivers | filter : {unclaimed:'1'}).length + ' / ' + payment.receivers.length"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-container col-xs-6 col-sm-3" ng-if="!payment.ext_trx_id">
+                    <div class="card fixed">
+                        <div class="front">
+                            <div class="row top">
+                                <div class="col-md-12">
+                                    <span class="mobbricon mobbricon-tasks"></span>
+                                    Invoiced
+                                </div>
+                            </div>
+                            <div class="row">
+                                <span class="txt xsmall col-md-12">
                                     <span ng-bind="payment.invoiced == '1'?'Payment is invoiced':'Payment is not invoiced'"></span>
                                    </span>
                             </div>
@@ -72,11 +75,33 @@
                 <div class="card-container col-xs-6 col-sm-3">
                     <div class="card fixed">
                         <div class="front">
-                            <div class="row">
-                                <small class="col-md-12">Date</small>
+                            <div class="row top">
+                                <div class="col-md-12">
+                                    <span class="mobbricon mobbricon-transaction"></span>
+                                    Date
+                                </div>
                             </div>
                             <div class="row">
-                                <span class="txt big col-md-12" ng-bind="payment.paiddatetime | amDateFormat : 'MM/DD/YYYY'"></span>
+                                <span class="txt col-md-12" ng-bind="payment.paiddatetime | amDateFormat:'l'"></span>
+                            </div>
+                            <div class="row">
+                                <span class="txt xsmall col-md-12" ng-bind="payment.paiddatetime | amDateFormat:'LT'"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-container col-xs-6 col-sm-3" ng-if="payment.receive_address">
+                    <div class="card fixed">
+                        <div class="front">
+                            <div class="row top">
+                                <div class="col-md-12">
+                                    <span class="mobbricon mobbricon-transaction"></span>
+                                    Receive address
+                                </div>
+                            </div>
+                            <div class="row">
+                                <span class="txt xsmall col-md-12" ng-bind="payment.receive_address"></span>
                             </div>
                         </div>
                     </div>
@@ -88,96 +113,104 @@
     </div>
 </div>
 
-
-<div class="row">
-    <div class="container">
-        <div class="row">
-            <div class="md-12">
-                <span ng-bind-html="payment.amount | mobbrcurrency:payment.currency_iso:true:true"></span>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row" ng-if="payment.note">
-    <div class="container">
-        <div class="row">
-            <div class="md-12">
-                <span ng-bind="payment.note"></span>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row" ng-if="payment.description">
-    <div class="container">
-        <div class="row">
-            <div class="md-12">
-                <span ng-bind="payment.description"></span>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-<accordion state-accordion="payment" ng-if="recieversAndSenders && recieversAndSenders.length > 0">
-    <accordion-group is-open="stateAccordion['payment.persons']" is-disabled="true">
-        <accordion-heading>
-            <div class="container">
-                <div class="row no-pad">
-                    <div class="col-xs-10 title" ng-click="$state.is('payment.persons') ? $state.go('^') : $state.go('payment.persons')">
-                        <span class="mobbricon mobbricon-unclaimed"></span>
-                        <strong>Persons</strong>
-                    </div>
-                    <div class="icons">
-                        <div class="col-xs-1 text-center icon">
-                            <span class="mobbricon mobbricon-info"></span>
-                        </div>
-                        <div class="col-xs-1 text-center icon" ng-click="$state.is('payment.persons') ? $state.go('^') : $state.go('payment.persons')">
-                            <span ng-class="$state.is('payment.persons') ? 'mobbricon-softclose' : 'mobbricon-addopen'" class="mobbricon"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </accordion-heading>
+<div class="payment-top">
+    <div class="row payment-info payment-title">
         <div class="container">
             <div class="row">
-                <div ng-if="recieversAndSenders && recieversAndSenders.length > 0">
-                    <div class="row" ng-if="(recieversAndSenders | filter:{selected:true}).length > 0">
-                        <button class="btn btn-primary" ng-click="download()">Download invoice(s) selected</button>
-                    </div>
-
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th><input type="checkbox" ng-model="selectAll.selected" ng-if="payment.invoiced == '1'"></th>
-                            <th ng-click="sortBy='username'; reverse=!reverse">Participant</th>
-                            <th ng-click="sortBy='role'; reverse=!reverse">Role</th>
-                            <th ng-click="sortBy='share'; reverse=!reverse">%</th>
-                            <th ng-click="sortBy='currency_iso'; reverse=!reverse">Currency</th>
-                            <th ng-click="sortBy='amount'; reverse=!reverse">Amount</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr ng-repeat="participant in recieversAndSenders | orderBy:sortBy:reverse">
-                            <td><input ng-if="payment.invoiced == '1' && participant.share_id" type="checkbox" ng-model="participant.selected"></td>
-                            <td><img
-                                    ng-src="https://secure.gravatar.com/avatar/{{ participant.gravatar }}?s=50&default=https://mobbr.com/img/default-gravatar.png"
-                                    class="gravatar img-rounded"
-                                    width="50"
-                                    height="50">
-                                {{participant.username}}
-                            </td>
-                            <td ng-bind="participant.role"></td>
-                            <td ng-bind="participant.share|number:2"></td>
-                            <td ng-bind="participant.currency_iso"></td>
-                            <td ng-bind-html="participant.amount | mobbrcurrency:'':true:true"></td>
-                        </tr>
-                        </tbody>
-                    </table>
+                <div class="col-md-12 title">
+                    <strong ng-bind="payment.title || payment.payment_service"></strong>
                 </div>
             </div>
         </div>
-    </accordion-group>
-</accordion>
+    </div>
+
+    <div class="row payment-info" ng-if="payment.description || payment.note">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <span ng-bind="payment.description || payment.note"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!--<div class="row payment-data">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-3 title">
+                <span class="mobbricon mobbricon-payments"></span>
+                <span ng-bind-html="payment.amount | mobbrcurrency:payment.currency_iso:true"></span>
+                <span ng-if="payment.costs > 0">
+                    (+ <span ng-bind-html="payment.costs | mobbrcurrency:'':true"></span> fee)
+                </span>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3 title" ng-if="!payment.ext_trx_id">
+                <span class="mobbricon mobbricon-softalert"></span>
+                <i ng-show="payment.invoiced == '1'" class="mobbricon mobbricon-completed"></i>
+                <span ng-bind="payment.invoiced == '1'?'Payment is invoiced':'Payment is not invoiced'"></span>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3 title" ng-if="!payment.ext_trx_id">
+                <span class="mobbricon mobbricon-unclaimed"></span>
+                <span ng-bind="(payment.receivers | filter : {unclaimed:'1'}).length + ' / ' + payment.receivers.length"></span> shares are unclaimed
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3 title">
+                <span class="mobbricon mobbricon-payments"></span>
+                <span ng-bind="payment.paiddatetime | amDateFormat:'lll'"></span>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 title" ng-if="payment.receive_address">
+                <span class="mobbricon mobbricon-transaction"></span>
+                <span ng-bind="payment.receive_address"></span>
+            </div>
+        </div>
+    </div>
+</div>-->
+
+<div class="row top-info filter payment-filter" ng-if="recieversAndSenders && recieversAndSenders.length > 0">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 title">
+                <span class="mobbricon mobbricon-crowd"></span>
+                <strong>Persons</strong>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" ng-if="recieversAndSenders && recieversAndSenders.length > 0">
+    <div class="container">
+        <div class="row" ng-if="(recieversAndSenders | filter:{selected:true}).length > 0">
+            <button class="btn btn-primary" ng-click="download()">Download invoice(s) selected</button>
+        </div>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th ng-if="payment.invoiced == '1'"><input type="checkbox" ng-model="selectAll.selected"></th>
+                <th ng-click="sortBy='username'; reverse=!reverse">Participant</th>
+                <th ng-click="sortBy='role'; reverse=!reverse">Role</th>
+                <th ng-click="sortBy='share'; reverse=!reverse">%</th>
+                <th ng-click="sortBy='currency_iso'; reverse=!reverse">Currency</th>
+                <th ng-click="sortBy='amount'; reverse=!reverse">Amount</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="participant in recieversAndSenders | orderBy:sortBy:reverse">
+                <td ng-if="payment.invoiced == '1' && participant.share_id"><input type="checkbox" ng-model="participant.selected"></td>
+                <td><img
+                        ng-src="https://secure.gravatar.com/avatar/{{ participant.gravatar }}?s=50&default=https://mobbr.com/img/default-gravatar.png"
+                        class="gravatar img-rounded"
+                        width="20"
+                        height="20">
+                    {{participant.username}}
+                </td>
+                <td ng-bind="participant.role"></td>
+                <td ng-bind="participant.share|number:2"></td>
+                <td ng-bind="participant.currency_iso"></td>
+                <td ng-bind-html="participant.amount | mobbrcurrency:'':true:true"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
