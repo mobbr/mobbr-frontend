@@ -46,14 +46,14 @@
             <div class="col-md-3">
                 <button ng-click="removePledges()" class="btn btn-primary btn-block"
                         ng-disabled="filterSelectedIds(data.pledges.result).length == 0">
-                    Delete selected pledges
+                    Revoke pledge(s)
                     <span class="mobbricon mobbricon-hardclose"></span>
                 </button>
             </div>
             <div class="col-md-3">
                 <button ng-click="claimPledges()" class="btn btn-primary btn-block"
                         ng-disabled="filterSelectedIds(data.pledges.result).length == 0 || filterSelectedIds(data.pledges.result).length > 1">
-                    Claim selected pledge
+                    Trigger pledge(s)
                     <span class="mobbricon mobbricon-tasks"></span>
                 </button>
             </div>
@@ -121,7 +121,7 @@
             <div class="col-md-3">
                 <button ng-click="revokeSelectedShares()" class="btn btn-primary btn-block"
                         ng-disabled="filterSelectedIds(data.unclaimed.result).length == 0">
-                    Delete selected shares
+                    Revoke share(s)
                     <span class="mobbricon mobbricon-hardclose"></span>
                 </button>
             </div>
