@@ -1,87 +1,104 @@
-<div id="persondetail">
+<div class="row top-info">
+    <div class="container">
+        <div class="row cards-wrapper">
+            <div class="card-container flip col-xs-6 col-sm-3">
+                <div class="card fixed" style="background-image: url('https://secure.gravatar.com/avatar/{{ person.user.gravatar }}?s=300&default=https://mobbr.com/img/default-gravatar2.png'); background-size: cover;">
+                    <div class="front">
+                        <div class="row">
+                            <span class="col-md-12">
+                            </span>
+                        </div>
+                        <div class="row bottom">
+                            <div class="col-md-12">
+                                <a href="https://gravatar.com"
+                                   target="_blank"
+                                   class="btn btn-block">Change your gravatar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-container flip col-xs-6 col-sm-3">
+                <div class="card fixed">
+                    <div class="front">
+                        <div class="row top">
+                            <div class="col-md-12">
+                                <span class="mobbricon mobbricon-person"></span>
+                                {{ person.user.firstname }} {{ person.user.lastname }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <span class="txt col-md-12" ng-bind="person.user.occupation"></span>
+                        </div>
+                        <div class="row">
+                            <span class="txt xsmall col-md-12">
+                                Registered
+                                <span am-time-ago="person.user.registerdatetime"></span>
+                            </span>
+                        </div>
+                        <div class="row">
+                            <span class="txt xsmall col-md-12">
+                                Last active
+                                <span am-time-ago="person.user.lastlogindatetime"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-container flip col-xs-6 col-sm-3">
+                <div class="card fixed" ng-class="{ failed: person.user.kyc_level != 'regular' }">
+                    <div class="front">
+                        <div class="row top">
+                            <div class="col-md-12">
+                                <span class="mobbricon mobbricon-myprofile"></span>
+                                Trust
+                            </div>
+                        </div>
+                        <div class="row">
+                            <span class="txt col-md-12">
+                                <span class="mobbricon" ng-class="{ 'mobbricon-done': person.user.kyc_level == 'regular', 'mobbricon-hardalert': person.user.kyc_level != 'regular' }"></span>
+                                <span ng-bind="person.user.kyc_level == 'regular' ? 'Verfied ID' : 'Unverified ID'"></span>
+                            </span>
+                        </div>
+                        <div class="row">
+                            <span class="txt xsmall col-md-12">
+                                <span class="mobbricon" ng-class="{ 'mobbricon-done': person.user.vat_number, 'mobbricon-hardalert': !person.user.vat_number }"></span>
+                                <span ng-bind="person.user.vat_number ? 'Invoicable' : 'Not invoicable'"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-container flip col-xs-6 col-sm-3">
+                <div class="card fixed">
+                    <div class="front">
+                        <div class="row top">
+                            <div class="col-md-12">
+                                <span class="mobbricon mobbricon-digger"></span>
+                                Performace
+                            </div>
+                        </div>
+                        <div class="row">
+                            <span class="txt col-md-12" ng-bind="person.stats.num_urls + ' tasks'"></span>
+                        </div>
+                        <div class="row">
+                            <span class="txt xsmall col-md-12" ng-bind="'on ' + person.stats.num_domain + ' domains'"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
+<div id="persondetail" class="personpage">
     <div ng-show="personPromise.$resolved">
-        <div class="row section">
-            <div class="container">
-                <div class="row">
-
-                    <img ng-src="https://secure.gravatar.com/avatar/{{ person.user.gravatar }}?s=200&default=https://mobbr.com/img/default-gravatar.png"
-                         width="200"
-                         class="pull-left"
-                         height="200">
-
-                    <div class="col-md-8">
-                        <h2>
-                            {{ person.user.firstname }} {{ person.user.lastname }} <span class="" ng-show="person.user.kyc_level == 'regular'"></span> <span ng-show="person.user.kyc_level == 'regular'">|</span>
-                        </h2>
-                        <div ng-show="person.user.occupation" ng-bind="person.user.occupation">
-
-                        </div>
-                        <div>
-                            Active since {{ person.user.registerdatetime | amCalendar }} | Last active {{  person.user.lastlogindatetime | amCalendar }}
-                        </div>
-                        <div ng-show="remoteProfile.aboutMe" ng-bind="remoteProfile.aboutMe">
-
-                        </div>
-                        <div ng-show="remoteProfile.bio" ng-bind="remoteProfile.bio">
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row top-info filter">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 title">
-                        <span class="mobbricon mobbricon-domain"></span>
-                        <strong>Active accounts</strong>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row section" ng-show="person.user.ids">
-            <div class="container">
-                <div class="row taglist clearfix">
-                    <a ng-repeat="id in person.user.ids" ng-href="id.id" target="_blank" class="label label-default tag pull-left">
-                        <img ng-src="{{ id.facicon }}" width="16">
-                        {{ id.provider }}
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <div class="row top-info filter">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 title">
-                        <span class="mobbricon mobbricon-mobbricon"></span>
-                        <strong>Performance</strong>
-                    </div>
-                    <div class="col-md-3">
-                        <a ng-show="person.stats.num_domain" class="btn btn-block btn-call">
-                            {{person.stats.num_domain}} domains
-                            <span class="mobbricon mobbricon-domain pull-right"></span>
-                        </a>
-                    </div>
-                    <div class="col-md-3">
-                        <a ng-show="person.stats.num_urls" class="btn btn-block btn-call">
-                            {{person.stats.num_urls}} tasks
-                            <span class="mobbricon mobbricon-tasks pull-right"></span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <div class="row top-info filter">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 title">
                         <span class="mobbricon mobbricon-tag"></span>
-                        <strong>{{person.user.firstname}}'s tags</strong>
+                        <strong>Tags</strong>
                     </div>
                 </div>
             </div>
@@ -97,8 +114,11 @@
                                 <span class="mobbricon mobbricon-tag"></span>
                                 <span ng-bind="keyword.keyword"></span>
                             </li>
+                            <li ng-click="keywordsLimit = 1000" ng-show="keywordsLimit == keywordsLimitDefault && keywords.result.length > keywordsLimit" class="label label-default tag pull-left more">
+                                <span class="mobbricon mobbricon-addopen"></span>
+                                More
+                            </li>
                         </ul>
-                        <button class="btn" ng-click="keywordsLimit = 1000" ng-show="keywordsLimit == keywordsLimitDefault && keywords.result.length > keywordsLimit">More</button>
                     </div>
                 </div>
             </div>
@@ -109,7 +129,7 @@
                 <div class="row">
                     <div class="col-md-12 title">
                         <span class="mobbricon mobbricon-domain"></span>
-                        <strong>{{person.user.firstname}}'s domains</strong>
+                        <strong>Domains</strong>
                     </div>
                 </div>
             </div>
@@ -121,13 +141,16 @@
                     <div class="col-md-12">
                         <ul class="list-unstyled taglist clearfix">
                             <li ng-repeat="domain in person.domain | limitTo:domainLimit">
-                                <a ng-href="{{ domain.host }}" class="label label-default tag pull-left">
+                                <a ng-href="https://{{ domain.host }}" class="label label-default tag pull-left" target="_blank">
                                     <img ng-src="{{domain.favicon}}">
                                     {{domain.host}}
                                 </a>
                             </li>
+                            <li ng-click="domainLimit = 1000" ng-show="domainLimit == domainLimitDefault && person.domain.length > domainLimit" class="label label-default tag pull-left more">
+                                <span class="mobbricon mobbricon-addopen"></span>
+                                More
+                            </li>
                         </ul>
-                        <button class="btn" ng-click="domainLimit = 1000" ng-show="domainLimit == domainLimitDefault && person.domain.length > domainLimit">More</button>
                     </div>
                 </div>
             </div>
@@ -138,7 +161,7 @@
                 <div class="row">
                     <div class="col-md-12 title">
                         <span class="mobbricon mobbricon-domain"></span>
-                        <strong>{{person.user.firstname}}'s verified accounts</strong>
+                        <strong>Verified accounts</strong>
                     </div>
                 </div>
             </div>
@@ -155,8 +178,11 @@
                                     <span ng-bind="id"></span>
                                 </a>
                             </li>
+                            <li ng-click="idLimit = 1000" ng-show="idLimit == idLimitDefault && person.user.id.length > idLimit" class="label label-default tag pull-left more">
+                                <span class="mobbricon mobbricon-addopen"></span>
+                                More
+                            </li>
                         </ul>
-                        <button class="btn" ng-click="idLimit = 1000" ng-show="idLimit == idLimitDefault && person.user.id.length > idLimit">More</button>
                     </div>
                 </div>
             </div>

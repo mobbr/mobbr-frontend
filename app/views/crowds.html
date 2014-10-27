@@ -17,7 +17,7 @@
                     <span ng-show="mobbrSession.isAuthorized() && selectedPersons && selectedPersons.length == 0" class="btn btn-link">Select people to invite for this task</span>
                     <span ng-show="!mobbrSession.isAuthorized() && selectedPersons && selectedPersons.length == 0" class="btn btn-link">Login to find your workforce</span>
                     <img ng-repeat="person in selectedPersons"
-                         ng-src="https://secure.gravatar.com/avatar/{{ person['gravatar'] }}?s=50&default=https://mobbr.com/img/default-gravatar.png"
+                         ng-src="https://secure.gravatar.com/avatar/{{ person['gravatar'] }}?s=50&default=https://mobbr.com/img/default-gravatar2.png"
                          width="40"
                          height="40"
                          ng-click="removePerson(person)">
@@ -59,7 +59,7 @@
                  ng-init="person.selected = person.selected || false"
                  ng-click="mobbrSession.isAuthorized() && activeQuery && (person.selected = !person.selected);activeQuery && addPerson(person);">
                 <div class="top">
-                    <img ng-src="https://secure.gravatar.com/avatar/{{ person['gravatar'] }}?s=50&default=https://mobbr.com/img/default-gravatar.png"
+                    <img ng-src="https://secure.gravatar.com/avatar/{{ person['gravatar'] }}?s=50&default=https://mobbr.com/img/default-gravatar2.png"
                          width="50"
                          height="50"
                          class="pull-left">
