@@ -61,8 +61,7 @@
                             </span>
                         </div>
                         <div class="row">
-                            <span class="txt col-md-12" ng-bind="person.stats.num_ids + ' verified ID's"></span>
-                            </span>
+                            <span class="txt xsmall col-md-12" ng-bind="person.num_ids + ' verified ID\'s'"></span>
                         </div>
                     </div>
                 </div>
@@ -73,7 +72,7 @@
                         <div class="row top">
                             <div class="col-md-12">
                                 <span class="mobbricon mobbricon-digger"></span>
-                                Performace
+                                Performance
                             </div>
                         </div>
                         <div class="row">
@@ -178,8 +177,8 @@
                         <ul class="list-unstyled taglist">
                             <li ng-repeat="id in person.user.id | limitTo:domainLimit">
                                 <a ng-href="{{ id }}" class="label label-default tag pull-left">
-                                    <span class="mobbricon mobbricon-domain"></span>
-                                    <span ng-bind="id"></span>
+                                    <img ng-src="https://www.google.com/s2/favicons?domain={{ id }}">
+                                    <span ng-bind="id | domain"></span>
                                 </a>
                             </li>
                             <li ng-click="idLimit = 1000" ng-show="idLimit == idLimitDefault && person.user.id.length > idLimit" class="label label-default tag pull-left more">
