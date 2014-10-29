@@ -8,7 +8,7 @@
 <div class="row top-info filter" ng-show="task.$resolved && !no_script">
     <div class="container">
         <div class="row">
-            <fieldset ng-disabled="(persons && !persons.$resolved)" class="form-horizontal">
+            <fieldset ng-disabled="persons && persons.length == 0" class="form-horizontal">
                 <div class="col-md-3 title">
                     <span class="mobbricon mobbricon-crowd"></span>
                     <strong>My future team</strong>
@@ -53,52 +53,55 @@
 
 <div class="container">
     <div ng-class="{ loading: personPromise && !personPromise.$resolved }" class="row data-cards data-cards-persons">
-        <div ng-repeat="person in persons | filter:filterUser" class="col-md-3 col-sm-4 col-xs-12 data-card-container">
-            <div class="data-card"
+        <div ng-repeat="person in persons | filter:filterUser"
+             class="col-md-3 col-sm-4 col-xs-12 data-card-container">
+            <div class="data-card person-card"
                  ng-class="{ 'data-card-highlight': person.match_percentage > 90 }"
-                 ng-init="person.selected = person.selected || false"
-                 ng-click="mobbrSession.isAuthorized() && activeQuery && (person.selected = !person.selected);activeQuery && addPerson(person);">
-                <div class="top">
-                    <img ng-src="https://secure.gravatar.com/avatar/{{ person['gravatar'] }}?s=50&default=https://mobbr.com/img/default-gravatar2.png"
-                         width="50"
-                         height="50"
-                         class="pull-left">
-                    <h3 ng-bind="person.username"></h3>
-                    <span ng-show="person.verified_identity == '1'">Verified</span>
-                    <span ng-show="person.invoicable == '1'">Invoicable</span>
-                    <p>
-                        Active since<br>
-                        <time ng-bind="person.registerdatetime | amDateFormat : 'DD-MM-YYYY HH:MM'"></time>
-                    </p>
-
-                    <ul class="list-unstyled">
-                        <li ng-repeat="role in person.role">
-                            <strong ng-bind="role"></strong>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="bottom">
-                    <div class="item large participants">
-                        <span ng-bind="person.match_percentage + '%'"></span>
-                        <span class="mobbricon mobbricon-tag"></span>
-                    </div>
-                    <div class="item large tasks">
-                        <span ng-bind="person.num_participated_tasks"></span>
-                        <span class="mobbricon mobbricon-digger"></span>
-                    </div>
-                    <div class="item large">
-                        <span ng-bind="person.num_participated_domains"></span>
-                        <span class="mobbricon mobbricon-domain"></span>
-                    </div>
-                </div>
-
-                <div class="checkbox" ng-show="activeQuery && mobbrSession.isAuthorized()">
+                 ng-init="person.selected = person.selected || false">
+                <div class="checkbox" ng-show="activeQuery && mobbrSession.isAuthorized()" ng-class="{ selected: person.selected }">
                     <label>
-                        <input type="checkbox" ng-model="person.selected" disabled>
+                        <input type="checkbox" ng-model="person.selected" ng-change="activeQuery && addPerson(person)">
                         Invite for this task
                     </label>
                 </div>
+                <a ui-sref="box.person.profile({ username: person.username })">
+                    <div class="top">
+                        <div class="clearfix">
+                            <img ng-src="https://secure.gravatar.com/avatar/{{ person['gravatar'] }}?s=50&default=https://mobbr.com/img/default-gravatar2.png"
+                                 width="50"
+                                 height="50"
+                                 class="pull-left">
+                            <h3 ng-bind="person.username"></h3>
+                            <span ng-show="person.verified_identity == '1'">Verified</span>
+                            <span ng-show="person.invoicable == '1'">Invoicable</span>
+                        </div>
+                        <p class="clearfix">
+                            Active since<br>
+                            <time ng-bind="person.registerdatetime | amDateFormat : 'DD-MM-YYYY HH:MM'"></time>
+                        </p>
+
+                        <ul class="list-unstyled">
+                            <li ng-repeat="role in person.role">
+                                <strong ng-bind="role"></strong>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bottom">
+                        <div class="item large participants">
+                            <span ng-bind="person.match_percentage + '%'"></span>
+                            <span class="mobbricon mobbricon-tag"></span>
+                        </div>
+                        <div class="item large tasks">
+                            <span ng-bind="person.num_participated_tasks"></span>
+                            <span class="mobbricon mobbricon-digger"></span>
+                        </div>
+                        <div class="item large">
+                            <span ng-bind="person.num_participated_domains"></span>
+                            <span class="mobbricon mobbricon-domain"></span>
+                        </div>
+                    </div>
+                </a>
             </div>
         </div>
 
