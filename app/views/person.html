@@ -57,13 +57,11 @@
                         <div class="row">
                             <span class="txt col-md-12">
                                 <span class="mobbricon" ng-class="{ 'mobbricon-done': person.user.kyc_level == 'regular', 'mobbricon-hardalert': person.user.kyc_level != 'regular' }"></span>
-                                <span ng-bind="person.user.kyc_level == 'regular' ? 'Verfied ID' : 'Unverified ID'"></span>
+                                <span ng-bind="person.user.kyc_level == 'regular' ? 'Verified' : 'Unverified'"></span>
                             </span>
                         </div>
                         <div class="row">
-                            <span class="txt xsmall col-md-12">
-                                <span class="mobbricon" ng-class="{ 'mobbricon-done': person.user.vat_number, 'mobbricon-hardalert': !person.user.vat_number }"></span>
-                                <span ng-bind="person.user.vat_number ? 'Invoicable' : 'Not invoicable'"></span>
+                            <span class="txt col-md-12" ng-bind="person.stats.num_ids + ' verified ID's"></span>
                             </span>
                         </div>
                     </div>
@@ -83,6 +81,12 @@
                         </div>
                         <div class="row">
                             <span class="txt xsmall col-md-12" ng-bind="'on ' + person.stats.num_domain + ' domains'"></span>
+                        </div>
+                        <div class="row">
+                            <span class="txt xsmall col-md-12">
+                                <span class="mobbricon" ng-class="{ 'mobbricon-done': person.user.vat_number, 'mobbricon-hardalert': !person.user.vat_number }"></span>
+                                <span ng-bind="person.user.vat_number ? 'Invoicable' : 'Not invoicable'"></span>
+                            </span>
                         </div>
                     </div>
                 </div>
