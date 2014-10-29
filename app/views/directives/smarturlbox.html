@@ -32,7 +32,7 @@
             <a ng-click="isopen = false;" ui-sref="box.tasks"><span class="mobbricon mobbricon-digger"></span> Find new tasks</a>
         </li>
         <li>
-            <a ng-click="isopen = false;" ui-sref="box.person"><span class="mobbricon mobbricon-person"></span> Find new persons</a>
+            <a ng-click="isopen = false;" ui-sref="box.person"><span class="mobbricon mobbricon-person"></span> Find person</a>
         </li>
         <li ng-show="mobbrSession.isAuthorized()">
             <a ng-click="isopen = false;" ui-sref="box.tasks.person({ username: user.username })"><img ng-src="{{ user.thumbnail }}"  width="32" height="32"> My tasks</a>
