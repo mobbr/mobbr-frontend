@@ -184,16 +184,24 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
         }
 
         if ($scope.oAuthProviders && $scope.oAuthProviders.result) {
+
             $scope.oAuthWithIdProviders = [];
+            $scope.stackExchangeProviders = [];
 
             angular.forEach($scope.oAuthProviders.result, function (provider) {
-                var copy = angular.copy(provider);
+
+                var copy = angular.copy(provider),
+                    stack = copy.provider && copy.provider.indexOf('stackexchange.com') !== -1;
+
                 addIdIfFound(copy);
-                if(copy.id){
+                console.log(stack);
+
+                if (copy.id) {
                     $scope.oAuthWithIdProviders.unshift(copy);
-                }else {
-                    $scope.oAuthWithIdProviders.push(copy);
+                } else {
+                    stack ? $scope.stackExchangeProviders.push(copy) : $scope.oAuthWithIdProviders.push(copy);
                 }
+                console.log($scope.stackExchangeProviders);
             });
         }
 
