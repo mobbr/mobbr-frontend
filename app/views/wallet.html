@@ -61,16 +61,18 @@
                         <div class="card">
                             <div class="front">
                                 <div class="row">
-                                    <small class="col-md-12">Spendable</small>
+                                    <small class="col-md-12">Spendable in <span ng-bind="balance.currency_description"></span></small>
                                 </div>
                                 <div class="row">
-                                    <span class="txt col-md-12" ng-bind-html="balance.spendable | mobbrcurrency:'':true"></span>
+                                    <span class="txt col-md-12" ng-bind-html="balance.spendable | mobbrcurrency:balance.currency_iso:true"></span>
                                 </div>
                                 <div class="row">
-                                    <span class="txt big col-md-12" ng-bind="balance.currency_iso"></span>
+                                    <small class="col-md-12">Equivalent</small>
                                 </div>
                                 <div class="row">
-                                    <small class="col-md-12" ng-bind="balance.currency_description"></small>
+                                    <span class="txt xsmall col-md-12">
+                                        (<span ng-bind-html="balance.converted_amount | mobbrcurrency:currenciesMap[dashboard.result.total_currency_iso].currency_iso:true"></span>)
+                                    </span>
                                 </div>
                             </div>
                             <div class="back">
@@ -94,8 +96,8 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12 text-success">
-                                        <small class="pull-left">Converted amount </small>
-                                        <span class="txt pull-right" ng-bind-html="balance.converted_amount | mobbrcurrency:currenciesMap[dashboard.result.total_currency_iso].currency_iso:true"></span>
+                                        <small class="pull-left">Spendable </small>
+                                        <span class="txt pull-right" ng-bind-html="balance.converted_amount | mobbrcurrency:'':true"></span>
                                     </div>
                                 </div>
                             </div>
