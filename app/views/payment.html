@@ -96,12 +96,28 @@
                         <div class="front">
                             <div class="row top">
                                 <div class="col-md-12">
+                                    <span class="mobbricon mobbricon-domain"></span>
+                                    Network
+                                </div>
+                            </div>
+                            <div class="row">
+                                <span class="txt col-md-12" ng-bind="payment.payment_service"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-container col-xs-6 col-sm-3" ng-if="payment.receive_address">
+                    <div class="card fixed">
+                        <div class="front">
+                            <div class="row top">
+                                <div class="col-md-12">
                                     <span class="mobbricon mobbricon-transaction"></span>
                                     Receive address
                                 </div>
                             </div>
                             <div class="row">
-                                <span class="txt xsmall col-md-12" ng-bind="payment.receive_address"></span>
+                                <span class="txt xsmall col-md-12 breakable" ng-bind="payment.receive_address"></span>
                             </div>
                         </div>
                     </div>
@@ -114,11 +130,11 @@
 </div>
 
 <div class="payment-top">
-    <div class="row payment-info payment-title">
+    <div class="row payment-info payment-title" ng-if="payment.title">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 title">
-                    <strong ng-bind="payment.title || payment.payment_service"></strong>
+                    <strong ng-bind="payment.title"></strong>
                 </div>
             </div>
         </div>
@@ -129,6 +145,16 @@
             <div class="row">
                 <div class="col-md-12">
                     <span ng-bind="payment.description || payment.note"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row payment-info" ng-if="payment.ext_trx_id">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <strong>External Transaction ID:</strong> <span ng-bind="payment.ext_trx_id"></span>
                 </div>
             </div>
         </div>
