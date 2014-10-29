@@ -136,7 +136,7 @@
             <tr ng-repeat="notification in notifications.result | limitTo: limiter | filter:notificationType"
                 ng-class="{ link: hasLink(notification) }"
                 class="{{ eventCategories[notification.type] || 'security' }}"
-                ng-click="hasLink(notification) && linkNotification(notification)">
+                ng-click="hasLink(notification) && notificationLink(notification)">
                 <td class="text-center iconholder">
                     <span class="mobbricon"
                           ng-class="{ 'mobbricon-transaction': eventCategories[notification.type] == 'payment',

@@ -117,7 +117,7 @@ angular.module('mobbr.controllers').controller('UpdatesController', function ($s
     }
 
     $scope.notificationLink = function (notification) {
-        if (notification.type.indexOf('x-payment') !== -1) {
+        if (notification.type.indexOf('xpayment') !== -1) {
             $state.go('x-payment', { id: notification.link });
         } else if (notification.type.indexOf('payment') !== -1) {
             $state.go('payment', { id: notification.link });
