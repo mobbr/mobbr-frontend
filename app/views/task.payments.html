@@ -27,7 +27,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="payment in payments.result">
+                        <tr ng-repeat="payment in payments.result" ng-click="$state.go('payment', { id: payment.id })">
                             <td ng-bind="payment.datetime"></td>
                             <td ng-bind="payment.is_pledge == '1' ? 'Pledge' : 'Payment'"></td>
                             <td>
