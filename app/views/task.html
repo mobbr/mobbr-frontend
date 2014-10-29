@@ -8,7 +8,7 @@
 
 <div ui-view ng-show="task && task.$resolved">
     <div class="row top-info tasks-summary">
-        <div class="container">
+        <div class="container task-card-container">
             <div class="row">
                 <a ng-class="$state.is('box.task.index.domain') ? 'active' : ''"
                    ng-href="#{{ $state.is('box.task.index.domain') ? $state.href('box.task.index.view') : $state.href('box.task.index.domain') }}"

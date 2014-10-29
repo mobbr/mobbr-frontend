@@ -53,7 +53,7 @@
 
   .card {
     border: 1px solid #9ebd5b;
-    height: 34px;
+    height: 170px;
     font-family: $mobbrFontCondensed;
 
     .top {
@@ -84,6 +84,10 @@
       font-weight: bold;
       line-height: 26px;
       padding: ($grid-gutter-width * 1.25) 0;
+    }
+
+    .txt.xsmall {
+      padding: ($grid-gutter-width / 2) 0;
     }
 
     small {
@@ -157,17 +161,21 @@
   }
 
   @media (max-width: $screen-xs-max) {
-    .card .row {
+    .task-card-container .card .row {
       display: none;
     }
 
-    .card .row.top {
+    .task-card-container .card .row.top {
       display: block;
     }
   }
 
+  .task-card-container .card {
+    height: 34px;
+  }
+
   @media (min-width: $screen-sm-min) {
-    .card {
+    .task-card-container .card {
       height: 170px;
     }
   }
@@ -252,4 +260,35 @@
 
 .task .card-container {
   margin-bottom: 0;
+}
+
+.tasks-summary {
+
+  .card {
+
+    border-color: $mobbrlightblue;
+
+    .large,
+    .xlarge {
+      font-family: $mobbrFontCondensed;
+      font-size: 16px;
+      text-align: left;
+      font-weight: bold;
+    }
+
+    .xlarge {
+      font-size: 72px;
+      line-height: 72px;
+    }
+  }
+
+  .card-container .card {
+    color: $white;
+    background: $mobbrblue;
+  }
+
+  .active .card {
+    background: $white;
+    color: $mobbrblue;
+  }
 }
