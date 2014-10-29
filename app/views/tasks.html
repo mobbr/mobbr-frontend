@@ -8,7 +8,7 @@
         <a ng-repeat="url in tasks" ui-sref="box.task.index.view({ task: encodeTask(url.url) })">
             <div class="col-xs-12 col-sm-4 col-md-3 data-card-container">
                 <div class="data-card"
-                     ng-class="{ 'data-card-highlight': url.match_percentage > 90 }">
+                     ng-class="{ 'data-card-highlight': url.is_pledge == '1' }">
                     <div class="top">
                         <h3 ng-bind="url.title"></h3>
                         <p ng-bind="url.description"></p>
