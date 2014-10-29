@@ -106,24 +106,6 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="card-container col-xs-6 col-sm-3" ng-if="payment.receive_address">
-                    <div class="card fixed">
-                        <div class="front">
-                            <div class="row top">
-                                <div class="col-md-12">
-                                    <span class="mobbricon mobbricon-transaction"></span>
-                                    Receive address
-                                </div>
-                            </div>
-                            <div class="row">
-                                <span class="txt xsmall col-md-12 breakable" ng-bind="payment.receive_address"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
             </div>
         </div>
     </div>
@@ -160,6 +142,15 @@
         </div>
     </div>
 
+    <div class="row payment-info" ng-if="payment.ext_trx_id">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <strong>Receive address:</strong> <span ng-bind="payment.receive_address"></span>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!--<div class="row payment-data">
