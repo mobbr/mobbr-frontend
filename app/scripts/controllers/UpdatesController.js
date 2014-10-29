@@ -1,4 +1,4 @@
-angular.module('mobbr.controllers').controller('UpdatesController', function ($scope, $q, $rootScope, notifications, balance, person, MobbrNotifications) {
+angular.module('mobbr.controllers').controller('UpdatesController', function ($scope, $q, $rootScope, notifications, balance, person, $state) {
     'use strict';
 
     var profileFields = [
@@ -7,7 +7,8 @@ angular.module('mobbr.controllers').controller('UpdatesController', function ($s
         'birthday',
         'address',
         'country_of_residence',
-        'nationality', 'occupation',
+        'nationality',
+        'occupation',
         'income_range',
         'companyname',
         'vat_number',
@@ -15,6 +16,32 @@ angular.module('mobbr.controllers').controller('UpdatesController', function ($s
         'language_iso',
         'timezone'
     ];
+
+    $scope.eventCategories = {
+        payment_pledged: 'payment',
+        payment_sent: 'payment',
+        payment_received: 'payment',
+        xpayment_created: 'payment',
+        xpayment_received: 'payment',
+        account_activation: 'security',
+        pre_registration: 'security',
+        password_update: 'security',
+        login_key_generation: 'security',
+        account_login: 'security',
+        login: 'security',
+        logout: 'security',
+        auto_logout: 'security',
+        email_address_confirmation: 'security',
+        email_address_update: 'security',
+        invoice_download: 'user',
+        kyc_acceptance: 'user',
+        script_mention: 'user',
+        task_invitation: 'user',
+        profile_update: 'user',
+        kyc_failure: 'error',
+        xpayment_failure: 'error',
+        payment_revocation: 'error'
+    };
 
     $scope.dashboard = balance.result;
     $scope.notifications = notifications;
@@ -65,6 +92,61 @@ angular.module('mobbr.controllers').controller('UpdatesController', function ($s
 
         return count / 14;
     };
+
+    $scope.hasLink = function (notification) {
+        switch (notification.type) {
+            case 'payment_pledged':
+            case 'payment_sent':
+            case 'payment_received':
+            case 'xpayment_created':
+            case 'xpayment_received':
+            case 'email_address_confirmation':
+            case 'email_address_update':
+            case 'invoice_download':
+            case 'kyc_acceptance':
+            case 'kyc_failure':
+            case 'script_mention':
+            case 'task_invitation':
+            case 'profile_update':
+            case 'xpayment_failure':
+                return true;
+                break;
+            default:
+                return false;
+        }
+    }
+
+    $scope.notificationLink = function (notification) {
+        if (notification.type.indexOf('x-payment') !== -1) {
+            $state.go('x-payment', { id: notification.link });
+        } else if (notification.type.indexOf('payment') !== -1) {
+            $state.go('payment', { id: notification.link });
+        } else {
+            switch (notification.type) {
+                case 'email_address_confirmation':
+                case 'email_address_update':
+                    $state.go('settings.account');
+                    break;
+                case 'invoice_download':
+                    $state.go('payments.payments');
+                    break;
+                case 'kyc_acceptance':
+                case 'kyc_failure':
+                    $state.go('settings.proof');
+                    break;
+                case 'script_mention':
+                case 'task_invitation':
+                    $state.go('box.task.index.view', { task: $window.btoa(notification.link) });
+                    break;
+                case 'profile_update':
+                    $state.go('box.person.profile', { username: $scope.mobbrStorage.user.username });
+                    break;
+                case 'xpayment_failure':
+                    $state.go('wallet.xpayments');
+                    break;
+            }
+        }
+    }
 
     $scope.updates = { open: true };
 
