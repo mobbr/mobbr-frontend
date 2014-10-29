@@ -87,6 +87,11 @@
                                 <span ng-bind="person.user.vat_number ? 'Invoicable' : 'Not invoicable'"></span>
                             </span>
                         </div>
+                        <div class="row bottom">
+                            <div class="col-md-12">
+                                <a ui-sref="box.tasks.person({ username: person.user.username })" class="btn btn-block">Show tasks</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
