@@ -49,7 +49,7 @@
                                 <div class="row bottom">
                                     <div class="col-md-12">
                                         <button ui-sref="settings.display" class="btn btn-block">
-                                            Change your currency
+                                            Change your preference
                                         </button>
                                     </div>
                                 </div>
@@ -66,11 +66,11 @@
                                 <div class="row">
                                     <span class="txt col-md-12" ng-bind-html="balance.spendable | mobbrcurrency:balance.currency_iso:true"></span>
                                 </div>
-                                <div class="row">
+                                <div class="row" ng-show="balance.currency_iso !== currenciesMap[dashboard.result.total_currency_iso].currency_iso">
                                     <small class="col-md-12">Equivalent</small>
                                 </div>
                                 <div class="row">
-                                    <span class="txt xsmall col-md-12">
+                                    <span class="txt xsmall col-md-12" ng-show="balance.currency_iso !== currenciesMap[dashboard.result.total_currency_iso].currency_iso">
                                         (<span ng-bind-html="balance.converted_amount | mobbrcurrency:currenciesMap[dashboard.result.total_currency_iso].currency_iso:true"></span>)
                                     </span>
                                 </div>
@@ -90,7 +90,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12 text-warning">
-                                        <small class="pull-left">Fee</small>
+                                        <small class="pull-left">Monthly fee</small>
                                         <span class="txt pull-right" ng-bind-html="balance.fee | mobbrcurrency:'':true"></span>
                                     </div>
                                 </div>
