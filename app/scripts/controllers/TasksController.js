@@ -35,12 +35,12 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
 
     $scope.getSuggestedTags = function () {
 
-        var username = $state.params.username || ($rootScope.$mobbrStorage.user && $rootScope.$mobbrStorage.user.username);
+        var username = $state.params.username || null;
 
         if (username) {
              MobbrKeywords.person({
                 language: language,
-                username: username,
+                username: $state.params.username,
                 limit: $scope.tagsLimiter.limit,
                 related_to: $scope.filteredTags
             }, function (response) {
@@ -48,7 +48,7 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
             });
         } else {
             MobbrKeywords.get({
-                limit: $scope.tagsLimiter.limit0,
+                limit: $scope.tagsLimiter.limit,
                 language: language,
                 related_to: $scope.filteredTags
             }, function (response) {
