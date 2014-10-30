@@ -31,7 +31,8 @@ angular.module('mobbr', [
         'mobbr.services',
         'mobbr.directives',
         'mobbr.filters',
-        'angularMoment'
+        'angularMoment',
+        'angular-loading-bar'
 
     ]).config(function ($stateProvider, $urlRouterProvider) {
 

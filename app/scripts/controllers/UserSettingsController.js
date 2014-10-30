@@ -194,14 +194,12 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
                     stack = copy.provider && copy.provider.indexOf('stackexchange.com') !== -1;
 
                 addIdIfFound(copy);
-                console.log(stack);
 
                 if (copy.id) {
                     $scope.oAuthWithIdProviders.unshift(copy);
                 } else {
                     stack ? $scope.stackExchangeProviders.push(copy) : $scope.oAuthWithIdProviders.push(copy);
                 }
-                console.log($scope.stackExchangeProviders);
             });
         }
 

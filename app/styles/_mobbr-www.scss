@@ -1,92 +1,5 @@
-.wide-header {
-  background: $white;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  font-size: 16px;
-  border-bottom: 1px solid $gray;
-
-  .mobbricon {
-    margin-right: $grid-gutter-width;
-  }
-}
-
-.text-warning {
-  color: $state-warning-bg;
-}
-
-.text-success {
-  color: $mobbrgreen;
-}
-
-.btn {
-  border: 0;
-}
-
-.btn-square {
-  width: 40px;
-}
-
-a.btn-call {
-  color: #000;
-}
-
-.btn-call {
-  font-size: 17px;
-  background-color: $mobbrcallout;
-  text-align: left;
-  font-weight: bold;
-
-  .mobbricon {
-    line-height: 28px;
-  }
-}
-
-.btn-call.white {
-  background: #fff;
-}
-
-.nice-amount {
-  .iso:after {
-    content: ' ';
-  }
-  .frac {
-    font-size: 50%;
-    vertical-align: text-top;
-  }
-}
-
-.title {
-  line-height: 20px;
-
-  .mobbricon {
-    margin-right: $grid-gutter-width / 2;
-    font-size: 20px;
-  }
-}
-
-.info-box {
-  line-height: 16px;
-  display: block;
-  padding-left: 24px;
-  padding-top: 3px;
-
-  .mobbricon-softalert {
-    display: block;
-    float: left;
-    font-size: 20px;
-    margin-top: -3px;
-    margin-left: -26px;
-  }
-}
-
-h1 {
-  font-family: $mobbrFontCondensed;
-}
-
 body {
   padding-top: $navbar-height;
-  font-family: $mobbrFont;
-  background: $gray;
 }
 
 body.blocked:after {
@@ -97,111 +10,60 @@ body.blocked:after {
   right: 0;
   bottom: 0;
   left: 0;
-  background: rgba(0, 0, 0, .5);
   z-index: 1031;
 }
 
 body.blocked .task-pay > .clearfix > div .row {
-  background: $gray;
   position: relative;
   z-index: 1032;
 }
 
-body.blocked .unblocked {
-  background: $white;
+body.blocked .tasks-summary .card-container {
+  position: relative;
+  z-index: 1032;
 }
 
-.navbar-default .navbar-nav > .open > a,
-.navbar-default .navbar-nav > .open > a:hover,
-.navbar-default .navbar-nav > .open > a:focus {
-  background-color: $white;
+
+/* tasks-summary */
+
+.tasks-summary {
+  padding-top: 12px;
 }
 
-.dropdown-menu > li > a:hover,
-.dropdown-menu > li > a:focus {
-  background: #000;
-  color: #fff;
+.tasks-summary .card .top {
+  border-bottom: 1px solid $mobbrlightblue;
 }
 
-.col-55 {
-  float: left;
-  width: 45px;
-
-  @media (min-width: $screen-sm-min) {
-    width: 60px;
-  }
+.tasks-summary {
+  padding-bottom: 0;
+}
+.tasks-summary .active .card {
+  border-bottom-width: 0;
 }
 
-.logo-menu {
-  font-family: 'Roboto Condensed';
-  font-size: 1.2em;
-  min-width: auto;
-  border: 0;
-  margin-top: 0;
-  z-index: 2004;
-
-  li {
-    margin-left: 5px;
-    margin-right: 5px;
-  }
-
-  a,
-  .link,
-  .btn {
-    display: block;
-    background-color: $gray;
-    padding: 3px 20px 3px 5px;
-    border-bottom: 1px solid $white;
-    cursor: pointer;
-    font-size: 17px;
-
-    .mobbricon {
-      margin: 0 5px;
-    }
-  }
-
-  input {
-    border-bottom: 1px solid $white;
-  }
-
-  .link:hover,
-  .btn:hover {
-    background: #000;
-    color: $white;
-  }
-
-  .link-call {
-    background-color: $mobbrcallout;
-  }
+.tasks-summary .disabled .card {
+  background: $mobbrblue;
+  color: $mobbrlightblue;
 }
 
-.logo-menu > li > a {
-  padding-left: 5px;
-  padding-right: 5px;
+a.logo img {
+  cursor: pointer;
 }
-
 
 .page-white {
-  background-color: $white;
   padding-top: $grid-gutter-width * 1.25;
 }
-
-/*
- * settings page
- */
 
 .user-thumb {
   margin-left: $grid-gutter-width / 2;
 }
 
 .top-bar {
-  color: $white;
   padding-top: $grid-gutter-width * 1.5;
   padding-bottom: $grid-gutter-width * 1.5;
 
   h1 {
     font-size: 26px;
-    text-transform: uppercase;
     line-height: 30px;
     padding-top: 15px;
     padding-bottom: 15px;
@@ -216,10 +78,6 @@ body.blocked .unblocked {
   }
 }
 
-.top-info {
-  color: $white;
-}
-
 .top-info h2,
 .task-tags h2 {
   margin-top: 0;
@@ -228,215 +86,10 @@ body.blocked .unblocked {
   line-height: 20px;
   padding-top: 25px;
   padding-bottom: 25px;
-  font-family: $mobbrFontCondensed;
-}
-
-.input-group-addon {
-  border: 0;
-}
-
-.query-bar {
-  padding-bottom: 0;
-  padding-top: $grid-gutter-width * 2;
-  padding-bottom: $grid-gutter-width * 2;
-
-  input {
-    background: $white;
-  }
-
-  .grayquery input {
-    background: $gray;
-  }
-
-  .form-control {
-    padding: $grid-gutter-width;
-    height: 50px;
-  }
-
-  .input-group-addon {
-    width: 50px;
-    padding-top: 0;
-    padding-bottom: 0;
-    margin-top: $grid-gutter-width / 2;
-    margin-bottom: $grid-gutter-width / 2;
-    border: 1px solid $white;
-  }
-
-  .input-group-btn .btn {
-    height: 50px;
-    width: 50px;
-  }
-
-  .input-group-btn.border .btn {
-    margin-left: 1px;
-  }
-
-  .input-group-btn.guide {
-    background: $white;
-    text-align: center;
-    width: 50px;
-    height: 50px;
-  }
-
-  .input-group-btn.guide .mobbricon {
-    font-size: 14px;
-    color: shade($gray, 12.5%);
-  }
-
-  .grayquery .input-group-btn.guide {
-    background: $gray;
-  }
-
-  .grayquery .input-group-btn.guide .mobbricon {
-    color: shade($gray, 25%);
-  }
-
-  .input-group-btn .btn:hover {
-    background: $white;
-    color: $mobbrblue;
-  }
-}
-
-
-.tags {
-  border: 0;
-}
-
-.tasks-summary {
-
-  padding-top: 12px;
-
-  .card {
-
-    border-color: $mobbrlightblue;
-
-    .large,
-    .xlarge {
-      font-family: $mobbrFontCondensed;
-      font-size: 16px;
-      text-align: left;
-      font-weight: bold;
-    }
-
-    .xlarge {
-      font-size: 72px;
-      line-height: 72px;
-    }
-  }
-
-  .card-container .card {
-    color: $white;
-    background: $mobbrblue;
-  }
-
-  .active .card {
-    background: $white;
-    color: $mobbrblue;
-  }
-}
-
-.data-cards {
-  padding: $grid-gutter-width / 4;
-}
-
-.data-card-container {
-  padding: $grid-gutter-width / 4;;
-}
-
-.data-card {
-  background: $white;
-  color: #000;
-  padding: $grid-gutter-width * 2;
-  height: 314px;
-  overflow: hidden;
-  line-height: 20px;
-  position: relative;
-
-  .top {
-    max-height: 126px;
-    overflow: hidden;
-    word-wrap: break-word;
-    word-break: break-word;
-  }
-
-  h3 {
-    margin: 0;
-    padding: 0;
-    font-size: 14px;
-    font-family: $mobbrFontCondensed;
-    font-weight: bold;
-    line-height: 18px;
-  }
-
-   p {
-     font-size: 12px;
-     line-height: 18px;
-   }
-
-  .bottom {
-    position: absolute;
-    bottom: 0;
-    left: $grid-gutter-width * 2;
-    right: $grid-gutter-width * 2;
-    border-top: 1px solid $gray;
-  }
-
-  .participants {
-    color: $mobbryellow;
-  }
-
-  .amount {
-    color: $mobbrgreen;
-  }
-
-  .tasks {
-    color: $mobbrblue;
-  }
-
-  .item {
-    line-height: 24px;
-    text-align: right;
-    margin-top: $grid-gutter-width * 1.5;
-    margin-bottom: $grid-gutter-width * 1.5;
-    font-family: $mobbrFontCondensed;
-
-    .mobbricon {
-      margin-left: $grid-gutter-width / 2;
-      float: right;
-    }
-  }
-
-  .large,
-  .mobbricon {
-    font-size: 24px;
-  }
-
-  .domain .mobbricon {
-    margin-left: 4px;
-  }
-}
-
-.data-card:hover,
-.data-card-highlight {
-  background: $mobbrblue;
-  color: $white;
-
-  .item {
-    color: $white;
-  }
-}
-
-.data-cards-persons .data-card:hover,
-.data-cards-persons .data-card-highlight {
-  background: $mobbryellow;
 }
 
 .task-section-container .col-md-12 {
   min-height: 0;
-}
-
-.data-cards-persons .data-card img {
-  margin-right: $grid-gutter-width * 1.5;
 }
 
 .task-info {
@@ -483,37 +136,6 @@ body.blocked .unblocked {
     margin-bottom: 0;
     margin-top: 8px;
     line-height: 20px;
-  }
-}
-
-.query-menu {
-  @include box-shadow(0 6px 12px rgba(0,0,0,.175));
-  padding: 1px;
-  padding-top: 1px;
-  background: $white;
-  position: absolute;
-  z-index: 999;
-  left: $grid-gutter-width / 2;
-  top: 50px;
-
-  a {
-    display: block;
-    padding: 3px 10px;
-    clear: both;
-    font-weight: normal;
-    line-height: 2;
-    color: #333333;
-    white-space: nowrap;
-
-    .mobbricon {
-      margin-right: 10px;
-    }
-  }
-
-  a:hover {
-    background: #000;
-    color: $white;
-    text-decoration: none;
   }
 }
 
@@ -590,93 +212,6 @@ fieldset[disabled] .btn {
   }
 }
 
-.tag {
-  font-size: 18px;
-  line-height: 50px;
-  padding: 0 12px;
-  border-radius: 0;
-  margin-right: 8px;
-  margin-bottom: 8px;
-  font-weight: normal;
-  font-family: $mobbrFontCondensed;
-
-  .mobbricon {
-    margin: 0 4px;
-  }
-}
-
-.tag.reset {
-  padding-left: 8px;
-  background: #000;
-  color: $white;
-}
-
-.tag.more {
-  background: #000;
-  color: $white;
-  padding-left: 12px;
-}
-
-.tag.suggested {
-  opacity: .4;
-}
-
-.tag.toptags {
-  background: #000;
-  color: $white;
-  padding-right: 8px;
-}
-
-.tag.addtag {
-  background: $gray;
-  color: #000;
-  padding-left: 0;
-  padding-right: 0;
-  width: 180px;
-
-  .mobbricon {
-    font-size: 18px;
-  }
-
-  input {
-    height: 50px;
-    line-height: 50px;
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-}
-
-.tag:hover {
-  background: #000;
-  color: $white;
-}
-
-.tag.addtag:hover {
-  background: $gray;
-  color: #000;
-}
-
-.tags h2 {
-  padding-top: 0;
-}
-
-.tasks-summary .card .top {
-  border-bottom: 1px solid $mobbrlightblue;
-}
-
-.tasks-summary {
-  padding-bottom: 0;
-}
-
-.blocked .tasks-summary .card-container {
-  position: relative;
-  z-index: 1032;
-}
-
-.tasks-summary .active .card {
-  border-bottom-width: 0;
-}
-
 .task-data {
   border-top: $grid-gutter-width solid $mobbrblue;
   padding-top: $grid-gutter-width;
@@ -686,16 +221,6 @@ fieldset[disabled] .btn {
   position: relative;
   z-index: 1032;
   background: $gray;
-}
-
-.tasks-summary .card-container .failed {
-  color: #000;
-  background: $mobbrcallout;
-}
-
-.tasks-summary .disabled .card {
-  background: $mobbrblue;
-  color: $mobbrlightblue;
 }
 
 .task-top {
@@ -708,10 +233,6 @@ fieldset[disabled] .btn {
   margin-bottom: 0;
 }
 
-.task-section .tags {
-  padding-top: 25px;
-}
-
 .task-section .filter {
   background: $white;
   color: $mobbrblue;
@@ -721,25 +242,6 @@ fieldset[disabled] .btn {
 .filter.task-warning {
   background: $mobbrcallout;
   color: #000;
-}
-
-.task-section .top-info.tags {
-  background: $mobbrcallout;
-  border-top: 0;
-  border-bottom: 0;
-  color: #000;
-
-  .tag {
-    color: #000;
-  }
-
-  .tag.more {
-    color: $white;
-  }
-
-  .tag:hover {
-    color: $white;
-  }
 }
 
 .home .line,
@@ -811,106 +313,14 @@ fieldset[disabled] .btn {
   background: $white;
 }
 
-.home .pusher {
-  position: absolute;
-  bottom: 0;
-  left: $grid-gutter-width / 2;
-  right: $grid-gutter-width / 2;
-  /*margin-top: 433px;*/
-}
-
-.home .query-holder {
-  position: relative;
-  height: 360px;
-}
-
-@media (min-width: 450px) {
-  .home .query-holder {
-    height: 440px;
-  }
-}
-
-@media (min-width: $screen-sm-min) {
-  .home .query-holder {
-    height: 500px;
-  }
-}
-
-@media (min-width: $screen-md-min) {
-  .home .query-holder {
-    height: 583px;
-  }
-}
-
-.home .query-bar {
-  padding-top: 18px;
-  padding-bottom: 18px;
-  background: $mobbrblue url(../img/home.png) bottom center no-repeat;
-  background-size: contain;
-}
-
-.home .btn {
-  text-align: left;
-}
-
 .home .content p,
 .task-instructions .content p {
   line-height: 24px;
   font-family: $mobbrFontCondensed;
 }
 
-.home .persons img {
-  margin-top: $grid-gutter-width;
-  margin-right: $grid-gutter-width * 2;
-}
-
 .task .card.funding .txt {
   padding-bottom: 0;
-}
-
-.home .taglist .tag {
-  display: inline-block;
-
-  .nice-amount {
-    line-height: 17px;
-  }
-}
-
-.home .thing {
-  position: relative;
-}
-
-.home .taglist .gravatarholder {
-  padding: 0;
-  width: 50px;
-
-  img {
-    position: absolute;
-    left: 0;
-    top: -17px;
-  }
-}
-
-.home .taglist .tag {
-  margin-right: 3px;
-  margin-bottom: 6px;
-}
-
-.home .taglist .tag:hover {
-  background: $white;
-}
-
-.home .btn-call {
-  color: #000;
-}
-
-.home section .btn-call {
-  font-size: 14px;
-}
-
-.home .top-bar .btn-call {
-  margin-top: $grid-gutter-width / 2;
-  margin-bottom: $grid-gutter-width / 2;
 }
 
 .line .btn-primary {
@@ -922,105 +332,14 @@ fieldset[disabled] .btn {
   }
 }
 
-.home .tag:hover {
-  background: #000;
-}
-
-.home .btn-nav {
-  border-right: 1px solid $white;
-  margin-bottom: -$grid-gutter-width;
-  margin-top: -$grid-gutter-width;
-  height: 65px;
-  .btn {
-    text-align: center;
-    width: 50px;
-    height: 65px;
-    background: transparent;
-    border-right: 1px solid shade($gray, 5);
-    font-family: $mobbrFontCondensed;
-    font-size: 24px;
-  }
-}
-
-.home .btn-nav.right {
-  border-right: 0;
-  border-left: 1px solid $white;
-  .btn {
-    border-right: 0;
-    border-left: 1px solid shade($gray, 5);
-  }
-}
-
-.home .title strong {
-  font-family: $mobbrFontCondensed;
-}
-
-.home .happening {
-  margin-top: $grid-gutter-width;
-  margin-bottom: 3px;
-}
-
-.task-pay .info-bar {
+.task-pay .info-bar,
+.payment-info {
   border-top: 1px solid $white;
   padding: $grid-gutter-width 0 ;
 }
 
-#persondetail .section {
-  padding-top: $grid-gutter-width;
-  padding-bottom: $grid-gutter-width;
-  border-top: 1px solid $gray;
-  background: $white;
-}
-
-#persondetail .section:first-child {
-  padding-top: $grid-gutter-width * 2;
-  padding-bottom: $grid-gutter-width * 2;
-}
-
-#persondetail .filter {
-  border-top: 1px solid $gray;
-}
-
-#persondetail .taglist {
-  margin-top: $grid-gutter-width;
-  margin-bottom: $grid-gutter-width / 2;
-}
-
-#persondetail .tag {
-  margin-right: $grid-gutter-width / 2;
-  margin-bottom: $grid-gutter-width / 2;
-}
-
-#persondetail a.tag {
-  background: $gray;
-  color: #000;
-}
-
-#persondetail a.tag:hover {
-  background: #000;
+.payment-info {
+  border-top: 1px solid $mobbrlightgreen;
+  background: $mobbrgreen;
   color: $white;
-}
-
-#persondetail li.tag {
-  background: $mobbryellow;
-  color: $white;
-}
-
-#persondetail li.tag:hover {
-  color: $white;
-}
-
-#persondetail .btn-call {
-  background: $mobbrblue;
-  color: $white;
-}
-
-a.logo img {
-  cursor: pointer;
-}
-
-@media (max-width: $screen-xs-max) {
-  .videobutton {
-    margin-top: $grid-gutter-width;
-  }
 }
