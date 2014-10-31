@@ -64,8 +64,8 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
             $scope.tasksPromise = undefined;
             $scope.filteredTags = [];
             $scope.suggestedTags = [];
-            $scope.tasks = [];
         }
+        $scope.tasks = [];
     });
 
     $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
