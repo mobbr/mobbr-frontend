@@ -23,10 +23,17 @@ angular.module('mobbr.directives').directive('mobbrSmartUrlBox', function factor
         },
         controller: function ($scope, $state, $window, $timeout) {
 
-            var opener;
+            var opener,
+                url_test = /\b((?:https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))/i,
+                user_test = new RegExp('^[A-Z0-9_-]{4,32}$', 'i');
 
             $scope.mobbrSession = mobbrSession;
             $scope.$state = $state;
+
+            $scope.queryChange = function () {
+                $scope.is_url = $scope.query && url_test.test($scope.query);
+                $scope.is_user = $scope.query && $scope.query.indexOf('http') !== 0 && user_test.test($scope.query);
+            }
 
             $scope.setType = function (type) {
 
@@ -63,29 +70,52 @@ angular.module('mobbr.directives').directive('mobbrSmartUrlBox', function factor
 
                 $window.ga('send', 'event', 'box', 'search ' + $scope.urlType.toLowerCase(), 'query', query);
 
-                switch ($scope.urlType) {
-                    case 'TASK':
-                        $state.go($state.includes('box.task.index') ? $state.current.name : 'box.task.index.view', { task: url });
-                        break;
-                    case 'CROWDS':
-                        if (query) {
+                if ($scope.is_url) {
+
+                    switch ($scope.urlType) {
+                        case 'CROWDS':
                             $state.go('box.crowds.task', { task: url });
-                        } else {
-                            $state.go('box.crowds');
-                        }
-                        break;
-                    case 'TASKS':
-                        if (query) {
+                            break;
+                        case 'TASK':
+                        case 'TASKS':
+                        case 'PROFILE':
+                            $state.go($state.includes('box.task.index') ? $state.current.name : 'box.task.index.view', { task: url });
+                            break;
+                    }
+
+                } else if ($scope.is_user) {
+
+                    switch ($scope.urlType) {
+                        case 'TASKS':
                             $state.go('box.tasks.person', { username: $window.encodeURIComponent(query) });
-                        } else {
+                            break;
+                        case 'PROFILE':
+                        case 'TASK':
+                        case 'CROWDS':
+                            $state.go('box.person.profile', { username: $window.encodeURIComponent(query) });
+                            break;
+                    }
+
+                } else {
+
+                    switch ($scope.urlType) {
+                        case 'TASK':
+                            $state.go('box.task');
+                            break;
+                        case 'CROWDS':
+                            $state.go('box.crowds');
+                            break;
+                        case 'TASKS':
                             $state.go('box.tasks');
-                        }
-                        break;
-                    case 'PROFILE':
-                        $state.go('box.person.profile', { username: $window.encodeURIComponent(query) });
-                        break;
+                            break;
+                        case 'PROFILE':
+                            $state.go('box.person');
+                            break;
+                    }
                 }
             };
+
+            $scope.queryChange();
         }
     };
 });

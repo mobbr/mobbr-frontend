@@ -84,8 +84,9 @@
 <div class="row info-bar" ng-show="taskAddresses">
     <div class="container">
         <div class="row">
-            <fieldset ng-repeat="address in taskAddresses">
-                <div class="col-xs-12">
+            <fieldset class="form-group task-address" ng-repeat="address in taskAddresses">
+                <label class="control-label col-xs-2" ng-bind="address.currency"></label>
+                <div class="col-xs-10">
                     <input class="form-control" type="text" ng-model="address.address" readonly>
                 </div>
             </fieldset>
