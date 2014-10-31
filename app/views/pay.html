@@ -61,7 +61,7 @@
                                 </button>
                             </div>
                             <div class="col-xs-2">
-                                <a ng-href="#{{ $state.includes('payments') ? $state.href('^') : $state.href('box.task.index.view') }}" class="btn btn-danger btn-block">X</a>
+                                <a ng-href="{{ $state.includes('payments') ? $state.href('^') : $state.href('box.task.index.view') }}" class="btn btn-danger btn-block">X</a>
                             </div>
                         </div>
                     </fieldset>
