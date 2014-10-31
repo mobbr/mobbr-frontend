@@ -10,7 +10,7 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
         var username = $state.params.username || null,
             params;
 
-        $scope.$emit('set-query', username);
+        username && $scope.$emit('set-query', username);
 
         params = {
             limit: initial_limit,
