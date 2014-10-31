@@ -26,6 +26,7 @@ angular.module('mobbr.directives').directive('mobbrSmartUrlBox', function factor
             var opener;
 
             $scope.mobbrSession = mobbrSession;
+            $scope.$state = $state;
 
             $scope.setType = function (type) {
 
