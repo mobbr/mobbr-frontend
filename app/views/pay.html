@@ -73,21 +73,10 @@
 <div class="row info-bar" ng-show="taskAddresses">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                    <span class="info-box">
-                        <span class="mobbricon mobbricon-softalert"></span> This URL has its own bitcoin address. Payments will be automatically divided among participants.
-                    </span>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row info-bar" ng-show="taskAddresses">
-    <div class="container">
-        <div class="row">
             <fieldset class="form-group task-address" ng-repeat="address in taskAddresses">
-                <label class="control-label col-xs-2" ng-bind="address.currency"></label>
+                <label class="control-label col-xs-2" ng-bind="address.currency + ' address'"></label>
                 <div class="col-xs-10">
-                    <input class="form-control" type="text" ng-model="address.address" readonly>
+                    <input class="form-control" type="text" ng-model="address.address" readonly style="background-size: 20px 20px;background-repeat: no-repeat;background-position: 98% center;background-image: url(/img/bitcoin-icon.png)">
                 </div>
             </fieldset>
         </div>
