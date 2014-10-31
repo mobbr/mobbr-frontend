@@ -35,6 +35,7 @@ angular.module('mobbr.controllers').controller('TaskController', function ($scop
             $scope.$emit('set-active-query', url);
             $scope.$emit('set-task-type', response.result.script.type);
             $scope.$emit('set-task-message', response.result.script.message);
+            $scope.$emit('set-task-addresses', response.result.addresses);
 
             //redirect();
 

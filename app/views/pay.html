@@ -70,6 +70,31 @@
         </div>
     </div>
 </div>
+<div class="row info-bar" ng-if="taskAddresses">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                    <span class="info-box">
+                        <span class="mobbricon mobbricon-softalert"></span> This URL has its own bitcoin address. Payments will be automatically divided among participants.
+                    </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row info-bar" ng-if="taskAddresses">
+    <div class="container">
+        <div class="row">
+            <fieldset ng-repeat="address in taskAddresses">
+                <div class="col-xs-12">
+                    <input class="form-control" type="text" ng-model="address.address" readonly>
+                    <span ng-show="changeemail.email.$dirty && changeemail.email.$error.required" class="help-inline">Enter a email address.</span>
+                    <span ng-show="changeemail.email.$dirty && changeemail.email.$error.email" class="help-inline">Enter a valid email address.</span>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>
+
 <div class="row info-bar border-top-bar">
     <div class="container">
         <div class="row">
