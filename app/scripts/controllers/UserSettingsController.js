@@ -263,9 +263,12 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
 
     function popupMessage(e) {
         if (e.data === 'oauth-popup') {
+
+            var popup_location = oauth_popup.location.href;
+
             oauth_popup.close();
             $scope.waitingAddId = MobbrUser.confirmOauthId({
-                    redirected_url: oauth_popup.location.href,
+                    redirected_url: popup_location,
                     provider: $scope.provider
                 },
                 matchProviders,
