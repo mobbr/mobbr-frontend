@@ -170,6 +170,12 @@
     }
   }
 
+  @media (min-width: $screen-md-min) {
+    .card {
+      height: 220px;
+    }
+  }
+
   .task-card-container .card {
     height: 34px;
   }
@@ -180,14 +186,14 @@
     }
   }
 
-  .fixed {
-    background: $white;
-  }
-
   @media (min-width: $screen-md-min) {
-    .card {
+    .task-card-container .card {
       height: 220px;
     }
+  }
+
+  .fixed {
+    background: $white;
   }
 
   .flatcard {

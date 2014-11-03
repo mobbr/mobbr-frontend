@@ -9,6 +9,27 @@
   }
 }
 
+.xpaymentstable {
+
+  .form-group {
+    margin-top: $grid-gutter-width * 2;
+
+    input {
+      background: $white;
+    }
+
+    .input-group-addon {
+      background: $white;
+    }
+  }
+
+  .table > thead > tr > th,
+  .table > tbody > tr > td {
+    border-bottom-color: $white;
+    border-top-color: $white;
+  }
+}
+
 .table {
 
   time {
@@ -77,21 +98,44 @@
     padding-right: $grid-gutter-width;
   }
 
-  table tr td.login,
-  table tr td.logout,
-  table tr td.email_address_update,
-  table tr td.email_address_confirmation,
-  table tr td.profile_update,
-  table tr td.task_invitation {
+  table tr.link {
+    cursor: pointer;
+  }
+
+  table tr.user .iconholder {
     background: $mobbryellow;
   }
 
-  table tr td.auto_logout {
+  table tr.security .iconholder{
     background: $mobbrblue;
   }
 
-  table tr td.payment_received {
+  table tr.payment .iconholder{
     background: $mobbrgreen;
+  }
+
+  table tr.error .iconholder {
+    background: $btn-danger-bg;
+  }
+
+  table tr.link:hover {
+    color: $white;
+  }
+
+  table tr.link.user:hover {
+    background: $mobbryellow;
+  }
+
+  table tr.link.security:hover {
+    background: $mobbrblue;
+  }
+
+  table tr.link.payment:hover {
+    background: $mobbrgreen;
+  }
+
+  table tr.link.error:hover {
+    background: $btn-danger-bg;
   }
 
   table tr td:first-child {
@@ -109,5 +153,9 @@
     padding-top: 16px;
     padding-bottom: 16px;
     padding-left: $grid-gutter-width;
+  }
+
+  .mobbricon-view {
+    font-size: 14px;
   }
 }

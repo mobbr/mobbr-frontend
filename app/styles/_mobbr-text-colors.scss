@@ -1,3 +1,49 @@
+body {
+  font-family: $mobbrFont;
+  background: $gray;
+}
+
+body.blocked .unblocked {
+  background: $white;
+}
+
+body.blocked .task-pay > .clearfix > div .row {
+  background: $gray;
+}
+
+body.blocked:after {
+  background: rgba(0, 0, 0, .5);
+}
+
+.top-info {
+  color: $white;
+}
+
+.top-info h2,
+.task-tags h2 {
+  font-family: $mobbrFontCondensed;
+}
+
+h1 {
+  font-family: $mobbrFontCondensed;
+}
+
+.page-white {
+  background-color: $white;
+}
+
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+  background-color: $white;
+}
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+  background: #000;
+  color: #fff;
+}
+
 .task-pay {
   background: $gray;
 }
@@ -34,7 +80,16 @@ label.title {
   background: $mobbrblue;
 }
 
-.top-info.filter {
+.top-bar {
+  color: $white;
+
+  h1 {
+    text-transform: uppercase;
+  }
+}
+
+.top-info.filter,
+.payment-title {
   padding-top: $grid-gutter-width;
   padding-bottom: $grid-gutter-width;
   font-size: 16px;
@@ -63,6 +118,10 @@ label.title {
 
 .active .bottom-icon .icon {
   border-bottom: 1px solid $mobbrlightblue;
+}
+
+.failed .bottom-icon .icon {
+  border-color: #000;
 }
 
 accordion .panel-default > .panel-heading {
@@ -132,7 +191,7 @@ accordion .info-bar {
 
   .filter {
     background: $white;
-    color: $mobbrblue;
+    color: $mobbrgreen;
   }
 
   .top-info {
@@ -161,7 +220,8 @@ accordion .info-bar {
       }
     }
 
-    .fixed:hover {
+    .fixed:hover,
+    .active .card {
       background: $white;
       color: $mobbrgreen;
 
@@ -187,6 +247,26 @@ accordion .info-bar {
 
   .btn-primary {
     background-color: $mobbrgreen;
+  }
+
+  .payment-data {
+    color: $mobbrgreen;
+    border-top: 1px solid tint($mobbrgreen, 80%);
+    font-size: 14px;
+    background: $white;
+
+    .mobbricon {
+      font-size: 14px;
+      line-height: 14px;
+    }
+
+    .title {
+      line-height: 14px;
+    }
+  }
+
+  .payment-info {
+    line-height: 20px;
   }
 }
 
@@ -314,4 +394,88 @@ accordion .info-bar {
     margin-top: 0;
     margin-bottom: $grid-gutter-width;
   }
+}
+
+.top-info .card-container .failed {
+  color: #000;
+  background: $mobbrcallout;
+  border: 1px solid #000;
+
+  .top {
+    border-bottom-color: #000;
+  }
+}
+
+/* querybar coloring */
+
+.query-bar {
+
+  input {
+    background: $white;
+  }
+
+  .grayquery input {
+    background: $gray;
+  }
+
+  .input-group-addon {
+    border: 1px solid $white;
+  }
+
+  .input-group-btn.guide {
+    background: $white;
+    text-align: center;
+  }
+
+  .input-group-btn.guide .mobbricon {
+    color: shade($gray, 12.5%);
+  }
+
+  .grayquery .input-group-btn.guide {
+    background: $gray;
+  }
+
+  .grayquery .input-group-btn.guide .mobbricon {
+    color: shade($gray, 25%);
+  }
+
+  .input-group-btn .btn:hover {
+    background: $white;
+    color: $mobbrblue;
+  }
+}
+
+/* tag coloring */
+
+.personpage {
+
+  a.tag {
+    background: $gray;
+    color: #000;
+  }
+
+  a.tag:hover {
+    background: #000;
+    color: $white;
+  }
+
+  li.tag {
+    background: $mobbryellow;
+    color: $white;
+  }
+
+  li.tag:hover {
+    color: $white;
+  }
+}
+
+li.tag.reset {
+  background: #000;
+  color: $white;
+}
+
+li.tag.more {
+  background: #000;
+  color: $white;
+  cursor: pointer;
 }
