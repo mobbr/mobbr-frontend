@@ -32,6 +32,8 @@ Contributing
 
 Feel free to contribute. We will be pledging money and rewarding issues using the Mobbr system. Check this out at https://mobbr.com
 
+![alt tag](https://api.mobbr.com/button/b18bfe4333b5f1ab31f7cf23442d17cb/medium/EUR)
+
 Artwork and materials
 =====================
 
