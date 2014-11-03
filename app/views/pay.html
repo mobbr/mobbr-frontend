@@ -1,0 +1,169 @@
+<div class="row">
+    <div class="container">
+        <div class="row pay-task">
+            <form class="col-md-12">
+                <div class="row">
+                    <fieldset ng-disabled="activeQuery || (payment && !payError)" ng-show="!query && !activeQuery" class="col-md-12 form-group">
+                        <input class="form-control"
+                               placeholder="Any URL, email, username or ID"
+                               required
+                               ng-model="payQuery">
+                    </fieldset>
+                    <fieldset ng-disabled="(payment && !payError)" class="col-sm-6">
+                        <div class="row">
+                            <div class="form-group col-sm-8">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <select class="form-control"
+                                                required
+                                                ng-init="currency = $mobbrStorage.user.currency_iso || 'EUR'"
+                                                ng-model="currency"
+                                                ng-options="curr.currency_iso as curr.currency_iso for curr in userCurrencies"></select>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <input class="form-control"
+                                               placeholder="0.00"
+                                               required
+                                               type="number"
+                                               ng-model="amount"
+                                               step="any"
+                                               min="0"
+                                               max="1000000000">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" ng-model="invoices">
+                                        I want invoices
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset class="col-sm-6 form-group">
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <button ng-disabled="!currency || !amount || (payment && !payError) || (invoices && !invoices_confirm) || (!activeQuery && !payQuery)"
+                                        ng-click="preview()"
+                                        class="btn btn-default btn-block"
+                                        type="submit">
+                                    Preview
+                                </button>
+                            </div>
+                            <div class="col-xs-5">
+                                <button ng-disabled="!currency || !amount || confirm.$resolved || (invoices && !invoices_confirm) || (!activeQuery && !payQuery) || !mobbrSession.isAuthorized()"
+                                        ng-click="payment.result.hash ? pay() : previewPay()"
+                                        ng-bind="!mobbrSession.isAuthorized() && 'Login to pay' || taskType && ('Make a ' + taskType) || payment.result.script.type && ('Make a ' + payment.result.script.type) || 'Pay'"
+                                        class="btn btn-success btn-block"
+                                        type="submit">
+                                </button>
+                            </div>
+                            <div class="col-xs-2">
+                                <a ng-href="{{ $state.includes('payments') ? $state.href('^') : $state.href('box.task.index.view') }}" class="btn btn-danger btn-block">X</a>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row info-bar" ng-show="taskAddresses">
+    <div class="container">
+        <div class="row">
+            <fieldset class="form-group task-address" ng-repeat="address in taskAddresses">
+                <label class="control-label col-xs-2" ng-bind="address.currency + ' address'"></label>
+                <div class="col-xs-10">
+                    <input class="form-control" type="text" ng-model="address.address" readonly style="background-size: 20px 20px;background-repeat: no-repeat;background-position: 98% center;background-image: url(/img/bitcoin-icon.png)">
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>
+
+<div class="row info-bar border-top-bar">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                    <span class="info-box">
+                        <span class="mobbricon mobbricon-softalert"></span> No fees are charged on the sending side.
+                    </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row info-bar" ng-show="taskMessage || payment.result.script.message">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                    <span class="info-box">
+                        <span class="mobbricon mobbricon-softalert"></span> <span ng-bind="taskMessage || payment.result.script.message"></span>
+                    </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row info-bar" ng-show="invoices">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <div class="checkbox">
+                        <fieldset ng-disabled="!invoices">
+                            <label>
+                                <input type="checkbox" ng-model="invoices_confirm">
+                                I understand VAT is reverse charged and needs to be paid by me
+                            </label>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row info-bar" ng-show="show_preview && payment && payment.$resolved">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Participant</th>
+                        <th>Role</th>
+                        <th>%</th>
+                        <th>Currency</th>
+                        <th>Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-class="participant['.percentage'] ? '' : 'disabled'" ng-repeat="participant in payment.result.script.participants" title="{{ participant['no-pay-reason']}}">
+                        <td>
+                            <a ng-href="{{ participant.id }}" target="_blank">
+                                <img ng-src="https://secure.gravatar.com/avatar/{{ participant['.gravatar'] }}?s=20&default=https://mobbr.com/img/default-gravatar2.png"
+                                     width="20"
+                                     height="20">
+                                <span ng-bind="participant.id | decodeuri"></span>
+                            </a>
+                        </td>
+                        <td ng-bind="participant.role"></td>
+                        <td ng-bind="participant['.percentage'] && ((participant['.percentage'] | number:2) + '%')"></td>
+                        <td ng-bind="participant['.percentage'] && payment.result.script['.currency']"></td>
+                        <td ng-bind-html="participant['.amount'] | mobbrcurrency:'':true"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Total</td>
+                        <td>100%</td>
+                        <td ng-bind="payment.result.script['.currency']"></td>
+                        <td ng-bind-html="payment.result.script['.amount'] | mobbrcurrency:'':true"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>

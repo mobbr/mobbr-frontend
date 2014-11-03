@@ -1,0 +1,46 @@
+<smart-tags filtered-tags="filteredTags"
+            tags-limiter="tagsLimiter"
+            suggested-tags="suggestedTags"
+            get-suggested-tags="getSuggestedTags"></smart-tags>
+
+<div class="container">
+    <div class="row data-cards">
+        <a ng-repeat="url in tasks" ui-sref="box.task.index.view({ task: encodeTask(url.url) })">
+            <div class="col-xs-12 col-sm-4 col-md-3 data-card-container">
+                <div class="data-card"
+                     ng-class="{ 'data-card-highlight': url.is_pledge == '1' }">
+                    <div class="top">
+                        <h3 ng-bind="url.title"></h3>
+                        <p ng-bind="url.description"></p>
+                    </div>
+                    <div class="bottom">
+                        <div class="item large tasks">
+                            <span ng-bind="url.match_percentage + '%'"></span>
+                            <span class="mobbricon mobbricon-tag"></span>
+                        </div>
+                        <div class="item large amount">
+                            <span ng-bind-html="url.amount_total | mobbrcurrency:url.currency_iso:true"></span>
+                            <span class="mobbricon mobbricon-payments"></span>
+                        </div>
+                        <div class="item">
+                            <span ng-bind="url.domain"></span>
+                            <span class="mobbricon mobbricon-domain"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <div class="col-md-12" ng-show="tasksPromise.$resolved && tasksPromise.result.length == 0">
+            <h2><em>No tasks found...</em></h2>
+        </div>
+    </div>
+    <div class="row more-bar">
+        <div class="col-md-12">
+            <button class="btn btn-primary btn-block"
+                    ng-show="tasksPromise && tasksPromise.$resolved"
+                    ng-bind="tasksPromise && !tasksPromise.$resolved && 'Loading more results' || tasks && tasks.length < limiter && 'The end' || 'Show more results'"
+                    ng-disabled="tasks.length < limiter"
+                    ng-click="limiter = limiter + 20; queryTasks()"></button>
+        </div>
+    </div>
+</div>

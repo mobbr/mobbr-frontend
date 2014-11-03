@@ -1,0 +1,135 @@
+.home .pusher {
+  position: absolute;
+  bottom: 0;
+  left: $grid-gutter-width / 2;
+  right: $grid-gutter-width / 2;
+  /*margin-top: 433px;*/
+}
+
+.home .query-holder {
+  position: relative;
+  height: 360px;
+}
+
+@media (min-width: 450px) {
+  .home .query-holder {
+    height: 440px;
+  }
+}
+
+@media (min-width: $screen-sm-min) {
+  .home .query-holder {
+    height: 500px;
+  }
+}
+
+@media (min-width: $screen-md-min) {
+  .home .query-holder {
+    height: 583px;
+  }
+}
+
+.home .query-bar {
+  padding-top: 18px;
+  padding-bottom: 18px;
+  background: $mobbrblue url(../img/home.png) bottom center no-repeat;
+  background-size: contain;
+}
+
+.home .btn {
+  text-align: left;
+}
+
+.home .persons img {
+  margin-top: $grid-gutter-width;
+  margin-right: $grid-gutter-width * 2;
+}
+
+.home .taglist .tag {
+  display: inline-block;
+
+  .nice-amount {
+    line-height: 17px;
+  }
+}
+
+.home .thing {
+  position: relative;
+}
+
+.home .taglist .gravatarholder {
+  padding: 0;
+  width: 50px;
+
+  img {
+    position: absolute;
+    left: 0;
+    top: -17px;
+  }
+}
+
+.home .taglist .tag {
+  margin-right: 3px;
+  margin-bottom: 6px;
+}
+
+.home .taglist .tag:hover {
+  background: $white;
+}
+
+.home .btn-call {
+  color: #000;
+}
+
+.home section .btn-call {
+  font-size: 14px;
+}
+
+.home .top-bar .btn-call {
+  margin-top: $grid-gutter-width / 2;
+  margin-bottom: $grid-gutter-width / 2;
+}
+
+.home .tag:hover {
+  background: #000;
+}
+
+.home .btn-nav {
+  border-right: 1px solid $white;
+  margin-bottom: -$grid-gutter-width;
+  margin-top: -$grid-gutter-width;
+  height: 65px;
+  .btn {
+    text-align: center;
+    width: 50px;
+    height: 65px;
+    background: transparent;
+    border-right: 1px solid shade($gray, 5);
+    font-family: $mobbrFontCondensed;
+    font-size: 24px;
+  }
+}
+
+.home .btn-nav.right {
+  border-right: 0;
+  border-left: 1px solid $white;
+  .btn {
+    border-right: 0;
+    border-left: 1px solid shade($gray, 5);
+  }
+}
+
+.home .title strong {
+  font-family: $mobbrFontCondensed;
+}
+
+.home .happening {
+  margin-top: $grid-gutter-width;
+  margin-bottom: 3px;
+}
+
+@media (max-width: $screen-xs-max) {
+  .videobutton {
+    margin-top: $grid-gutter-width;
+  }
+}

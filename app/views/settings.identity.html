@@ -1,0 +1,113 @@
+<div class="info-bar" ng-if="$mobbrStorage.user.kyc_level == 'none' || $mobbrStorage.user.kyc_level == 'regular'">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <span ng-if="$mobbrStorage.user.kyc_level == 'none'" class="info-box">
+                    <span class="mobbricon mobbricon-softalert"></span> Without this information, you cannot use our FIAT-currencies (USD, GBP, CHF, SEK, NOK, DKK, EUR, PLN). These restrictions do not apply to other currencies.
+                </span>
+
+                <span ng-if="$mobbrStorage.user.kyc_level == 'regular'" class="info-box">
+                    <span class="mobbricon mobbricon-softalert"></span> This information can no longer be changed because you have a confirmed identity.
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form name="identity" class="form-horizontal">
+    <div class="container">
+        <div class="row no-margin">
+            <div class="col-md-12">
+                <div class="row" ng-if="$mobbrStorage.user.kyc_level == 'none'" >
+                    <div class="col-md-offset-2 col-md-8 col-sm-7 col-sm-offset-3 col-xs-offset-0 col-xs-12">
+                        <iframe class="eula" src="https://api.mobbr.com/mangopay-terms-of-use.txt"></iframe>
+                    </div>
+                </div>
+
+                <fieldset ng-show="$mobbrStorage.user.kyc_level == 'none'" class="form-group">
+                    <div class="col-md-offset-2 col-md-10 col-sm-7 col-sm-offset-3">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-model="accept_mango">
+                                I accept these terms
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="form-group">
+                    <label class="control-label col-sm-3 col-md-2" for="firstname">First name</label>
+                    <div class="col-sm-7 col-md-8">
+                        <input ng-model="$mobbrStorage.user.firstname" class="form-control" name="firstname" type="text" id="firstname" placeholder="e.g. John">
+                    </div>
+                </fieldset>
+
+                <fieldset class="form-group">
+                    <label class="control-label col-sm-3 col-md-2" for="lastname">Last name</label>
+                    <div class="col-sm-7 col-md-8">
+                        <input ng-model="$mobbrStorage.user.lastname" class="form-control" name="lastname" type="text" id="lastname" placeholder="e.g. Smith">
+                    </div>
+                </fieldset>
+
+                <fieldset class="form-group">
+                    <label class="control-label col-sm-3 col-md-2" for="birthday">Birth day</label>
+                    <div class="col-sm-7 col-md-8">
+                        <input ng-model="birthdate" ng-change="updateBirthdate(birthdate)" ng-model-options="{ timezone: 'UTC' }" name="birthday" type="date" id="birthday" placeholder="e.g. 07-17-1966" class="form-control">
+                    </div>
+                </fieldset>
+
+                <fieldset class="form-group">
+                    <label class="control-label col-sm-3 col-md-2" for="address">Address</label>
+                    <div class="col-sm-7 col-md-8">
+                        <input ng-model="$mobbrStorage.user.address" name="address" type="text" id="address" placeholder="e.g. Sesame Street, Manhattan" class="form-control">
+                    </div>
+                </fieldset>
+
+                <fieldset class="form-group">
+                    <label class="control-label col-sm-3 col-md-2" for="country_of_residence">Country of residence</label>
+                    <div class="col-sm-7 col-md-8">
+                        <select class="form-control"
+                                id="country_of_residence"
+                                name="country_of_residence"
+                                ng-model="$mobbrStorage.user.country_of_residence"
+                                ng-options="country.code as country.name for country in countries.result | orderBy: 'name'">
+                            <option value="">No country</option>
+                        </select>
+                    </div>
+                </fieldset>
+
+                <fieldset class="form-group">
+                    <label class="control-label col-sm-3 col-md-2" for="nationality">Country of birth</label>
+                    <div class="col-sm-7 col-md-8">
+                        <select class="form-control"
+                                id="nationality"
+                                name="nationality"
+                                ng-model="$mobbrStorage.user.nationality"
+                                ng-options="country.code as country.name for country in countries.result | orderBy: 'name'">
+                            <option value="">No country</option>
+                        </select>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+
+    <div class="save-bar">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <fieldset class="form-group">
+                        <div class="col-sm-offset-10 col-sm-2 col-xs-12 col-xs-offset-0">
+                            <button ng-disabled="(waitingsettings && !waitingsettings.$resolved) || ($mobbrStorage.user.kyc_level == 'none' && accept_mango == 0) || identity.$pristine"
+                                    ng-click="submitSettings(settings)"
+                                    class="btn btn-success btn-block">
+                                <i class="mobbricon mobbrloader" ng-show="waitingsettings && !waitingsettings.$resolved"></i>
+                                <span ng-bind="'Save'"></span>
+                            </button>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

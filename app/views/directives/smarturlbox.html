@@ -1,0 +1,99 @@
+<fieldset>
+    <form ng-submit="gotoUrl(query)" ng-class="{ grayquery: (activeQuery && activeQuery == query && !savedQuery) }" class="input-group">
+        <span class="input-group-addon" ng-mouseover="isopen = true" ng-mouseleave="isopen = false">
+            <span class="mobbricon mobbricon-mobbrmenu"></span>
+        </span>
+        <input type="text"
+               class="form-control"
+               ng-model="query"
+               placeholder="{{placeHolders[urlType]}}"
+               ng-change="queryChange()"
+               ng-focus="isfocus = true"
+               ng-blur="isfocus = false">
+        <span class="input-group-btn guide">
+            <span ng-class="{ 'mobbricon-person': urlType == 'TASKS' || urlType == 'PROFILE', 'mobbricon-domain': urlType == 'TASK' || urlType == 'CROWDS' }" class="mobbricon"></span>
+        </span>
+        <span class="input-group-btn border">
+            <button ng-disabled="(activeQuery && activeQuery == query)"
+                    class="btn btn-default"
+                    type="submit">
+                <span class="mobbricon mobbricon-mobbricon"></span>
+            </button>
+        </span>
+    </form>
+    <ul class="list-unstyled query-menu logo-menu"
+        ng-show="isopen || isfocus"
+        role="menu"
+        ng-mouseover="isopen = true"
+        ng-mouseleave="isopen = false">
+        <li ng-show="isfocus && (!activeQuery || (query != activeQuery)) && !is_url && !is_user && query">
+            <span class="hint">
+                <span class="mobbricon mobbricon-search"></span>
+                <em ng-bind="placeHolders[urlType]"></em>
+            </span>
+        </li>
+        <li ng-show="(query != activeQuery && is_url) || $state.params.task">
+            <a ng-click="isopen = false"
+               ui-sref="box.task.index.view({ task: $state.params.task })">
+                <span class="mobbricon mobbricon-settings"></span>
+                <span ng-bind="'Create and manage task at `' + ((query != activeQuery && is_url) ? query : activeQuery) + '`'"></span>
+            </a>
+        </li>
+        <li ng-show="(query != activeQuery && is_url) || $state.params.task">
+            <a ng-click="isopen = false"
+               ui-sref="box.crowds.task({ task: $state.params.task })">
+                <span class="mobbricon mobbricon-crowd"></span>
+                <span ng-bind="'Find and invite crowdworkers for `' + ((query != activeQuery && is_url) ? query : activeQuery) + '`'"></span>
+            </a>
+        </li>
+        <li ng-show="(query != activeQuery && is_user) || $state.params.username">
+            <a ng-click="isopen = false"
+               ui-sref="box.person.profile({ username: $state.params.username })">
+                <span class="mobbricon mobbricon-person"></span>
+                <span ng-bind="'View profile of `' + ((query != activeQuery && is_user) ? query : $state.params.username) + '`'"></span>
+            </a>
+        </li>
+        <li ng-show="(query != activeQuery && is_user) || $state.params.username">
+            <a ng-click="isopen = false"
+               ui-sref="box.tasks">
+                <span class="mobbricon mobbricon-digger"></span>
+                <span ng-bind="'Find tasks worked at by `' + ((query != activeQuery && is_user) ? query : $state.params.username) +  '`'"></span>
+            </a>
+        </li>
+        <li ng-show="!is_url && !$state.params.task">
+            <a ng-click="isopen = false"
+               ui-sref="box.task">
+                <span class="mobbricon mobbricon-settings"></span>
+                Create and manage task
+            </a>
+        </li>
+        <li ng-show="!is_url && !$state.params.task">
+            <a ng-click="isopen = false"
+               ui-sref="box.crowds">
+                <span class="mobbricon mobbricon-crowd"></span>
+                Find and invite crowdworkers
+            </a>
+        </li>
+        <li ng-show="!is_user && !$state.params.username">
+            <a ng-click="isopen = false"
+               ui-sref="box.tasks">
+                <span class="mobbricon mobbricon-digger"></span>
+                Find new tasks
+            </a>
+        </li>
+        <li ng-show="!is_user && !$state.params.username">
+            <a ng-click="isopen = false"
+               ui-sref="box.person">
+                <span class="mobbricon mobbricon-person"></span>
+                Find person
+            </a>
+        </li>
+        <li ng-show="mobbrSession.isAuthorized()">
+            <a ng-click="isopen = false"
+               ui-sref="box.tasks.person({ username: user.username })">
+                <img ng-src="{{ user.thumbnail }}"  width="32" height="32">
+                My tasks
+            </a>
+        </li>
+    </ul>
+</fieldset>
