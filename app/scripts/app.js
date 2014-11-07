@@ -193,8 +193,8 @@ angular.module('mobbr', [
                 url: '/payment/:id',
                 templateUrl: 'views/payment.html',
                 controller: 'PaymentReceiptController'
-            }).state('payment.persons', {
-
+            }).state('payment.username', {
+                url: '/:username'
             }).state('x-payment', {
                 url: '/x-payment/:id',
                 templateUrl: 'views/payment.html',
