@@ -9,7 +9,7 @@ angular.module('mobbr.controllers').controller('PaymentReceiptController', funct
         $scope.recieversAndSenders = [];
 
         angular.forEach($scope.payment.result.senders, function (sender) {
-            if (sender.username.toUpperCase() === $scope.thisUser.toUpperCase()) {
+            if (sender.username && $scope.thisUser && sender.username.toUpperCase() === $scope.thisUser.toUpperCase()) {
                 sender.primary = 1;
                 $scope.userPaid += parseFloat(sender.amount);
             } else {
@@ -19,7 +19,7 @@ angular.module('mobbr.controllers').controller('PaymentReceiptController', funct
         });
 
         angular.forEach($scope.payment.result.receivers, function (reciever) {
-            if (reciever.username.toUpperCase() === $scope.thisUser.toUpperCase() || reciever.unclaimed.toUpperCase() === $scope.thisUser.toUpperCase()) {
+            if ((reciever.username && $scope.thisUser && reciever.username.toUpperCase() === $scope.thisUser.toUpperCase()) || ($scope.thisUser && reciever.unclaimed && reciever.unclaimed.toUpperCase() === $scope.thisUser.toUpperCase())) {
                 reciever.primary = 1;
                 $scope.userAmount += parseFloat(reciever.amount);
                 if (reciever.unclaimed) {
@@ -42,7 +42,6 @@ angular.module('mobbr.controllers').controller('PaymentReceiptController', funct
 
     function setUser() {
         $scope.thisUser = $state.params.username ? $state.params.username : mobbrSession.isAuthorized() && $scope.$mobbrStorage.user.username;
-        console.log($scope.thisUser);
     }
 
     $scope.filterSelectedIds = function (data) {
