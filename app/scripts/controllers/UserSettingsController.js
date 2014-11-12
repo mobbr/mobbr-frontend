@@ -8,7 +8,6 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
     $scope.formHolder = {addPaymentIdForm: undefined};
     $scope.passwordHolder = {};
     $scope.new_email = $rootScope.$mobbrStorage.user.email;
-    $scope.birthdate = new Date($rootScope.$mobbrStorage.user.birthday);
 
     $scope.settingsLabels = {
         hide_my_incoming_payments: 'Hide my incoming payments',
@@ -168,10 +167,6 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
     $scope.countDisplayCompleted = function () {
         return countFields(countDisplayCompleted);
     };
-
-    $scope.updateBirthdate = function (newBirthDate) {
-        $scope.$mobbrStorage.user.birthday = newBirthDate;
-    }
 
     var matchProviders = function () {
         function addIdIfFound(provider) {
