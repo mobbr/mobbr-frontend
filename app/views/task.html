@@ -8,11 +8,11 @@
 
 <div ui-view ng-show="task && task.$resolved">
     <div class="row top-info tasks-summary">
-        <div class="container">
+        <div class="container task-card-container">
             <div class="row">
                 <a ng-class="$state.is('box.task.index.domain') ? 'active' : ''"
-                   ng-href="#{{ $state.is('box.task.index.domain') ? $state.href('box.task.index.view') : $state.href('box.task.index.domain') }}"
-                     class="card-container col-xs-6 col-md-3">
+                   ng-href="{{ $state.is('box.task.index.domain') ? $state.href('box.task.index.view') : $state.href('box.task.index.domain') }}"
+                     class="card-container col-xs-3 col-md-3">
                     <div class="card" ng-class="has_failed ? 'failed' : ''">
                         <div ng-hide="has_failed">
                             <div class="front">
@@ -60,8 +60,8 @@
                 </a>
 
                 <a ng-class="{ active: $state.is('box.task.index.script'), disabled: has_failed }"
-                     ng-href="#{{ !has_failed && ($state.is('box.task.index.script') ? $state.href('box.task.index.view') : $state.href('box.task.index.script')) || $state.href('box.task.index.domain') }}"
-                     class="card-container col-xs-6 col-md-3">
+                     ng-href="{{ !has_failed && ($state.is('box.task.index.script') ? $state.href('box.task.index.view') : $state.href('box.task.index.script')) || $state.href('box.task.index.domain') }}"
+                     class="card-container col-xs-3 col-md-3">
                     <div class="card" ng-class="!has_failed && has_script ? '' : 'failed'">
                         <div ng-show="!has_failed && has_script">
                             <div class="front">
@@ -110,8 +110,8 @@
                 </a>
 
                 <a ng-class="{ active: $state.is('box.task.index.payments') || $state.is('box.task.index.pay'), disabled: has_failed || !has_script }"
-                   ng-href="#{{ has_failed ? $state.href('box.task.index.domain') : (!has_script ? $state.href('box.task.index.script') : (has_payments ? ($state.is('box.task.index.payments') ? $state.href('box.task.index.view') : $state.href('box.task.index.payments')) : ($state.is('box.task.index.pay') ? $state.href('box.task.index.view') : $state.href('box.task.index.pay')))) }}"
-                     class="card-container col-xs-6 col-md-3">
+                   ng-href="{{ has_failed ? $state.href('box.task.index.domain') : (!has_script ? $state.href('box.task.index.script') : (has_payments ? ($state.is('box.task.index.payments') ? $state.href('box.task.index.view') : $state.href('box.task.index.payments')) : ($state.is('box.task.index.pay') ? $state.href('box.task.index.view') : $state.href('box.task.index.pay')))) }}"
+                     class="card-container col-xs-3 col-md-3">
                     <div class="card funding" ng-class="has_script && has_payments ? '' : 'failed'">
                         <div ng-show="!has_failed && has_script && has_payments">
                             <div class="front">
@@ -126,11 +126,11 @@
                                     <span class="txt col-md-8" ng-bind-html="task.result.statistics.amount_total | mobbrcurrency: task.result.statistics.amount_currency:true"></span>
                                 </div>
                                 <div class="row">
-                                    <span class="txt col-md-4 text-left xsmall">First paid</span>
+                                    <span class="txt col-md-4 text-left xsmall">First</span>
                                     <span class="txt col-md-8 xsmall" ng-bind="task.result.statistics.firstpaiddatetime | amCalendar"></span>
                                 </div>
                                 <div class="row">
-                                    <span class="txt col-md-4 text-left xsmall">Last paid</span>
+                                    <span class="txt col-md-4 text-left xsmall">Last</span>
                                     <span class="txt col-md-8 xsmall" ng-bind="task.result.statistics.lastpaiddatetime | amCalendar"></span>
                                 </div>
                                 <div class="row bottom-icon">
@@ -166,8 +166,8 @@
                 </a>
 
                 <a ng-class="{ active: $state.is('box.task.index.persons') || $state.is('box.task.index.invite'), disabled: has_failed || !has_script || !has_payments  }"
-                     class="card-container col-xs-6 col-md-3"
-                     ng-href="#{{ has_failed ? $state.href('box.task.index.domain') : (!has_script ? $state.href('box.task.index.script') : (has_participants && has_payments ? ($state.is('box.task.index.persons') ? $state.href('box.task.index.view') : $state.href('box.task.index.persons')) : (has_payments ? ($state.is('box.task.index.invite') ? $state.href('box.task.index.view') : $state.href('box.task.index.invite')) : $state.href('box.task.index.view') ))) }}">
+                     class="card-container col-xs-3 col-md-3"
+                     ng-href="{{ has_failed ? $state.href('box.task.index.domain') : (!has_script ? $state.href('box.task.index.script') : (has_participants && has_payments ? ($state.is('box.task.index.persons') ? $state.href('box.task.index.view') : $state.href('box.task.index.persons')) : (has_payments ? ($state.is('box.task.index.invite') ? $state.href('box.task.index.view') : $state.href('box.task.index.invite')) : $state.href('box.task.index.view') ))) }}">
                     <div class="card" ng-class="has_script && has_payments && has_participants ? '' : 'failed'">
                         <div ng-show="!has_failed && has_script && has_payments && has_participants">
                             <div class="front">
@@ -236,11 +236,14 @@
                 </div>
 
                 <div class="col-md-12 task-tags" ng-show="!has_failed">
-                    <h2>Tags on this task</h2>
-                    <div class="task-tags">
-                        <span ng-repeat="keyword in (task.result.script.keywords || task.result.metadata.keywords)" ng-bind="keyword" class="label label-default"></span>
-                        <em ng-show="(!task.result.script.keywords || task.result.script.keywords.length == 0) && (!task.result.metadata.keywords || task.result.metadata.keywords.length == 0)">No tags defined</em>
-                    </div>
+                    <h2 class="title"><span class="mobbricon mobbricon-tag"></span> Tags on this task</h2>
+                    <ul class="task-tags taglist list-unstyled">
+                        <li ng-repeat="keyword in (task.result.script.keywords || task.result.metadata.keywords)" class="label label-default tag pull-left">
+                            <span class="mobbricon mobbricon-tag"></span>
+                            <span ng-bind="keyword"></span>
+                        </li>
+                    </ul>
+                    <em ng-show="(!task.result.script.keywords || task.result.script.keywords.length == 0) && (!task.result.metadata.keywords || task.result.metadata.keywords.length == 0)">No tags defined</em>
                 </div>
             </div>
         </div>

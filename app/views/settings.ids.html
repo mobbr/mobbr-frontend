@@ -65,56 +65,78 @@
     <div class="row">
         <div class="col-md-12">
 
-                <form name="formHolder.addPaymentIdForm" ng-submit="addExtraEmail()">
-                    <fieldset class="form-group">
-                        <label class="control-label col-xs-12 col-sm-3 col-md-2" >Add another email</label>
-
-                        <div class="col-sm-7 col-xs-10 col-md-8">
-                            <input class="form-control" ng-model="addPaymentIdHolder.email">
-                        </div>
-
-                        <div class="col-sm-1 col-sm-offset-1 col-md-offset-1 col-xs-2 col-md-1 text-center" >
-                            <button type="submit" class="btn btn-success btn-square"
-                                    ng-disabled="!(formHolder.addPaymentIdForm.$valid && formHolder.addPaymentIdForm.$dirty && addPaymentIdHolder.email)">
-                                <span class="mobbricon mobbricon-addopen"></span>
-                            </button>
-                        </div>
-                    </fieldset>
-                </form>
-
-            <div class="info-bar border-top-bar">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <span class="info-box">
-                                <span class="mobbricon mobbricon-softalert"></span> Connect directly to your external accounts
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-                <fieldset class="form-group" ng-repeat="oAuthProvider in oAuthWithIdProviders">
-
-                    <label class="control-label col-xs-12 col-sm-3 col-md-2" ng-bind="oAuthProvider.provider"></label>
+            <form name="formHolder.addPaymentIdForm" ng-submit="addExtraEmail()">
+                <fieldset class="form-group">
+                    <label class="control-label col-xs-12 col-sm-3 col-md-2" >Add another email</label>
 
                     <div class="col-sm-7 col-xs-10 col-md-8">
-                        <input class="form-control" ng-model="oAuthProvider.id" disabled="disabled" style="background-size: 20px 20px;background-repeat: no-repeat;background-position: 98% center;"  ng-style="backgroundStyle" ng-init="backgroundStyle={'background-image': 'url(' + oAuthProvider.favicon + ')'}">
+                        <input class="form-control" ng-model="addPaymentIdHolder.email">
                     </div>
-                    <div class="col-sm-1 col-sm-offset-1 col-md-offset-1 col-xs-2 col-md-1 text-center" ng-show="!oAuthProvider.id">
-                        <button type="button" class="btn btn-success btn-square" ng-click="addOAuthProvider(oAuthProvider)">
+
+                    <div class="col-sm-1 col-sm-offset-1 col-md-offset-1 col-xs-2 col-md-1 text-center" >
+                        <button type="submit" class="btn btn-success btn-square"
+                                ng-disabled="!(formHolder.addPaymentIdForm.$valid && formHolder.addPaymentIdForm.$dirty && addPaymentIdHolder.email)">
                             <span class="mobbricon mobbricon-addopen"></span>
                         </button>
                     </div>
-                    <div class="col-sm-1 col-sm-offset-1 col-md-offset-1 col-xs-2 col-md-1 text-center" ng-show="oAuthProvider.id">
-                        <button type="button" class="btn btn-danger btn-square" ng-click="removePaymentID(oAuthProvider.id)">
-                            <span class="mobbricon mobbricon-hardclose"></span>
-                        </button>
-
-                    </div>
-
-
                 </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="info-bar border-top-bar">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                            <span class="info-box">
+                                <span class="mobbricon mobbricon-softalert"></span> Connect directly to your external accounts
+                            </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <fieldset class="form-group" ng-repeat="oAuthProvider in oAuthWithIdProviders">
+
+                <label class="control-label col-xs-12 col-sm-3 col-md-2" ng-bind="oAuthProvider.provider"></label>
+
+                <div class="col-sm-7 col-xs-10 col-md-8">
+                    <input class="form-control" ng-model="oAuthProvider.id" disabled="disabled" style="background-size: 20px 20px;background-repeat: no-repeat;background-position: 98% center;"  ng-style="backgroundStyle" ng-init="backgroundStyle={'background-image': 'url(' + oAuthProvider.favicon + ')'}">
+                </div>
+                <div class="col-sm-1 col-sm-offset-1 col-md-offset-1 col-xs-2 col-md-1 text-center" ng-show="!oAuthProvider.id">
+                    <button type="button" class="btn btn-success btn-square" ng-click="addOAuthProvider(oAuthProvider)">
+                        <span class="mobbricon mobbricon-addopen"></span>
+                    </button>
+                </div>
+                <div class="col-sm-1 col-sm-offset-1 col-md-offset-1 col-xs-2 col-md-1 text-center" ng-show="oAuthProvider.id">
+                    <button type="button" class="btn btn-danger btn-square" ng-click="removePaymentID(oAuthProvider.id)">
+                        <span class="mobbricon mobbricon-hardclose"></span>
+                    </button>
+                </div>
+            </fieldset>
+            <fieldset class="form-group">
+
+                <label class="control-label col-xs-12 col-sm-3 col-md-2">stackexchange.com</label>
+
+                <div class="col-sm-4 col-xs-10 col-md-4">
+                    <select class="form-control" ng-model="stacktype" ng-options="stack as stack.host for stack in stackExchangeProviders"></select>
+                </div>
+
+                <div class="col-sm-3 col-xs-10 col-md-4">
+                    <input class="form-control"
+                           disabled="disabled"
+                           style="background-size: 20px 20px;background-repeat: no-repeat;background-position: 96% center;background-image: url({{ stacktype.favicon }});">
+                </div>
+                <div class="col-sm-1 col-sm-offset-1 col-md-offset-1 col-xs-2 col-md-1 text-center">
+                    <button type="button" class="btn btn-success btn-square" ng-click="addOAuthProvider(stacktype)">
+                        <span class="mobbricon mobbricon-addopen"></span>
+                    </button>
+                </div>
+            </fieldset>
         </div>
     </div>
 </div>
@@ -154,6 +176,42 @@
                     </div>
                 </fieldset>
             </form>
+        </div>
+    </div>
+</div>
+
+<div class="info-bar border-top-bar">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                            <span class="info-box">
+                                <span class="mobbricon mobbricon-softalert"></span> Accounts linked through your external electronic identities
+                            </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+
+            <fieldset class="form-group" ng-repeat="oAuthProvider in otherIdProviders">
+
+                <label class="control-label col-xs-12 col-sm-3 col-md-2"></label>
+
+                <div class="col-sm-7 col-xs-10 col-md-8">
+                    <input class="form-control" ng-model="oAuthProvider" disabled="disabled">
+                </div>
+                <div class="col-sm-1 col-sm-offset-1 col-md-offset-1 col-xs-2 col-md-1 text-center">
+                    <button type="button" class="btn btn-danger btn-square" ng-click="removePaymentID(oAuthProvider)">
+                        <span class="mobbricon mobbricon-hardclose"></span>
+                    </button>
+
+                </div>
+
+
+            </fieldset>
         </div>
     </div>
 </div>

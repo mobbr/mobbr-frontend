@@ -1,11 +1,13 @@
 angular.module('mobbr.controllers').controller('CrowdsController', function ($scope, $state, $window, $rootScope, mobbrMsg, mobbrSession, MobbrUri, MobbrPerson, MobbrKeywords) {
     'use strict';
 
-    var language;
+    var language,
+        initial_limit = 20;
 
-    function queryPeople() {
+    $scope.queryPeople = function () {
 
-        var tags;
+        var tags,
+            params;
 
         if ($scope.filteredTags.length === 0) {
             tags = [];
@@ -16,20 +18,30 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
             tags = $scope.filteredTags;
         }
 
-        $scope.persons = MobbrPerson.get({
+        params = {
             keywords: tags,
-            language: language
-        });
+            language: language,
+            limit: initial_limit
+        };
 
-        $scope.persons.$promise.then(function () {
+        if ($scope.limiter > initial_limit) {
+            params.offset = $scope.limiter - initial_limit;
+        }
+
+        $scope.personPromise = MobbrPerson.get(params);
+
+        $scope.personPromise.$promise.then(function () {
+
             angular.forEach($scope.selectedPersons, function (selectedPerson) {
-                for (var i = 0; i < $scope.persons.result.length; i++) {
-                    var person = $scope.persons.result[i];
+                for (var i = 0; i < $scope.personPromise.result.length; i++) {
+                    var person = $scope.personPromise.result[i];
                     if (selectedPerson.username === person.username) {
-                        $scope.persons.result[i].selected = true;
+                        $scope.personPromise.result[i].selected = true;
                     }
                 }
             });
+
+            $scope.persons = $scope.persons.concat($scope.personPromise.result);
         });
     }
 
@@ -68,9 +80,9 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
             });
 
             if ($scope.suggestedTags.length > 0) {
-                queryPeople();
+                $scope.queryPeople();
             } else {
-                getGlobalTags().$promise.then(queryPeople);
+                getGlobalTags().$promise.then($scope.queryPeople);
             }
         } else {
 
@@ -82,7 +94,7 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
                 });
             }
 
-            queryPeople();
+            $scope.queryPeople();
         }
     }
 
@@ -107,7 +119,7 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
             }
         } else {
             getGlobalTags();
-            queryPeople();
+            $scope.queryPeople();
         }
     }
 
@@ -142,8 +154,10 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
     };
 
     $scope.filterUser = function (item) {
-        if (!mobbrSession.isAuthorized()) return true;
-        return item.username !== $rootScope.$mobbrStorage.user.username;
+        if (item) {
+            if (!mobbrSession.isAuthorized()) return true;
+            return item.username !== $rootScope.$mobbrStorage.user.username;
+        }
     }
 
     $scope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
@@ -151,9 +165,11 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
             $scope.$emit('set-active-query');
             $scope.$emit('set-query');
             $scope.task = undefined;
-            $scope.persons = undefined;
+            $scope.personPromise = undefined;
+            $scope.persons = [];
             $scope.filteredTags = [];
             $scope.suggestedTags = [];
+            $scope.limiter = initial_limit;
         }
     });
 
@@ -165,19 +181,25 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
 
     $scope.$on('language-update', function (event, new_language) {
         if (new_language !== language) {
+            $scope.persons = [];
+            $scope.limiter = initial_limit;
             language = new_language;
             $scope.getSuggestedTags();
-            queryPeople();
+            $scope.queryPeople();
         }
     }, true);
 
     $scope.$watch('filteredTags', function (newValue, oldValue) {
         if (newValue && newValue !== oldValue) {
+            $scope.persons = [];
+            $scope.limiter = initial_limit;
             $scope.getSuggestedTags();
-            queryPeople();
+            $scope.queryPeople();
         }
     }, true);
 
+    $scope.persons = [];
+    $scope.limiter = initial_limit;
     $scope.suggestedTags = [];
     $scope.filteredTags = [];
     $scope.tagsLimiter = { limit: 10 };

@@ -28,6 +28,18 @@ angular.module('mobbr.controllers').controller('BoxController', function ($scope
         $scope.activeQuery = activeQuery;
     });
 
+    $scope.$on('set-task-type', function (event, taskType) {
+        $scope.taskType = taskType;
+    });
+
+    $scope.$on('set-task-message', function (event, taskMessage) {
+        $scope.taskMessage = taskMessage;
+    });
+
+    $scope.$on('set-task-addresses', function (event, taskAddresses) {
+        $scope.taskAddresses = taskAddresses;
+    });
+
     $scope.$watch('filter_language', function (newValue, oldValue) {
         if (newValue && newValue !== oldValue) {
             $scope.$broadcast('language-update', newValue);

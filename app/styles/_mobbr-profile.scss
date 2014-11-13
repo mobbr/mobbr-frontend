@@ -1,0 +1,27 @@
+#persondetail {
+
+  .section {
+    padding-top: $grid-gutter-width / 2;
+    padding-bottom: 0;
+    background: $white;
+    border-top: 1px solid $gray;
+    border-bottom: 1px solid $gray;
+  }
+
+  .section:last-of-type {
+    border-bottom: 0;
+  }
+
+  .filter {
+    border-top: 0;
+  }
+
+  .taglist {
+    margin-bottom: 0;
+  }
+
+  .tag {
+    margin-right: $grid-gutter-width / 2;
+    margin-bottom: $grid-gutter-width / 2;
+  }
+}

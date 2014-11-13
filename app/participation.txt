@@ -1,14 +1,16 @@
 [
     {
         "url-pattern" : "*",
+        "title" : "Mobbr crowdpayments",
+        "description" : "Pay and get paid for contributing anywhere on the web.",
         "participation-info":
         {
-            "id-base" : "https://api.mobbr.com/id/",
+            "id-base" : "https://mobbr.com/#/person/",
             "participants" : [
                 {
                     "id": "Patrick",
-                    "role": "Concept, design, REST server programming",
-                    "share": "30%"
+                    "role": "Concept, design, REST_API programming",
+                    "share": "50%"
                 },
                 {
                     "id": "Alexander",
@@ -18,27 +20,17 @@
                 {
                     "id": "Robbert",
                     "role": "Server-infrastructure and facilities",
-                    "share": "2"
+                    "share": "1"
                 },
                 {
                     "id": "Handijk",
-                    "role": "Design and stylesheets",
-                    "share": "3"
+                    "role": "AngularJS front-end programming",
+                    "share": "25%"
                 },
                 {
                     "id": "Andre",
                     "role": "AngularJS front-end programming",
-                    "share": "3"
-                },
-                {
-                    "id": "mailto:thijmen.hendrikx@dtx.nl",
-                    "role": "Server-infrastructure",
-                    "share": "1"
-                },
-                {
-                    "id": "Ernesto",
-                    "role": "Marketing",
-                    "share": "1"
+                    "share": "10%"
                 }
             ]
         }

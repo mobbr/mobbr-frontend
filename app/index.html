@@ -46,6 +46,9 @@
         <!-- build:css styles/style.css -->
         <link href="styles/style.css" rel="stylesheet">
         <!-- endbuild -->
+        <!-- build:js mobbr.js -->
+        <script src="components/mobbr-button/mobbr.js"></script>
+        <!-- endbuild -->
         <script>
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
                 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -53,26 +56,9 @@
             })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
             ga('create', 'UA-46675002-1', 'mobbr.com');
-            ga('send', 'pageview');
-        </script>
-        <!-- build:js mobbr.js -->
-        <script src="components/mobbr-button/mobbr.js"></script>
-        <!-- endbuild -->
-        <script type="text/javascript">
-
-            var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', 'UA-46675002-1']);
-            _gaq.push(['_trackPageview']);
-
-            (function() {
-                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-            })();
-
         </script>
     </head>
-    <body ng-app="mobbrWeb" id="ng-app" idle-timeout ng-class="{ home: $state.is('main'), 'blocked': blockUI, 'mobbr-test': isTest(), 'ng-app': true, 'loading': loading, 'payments': $state.includes('wallet') || $state.includes('payments') || $state.includes('payment') || $state.includes('x-payment'), 'updates': $state.includes('updates'), 'crowds': $state.includes('box.crowds'), 'task': $state.includes('box.task.index') || $state.includes('person') }">
+    <body ng-app="mobbrWeb" id="ng-app" idle-timeout ng-class="{ home: $state.is('main'), 'blocked': blockUI, 'mobbr-test': isTest(), 'ng-app': true, 'loading': loading, 'payments': $state.includes('wallet') || $state.includes('payments') || $state.includes('payment') || $state.includes('x-payment'), 'updates': $state.includes('updates'), 'crowds': $state.includes('box.crowds') || $state.includes('box.person'), 'task': $state.includes('box.task.index') }">
         <!--[if lt IE 10]>
         <p class="chromeframe">
             You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser
@@ -102,19 +88,28 @@
 
                                 <ul class="dropdown-menu logo-menu" role="menu">
                                     <li>
-                                        <a href="#">Community</a>
+                                        <a href="https://plus.google.com/communities/100962413817465214183" target="_blank">
+                                            <span class="mobbricon mobbricon-google"></span>
+                                            Community
+                                        </a>
                                     </li>
                                     <li>
-                                        <a href="#">Help &amp; Support</a>
+                                        <a href="http://ask.mobbr.com/" target="_blank">
+                                            <span class="mobbricon mobbricon-feedback"></span>
+                                            Help &amp; Support
+                                        </a>
                                     </li>
                                     <li>
-                                        <a href="#">Documentation</a>
+                                        <a href="http://docs.mobbr.com/" target="_blank">
+                                            <span class="mobbricon mobbricon-develop"></span>
+                                            Documentation
+                                        </a>
                                     </li>
                                     <li>
-                                        <a href="#">About us</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Contact</a>
+                                        <a href="https://twitter.com/mobbrcom" target="_blank">
+                                            <span class="mobbricon mobbricon-twitter"></span>
+                                            Twitter
+                                        </a>
                                     </li>
                                 </ul>
                             </li>
@@ -124,31 +119,31 @@
                     <div class="col-xs-6 main-menu">
                         <ul class="nav menu">
                             <li ng-class="{ 'active': $state.includes('updates') }" class="col-55">
-                                <a ng-href="#{{ $state.href('updates') }}" class="text-center">
+                                <a ng-href="{{ $state.href('updates') }}" class="text-center">
                                     <span class="mobbricon mobbricon-updates"></span>
                                     <small>Updates</small>
                                 </a>
                             </li>
                             <li ng-class="{ 'active': $state.includes('box.tasks') }" class="col-55">
-                                <a ng-href="#{{ $state.href('box.tasks') }}" class="text-center">
-                                    <span class="mobbricon mobbricon-tasks"></span>
+                                <a ng-href="{{ $state.href('box.tasks') }}" class="text-center">
+                                    <span class="mobbricon mobbricon-digger"></span>
                                     <small>Tasks</small>
                                 </a>
                             </li>
                             <li ng-class="{ 'active': $state.includes('box.crowds') }" class="col-55">
-                                <a ng-href="#{{ $state.href('box.crowds') }}" class="text-center">
+                                <a ng-href="{{ $state.href('box.crowds') }}" class="text-center">
                                     <span class="mobbricon mobbricon-crowd"></span>
                                     <small>Workforce</small>
                                 </a>
                             </li>
                             <li ng-class="{ 'active': $state.includes('payments') }" class="col-55">
-                                <a ng-href="#{{ $state.href('payments.pledges') }}" class="text-center">
+                                <a ng-href="{{ $state.href('payments.pledges') }}" class="text-center">
                                     <span class="mobbricon mobbricon-payments"></span>
                                     <small>Payments</small>
                                 </a>
                             </li>
                             <li ng-class="{ 'active': $state.includes('wallet') }" class="col-55">
-                                <a ng-href="#{{ $state.href('wallet') }}" class="text-center">
+                                <a ng-href="{{ $state.href('wallet') }}" class="text-center">
                                     <span class="mobbricon mobbricon-wallet"></span>
                                     <small>Wallet</small>
                                 </a>
@@ -212,13 +207,13 @@
                                                 </button>
                                             </li>
                                             <li>
-                                                <a ng-href="#{{ $state.href('recover') }}">
+                                                <a ng-href="{{ $state.href('recover') }}">
                                                     <span class="mobbricon mobbricon-mail"></span>
                                                     Recover password
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="link-call" ng-href="#{{ $state.href('join') }}">
+                                                <a class="link-call" ng-href="{{ $state.href('join') }}">
                                                     <span class="mobbricon mobbricon-starttask"></span>
                                                     Register me now
                                                 </a>
@@ -227,19 +222,19 @@
 
                                     <ul ng-show="mobbrSession && mobbrSession.isAuthorized()" class="dropdown-menu logo-menu" role="menu">
                                         <li>
-                                            <a ng-href="#{{ $state.href('box.person.profile', { username: $mobbrStorage.user.username }) }}">
+                                            <a ng-href="{{ $state.href('box.person.profile', { username: $mobbrStorage.user.username }) }}">
                                                 <span class="mobbricon mobbricon-myprofile"></span>
                                                 My profile
                                             </a>
                                         </li>
                                         <li>
-                                            <a ng-href="#{{ $state.href('settings') }}">
+                                            <a ng-href="{{ $state.href('settings') }}">
                                                 <span class="mobbricon mobbricon-settings"></span>
                                                 Settings
                                             </a>
                                         </li>
                                         <li>
-                                            <span ng-click="logout()">
+                                            <span class="link" ng-click="logout()">
                                                 <span class="mobbricon mobbricon-login"></span>
                                                 Log out
                                             </span>
@@ -257,8 +252,9 @@
 
         <!-- build:js scripts/combined.js -->
         <script src="components/jquery/dist/jquery.js"></script>
-        <script src="components/angularjs-file-upload/angular-file-upload-shim.js"></script>
         <script src="components/angular/angular.js"></script>
+        <script src="components/angularjs-file-upload/angular-file-upload-shim.js"></script>
+        <script src="components/angular-loading-bar/src/loading-bar.js"></script>
         <script src="components/angular-ui-router/release/angular-ui-router.js"></script>
         <script src="components/angular-resource/angular-resource.js"></script>
         <script src="components/mobbr-api-angular/mobbr-api.src.js"></script>
@@ -314,6 +310,7 @@
         <script src="scripts/directives/userFriendlyDate.js"></script>
         <script src="scripts/filters/mobbrcurrency.js"></script>
         <script src="scripts/filters/domain.js"></script>
+        <script src="scripts/filters/decodeuri.js"></script>
         <!-- endbuild -->
 
         <!-- end remove -->

@@ -11,7 +11,7 @@
 <div class="row page-white">
     <div class="container">
         <div class="row">
-            <form name="register" class="form-horizontal">
+            <form name="register" class="form-horizontal" ng-submit="registerUser(username, email, password, password_control)">
 
                 <div class="row">
                     <div class="eula col-md-10 col-md-offset-2">
@@ -23,7 +23,7 @@
                     <div class="col-md-10 col-md-offset-2">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" ng-model="accept_eula">
+                                <input type="checkbox" ng-model="accept_eula" required>
                                 I accept the Mobbr terms and conditions
                             </label>
                         </div>
@@ -38,7 +38,7 @@
                                name="username"
                                type="text"
                                id="username"
-                               placeholder="e.g. _super-man_"
+                               placeholder="5-32 positions, e.g. _super-man_"
                                required>
                     </div>
                 </fieldset>
@@ -51,7 +51,7 @@
                                name="email"
                                type="email"
                                id="email"
-                               placeholder="e.g. _super-man_"
+                               placeholder="an existing email address, e.g. bit.man@mobbr.com"
                                required>
                     </div>
                 </fieldset>
@@ -67,8 +67,9 @@
                                placeholder="min. 8 alfanum positions"
                                required
                                ng-pattern="/^.*(?=.{8,})(?=.*\d)(?=.*[a-z]).*$/">
-                <span ng-show="register.password.$dirty && register.password.$error.pattern"
-                      class="help-inline">Minimal 8 charactes, uppercase, lowercase and numbers</span>
+                            <span class="info-box" ng-show="register.password.$dirty && register.password.$invalid">
+                                <span class="mobbricon mobbricon-softalert"></span> Minimal 8 characters, use uppercase, lowercase and numbers
+                            </span>
                     </div>
                 </fieldset>
 
@@ -81,18 +82,20 @@
                                type="password"
                                id="password_control"
                                placeholder="min. 8 alfanum positions"
+                               pw-check="password"
                                required
                                ng-pattern="/^.*(?=.{8,})(?=.*\d)(?=.*[a-z]).*$/">
-                <span ng-show="register.password.$dirty && register.password.$error.pattern"
-                      class="help-inline">Minimal 8 charactes, uppercase, lowercase and numbers</span>
+                        <span class="info-box" ng-show="register.password_control.$dirty && register.password_control.$invalid">
+                            <span class="mobbricon mobbricon-softalert"></span> Make sure the passwords match
+                        </span>
                     </div>
                 </fieldset>
 
                 <fieldset class="form-group">
-                    <div class="col-md-offset-10 col-md-2">
-                        <button ng-click="registerUser(username, email, password, password_control)"
+                    <div class="col-md-offset-9 col-md-3">
+                        <button type="submit"
                                 class="btn btn-block btn-call"
-                                ng-disabled="!accept_eula || waiting">
+                                ng-disabled="waiting">
                             Register me now
                             <span class="pull-right mobbricon mobbricon-starttask"></span>
                         </button>

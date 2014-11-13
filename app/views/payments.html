@@ -6,8 +6,7 @@
             </div>
             <div class="col-sm-3">
                 <a ui-sref="payments.pay" ng-class="{ unblocked: $state.is('wallet.pay') }" class="btn btn-call btn-block">
-                    Pay
-                    <span class="mobbricon mobbricon-transaction pull-right"></span>
+                    <span class="mobbricon mobbricon-transaction pull-right"></span>Pay
                 </a>
             </div>
         </div>
@@ -47,8 +46,15 @@
             <div class="col-md-3">
                 <button ng-click="removePledges()" class="btn btn-primary btn-block"
                         ng-disabled="filterSelectedIds(data.pledges.result).length == 0">
-                    Delete selected pledges
+                    Revoke pledge(s)
                     <span class="mobbricon mobbricon-hardclose"></span>
+                </button>
+            </div>
+            <div class="col-md-3">
+                <button ng-click="claimPledges()" class="btn btn-primary btn-block"
+                        ng-disabled="filterSelectedIds(data.pledges.result).length == 0 || filterSelectedIds(data.pledges.result).length > 1">
+                    Trigger pledge(s)
+                    <span class="mobbricon mobbricon-tasks"></span>
                 </button>
             </div>
         </div>
@@ -61,7 +67,8 @@
                         <th ng-click="pledgedTable.sortBy='datetime'; pledgedTable.reverse=!pledgedTable.reverse">
                             Date
                         </th>
-                        <th ng-click="pledgedTable.sortBy='title'; pledgedTable.reverse=!pledgedTable.reverse">
+                        <th class="hidden-xs"
+                            ng-click="pledgedTable.sortBy='title'; pledgedTable.reverse=!pledgedTable.reverse">
                             Title
                         </th>
                         <th class="text-center" ng-click="pledgedTable.sortBy='currency_iso'; pledgedTable.reverse=!pledgedTable.reverse">
@@ -75,7 +82,8 @@
                     <tbody>
                     <tr ng-repeat="payment in data.pledges.result | orderBy:pledgedTable.sortBy:pledgedTable.reverse">
                         <td><input type="checkbox" ng-model="payment.selected"></td>
-                        <td ng-click="openPayment(payment)" data-title="'Date'" sortable="'paiddatetime'" title="{{ payment.paiddatetime }}">
+                        <td class="hidden-xs"
+                            ng-click="openPayment(payment)" data-title="'Date'" sortable="'paiddatetime'" title="{{ payment.paiddatetime }}">
                             <time ng-bind="payment.paiddatetime | amCalendar" datetime="{{ payment.paiddatetime }}"></time>
                         </td>
                         <td ng-click="openPayment(payment)" data-title="'Title'" sortable="'title'" ng-bind="payment.title?payment.title:payment.url"></td>
@@ -113,7 +121,7 @@
             <div class="col-md-3">
                 <button ng-click="revokeSelectedShares()" class="btn btn-primary btn-block"
                         ng-disabled="filterSelectedIds(data.unclaimed.result).length == 0">
-                    Delete selected shares
+                    Revoke share(s)
                     <span class="mobbricon mobbricon-hardclose"></span>
                 </button>
             </div>
@@ -127,10 +135,12 @@
                         <th ng-click="pledgedTable.sortBy='datetime'; pledgedTable.reverse=!pledgedTable.reverse">
                             Date
                         </th>
-                        <th ng-click="unclaimedTable.sortBy='username'; unclaimedTable.reverse=!unclaimedTable.reverse">
+                        <th class="hidden-xs"
+                            ng-click="unclaimedTable.sortBy='username'; unclaimedTable.reverse=!unclaimedTable.reverse">
                             Participant
                         </th>
-                        <th ng-click="unclaimedTable.sortBy='title'; unclaimedTable.reverse=!unclaimedTable.reverse">
+                        <th class="hidden-xs"
+                            ng-click="unclaimedTable.sortBy='title'; unclaimedTable.reverse=!unclaimedTable.reverse">
                             Domain
                         </th>
                         <th class="text-center" ng-click="unclaimedTable.sortBy='currency_iso'; unclaimedTable.reverse=!unclaimedTable.reverse">
@@ -144,12 +154,13 @@
                     <tbody>
                     <tr ng-repeat="payment in data.unclaimed.result | orderBy:unclaimedTable.sortBy:unclaimedTable.reverse">
                         <td><input type="checkbox" ng-model="payment.selected"></td>
-                        <td ng-click="openPayment(payment)" data-title="'Date'" sortable="'datetime'" title="{{ payment.datetime }}">
+                        <td class="hidden-xs"
+                            ng-click="openPayment(payment)" data-title="'Date'" sortable="'datetime'" title="{{ payment.datetime }}">
                             <time ng-bind="payment.datetime | amCalendar" datetime="{{ payment.datetime }}"></time>
                         </td>
-                        <td>
+                        <td class="hidden-xs">
                             <a ng-href="{{ payment.recipient_id }}" target="_blank">
-                                <img ng-src="https://secure.gravatar.com/avatar/{{ payment.gravatar }}?s=50&default=https://mobbr.com/img/default-gravatar.png"
+                                <img ng-src="https://secure.gravatar.com/avatar/{{ payment.gravatar }}?s=50&default=https://mobbr.com/img/default-gravatar2.png"
                                      class="gravatar img-rounded"
                                      width="30"
                                      height="30">
@@ -232,7 +243,7 @@
                     </tr>
                     </thead>
                     <tbody ng-init="limiter = 10">
-                    <tr ng-repeat="payment in data.payments.result | limitTo: limiter | filter: filterText | orderBy:paymentTable.sortBy:paymentTable.reverse">
+                    <tr ng-repeat="payment in data.payments.result | limitTo: limiter | orderBy:paymentTable.sortBy:paymentTable.reverse">
                         <td><input ng-disabled="payment.invoiced == '0'" type="checkbox" ng-model="payment.selected"></td>
                         <td ng-click="openPayment(payment)" title="{{ payment.datetime }}">
                             <time ng-bind="payment.datetime | amCalendar" datetime="{{ payment.datetime }}"></time>

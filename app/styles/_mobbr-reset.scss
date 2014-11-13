@@ -1,0 +1,30 @@
+.ng-cloak {
+  display: none;
+}
+
+.form-control {
+  border: 0;
+  @include box-shadow(inset 0 0 0 rgba(0,0,0,.075));
+}
+
+.form-horizontal .control-label {
+  text-align: left;
+}
+
+label {
+  font-weight: normal;
+}
+
+iframe {
+  width: 100%;
+  border: 0;
+  background: $gray;
+}
+
+.btn {
+  border: 0;
+}
+
+.input-group-addon {
+  border: 0;
+}

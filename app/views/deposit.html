@@ -51,6 +51,10 @@
                                     <span class="mobbricon mobbricon-softalert"></span>
                                     Share one of these addresses with anyone who needs to send you money.
                                 </span>
+                                <span class="info-box">
+                                    <span class="mobbricon mobbricon-softalert"></span>
+                                    Bitcoin payments to your wallet typically take 40-50 mins
+                                </span>
                 </div>
                 <div ng-repeat="wallet in supportedCurrencies.result">
                     <div class="row">
@@ -111,15 +115,33 @@
             <div class="row" ng-show="fee.$resolved">
                 <div class="col-md-12">
                     <span class="info-box">
-                        <span class="mobbricon mobbricon-softalert"></span> Your fee will be {{ fee.result.amount | mobbrcurrency:fee.result.currency }}.
+                        <span class="mobbricon mobbricon-softalert"></span> Your fee will be <span ng-bind-html="fee.result.amount | mobbrcurrency:fee.result.currency_iso:true"></span>.
                     </span>
+                </div>
+            </div>
+
+            <div class="row" ng-show="deposit_type.name == 'Bankwire'">
+                <div class="col-xs-12">
+                                                                            <span class="info-box">
+                                    <span class="mobbricon mobbricon-softalert"></span>
+                                    Bankwire payments to your wallet typically take 3-5 days.
+                                </span>
+                </div>
+            </div>
+
+            <div class="row" ng-show="deposit_type.name == 'Creditcard'">
+                <div class="col-xs-12">
+                                                                            <span class="info-box">
+                                    <span class="mobbricon mobbricon-softalert"></span>
+                                    Creditcard payments appear in your wallet immediately.
+                                </span>
                 </div>
             </div>
 
             <div class="row">
                 <fieldset class="form-group" ng-disabled="(fee && !fee.$resolved) || (depositing && !depositing.$resolved)">
                     <div class="col-xs-10 col-sm-offset-9 col-sm-2">
-                        <button class="btn btn-success btn-block" ng-click="addBitcoinAddress(wallet.currency)" ng-if="!bankwire && deposit_type.type == 'btc'">Add another</button>
+                        <button class="btn btn-success btn-block" ng-click="addBitcoinAddress('BTC')" ng-if="!bankwire && deposit_type.type == 'btc'">Add another</button>
                         <button type="submit" ng-disabled="!deposit_type.currency || !deposit_type.amount" class="btn btn-success btn-block" ng-show="!bankwire && deposit_type.type != 'btc'">
                             Confirm
                         </button>

@@ -4,12 +4,18 @@ angular.module('mobbr.directives').directive('pwCheck', function () {
     return {
         require: 'ngModel',
         link: function (scope, elem, attrs, ctrl) {
-            var firstPassword = '#' + attrs.pwCheck;
-            elem.add(firstPassword).on('keyup', function () {
-                scope.$apply(function () {
-                    var v = elem.val() === $(firstPassword).val();
-                    ctrl.$setValidity('pwmatch', v);
-                });
+
+            ctrl.$parsers.unshift(function (viewValue) {
+
+                var firstPassword = '#' + attrs.pwCheck;
+
+                if (viewValue === $(firstPassword).val()) {
+                    ctrl.$setValidity('pwCheck', true);
+                    return viewValue;
+                } else {
+                    ctrl.$setValidity('pwCheck', false);
+                    return undefined;
+                }
             });
         }
     }

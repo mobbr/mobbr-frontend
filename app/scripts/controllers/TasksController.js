@@ -2,20 +2,30 @@
 
 angular.module('mobbr.controllers').controller('TasksController', function ($scope, $state, $rootScope, mobbrMsg, MobbrUri, MobbrKeywords) {
 
-    var language;
+    var language,
+        initial_limit = 20;
 
-    function queryTasks() {
+    $scope.queryTasks = function () {
 
-        var username = $state.params.username || null
+        var username = $state.params.username || null,
+            params;
 
-        $scope.$emit('set-query', username);
+        username && $scope.$emit('set-query', username);
 
-        $scope.tasks = MobbrUri.get({
+        params = {
+            limit: initial_limit,
             language: language,
             keywords: $scope.filteredTags,
             username: username
-        }, function () {
+        };
+
+        if ($scope.limiter > initial_limit) {
+            params.offset = $scope.limiter - initial_limit;
+        }
+
+        $scope.tasksPromise = MobbrUri.get(params, function () {
             $scope.$emit('set-active-query', username);
+            $scope.tasks = $scope.tasks.concat($scope.tasksPromise.result);
         }, function () {
             $scope.$emit('set-query');
             $scope.$emit('set-active-query');
@@ -25,12 +35,12 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
 
     $scope.getSuggestedTags = function () {
 
-        var username = $state.params.username || ($rootScope.$mobbrStorage.user && $rootScope.$mobbrStorage.user.username);
+        var username = $state.params.username || null;
 
         if (username) {
              MobbrKeywords.person({
                 language: language,
-                username: username,
+                username: $state.params.username,
                 limit: $scope.tagsLimiter.limit,
                 related_to: $scope.filteredTags
             }, function (response) {
@@ -38,7 +48,7 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
             });
         } else {
             MobbrKeywords.get({
-                limit: $scope.tagsLimiter.limit0,
+                limit: $scope.tagsLimiter.limit,
                 language: language,
                 related_to: $scope.filteredTags
             }, function (response) {
@@ -51,32 +61,39 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
         if ($scope.activeQuery) {
             $scope.$emit('set-active-query');
             $scope.$emit('set-query');
-            $scope.tasks = undefined;
+            $scope.tasksPromise = undefined;
             $scope.filteredTags = [];
             $scope.suggestedTags = [];
         }
+        $scope.tasks = [];
     });
 
     $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
         $scope.getSuggestedTags();
-        queryTasks();
+        $scope.queryTasks();
     });
 
     $scope.$on('language-update', function (event, new_language) {
         if (new_language !== language) {
+            $scope.tasks = [];
+            $scope.limiter = initial_limit;
             language = new_language;
             $scope.getSuggestedTags();
-            queryTasks();
+            $scope.queryTasks();
         }
     }, true);
 
     $scope.$watch('filteredTags', function (newValue, oldValue) {
         if (newValue && newValue !== oldValue) {
+            $scope.tasks = [];
+            $scope.limiter = initial_limit;
             $scope.getSuggestedTags();
-            queryTasks();
+            $scope.queryTasks();
         }
     }, true);
 
+    $scope.tasks = [];
+    $scope.limiter = 20;
     $scope.filteredTags = [];
     $scope.tagsLimiter = { limit: 10 };
 });
