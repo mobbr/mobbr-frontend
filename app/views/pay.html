@@ -53,9 +53,9 @@
                                 </button>
                             </div>
                             <div class="col-xs-5">
-                                <button ng-disabled="!currency || !amount || confirm.$resolved || (invoices && !invoices_confirm) || (!activeQuery && !payQuery) || !mobbrSession.isAuthorized()"
-                                        ng-click="payment.result.hash ? pay() : previewPay()"
-                                        ng-bind="!mobbrSession.isAuthorized() && 'Login to pay' || taskType && ('Make a ' + taskType) || payment.result.script.type && ('Make a ' + payment.result.script.type) || 'Pay'"
+                                <button ng-disabled="!currency || !amount || confirm.$resolved || (invoices && !invoices_confirm) || (!activeQuery && !payQuery) || !mobbrSession.isAuthorized() || (payment && !payment.$resolved)"
+                                        ng-click="payment.result.hash ? pay() : preview()"
+                                        ng-bind="!mobbrSession.isAuthorized() && 'Login to pay' || taskType && ((show_preview && payment.$resolved ? 'Confirm ' : 'Make a ') + taskType) || payment.result.script.type && ((show_preview && payment.$resolved ? 'Confirm ' : 'Make a ') + payment.result.script.type) || 'Pay'"
                                         class="btn btn-success btn-block"
                                         type="submit">
                                 </button>
@@ -70,7 +70,7 @@
         </div>
     </div>
 </div>
-<div class="row info-bar" ng-show="taskAddresses">
+<div class="row info-bar" ng-show="taskAddresses && !show_preview">
     <div class="container">
         <div class="row">
             <fieldset class="form-group task-address" ng-repeat="address in taskAddresses">
