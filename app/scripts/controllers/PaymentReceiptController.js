@@ -77,6 +77,7 @@ angular.module('mobbr.controllers').controller('PaymentReceiptController', funct
 
     $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
         setUser();
+        $scope.scrollTo('tabletop');
         $scope.payment.$resolved && orderPersons();
     });
 

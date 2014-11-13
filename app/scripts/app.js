@@ -399,6 +399,13 @@ angular.module('mobbr', [
             $rootScope.idProviders = response.result;
         });
 
+        $rootScope.scrollTo = function (id) {
+            var old = $location.hash();
+            $location.hash(id);
+            $anchorScroll();
+            $location.hash(old);
+        }
+
         $rootScope.getLanguage = function () {
             return $rootScope.$mobbrStorage.user && $rootScope.$mobbrStorage.user.language_iso && ($window.navigator.userLanguage || $window.navigator.language).toUpperCase();
         }

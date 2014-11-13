@@ -158,36 +158,7 @@
     </div>
 </div>
 
-<!--<div class="row payment-data">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-3 title">
-                <span class="mobbricon mobbricon-payments"></span>
-                <span ng-bind-html="payment.amount | mobbrcurrency:payment.currency_iso:true"></span>
-                <span ng-if="payment.costs > 0">
-                    (+ <span ng-bind-html="payment.costs | mobbrcurrency:'':true"></span> fee)
-                </span>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-3 title" ng-if="!payment.ext_trx_id">
-                <span class="mobbricon mobbricon-softalert"></span>
-                <i ng-show="payment.invoiced == '1'" class="mobbricon mobbricon-completed"></i>
-                <span ng-bind="payment.invoiced == '1'?'Payment is invoiced':'Payment is not invoiced'"></span>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-3 title" ng-if="!payment.ext_trx_id">
-                <span class="mobbricon mobbricon-unclaimed"></span>
-                <span ng-bind="(payment.receivers | filter : {unclaimed:'1'}).length + ' / ' + payment.receivers.length"></span> shares are unclaimed
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-3 title">
-                <span class="mobbricon mobbricon-payments"></span>
-                <span ng-bind="payment.paiddatetime | amDateFormat:'lll'"></span>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-6 title" ng-if="payment.receive_address">
-                <span class="mobbricon mobbricon-transaction"></span>
-                <span ng-bind="payment.receive_address"></span>
-            </div>
-        </div>
-    </div>
-</div>-->
+<a id="tabletop"></a>
 
 <div class="row top-info filter payment-filter" ng-if="recieversAndSenders && recieversAndSenders.length > 0">
     <div class="container">
