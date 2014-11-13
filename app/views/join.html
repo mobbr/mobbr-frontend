@@ -1,86 +1,107 @@
-<div class="page-header">
-    <h1>Join Mobbr<br><small>Choose your username with care, it can never be changed. Ever.</small></h1>
+<div class="row top-bar">
+    <div class="container">
+        <div class="row left-pad">
+            <div class="col-md-3">
+                <h1>Register</h1>
+            </div>
+        </div>
+    </div>
 </div>
 
-<iframe style="width: 100%;" class="eula" src="https://api.mobbr.com/mobbr-terms-of-use.txt"></iframe>
+<div class="row page-white">
+    <div class="container">
+        <div class="row">
+            <form name="register" class="form-horizontal" ng-submit="registerUser(username, email, password, password_control)">
 
-<form style="" name="register" class="form-horizontal">
+                <div class="row">
+                    <div class="eula col-md-10 col-md-offset-2">
+                        <iframe src="https://api.mobbr.com/mobbr-terms-of-use.txt"></iframe>
+                    </div>
+                </div>
 
-    <div style="padding-bottom: 25px; margin-bottom: 20px; border-bottom: 1px solid #009ee0; ">
-        <label class="checkbox">
-            <input type="checkbox" ng-model="accept_eula">
-            I accept the terms
-        </label>
+                <fieldset class="form-group">
+                    <div class="col-md-10 col-md-offset-2">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-model="accept_eula" required>
+                                I accept the Mobbr terms and conditions
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="form-group">
+                    <label class="control-label col-md-2" for="username">Username</label>
+                    <div class="col-md-10">
+                        <input class="form-control"
+                               ng-model="username"
+                               name="username"
+                               type="text"
+                               id="username"
+                               placeholder="5-32 positions, e.g. _super-man_"
+                               required>
+                    </div>
+                </fieldset>
+
+                <fieldset class="form-group">
+                    <label class="control-label col-md-2" for="email">Email</label>
+                    <div class="col-md-10">
+                        <input class="form-control"
+                               ng-model="email"
+                               name="email"
+                               type="email"
+                               id="email"
+                               placeholder="an existing email address, e.g. bit.man@mobbr.com"
+                               required>
+                    </div>
+                </fieldset>
+
+                <fieldset class="form-group">
+                    <label class="control-label col-md-2" for="password">Password</label>
+                    <div class="col-md-10">
+                        <input class="form-control"
+                               ng-model="password"
+                               name="password"
+                               type="password"
+                               id="password"
+                               placeholder="min. 8 alfanum positions"
+                               required
+                               ng-pattern="/^.*(?=.{8,})(?=.*\d)(?=.*[a-z]).*$/">
+                            <span class="info-box" ng-show="register.password.$dirty && register.password.$invalid">
+                                <span class="mobbricon mobbricon-softalert"></span> Minimal 8 characters, use uppercase, lowercase and numbers
+                            </span>
+                    </div>
+                </fieldset>
+
+                <fieldset class="form-group">
+                    <label class="control-label col-md-2" for="password_control">Confirm password</label>
+                    <div class="col-md-10">
+                        <input class="form-control"
+                               ng-model="password_control"
+                               name="password_control"
+                               type="password"
+                               id="password_control"
+                               placeholder="min. 8 alfanum positions"
+                               pw-check="password"
+                               required
+                               ng-pattern="/^.*(?=.{8,})(?=.*\d)(?=.*[a-z]).*$/">
+                        <span class="info-box" ng-show="register.password_control.$dirty && register.password_control.$invalid">
+                            <span class="mobbricon mobbricon-softalert"></span> Make sure the passwords match
+                        </span>
+                    </div>
+                </fieldset>
+
+                <fieldset class="form-group">
+                    <div class="col-md-offset-9 col-md-3">
+                        <button type="submit"
+                                class="btn btn-block btn-call"
+                                ng-disabled="waiting">
+                            Register me now
+                            <span class="pull-right mobbricon mobbricon-starttask"></span>
+                        </button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
     </div>
-
-    <!-- TODO: correct styling -->
-    <div class="control-group">
-        <div class="control-label">
-            <label for="username">Username</label>
-        </div>
-        <div class="controls">
-            <input type="text" name="username" ng-model="username" placeholder="e.g. _super-man_" id="username">
-        </div>
-    </div>
-
-    <div class="control-group">
-        <div class="control-label">
-            <label for="email">Email</label>
-        </div>
-        <div class="controls">
-            <input ng-model="email" name="email" type="email" name="email" placeholder="e.g. example@mail.com" required id="email">
-        </div>
-    </div>
-
-    <!--<div class="control-group">
-
-        <div class="control-label">
-            <label for="new_password">New password</label>
-        </div>
-
-        <div class="controls">
-            <input ng-model="new_password" id="new_password" name="new_password" type="password" required ng-pattern="/^.*(?=.{8,})(?=.*\d)(?=.*[a-z]).*$/">
-            <span ng-show="changepassword.new_password.$dirty && changepassword.new_password.$error.required" class="help-inline">Enter a new password</span>
-            <span ng-show="changepassword.new_password.$dirty && changepassword.new_password.$error.pattern" class="help-inline">Minimal 8 charactes, uppercase, lowercase and numbers</span>
-        </div>
-    </div>
-
-    <div class="control-group">
-
-        <div class="control-label">
-            <label for="new_password2">New password again</label>
-        </div>
-
-        <div class="controls">
-            <input name="new_password2" id="new_password2" ng-model="new_password_control" type="password" required pw-check="new_password">
-            <span ng-show="changepassword.new_password2.$dirty && changepassword.new_password2.$error.pwmatch" class="help-inline">Passwords do not match</span>
-        </div>
-    </div>-->
-
-    <div class="control-group">
-        <div class="control-label">
-            <label for="password">Password</label>
-        </div>
-        <div class="controls">
-            <input ng-model="password" name="password" id="password" type="password" required ng-pattern="/^.*(?=.{8,})(?=.*\d)(?=.*[a-z]).*$/" placeholder="min. 8 alfanum positions">
-            <span ng-show="register.password.$dirty && register.password.$error.pattern" class="help-inline">Minimal 8 charactes, uppercase, lowercase and numbers</span>
-        </div>
-    </div>
-    <div class="control-group">
-        <div class="control-label">
-           <label for="password_control">Confirm password</label>
-        </div>
-        <div class="controls">
-            <input ng-model="password_control" name="password_control" id="password_control" type="password" required pw-check="password" placeholder="confirm password">
-            <span ng-show="register.password_control.$dirty && register.password_control.$error.pwmatch" class="help-inline">Passwords do not match</span>
-        </div>
-    </div>
-
-    <div class="control-group">
-        <div class="controls">
-            <button ng-click="registerUser(username, email, password, password_control)" class="btn btn-primary" ng-disabled="!accept_eula || waiting">
-                <i class="icon-white mobbrloader" ng-show="waiting"></i> Join
-            </button>
-        </div>
-    </div>
-</form>
+</div>

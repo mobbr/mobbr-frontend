@@ -1,6 +1,10 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('LinkLoginController', function ($scope, $route, $routeParams, MobbrUser) {
+angular.module('mobbr.controllers').controller('LinkLoginController', function ($scope, $stateParams, $state, MobbrUser) {
 
-    $scope.authenticating = MobbrUser.linkLogin({ login_token: $routeParams.hash });
+    MobbrUser.linkLogin({ login_token: $stateParams.hash }, function () {
+        $state.go('updates');
+    }, function () {
+        $state.go('main');
+    });
 });

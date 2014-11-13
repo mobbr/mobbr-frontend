@@ -86,8 +86,16 @@
       padding: ($grid-gutter-width * 1.25) 0;
     }
 
+    .txt.narrow {
+      padding: ($grid-gutter-width / 2) 0;
+    }
+
     .txt.xsmall {
       padding: ($grid-gutter-width / 2) 0;
+    }
+
+    .txt.padd {
+      padding: ($grid-gutter-width * 1.25) 0;
     }
 
     small {

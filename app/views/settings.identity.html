@@ -52,7 +52,7 @@
                 <fieldset class="form-group">
                     <label class="control-label col-sm-3 col-md-2" for="birthday">Birth day</label>
                     <div class="col-sm-7 col-md-8">
-                        <input ng-model="birthdate" ng-change="updateBirthdate(birthdate)" ng-model-options="{ timezone: 'UTC' }" name="birthday" type="date" id="birthday" placeholder="e.g. 07-17-1966" class="form-control">
+                        <input ng-model="$mobbrStorage.user.birthday" ng-model-options="{ timezone: 'UTC' }" name="birthday" type="date" id="birthday" placeholder="e.g. 07-17-1966" class="form-control">
                     </div>
                 </fieldset>
 

@@ -72,6 +72,12 @@
     -webkit-filter: grayscale(100%);
     opacity: 0.4;
   }
+
+  tr.primary {
+    background: $white;
+    font-weight: bold;
+  }
+
   margin-bottom: 0;
 }
 

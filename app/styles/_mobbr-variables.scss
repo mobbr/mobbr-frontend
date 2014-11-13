@@ -1,117 +1,49 @@
-$mobbrblue:             rgb(0, 158, 224);
-// Grays
-// -------------------------
-//$black:                 #000 !default;
-//$grayDarker:            #222 !default;
-$grayDark:              #333 !default;
-//$gray:                  #555 !default;
-//$grayLight:             #999 !default;
-//$grayLighter:           #eee !default;
-$white:                 #fff;
+$grid-float-breakpoint:                   0;
+$grid-gutter-width:                       12px;
+$line-height-base:                        2;
+$line-height-computed:                    floor(($font-size-base * $line-height-base));
+$input-height-base:                       ($line-height-computed + ($padding-base-vertical * 2));
+$border-radius-base:                      0;
+$border-radius-large:                     0;
+$border-radius-small:                     0;
+$input-border-radius:                     0;
+$gray:                                    #edebeb;
+$input-bg:                                $gray;
 
+$mobbrblue:                               rgb(0, 158, 224);
+$brand-primary:                           $mobbrblue;
+$state-warning-bg:                        #f60;
+$state-warning-text:                      #ff0;
+$white:                                   #fff;
+$btn-success-bg:                          #690;
+$btn-danger-bg:                           $state-warning-bg;
+$btn-primary-bg:                          $mobbrblue;
 
-// Accent colors
-// -------------------------
-$blue:                  $mobbrblue;
-//$blueDark:              #0064cd !default;
-//$green:                 #46a546 !default;
-//$red:                   #9d261d !default;
-//$yellow:                #ffc40d !default;
-//$orange:                #f89406 !default;
-//$pink:                  #c3325f !default;
-//$purple:                #7a43b6 !default;
+$navbar-height:                           60px;
+$navbar-default-bg:                       $white;
+$navbar-default-border:                   $mobbrblue;
+$navbar-default-link-color:               $mobbrblue;
+$navbar-default-link-hover-color:         #000;
+$navbar-default-link-active-bg:           $mobbrblue;
+$navbar-default-link-active-color:        $white;
 
-// Links
-// -------------------------
-$linkColor:             $mobbrblue;
-$linkColorHover:        $mobbrblue;
+$mobbrFont:                               'Roboto', sans-serif;
+$mobbrFontCondensed:                      'Roboto Condensed', sans-serif;
+$icon-font-path:                          '../fonts/';
+$icon-font-name:                          'mobbricon';
+$link-color:                              $mobbrblue;
+$link-hover-color:                        darken($link-color, 15%);
+$nav-tabs-active-link-hover-bg:           $mobbrblue;
+$nav-tabs-active-link-hover-border-color: $mobbrblue;
+$nav-pills-active-link-hover-bg:          $mobbrblue;
+$nav-pills-active-link-hover-border-color:$mobbrblue;
 
-// Dropdowns
-// -------------------------
-//$dropdownBackground:            $white !default;
-//$dropdownBorder:                rgba(0,0,0,.2) !default;
-//$dropdownDividerTop:            #e5e5e5 !default;
-//$dropdownDividerBottom:         $white !default;
+$mobbryellow:                             #ff9900;
+$mobbrgreen:                              #8db600;
+$mobbrcallout:                            #ffcc00;
+$mobbrlightblue:                          #2fb3e7;
+$mobbrlightgreen:                         tint($mobbrgreen, 30%);
+$mobbrlightyellow:                        #ffb348;
 
-//$dropdownLinkColor:             $grayDark !default;
-//$dropdownLinkColorHover:        $white !default;
-//$dropdownLinkColorActive:       $white !default;
-
-$dropdownLinkBackgroundActive:  $mobbrblue;
-$dropdownLinkBackgroundHover:   $mobbrblue;
-
-// Navbar
-// -------------------------
-//$navbarCollapseWidth:             979px !default;
-//$navbarCollapseDesktopWidth:      $navbarCollapseWidth + 1;
-
-//$navbarHeight:                    40px !default;
-$navbarBackgroundHighlight:       $mobbrblue;
-$navbarBackground:                $mobbrblue;
-$navbarBorder:                    $mobbrblue;
-
-$navbarText:                      $white;
-$navbarLinkColor:                 $white;
-$navbarLinkColorHover:            $white;
-$navbarLinkColorActive:           $white;
-$navbarLinkBackgroundHover:       darken($mobbrblue, 5%);
-$navbarLinkBackgroundActive:      darken($mobbrblue, 5%);
-
-//$navbarBrandColor:                $navbarLinkColor !default;
-
-// Inverted navbar
-$navbarInverseBackground:                $grayDark;
-$navbarInverseBackgroundHighlight:       $grayDark;
-$navbarInverseBorder:                    $grayDark;
-
-$mobbrHeadingsFontFamily: 'Open Sans Condensed', sans-serif;
-$mobbrFontFamily: 'Open Sans', sans-serif;
-
-$btnPrimaryBackground:              $mobbrblue;
-$btnPrimaryBackgroundHighlight:     darken($mobbrblue, 5%);
-
-//$navbarInverseText:                      $grayLight !default;
-//$navbarInverseLinkColor:                 $grayLight !default;
-//$navbarInverseLinkColorHover:            $white !default;
-//$navbarInverseLinkColorActive:           $navbarInverseLinkColorHover !default;
-//$navbarInverseLinkBackgroundHover:       transparent !default;
-//$navbarInverseLinkBackgroundActive:      $navbarInverseBackground !default;
-
-//$navbarInverseSearchBackground:          lighten($navbarInverseBackground, 25%) !default;
-//$navbarInverseSearchBackgroundFocus:     $white !default;
-//$navbarInverseSearchBorder:              $navbarInverseBackground !default;
-//$navbarInverseSearchPlaceholderColor:    #ccc !default;
-
-//$navbarInverseBrandColor:                $navbarInverseLinkColor !default;
-
-.accordion-toggle:before {
-  display: inline-block;
-  width: 0;
-  height: 0;
-  vertical-align: top;
-  border-top:   4px solid $black;
-  border-right: 4px solid transparent;
-  border-left:  4px solid transparent;
-  content: "";
-  margin: 8px 8px 0 0;
-}
-
-.closed.accordion-toggle:before {
-  border-top:   4px solid transparent;
-  border-bottom: 4px solid transparent;
-  border-left:  4px solid $black;
-  border-right: 0px;
-  margin-top: 6px;
-}
-
-.img-rounded-small {
-  border-radius: 3px;
-}
-
-.accordion-toggle:hover {
-  text-decoration: none;
-}
-
-.special.well {
-  background: whitesmoke url(../img/mobbr-ripple.png) no-repeat top right;
-}
+$label-default-bg:                        $white;
+$label-color:                             $mobbrblue;

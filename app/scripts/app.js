@@ -1,198 +1,328 @@
 'use strict';
 
-angular.module('mobbr.controllers', []);
-angular.module('mobbr.directives', []);
-angular.module('mobbr.filters', []);
+angular.module('mobbr.controllers', ['angularFileUpload', 'mobbrApi', 'mobbrMsg', 'mobbrSession', 'mobbr.config', 'ngTable', 'ngStorage', 'ui.bootstrap']);
+angular.module('mobbr.services', []);
+angular.module('mobbr.directives', ['mobbrSession', 'mobbr.config', 'ui.bootstrap']);
+angular.module('mobbr.filters', ['mobbrSession', 'mobbr.config']);
 angular.module('mobbr.configuration', []);
 
 /**
- * Prevent the dropdown from closing when an input is clicked, fix this nicer, perhaps make a push request to angular ui team
+ * Prevent the dropdown from closing when an input is clicked
  */
 
-angular.module('ui.bootstrap.dropdownToggle', []).directive('dropdownToggle',
-  ['$document', '$location', '$window', function ($document, $location, $window) {
-    var openElement = null,
-      closeMenu = angular.noop;
-    return {
-      restrict: 'CA',
-      link: function (scope, element, attrs) {
-        scope.$watch('$location.path', function () {
-          closeMenu();
-        });
-        element.parent().bind('click', function (event) {
-          closeMenu(event);
-        });
-        element.bind('click', function (event) {
-          event.preventDefault();
-          event.stopPropagation();
-          var elementWasOpen = (element === openElement);
-          if (!!openElement) {
-            closeMenu();
-          }
-          if (!elementWasOpen) {
-            element.parent().addClass('open');
-            openElement = element;
-            closeMenu = function (event) {
-              if ((event && event.toElement
-                && event.toElement.tagName !== 'INPUT'
-                && event.toElement.tagName !== 'SELECT'
-                && event.toElement.tagName !== 'TEXTAREA'
-                && event.toElement.tagName !== 'BUTTON') || !event) {
-                if (event && event.toElement.tagName !== 'A' && event.toElement.tagName !== 'IMG') {
-                  event.preventDefault();
-                  event.stopPropagation();
-                }
-                $document.unbind('click', closeMenu);
-                element.parent().removeClass('open');
-                closeMenu = angular.noop;
-                openElement = null;
-              }
-            };
-            $document.bind('click', closeMenu);
-          }
-        });
-      }
-    };
-  }]);
+$(function () {
+    $('.dropdown input, .dropdown button').click(function (e) {
+        e.stopPropagation();
+    });
+});
 
 angular.module('mobbr', [
 
-        'ngRoute',
-        'ngTable',
         'ui.bootstrap',
+        'ngStorage',
+        'ui.router',
+        'ui.scrollfix',
+        'ui.unique',
         'mobbrApi',
         'mobbrMsg',
         'mobbrSession',
         'mobbr.config',
         'mobbr.controllers',
-        'mobbr.services.invoice',
-        'mobbr.services.pdf',
+        'mobbr.services',
         'mobbr.directives',
         'mobbr.filters',
-        'angularFileUpload'
+        'angularMoment',
+        'angular-loading-bar'
 
-    ]).config(function ($routeProvider) {
+    ]).config(function ($stateProvider, $urlRouterProvider) {
 
-        var resolver = {};
-
-        resolver.auth = function ($q, $route, $location, mobbrMsg, mobbrSession) {
-
-            var deferred = $q.defer(),
-                route = $route.current && $route.current.$$route;
-
-            if (route && route.authsettings && route.authsettings.authenticated !== mobbrSession.isAuthorized()) {
-                deferred.reject();
-                route.authsettings.redirectTo && $location.path(route.authsettings.redirectTo);
-            } else {
-                deferred.resolve();
-            }
-
-            return deferred.promise;
+        function blockUI($rootScope) {
+            $rootScope.blockUI = true;
         }
 
-        $routeProvider.when('/', {
+        function unblockUI($rootScope) {
+            $rootScope.blockUI = false;
+        }
+
+        $stateProvider.state('main', {
+                url: '/',
                 templateUrl: 'views/main.html',
                 controller: 'MainController'
-            }).when('/login/:hash', {
+            }).state('updates', {
+                url: '/updates',
+                templateUrl: 'views/updates.html',
+                controller: 'UpdatesController',
+                data: { authenticated: true, redirectTo: 'main' },
+                resolve: {
+                    balance: function (MobbrBalance) {
+                        return MobbrBalance.get().$promise;
+                    },
+                    notifications: function (MobbrNotifications) {
+                        return MobbrNotifications.get({ limit: 10 }).$promise;
+                    },
+                    person: function (MobbrPerson, $rootScope) {
+                        return MobbrPerson.info({ username: $rootScope.$mobbrStorage.user.username }).$promise;
+                    }
+                }
+            }).state('login', {
+                url: '/login/:hash',
                 templateUrl: 'views/link-login.html',
                 controller: 'LinkLoginController'
-            }).when('/activate/:hash', {
+            }).state('activate', {
+                url: '/activate/:hash',
                 templateUrl: 'views/activate.html',
                 controller: 'ActivateController'
-            }).when('/email/:hash', {
+            }).state('email', {
+                url: '/email/:hash',
                 templateUrl: 'views/update-email.html',
                 controller: 'UpdateEmailController'
-            }).when('/recover', {
+            }).state('id', {
+                url: '/id/:hash',
+                templateUrl: 'views/update-email.html',
+                controller: 'UpdateEmailController'
+            }).state('recover', {
+                url: '/recover',
                 templateUrl: 'views/recover-password.html',
                 controller: 'ResetPasswordController',
-                authsettings: { authenticated: false, redirectTo: '/wallet' },
-                resolve: resolver
-            }).when('/join', {
+                data: { authenticated: false, redirectTo: 'updates' }
+            }).state('join', {
+                url: '/join',
                 templateUrl: 'views/join.html',
                 controller: 'JoinController',
-                authsettings: { authenticated: false, redirectTo: '/wallet' },
-                resolve: resolver
-            }).when('/settings', {
+                data: { authenticated: false, redirectTo: 'updates' }
+            }).state('settings', {
+                url: '/settings',
                 templateUrl: 'views/settings.html',
                 controller: 'UserSettingsController',
-                authsettings: { authenticated: true, redirectTo: '/' },
-                resolve: resolver
-            }).when('/wallet', {
+                data: { authenticated: true, redirectTo: 'main' }
+            }).state('settings.account', {
+                url: '/account'
+            }).state('settings.identity', {
+                url: '/identity'
+            }).state('settings.proof', {
+                url: '/proof'
+            }).state('settings.invoicing', {
+                url: '/invoicing'
+            }).state('settings.display', {
+                url: '/display'
+            }).state('settings.privacy', {
+                url: '/privacy'
+            }).state('settings.notifications', {
+                url: '/notifications'
+            }).state('settings.ids', {
+                url: '/ids'
+            }).state('wallet', {
+                url: '/wallet',
                 templateUrl: 'views/wallet.html',
                 controller: 'WalletController',
-                authsettings: { authenticated: true, redirectTo: '/' },
-                resolve: resolver
-            }).when('/sourcing', {
-                templateUrl: 'views/sourcing.html',
-                controller: 'SourcingController',
-                authsettings: { authenticated: true, redirectTo: '/' },
-                resolve: resolver
-            }).when('/working', {
-                templateUrl: 'views/working.html',
-                controller: 'WorkingController',
-                authsettings: { authenticated: true, redirectTo: '/' },
-                resolve: resolver
-            }).when('/domain/:url', {
-                templateUrl: 'views/domain.html',
-                controller: 'DomainController'
-            }).when('/claimpayment', {
-                templateUrl: 'views/claim_payment.html',
-                controller: 'ClaimPaymentController'
-            }).when('/generatebutton', {
-                templateUrl: 'views/generate_button.html',
-                controller: 'CreateButtonController'
-            }).when('/exchangerate', {
-                templateUrl: 'views/exchangerate.html',
-                controller: 'ExchangeRateController'
-            }).when('/integration', {
-                templateUrl: 'views/integration.html'
-            }).when('/api', {
-                templateUrl: 'views/api.html'
-            }).when('/usecases', {
-                templateUrl: 'views/usecases.html'
-            }).when('/siteconnector', {
-                templateUrl: 'views/siteconnector.html'
-            }).when('/features', {
-                templateUrl: 'views/features.html'
-            }).when('/gettingstarted', {
-                templateUrl: 'views/gettingstarted.html'
-            }).when('/company', {
-                templateUrl: 'views/company.html'
-            }).when('/validator', {
-                templateUrl: 'views/validator.html'
-            }).when('/payment/:id', {
+                data: {
+                    authenticated: true,
+                    redirectTo: 'main'
+                },
+                resolve: {
+                    balance: function (MobbrBalance) {
+                        return MobbrBalance.get().$promise;
+                    },
+                    supportedCurrencies: function (MobbrXPayment) {
+                        return MobbrXPayment.supportedCurrencies().$promise;
+                    },
+                    xpayments: function (MobbrXPayment) {
+                        return MobbrXPayment.get({ limit: 10 }).$promise;
+                    }
+                }
+            }).state('wallet.deposit', {
+                url: '/deposit',
+                views: {
+                    'pay@wallet': {
+                        controller: 'DepositController',
+                        templateUrl: 'views/deposit.html'
+                    }
+                },
+                onEnter: blockUI,
+                onExit: unblockUI
+            }).state('wallet.withdraw', {
+                url: '/withdraw',
+                views: {
+                    'pay@wallet': {
+                        controller: 'WithdrawController',
+                        templateUrl: 'views/withdraw.html'
+                    }
+                },
+                onEnter: blockUI,
+                onExit: unblockUI
+            }).state('wallet.x-payments', {
+                url: '/x-payments'
+            }).state('wallet.addresses', {
+                url: '/addresses'
+            }).state('payments', {
+                url: '/payments',
+                templateUrl: 'views/payments.html',
+                controller: 'PaymentsController',
+                data: {
+                    authenticated: true,
+                    redirectTo: 'main'
+                },
+                resolve: {
+                    payments: function (MobbrPayment) {
+                        return MobbrPayment.get().$promise;
+                    },
+                    pledges: function (MobbrPayment) {
+                        return MobbrPayment.pledged().$promise;
+                    },
+                    unclaimed: function (MobbrPayment) {
+                        return MobbrPayment.unclaimedShares().$promise;
+                    }
+                }
+            }).state('payments.pledges', {
+                url: '/pledges'
+            }).state('payments.payments', {
+                url: '/payments'
+            }).state('payments.unclaimed', {
+                url: '/unclaimed'
+            }).state('payments.pay', {
+                url: '/pay',
+                views: {
+                    'pay@payments': {
+                        controller: 'PayController',
+                        templateUrl: 'views/pay.html'
+                    }
+                },
+                onEnter: blockUI,
+                onExit: unblockUI
+            }).state('payment', {
+                url: '/payment/:id',
                 templateUrl: 'views/payment.html',
                 controller: 'PaymentReceiptController'
-            }).when('/x-payment/:id', {
+            }).state('payment.username', {
+                url: '/:username'
+            }).state('x-payment', {
+                url: '/x-payment/:id',
                 templateUrl: 'views/payment.html',
                 controller: 'PaymentReceiptController'
-            }).when('/url/:url', {
-                templateUrl: 'views/url.html',
-                controller: 'UrlReceiptController'
-            }).otherwise({
-                redirectTo: '/'
-            }
-        );
+            }).state('box', {
+                abstract: true,
+                templateUrl: 'views/box.html',
+                controller: 'BoxController'
+            }).state('box.tasks', {
+                url: '/tasks',
+                views: {
+                    'tasks-section': {
+                        controller: 'TasksController',
+                        templateUrl: 'views/tasks.html'
+                    }
+                },
+                data: {
+                    title: 'Explore tasks'
+                }
+            }).state('box.tasks.person', {
+                url: '/:username'
+            }).state('box.task', {
+                url: '/task',
+                views: {
+                    'tasks-section': {
+                        controller: 'TaskController',
+                        templateUrl: 'views/task.html'
+                    }
+                },
+                data: {
+                    title: 'Task status'
+                }
+            }).state('box.task.index', {
+                url: '/:task',
+                abstract: true
+            }).state('box.task.index.view', {
+                url: '/view'
+            }).state('box.task.index.domain', {
+                url: '/domain',
+                views: {
+                    'task-section': {
+                        controller: 'TaskDomainController',
+                        templateUrl: 'views/task.domain.html'
+                    }
+                },
+                onEnter: blockUI,
+                onExit: unblockUI
+            }).state('box.task.index.script', {
+                url: '/script',
+                views: {
+                    'task-section': {
+                        templateUrl: 'views/task.script.html'
+                    }
+                },
+                onEnter: blockUI,
+                onExit: unblockUI
+            }).state('box.task.index.payments', {
+                url: '/payments',
+                views: {
+                    'task-section': {
+                        controller: 'TaskPaymentsController',
+                        templateUrl: 'views/task.payments.html'
+                    }
+                },
+                onEnter: blockUI,
+                onExit: unblockUI
+            }).state('box.task.index.persons', {
+                url: '/persons',
+                views: {
+                    'task-section': {
+                        controller: 'TaskPersonsController',
+                        templateUrl: 'views/task.persons.html'
+                    }
+                },
+                onEnter: blockUI,
+                onExit: unblockUI
+            }).state('box.task.index.invite', {
+                url: '/invite',
+                views: {
+                    'task-section': {
+                        controller: 'CrowdsController',
+                        templateUrl: 'views/crowds.html'
+                    }
+                },
+                onEnter: blockUI,
+                onExit: unblockUI
+            }).state('box.task.index.pay', {
+                url: '/pay',
+                views: {
+                    'pay@box': {
+                        controller: 'PayController',
+                        templateUrl: 'views/pay.html'
+                    }
+                },
+                onEnter: blockUI,
+                onExit: unblockUI
+            }).state('box.crowds', {
+                url: '/crowds',
+                views: {
+                    'tasks-section': {
+                        controller: 'CrowdsController',
+                        templateUrl: 'views/crowds.html'
+                    }
+                },
+                data: {
+                    title: 'Invite workforce'
+                }
+            }).state('box.crowds.task', {
+                url: '/:task'
+            }).state('box.person', {
+                url: '/person',
+                views: {
+                    'tasks-section': {
+                        controller: 'PersonController',
+                        templateUrl: 'views/person.html'
+                    }
+                },
+                data: {
+                    title: 'Profile'
+                }
+            }).state('box.person.profile', {
+                url: '/:username'
+            });
 
-    }).run(function ($http, $rootScope, $route, $location, $window, $anchorScroll, MobbrApi, MobbrUser, mobbrMsg, mobbrSession, apiUrl, environment, lightboxUrl, uiUrl) {
 
-        $rootScope.mobbrMsg = mobbrMsg;
-        $rootScope.mobbrSession = mobbrSession;
-        $rootScope.uiUrl = uiUrl;
-        $rootScope.currenciesMap = MobbrApi.forexCurrencies();
-        $rootScope.languagesMap = MobbrApi.isoLanguages();
-        $rootScope.countriesMap = MobbrApi.isoCountries();
-        $rootScope.timezones = MobbrApi.isoTimezones();
-        $rootScope.host = $location.host();
+        $urlRouterProvider.otherwise('/');
 
-        $rootScope.incomerangeMap = {
-            1: 'less than € 18000',
-            2: 'between € 18000 and € 30000',
-            3: 'between € 30000 and € 50000',
-            4: 'between € 50000 and € 80000',
-            5: 'between € 80000 and € 120000',
-            6: 'more than € 120000'
-        };
+    }).run(function ($http, $rootScope, $state, $location, $window, $anchorScroll, filterFilter, MobbrApi, MobbrUser, MobbrBalance, MobbrXPayment, mobbrMsg, mobbrSession, apiUrl, uiUrl, lightboxUrl, environment) {
 
         if (environment !== 'production') {
             $window.mobbr.setApiUrl(apiUrl);
@@ -201,42 +331,111 @@ angular.module('mobbr', [
             $window.mobbr.createDiv();
         }
 
-        $rootScope.login = function (email, password) {
-            $rootScope.authenticating = MobbrUser.passwordLogin({ email: email, password: password }, function () {
-                $location.path('/wallet');
+        function setCurrencies() {
+            if (mobbrSession.isAuthorized()) {
+                MobbrBalance.get(function (response) {
+                    $rootScope.userCurrencies = response.result.balances;
+                });
+            } else if ($rootScope.networkCurrencies) {
+                $rootScope.userCurrencies = $rootScope.networkCurrencies
+            }
+        }
+
+        $rootScope.$on('$stateChangeSuccess', function () {
+            $window.ga('send', 'pageview', { page: $location.path() });
+        });
+
+        $rootScope.$state = $state;
+        $rootScope.host = $location.host();
+        $rootScope.mobbrMsg = mobbrMsg;
+        $rootScope.mobbrSession = mobbrSession;
+        $rootScope.uiUrl = uiUrl;
+
+        $rootScope.currenciesMap = {};
+        $rootScope.languagesMap = {};
+        $rootScope.countriesMap = {};
+        $rootScope.idProviders = [];
+        $rootScope.translationsMap = [];
+        $rootScope.eventTypesMap = {};
+
+        $rootScope.timezones = MobbrApi.isoTimezones();
+        $rootScope.incomerangeMap = MobbrApi.kycIncomeRanges();
+        $rootScope.oAuthProviders = MobbrApi.oauthProviders();
+        $rootScope.usedLanguages = MobbrApi.isoLanguages({ include_unused: false });
+
+        $rootScope.eventTypes = MobbrApi.eventTypes(function (response) {
+            response.result.forEach(function (item) {
+                $rootScope.eventTypesMap[item.event] = item;
             });
+        });
+
+        $rootScope.currencies = MobbrApi.currencies(function (response) {
+            $rootScope.networkCurrencies = filterFilter($rootScope.currencies.result, { wallet_support: true });
+            response.result.forEach(function (item) {
+                $rootScope.currenciesMap[item.currency_iso] = item;
+            });
+            setCurrencies();
+        });
+
+        $rootScope.languages = MobbrApi.isoLanguages(function (response) {
+            response.result.forEach(function (item) {
+                $rootScope.languagesMap[item.code] = item.name;
+            });
+        });
+
+        $rootScope.translations = MobbrApi.translations(function (response) {
+            response.result.forEach(function (item) {
+                $rootScope.translationsMap[item.code] = item.name;
+            });
+        });
+
+        $rootScope.countries = MobbrApi.isoCountries(function (response) {
+            response.result.forEach(function (item) {
+                $rootScope.countriesMap[item.code] = item.name;
+            });
+        });
+
+        MobbrApi.idProviders().$promise.then(function(response){
+            $rootScope.idProviders = response.result;
+        });
+
+        $rootScope.scrollTo = function (id) {
+            var old = $location.hash();
+            $location.hash(id);
+            $anchorScroll();
+            $location.hash(old);
+        }
+
+        $rootScope.getLanguage = function () {
+            return $rootScope.$mobbrStorage.user && $rootScope.$mobbrStorage.user.language_iso && ($window.navigator.userLanguage || $window.navigator.language).toUpperCase();
+        }
+
+        $rootScope.login = function (username, password) {
+            $rootScope.authenticating = MobbrUser.passwordLogin({ username: username, password: password }, function () {
+                $state.go('updates');
+            });
+        };
+
+        $rootScope.encodeTask = function (url) {
+            return $window.btoa(url);
         };
 
         $rootScope.logout = function () {
             MobbrUser.logout();
-            $location.path('/');
+        };
+
+        $rootScope.openExternalPayment = function (item) {
+            $state.go('x-payment', { id: item.id || item.payment_id });
+        }
+
+        $rootScope.openPayment = function (item) {
+            $state.go('payment', { id: item.id || item.payment_id });
         }
 
         $rootScope.isTest = function () {
             return environment !== 'production';
         }
 
-        $rootScope.linkUrl = function (url) {
-            return '/#/url/' + window.btoa(url);
-        }
-
-        $rootScope.scrollToId = function (id) {
-            $location.hash(id);
-            $anchorScroll();
-        }
-
-        $rootScope.$watch('mobbrMsg.messages', function () {
-
-            var msg = mobbrMsg.messages[mobbrMsg.messages.length - 1];
-
-            if (msg) {
-                new PNotify({
-                    title: '',
-                    text: msg.msg,
-                    type: msg.type || 'info',
-                    styling: 'bootstrap3'
-                });
-            }
-        }, true);
+        $rootScope.$on('mobbrApi:authchange', setCurrencies);
     }
 );

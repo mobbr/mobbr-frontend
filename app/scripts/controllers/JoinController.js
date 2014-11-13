@@ -1,26 +1,31 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('JoinController', function ($scope, $routeParams, MobbrUser) {
+angular.module('mobbr.controllers').controller('JoinController', function ($scope, $stateParams, $window, MobbrUser, mobbrMsg) {
 
     $scope.waiting = false;
-    $scope.email = $routeParams.email;
-    $scope.registerUser = function (username, email, password, password_control) {
+    $scope.email = $stateParams.email;
+    $scope.registerUser = function () {
+        if (!$scope.register.$invalid) {
 
-        $scope.waiting = true;
+            $scope.waiting = true;
 
-        MobbrUser.register({
-            username: username,
-            email: email,
-            password: password,
-            password_control: password_control
-        }, function (response) {
-            $scope.waiting = false;
-            $scope.email = '';
-            $scope.username = '';
-            $scope.password = '';
-            $scope.password_control = '';
-        }, function (response) {
-            $scope.waiting = false;
-        });
+            MobbrUser.register({
+                username: $scope.username,
+                email: $scope.email,
+                password: $scope.password
+            }, function (response) {
+                $window.ga('send', 'event', 'account', 'register', 'username', $scope.username);
+                $scope.waiting = false;
+                $scope.email = '';
+                $scope.username = '';
+                $scope.password = '';
+                $scope.password_control = '';
+            }, function (response) {
+                $window.ga('send', 'event', 'error', 'register', 'username', $scope.username);
+                $scope.waiting = false;
+            });
+        } else {
+            mobbrMsg.add({ msg: 'Make sure the passwords match', type: 'danger' });
+        }
     }
 });

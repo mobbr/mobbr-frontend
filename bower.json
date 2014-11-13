@@ -2,26 +2,38 @@
   "name": "mobbr",
   "version": "0.0.0",
   "dependencies": {
-    "angular": "1.2.15",
-    "angular-route": "~1.2.14",
-    "angular-resource": "1.2.13",
-    "ngstorage": "~0.2.3",
-    "angular-bootstrap": "~0.3.0",
+    "angular": "~1.3.0",
+    "angular-route": "~1.3.0",
+    "angular-resource": "~1.3.0",
+    "angular-animate": "~1.3.0",
+    "ngstorage": "~0.3.0",
+    "angular-bootstrap": "~0.11.2",
     "modernizr": "~2.6.2",
     "es5-shim": "~2.1.0",
-    "sass-bootstrap": "2.3.1",
-    "angularjs-file-upload": "~1.1.0",
-    "ng-table": "~0.3.1",
+    "bootstrap-sass-official": "~3.2.0",
+    "ng-file-upload": "~1.3.1",
+    "ng-table": "~0.3.3",
     "file-saver": "*",
     "jspdf": "git://github.com/MrRio/jsPDF.git#a52028fe58f949a1bd32a7b5818a8e90ee954b3e",
-      "mobbr-api-angular": "git://github.com/mobbr/mobbr-api-angular#785b6e991aa9110a07bc6d70da9f5b3728596c79",
-    "mobbr-button": "https://handijk@bitbucket.org/mobbr/mobbr-button.git#f47a2b11242842efd93e51d78f36266242841ae6",
-    "pines-notify": "~2.0.0"
+    "mobbr-api-angular": "git://github.com/mobbr/mobbr-api-angular.git#58d52e84e682442f5b8942f40b0d304ae00aac1e",
+    "mobbr-button": "https://handijk@bitbucket.org/mobbr/mobbr-button.git#52fc97949fccbb8b3b80f93f83dc2211d10dea72",
+    "angular-ui-router": "0.2.11",
+    "angular-ui-utils": "0.1.1",
+    "angular-moment": "0.8.0",
+    "purl": "2.3.1",
+    "angular-loading-bar": "~0.6.0"
+  },
+  "devDependencies": {
+    "angular-mocks": "1.2.24",
+    "angular-scenario": "1.2.24"
   },
   "ignore": [
     "**/.*",
     "node_modules",
     "app/components"
   ],
-  "main": "app/index.html"
+  "main": "app/index.html",
+  "resolutions": {
+    "angular": "1.2.24"
+  }
 }

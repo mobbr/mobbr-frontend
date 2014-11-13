@@ -1,142 +1,181 @@
-<div class="pull-right">
-    <div class="btn-group">
-        <button class="btn" ng-click="depositDialog.open()">Deposit</button>
-    </div>
-    <div class="btn-group">
-        <button class="btn" ng-click="withdrawDialog.open()">Withdraw</button>
-    </div>
-</div>
-<tabs>
-<pane heading="Wallet">
-
-    <div class="row-fluid">
-        <div class="well span12 special">
-            <small>Your credit. Fees will be transfered and reset at the beginning of each month</small>
+<div class="row top-bar">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6">
+                <h1>Wallet</h1>
+            </div>
+            <div class="col-xs-6 col-sm-3">
+                <a ui-sref="wallet.withdraw" ng-class="{ unblocked: $state.is('wallet.withdraw') }" class="btn btn-call btn-block">
+                    <span class="mobbricon mobbricon-transaction pull-right"></span>Withdraw
+                </a>
+            </div>
+            <div class="col-xs-6 col-sm-3">
+                <a ui-sref="wallet.deposit" ng-class="{ unblocked: $state.is('wallet.deposit') }" class="btn btn-call btn-block">
+                    <span class="mobbricon mobbricon-transaction pull-right"></span>Deposit
+                </a>
+            </div>
         </div>
     </div>
+</div>
 
-            <table class="table table-striped mobbrtable" ng-show="balances.result.length > 0">
+<div class="task-pay">
+    <div class="clearfix" collapse="!blockUI">
+        <div ui-view="pay"></div>
+    </div>
+</div>
+
+<div class="row top-info">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row cards-wrapper">
+                    <div class="card-container flip col-xs-6 col-sm-3">
+                        <div class="card fixed">
+                            <div class="front">
+                                <div class="row top">
+                                <div class="col-md-12">
+                                    <span class="mobbricon mobbricon-wallet"></span>
+                                    Total balance in {{ dashboard.result.total_currency_iso }}
+                                </div>
+                                </div>
+                                <div class="row">
+                                    <span class="txt xbig col-md-12" ng-bind-html="dashboard.result.total_amount | mobbrcurrency:'':true"></span>
+                                </div>
+                                <div class="row bottom">
+                                    <div class="col-md-12">
+                                        <button ui-sref="settings.display" class="btn btn-block">
+                                            Change your preference
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-container flip col-xs-6 col-sm-3" ng-repeat="balance in dashboard.result.balances">
+                        <div class="card">
+                            <div class="front">
+                                <div class="row">
+                                    <small class="col-md-12">Spendable in <span ng-bind="balance.currency_description"></span></small>
+                                </div>
+                                <div class="row">
+                                    <span class="txt col-md-12" ng-bind-html="balance.spendable | mobbrcurrency:balance.currency_iso:true"></span>
+                                </div>
+                                <div class="row" ng-show="balance.currency_iso !== currenciesMap[dashboard.result.total_currency_iso].currency_iso">
+                                    <small class="col-md-12">Equivalent</small>
+                                </div>
+                                <div class="row">
+                                    <span class="txt xsmall col-md-12" ng-show="balance.currency_iso !== currenciesMap[dashboard.result.total_currency_iso].currency_iso">
+                                        (<span ng-bind-html="balance.converted_amount | mobbrcurrency:currenciesMap[dashboard.result.total_currency_iso].currency_iso:true"></span>)
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="back">
+                                <div class="row">
+                                    <small class="first col-md-12">
+                                        Last updated <time ng-bind="balance.updatedatetime | amCalendar" datetime="{{ balance.updatedatetime }}"></time>
+
+                                    </small>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <small class="pull-left">Amount</small>
+                                        <span class="txt pull-right" ng-bind-html="balance.amount | mobbrcurrency:'':true"></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 text-warning">
+                                        <small class="pull-left">Monthly fee</small>
+                                        <span class="txt pull-right" ng-bind-html="balance.fee | mobbrcurrency:'':true"></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 text-success">
+                                        <small class="pull-left">Spendable </small>
+                                        <span class="txt pull-right" ng-bind-html="balance.spendable | mobbrcurrency:'':true"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row top-info filter">
+    <div class="container">
+        <div class="row" ng-class="{ disabled: payments.result.length == 0 }">
+            <div class="col-xs-12 title" ng-click="(!filterText && payments.result.length > 0) && ($state.is('wallet.x-payments') ? $state.go('^') : $state.go('wallet.x-payments'))">
+                <span class="mobbricon mobbricon-transaction"></span>
+                <strong>Deposits and withdraws</strong>
+                <span class="hidden-xs" ng-show="payments.$resolved && !filterText && payments.result.length == 0">No deposits or withdrawals</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container xpaymentstable">
+    <div class="row">
+        <fieldset class="form-group">
+            <div class="col-sm-6 col-sm-offset-6">
+                <div class="input-group">
+                    <input type="search"
+                           class="form-control"
+                           ng-model="filterText"
+                           placeholder="External reference"
+                           ng-change="payments.$resolved = false; payments.$get({ limit: limiter, search: filterText || null })"
+                           ng-model-options="{ debounce: 1000 }">
+                                <span class="input-group-addon">
+                                    <i class="mobbricon mobbricon-search"></i>
+                                </span>
+                </div>
+
+            </div>
+        </fieldset>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 tablecontainer">
+            <table class="table">
                 <thead>
                 <tr>
-                    <th>Currency description</th>
-                    <th ng-click="sortBalance('currency_iso')">Currency</th>
-                    <th ng-click="sortBalance('amount')">Total</th>
-                    <th ng-click="sortBalance('fee')">Fee</th>
-                    <th ng-click="sortBalance('spendable')">Spendable</th>
+                    <th>Date</th>
+                    <th class="hidden-xs">Status</th>
+                    <th class="text-center">Currency</th>
+                    <th class="text-right">Costs</th>
+                    <th class="text-right">Amount</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr ng-repeat="balance in balances.result | orderBy:sortEntries:sortOrderBalance | filter:searchBalanceEntries"  ng-class-odd="'odd'" ng-class-even="'even'">
-                    <td ng-bind="currenciesMap.result[balance.currency_iso]"></td>
-                    <td ng-bind="balance.currency_iso" class="currency"></td>
-                    <td ng-bind="balance.amount | mobbrcurrency" class="amount decorate-amount"></td>
-                    <td ng-bind="balance.fee | mobbrcurrency" class="amount decorate-amount"></td>
-                    <td ng-bind="balance.spendable | mobbrcurrency" class="amount decorate-amount"></td>
+                <tbody ng-init="limiter = 10">
+                <tr ng-repeat="payment in payments.result | limitTo: limiter"
+                    ng-class="{ warning: payment.faileddatetime, callout: !payment.faileddatetime && !payment.paiddatetime && payment.announceddatetime }"
+                    ng-click="openExternalPayment(payment)"
+                    title="{{ (payment.faileddatetime || payment.paiddatetime || ('Pending since ' + payment.announceddatetime )) + ' ' + (payment.service_message || '') }}">
+                    <td>
+                        <time ng-bind="(payment.paiddatetime || payment.faileddatetime || payment.announceddatetime) | amCalendar" datetime="{{ payment.paiddatetime || payment.faileddatetime || payment.announceddatetime }}"></time>
+                    </td>
+                    <td class="hidden-xs" ng-bind="(payment.paiddatetime && 'Succeeded') || (payment.faileddatetime && 'Failed') || (payment.announceddatetime && 'Pending')"></td>
+                    <td class="text-center" ng-bind="payment.currency_iso"></td>
+                    <td class="text-right" ng-bind-html="payment.costs | mobbrcurrency:'':true:true"></td>
+                    <td class="text-right" ng-bind-html="payment.amount | mobbrcurrency:'':true:true"></td>
+                </tr>
+                <tr ng-show="payments.result.length == 0">
+                    <td colspan="5" class="text-center">
+                        <em>No records have been found</em>
+                    </td>
                 </tr>
                 </tbody>
             </table>
-</pane>
-<pane heading="New payments">
-
-    <div class="row-fluid">
-        <div class="well span12 special">
-            <small>Payments since your last logout.</small>
         </div>
     </div>
-
-            <invoicetable id="wallet_new"
-                          columns="[ 'datetime', 'title', 'currency', 'amount' ]"
-                          api="MobbrPayment.new"
-                          sort-by="'datetime'"
-                          sort-order="'desc'"
-                          click-row="openPayment"></invoicetable>
-</pane>
-<pane heading="Payments">
-    <div class="row-fluid">
-        <div class="well span12 special">
-            <small>Overview of all payments you made or received.</small>
+    <div class="row more-bar">
+        <div class="col-md-12">
+            <button class="btn btn-primary btn-block"
+                    ng-bind="payments && !payments.$resolved && 'Loading more results' || payments.result && payments.result.length < limiter && 'The end' || 'Show more results'"
+                    ng-disabled="payments.result.length < limiter"
+                    ng-click="limiter = limiter + 10; payments.$resolved = false; payments.$get({ limit: limiter, search: filterText })"></button>
         </div>
     </div>
-
-            <invoicetable id="wallet_historic"
-                          columns="[ 'datetime', 'title', 'currency', 'amount' ]"
-                          api="MobbrPayment.historic"
-                          sort-by="'datetime'"
-                          sort-order="'desc'"
-                          click-row="openPayment"></invoicetable>
-            <div ng-show="balances.length == 0">
-                No balances found
-            </div>
-</pane>
-    <pane heading="Deposits and withdraws">
-        <div class="row-fluid">
-            <div class="well span12 special">
-                <small>Overview of all payments you made or received to and from external accounts.</small>
-            </div>
-        </div>
-
-                <table class="table table-striped mobbrtable" ng-show="mutations.result.length >0">
-                    <thead>
-                    <tr>
-                        <th ng-click="sortPayments('paiddatetime')">date</th>
-                        <th ng-click="sortPayments('payment_service')" >Provider</th>
-                        <th ng-click="sortPayments('currency_iso')">Currency</th>
-                        <th ng-click="sortPayments('amount')">Amount</th>
-                        <th ng-click="sortPayments('receive_address')" colspan="2">Address</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="mutation in mutations.result | orderBy:sortEntries:sortOrderPayments | filter:searchBalanceEntries"  ng-class-odd="'odd'" ng-class-even="'even'">
-                        <td ng-click="openExternalPayment(mutation.id)" ng-bind="mutation.paiddatetime || mutation.announceddatetime" class="datetime {{ !mutation.paiddatetime && 'muted' }}"></td>
-                        <td ng-click="openExternalPayment(mutation.id)" ng-bind="mutation.payment_service"></td>
-                        <td ng-bind="mutation.currency_iso" class="currency"></td>
-                        <td ng-bind="mutation.amount | mobbrcurrency" class="amount decorate-amount"></td>
-                        <td ng-bind="mutation.receive_address" colspan="2"></td>
-                    </tr>
-                    </tbody>
-                </table>
-                <div ng-show="mutations.length == 0">
-                    No transactions found
-                </div>
-    </pane>
-<pane heading="Addresses">
-    <div class="row-fluid">
-        <div class="well span12 special">
-            <small>Use these public addresses to receive money from external accounts. Give these to anyone who needs to fund your Mobbr account.</small>
-        </div>
-    </div>
-    <form class="form-horizontal">
-        <div ng-repeat="(currency, addresses) in supportedCurrencies.result">
-
-            <accordion close-others="false">
-                <accordion-group heading="{{currency}} / {{currenciesMap.result[currency]}}" is-open="false">
-                    <div ng-repeat="properties in addresses">
-                        <div style="padding-bottom:10px;" ng-repeat="(property,value) in properties" class="controls-row">
-
-                            <label ng-bind="property" class="control-label">
-
-                            </label>
-                            <div class="controls">
-                                <input type="text" disabled="disabled" ng-model="value" class="input-xxlarge"/>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="controls" ng-show="currency == 'BTC'">
-                        <button ng-click="generateAddress(currency)"
-                                ng-disabled="generating && !generating.$resolved"
-                                type="submit"
-                                class="btn btn-success">
-                            <i class="icon-white mobbrloader" ng-show="generating && !generating.$resolved"></i>
-                            Generate extra address
-                        </button>
-                    </div>
-                </accordion-group>
-            </accordion>
-        </div>
-        </div>
-    </form>
-
-</pane>
-</tabs>
-
+</div>

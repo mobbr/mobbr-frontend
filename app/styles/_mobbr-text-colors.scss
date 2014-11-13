@@ -102,6 +102,11 @@ label.title {
   .mobbricon.pull-right {
     line-height: 28px;
   }
+
+  small, a {
+    color: $white;
+    opacity: .6;
+  }
 }
 
 .top-info {
