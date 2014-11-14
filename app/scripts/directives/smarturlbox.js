@@ -64,9 +64,13 @@ angular.module('mobbr.directives').directive('mobbrSmartUrlBox', function factor
                 opener && $timeout.cancel(opener);
             }
 
+            $scope.encodeTask = function (query) {
+                return $window.btoa(query);
+            }
+
             $scope.gotoUrl = function (query) {
 
-                var url = $window.btoa(query);
+                var url = $scope.encodeTask(query);
 
                 $window.ga('send', 'event', 'box', 'search ' + $scope.urlType.toLowerCase(), 'query', query);
 

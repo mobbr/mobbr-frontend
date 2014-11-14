@@ -61,7 +61,7 @@
                                 </button>
                             </div>
                             <div class="col-xs-2">
-                                <a ng-href="{{ $state.includes('payments') ? $state.href('^') : $state.href('box.task.index.view') }}" class="btn btn-danger btn-block">X</a>
+                                <a ng-href="#{{ $state.includes('payments') ? $state.href('^') : $state.href('box.task.index.view') }}" class="btn btn-danger btn-block">X</a>
                             </div>
                         </div>
                     </fieldset>
@@ -141,7 +141,7 @@
                     <tbody>
                     <tr ng-class="participant['.percentage'] ? '' : 'disabled'" ng-repeat="participant in payment.result.script.participants" title="{{ participant['no-pay-reason']}}">
                         <td>
-                            <a ng-href="{{ participant.id }}" target="_blank">
+                            <a ng-href="#{{ participant.id }}" target="_blank">
                                 <img ng-src="https://secure.gravatar.com/avatar/{{ participant['.gravatar'] }}?s=20&default=https://mobbr.com/img/default-gravatar2.png"
                                      width="20"
                                      height="20">

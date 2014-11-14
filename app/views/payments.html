@@ -159,7 +159,7 @@
                             <time ng-bind="payment.datetime | amCalendar" datetime="{{ payment.datetime }}"></time>
                         </td>
                         <td class="hidden-xs">
-                            <a ng-href="{{ payment.recipient_id }}" target="_blank">
+                            <a ng-href="#{{ payment.recipient_id }}" target="_blank">
                                 <img ng-src="https://secure.gravatar.com/avatar/{{ payment.gravatar }}?s=50&default=https://mobbr.com/img/default-gravatar2.png"
                                      class="gravatar img-rounded"
                                      width="30"

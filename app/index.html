@@ -119,31 +119,31 @@
                     <div class="col-xs-6 main-menu">
                         <ul class="nav menu">
                             <li ng-class="{ 'active': $state.includes('updates') }" class="col-55">
-                                <a ng-href="{{ $state.href('updates') }}" class="text-center">
+                                <a ng-href="#{{ $state.href('updates') }}" class="text-center">
                                     <span class="mobbricon mobbricon-updates"></span>
                                     <small>Updates</small>
                                 </a>
                             </li>
                             <li ng-class="{ 'active': $state.includes('box.tasks') }" class="col-55">
-                                <a ng-href="{{ $state.href('box.tasks') }}" class="text-center">
+                                <a ng-href="#{{ $state.href('box.tasks') }}" class="text-center">
                                     <span class="mobbricon mobbricon-digger"></span>
                                     <small>Tasks</small>
                                 </a>
                             </li>
                             <li ng-class="{ 'active': $state.includes('box.crowds') }" class="col-55">
-                                <a ng-href="{{ $state.href('box.crowds') }}" class="text-center">
+                                <a ng-href="#{{ $state.href('box.crowds') }}" class="text-center">
                                     <span class="mobbricon mobbricon-crowd"></span>
                                     <small>Workforce</small>
                                 </a>
                             </li>
                             <li ng-class="{ 'active': $state.includes('payments') }" class="col-55">
-                                <a ng-href="{{ $state.href('payments.pledges') }}" class="text-center">
+                                <a ng-href="#{{ $state.href('payments.pledges') }}" class="text-center">
                                     <span class="mobbricon mobbricon-payments"></span>
                                     <small>Payments</small>
                                 </a>
                             </li>
                             <li ng-class="{ 'active': $state.includes('wallet') }" class="col-55">
-                                <a ng-href="{{ $state.href('wallet') }}" class="text-center">
+                                <a ng-href="#{{ $state.href('wallet') }}" class="text-center">
                                     <span class="mobbricon mobbricon-wallet"></span>
                                     <small>Wallet</small>
                                 </a>
@@ -207,13 +207,13 @@
                                                 </button>
                                             </li>
                                             <li>
-                                                <a ng-href="{{ $state.href('recover') }}">
+                                                <a ng-href="#{{ $state.href('recover') }}">
                                                     <span class="mobbricon mobbricon-mail"></span>
                                                     Recover password
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="link-call" ng-href="{{ $state.href('join') }}">
+                                                <a class="link-call" ng-href="#{{ $state.href('join') }}">
                                                     <span class="mobbricon mobbricon-starttask"></span>
                                                     Register me now
                                                 </a>
@@ -222,13 +222,13 @@
 
                                     <ul ng-show="mobbrSession && mobbrSession.isAuthorized()" class="dropdown-menu logo-menu" role="menu">
                                         <li>
-                                            <a ng-href="{{ $state.href('box.person.profile', { username: $mobbrStorage.user.username }) }}">
+                                            <a ng-href="#{{ $state.href('box.person.profile', { username: $mobbrStorage.user.username }) }}">
                                                 <span class="mobbricon mobbricon-myprofile"></span>
                                                 My profile
                                             </a>
                                         </li>
                                         <li>
-                                            <a ng-href="{{ $state.href('settings') }}">
+                                            <a ng-href="#{{ $state.href('settings') }}">
                                                 <span class="mobbricon mobbricon-settings"></span>
                                                 Settings
                                             </a>

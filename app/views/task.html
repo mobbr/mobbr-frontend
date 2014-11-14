@@ -11,7 +11,7 @@
         <div class="container task-card-container">
             <div class="row">
                 <a ng-class="$state.is('box.task.index.domain') ? 'active' : ''"
-                   ng-href="{{ $state.is('box.task.index.domain') ? $state.href('box.task.index.view') : $state.href('box.task.index.domain') }}"
+                   ng-href="#{{ $state.is('box.task.index.domain') ? $state.href('box.task.index.view') : $state.href('box.task.index.domain') }}"
                      class="card-container col-xs-3 col-md-3">
                     <div class="card" ng-class="has_failed ? 'failed' : ''">
                         <div ng-hide="has_failed">
@@ -60,7 +60,7 @@
                 </a>
 
                 <a ng-class="{ active: $state.is('box.task.index.script'), disabled: has_failed }"
-                     ng-href="{{ !has_failed && ($state.is('box.task.index.script') ? $state.href('box.task.index.view') : $state.href('box.task.index.script')) || $state.href('box.task.index.domain') }}"
+                     ng-href="#{{ !has_failed && ($state.is('box.task.index.script') ? $state.href('box.task.index.view') : $state.href('box.task.index.script')) || $state.href('box.task.index.domain') }}"
                      class="card-container col-xs-3 col-md-3">
                     <div class="card" ng-class="!has_failed && has_script ? '' : 'failed'">
                         <div ng-show="!has_failed && has_script">
@@ -110,7 +110,7 @@
                 </a>
 
                 <a ng-class="{ active: $state.is('box.task.index.payments') || $state.is('box.task.index.pay'), disabled: has_failed || !has_script }"
-                   ng-href="{{ has_failed ? $state.href('box.task.index.domain') : (!has_script ? $state.href('box.task.index.script') : (has_payments ? ($state.is('box.task.index.payments') ? $state.href('box.task.index.view') : $state.href('box.task.index.payments')) : ($state.is('box.task.index.pay') ? $state.href('box.task.index.view') : $state.href('box.task.index.pay')))) }}"
+                   ng-href="#{{ has_failed ? $state.href('box.task.index.domain') : (!has_script ? $state.href('box.task.index.script') : (has_payments ? ($state.is('box.task.index.payments') ? $state.href('box.task.index.view') : $state.href('box.task.index.payments')) : ($state.is('box.task.index.pay') ? $state.href('box.task.index.view') : $state.href('box.task.index.pay')))) }}"
                      class="card-container col-xs-3 col-md-3">
                     <div class="card funding" ng-class="has_script && has_payments ? '' : 'failed'">
                         <div ng-show="!has_failed && has_script && has_payments">
@@ -167,7 +167,7 @@
 
                 <a ng-class="{ active: $state.is('box.task.index.persons') || $state.is('box.task.index.invite'), disabled: has_failed || !has_script || !has_payments  }"
                      class="card-container col-xs-3 col-md-3"
-                     ng-href="{{ has_failed ? $state.href('box.task.index.domain') : (!has_script ? $state.href('box.task.index.script') : (has_participants && has_payments ? ($state.is('box.task.index.persons') ? $state.href('box.task.index.view') : $state.href('box.task.index.persons')) : (has_payments ? ($state.is('box.task.index.invite') ? $state.href('box.task.index.view') : $state.href('box.task.index.invite')) : $state.href('box.task.index.view') ))) }}">
+                     ng-href="#{{ has_failed ? $state.href('box.task.index.domain') : (!has_script ? $state.href('box.task.index.script') : (has_participants && has_payments ? ($state.is('box.task.index.persons') ? $state.href('box.task.index.view') : $state.href('box.task.index.persons')) : (has_payments ? ($state.is('box.task.index.invite') ? $state.href('box.task.index.view') : $state.href('box.task.index.invite')) : $state.href('box.task.index.view') ))) }}">
                     <div class="card" ng-class="has_script && has_payments && has_participants ? '' : 'failed'">
                         <div ng-show="!has_failed && has_script && has_payments && has_participants">
                             <div class="front">
