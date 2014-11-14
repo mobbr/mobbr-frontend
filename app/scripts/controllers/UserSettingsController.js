@@ -24,6 +24,11 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
         send_task_invitation_notification: 'Send task invitation notifications'
     };
 
+    $scope.birthdate = new Date($rootScope.$mobbrStorage.user.birthday);
+    $scope.setBirthdate = function (value) {
+        $rootScope.$mobbrStorage.user.birthday = value;
+    }
+
 
     $scope.$watch('$mobbrStorage.user.thumbnail', function (newValue) {
         if (newValue) {
