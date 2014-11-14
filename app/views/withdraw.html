@@ -55,6 +55,16 @@
                            ng-model="network_method.send.address.accountnumber"
                            required>
                 </div>
+                <div class="col-sm-6 form-group" ng-if="network_method == networks['other']">
+                    <input id="bic"
+                           class="form-control"
+                           type="text"
+                           pattern="([a-zA-Z]{4}[a-zA-Z]{2}[a-zA-Z0-9]{2}([a-zA-Z0-9]{3})?)"
+                           placeholder="BIC"
+                           name="bic"
+                           ng-model="network_method.send.address.bic"
+                           required>
+                </div>
                 <div class="col-sm-6 form-group"
                      ng-if="network_method == networks['uk']">
                     <input id="sortcode"
@@ -73,7 +83,7 @@
                            class="form-control"
                            placeholder="ABA"
                            name="aba"
-                           pattern="/d{9}"
+                           pattern="\d{9}"
                            ng-model="network_method.send.address.aba"
                            required>
                 </div>
@@ -104,7 +114,7 @@
                            class="form-control"
                            placeholder="Bank name"
                            name="bankname"
-                           pattern="\d{1,20}"
+                           pattern="\w{1,50}"
                            ng-model="network_method.send.address.bankname"
                            required>
                 </div>
