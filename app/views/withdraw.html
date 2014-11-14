@@ -108,7 +108,7 @@
                            ng-model="network_method.send.address.bankname"
                            required>
                 </div>
-                <div class="col-sm-6 form-group" ng-if="network_method == networks['iban']">
+                <div class="col-sm-12 form-group" ng-if="network_method == networks['iban']">
                     <input id="iban"
                            class="form-control"
                            type="text"
@@ -116,16 +116,6 @@
                            placeholder="IBAN"
                            name="iban"
                            ng-model="network_method.send.address.iban"
-                           required>
-                </div>
-                <div class="col-sm-6 form-group" ng-if="network_method == networks['other'] || network_method == networks['iban']">
-                    <input id="bic"
-                           class="form-control"
-                           type="text"
-                           pattern="([a-zA-Z]{4}[a-zA-Z]{2}[a-zA-Z0-9]{2}([a-zA-Z0-9]{3})?)"
-                           placeholder="BIC"
-                           name="bic"
-                           ng-model="network_method.send.address.bic"
                            required>
                 </div>
                 <div class="col-sm-6 form-group" ng-if="network_method != networks['btc']">
