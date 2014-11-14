@@ -12,28 +12,40 @@
 
 <div class="container" ng-show="has_participants">
     <div ng-class="{ loading: persons && !persons.$resolved }" class="row data-cards data-cards-persons">
-        <div ng-repeat="person in persons.result" class="col-xs-1 col-sm-4 col-md-3 data-card-container">
+        <div ng-repeat="person in persons.result" class="col-xs-12 col-sm-4 col-md-3 data-card-container">
             <div class="data-card">
-                <img ng-src="https://secure.gravatar.com/avatar/{{ person['gravatar'] }}?s=50&default=https://mobbr.com/img/default-gravatar.png"
-                     width="50"
-                     height="50"
-                     class="pull-left">
-                <h3 ng-bind="person.username"></h3>
-                <p>
-                    Active since<br>
-                    <time ng-bind="person.datetime | amDateFormat : 'DD-MM-YYYY HH:MM'"></time>
-                </p>
+                <a ui-sref="box.person.profile({ username: person.username })">
+                    <div class="top">
+                        <img ng-src="https://secure.gravatar.com/avatar/{{ person['gravatar'] }}?s=50&default=https://mobbr.com/img/default-gravatar2.png"
+                             width="50"
+                             height="50"
+                             class="pull-left">
+                        <h3 ng-bind="person.username"></h3>
+                        <span ng-show="person.verified_identity == '1'">Verified</span>
+                        <span ng-show="person.invoicable == '1'">Invoicable</span>
+                        <p>
+                            Active since<br>
+                            <time ng-bind="person.datetime | amDateFormat : 'DD-MM-YYYY HH:MM'"></time>
+                        </p>
 
-                <ul class="list-unstyled">
-                    <li ng-repeat="role in person.role">
-                        <strong ng-bind="role"></strong>
-                    </li>
-                </ul>
-                <div class="bottom">
-                    <div class="item large amount" ng-bind-html="person.amount | mobbrcurrency:$mobbrStorage.user.currency_iso:true"></div>
-                    <div class="item large participants" class="participants" ng-bind="(person.share_average | number: 0) + '%'"></div>
-                    <div class="item" ng-bind="url.domain"></div>
-                </div>
+                        <ul class="list-unstyled">
+                            <li ng-repeat="role in person.role">
+                                <strong ng-bind="role"></strong>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bottom">
+                        <div class="item large amount">
+                            <span ng-bind-html="person.amount | mobbrcurrency:$mobbrStorage.user.currency_iso:true"></span>
+                            <span class="mobbricon mobbricon-payments"></span>
+                        </div>
+                        <div class="item large">
+                            <span ng-bind="(person.share_average | number: 0) + '%'"></span>
+                            <span class="mobbricon mobbricon-unclaimed"></span>
+                        </div>
+                    </div>
+                </a>
             </div>
         </div>
     </div>

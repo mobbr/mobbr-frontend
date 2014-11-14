@@ -31,7 +31,8 @@ angular.module('mobbr', [
         'mobbr.services',
         'mobbr.directives',
         'mobbr.filters',
-        'angularMoment'
+        'angularMoment',
+        'angular-loading-bar'
 
     ]).config(function ($stateProvider, $urlRouterProvider) {
 
@@ -46,7 +47,7 @@ angular.module('mobbr', [
         $stateProvider.state('main', {
                 url: '/',
                 templateUrl: 'views/main.html',
-                controller: 'MainController',
+                controller: 'MainController'
             }).state('updates', {
                 url: '/updates',
                 templateUrl: 'views/updates.html',
@@ -192,8 +193,8 @@ angular.module('mobbr', [
                 url: '/payment/:id',
                 templateUrl: 'views/payment.html',
                 controller: 'PaymentReceiptController'
-            }).state('payment.persons', {
-
+            }).state('payment.username', {
+                url: '/:username'
             }).state('x-payment', {
                 url: '/x-payment/:id',
                 templateUrl: 'views/payment.html',
@@ -335,10 +336,14 @@ angular.module('mobbr', [
                 MobbrBalance.get(function (response) {
                     $rootScope.userCurrencies = response.result.balances;
                 });
-            } else {
-                $rootScope.userCurrencies = $rootScope.networkCurrencies;
+            } else if ($rootScope.networkCurrencies) {
+                $rootScope.userCurrencies = $rootScope.networkCurrencies
             }
         }
+
+        $rootScope.$on('$stateChangeSuccess', function () {
+            $window.ga('send', 'pageview', { page: $location.path() });
+        });
 
         $rootScope.$state = $state;
         $rootScope.host = $location.host();
@@ -369,6 +374,7 @@ angular.module('mobbr', [
             response.result.forEach(function (item) {
                 $rootScope.currenciesMap[item.currency_iso] = item;
             });
+            setCurrencies();
         });
 
         $rootScope.languages = MobbrApi.isoLanguages(function (response) {
@@ -389,18 +395,25 @@ angular.module('mobbr', [
             });
         });
 
-        $rootScope.$on('mobbrApi:authchange', setCurrencies);
-
         MobbrApi.idProviders().$promise.then(function(response){
             $rootScope.idProviders = response.result;
         });
+
+        $rootScope.scrollTo = function (id) {
+            var old = $location.hash();
+            $location.hash(id);
+            $anchorScroll();
+            $location.hash(old);
+        }
 
         $rootScope.getLanguage = function () {
             return $rootScope.$mobbrStorage.user && $rootScope.$mobbrStorage.user.language_iso && ($window.navigator.userLanguage || $window.navigator.language).toUpperCase();
         }
 
         $rootScope.login = function (username, password) {
-            $rootScope.authenticating = MobbrUser.passwordLogin({ username: username, password: password });
+            $rootScope.authenticating = MobbrUser.passwordLogin({ username: username, password: password }, function () {
+                $state.go('updates');
+            });
         };
 
         $rootScope.encodeTask = function (url) {
@@ -422,5 +435,7 @@ angular.module('mobbr', [
         $rootScope.isTest = function () {
             return environment !== 'production';
         }
+
+        $rootScope.$on('mobbrApi:authchange', setCurrencies);
     }
 );

@@ -22,11 +22,13 @@
                         <a class="pull-left label tag more label-default">More <span class="mobbricon mobbricon-addopen"></span></a>
                     </li>
                     <li class="label label-default tag addtag pull-left">
-                        <form class="form-inline" ng-submit="addTag()">
-                            <input placeholder="Add keyword" class="form-control pull-left" type="text" ng-model="form.newTag">
-                            <label class="pull-left">
+                        <form ng-submit="addTag()">
+                            <div class="input-group">
+                                <input placeholder="Add keyword" class="form-control" type="text" ng-model="form.newTag">
+                            <span class="input-group-addon">
                                 <span class="mobbricon mobbricon-addopen"></span>
-                            </label>
+                            </span>
+                            </div>
                         </form>
                     </li>
                 </ul>

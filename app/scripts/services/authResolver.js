@@ -1,27 +1,6 @@
 'use strict';
 
-angular.module('mobbr.services').run(function ($rootScope, $state, $timeout, $modal, mobbrMsg, mobbrSession) {
-
-    var timeout, modal;
-
-    function cancelTimeout() {
-        if (modal) {
-            modal.dismiss();
-            modal = null;
-        }
-        if (timeout) {
-            $timeout.cancel(timeout);
-            timeout = null;
-        }
-    }
-
-    function showProgress() {
-        modal = $modal.open({
-            backdrop: 'static',
-            keyboard: true,
-            templateUrl: 'views/partials/progress_popup.html'
-        });
-    }
+angular.module('mobbr.services').run(function ($rootScope, $state, $timeout, $modal, $window, mobbrMsg, mobbrSession) {
 
     function authState(toState, event, fromState) {
 
@@ -41,15 +20,11 @@ angular.module('mobbr.services').run(function ($rootScope, $state, $timeout, $mo
     }
 
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams, error) {
-        cancelTimeout();
-        timeout = $timeout(showProgress, 1000);
         authState(toState, event, fromState);
     });
 
     $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
-
-        cancelTimeout();
-
+        $window.ga('send', 'event', 'error', 'openening state', 'name', toState.name);
         mobbrMsg.add({ msg: 'Something went wrong trying to open this page', type: 'danger' });
         if (toState.data && toState.data.redirectTo) {
             $state.go(fromState && fromState.name || toState.data.redirectTo);
@@ -57,8 +32,6 @@ angular.module('mobbr.services').run(function ($rootScope, $state, $timeout, $mo
             $state.go('main');
         }
     });
-
-    $rootScope.$on('$stateChangeSuccess', cancelTimeout);
 
     $rootScope.$on('mobbrApi:authchange', function () {
         authState($state.current);

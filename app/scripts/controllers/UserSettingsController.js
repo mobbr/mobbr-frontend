@@ -8,7 +8,6 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
     $scope.formHolder = {addPaymentIdForm: undefined};
     $scope.passwordHolder = {};
     $scope.new_email = $rootScope.$mobbrStorage.user.email;
-    $scope.birthdate = new Date($rootScope.$mobbrStorage.user.birthday);
 
     $scope.settingsLabels = {
         hide_my_incoming_payments: 'Hide my incoming payments',
@@ -169,10 +168,6 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
         return countFields(countDisplayCompleted);
     };
 
-    $scope.updateBirthdate = function (newBirthDate) {
-        $scope.$mobbrStorage.user.birthday = newBirthDate;
-    }
-
     var matchProviders = function () {
         function addIdIfFound(provider) {
             angular.forEach($scope.$mobbrStorage.user.id, function (id) {
@@ -184,15 +179,21 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
         }
 
         if ($scope.oAuthProviders && $scope.oAuthProviders.result) {
+
             $scope.oAuthWithIdProviders = [];
+            $scope.stackExchangeProviders = [];
 
             angular.forEach($scope.oAuthProviders.result, function (provider) {
-                var copy = angular.copy(provider);
+
+                var copy = angular.copy(provider),
+                    stack = copy.provider && copy.provider.indexOf('stackexchange.com') !== -1;
+
                 addIdIfFound(copy);
-                if(copy.id){
+
+                if (copy.id) {
                     $scope.oAuthWithIdProviders.unshift(copy);
-                }else {
-                    $scope.oAuthWithIdProviders.push(copy);
+                } else {
+                    stack ? $scope.stackExchangeProviders.push(copy) : $scope.oAuthWithIdProviders.push(copy);
                 }
             });
         }
@@ -210,7 +211,28 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
             });
         }
 
+        $scope.otherIdProviders = [];
 
+        angular.forEach($scope.$mobbrStorage.user.id, function (id) {
+
+            var found = false;
+
+            angular.forEach($scope.oAuthWithIdProviders, function (item) {
+                if (item.id && id === item.id) {
+                    found = true;
+                }
+            });
+
+            angular.forEach($scope.idWithIdProviders, function (item) {
+                if (item.id && id === item.id) {
+                    found = true;
+                }
+            });
+
+            if (!found && id.indexOf('mobbr.com') === -1 && id.indexOf('mailto:') === -1) {
+                $scope.otherIdProviders.push(id);
+            }
+        });
     };
 
     $scope.$on('$stateChangeSuccess', matchProviders);
@@ -236,8 +258,19 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
 
     function popupMessage(e) {
         if (e.data === 'oauth-popup') {
+
+            var popup_location = oauth_popup.location.href;
+
             oauth_popup.close();
-            $scope.waitingAddId = MobbrUser.confirmOauthId({ redirected_url: oauth_popup.location.href }, matchProviders);
+            $scope.waitingAddId = MobbrUser.confirmOauthId({
+                    redirected_url: popup_location,
+                    provider: $scope.provider
+                },
+                matchProviders,
+                function () {
+                    $scope.provider = null;
+                }
+            );
             $window.removeEventListener('message', popupMessage);
         }
     }
@@ -246,14 +279,16 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
         if (provider) {
             popup_url = $window.location.origin + '/popup.html';
             oauth_popup = $window.open('about:blank', 'oauth-popup');
+            $scope.provider = provider.provider;
             $scope.waitingAddId = MobbrUser.oAuthUrl({
-                provider: provider.provider,
+                provider: $scope.provider,
                 redirect_url: popup_url
             }, function (response) {
                 oauth_popup.location.href = response.result;
                 $window.addEventListener('message', popupMessage, false);
             }, function () {
                 oauth_popup.close();
+                $scope.provider = null;
             });
         }
     };
@@ -270,5 +305,4 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
             }
         });
     });
-
 });

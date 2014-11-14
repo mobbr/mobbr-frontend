@@ -34,14 +34,35 @@
 
             <fieldset class="row" ng-disabled="withdrawing && !withdrawing.$resolved">
                 <div class="col-sm-6 form-group"
-                     ng-if="network_method != networks['btc'] && network_method != networks['iban']">
+                     ng-if="network_method == networks['ca']">
+                    <input id="accountnumberca"
+                           type="text"
+                           class="form-control"
+                           placeholder="Account number"
+                           name="accountnumber"
+                           pattern="\w{1,50}"
+                           ng-model="network_method.send.address.accountnumber"
+                           required>
+                </div>
+                <div class="col-sm-6 form-group"
+                     ng-if="network_method != networks['ca'] && network_method != networks['btc'] && network_method != networks['iban']">
                     <input id="accountnumber"
                            type="text"
                            class="form-control"
                            placeholder="Account number"
                            name="accountnumber"
-                           pattern="{{ network_method == networks['ca'] && '^\w{1,50}$' || '^\d+$' }}"
+                           pattern="\d+"
                            ng-model="network_method.send.address.accountnumber"
+                           required>
+                </div>
+                <div class="col-sm-6 form-group" ng-if="network_method == networks['other']">
+                    <input id="bic"
+                           class="form-control"
+                           type="text"
+                           pattern="([a-zA-Z]{4}[a-zA-Z]{2}[a-zA-Z0-9]{2}([a-zA-Z0-9]{3})?)"
+                           placeholder="BIC"
+                           name="bic"
+                           ng-model="network_method.send.address.bic"
                            required>
                 </div>
                 <div class="col-sm-6 form-group"
@@ -51,7 +72,7 @@
                            class="form-control"
                            placeholder="Sort code"
                            name="sortcode"
-                           pattern="^\d+$"
+                           pattern="\d+"
                            ng-model="network_method.send.address.sortcode"
                            required>
                 </div>
@@ -62,7 +83,7 @@
                            class="form-control"
                            placeholder="ABA"
                            name="aba"
-                           pattern="/^$\d{9}"
+                           pattern="\d{9}"
                            ng-model="network_method.send.address.aba"
                            required>
                 </div>
@@ -72,7 +93,7 @@
                            class="form-control"
                            placeholder="Institution number"
                            name="institutionnumber"
-                           pattern="^\d{3,4}$"
+                           pattern="\d{3,4}"
                            ng-model="network_method.send.address.institutionnumber"
                            required>
                 </div>
@@ -82,7 +103,7 @@
                            placeholder="Branch code"
                            class="form-control"
                            name="branchcode"
-                           pattern="^\d{5}$"
+                           pattern="\d{5}"
                            ng-model="network_method.send.address.branchcode"
                            required>
                 </div>
@@ -93,27 +114,18 @@
                            class="form-control"
                            placeholder="Bank name"
                            name="bankname"
-                           pattern="^\d{1,20}$"
+                           pattern="\w{1,50}"
                            ng-model="network_method.send.address.bankname"
                            required>
                 </div>
-                <div class="col-sm-6 form-group" ng-if="network_method == networks['iban']">
+                <div class="col-sm-12 form-group" ng-if="network_method == networks['iban']">
                     <input id="iban"
                            class="form-control"
-                           type="text" pattern="[a-zA-Z]{2}[0-9]{2}[a-zA-Z0-9]{4}[0-9]{7}([a-zA-Z0-9]?){0,16}"
+                           type="text"
+                           pattern="[a-zA-Z]{2}[0-9]{2}[a-zA-Z0-9]{4}[0-9]{7}([a-zA-Z0-9]?){0,16}"
                            placeholder="IBAN"
                            name="iban"
                            ng-model="network_method.send.address.iban"
-                           required>
-                </div>
-                <div class="col-sm-6 form-group" ng-if="network_method == networks['other'] || network_method == networks['iban']">
-                    <input id="bic"
-                           class="form-control"
-                           type="text"
-                           pattern="^[A-Z]{6}[A-Z0-9]{2}([A-Z0-9]{3})?$"
-                           placeholder="BIC"
-                           name="bic"
-                           ng-model="network_method.send.address.bic"
                            required>
                 </div>
                 <div class="col-sm-6 form-group" ng-if="network_method != networks['btc']">
@@ -157,7 +169,7 @@
             <div class="row" ng-show="fee.$resolved">
                 <div class="col-md-12">
                     <span class="info-box">
-                        <span class="mobbricon mobbricon-softalert"></span> Your fee will be {{ fee.result.amount | mobbrcurrency:fee.result.currency }}.
+                        <span class="mobbricon mobbricon-softalert"></span> Your fee will be <span ng-bind-html="fee.result.amount | mobbrcurrency:fee.result.currency_iso:true">.
                     </span>
                 </div>
             </div>

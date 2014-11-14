@@ -98,7 +98,7 @@ describe('mobbr.controllers: CrowdsController', function () {
     }
 
     function expectPeopleOnUrl() {
-        httpBackend.expectGET('https://test-api.mobbr.com/api_v1/persons/task_candidates?url=http:%2F%2Fzaplog.nl%2Fzaplog%2Farticle%2Frechter_bp_schuldig_aan_grove_nalatigheid_bij_olieramp_2010').respond(200, peopleResult);
+        httpBackend.expectGET('https://test-api.mobbr.com/api_v1/persons/invite?url=http:%2F%2Fzaplog.nl%2Fzaplog%2Farticle%2Frechter_bp_schuldig_aan_grove_nalatigheid_bij_olieramp_2010').respond(200, peopleResult);
     }
 
     function expectArtikel() {
@@ -136,9 +136,9 @@ describe('mobbr.controllers: CrowdsController', function () {
 
         createController(true);
 
-        httpBackend.flush();
+        //httpBackend.flush();
 
-        expect(scope.persons.result.length).toBe(53);
+        expect(scope.persons.length).toBe(53);
         expect(scope.filteredTags.length).toBe(9);
     });
 

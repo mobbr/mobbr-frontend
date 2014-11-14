@@ -9,7 +9,7 @@
                     <span class="mobbricon mobbricon-softalert"></span> Your request has been submitted, it will be confirmed within 24-48 hours, in the meantime your account still has limits
                 </span>
                 <span ng-if="$mobbrStorage.user.mangopay_identity_proof == 'REFUSED'" class="info-box">
-                    <span class="mobbricon mobbricon-softalert"></span> Your request has been refused, please try again, make sure you have uploaded a readable copy of a valid ID (e.g. passport, drivers license)
+                    <span class="mobbricon mobbricon-softalert"></span> Your request has been refused, please try again, make sure you upload a picture/scan of a valid ID (e.g. passport, drivers license)
                 </span>
                 <span ng-if="$mobbrStorage.user.mangopay_identity_proof == 'CONFIRMED'" class="info-box">
                     <span class="mobbricon mobbricon-softalert"></span> This information can no longer be changed because you have a confirmed identity.
@@ -47,7 +47,7 @@
                     <label class="control-label col-sm-3 col-md-2" for="identity_proof_upload_button">Upload scan of ID</label>
                     <div class="col-sm-7 col-md-8" ng-if="$mobbrStorage.user.mangopay_identity_proof == 'VALIDATION_ASKED'">
            <span class="well col-sm-12 well-sm" >
-                Your ID is in the process of beeing approved
+                Your ID is in the process of being approved
             </span>
                     </div>
                     <div class="col-sm-7 col-md-8" ng-if="$mobbrStorage.user.mangopay_identity_proof != 'VALIDATION_ASKED'">

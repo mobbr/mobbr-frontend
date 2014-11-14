@@ -1,11 +1,11 @@
 <div class="row top-bar query-bar">
-    <div class="container">
+    <div class="container query-holder">
         <div class="row">
-            <div class="col-md-9">
+            <div class="col-sm-9">
                 <h1>Pay and get paid for tasks anywhere on the web</h1>
             </div>
-            <div class="col-md-3">
-                <button class="btn btn-block btn-call">Create a task</button>
+            <div class="col-sm-3">
+                <a ng-href="#{{ $state.href('box.task') }}" class="btn btn-block btn-call"><span class="mobbricon mobbricon-starttask pull-right"></span>Create a task</a>
             </div>
         </div>
         <div class="row pusher">
@@ -13,7 +13,7 @@
                 <mobbr-smart-url-box active-query="activeQuery"
                                      url-type="{{ $state.includes('box.crowds') && 'CROWDS' || $state.includes('box.tasks') && 'TASKS' || $state.includes('box.person') && 'PROFILE' || 'TASK' }}"
                                      query="query"
-                                     user="$mobbrStorage.user.username"></mobbr-smart-url-box>
+                                     user="$mobbrStorage.user"></mobbr-smart-url-box>
             </div>
         </div>
     </div>
@@ -21,13 +21,13 @@
 <div class="row line">
     <div class="container">
         <div class="row">
-            <div class="col-md-9">
-                Create a task [or collaboration] on any website and paste the link in the Mobbr box above.<br>
-                Pledge money and ask the online mob to do the work.
+            <div class="col-sm-9">
+                Create a task or collaboration on any website and paste the link in the Mobbr box above.<br>
+                Pledge money and invite the online mob to do the work and earn 'social salary'.
             </div>
-            <div class="col-md-3">
-                <a href="" class="btn btn-block btn-primary">
-                    Watch our video
+            <div class="col-sm-3">
+                <a href="https://www.youtube.com/watch?v=uPxMpQv5Y1x" target="_blank" class="btn btn-block btn-primary videobutton">
+                    <span class="mobbricon mobbricon-video pull-right"></span>Watch our video
                 </a>
             </div>
         </div>
@@ -39,28 +39,30 @@
         <div class="row top-info filter">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-1">
-                        <button class="btn btn-block" ng-click="limiter = limiter > 4 ? limiter - 1 : limiter; taglimiter = taglimiter > 32 ? taglimiter - 12 : taglimiter">
-                            Left
-                        </button>
+                    <div class="col-xs-1">
+                        <div class="btn-nav pull-left">
+                            <button class="btn btn-square"
+                                    ng-click="taglimiter = limiter > numblocks ? taglimiter - (numblocks * 3) : taglimiter; limiter = limiter > numblocks ? limiter - 1 : limiter">&#60;</button>
+                        </div>
                     </div>
-                    <div class="col-md-10 title text-center">
-                        <span class="mobbricon mobbricon-domain"></span>
+                    <div class="col-xs-10 title text-center">
+                        <span class="mobbricon mobbricon-updates"></span>
                         <strong>Happening on Mobbr right now</strong>
                     </div>
-                    <div class="col-md-1">
-                        <button class="btn btn-block" ng-click="limiter = limiter < 12 ? limiter + 1 : limiter; taglimiter = taglimiter < 120 ? taglimiter + 12 : taglimiter">
-                            Right
-                        </button>
+                    <div class="col-xs-1">
+                        <div class="btn-nav right pull-right">
+                            <button class="btn btn-square"
+                                    ng-click="taglimiter = limiter < 12 ? taglimiter + (numblocks * 3) : taglimiter; limiter = limiter < 12 ? limiter + 1 : limiter">&#62;</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row borderbottom happeningcontainer">
             <div class="container">
-                <div class="row">
-                    <div class="col-md-12" ng-init="limiter = 4; taglimiter = 32">
-                        <a ng-repeat="url in happening.result.uris | limitTo: limiter | limitTo: -4" ui-sref="box.task.index.view({ task: encodeTask(url.url) })">
+                <div class="row happening">
+                    <div class="col-md-12" ng-init="limiter = numblocks; taglimiter = numblocks * 6">
+                        <a ng-repeat="url in happening.result.uris | limitTo: limiter | limitTo: -numblocks" ui-sref="box.task.index.view({ task: encodeTask(url.url) })">
                             <div class="col-xs-12 col-sm-4 col-md-3 data-card-container">
                                 <div class="data-card">
                                     <h3 ng-bind="url.title"></h3>
@@ -74,9 +76,9 @@
                                             <span ng-bind="url.match_percentage"></span>
                                             <span class="mobbricon mobbricon-crowd"></span>
                                         </div>-->
-                                        <div class="item">
+                                        <div class="item domain">
                                             <span ng-bind="url.domain"></span>
-                                            <span class="mobbricon mobbricon-domain"></span>
+                                            <span class="mobbricon mobbricon-domain pull-right"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -86,8 +88,8 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12 text-center taglist">
-                        <span ng-repeat="tag in tags | limitTo: taglimiter | limitTo: -32">
-                            <span ng-show="tag.type == 'person'" class="grvatarholder">
+                        <span ng-repeat="tag in tags | limitTo: taglimiter | limitTo: -(numblocks * 6)" class="thing">
+                            <span ng-show="tag.type == 'person'" class="label label-default tag gravatarholder">
                                 <img ng-src="{{ tag.gravatar }}"
                                      width="50"
                                      height="50">
@@ -102,70 +104,88 @@
                 </div>
             </div>
         </div>
+        <div class="row top-info filter bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 title">
+                        &nbsp;
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
     <section>
         <div class="row top-info filter">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 title">
-                        <span class="mobbricon mobbricon-domain"></span>
+                        <span class="mobbricon mobbricon-plugin"></span>
                         <strong>How it works</strong>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="row content persons">
+        <div class="row content persons borderbottom">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-9">
-                        <img src="../img/person.png" class="pull-left">
-                        <strong>Paying tasks</strong>
+                    <div class="col-sm-9">
+                        <img src="../img/persoon1.png" class="pull-left">
+                        <strong>Crowdfunding and paying tasks</strong>
                         <p>
                             - Create the task on a Mobbrized website<br>
                             - Paste the URL in the box above<br>
-                            - Pledge money to reward contributions<br>
-                            - Find and invite contributors on the Mobbr site
+                            - Start (crowd-) funding the task or just pay<br>
+                            - Find and invite workers
                         </p>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-sm-3">
                         <a href="/#/crowds" class="btn btn-block btn-call">
-                            I have a task
+                            <span class="mobbricon mobbricon-starttask pull-right"></span>I have a task
                         </a>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-9">
-                        <img src="../img/person.png" class="pull-left">
+                    <div class="col-sm-9">
+                        <img src="../img/persoon2.png" class="pull-left">
                         <strong>Executing tasks</strong>
                         <p>
-                            - Find tasks by keyword and language omn the Mobbr site<br>
-                            - Click on the task to evaluate for suitability<br>
-                            - Go to the site hosting the tasks and collaborate<br>
+                            - Find tasks by keyword and language<br>
+                            - Click on an interesting task to check it out<br>
+                            - Go to the site hosting the task to work on it<br>
                             - Receive money in your Mobbr wallet upon completion
                         </p>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-sm-3">
                         <a href="/#/tasks" class="btn btn-block btn-call">
-                            I want a task
+                            <span class="mobbricon mobbricon-tasks pull-right"></span>I want a task
                         </a>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-9">
-                        <img src="../img/person.png" class="pull-left">
+                    <div class="col-sm-9">
+                        <img src="../img/persoon3.png" class="pull-left">
                         <strong>Hosting tasks</strong>
                         <p>
-                            - You have a social collaboration platform<br>
-                            - Setup a reputation/points system on your platform<br>
-                            - Connect your platform to Mobbr using API, HTML-script or plugins<br>
+                            - Your platform has social collaboration functionality<br>
+                            - Setup a reputation/ranking system on your platform<br>
+                            - Connect your platform to Mobbr using API, HTML-script or plugin<br>
                             - Mobbr distributes payments according to the reputation ranking
                         </p>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-sm-3">
                         <a href="/#/task" class="btn btn-block btn-call">
-                            I host a task
+                            <span class="mobbricon mobbricon-domain pull-right"></span>I host a task
                         </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row top-info filter bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 title">
+                        &nbsp;
                     </div>
                 </div>
             </div>
@@ -176,41 +196,66 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 title">
-                        <span class="mobbricon mobbricon-domain"></span>
-                        <strong>Supported sites and connections</strong>
+                        <span class="mobbricon mobbricon-plugin"></span>
+                        <strong>Find task hosting websites and collaboration tools</strong>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="row content">
+        <div class="row content borderbottom">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <a href="" target="_blank" class="label label-default tag pull-left">
-                            <img src="https://gitlab.org/ico/favicon.png" width="16">
+                        <a href="https://gitlab.com" target="_blank" class="label label-default tag pull-left">
+                            <img src="https://gitlab.com/assets/favicon-baaa14bade1248aa6165e9d34e7d83c0.ico" width="16">
                             gitlab.org
                         </a>
-                        <a href="" target="_blank" class="label label-default tag pull-left">
+                        <a href="http://stackexchange.com/sites#traffic" target="_blank" class="label label-default tag pull-left">
                             <img src="https://cdn.sstatic.net/stackexchange/img/favicon.ico" width="16">
-                            stackoverflow.com
+                            stackexchange.com
                         </a>
-                        <a href="" target="_blank" class="label label-default tag pull-left" width="16">
-                            <img src="https://assets-cdn.github.com/favicon.ico">
+                        <a href="https://github.com" target="_blank" class="label label-default tag pull-left">
+                            <img src="https://assets-cdn.github.com/favicon.ico" width="16">
                             github.com
                         </a>
-                        <a href="" target="_blank" class="label label-default tag pull-left" width="16">
-                            <img src="https://www.google.com/s2/favicons?domain=question2answer.com">
+                        <a href="http://www.question2answer.org/" target="_blank" class="label label-default tag pull-left">
+                            <img src="https://www.google.com/s2/favicons?domain=question2answer.com" width="16">
                             question2answer.org
                         </a>
-                        <a href="" target="_blank" class="label label-default tag pull-left" width="16">
-                            <img src="https://gravatar.com/favicon.ico">
+                        <a href="http://fastmovingtargets.nl/workforce/" target="_blank" class="label label-default tag pull-left">
+                            <img src="https://d3ccwfvxckmtbc.cloudfront.net/wp-content/themes/fastPress/static/images/favicon.ico" width="16">
+                            fastmovingtargets.nl
+                        </a>
+                        <a href="https://gravatar.com" target="_blank" class="label label-default tag pull-left">
+                            <img src="https://gravatar.com/favicon.ico" width="16">
                             gravatar.com
                         </a>
-                        <a href="" target="_blank" class="label label-default tag pull-left" width="16">
-                            <img src="https://onename.io/static/favicon.ico">
+                        <a href="https://onename.io" target="_blank" class="label label-default tag pull-left">
+                            <img src="https://onename.io/static/favicon.ico" width="16">
                             onename.io
                         </a>
+                        <a href="https://stackoverflow.com" target="_blank" class="label label-default tag pull-left">
+                            <img src="https://cdn.sstatic.net/stackoverflow/img/favicon.ico" width="16">
+                            stackoverflow.com
+                        </a>
+                        <a href="https://askubuntu.com" target="_blank" class="label label-default tag pull-left">
+                            <img src="https://cdn.sstatic.net/askubuntu/img/favicon.ico" width="16">
+                            askubuntu.com
+                        </a>
+                        <a href="https://math.stackexchange.com/" target="_blank" class="label label-default tag pull-left">
+                            <img src="https://cdn.sstatic.net/math/img/favicon.ico" width="16">
+                            math.stackexchange.com
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row top-info filter bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 title">
+                        &nbsp;
                     </div>
                 </div>
             </div>
@@ -221,61 +266,78 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 title">
-                        <span class="mobbricon mobbricon-domain"></span>
-                        <strong>Connect your site with Mobbr</strong>
+                        <span class="mobbricon mobbricon-plugin"></span>
+                        <strong>Start hosting tasks</strong>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="row content">
+        <div class="row content borderbottom">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-9">
-                        <strong>Plugin</strong>
-                        <p>
-                            To integrate a site with Mobbr, it must have its own reputation or karma system. The Mobbr payments
-                            are divided according to that ratio. Easiest way is to install a plugin made especially for your websystem.
-                            This can be done by your system administrator.
-                        </p>
+                    <div class="col-sm-9">
+                        <div class="indent">
+                            <strong>Plugin</strong>
+                            <p>
+                                The easiest way to start hosting tasks is to install collaboration software for which 
+                                Mobbr has already built a plugin. Mobbr uses the software's reputation system as the 
+                                basis for distributing money. To let Mobbr know the distribution key the plugin connects 
+                                your site to Mobbr. Ask your system administrator to do this.
+                            </p>
+                        </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-sm-3">
                         <a href="https://github.com/mobbr?query=plugin" target="_blank" class="btn btn-block btn-call">
-                            Find a plugin
+                            <span class="mobbricon mobbricon-plugin pull-right"></span>Find a plugin
                         </a>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-9">
-                        <strong>HTML metadata</strong>
-                        <p>
-                            If no plugin for your system is available (yet), your web designer must generate some simple so called metadata into the
-                            HTML of the page. Upon payment the Mobbr server will do a callback to your page and find the distribution key for the payment.
-                            This is by far the best and most flexible way to integrate Mobbr.
-                        </p>
-                        <p>
-                            <img src="../img/scheme.png">
-                        </p>
+                    <div class="col-sm-9">
+                        <div class="indent">
+                            <strong>HTML metadata</strong>
+                            <p>
+                                The most flexible way to host tasks is to have your web-designer generate a simple 
+                                script into the HTML of your site, which tells us how to distribute the money if a 
+                                payment is done to it. Upon payment Mobbr will do a callback to your page and find 
+                                the script. You can make the distribution key as simple or as complex as you like.
+                            </p>
+                            <p>
+                                <img src="../img/scheme.png" width="100%">
+                            </p>
+                        </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-sm-3">
                         <a href="https://docs.mobbr.com/display/MobDoc/Integration+into+your+website" class="btn btn-block btn-call">
-                            Metadata integration How-To
+                            <span class="mobbricon mobbricon-connect pull-right"></span>Metadata integration
                         </a>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-9">
-                        <strong>API</strong>
-                        <p>
-                            Another possibility, the most technical one, is to make available some web-services or methods that Mobbr can use
-                            to get the required data. Most large collaborations sites have an API that the Mobbr team can use to integrate
-                            that site into Mobbr natively. Like Mobbr has native Github, Gitlab and Stackexchange support.
-                        </p>
+                    <div class="col-sm-9">
+                        <div class="indent">
+                            <strong>Connect your API to Mobbr</strong>
+                            <p>
+                                If your site has an API in which Mobbr can find the contribution statistics for your 
+                                projects, we can integrate your site from our side. We already did this with Github,
+                                Gitlab and Stack Exchange. Please mail us if you would like your API to be connected.
+                            </p>
+                        </div>
                     </div>
-                    <div class="col-md-3">
-                        <a href="/#/" class="btn btn-block btn-call">
-                            API integration How-To
+                    <div class="col-sm-3">
+                        <a href="https://api.mobbr.com" class="btn btn-block btn-call">
+                            <span class="mobbricon mobbricon-develop pull-right"></span>API integration
                         </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row top-info filter bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 title">
+                        &nbsp;
                     </div>
                 </div>
             </div>
