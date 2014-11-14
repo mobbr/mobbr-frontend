@@ -63,7 +63,7 @@
 
                     <div class="col-sm-7 col-md-8">
                         <input ng-model="passwordHolder.new_password" class="form-control" id="new_password" name="new_password" type="password"
-                               required ng-pattern="/^.*(?=.{8,})(?=.*\d)(?=.*[a-z]).*$/">
+                               required pattern="^.*(?=.{8,})(?=.*\d)(?=.*[a-z]).*$">
             <span ng-show="changepassword.new_password.$dirty && changepassword.new_password.$error.required"
                   class="help-inline">Enter a new password</span>
             <span ng-show="changepassword.new_password.$dirty && changepassword.new_password.$error.pattern"

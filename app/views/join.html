@@ -66,7 +66,7 @@
                                id="password"
                                placeholder="min. 8 alfanum positions"
                                required
-                               ng-pattern="/^.*(?=.{8,})(?=.*\d)(?=.*[a-z]).*$/">
+                               pattern="^.*(?=.{8,})(?=.*\d)(?=.*[a-z]).*$">
                             <span class="info-box" ng-show="register.password.$dirty && register.password.$invalid">
                                 <span class="mobbricon mobbricon-softalert"></span> Minimal 8 characters, use uppercase, lowercase and numbers
                             </span>
@@ -84,7 +84,7 @@
                                placeholder="min. 8 alfanum positions"
                                pw-check="password"
                                required
-                               ng-pattern="/^.*(?=.{8,})(?=.*\d)(?=.*[a-z]).*$/">
+                               pattern="^.*(?=.{8,})(?=.*\d)(?=.*[a-z]).*$">
                         <span class="info-box" ng-show="register.password_control.$dirty && register.password_control.$invalid">
                             <span class="mobbricon mobbricon-softalert"></span> Make sure the passwords match
                         </span>

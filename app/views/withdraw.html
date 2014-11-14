@@ -34,13 +34,24 @@
 
             <fieldset class="row" ng-disabled="withdrawing && !withdrawing.$resolved">
                 <div class="col-sm-6 form-group"
-                     ng-if="network_method != networks['btc'] && network_method != networks['iban']">
+                     ng-if="network_method == networks['ca']">
+                    <input id="accountnumberca"
+                           type="text"
+                           class="form-control"
+                           placeholder="Account number"
+                           name="accountnumber"
+                           pattern="\w{1,50}"
+                           ng-model="network_method.send.address.accountnumber"
+                           required>
+                </div>
+                <div class="col-sm-6 form-group"
+                     ng-if="network_method != networks['ca'] && network_method != networks['btc'] && network_method != networks['iban']">
                     <input id="accountnumber"
                            type="text"
                            class="form-control"
                            placeholder="Account number"
                            name="accountnumber"
-                           ng-pattern="{{ network_method == networks['ca'] && '/\w{1,50}/' || '/\d+/' }}"
+                           pattern="\d+"
                            ng-model="network_method.send.address.accountnumber"
                            required>
                 </div>
@@ -51,7 +62,7 @@
                            class="form-control"
                            placeholder="Sort code"
                            name="sortcode"
-                           ng-pattern="/\d+/"
+                           pattern="\d+"
                            ng-model="network_method.send.address.sortcode"
                            required>
                 </div>
@@ -62,7 +73,7 @@
                            class="form-control"
                            placeholder="ABA"
                            name="aba"
-                           ng-pattern="//d{9}/"
+                           pattern="/d{9}"
                            ng-model="network_method.send.address.aba"
                            required>
                 </div>
@@ -72,7 +83,7 @@
                            class="form-control"
                            placeholder="Institution number"
                            name="institutionnumber"
-                           ng-pattern="/\d{3,4}/"
+                           pattern="\d{3,4}"
                            ng-model="network_method.send.address.institutionnumber"
                            required>
                 </div>
@@ -82,7 +93,7 @@
                            placeholder="Branch code"
                            class="form-control"
                            name="branchcode"
-                           ng-pattern="/\d{5}/"
+                           pattern="\d{5}"
                            ng-model="network_method.send.address.branchcode"
                            required>
                 </div>
@@ -93,7 +104,7 @@
                            class="form-control"
                            placeholder="Bank name"
                            name="bankname"
-                           ng-pattern="/\d{1,20}/"
+                           pattern="\d{1,20}"
                            ng-model="network_method.send.address.bankname"
                            required>
                 </div>
@@ -101,7 +112,7 @@
                     <input id="iban"
                            class="form-control"
                            type="text"
-                           ng-pattern="/[a-zA-Z]{2}[0-9]{2}[a-zA-Z0-9]{4}[0-9]{7}([a-zA-Z0-9]?){0,16}/"
+                           pattern="[a-zA-Z]{2}[0-9]{2}[a-zA-Z0-9]{4}[0-9]{7}([a-zA-Z0-9]?){0,16}"
                            placeholder="IBAN"
                            name="iban"
                            ng-model="network_method.send.address.iban"
@@ -111,7 +122,7 @@
                     <input id="bic"
                            class="form-control"
                            type="text"
-                           ng-pattern="/([a-zA-Z]{4}[a-zA-Z]{2}[a-zA-Z0-9]{2}([a-zA-Z0-9]{3})?)/"
+                           pattern="([a-zA-Z]{4}[a-zA-Z]{2}[a-zA-Z0-9]{2}([a-zA-Z0-9]{3})?)"
                            placeholder="BIC"
                            name="bic"
                            ng-model="network_method.send.address.bic"
@@ -147,7 +158,7 @@
                     <input id="btc_address"
                            class="form-control"
                            type="text"
-                           ng-pattern="/^[13][1-9A-Za-z][^OIl]{20,40}/"
+                           pattern="^[13][1-9A-Za-z][^OIl]{20,40}"
                            placeholder="Bitcoin address"
                            name="address"
                            ng-model="network_method.send.address"

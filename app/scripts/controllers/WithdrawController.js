@@ -64,6 +64,9 @@ angular.module('mobbr.controllers').controller('WithdrawController', function ($
         }
     };
 
+    $scope.regexCA = /\w{1,50}/;
+    $scope.regexAC = /\d+/;
+
     $scope.network_method = $scope.networks['iban'];
 
     $scope.confirm = function () {
