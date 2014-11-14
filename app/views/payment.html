@@ -36,15 +36,15 @@
 
                             </div>
                             <div class="row">
-                                <span class="txt col-md-12 xsmall" ng-bind="userPaid ? 'Received' : ''" ng-if="userPaid"></span>
+                                <!--<span class="txt col-md-12 xsmall" ng-bind="userPaid ? 'Received' : ''" ng-if="userPaid"></span>-->
                                 <span class="txt big col-md-12">
                                     <span ng-bind-html="userAmount | mobbrcurrency:payment.result.currency_iso:true"></span>
                                 </span>
                             </div>
-                            <div class="row" ng-if="userPaid">
+                            <!--<div class="row" ng-if="userPaid">
                                 <span class="txt col-md-12 xsmall">Paid</span>
                                 <span class="txt big col-md-12 narrow" ng-bind-html="userPaid | mobbrcurrency:payment.result.currency_iso:true"></span>
-                            </div>
+                            </div>-->
                         </div>
                     </div>
                 </div>
@@ -59,7 +59,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <span class="txt big col-md-12" ng-bind-html="payment.result.amount | mobbrcurrency:payment.result.currency_iso:true"></span>
+                                <span class="txt big col-md-12" ng-bind-html="abs(payment.result.amount) | mobbrcurrency:payment.result.currency_iso:true"></span>
                             </div>
                         </div>
                     </div>
@@ -126,8 +126,11 @@
     <div class="row payment-info payment-title">
         <div class="container">
             <div class="row">
+                <div class="col-md-12">
+                    <h5>Task/payment description</h5>
+                </div>
                 <div class="col-md-12" ng-if="payment.result.title">
-                    <strong ng-bind="payment.result.title"></strong>
+                    <strong ng-bind="payment.result.title"></strong><br>
                     <small ng-bind="payment.result.uri"></small>
                 </div>
                 <div class="col-md-12" ng-if="payment.result.description || payment.result.note">

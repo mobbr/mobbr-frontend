@@ -81,6 +81,10 @@ angular.module('mobbr.controllers').controller('PaymentReceiptController', funct
         $scope.payment.$resolved && orderPersons();
     });
 
+    $scope.abs = function (number) {
+        return Math.abs(number);
+    }
+
     retrievePayment();
     $scope.selectAll = { selected: false };
 });
