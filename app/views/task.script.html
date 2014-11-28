@@ -16,7 +16,7 @@
                 <div class="row">
                     <div class="col-md-12 title">
                         <span class="mobbricon mobbricon-plugin"></span>
-                        <strong>The 1-minute quick fix</strong>
+                        <strong>The quick fixes</strong>
                     </div>
                 </div>
             </div>
@@ -25,9 +25,9 @@
         <div class="row content borderbottom">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <p>Create this /PARTICIPATION.TXT in the root of your domain, next to the /ROBOTS.TXT</p>
-                        <code><pre>[
+<code><pre>[
     {
         "url-pattern": "*",
         "script":
@@ -41,11 +41,30 @@
         }
     }
 ]</pre></code>
-                        <p>
-                            Make it as dynamic and complex <a href="https://github.com/mobbr/mobbr-api-v1/tree/master/examples">as you need</a>.
-                        </p>
+                    </div>
+
+                    <div class="col-md-6">
+                        <p>Put this metatag in your HTML page(s)</p>
+<code><pre>&lt;html&gt;
+&lt;head&gt;
+    ...
+    &lt;meta name="participation" content='{
+        "participants" :
+        [
+            {
+                "id": "https://mobbr.com/#/yourmobbrname",
+                "role": "owner",
+                "share": "1"
+            }
+        ]
+    }'/&gt;
+    ...
+&lt;head&gt;</pre></code>
                     </div>
                 </div>
+                <p>
+                    Use these placeholders to <a href="https://github.com/mobbr/mobbr-api-v1/tree/master/examples">extend</a> the Mobbr support on your site.
+                </p>
             </div>
         </div>
         <div class="row top-info filter bottom">
