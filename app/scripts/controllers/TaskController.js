@@ -1,4 +1,4 @@
-angular.module('mobbr.controllers').controller('TaskController', function ($scope, $state, $window, $rootScope, MobbrUri) {
+angular.module('mobbr.controllers').controller('TaskController', function ($scope, $state, $window, $rootScope, MobbrUri, mobbrSession) {
     'use strict';
 
     function redirect() {
@@ -19,7 +19,10 @@ angular.module('mobbr.controllers').controller('TaskController', function ($scop
         var url = $window.atob(task);
         $scope.$emit('set-query', url);
         $scope.domain = purl(url).data.attr.host;
-        $scope.task = MobbrUri.info({ url: url }, function (response) {
+        $scope.task = MobbrUri.info({
+            url: url,
+            base_currency: mobbrSession.isAuthorized() && $rootScope.$mobbrStorage.user.currency_iso || null
+        }, function (response) {
 
             if (response.result.script && response.result.script.url && response.result.script.url !== url) {
                 $state.go($state.includes('box.task.index') ? $state.current.name : 'box.task.index', { task: $window.btoa(response.result.script.url) });
@@ -31,7 +34,7 @@ angular.module('mobbr.controllers').controller('TaskController', function ($scop
             $scope.has_failed = response.result.script && response.result.script.error;
             $scope.has_script = $scope.has_failed && false || response.result.script && response.result.script.url && true;
             $scope.has_payments = parseFloat(response.result.statistics.num_payments) > 0;
-            $scope.has_participants = response.result.script.participants.length > 0;
+            $scope.has_participants = response.result.script.participants && response.result.script.participants.length > 0;
             $scope.$emit('set-active-query', url);
             $scope.$emit('set-task-type', response.result.script.type);
             $scope.$emit('set-task-message', response.result.script.message);
