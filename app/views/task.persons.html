@@ -37,7 +37,7 @@
 
                     <div class="bottom">
                         <div class="item large amount">
-                            <span ng-bind-html="person.amount | mobbrcurrency:$mobbrStorage.user.currency_iso:true"></span>
+                            <span ng-bind-html="person.amount | mobbrcurrency:$mobbrStorage.user.currency_iso || 'EUR':true"></span>
                             <span class="mobbricon mobbricon-payments"></span>
                         </div>
                         <div class="item large">
