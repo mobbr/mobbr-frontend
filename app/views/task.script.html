@@ -26,7 +26,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
-                        <p>Create this /PARTICIPATION.TXT in the root of your domain, next to the /ROBOTS.TXT</p>
+                        <p>Create this /PARTICIPATION.TXT in the root of your domain</p>
 <code><pre>[
     {
         "url-pattern": "*",
@@ -36,6 +36,8 @@
              [
                 {
                     "id": "mailto:your@email.com"
+                    "role": "owner",
+                    "share": "1"
                 }
             ]
         }
@@ -44,7 +46,7 @@
                     </div>
 
                     <div class="col-md-6">
-                        <p>Put this metatag in your HTML page(s)</p>
+                        <p>...and/or put this &lt;metatag&gt; in your HTML page(s)</p>
 <code><pre>&lt;html&gt;
 &lt;head&gt;
     ...
@@ -52,18 +54,19 @@
         "participants" :
         [
             {
-                "id": "https://mobbr.com/#/yourmobbrname",
+                "id": "mailto:your@email.com",
                 "role": "owner",
                 "share": "1"
             }
         ]
     }'/&gt;
     ...
-&lt;head&gt;</pre></code>
+&lt;head&gt;
+&lt;body&gt;</pre></code>
                     </div>
                 </div>
                 <p>
-                    Use these placeholders to <a href="https://github.com/mobbr/mobbr-api-v1/tree/master/examples">extend</a> the Mobbr support on your site.
+                    Use them to incrementally <a href="https://github.com/mobbr/mobbr-api-v1/tree/master/examples">extend</a> the Mobbr support on your site.
                 </p>
             </div>
         </div>
