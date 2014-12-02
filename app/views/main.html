@@ -62,7 +62,7 @@
             <div class="container">
                 <div class="row happening">
                     <div class="col-md-12" ng-init="limiter = numblocks; taglimiter = numblocks * 6">
-                        <a ng-repeat="url in happening.result.uris | limitTo: limiter | limitTo: -numblocks" ui-sref="box.task.index.view({ task: encodeTask(url.url) })">
+                        <a ng-repeat="url in happening.result.uris | limitTo: limiter | limitTo: -numblocks" ui-sref="box.task({ task: encodeTask(url.url) })">
                             <div class="col-xs-12 col-sm-4 col-md-3 data-card-container">
                                 <div class="data-card">
                                     <h3 ng-bind="url.title"></h3>
@@ -343,167 +343,74 @@
             </div>
         </div>
     </section>
+    <section>
+        <div class="row top-info filter">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 title">
+                        <span class="mobbricon mobbricon-plugin"></span>
+                        <strong>The quick fixes</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row content borderbottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>Create this /PARTICIPATION.TXT in the root of your domain</p>
+<pre><code>[
+    {
+    "url-pattern": "*",
+    "script":
+    {
+    "participants":
+    [
+    {
+    "id": "mailto:your@email.com"
+    "role": "owner",
+    "share": "1"
+    }
+    ]
+    }
+    }
+    ]</code></pre>
+                    </div>
+
+                    <div class="col-md-6">
+                        <p>...and/or put this &lt;metatag&gt; in your HTML page(s)</p>
+<pre><code>&lt;html&gt;
+    &lt;head&gt;
+    ...
+    &lt;meta name="participation" content='{
+    "participants" :
+    [
+    {
+    "id": "mailto:your@email.com",
+    "role": "owner",
+    "share": "1"
+    }
+    ]
+    }'/&gt;
+    ...
+    &lt;head&gt;
+    &lt;body&gt;</code></pre>
+                    </div>
+                </div>
+                <p>
+                    Use them to incrementally <a href="https://github.com/mobbr/mobbr-api-v1/tree/master/examples">extend</a> the Mobbr support on your site.
+                </p>
+            </div>
+        </div>
+        <div class="row top-info filter bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 title">
+                        &nbsp;
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
-
-
-
-
-
-
-
-
-<!--<div class="container">
-    <div class="col-md-3" ng-repeat="task in featuredTasks"></div>
-
-    <div class="row">
-        <div class="bookmarklet text-right col-md-12">
-            <small>Drag this button to your bookmark bar to reward any url&nbsp;&nbsp;</small>
-            <a class="home-button"
-               href="javascript: (function () { var s = document.createElement('script'); s.setAttribute('src', '/scripts/bookmarklet.js'); document.body.appendChild(s); }());">
-                <small>Mobbr now!</small>
-            </a>
-        </div>
-    </div>
-
-    <div class="row page-header banner">
-        <div class="col-md-8">
-            <div class="hero-unit">
-                <h1>Turn your website into a crowdsourcing business</h1>
-                <p class="lead">
-                    A new toolbox for site owners and developers<br/>
-                    to get more value out of their community
-                </p>
-                <p>
-                    <a href="" target="_blank" class="btn btn-lg btn-success join" title="">
-                        Get started
-                    </a>
-
-                    <a href="#/features" class="btn btn-lg btn-link" title="Industry leading payment and invoicing functionality">
-                        Features
-                    </a>
-
-                    <a href="#/join" class="btn btn-lg btn-link" title="Joining is free, you get a free budget of 100 'Mobbrs' so you can try all functionality.">
-                        Open account
-                    </a>
-            </div>
-        </div>
-        <div class="col-md-4 introtext">
-            <div class="well">
-                <p>
-                    <b>THE CHALLENGE</b>
-                    - To make more money with your website's loyal visitor base.
-                </p>
-                <p>
-                    <b>THE OPPORTUNITY</b>
-                    - Our tools instantly create new sources of income for online communities and for their visitors.
-                    With Mobbr websites can facilitate the paid execution of research, content creation, software development and the many other types of work
-                    that can be crowdsourced.
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <div class="row text-center">
-        <em>
-            <small class="tagline">
-                powered by
-            </small>
-        </em>
-        <p>
-            <img src="/img/logo-mangopay.png" title="We partner with mangopay.com for our international payments">
-            <img src="/img/logo-blockchain.png" title="Our wallets are hosted by blockchain.info">
-        </p>
-    </div>
-
-
-    <div class="well">
-        <div class="row">
-            <div class="col-md-4">
-                <h3>Site-owners</h3>
-                <p>
-                    Generate new sources of income together with your visitors. Mobbr provides all
-                    the tools for crowdsourcing work on your platform.
-                </p>
-                <p>
-                    <a href="/#/features">Check out our features</a>
-                </p>
-            </div>
-            <div class="col-md-4">
-                <h3>Developers</h3>
-                <p>
-                    Link the reputation or ranking mechanism of a collaboration or user generated content site to our payment- and invoicing system.
-                    And turn it into a business.
-                </p>
-                <p>
-                    <a href="/#/gettingstarted">Get started</a>
-                </p>
-            </div>
-            <div class="col-md-4">
-                <h3>Individuals</h3>
-                <p>
-                    Finally start making serious money online, by being active in your favorite communities.
-                    Work when you want, where you want and for whom you want.
-                </p>
-                <p>
-                    <a href="/#/join">Start earning money online</a>
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <div class="row text-center">
-        <p class="lead">
-            <em class="tagline">
-                &quot;What the office was to the industrial era, the crowdsourcing platform is to the 21st century.<br> Work will increasingly be done online&quot;
-            </em>
-        </p>
-    </div>
-
-    <div class="well special clearfix col-md-12">
-        <div class="row">
-            <div class="col-md-6">
-                <h3>Features</h3>
-                <ul>
-                    <li>
-                        <b>Plugins</b> - all the plugins and integration manuals to quickly enable crowdsourcing on your website.
-                    </li>
-                    <li>
-                        <b>Payments</b> - and invoicing system to distribute money among contributors
-                        based on reputation points earned.
-                    </li>
-                    <li>
-                        <b>Portal</b> - dashboard to manage crowds, wallets and tasks.
-                    </li>
-                </ul>
-                <a href="/#/features">More features...</a>
-            </div>
-            <div class="col-md-6">
-                <h3>Use-cases</h3>
-                <ul>
-                    <li>Execute consulting projects with your community using a Q&A</li>
-                    <li>Pay developers fair share using your version control software</li>
-                    <li>Pay your audience to create content for a client or brand</li>
-                    <li>Crowdsource your helpdesk to make it more personal and efficient</li>
-                </ul>
-                <a href="/#/features">More about use cases</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="row tagline text-center">
-        <p class="lead">
-            <em>
-                Official partner of
-            </em>
-        </p>
-        <p class="lead">
-            <a target="_blank" href="http://www.yesdelft.nl/" title="We are part of the Yes!Delft tech-incubator" ><img src="/img/logo-yesdelft.jpg" /></a>
-            <a target="_blank" href="http://www.crowdexpedition.nl/" title="" ><img src="/img/logo-crowdexpedition.jpg"  style="padding-left:25px;" /></a>
-            <a target="_blank" href="http://fastmovingtargets.nl/" title="" ><img src="/img/logo-fmt.jpg" style="padding-left:25px;" /></a>
-        </p>
-    </div>
-
-    <h1 class="bottomline">Join the anytime anyplace economy</h1>
-    <h3>For inquiries, please <a href="mailto:&#112;&#097;&#116;&#114;&#105;&#099;&#107;&#064;&#109;&#111;&#098;&#098;&#114;&#046;&#099;&#111;&#109;">email</a> us</h3>
-
-</div>-->

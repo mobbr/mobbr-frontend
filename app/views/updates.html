@@ -69,7 +69,7 @@
                         </div>
                         <div class="row bottom">
                             <div class="col-md-12">
-                                <a ui-sref="box.tasks.person({ username: $mobbrStorage.user.username })" class="btn btn-block">My tasks</a>
+                                <a ui-sref="box.tasks({ username: $mobbrStorage.user.username })" class="btn btn-block">My tasks</a>
                             </div>
                         </div>
                     </div>
@@ -132,7 +132,7 @@
             <h2><em>No notifications found...</em></h2>
         </div>
         <table class="table" ng-show="notifications.result.length > 0">
-            <tbody ng-init="limiter = 10">
+            <tbody ng-init="limiter = 25">
             <tr ng-repeat="notification in notifications.result | limitTo: limiter | filter:notificationType"
                 ng-class="{ link: hasLink(notification) }"
                 class="{{ eventCategories[notification.type] || 'security' }}"
@@ -160,7 +160,7 @@
                 <button class="btn btn-primary btn-block"
                         ng-bind="notifications && !notifications.$resolved && 'Loading more results' || notifications.result && notifications.result.length < limiter && 'The end' || 'Show more results'"
                         ng-disabled="notifications.result.length < limiter"
-                        ng-click="limiter = limiter + 10; notifications.$resolved = false; notifications.$get({ limit: limiter, event_type: notificationType })"></button>
+                        ng-click="limiter = limiter + 25; notifications.$resolved = false; notifications.$get({ limit: limiter, event_type: notificationType })"></button>
             </div>
         </div>
     </div>

@@ -20,6 +20,7 @@ module.exports = function (config) {
             'app/components/ng-file-upload/angular-file-upload.js',
             'app/components/angular-bootstrap/ui-bootstrap.js',
             'app/components/angular-bootstrap/ui-bootstrap-tpls.js',
+            'app/components/angular-ui-router/release/angular-ui-router.js',
             'app/components/ngstorage/ngStorage.js',
             'app/components/mobbr-api-angular/src/*.js',
             'app/components/mobbr-api-angular/src/api/*.js',
@@ -33,7 +34,7 @@ module.exports = function (config) {
             'app/scripts/**/*.js',
             'app/scripts/**/**/*.js',
             'app/scripts/**/**/**/*.js',
-            'test/unit/**/**/*.js',
+            'test/unit/**/**/TaskControllerSpec.js',
 
             'app/views/**/*.html'
 

@@ -11,14 +11,14 @@
                             <span class="mobbricon mobbricon-hardclose"></span>
                         </a>
                     </li>
-                    <li ng-repeat="tag in suggestedTags | limitTo: tagsLimiter.limit | filter: filterKeyword">
+                    <li ng-repeat="tag in suggestedTags | limitTo: limiter | filter: filterKeyword">
                         <a ng-click="addTag(tag.keyword)" class="label suggested label-default tag pull-left">
                             <span class="mobbricon mobbricon-tag"></span>
                             {{ tag.keyword }}
                             <span class="mobbricon mobbricon-addopen"></span>
                         </a>
                     </li>
-                    <li ng-show="suggestedTags.length >= tagsLimiter.limit" ng-click="tagsLimiter.limit = tagsLimiter.limit + 10; getSuggestedTags();">
+                    <li ng-show="suggestedTags.length >= limiter" ng-click="clickMore(limiter + initialLimit);">
                         <a class="pull-left label tag more label-default">More <span class="mobbricon mobbricon-addopen"></span></a>
                     </li>
                     <li class="label label-default tag addtag pull-left">

@@ -1,32 +1,74 @@
-angular.module('mobbr.controllers').controller('CrowdsController', function ($scope, $state, $window, $rootScope, mobbrMsg, mobbrSession, MobbrUri, MobbrPerson, MobbrKeywords) {
+angular.module('mobbr.controllers').controller('CrowdsController', function ($scope, $state, $window, $rootScope, mobbrSession, MobbrPerson, MobbrKeywords, task) {
     'use strict';
 
-    var language,
-        initial_limit = 20;
+    var url,
+        taskTags = [];
 
-    $scope.queryPeople = function () {
+    function setTaskTags() {
+
+        $scope.suggestedTags = [];
+
+        angular.forEach(taskTags, function (keyword) {
+            $scope.suggestedTags.push({ keyword: keyword });
+        });
+    }
+
+    $scope.queryTags = function (limit) {
+
+        var params;
+
+        $scope.tagsLimiter = limit || $scope.tagsInitialLimit;
+
+        if (!task || taskTags.length === 0 || $scope.filteredTags.length > 0) {
+
+            if (!limit) {
+                $scope.suggestedTags = [];
+                $scope.tagPromise = null;
+            }
+
+            params = {
+                limit: $scope.tagsInitialLimit,
+                language: $scope.language,
+                related_to: $scope.filteredTags,
+                offset: $scope.tagsLimiter - $scope.tagsInitialLimit
+            };
+
+            MobbrKeywords.get(params, function (response) {
+                $scope.suggestedTags = $scope.suggestedTags.concat(response.result);
+            });
+        }
+    };
+
+    $scope.queryPeople = function (limit) {
 
         var tags,
             params;
 
-        if ($scope.filteredTags.length === 0) {
+        $scope.limiter = limit || $scope.initial_limit;
+
+        if (!limit) {
+            $scope.persons = [];
+            $scope.personPromise = undefined;
+        }
+
+        if ($scope.task && $scope.filteredTags.length === 0) {
+
             tags = [];
+
             angular.forEach($scope.suggestedTags, function (item) {
                 tags.push(item.keyword);
             });
-        }  else {
+
+        } else {
             tags = $scope.filteredTags;
         }
 
         params = {
             keywords: tags,
-            language: language,
-            limit: initial_limit
+            language: $scope.language,
+            limit: $scope.initial_limit,
+            offset: $scope.limiter - $scope.initial_limit
         };
-
-        if ($scope.limiter > initial_limit) {
-            params.offset = $scope.limiter - initial_limit;
-        }
 
         $scope.personPromise = MobbrPerson.get(params);
 
@@ -43,85 +85,7 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
 
             $scope.persons = $scope.persons.concat($scope.personPromise.result);
         });
-    }
-
-    function getGlobalTags() {
-
-        return MobbrKeywords.get({
-            limit: $scope.tagsLimiter.limit,
-            language: language,
-            related_to: $scope.filteredTags
-        }, function (response) {
-            $scope.suggestedTags = response.result;
-        });
-    }
-
-    function setInvalidTask() {
-        $scope.$emit('set-query');
-        $scope.$emit('set-active-query');
-        mobbrMsg.add({ msg: 'Invalid URL' });
-        $state.go('^');
-    }
-
-    function setTaskTags(response) {
-
-        var tags,
-            url = $window.atob($state.params.task);
-
-        $scope.$emit('set-active-query', url);
-
-        if (response.result.script && response.result.script.length !== 0) {
-
-            $scope.no_script = false;
-            tags = response.result.script.keywords || [];
-
-            angular.forEach(tags, function (keyword) {
-                $scope.suggestedTags.push({ keyword: keyword });
-            });
-
-            if ($scope.suggestedTags.length > 0) {
-                $scope.queryPeople();
-            } else {
-                getGlobalTags().$promise.then($scope.queryPeople);
-            }
-        } else {
-
-            $scope.no_script = true;
-
-            if (response.result.metadata && response.result.metadata.keywords) {
-                angular.forEach(response.result.metadata.keywords, function (keyword) {
-                    $scope.suggestedTags.push({ keyword: keyword });
-                });
-            }
-
-            $scope.queryPeople();
-        }
-    }
-
-    $scope.getSuggestedTags = function () {
-
-        if ($state.params.task) {
-
-            var url = $window.atob($state.params.task);
-
-            if ($scope.filteredTags.length > 0) {
-                getGlobalTags();
-            } else if (!$scope.task) {
-                $scope.$emit('set-query', url);
-                $scope.task = MobbrUri.info({ url: url });
-                $scope.task.$promise.then(setTaskTags, setInvalidTask);
-            } else {
-                if ($scope.task.$resolved) {
-                    setTaskTags($scope.task);
-                } else {
-                    $scope.task.$promise.then(setTaskTags);
-                }
-            }
-        } else {
-            getGlobalTags();
-            $scope.queryPeople();
-        }
-    }
+    };
 
     $scope.addPerson = function (person) {
         person.selected === true && $scope.selectedPersons.push(person) || $scope.removePerson(person);
@@ -158,51 +122,54 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
             if (!mobbrSession.isAuthorized()) return true;
             return item.username !== $rootScope.$mobbrStorage.user.username;
         }
-    }
-
-    $scope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-        if (fromState.name.indexOf('box.crowds') === 0 && $scope.activeQuery) {
-            $scope.$emit('set-active-query');
-            $scope.$emit('set-query');
-            $scope.task = undefined;
-            $scope.personPromise = undefined;
-            $scope.persons = [];
-            $scope.filteredTags = [];
-            $scope.suggestedTags = [];
-            $scope.limiter = initial_limit;
-        }
-    });
-
-    $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-        //if (toParams.task) {
-            $scope.getSuggestedTags();
-        //}
-    });
+    };
 
     $scope.$on('language-update', function (event, new_language) {
-        if (new_language !== language) {
-            $scope.persons = [];
-            $scope.limiter = initial_limit;
-            language = new_language;
-            $scope.getSuggestedTags();
+        if (new_language !== $scope.language) {
+            $scope.language = new_language;
             $scope.queryPeople();
         }
     }, true);
 
     $scope.$watch('filteredTags', function (newValue, oldValue) {
         if (newValue && newValue !== oldValue) {
-            $scope.persons = [];
-            $scope.limiter = initial_limit;
-            $scope.getSuggestedTags();
+
+            if ($scope.task && taskTags.length > 0 && $scope.filteredTags.length === 0) {
+                setTaskTags();
+            } else {
+                $scope.queryTags();
+            }
+
             $scope.queryPeople();
         }
     }, true);
 
-    $scope.persons = [];
-    $scope.limiter = initial_limit;
-    $scope.suggestedTags = [];
+    $scope.tagsInitialLimit = 10;
+    $scope.tagsLimiter = $scope.tagsInitialLimit;
+    $scope.initial_limit = 20;
+    $scope.limiter = $scope.initial_limit;
     $scope.filteredTags = [];
-    $scope.tagsLimiter = { limit: 10 };
+    $scope.suggestedTags = [];
     $scope.form = {};
     $scope.selectedPersons = [];
+    $scope.task = task;
+
+    if ($scope.task) {
+
+        $scope.no_script = !$scope.task.result.script || !$scope.task.result.script.url;
+        url = $scope.no_script && $window.atob($state.params.task) || $scope.task.result.script.url;
+        $scope.$emit('set-query', url);
+        $scope.$emit('set-active-query', url);
+        taskTags = !$scope.no_script && $scope.task.result.script.keywords || $scope.task.result.metadata && $scope.task.result.metadata.keywords || [];
+
+        if (taskTags.length === 0) {
+            $scope.queryTags();
+        }  else {
+            setTaskTags();
+        }
+    } else {
+        $scope.queryTags();
+    }
+
+    $scope.queryPeople();
 });

@@ -136,7 +136,7 @@ angular.module('mobbr.controllers').controller('UpdatesController', function ($s
                     break;
                 case 'script_mention':
                 case 'task_invitation':
-                    $state.go('box.task.index.view', { task: $window.btoa(notification.link) });
+                    $state.go('box.task', { task: $window.btoa(notification.link) });
                     break;
                 case 'profile_update':
                     $state.go('box.person.profile', { username: $scope.$mobbrStorage.user.username });

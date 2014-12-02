@@ -41,7 +41,7 @@
         </li>
         <li ng-show="(query != activeQuery && is_url) || $state.params.task">
             <a ng-click="isopen = false"
-               ui-sref="box.crowds.task({ task: $state.params.task || encodeTask(query) })">
+               ui-sref="box.crowds({ task: $state.params.task || encodeTask(query) })">
                 <span class="mobbricon mobbricon-crowd"></span>
                 <span ng-bind="'Find and invite crowdworkers for `' + ((query != activeQuery && is_url) ? query : activeQuery) + '`'"></span>
             </a>
@@ -55,7 +55,7 @@
         </li>
         <li ng-show="(query != activeQuery && is_user) || $state.params.username">
             <a ng-click="isopen = false"
-               ui-sref="box.tasks.person({ username: $state.params.username || encodeTask(query) })">
+               ui-sref="box.tasks({ username: $state.params.username || encodeTask(query) })">
                 <span class="mobbricon mobbricon-digger"></span>
                 <span ng-bind="'Find tasks worked at by `' + ((query != activeQuery && is_user) ? query : $state.params.username) +  '`'"></span>
             </a>
@@ -90,7 +90,7 @@
         </li>
         <li ng-show="mobbrSession.isAuthorized()">
             <a ng-click="isopen = false"
-               ui-sref="box.tasks.person({ username: user.username })">
+               ui-sref="box.tasks({ username: user.username })">
                 <img ng-src="{{ user.thumbnail }}"  width="32" height="32">
                 My tasks
             </a>

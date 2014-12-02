@@ -204,7 +204,12 @@ angular.module('mobbr', [
                 templateUrl: 'views/box.html',
                 controller: 'BoxController'
             }).state('box.tasks', {
-                url: '/tasks',
+                url: '/tasks/:username',
+                params: {
+                    username: {
+                        value: null
+                    }
+                },
                 views: {
                     'tasks-section': {
                         controller: 'TasksController',
@@ -214,10 +219,13 @@ angular.module('mobbr', [
                 data: {
                     title: 'Explore tasks'
                 }
-            }).state('box.tasks.person', {
-                url: '/:username'
             }).state('box.task', {
-                url: '/task',
+                url: '/task/:task',
+                params: {
+                    task: {
+                        value: null
+                    }
+                },
                 views: {
                     'tasks-section': {
                         controller: 'TaskController',
@@ -226,13 +234,16 @@ angular.module('mobbr', [
                 },
                 data: {
                     title: 'Task status'
+                },
+                resolve: {
+                    task: function (MobbrUri, mobbrSession, $rootScope, $stateParams, $window) {
+                        return $stateParams.task && MobbrUri.info({
+                            url: $window.atob($stateParams.task),
+                            base_currency: mobbrSession.isAuthorized() && $rootScope.$mobbrStorage.user.currency_iso || null
+                        }).$promise || null;
+                    }
                 }
-            }).state('box.task.index', {
-                url: '/:task',
-                abstract: true
-            }).state('box.task.index.view', {
-                url: '/view'
-            }).state('box.task.index.domain', {
+            }).state('box.task.domain', {
                 url: '/domain',
                 views: {
                     'task-section': {
@@ -242,7 +253,7 @@ angular.module('mobbr', [
                 },
                 onEnter: blockUI,
                 onExit: unblockUI
-            }).state('box.task.index.script', {
+            }).state('box.task.script', {
                 url: '/script',
                 views: {
                     'task-section': {
@@ -251,7 +262,7 @@ angular.module('mobbr', [
                 },
                 onEnter: blockUI,
                 onExit: unblockUI
-            }).state('box.task.index.payments', {
+            }).state('box.task.payments', {
                 url: '/payments',
                 views: {
                     'task-section': {
@@ -261,7 +272,7 @@ angular.module('mobbr', [
                 },
                 onEnter: blockUI,
                 onExit: unblockUI
-            }).state('box.task.index.persons', {
+            }).state('box.task.persons', {
                 url: '/persons',
                 views: {
                     'task-section': {
@@ -271,7 +282,7 @@ angular.module('mobbr', [
                 },
                 onEnter: blockUI,
                 onExit: unblockUI
-            }).state('box.task.index.invite', {
+            }).state('box.task.invite', {
                 url: '/invite',
                 views: {
                     'task-section': {
@@ -281,7 +292,7 @@ angular.module('mobbr', [
                 },
                 onEnter: blockUI,
                 onExit: unblockUI
-            }).state('box.task.index.pay', {
+            }).state('box.task.pay', {
                 url: '/pay',
                 views: {
                     'pay@box': {
@@ -292,7 +303,12 @@ angular.module('mobbr', [
                 onEnter: blockUI,
                 onExit: unblockUI
             }).state('box.crowds', {
-                url: '/crowds',
+                url: '/crowds/:task',
+                params: {
+                    task: {
+                        value: null
+                    }
+                },
                 views: {
                     'tasks-section': {
                         controller: 'CrowdsController',
@@ -301,9 +317,12 @@ angular.module('mobbr', [
                 },
                 data: {
                     title: 'Invite workforce'
+                },
+                resolve: {
+                    task: function (MobbrUri, $window, $stateParams) {
+                        return $stateParams.task && MobbrUri.info({ url: $window.atob($stateParams.task) }).$promise || null;
+                    }
                 }
-            }).state('box.crowds.task', {
-                url: '/:task'
             }).state('box.person', {
                 url: '/person',
                 views: {

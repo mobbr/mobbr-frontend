@@ -7,13 +7,13 @@
             <div ng-show="$state.includes('box.task') && taskType">
                 <div class="col-sm-3">
                     <a ng-disabled="!activeQuery"
-                       ng-href="#{{ activeQuery }}"
+                       ng-href="{{ activeQuery }}"
                        class="btn btn-call white btn-block"
                        target="_blank">Go to task</a>
                 </div>
                 <div class="col-sm-3">
                     <a ng-disabled="!activeQuery"
-                       ui-sref="box.task.index.pay"
+                       ui-sref="box.task.pay"
                        ng-bind="'Add a ' + taskType"
                        class="btn btn-block btn-call"></a>
                 </div>

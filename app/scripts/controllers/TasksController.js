@@ -2,98 +2,78 @@
 
 angular.module('mobbr.controllers').controller('TasksController', function ($scope, $state, $rootScope, mobbrMsg, MobbrUri, MobbrKeywords) {
 
-    var language,
-        initial_limit = 20;
+    var username = $state.params.username || null;
 
-    $scope.queryTasks = function () {
+    $scope.queryTasks = function (limit) {
 
-        var username = $state.params.username || null,
-            params;
+        $scope.limiter = limit || $scope.initial_limit;
 
-        username && $scope.$emit('set-query', username);
+        if (!limit) {
+            $scope.tasks = [];
+        }
+
+        MobbrUri.get({
+            limit: $scope.initial_limit,
+            language: $scope.language,
+            keywords: $scope.filteredTags,
+            username: username,
+            offset: $scope.limiter - $scope.initial_limit
+        }, function (response) {
+            $scope.tasks = $scope.tasks.concat(response.result);
+        });
+    };
+
+    $scope.queryTags = function (limit) {
+
+        var params;
+
+        $scope.tagsLimiter = limit || $scope.tagsInitialLimit;
+
+        if (!limit) {
+            $scope.suggestedTags = [];
+            $scope.tagPromise = null;
+        }
 
         params = {
-            limit: initial_limit,
-            language: language,
-            keywords: $scope.filteredTags,
-            username: username
+            limit: $scope.tagsInitialLimit,
+            language: $scope.language,
+            related_to: $scope.filteredTags,
+            offset: $scope.tagsLimiter - $scope.tagsInitialLimit
         };
 
-        if ($scope.limiter > initial_limit) {
-            params.offset = $scope.limiter - initial_limit;
+        if ($state.params.username) {
+            params.username = $state.params.username;
         }
 
-        $scope.tasksPromise = MobbrUri.get(params, function () {
-            $scope.$emit('set-active-query', username);
-            $scope.tasks = $scope.tasks.concat($scope.tasksPromise.result);
-        }, function () {
-            $scope.$emit('set-query');
-            $scope.$emit('set-active-query');
-            $state.go('^');
+        MobbrKeywords.get(params, function (response) {
+            $scope.suggestedTags = $scope.suggestedTags.concat(response.result);
         });
-    }
-
-    $scope.getSuggestedTags = function () {
-
-        var username = $state.params.username || null;
-
-        if (username) {
-             MobbrKeywords.person({
-                language: language,
-                username: $state.params.username,
-                limit: $scope.tagsLimiter.limit,
-                related_to: $scope.filteredTags
-            }, function (response) {
-                $scope.suggestedTags = response.result
-            });
-        } else {
-            MobbrKeywords.get({
-                limit: $scope.tagsLimiter.limit,
-                language: language,
-                related_to: $scope.filteredTags
-            }, function (response) {
-                $scope.suggestedTags = response.result;
-            });
-        }
-    }
-
-    $scope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-        if ($scope.activeQuery) {
-            $scope.$emit('set-active-query');
-            $scope.$emit('set-query');
-            $scope.tasksPromise = undefined;
-            $scope.filteredTags = [];
-            $scope.suggestedTags = [];
-        }
-        $scope.tasks = [];
-    });
-
-    $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-        $scope.getSuggestedTags();
-        $scope.queryTasks();
-    });
-
-    $scope.$on('language-update', function (event, new_language) {
-        if (new_language !== language) {
-            $scope.tasks = [];
-            $scope.limiter = initial_limit;
-            language = new_language;
-            $scope.getSuggestedTags();
-            $scope.queryTasks();
-        }
-    }, true);
+    };
 
     $scope.$watch('filteredTags', function (newValue, oldValue) {
         if (newValue && newValue !== oldValue) {
-            $scope.tasks = [];
-            $scope.limiter = initial_limit;
-            $scope.getSuggestedTags();
+            $scope.queryTasks();
+            $scope.queryTags();
+        }
+    }, true);
+
+    $scope.$on('language-update', function (event, new_language) {
+        if (new_language !== $scope.language) {
+            $scope.language = new_language;
             $scope.queryTasks();
         }
     }, true);
 
-    $scope.tasks = [];
-    $scope.limiter = 20;
+    $scope.tagsInitialLimit = 10;
+    $scope.tagsLimiter = $scope.tagsInitialLimit;
+    $scope.suggestedTags = [];
     $scope.filteredTags = [];
-    $scope.tagsLimiter = { limit: 10 };
+    $scope.tasks = [];
+    $scope.initial_limit = 20;
+    $scope.limiter = $scope.initial_limit;
+    //$scope.tasks = tasks.result;
+    $scope.$emit('set-active-query', username);
+    $scope.$emit('set-query', username);
+    $scope.queryTags();
+    $scope.queryTasks();
 });

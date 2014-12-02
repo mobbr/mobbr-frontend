@@ -78,12 +78,12 @@ angular.module('mobbr.directives').directive('mobbrSmartUrlBox', function factor
 
                     switch ($scope.urlType) {
                         case 'CROWDS':
-                            $state.go('box.crowds.task', { task: url });
+                            $state.go('box.crowds', { task: url });
                             break;
                         case 'TASK':
                         case 'TASKS':
                         case 'PROFILE':
-                            $state.go($state.includes('box.task.index') ? $state.current.name : 'box.task.index.view', { task: url });
+                            $state.go('box.task', { task: url });
                             break;
                     }
 
@@ -91,7 +91,7 @@ angular.module('mobbr.directives').directive('mobbrSmartUrlBox', function factor
 
                     switch ($scope.urlType) {
                         case 'TASKS':
-                            $state.go('box.tasks.person', { username: $window.encodeURIComponent(query) });
+                            $state.go('box.tasks', { username: $window.encodeURIComponent(query) });
                             break;
                         case 'PROFILE':
                         case 'TASK':
@@ -107,7 +107,7 @@ angular.module('mobbr.directives').directive('mobbrSmartUrlBox', function factor
                             $state.go('box.task');
                             break;
                         case 'CROWDS':
-                            $state.go('box.crowds');
+                            $state.go('box.crowds', { task: null });
                             break;
                         case 'TASKS':
                             $state.go('box.tasks');

@@ -1,11 +1,11 @@
 <smart-tags filtered-tags="filteredTags"
-            tags-limiter="tagsLimiter"
             suggested-tags="suggestedTags"
-            get-suggested-tags="getSuggestedTags"></smart-tags>
+            limiter="tagsLimiter"
+            initial-limit="tagsInitialLimit"></smart-tags>
 
 <div class="container">
     <div class="row data-cards">
-        <a ng-repeat="url in tasks" ui-sref="box.task.index.view({ task: encodeTask(url.url) })">
+        <a ng-repeat="url in tasks" ui-sref="box.task({ task: encodeTask(url.url) })">
             <div class="col-xs-12 col-sm-4 col-md-3 data-card-container">
                 <div class="data-card"
                      ng-class="{ 'data-card-highlight': url.is_pledge == '1' }">
@@ -40,7 +40,7 @@
                     ng-show="tasksPromise && tasksPromise.$resolved"
                     ng-bind="tasksPromise && !tasksPromise.$resolved && 'Loading more results' || tasks && tasks.length < limiter && 'The end' || 'Show more results'"
                     ng-disabled="tasks.length < limiter"
-                    ng-click="limiter = limiter + 20; queryTasks()"></button>
+                    ng-click="queryTasks(limiter + initial_limit)"></button>
         </div>
     </div>
 </div>

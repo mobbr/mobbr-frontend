@@ -1,9 +1,7 @@
-<smart-tags tags="tags"
-            filtered-tags="filteredTags"
-            reset-tags="resetTags"
-            tags-limiter="tagsLimiter"
+<smart-tags filtered-tags="filteredTags"
             suggested-tags="suggestedTags"
-            get-suggested-tags="getSuggestedTags"></smart-tags>
+            limiter="tagsLimiter"
+            initial-limit="tagsInitialLimit"></smart-tags>
 
 <div class="row top-info filter" ng-show="task.$resolved && !no_script">
     <div class="container">
@@ -42,7 +40,7 @@
                 <span ng-show="selectedPersons && selectedPersons.length == 0"><span class="mobbricon mobbricon-hardalert"></span> This page has no Mobbr support button</span>
             </div>
             <div class="col-md-3">
-                <a ui-sref="box.task.index.view({ task: $state.params.task })" class="btn btn-primary btn-block">Prepare page</a>
+                <a ui-sref="box.task({ task: $state.params.task })" class="btn btn-primary btn-block">Prepare page</a>
             </div>
         </div>
     </div>
@@ -53,7 +51,7 @@
 
 <div class="container">
     <div ng-class="{ loading: personPromise && !personPromise.$resolved }" class="row data-cards data-cards-persons">
-        <div ng-repeat="person in persons | filter:filterUser"
+        <div ng-repeat="person in persons | filter:filterUser as filteredPersons"
              class="col-md-3 col-sm-4 col-xs-12 data-card-container">
             <div class="data-card person-card"
                  ng-class="{ 'data-card-highlight': person.match_percentage > 90 }"
@@ -121,7 +119,7 @@
                     ng-show="personPromise && personPromise.$resolved"
                     ng-bind="personPromise && !personPromise.$resolved && 'Loading more results' || persons && persons.length < limiter && 'The end' || 'Show more results'"
                     ng-disabled="persons.length < limiter"
-                    ng-click="limiter = limiter + 20; queryPeople()"></button>
+                    ng-click="queryPeople(limiter + initial_limit)"></button>
         </div>
     </div>
 </div>

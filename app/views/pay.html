@@ -61,7 +61,7 @@
                                 </button>
                             </div>
                             <div class="col-xs-2">
-                                <a ng-href="#{{ $state.includes('payments') ? $state.href('^') : $state.href('box.task.index.view') }}" class="btn btn-danger btn-block">X</a>
+                                <a ng-href="#{{ $state.includes('payments') ? $state.href('^') : $state.href('box.task') }}" class="btn btn-danger btn-block">X</a>
                             </div>
                         </div>
                     </fieldset>
@@ -70,7 +70,7 @@
         </div>
     </div>
 </div>
-<div class="row info-bar" ng-show="taskAddresses && !show_preview">
+<div class="row info-bar" ng-show="taskAddresses.length > 0 && !show_preview">
     <div class="container">
         <div class="row">
             <fieldset class="form-group task-address" ng-repeat="address in taskAddresses">
