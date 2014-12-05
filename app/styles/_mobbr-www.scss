@@ -348,6 +348,21 @@ fieldset[disabled] .btn {
   color: $white;
 }
 
-.api-list ul {
-  margin: 0 0 0 $grid-gutter-width * 2;
+.api-list {
+  height: 427px;
+  overflow: auto;
+  background: $gray;
+  font-family: $mobbrFontCondensed;
+}
+
+.api-list li {
+  padding: 0 0 0 $grid-gutter-width * 2;
+}
+
+.api-list > li {
+  border-bottom: 1px solid $white;
+}
+
+.api-side {
+  padding: 0 0 0 20px;
 }
