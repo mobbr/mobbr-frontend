@@ -73,7 +73,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <span class="txt xbig col-md-12" ng-bind="task.result.script.participants.length || 0"></span>
+                                    <span class="txt xbig col-md-12" ng-bind="(task.result.script.participants | unique:'id').length || 0"></span>
                                 </div>
                                 <div class="row bottom-icon">
                                     <div class="col-xs-1 text-center icon right pull-right">
