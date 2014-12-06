@@ -12,9 +12,10 @@ angular.module('mobbr.controllers').controller('UserSettingsController', functio
     $scope.settingsLabels = {
         hide_my_incoming_payments: 'Hide my incoming payments',
         hide_my_items: 'Hide my items',
+        hide_my_profile: 'Hide my profile / anonymize me',
         hide_my_outgoing_payments: 'Hide my outgoing payments',
-        'hide_my_email_from_donators': 'Hide my email from donators',
-        'hide_my_email_from_public': 'Hide my email from public users',
+        hide_my_email_from_donators: 'Hide my email from donators',
+        hide_my_email_from_public: 'Hide my email from public users',
         send_json_mention_notification: 'Send JSON mention notification',
         send_monthly_reports: 'Send monthly reports',
         send_newsletter: 'Send me newsletters to keep me informed',
