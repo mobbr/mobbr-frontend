@@ -3,7 +3,7 @@
         "url-pattern" : "*",
         "title" : "Mobbr crowdpayments",
         "description" : "Pay and get paid for contributing anywhere on the web.",
-        "participation-info":
+        "script":
         {
             "id-base" : "https://mobbr.com/#/person/",
             "participants" : [
