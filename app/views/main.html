@@ -433,13 +433,6 @@
         <div class="row content borderbottom">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-5">
-                        <ul class="list-unstyled api-list">
-                            <li ng-repeat="method in methods.result">
-                                <strong ng-bind="method.type"></strong>&nbsp;<span ng-bind="method.endpoint"></span>
-                            </li>
-                        </ul>
-                    </div>
                     <div class="col-sm-4">
                         <p>
                             - One button crowd-funding and -paying on any website<br>
@@ -451,6 +444,13 @@
                             - Find fitting tasks for your users<br>
                             - Find platforms for specified tasks<br>
                         </p>
+                    </div>
+                    <div class="col-md-5">
+                        <ul class="list-unstyled api-list">
+                            <li ng-repeat="method in methods.result">
+                                <strong ng-bind="method.type"></strong>&nbsp;<span ng-bind="method.endpoint"></span>
+                            </li>
+                        </ul>
                     </div>
                     <div class="col-sm-3">
                         <a href="https://github.com/mobbr/mobbr-api-v1/" target="_blank" class="btn btn-block btn-call">
