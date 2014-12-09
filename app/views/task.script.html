@@ -3,8 +3,11 @@
         <div class="row">
             <div class="col-md-12 title">
                 <span class="mobbricon mobbricon-tasks"></span>
-                <strong>This URL has no Mobbr-support yet!</strong>
+                <strong>Mobbr cannot find any payment information in this URL</strong>
             </div>
+            Your HTML page should list all contributors and payment shares in a <a href="https://github.com/mobbr/mobbr-api-v1/tree/master/specifications">dedicated HTML-tag</a>a>.
+            Ask your web designer to add this information.
+            Upon payment Mobbr will use this information to distribute payments or do pledges.
         </div>
     </div>
 </div>
@@ -27,7 +30,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <p>Create this /PARTICIPATION.TXT in the root of your domain</p>
-<code><pre>[
+<pre><code>[
     {
         "url-pattern": "*",
         "script":
@@ -42,12 +45,12 @@
             ]
         }
     }
-]</pre></code>
+]</code></pre>
                     </div>
 
                     <div class="col-md-6">
                         <p>...and/or put this &lt;metatag&gt; in your HTML page(s)</p>
-<code><pre>&lt;html&gt;
+<pre><code>&lt;html&gt;
 &lt;head&gt;
     ...
     &lt;meta name="participation" content='{
@@ -62,7 +65,7 @@
     }'/&gt;
     ...
 &lt;/head&gt;
-&lt;body&gt;</pre></code>
+&lt;body&gt;</code></pre>
                     </div>
                 </div>
                 <p>
@@ -86,7 +89,7 @@
                 <div class="row">
                     <div class="col-md-12 title">
                         <span class="mobbricon mobbricon-plugin"></span>
-                        <strong>Start hosting tasks</strong>
+                        <strong>Turn your website into a task platform</strong>
                     </div>
                 </div>
             </div>
