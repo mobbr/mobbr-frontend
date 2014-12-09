@@ -436,19 +436,13 @@
                     <div class="col-md-5">
                         <ul class="list-unstyled api-list">
                             <li ng-repeat="method in methods.result">
-                                <strong ng-bind="method.type"></strong><span ng-bind="method.endpoint"></span>
-                                <ul class="list-unstyled">
-                                    <li ng-repeat="parameter in method.parameter">
-                                        <strong ng-bind="parameter.name"></strong>
-                                        <span ng-bind="parameter.default"></span>
-                                    </li>
-                                </ul>
+                                <strong ng-bind="method.type"></strong>&nbsp;<span ng-bind="method.endpoint"></span>
                             </li>
                         </ul>
                     </div>
                     <div class="col-sm-4">
                         <p>
-                            - One button crowd funding and crowd paying on any website
+                            - One button crowd-funding and -paying on any website
                             - Peer-to-peer and crowd-to-crowd payments
                             - Pay to URL's, usernames, email, twitternames, bitcoin addresses, telephone numbers and online profiles
                             - Multi-currency wallets for your users
