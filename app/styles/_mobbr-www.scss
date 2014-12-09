@@ -304,23 +304,33 @@ fieldset[disabled] .btn {
 }
 
 .home section:nth-child(odd) .content,
-.task-instructions section:nth-child(odd) .content,
-.home section:nth-child(odd) .top-info,
-.task-instructions section:nth-child(odd) .top-info {
+.home section:nth-child(odd) .top-info {
   background: $gray;
 }
 
 .home section:nth-child(even) .content,
-.task-instructions section:nth-child(even) .content,
-.home section:nth-child(even) .top-info,
-.task-instructions section:nth-child(even) .top-info {
+.home section:nth-child(even) .top-info {
   background: $white;
+}
+
+.task-instructions section:nth-child(odd) .content,
+.task-instructions section:nth-child(odd) .top-info {
+  background: $white;
+}
+
+.task-instructions section:nth-child(even) .content,
+.task-instructions section:nth-child(even) .top-info {
+  background: $gray;
 }
 
 .home .content p,
 .task-instructions .content p {
   line-height: 24px;
   font-family: $mobbrFontCondensed;
+}
+
+.task-instructions h2 {
+  margin-top: 14px;
 }
 
 .task .card.funding .txt {
@@ -349,10 +359,11 @@ fieldset[disabled] .btn {
 }
 
 .api-list {
-  height: 427px;
+  height: 200px;
   overflow: auto;
   background: $gray;
-  font-family: $mobbrFontCondensed;
+  font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;
+  font-size: 13px;
 }
 
 .api-list li {
