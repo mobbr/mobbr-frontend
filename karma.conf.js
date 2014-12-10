@@ -34,26 +34,17 @@ module.exports = function (config) {
             'app/scripts/**/*.js',
             'app/scripts/**/**/*.js',
             'app/scripts/**/**/**/*.js',
-            'test/unit/**/**/PaymentReceiptControllerSpec.js',
-
+            'test/unit/**/**/*.js',
             'app/views/**/*.html'
-
         ],
 
         plugins: [
-
             'karma-jasmine',
-
             'karma-junit-reporter',
-
             'karma-coverage',
-
             'karma-chrome-launcher',
-
             'karma-phantomjs-launcher',
-
             'karma-ng-html2js-preprocessor'
-
         ],
 
         // list of files / patterns to exclude
@@ -113,7 +104,7 @@ module.exports = function (config) {
 
         ngHtml2JsPreprocessor: {
             // strip this from the file path
-            stripPrefix: 'app/'
+            //stripPrefix: 'app/'
             // prepend this to the
 //            prependPrefix: 'served/',
 
@@ -129,6 +120,6 @@ module.exports = function (config) {
 
         // Continuous Integration mode
         // if true, it capture browsers, run tests and exit
-        singleRun: true
+        //singleRun: true
     });
 };

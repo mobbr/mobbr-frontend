@@ -104,16 +104,9 @@ describe('mobbr.controllers: TasksController', function () {
         contr('TasksController', {
             $scope: scope,
             $state: state,
-            tasks: tasksResult
+            tasks: tasksResult,
+            tags: withHash ? userKeywordsResult : keywordsResult
         });
-
-        if (withHash) {
-            expectUserKeywordsRequest();
-            expectUserTasksRequest();
-        } else {
-            expectKeywordsRequest();
-            expectTasksRequest();
-        }
     }
 
     afterEach(function () {
@@ -124,7 +117,6 @@ describe('mobbr.controllers: TasksController', function () {
     it('should show a list of API defined tasks and suggested keywords when it is called without an username', function () {
 
         createController();
-        httpBackend.flush();
 
         expect(scope.tasks.length).toBe(18);
         expect(scope.suggestedTags.length).toBe(10);
@@ -133,7 +125,6 @@ describe('mobbr.controllers: TasksController', function () {
     it('should show user tasks and tags when it is called with an username', function () {
 
         createController(true);
-        httpBackend.flush();
 
         expect(scope.tasks.length).toBe(18);
         expect(scope.suggestedTags.length).toBe(9);
@@ -142,7 +133,6 @@ describe('mobbr.controllers: TasksController', function () {
     it('should change the language of the displayed results', function () {
 
         createController(true);
-        httpBackend.flush();
 
         scope.$broadcast('language-update', 'NL');
 
@@ -156,7 +146,6 @@ describe('mobbr.controllers: TasksController', function () {
     it('should show more tasks', function () {
 
         createController();
-        httpBackend.flush();
 
         scope.queryTasks(scope.limiter + 20);
 
@@ -169,7 +158,6 @@ describe('mobbr.controllers: TasksController', function () {
     it('should show more tags', function () {
 
         createController();
-        httpBackend.flush();
 
         scope.queryTags(scope.tagsLimiter + 10);
 
@@ -182,7 +170,6 @@ describe('mobbr.controllers: TasksController', function () {
     it('should select the first suggested tag and then deselect it with a selected user', function(){
 
         createController(true);
-        httpBackend.flush();
 
         scope.filteredTags.push(scope.suggestedTags[0].keyword);
 
@@ -206,7 +193,6 @@ describe('mobbr.controllers: TasksController', function () {
     it('should select the first suggested tag and then deselect it without a selected user', function(){
 
         createController();
-        httpBackend.flush();
 
         scope.filteredTags.push(scope.suggestedTags[0].keyword);
 

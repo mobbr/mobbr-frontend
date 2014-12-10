@@ -168,15 +168,18 @@ describe('mobbr.controllers: CrowdsController', function () {
         contr('CrowdsController', {
             $scope: scope,
             $state: state,
-            task: withHash && uriInfoResult || null
+            task: withHash && uriInfoResult || null,
+            taskTags: withHash && uriInfoResult.result.script.keywords || null,
+            suggestedTags: !(withHash && uriInfoResult.result.script.keywords) && keywordsResult || null,
+            persons: peopleResult
         });
 
-        if (withHash) {
+        /*if (withHash) {
             expectPersonsUriRequest();
         } else {
             expectKeywordsRequest();
             expectPersonsRequest();
-        }
+        }*/
     }
 
     afterEach(function () {
@@ -187,7 +190,6 @@ describe('mobbr.controllers: CrowdsController', function () {
     it('should show a list of API defined persons and suggested keywords when it is called without an url', function () {
 
         createController();
-        httpBackend.flush();
 
         expect(scope.persons.length).toBe(20);
         expect(scope.suggestedTags.length).toBe(10);
@@ -196,7 +198,6 @@ describe('mobbr.controllers: CrowdsController', function () {
     it('should show url tags and tag related people when it is called with an url', function () {
 
         createController(true);
-        httpBackend.flush();
 
         expect(scope.persons.length).toBe(20);
         expect(scope.suggestedTags.length).toBe(9);
@@ -205,7 +206,8 @@ describe('mobbr.controllers: CrowdsController', function () {
     it('should change the language of the displayed results', function () {
 
         createController(true);
-        httpBackend.flush();
+
+        scope.$digest();
 
         scope.$broadcast('language-update', 'NL');
 
@@ -219,7 +221,6 @@ describe('mobbr.controllers: CrowdsController', function () {
     it('should show more people', function () {
 
         createController();
-        httpBackend.flush();
 
         scope.queryPeople(scope.limiter + 20);
 
@@ -232,7 +233,6 @@ describe('mobbr.controllers: CrowdsController', function () {
     it('should show more tags', function () {
 
         createController();
-        httpBackend.flush();
 
         scope.queryTags(scope.tagsLimiter + 10);
 
@@ -245,7 +245,6 @@ describe('mobbr.controllers: CrowdsController', function () {
     it('should filter the current user out of the results', function () {
 
         createController();
-        httpBackend.flush();
 
         expect(scope.filterUser(peopleResult.result[0])).toBe(false);
     });
@@ -253,7 +252,6 @@ describe('mobbr.controllers: CrowdsController', function () {
     it('should select the first suggested tag and then deselect it with a selected url', function(){
 
         createController(true);
-        httpBackend.flush();
 
         scope.filteredTags.push(scope.suggestedTags[0].keyword);
 
@@ -276,7 +274,6 @@ describe('mobbr.controllers: CrowdsController', function () {
     it('should select the first suggested tag and then deselect it without a selected url', function(){
 
         createController();
-        httpBackend.flush();
 
         scope.filteredTags.push(scope.suggestedTags[0].keyword);
 
@@ -300,7 +297,6 @@ describe('mobbr.controllers: CrowdsController', function () {
     it('should select and deselect persons', function () {
 
         createController(true);
-        httpBackend.flush();
 
         expect(scope.selectedPersons.length).toBe(0);
 
@@ -330,7 +326,6 @@ describe('mobbr.controllers: CrowdsController', function () {
     it('should keep people selected when selecting and deselecting a tag', function () {
 
         createController(true);
-        httpBackend.flush();
 
         scope.persons[2].selected = true;
         scope.addPerson(scope.persons[2]);
@@ -369,7 +364,6 @@ describe('mobbr.controllers: CrowdsController', function () {
     it('should invite people', function () {
 
         createController(true);
-        httpBackend.flush();
 
         scope.persons[2].selected = true;
         scope.addPerson(scope.persons[2]);

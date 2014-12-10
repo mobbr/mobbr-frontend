@@ -29,6 +29,16 @@ angular.module('mobbr.directives').directive('mobbrSmartUrlBox', function factor
 
             $scope.mobbrSession = mobbrSession;
             $scope.$state = $state;
+            $scope.isopen = false;
+            $scope.isfocus = false;
+
+            $scope.focus = function () {
+                console.log('focus');
+            }
+
+            $scope.blur = function () {
+                console.log('blur');
+            }
 
             $scope.queryChange = function () {
                 $scope.is_url = $scope.query && url_test.test($scope.query);

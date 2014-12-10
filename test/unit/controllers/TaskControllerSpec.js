@@ -15,7 +15,8 @@ describe('mobbr.controllers: TaskController', function () {
         httpBackend,
         common,
         state,
-        controller;
+        controller,
+        uniqueFilter;
 
     var uriInfoResult = {
         'result': {
@@ -40,7 +41,7 @@ describe('mobbr.controllers: TaskController', function () {
     };
 
     // Initialize the controller and a mock scope
-    beforeEach(inject(function ($controller, $rootScope, $httpBackend, mobbrSession, commonTest, mobbrMsg, $localStorage, $injector, $state) {
+    beforeEach(inject(function ($controller, $rootScope, $httpBackend, mobbrSession, commonTest, mobbrMsg, $localStorage, $injector, $state, $filter) {
         controller = undefined;
         contr = $controller;
         rootScope = $rootScope;
@@ -48,6 +49,7 @@ describe('mobbr.controllers: TaskController', function () {
         common = commonTest;
         httpBackend = $httpBackend;
         state = $state;
+        uniqueFilter = $injector.get('filterFilter')('unique');
         spyOn(state, 'go');
         spyOn(scope, '$emit');
 
@@ -72,7 +74,8 @@ describe('mobbr.controllers: TaskController', function () {
         contr('TaskController', {
             $scope: scope,
             $state: state,
-            task: withHash ? uriInfoResult : null
+            task: withHash ? uriInfoResult : null,
+            uniqueFilter: uniqueFilter
         });
     }
 
@@ -102,12 +105,10 @@ describe('mobbr.controllers: TaskController', function () {
         expect(scope.has_failed).toBe(false);
         expect(scope.has_script).toBe(true);
         expect(scope.has_payments).toBe(false);
-        expect(scope.has_participants).toBe(true);
+        expect(scope.has_participants).toBe(false);
 
         expect(scope.$emit).toHaveBeenCalledWith('set-query', scope.url);
         expect(scope.$emit).toHaveBeenCalledWith('set-active-query', scope.url);
-        expect(scope.$emit).toHaveBeenCalledWith('set-task-type', scope.task.result.script.type);
-        expect(scope.$emit).toHaveBeenCalledWith('set-task-message', scope.task.result.script.message);
-        expect(scope.$emit).toHaveBeenCalledWith('set-task-addresses', scope.task.result.addresses);
+        expect(scope.$emit).toHaveBeenCalledWith('set-task', scope.task);
     });
 });

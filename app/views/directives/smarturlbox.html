@@ -1,5 +1,5 @@
-<fieldset>
-    <form ng-submit="gotoUrl(query)" ng-class="{ grayquery: (activeQuery && activeQuery == query && !savedQuery) }" class="input-group">
+<fieldset ng-click="isfocus = true">
+    <form ng-mouseleave="isopen = false" ng-submit="gotoUrl(query)" ng-class="{ grayquery: (activeQuery && activeQuery == query && !savedQuery) }" class="input-group">
         <span class="input-group-addon" ng-mouseover="isopen = true" ng-mouseleave="isopen = false">
             <span class="mobbricon mobbricon-mobbrmenu"></span>
         </span>
@@ -8,7 +8,6 @@
                ng-model="query"
                placeholder="{{placeHolders[urlType]}}"
                ng-change="queryChange()"
-               ng-focus="isfocus = true"
                ng-blur="isfocus = false">
         <span class="input-group-btn guide">
             <span ng-class="{ 'mobbricon-person': urlType == 'TASKS' || urlType == 'PROFILE', 'mobbricon-domain': urlType == 'TASK' || urlType == 'CROWDS' }" class="mobbricon"></span>
@@ -24,8 +23,7 @@
     <ul class="list-unstyled query-menu logo-menu"
         ng-show="isopen || isfocus"
         role="menu"
-        ng-mouseover="isopen = true"
-        ng-mouseleave="isopen = false">
+        ng-mouseover="isopen = true">
         <li ng-show="isfocus && (!activeQuery || (query != activeQuery)) && !is_url && !is_user && query">
             <span class="hint">
                 <span class="mobbricon mobbricon-search"></span>

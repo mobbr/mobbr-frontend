@@ -1,10 +1,11 @@
-angular.module('mobbr.controllers').controller('CrowdsController', function ($scope, $state, $window, $rootScope, mobbrSession, MobbrKeywords, task, taskTags, suggestedTags, persons) {
+angular.module('mobbr.controllers').controller('CrowdsController', function ($scope, $state, $window, $rootScope, mobbrSession, MobbrKeywords, MobbrPerson, task, taskTags, suggestedTags, persons) {
     'use strict';
 
     var url = $state.params.task && $window.atob($state.params.task) || null,
         suggestedTaskTags = [];
 
     function setTaskTags() {
+        suggestedTaskTags = [];
         angular.forEach(taskTags, function (keyword) {
             suggestedTaskTags.push({ keyword: keyword });
         });
@@ -45,7 +46,6 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
 
         if (!limit) {
             $scope.persons = [];
-            $scope.personPromise = undefined;
         }
 
         if ($scope.task && $scope.filteredTags.length === 0) {
@@ -67,9 +67,7 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
             offset: $scope.limiter - $scope.initial_limit
         };
 
-        $scope.personPromise = $scope.persons.$get(params);
-
-        $scope.personPromise.$promise.then(function () {
+        $scope.personPromise = MobbrPerson.get(params, function () {
 
             angular.forEach($scope.selectedPersons, function (selectedPerson) {
                 for (var i = 0; i < $scope.personPromise.result.length; i++) {
@@ -107,7 +105,7 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
             ids.push(person.username);
         });
 
-        $scope.invite = $scope.persons.$invite({ids: ids, url: $scope.activeQuery});
+        $scope.invite = MobbrPerson.invite({ids: ids, url: $scope.activeQuery});
         $scope.invite.$promise.then(function () {
             $scope.selectedPersons = [];
             $scope.removePerson();
@@ -126,7 +124,7 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
     }, true);
 
     $scope.$watch('filteredTags', function (newValue, oldValue) {
-        if (newValue && newValue !== oldValue) {
+        if (newValue && (newValue.length > 0 || oldValue.length > 0)) {
 
             if ($scope.task && taskTags.length > 0 && $scope.filteredTags.length === 0) {
                 setTaskTags();

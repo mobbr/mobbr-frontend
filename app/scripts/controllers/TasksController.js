@@ -12,7 +12,7 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
             $scope.tasks = [];
         }
 
-        $scope.tasks.$get({
+        MobbrUri.get({
             limit: $scope.initial_limit,
             language: $scope.language,
             keywords: $scope.filteredTags,
@@ -44,13 +44,13 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
             params.username = $state.params.username;
         }
 
-        $scope.tags.$get(params, function (response) {
+        MobbrKeywords.get(params, function (response) {
             $scope.suggestedTags = $scope.suggestedTags.concat(response.result);
         });
     };
 
     $scope.$watch('filteredTags', function (newValue, oldValue) {
-        if (newValue && newValue !== oldValue) {
+        if (newValue && (newValue.length > 0 || oldValue.length > 0)) {
             $scope.queryTasks();
             $scope.queryTags();
         }
