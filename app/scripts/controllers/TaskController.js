@@ -9,10 +9,10 @@ angular.module('mobbr.controllers').controller('TaskController', function ($scop
         $scope.task = task;
         $scope.domain = purl(url).data.attr.host;
         $scope.url = url;
-        $scope.has_failed = task.result.script && task.result.script.error || false;
-        $scope.has_script = $scope.has_failed && false || task.result.script && task.result.script.url && true;
-        $scope.has_payments = parseFloat(task.result.statistics.num_payments) > 0;
-        $scope.has_participants = task.result.statistics.num_recipients && task.result.statistics.num_recipients.length > 0 && uniqueFilter(task.result.script.participants, 'id').length > 1;
+        $scope.has_failed = task && task.result.script && task.result.script.error || false;
+        $scope.has_script = $scope.has_failed && false || task && task.result.script && task.result.script.url && true;
+        $scope.has_payments = task && parseFloat(task.result.statistics.num_payments) > 0;
+        $scope.has_participants = task && task.result.statistics.num_recipients && task.result.statistics.num_recipients.length > 0 && uniqueFilter(task.result.script.participants, 'id').length > 1;
         $scope.$emit('set-query', url);
         $scope.$emit('set-active-query', url);
         $scope.$emit('set-task', $scope.has_script && task || null);

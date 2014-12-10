@@ -48,14 +48,14 @@
         </li>
         <li ng-show="(query != activeQuery && is_user) || $state.params.username">
             <a ng-click="isopen = false"
-               ui-sref="box.person.profile({ username: $state.params.username || encodeTask(query) })">
+               ui-sref="box.person({ username: $state.params.username || null })">
                 <span class="mobbricon mobbricon-person"></span>
                 <span ng-bind="'View profile of `' + ((query != activeQuery && is_user) ? query : $state.params.username) + '`'"></span>
             </a>
         </li>
         <li ng-show="(query != activeQuery && is_user) || $state.params.username">
             <a ng-click="isopen = false"
-               ui-sref="box.tasks({ username: $state.params.username || encodeTask(query) })">
+               ui-sref="box.tasks({ username: $state.params.username || null })">
                 <span class="mobbricon mobbricon-digger"></span>
                 <span ng-bind="'Find tasks worked at by `' + ((query != activeQuery && is_user) ? query : $state.params.username) +  '`'"></span>
             </a>

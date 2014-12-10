@@ -7,3 +7,4 @@ dist
 app/components
 reports
 style.css
+config.js
