@@ -6,4 +6,4 @@ node_modules
 dist
 app/components
 reports
-app/styles/style.css
+*.css
