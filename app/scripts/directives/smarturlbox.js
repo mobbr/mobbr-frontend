@@ -127,6 +127,9 @@ angular.module('mobbr.directives').directive('mobbrSmartUrlBox', function factor
                             break;
                     }
                 }
+
+                $scope.isopen = false;
+                $scope.isfocus = false;
             };
 
             $scope.queryChange();

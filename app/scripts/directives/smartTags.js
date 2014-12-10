@@ -11,8 +11,8 @@ angular.module('mobbr.directives').directive('smartTags', function factory(Mobbr
             suggestedTags: '=',
             language: '=',
             limiter: '=',
-            clickMore: '=',
-            initialLimit: '='
+            initialLimit: '=',
+            queryTags: '='
         },
         link: function ($scope) {
 
@@ -37,36 +37,6 @@ angular.module('mobbr.directives').directive('smartTags', function factory(Mobbr
             $scope.filterKeyword = function (item) {
                 return !$scope.filteredTags || $scope.filteredTags.indexOf(item.keyword) === -1;
             };
-
-            /*$scope.moreTags = function (limit) {
-
-                 var params;
-
-                $scope.limiter = limit || $scope.initial_limit;
-
-                if (!limit) {
-                    $scope.suggestedTags = [];
-                    $scope.tagPromise = null;
-                }
-
-                params = {
-                    limit: $scope.initial_limit,
-                    language: $scope.language,
-                    related_to: $scope.filteredTags
-                };
-
-                if ($state.params.username) {
-                    params.username = $state.params.username;
-                }
-
-                if ($scope.limiter > $scope.initial_limit) {
-                    params.offset = $scope.limiter - $scope.initial_limit;
-                }
-
-                if ($scope.tagPromise || !limit) {
-                    $scope.tagPromise = MobbrKeywords[params.username && 'person' || 'get'](params, setSuggestedTags);
-                }
-            };*/
         }
     };
 });
