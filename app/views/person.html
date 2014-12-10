@@ -1,4 +1,4 @@
-<div class="row top-info" ng-show="person && personPromise">
+<div class="row top-info" ng-show="person">
     <div class="container">
         <div class="row cards-wrapper">
             <div class="card-container flip col-xs-6 col-sm-3">
@@ -100,7 +100,7 @@
 </div>
 
 <div id="persondetail" class="personpage">
-    <div ng-show="personPromise.$resolved">
+    <div ng-show="person">
         <div class="row top-info filter">
             <div class="container">
                 <div class="row">

@@ -163,7 +163,7 @@
 
 <a id="tabletop"></a>
 
-<div class="row top-info filter payment-filter" ng-if="recieversAndSenders && recieversAndSenders.length > 0">
+<div class="row top-info filter payment-filter" ng-if="receiversAndSenders && receiversAndSenders.length > 0">
     <div class="container">
         <div class="row">
             <div class="col-md-6 title">
@@ -174,9 +174,9 @@
     </div>
 </div>
 
-<div class="row" ng-if="recieversAndSenders && recieversAndSenders.length > 0">
+<div class="row" ng-if="receiversAndSenders && receiversAndSenders.length > 0">
     <div class="container">
-        <div class="row" ng-if="(recieversAndSenders | filter:{selected:true}).length > 0">
+        <div class="row" ng-if="(receiversAndSenders | filter:{selected:true}).length > 0">
             <button class="btn btn-primary" ng-click="download()">Download invoice(s) selected</button>
         </div>
 
@@ -193,7 +193,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="participant in recieversAndSenders | orderBy:'primary':true"
+            <tr ng-repeat="participant in receiversAndSenders | orderBy:'primary':true"
                 ng-class="{ callout: participant.unclaimed == '1', primary: participant.primary }">
                 <td ng-if="payment.result.invoiced == '1' && participant.share_id"><input type="checkbox" ng-model="participant.selected"></td>
                 <td><img

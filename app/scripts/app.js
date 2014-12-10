@@ -32,7 +32,8 @@ angular.module('mobbr', [
         'mobbr.directives',
         'mobbr.filters',
         'angularMoment',
-        'angular-loading-bar'
+        'angular-loading-bar',
+        'angulike'
 
     ]).config(function ($stateProvider, $urlRouterProvider) {
 
@@ -44,165 +45,104 @@ angular.module('mobbr', [
             $rootScope.blockUI = false;
         }
 
+        // public states
+
         $stateProvider.state('main', {
                 url: '/',
                 templateUrl: 'views/main.html',
                 controller: 'MainController'
-            }).state('updates', {
-                url: '/updates',
-                templateUrl: 'views/updates.html',
-                controller: 'UpdatesController',
-                data: { authenticated: true, redirectTo: 'main' },
-                resolve: {
-                    balance: function (MobbrBalance) {
-                        return MobbrBalance.get().$promise;
-                    },
-                    notifications: function (MobbrNotifications) {
-                        return MobbrNotifications.get({ limit: 10 }).$promise;
-                    },
-                    person: function (MobbrPerson, $rootScope) {
-                        return MobbrPerson.info({ username: $rootScope.$mobbrStorage.user.username }).$promise;
-                    }
-                }
-            }).state('login', {
-                url: '/login/:hash',
-                templateUrl: 'views/link-login.html',
-                controller: 'LinkLoginController'
-            }).state('activate', {
-                url: '/activate/:hash',
-                templateUrl: 'views/activate.html',
-                controller: 'ActivateController'
-            }).state('email', {
-                url: '/email/:hash',
-                templateUrl: 'views/update-email.html',
-                controller: 'UpdateEmailController'
-            }).state('id', {
-                url: '/id/:hash',
-                templateUrl: 'views/update-email.html',
-                controller: 'UpdateEmailController'
-            }).state('recover', {
-                url: '/recover',
-                templateUrl: 'views/recover-password.html',
-                controller: 'ResetPasswordController',
-                data: { authenticated: false, redirectTo: 'updates' }
-            }).state('join', {
-                url: '/join',
-                templateUrl: 'views/join.html',
-                controller: 'JoinController',
-                data: { authenticated: false, redirectTo: 'updates' }
-            }).state('settings', {
-                url: '/settings',
-                templateUrl: 'views/settings.html',
-                controller: 'UserSettingsController',
-                data: { authenticated: true, redirectTo: 'main' }
-            }).state('settings.account', {
-                url: '/account'
-            }).state('settings.identity', {
-                url: '/identity'
-            }).state('settings.proof', {
-                url: '/proof'
-            }).state('settings.invoicing', {
-                url: '/invoicing'
-            }).state('settings.display', {
-                url: '/display'
-            }).state('settings.privacy', {
-                url: '/privacy'
-            }).state('settings.notifications', {
-                url: '/notifications'
-            }).state('settings.ids', {
-                url: '/ids'
-            }).state('wallet', {
-                url: '/wallet',
-                templateUrl: 'views/wallet.html',
-                controller: 'WalletController',
-                data: {
-                    authenticated: true,
-                    redirectTo: 'main'
-                },
-                resolve: {
-                    balance: function (MobbrBalance) {
-                        return MobbrBalance.get().$promise;
-                    },
-                    supportedCurrencies: function (MobbrXPayment) {
-                        return MobbrXPayment.supportedCurrencies().$promise;
-                    },
-                    xpayments: function (MobbrXPayment) {
-                        return MobbrXPayment.get({ limit: 10 }).$promise;
-                    }
-                }
-            }).state('wallet.deposit', {
-                url: '/deposit',
-                views: {
-                    'pay@wallet': {
-                        controller: 'DepositController',
-                        templateUrl: 'views/deposit.html'
-                    }
-                },
-                onEnter: blockUI,
-                onExit: unblockUI
-            }).state('wallet.withdraw', {
-                url: '/withdraw',
-                views: {
-                    'pay@wallet': {
-                        controller: 'WithdrawController',
-                        templateUrl: 'views/withdraw.html'
-                    }
-                },
-                onEnter: blockUI,
-                onExit: unblockUI
-            }).state('wallet.x-payments', {
-                url: '/x-payments'
-            }).state('wallet.addresses', {
-                url: '/addresses'
-            }).state('payments', {
-                url: '/payments',
-                templateUrl: 'views/payments.html',
-                controller: 'PaymentsController',
-                data: {
-                    authenticated: true,
-                    redirectTo: 'main'
-                },
-                resolve: {
-                    payments: function (MobbrPayment) {
-                        return MobbrPayment.get().$promise;
-                    },
-                    pledges: function (MobbrPayment) {
-                        return MobbrPayment.pledged().$promise;
-                    },
-                    unclaimed: function (MobbrPayment) {
-                        return MobbrPayment.unclaimedShares().$promise;
-                    }
-                }
-            }).state('payments.pledges', {
-                url: '/pledges'
-            }).state('payments.payments', {
-                url: '/payments'
-            }).state('payments.unclaimed', {
-                url: '/unclaimed'
-            }).state('payments.pay', {
-                url: '/pay',
-                views: {
-                    'pay@payments': {
-                        controller: 'PayController',
-                        templateUrl: 'views/pay.html'
-                    }
-                },
-                onEnter: blockUI,
-                onExit: unblockUI
             }).state('payment', {
                 url: '/payment/:id',
                 templateUrl: 'views/payment.html',
-                controller: 'PaymentReceiptController'
+                controller: 'PaymentReceiptController',
+                resolve: {
+                    payment: function ($stateParams, MobbrPayment) {
+                        return MobbrPayment.info({ id: $stateParams.id }).$promise;
+                    }
+                }
             }).state('payment.username', {
                 url: '/:username'
             }).state('x-payment', {
                 url: '/x-payment/:id',
                 templateUrl: 'views/payment.html',
-                controller: 'PaymentReceiptController'
+                controller: 'PaymentReceiptController',
+                resolve: {
+                    payment: function ($stateParams, MobbrXPayment) {
+                        return MobbrXPayment.info({ id: $stateParams.id }).$promise;
+                    }
+                }
+
+            // public search box states
+
             }).state('box', {
                 abstract: true,
                 templateUrl: 'views/box.html',
                 controller: 'BoxController'
+            }).state('box.crowds', {
+                url: '/crowds/:task',
+                params: {
+                    task: {
+                        value: null
+                    }
+                },
+                views: {
+                    'tasks-section': {
+                        controller: 'CrowdsController',
+                        templateUrl: 'views/crowds.html'
+                    }
+                },
+                data: {
+                    title: 'Invite workforce'
+                },
+                resolve: {
+                    task: function ($window, $stateParams, MobbrUri) {
+                        return $stateParams.task && MobbrUri.info({ url: $window.atob($stateParams.task) }).$promise || null;
+                    },
+                    taskTags: function (task) {
+                        return task && (task.result.script && task.result.script.keywords || task.result.metadata && task.result.metadata.keywords) || null;
+                    },
+                    suggestedTags: function ($q, $rootScope, taskTags, MobbrKeywords) {
+
+                        return !taskTags && MobbrKeywords.get({
+                            limit: 10,
+                            language: $rootScope.filter_language,
+                            offset: 0
+                        }).$promise || null;
+                    },
+                    persons: function ($rootScope, MobbrPerson, taskTags) {
+
+                        return MobbrPerson.get({
+                            keywords: taskTags || null,
+                            language: $rootScope.filter_language,
+                            limit: 20,
+                            offset: 0
+                        }).$promise;
+                    }
+                }
+            }).state('box.person', {
+                url: '/person/:username',
+                params: {
+                    username: {
+                        value: null
+                    }
+                },
+                views: {
+                    'tasks-section': {
+                        controller: 'PersonController',
+                        templateUrl: 'views/person.html'
+                    }
+                },
+                data: {
+                    title: 'Profile'
+                },
+                resolve: {
+                    person: function (MobbrPerson, $stateParams) {
+                        return $stateParams.username && MobbrPerson.info({ username: $stateParams.username }).$promise || null;
+                    },
+                    keywords: function (MobbrKeywords, $stateParams) {
+                        return $stateParams.username && MobbrKeywords.person({ username: $stateParams.username }).$promise || null;
+                    }
+                }
             }).state('box.tasks', {
                 url: '/tasks/:username',
                 params: {
@@ -218,6 +158,24 @@ angular.module('mobbr', [
                 },
                 data: {
                     title: 'Explore tasks'
+                },
+                resolve: {
+                    tasks: function ($rootScope, $stateParams, $window, MobbrUri) {
+                        return MobbrUri.get({
+                            limit: 20,
+                            language: $rootScope.filter_language,
+                            username: $stateParams.username || null,
+                            offset: 0
+                        }).$promise;
+                    },
+                    tags: function ($rootScope, $stateParams, MobbrKeywords) {
+                        return MobbrKeywords.get({
+                            limit: 10,
+                            language: $rootScope.filter_language,
+                            username: $stateParams.username || null,
+                            offset: 0
+                        }).$promise;
+                    }
                 }
             }).state('box.task', {
                 url: '/task/:task',
@@ -290,6 +248,28 @@ angular.module('mobbr', [
                         templateUrl: 'views/crowds.html'
                     }
                 },
+                resolve: {
+                    taskTags: function (task) {
+                        return task && (task.result.script && task.result.script.keywords || task.result.metadata && task.result.metadata.keywords) || null;
+                    },
+                    suggestedTags: function ($q, $rootScope, taskTags, MobbrKeywords) {
+
+                        return !taskTags && MobbrKeywords.get({
+                            limit: 10,
+                            language: $rootScope.filter_language,
+                            offset: 0
+                        }).$promise || null;
+                    },
+                    persons: function ($rootScope, MobbrPerson, taskTags) {
+
+                        return MobbrPerson.get({
+                            keywords: taskTags || null,
+                            language: $rootScope.filter_language,
+                            limit: 20,
+                            offset: 0
+                        }).$promise;
+                    }
+                },
                 onEnter: blockUI,
                 onExit: unblockUI
             }).state('box.task.pay', {
@@ -302,40 +282,154 @@ angular.module('mobbr', [
                 },
                 onEnter: blockUI,
                 onExit: unblockUI
-            }).state('box.crowds', {
-                url: '/crowds/:task',
-                params: {
-                    task: {
-                        value: null
+
+            // not authenticated states
+
+            }).state('recover', {
+                url: '/recover',
+                templateUrl: 'views/recover-password.html',
+                controller: 'ResetPasswordController',
+                data: { authenticated: false, redirectTo: 'updates' }
+            }).state('join', {
+                url: '/join',
+                templateUrl: 'views/join.html',
+                controller: 'JoinController',
+                data: { authenticated: false, redirectTo: 'updates' }
+
+            // hash confirm states
+
+            }).state('login', {
+                url: '/login/:hash',
+                templateUrl: 'views/link-login.html',
+                controller: 'LinkLoginController'
+            }).state('activate', {
+                url: '/activate/:hash',
+                templateUrl: 'views/activate.html',
+                controller: 'LinkLoginController'
+            }).state('email', {
+                url: '/email/:hash',
+                templateUrl: 'views/update-email.html',
+                controller: 'UpdateEmailController'
+            }).state('id', {
+                url: '/id/:hash',
+                templateUrl: 'views/update-email.html',
+                controller: 'UpdateEmailController'
+
+            // authenticated states
+
+            }).state('updates', {
+                url: '/updates',
+                templateUrl: 'views/updates.html',
+                controller: 'UpdatesController',
+                data: { authenticated: true, redirectTo: 'main' },
+                resolve: {
+                    balance: function (MobbrBalance) {
+                        return MobbrBalance.get().$promise;
+                    },
+                    notifications: function (MobbrNotifications) {
+                        return MobbrNotifications.get({ limit: 10 }).$promise;
+                    },
+                    person: function (MobbrPerson, $rootScope) {
+                        return MobbrPerson.info({ username: $rootScope.$mobbrStorage.user.username }).$promise;
                     }
-                },
-                views: {
-                    'tasks-section': {
-                        controller: 'CrowdsController',
-                        templateUrl: 'views/crowds.html'
-                    }
-                },
+                }
+            }).state('wallet', {
+                url: '/wallet',
+                templateUrl: 'views/wallet.html',
+                controller: 'WalletController',
                 data: {
-                    title: 'Invite workforce'
+                    authenticated: true,
+                    redirectTo: 'main'
                 },
                 resolve: {
-                    task: function (MobbrUri, $window, $stateParams) {
-                        return $stateParams.task && MobbrUri.info({ url: $window.atob($stateParams.task) }).$promise || null;
+                    balance: function (MobbrBalance) {
+                        return MobbrBalance.get().$promise;
+                    },
+                    supportedCurrencies: function (MobbrXPayment) {
+                        return MobbrXPayment.supportedCurrencies().$promise;
+                    },
+                    xpayments: function (MobbrXPayment) {
+                        return MobbrXPayment.get({ limit: 10 }).$promise;
                     }
                 }
-            }).state('box.person', {
-                url: '/person',
+            }).state('wallet.deposit', {
+                url: '/deposit',
                 views: {
-                    'tasks-section': {
-                        controller: 'PersonController',
-                        templateUrl: 'views/person.html'
+                    'pay@wallet': {
+                        controller: 'DepositController',
+                        templateUrl: 'views/deposit.html'
                     }
                 },
+                onEnter: blockUI,
+                onExit: unblockUI
+            }).state('wallet.withdraw', {
+                url: '/withdraw',
+                views: {
+                    'pay@wallet': {
+                        controller: 'WithdrawController',
+                        templateUrl: 'views/withdraw.html'
+                    }
+                },
+                onEnter: blockUI,
+                onExit: unblockUI
+            }).state('wallet.x-payments', {
+                url: '/x-payments'
+            }).state('payments', {
+                url: '/payments',
+                templateUrl: 'views/payments.html',
+                controller: 'PaymentsController',
                 data: {
-                    title: 'Profile'
+                    authenticated: true,
+                    redirectTo: 'main'
+                },
+                resolve: {
+                    payments: function (MobbrPayment) {
+                        return MobbrPayment.get().$promise;
+                    },
+                    pledges: function (MobbrPayment) {
+                        return MobbrPayment.pledged().$promise;
+                    },
+                    unclaimed: function (MobbrPayment) {
+                        return MobbrPayment.unclaimedShares().$promise;
+                    }
                 }
-            }).state('box.person.profile', {
-                url: '/:username'
+            }).state('payments.pledges', {
+                url: '/pledges'
+            }).state('payments.payments', {
+                url: '/payments'
+            }).state('payments.unclaimed', {
+                url: '/unclaimed'
+            }).state('payments.pay', {
+                url: '/pay',
+                views: {
+                    'pay@payments': {
+                        controller: 'PayController',
+                        templateUrl: 'views/pay.html'
+                    }
+                },
+                onEnter: blockUI,
+                onExit: unblockUI
+            }).state('settings', {
+                url: '/settings',
+                templateUrl: 'views/settings.html',
+                controller: 'UserSettingsController',
+                data: { authenticated: true, redirectTo: 'main' }
+            }).state('settings.account', {
+                url: '/account'
+            }).state('settings.identity', {
+                url: '/identity'
+            }).state('settings.proof', {
+                url: '/proof'
+            }).state('settings.invoicing', {
+                url: '/invoicing'
+            }).state('settings.display', {
+                url: '/display'
+            }).state('settings.privacy', {
+                url: '/privacy'
+            }).state('settings.notifications', {
+                url: '/notifications'
+            }).state('settings.ids', {
+                url: '/ids'
             });
 
 
@@ -426,8 +520,10 @@ angular.module('mobbr', [
         }
 
         $rootScope.getLanguage = function () {
-            return $rootScope.$mobbrStorage.user && $rootScope.$mobbrStorage.user.language_iso && ($window.navigator.userLanguage || $window.navigator.language).toUpperCase();
+            return $rootScope.$mobbrStorage.user && $rootScope.$mobbrStorage.user.language_iso || ($window.navigator.userLanguage || $window.navigator.language).toUpperCase();
         }
+
+        $rootScope.filter_language = null;
 
         $rootScope.login = function (username, password) {
             $rootScope.authenticating = MobbrUser.passwordLogin({ username: username, password: password }, function () {

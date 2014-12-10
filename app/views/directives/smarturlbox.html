@@ -34,7 +34,7 @@
         </li>
         <li ng-show="(query != activeQuery && is_url) || $state.params.task">
             <a ng-click="isopen = false"
-               ui-sref="box.task.index.view({ task: $state.params.task || encodeTask(query) })">
+               ui-sref="box.task({ task: $state.params.task || encodeTask(query) })">
                 <span class="mobbricon mobbricon-settings"></span>
                 <span ng-bind="'Create and manage task at `' + ((query != activeQuery && is_url) ? query : activeQuery) + '`'"></span>
             </a>

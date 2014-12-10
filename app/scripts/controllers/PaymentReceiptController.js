@@ -1,4 +1,4 @@
-angular.module('mobbr.controllers').controller('PaymentReceiptController', function ($scope, $stateParams, $state, mobbrSession, MobbrPayment, MobbrXPayment, MobbrInvoice, filterFilter, $window) {
+angular.module('mobbr.controllers').controller('PaymentReceiptController', function ($scope, $stateParams, $state, mobbrSession, MobbrInvoice, filterFilter, $window, payment) {
     'use strict';
 
     function orderPersons() {
@@ -6,7 +6,7 @@ angular.module('mobbr.controllers').controller('PaymentReceiptController', funct
         $scope.unclaimed = false;
         $scope.userAmount = 0;
         $scope.userPaid = 0;
-        $scope.recieversAndSenders = [];
+        $scope.receiversAndSenders = [];
 
         angular.forEach($scope.payment.result.senders, function (sender) {
             if (sender.username && $scope.thisUser && sender.username.toUpperCase() === $scope.thisUser.toUpperCase()) {
@@ -15,36 +15,28 @@ angular.module('mobbr.controllers').controller('PaymentReceiptController', funct
             } else {
                 sender.primary = 0;
             }
-            $scope.recieversAndSenders.push(sender);
+            $scope.receiversAndSenders.push(sender);
         });
 
-        angular.forEach($scope.payment.result.receivers, function (reciever) {
-            if ((reciever.username && $scope.thisUser && reciever.username.toUpperCase() === $scope.thisUser.toUpperCase()) || ($scope.thisUser && reciever.unclaimed && reciever.unclaimed.toUpperCase() === $scope.thisUser.toUpperCase())) {
-                reciever.primary = 1;
-                $scope.userAmount += parseFloat(reciever.amount);
-                if (reciever.unclaimed) {
+        angular.forEach($scope.payment.result.receivers, function (receiver) {
+            if ((receiver.username && $scope.thisUser && receiver.username.toUpperCase() === $scope.thisUser.toUpperCase()) || ($scope.thisUser && receiver.unclaimed && receiver.unclaimed.toUpperCase() === $scope.thisUser.toUpperCase())) {
+                receiver.primary = 1;
+                $scope.userAmount += parseFloat(receiver.amount);
+                if (receiver.unclaimed) {
                     $scope.unclaimed = true;
                 }
             } else {
-                reciever.primary = 0;
+                receiver.primary = 0;
             }
-            $scope.recieversAndSenders.push(reciever);
+            $scope.receiversAndSenders.push(receiver);
         });
-    }
-
-    function retrievePayment() {
-        if ($state.includes('x-payment')) {
-            $scope.payment = MobbrXPayment.info({ id: $stateParams.id });
-        } else {
-            $scope.payment = MobbrPayment.info({ id: $stateParams.id }, orderPersons);
-        }
     }
 
     function setUser() {
         $scope.thisUser = $state.params.username ? $state.params.username : mobbrSession.isAuthorized() && $scope.$mobbrStorage.user.username;
     }
 
-    $scope.filterSelectedIds = function (data) {
+    function filterSelectedIds(data) {
         var selected = filterFilter(data, { selected: true});
         if (selected && selected.length > 0) {
             var ids = [];
@@ -57,7 +49,7 @@ angular.module('mobbr.controllers').controller('PaymentReceiptController', funct
     };
 
     $scope.$watch('selectAll.selected', function (newValue) {
-        angular.forEach($scope.recieversAndSenders, function (participant) {
+        angular.forEach($scope.receiversAndSenders, function (participant) {
             if (participant.share_id) {
                 participant.selected = newValue;
             }
@@ -66,25 +58,27 @@ angular.module('mobbr.controllers').controller('PaymentReceiptController', funct
 
     $scope.download = function () {
 
-        var selected = $scope.filterSelectedIds($scope.recieversAndSenders);
+        var selected = filterSelectedIds($scope.receiversAndSenders);
 
         if (selected && selected.length > 0) {
-            MobbrInvoice.get({share_ids: selected}).$promise.then(function (response) {
-                $window.saveAs(new Blob([ response.data ], { type: response.type }), 'mobbr-invoices.zip');
+            MobbrInvoice.get({ share_ids: selected }).$promise.then(function (response) {
+                $window.saveAs(new $window.Blob([ response.data ], { type: response.type }), 'mobbr-invoices.zip');
             });
         }
     };
 
     $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-        setUser();
-        $scope.scrollTo('tabletop');
-        $scope.payment.$resolved && orderPersons();
+        if (toState.name !== 'x-payment') {
+            setUser();
+            $scope.scrollTo('tabletop');
+            orderPersons();
+        }
     });
 
     $scope.abs = function (number) {
         return Math.abs(number);
-    }
+    };
 
-    retrievePayment();
+    $scope.payment = payment;
     $scope.selectAll = { selected: false };
 });

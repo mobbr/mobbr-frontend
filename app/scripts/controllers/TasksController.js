@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('TasksController', function ($scope, $state, $rootScope, mobbrMsg, MobbrUri, MobbrKeywords) {
+angular.module('mobbr.controllers').controller('TasksController', function ($scope, $state, $rootScope, mobbrMsg, MobbrUri, MobbrKeywords, tasks, tags) {
 
     var username = $state.params.username || null;
 
@@ -12,7 +12,7 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
             $scope.tasks = [];
         }
 
-        MobbrUri.get({
+        $scope.tasks.$get({
             limit: $scope.initial_limit,
             language: $scope.language,
             keywords: $scope.filteredTags,
@@ -31,7 +31,6 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
 
         if (!limit) {
             $scope.suggestedTags = [];
-            $scope.tagPromise = null;
         }
 
         params = {
@@ -45,7 +44,7 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
             params.username = $state.params.username;
         }
 
-        MobbrKeywords.get(params, function (response) {
+        $scope.tags.$get(params, function (response) {
             $scope.suggestedTags = $scope.suggestedTags.concat(response.result);
         });
     };
@@ -66,14 +65,11 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
 
     $scope.tagsInitialLimit = 10;
     $scope.tagsLimiter = $scope.tagsInitialLimit;
-    $scope.suggestedTags = [];
+    $scope.suggestedTags = tags.result;
     $scope.filteredTags = [];
-    $scope.tasks = [];
+    $scope.tasks = tasks.result;
     $scope.initial_limit = 20;
     $scope.limiter = $scope.initial_limit;
-    //$scope.tasks = tasks.result;
     $scope.$emit('set-active-query', username);
     $scope.$emit('set-query', username);
-    $scope.queryTags();
-    $scope.queryTasks();
 });

@@ -34,7 +34,7 @@ module.exports = function (config) {
             'app/scripts/**/*.js',
             'app/scripts/**/**/*.js',
             'app/scripts/**/**/**/*.js',
-            'test/unit/**/**/TaskControllerSpec.js',
+            'test/unit/**/**/PaymentReceiptControllerSpec.js',
 
             'app/views/**/*.html'
 
