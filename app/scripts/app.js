@@ -209,6 +209,13 @@ angular.module('mobbr', [
                         templateUrl: 'views/task.domain.html'
                     }
                 },
+                resolve: {
+                    urls: function (MobbrUri, $stateParams, $window) {
+                        return MobbrUri.get({
+                            domain: purl($window.atob($stateParams.task)).data.attr.host
+                        });
+                    }
+                },
                 onEnter: blockUI,
                 onExit: unblockUI
             }).state('box.task.script', {
@@ -228,6 +235,13 @@ angular.module('mobbr', [
                         templateUrl: 'views/task.payments.html'
                     }
                 },
+                resolve: {
+                    payments: function (MobbrPayment, $window, $stateParams) {
+                        return MobbrPayment.uri({
+                            url: $window.atob($stateParams.task)
+                        }).$promise;
+                    }
+                },
                 onEnter: blockUI,
                 onExit: unblockUI
             }).state('box.task.persons', {
@@ -236,6 +250,14 @@ angular.module('mobbr', [
                     'task-section': {
                         controller: 'TaskPersonsController',
                         templateUrl: 'views/task.persons.html'
+                    }
+                },
+                resolve: {
+                    persons: function (MobbrPerson, $window, $stateParams, $rootScope, mobbrSession) {
+                        return MobbrPerson.uri({
+                            url: $window.atob($stateParams.task),
+                            base_currency: mobbrSession.isAuthorized() && $rootScope.$mobbrStorage.user.currency_iso || null
+                        }).$promise;
                     }
                 },
                 onEnter: blockUI,
@@ -313,7 +335,7 @@ angular.module('mobbr', [
             }).state('id', {
                 url: '/id/:hash',
                 templateUrl: 'views/update-email.html',
-                controller: 'UpdateEmailController'
+                controller: 'UpdateIdController'
 
             // authenticated states
 
@@ -344,9 +366,6 @@ angular.module('mobbr', [
                 resolve: {
                     balance: function (MobbrBalance) {
                         return MobbrBalance.get().$promise;
-                    },
-                    supportedCurrencies: function (MobbrXPayment) {
-                        return MobbrXPayment.supportedCurrencies().$promise;
                     },
                     xpayments: function (MobbrXPayment) {
                         return MobbrXPayment.get({ limit: 10 }).$promise;
@@ -432,7 +451,7 @@ angular.module('mobbr', [
                 url: '/ids'
             });
 
-
+        $urlRouterProvider.when('/task/:task/view', '/task/:task');
         $urlRouterProvider.otherwise('/');
 
     }).run(function ($http, $rootScope, $state, $location, $window, $anchorScroll, filterFilter, MobbrApi, MobbrUser, MobbrBalance, MobbrXPayment, mobbrMsg, mobbrSession, apiUrl, uiUrl, lightboxUrl, environment) {

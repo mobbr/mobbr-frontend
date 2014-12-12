@@ -45,7 +45,6 @@ angular.module('mobbr.controllers').controller('PaymentReceiptController', funct
             });
             return ids;
         }
-        return [];
     };
 
     $scope.$watch('selectAll.selected', function (newValue) {

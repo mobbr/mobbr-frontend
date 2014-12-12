@@ -103,7 +103,7 @@
                     <div class="col-md-offset-9 col-md-3">
                         <button type="submit"
                                 class="btn btn-block btn-call"
-                                ng-disabled="waiting">
+                                ng-disabled="registering && !registering.$resolved">
                             Register me now
                             <span class="pull-right mobbricon mobbricon-starttask"></span>
                         </button>

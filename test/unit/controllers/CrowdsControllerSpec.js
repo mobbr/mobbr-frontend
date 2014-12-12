@@ -6,6 +6,8 @@ describe('mobbr.controllers: CrowdsController', function () {
     beforeEach(module('ngMockE2E'));
     // load the controller's module
     beforeEach(module('mobbr.controllers'));
+    // load the state router
+    beforeEach(module('ui.router'));
 
     var contr,
         scope,
@@ -110,14 +112,15 @@ describe('mobbr.controllers: CrowdsController', function () {
     ], "message": null}
 
     // Initialize the controller and a mock scope
-    beforeEach(inject(function ($controller, $rootScope, $httpBackend, mobbrSession, commonTest, mobbrMsg, $localStorage) {
+    beforeEach(inject(function ($controller, $rootScope, $httpBackend, mobbrSession, commonTest, mobbrMsg, $localStorage, $state) {
         controller = undefined;
         contr = $controller;
         rootScope = $rootScope;
         scope = $rootScope.$new();
         common = commonTest;
         httpBackend = $httpBackend;
-        state = {};
+        state = $state;
+        spyOn(state, 'go');
 
         $localStorage.token = undefined;
         // dummy login
@@ -159,7 +162,7 @@ describe('mobbr.controllers: CrowdsController', function () {
 
         if (withHash) {
             state.params = {
-                task: 'aHR0cDovL3phcGxvZy5ubC96YXBsb2cvYXJ0aWNsZS9yZWNodGVyX2JwX3NjaHVsZGlnX2Fhbl9ncm92ZV9uYWxhdGlnaGVpZF9iaWpfb2xpZXJhbXBfMjAxMA'
+                task: withHash
             };
         } else {
             state.params = {};
@@ -173,13 +176,6 @@ describe('mobbr.controllers: CrowdsController', function () {
             suggestedTags: !(withHash && uriInfoResult.result.script.keywords) && keywordsResult || null,
             persons: peopleResult
         });
-
-        /*if (withHash) {
-            expectPersonsUriRequest();
-        } else {
-            expectKeywordsRequest();
-            expectPersonsRequest();
-        }*/
     }
 
     afterEach(function () {
@@ -197,7 +193,7 @@ describe('mobbr.controllers: CrowdsController', function () {
 
     it('should show url tags and tag related people when it is called with an url', function () {
 
-        createController(true);
+        createController('aHR0cDovL3phcGxvZy5ubC96YXBsb2cvYXJ0aWNsZS9yZWNodGVyX2JwX3NjaHVsZGlnX2Fhbl9ncm92ZV9uYWxhdGlnaGVpZF9iaWpfb2xpZXJhbXBfMjAxMA');
 
         expect(scope.persons.length).toBe(20);
         expect(scope.suggestedTags.length).toBe(9);
@@ -205,7 +201,7 @@ describe('mobbr.controllers: CrowdsController', function () {
 
     it('should change the language of the displayed results', function () {
 
-        createController(true);
+        createController('aHR0cDovL3phcGxvZy5ubC96YXBsb2cvYXJ0aWNsZS9yZWNodGVyX2JwX3NjaHVsZGlnX2Fhbl9ncm92ZV9uYWxhdGlnaGVpZF9iaWpfb2xpZXJhbXBfMjAxMA');
 
         scope.$digest();
 
@@ -251,7 +247,7 @@ describe('mobbr.controllers: CrowdsController', function () {
 
     it('should select the first suggested tag and then deselect it with a selected url', function(){
 
-        createController(true);
+        createController('aHR0cDovL3phcGxvZy5ubC96YXBsb2cvYXJ0aWNsZS9yZWNodGVyX2JwX3NjaHVsZGlnX2Fhbl9ncm92ZV9uYWxhdGlnaGVpZF9iaWpfb2xpZXJhbXBfMjAxMA');
 
         scope.filteredTags.push(scope.suggestedTags[0].keyword);
 
@@ -296,7 +292,7 @@ describe('mobbr.controllers: CrowdsController', function () {
 
     it('should select and deselect persons', function () {
 
-        createController(true);
+        createController('aHR0cDovL3phcGxvZy5ubC96YXBsb2cvYXJ0aWNsZS9yZWNodGVyX2JwX3NjaHVsZGlnX2Fhbl9ncm92ZV9uYWxhdGlnaGVpZF9iaWpfb2xpZXJhbXBfMjAxMA');
 
         expect(scope.selectedPersons.length).toBe(0);
 
@@ -321,11 +317,18 @@ describe('mobbr.controllers: CrowdsController', function () {
         expect(scope.persons[2].selected).toBe(false);
         expect(scope.persons[6].selected).toBe(false);
         expect(scope.persons[8].selected).toBe(true);
+
+        scope.removePerson();
+
+        expect(scope.selectedPersons.length).toBe(0);
+        expect(scope.persons[2].selected).toBe(false);
+        expect(scope.persons[6].selected).toBe(false);
+        expect(scope.persons[8].selected).toBe(false);
     });
 
     it('should keep people selected when selecting and deselecting a tag', function () {
 
-        createController(true);
+        createController('aHR0cDovL3phcGxvZy5ubC96YXBsb2cvYXJ0aWNsZS9yZWNodGVyX2JwX3NjaHVsZGlnX2Fhbl9ncm92ZV9uYWxhdGlnaGVpZF9iaWpfb2xpZXJhbXBfMjAxMA');
 
         scope.persons[2].selected = true;
         scope.addPerson(scope.persons[2]);
@@ -363,7 +366,7 @@ describe('mobbr.controllers: CrowdsController', function () {
 
     it('should invite people', function () {
 
-        createController(true);
+        createController('aHR0cDovL3phcGxvZy5ubC96YXBsb2cvYXJ0aWNsZS9yZWNodGVyX2JwX3NjaHVsZGlnX2Fhbl9ncm92ZV9uYWxhdGlnaGVpZF9iaWpfb2xpZXJhbXBfMjAxMA');
 
         scope.persons[2].selected = true;
         scope.addPerson(scope.persons[2]);
@@ -378,5 +381,12 @@ describe('mobbr.controllers: CrowdsController', function () {
 
         expectInviteRequest();
         httpBackend.flush();
+    });
+
+    it('should redirect to the state with the url defined in the script if this was different from the url it is called with', function () {
+
+        createController('aHR0cHM6Ly9tb2Jici5jb20=');
+
+        expect(state.go).toHaveBeenCalledWith('box.crowds', { task: 'aHR0cDovL3phcGxvZy5ubC96YXBsb2cvYXJ0aWNsZS9yZWNodGVyX2JwX3NjaHVsZGlnX2Fhbl9ncm92ZV9uYWxhdGlnaGVpZF9iaWpfb2xpZXJhbXBfMjAxMA==' });
     });
 });

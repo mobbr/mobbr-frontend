@@ -228,7 +228,7 @@
 
                                     <ul ng-show="mobbrSession && mobbrSession.isAuthorized()" class="dropdown-menu logo-menu" role="menu">
                                         <li>
-                                            <a ng-href="#{{ $state.href('box.person.profile', { username: $mobbrStorage.user.username }) }}">
+                                            <a ng-href="#{{ $state.href('box.person', { username: $mobbrStorage.user.username }) }}">
                                                 <span class="mobbricon mobbricon-myprofile"></span>
                                                 My profile
                                             </a>
@@ -291,6 +291,7 @@
         <script src="scripts/controllers/UserSettingsController.js"></script>
         <script src="scripts/controllers/RecoverPasswordController.js"></script>
         <script src="scripts/controllers/UpdateEmailController.js"></script>
+        <script src="scripts/controllers/UpdateIdController.js"></script>
         <script src="scripts/controllers/UpdatesController.js"></script>
         <script src="scripts/controllers/JoinController.js"></script>
         <script src="scripts/controllers/PersonController.js"></script>

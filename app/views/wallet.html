@@ -107,7 +107,7 @@
 <div class="row top-info filter">
     <div class="container">
         <div class="row" ng-class="{ disabled: payments.result.length == 0 }">
-            <div class="col-xs-12 title" ng-click="(!filterText && payments.result.length > 0) && ($state.is('wallet.x-payments') ? $state.go('^') : $state.go('wallet.x-payments'))">
+            <div class="col-xs-12 title">
                 <span class="mobbricon mobbricon-transaction"></span>
                 <strong>Deposits and withdraws</strong>
                 <span class="hidden-xs" ng-show="payments.$resolved && !filterText && payments.result.length == 0">No deposits or withdrawals</span>
@@ -125,7 +125,7 @@
                            class="form-control"
                            ng-model="filterText"
                            placeholder="External reference"
-                           ng-change="payments.$resolved = false; payments.$get({ limit: limiter, search: filterText || null })"
+                           ng-change="search()"
                            ng-model-options="{ debounce: 1000 }">
                                 <span class="input-group-addon">
                                     <i class="mobbricon mobbricon-search"></i>
@@ -148,7 +148,7 @@
                     <th class="text-right">Amount</th>
                 </tr>
                 </thead>
-                <tbody ng-init="limiter = 10">
+                <tbody>
                 <tr ng-repeat="payment in payments.result | limitTo: limiter"
                     ng-class="{ warning: payment.faileddatetime, callout: !payment.faileddatetime && !payment.paiddatetime && payment.announceddatetime }"
                     ng-click="openExternalPayment(payment)"
@@ -175,7 +175,7 @@
             <button class="btn btn-primary btn-block"
                     ng-bind="payments && !payments.$resolved && 'Loading more results' || payments.result && payments.result.length < limiter && 'The end' || 'Show more results'"
                     ng-disabled="payments.result.length < limiter"
-                    ng-click="limiter = limiter + 10; payments.$resolved = false; payments.$get({ limit: limiter, search: filterText })"></button>
+                    ng-click="more()"></button>
         </div>
     </div>
 </div>

@@ -1,4 +1,4 @@
-describe('mobbr.controllers: TaskController', function () {
+describe('mobbr.controllers: BoxController', function () {
 
     'use strict';
 
@@ -37,8 +37,7 @@ describe('mobbr.controllers: TaskController', function () {
             },
             'statistics': []
         },
-        'message': null,
-        'addresses': []
+        'message': null
     };
 
     // Initialize the controller and a mock scope
@@ -50,9 +49,7 @@ describe('mobbr.controllers: TaskController', function () {
         common = commonTest;
         httpBackend = $httpBackend;
         state = $state;
-        uniqueFilter = $injector.get('filterFilter')('unique');
-        spyOn(state, 'go');
-        spyOn(scope, '$emit');
+        spyOn(scope, '$broadcast');
 
         $localStorage.token = undefined;
         // dummy login
@@ -62,22 +59,11 @@ describe('mobbr.controllers: TaskController', function () {
 
     }));
 
-    function createController(withHash) {
+    function createController(username) {
 
-        if (withHash) {
-            state.params = {
-                task: withHash
-            };
-        } else {
-            state.params = {};
-        }
-
-        contr('TaskController', {
-            $scope: scope,
-            $state: state,
-            task: withHash ? uriInfoResult : null,
-            uniqueFilter: uniqueFilter
-        });
+        contr('BoxController', {
+            $scope: scope
+         });
     }
 
     afterEach(function () {
@@ -85,31 +71,29 @@ describe('mobbr.controllers: TaskController', function () {
         httpBackend.verifyNoOutstandingRequest();
     });
 
-    it('should redirect to the state with the url defined in the script if this was different from the url it is called with', function () {
+    it('should assign variables to the scope on emitted events', function () {
 
-        createController('aHR0cHM6Ly9tb2Jici5jb20=');
+        createController();
 
-        expect(state.go).toHaveBeenCalledWith('box.task', { task: 'aHR0cDovL3phcGxvZy5ubC96YXBsb2cvYXJ0aWNsZS9yZWNodGVyX2JwX3NjaHVsZGlnX2Fhbl9ncm92ZV9uYWxhdGlnaGVpZF9iaWpfb2xpZXJhbXBfMjAxMA==' });
-
-        expect(scope.$emit).not.toHaveBeenCalled();
+        scope.$emit('set-query', 'Handijk');
+        expect(scope.query).toBe('Handijk');
+        scope.$emit('set-active-query', 'Handijk');
+        expect(scope.activeQuery).toBe('Handijk');
+        scope.$emit('set-task', uriInfoResult);
+        expect(scope.taskType).toBe(uriInfoResult.result.script.type || null);
+        expect(scope.taskMessage).toBe(uriInfoResult.result.script.message || null);
+        expect(scope.taskAddresses).toBe(uriInfoResult.result.addresses);
     });
 
-    it('should set the scope variables', function () {
+    it('should broadcast an language update event on language update', function () {
 
-        createController('aHR0cDovL3phcGxvZy5ubC96YXBsb2cvYXJ0aWNsZS9yZWNodGVyX2JwX3NjaHVsZGlnX2Fhbl9ncm92ZV9uYWxhdGlnaGVpZF9iaWpfb2xpZXJhbXBfMjAxMA==');
+        createController();
 
-        expect(state.go).not.toHaveBeenCalled();
+        scope.filter_language = 'EN';
+        scope.$digest();
+        scope.filter_language = 'NL';
+        scope.$digest();
 
-        expect(scope.domain).toBe('zaplog.nl');
-        expect(scope.url).toBe('http://zaplog.nl/zaplog/article/rechter_bp_schuldig_aan_grove_nalatigheid_bij_olieramp_2010');
-        expect(scope.task).toBe(uriInfoResult);
-        expect(scope.has_failed).toBe(false);
-        expect(scope.has_script).toBe(true);
-        expect(scope.has_payments).toBe(false);
-        expect(scope.has_participants).toBe(false);
-
-        expect(scope.$emit).toHaveBeenCalledWith('set-query', scope.url);
-        expect(scope.$emit).toHaveBeenCalledWith('set-active-query', scope.url);
-        expect(scope.$emit).toHaveBeenCalledWith('set-task', scope.task);
+        expect(scope.$broadcast).toHaveBeenCalledWith('language-update', 'NL');
     });
 });
