@@ -50,7 +50,7 @@
                     </div>
                 </div>
             </accordion-heading>
-            <div ng-include="'views/settings.ids.html'"></div>
+            <div ng-controller="UserIdsController" ng-include="'views/settings.ids.html'"></div>
         </accordion-group>
         <accordion-group ng-class="{ 'warning': countIdentityCompleted() != 6 }" is-open="stateAccordion['settings.identity']" is-disabled="true">
             <accordion-heading>
