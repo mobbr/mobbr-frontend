@@ -58,7 +58,7 @@
             ga('create', 'UA-46675002-1', 'mobbr.com');
         </script>
     </head>
-    <body ng-app="mobbr" id="ng-app" idle-timeout ng-class="{ home: $state.is('main'), 'blocked': blockUI, 'mobbr-test': isTest(), 'ng-app': true, 'loading': loading, 'payments': $state.includes('wallet') || $state.includes('payments') || $state.includes('payment') || $state.includes('x-payment'), 'updates': $state.includes('updates'), 'crowds': $state.includes('box.crowds') || $state.includes('box.person'), 'task': $state.includes('box.task.index') }">
+    <body ng-app="mobbr" id="ng-app" idle-timeout ng-class="{ home: $state.is('main'), 'blocked': blockUI, 'mobbr-test': isTest(), 'ng-app': true, 'loading': loading, 'payments': $state.includes('wallet') || $state.includes('payments') || $state.includes('box.task.payments') || $state.includes('payment') || $state.includes('x-payment'), 'updates': $state.includes('updates'), 'crowds': $state.includes('box.crowds') || $state.includes('box.person') || $state.includes('box.task.persons'), 'task': $state.includes('box.task.index') }">
         <!--[if lt IE 10]>
         <p class="chromeframe">
             You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser
@@ -289,6 +289,7 @@
         <script src="scripts/controllers/WithdrawController.js"></script>
         <script src="scripts/controllers/LinkLoginController.js"></script>
         <script src="scripts/controllers/UserSettingsController.js"></script>
+        <script src="scripts/controllers/UserIdsController.js"></script>
         <script src="scripts/controllers/RecoverPasswordController.js"></script>
         <script src="scripts/controllers/UpdateEmailController.js"></script>
         <script src="scripts/controllers/UpdateIdController.js"></script>
