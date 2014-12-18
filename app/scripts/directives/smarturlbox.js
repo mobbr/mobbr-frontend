@@ -32,14 +32,6 @@ angular.module('mobbr.directives').directive('mobbrSmartUrlBox', function factor
             $scope.isopen = false;
             $scope.isfocus = false;
 
-            $scope.focus = function () {
-                console.log('focus');
-            }
-
-            $scope.blur = function () {
-                console.log('blur');
-            }
-
             $scope.queryChange = function () {
                 $scope.is_url = $scope.query && url_test.test($scope.query);
                 $scope.is_user = $scope.query && $scope.query.indexOf('http') !== 0 && user_test.test($scope.query);
