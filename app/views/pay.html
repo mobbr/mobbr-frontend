@@ -75,8 +75,16 @@
         <div class="row">
             <fieldset class="form-group task-address" ng-repeat="address in taskAddresses">
                 <label class="control-label col-xs-2" ng-bind="address.currency + ' address'"></label>
-                <div class="col-xs-10">
-                    <input class="form-control" type="text" ng-model="address.address" readonly style="background-size: 20px 20px;background-repeat: no-repeat;background-position: 98% center;background-image: url(/img/bitcoin-icon.png)">
+                <div class="col-xs-6">
+                    <a ng-href="{{ 'bitcoin:' + address.address }}" class="btn-block btn btn-bitcoin">
+                        <img src="/img/bitcoin-icon.png" width="16">
+                        <span  ng-bind="address.address"></span>
+                    </a>
+                </div>
+                <div class="col-xs-4">
+                    <a ng-href="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=bitcoin:{{ address.bitcoin }}" target="_blank" class="btn btn-bitcoin btn-block">
+                        Show QR code
+                    </a>
                 </div>
             </fieldset>
         </div>

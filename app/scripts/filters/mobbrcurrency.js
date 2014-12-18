@@ -2,7 +2,7 @@
 
 angular.module('mobbr.filters').filter('mobbrcurrency', function ($rootScope, $sce) {
 
-    var separator = Number('1.2').toLocaleString && Number('1.2').toLocaleString($rootScope.getLanguage()).substr(1,1) || '.',
+    var separator,
         ua = navigator.userAgent.toLowerCase(),
         safari;
 
@@ -18,6 +18,8 @@ angular.module('mobbr.filters').filter('mobbrcurrency', function ($rootScope, $s
 
         var negative,
             localestring;
+
+        separator = Number('1.2').toLocaleString && Number('1.2').toLocaleString($rootScope.getLanguage()).substr(1,1) || '.';
 
         is_html = is_html || false;
         decorate = decorate || false;

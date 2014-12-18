@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('DepositController', function ($scope, $state, $window, $timeout, MobbrXPayment) {
+angular.module('mobbr.controllers').controller('DepositController', function ($scope, $state, $window, $timeout, MobbrXPayment, addresses) {
 
     var popup_url, oauth_popup, feeTimeout;;
 
@@ -83,5 +83,7 @@ angular.module('mobbr.controllers').controller('DepositController', function ($s
         feeTimeout && $timeout.cancel(feeTimeout);
         feeTimeout = $timeout($scope.getFee, 1000);
     }, true);
+
+    $scope.supportedCurrencies = addresses;
 });
 

@@ -35,7 +35,7 @@ angular.module('mobbr', [
         'angular-loading-bar',
         'angulike'
 
-    ]).config(function ($stateProvider, $urlRouterProvider) {
+    ]).config(function ($stateProvider, $urlRouterProvider, $compileProvider) {
 
         function blockUI($rootScope) {
             $rootScope.blockUI = true;
@@ -44,6 +44,8 @@ angular.module('mobbr', [
         function unblockUI($rootScope) {
             $rootScope.blockUI = false;
         }
+
+        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|bitcoin):/);
 
         // public states
 
@@ -377,6 +379,11 @@ angular.module('mobbr', [
                     'pay@wallet': {
                         controller: 'DepositController',
                         templateUrl: 'views/deposit.html'
+                    }
+                },
+                resolve: {
+                    addresses: function (MobbrXPayment) {
+                        return MobbrXPayment.supportedCurrencies().$promise;
                     }
                 },
                 onEnter: blockUI,

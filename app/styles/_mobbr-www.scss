@@ -381,3 +381,9 @@ fieldset[disabled] .btn {
 .share_button {
   margin-left: $grid-gutter-width;
 }
+
+.btn-bitcoin {
+  background: $white;
+  color: #000;
+  text-align: left;
+}
