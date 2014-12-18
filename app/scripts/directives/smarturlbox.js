@@ -98,7 +98,7 @@ angular.module('mobbr.directives').directive('mobbrSmartUrlBox', function factor
                         case 'PROFILE':
                         case 'TASK':
                         case 'CROWDS':
-                            $state.go('box.person.profile', { username: $window.encodeURIComponent(query) });
+                            $state.go('box.person', { username: $window.encodeURIComponent(query) });
                             break;
                     }
 

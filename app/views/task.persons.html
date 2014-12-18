@@ -14,7 +14,7 @@
     <div ng-class="{ loading: persons && !persons.$resolved }" class="row data-cards data-cards-persons">
         <div ng-repeat="person in persons.result" class="col-xs-12 col-sm-4 col-md-3 data-card-container">
             <div class="data-card">
-                <a ui-sref="box.person.profile({ username: person.username })">
+                <a ui-sref="box.person({ username: person.username })">
                     <div class="top">
                         <img ng-src="https://secure.gravatar.com/avatar/{{ person['gravatar'] }}?s=50&default=https://mobbr.com/img/default-gravatar2.png"
                              width="50"
@@ -41,7 +41,7 @@
                             <span class="mobbricon mobbricon-payments"></span>
                         </div>
                         <div class="item large">
-                            <span ng-bind="(person.share_average | number: 0) + '%'"></span>
+                            <span ng-bind="((person.amount / task.result.statistics.amount_total) * 100 | number: 0) + '%'"></span>
                             <span class="mobbricon mobbricon-unclaimed"></span>
                         </div>
                     </div>
