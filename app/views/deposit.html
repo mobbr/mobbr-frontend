@@ -85,15 +85,19 @@
                                 </span>
                 </div>
                 <div  class="row">
-                    <div class="form-group">
-                        <label class="control-label col-md-2">
-                            BIC
-                        </label>
-                        <div class="col-md-4">
-                            <input class="form-control" type="text" readonly ng-model="bankwire.BankAccount.BIC">
+                    <div ng-repeat="(key, value) in bankwire | filter: key">
+                        <div class="col-md-6" ng-if="key !== 'type' && key !== 'OwnerAddress'">
+                            <fieldset class="form-group">
+                                <label class="control-label col-md-4">
+                                    {{ key }}
+                                </label>
+                                <div class="col-md-8">
+                                    <input class="form-control" type="text" readonly ng-model="bankwire[key]">
+                                </div>
+                            </fieldset>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <!--<div class="form-group">
                         <label class="control-label col-md-2">
                             IBAN
                         </label>
@@ -116,7 +120,7 @@
                         <div class="col-md-4">
                             <input class="form-control" type="text" readonly ng-model="bankwire.WireReference">
                         </div>
-                    </div>
+                    </div>-->
                 </div>
             </fieldset>
 
