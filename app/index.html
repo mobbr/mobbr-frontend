@@ -245,13 +245,13 @@
 
                                     <ul class="dropdown-menu logo-menu" role="menu">
                                         <li>
-                                            <a ng-href="#{{ $state.href('person', { username: $mobbrStorage.user.username }) }}">
+                                            <a ui-sref="person({ username: $mobbrStorage.user.username })">
                                                 <span class="mobbricon mobbricon-myprofile"></span>
                                                 My profile
                                             </a>
                                         </li>
                                         <li>
-                                            <a ng-href="#{{ $state.href('settings') }}">
+                                            <a ui-sref="settings">
                                                 <span class="mobbricon mobbricon-settings"></span>
                                                 Settings
                                             </a>
