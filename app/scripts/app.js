@@ -350,7 +350,7 @@ angular.module('mobbr', [
                 url: '/updates',
                 templateUrl: 'views/updates.html',
                 controller: 'UpdatesController',
-                data: { authenticated: true, redirectTo: 'main' },
+                data: { authenticated: true, redirectTo: 'userlogin' },
                 resolve: {
                     balance: function (MobbrBalance) {
                         return MobbrBalance.get().$promise;
@@ -368,7 +368,7 @@ angular.module('mobbr', [
                 controller: 'WalletController',
                 data: {
                     authenticated: true,
-                    redirectTo: 'main'
+                    redirectTo: 'userlogin'
                 },
                 resolve: {
                     balance: function (MobbrBalance) {
@@ -411,7 +411,7 @@ angular.module('mobbr', [
                 controller: 'PaymentsController',
                 data: {
                     authenticated: true,
-                    redirectTo: 'main'
+                    redirectTo: 'userlogin'
                 },
                 resolve: {
                     payments: function (MobbrPayment) {
@@ -444,7 +444,7 @@ angular.module('mobbr', [
                 url: '/settings',
                 templateUrl: 'views/settings.html',
                 controller: 'UserSettingsController',
-                data: { authenticated: true, redirectTo: 'main' }
+                data: { authenticated: true, redirectTo: 'userlogin' }
             }).state('settings.account', {
                 url: '/account'
             }).state('settings.identity', {
@@ -562,9 +562,9 @@ angular.module('mobbr', [
         };
 
         $rootScope.logout = function () {
-            if ($state.current.data.authenticated === true) {
-                $state.go('main');
-            }
+            //if ($state.current.data.authenticated === true) {
+            //    $state.go('main');
+            //}
             MobbrUser.logout();
         };
 
