@@ -116,10 +116,10 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
         return !mobbrSession.isAuthorized() || item.username !== $rootScope.$mobbrStorage.user.username;
     };
 
-    $scope.$on('language-update', function (event, new_language) {
-        if (new_language !== $scope.language) {
-            $scope.language = new_language;
-            $scope.queryPeople();
+    $scope.$watch('filter_language', function (newValue, oldValue) {
+        if (newValue !== $scope.language) {
+            $scope.language = newValue;
+            $scope.queryTasks();
         }
     }, true);
 
@@ -137,7 +137,7 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
     }, true);
 
     if (task !== null && task.result.script && task.result.script.url && task.result.script.url !== url) {
-        $state.go('box.crowds', { task: $window.btoa(task.result.script.url) });
+        $state.go('crowds', { task: $window.btoa(task.result.script.url) });
     } else {
         $scope.tagsInitialLimit = 10;
         $scope.tagsLimiter = $scope.tagsInitialLimit;
@@ -160,7 +160,7 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
             $scope.suggestedTags = suggestedTags.result;
         }
 
-        $scope.$emit('set-query', url);
-        $scope.$emit('set-active-query', url);
+        $rootScope.query = url;
+        $rootScope.activeQuery = url;
     }
 });

@@ -56,9 +56,9 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
         }
     }, true);
 
-    $scope.$on('language-update', function (event, new_language) {
-        if (new_language !== $scope.language) {
-            $scope.language = new_language;
+    $scope.$watch('filter_language', function (newValue, oldValue) {
+        if (newValue !== $scope.language) {
+            $scope.language = newValue;
             $scope.queryTasks();
         }
     }, true);
@@ -70,6 +70,6 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
     $scope.tasks = tasks.result;
     $scope.initial_limit = 20;
     $scope.limiter = $scope.initial_limit;
-    $scope.$emit('set-active-query', username);
-    $scope.$emit('set-query', username);
+    $rootScope.activeQuery = username;
+    $rootScope.query = username;
 });

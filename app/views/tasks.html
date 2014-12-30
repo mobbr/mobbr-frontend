@@ -1,3 +1,42 @@
+<div class="row top-bar">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h1 ng-bind="$state.current.data.title"></h1>
+            </div>
+            <div>
+                <div class="col-sm-3 col-sm-offset-3">
+                    <select class="form-control"
+                            ng-options="language.code as language.name for language in usedLanguages.result"
+                            ng-model="filter_language">
+                        <option value="">Choose language</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ui-view="pay" class="task-pay"></div>
+
+<div class="row top-info query-bar">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <mobbr-smart-url-box active-query="activeQuery"
+                                     url-type="{{ $state.includes('crowds') && 'CROWDS' || $state.includes('tasks') && 'TASKS' || $state.includes('person') && 'PROFILE' || 'TASK' }}"
+                                     query="query"
+                                     user="$mobbrStorage.user"></mobbr-smart-url-box>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div>
+    <div ui-view="tasks-section" ng-class="{ loading: task && !task.$resolved }"></div>
+</div>
+
 <smart-tags filtered-tags="filteredTags"
             suggested-tags="suggestedTags"
             limiter="tagsLimiter"
@@ -6,7 +45,7 @@
 
 <div class="container">
     <div class="row data-cards">
-        <a ng-repeat="url in tasks" ui-sref="box.task({ task: encodeTask(url.url) })">
+        <a ng-repeat="url in tasks" ui-sref="task({ task: encodeTask(url.url) })">
             <div class="col-xs-12 col-sm-4 col-md-3 data-card-container">
                 <div class="data-card"
                      ng-class="{ 'data-card-highlight': url.is_pledge == '1' }">

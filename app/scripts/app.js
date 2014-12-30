@@ -76,23 +76,19 @@ angular.module('mobbr', [
 
             // public search box states
 
-            }).state('box', {
-                abstract: true,
-                templateUrl: 'views/box.html',
-                controller: 'BoxController'
-            }).state('box.crowds', {
+            //}).state('box', {
+                //abstract: true
+                //templateUrl: 'views/box.html',
+                //controller: 'BoxController'
+            }).state('crowds', {
                 url: '/crowds/:task',
                 params: {
                     task: {
                         value: null
                     }
                 },
-                views: {
-                    'tasks-section': {
-                        controller: 'CrowdsController',
-                        templateUrl: 'views/crowds.html'
-                    }
-                },
+                controller: 'CrowdsController',
+                templateUrl: 'views/crowds.html',
                 data: {
                     title: 'Invite workforce'
                 },
@@ -121,19 +117,15 @@ angular.module('mobbr', [
                         }).$promise;
                     }
                 }
-            }).state('box.person', {
+            }).state('person', {
                 url: '/person/:username',
                 params: {
                     username: {
                         value: null
                     }
                 },
-                views: {
-                    'tasks-section': {
-                        controller: 'PersonController',
-                        templateUrl: 'views/person.html'
-                    }
-                },
+                controller: 'PersonController',
+                templateUrl: 'views/person.html',
                 data: {
                     title: 'Profile'
                 },
@@ -145,19 +137,15 @@ angular.module('mobbr', [
                         return $stateParams.username && MobbrKeywords.person({ username: $stateParams.username }).$promise || null;
                     }
                 }
-            }).state('box.tasks', {
+            }).state('tasks', {
                 url: '/tasks/:username',
                 params: {
                     username: {
                         value: null
                     }
                 },
-                views: {
-                    'tasks-section': {
-                        controller: 'TasksController',
-                        templateUrl: 'views/tasks.html'
-                    }
-                },
+                controller: 'TasksController',
+                templateUrl: 'views/tasks.html',
                 data: {
                     title: 'Explore tasks'
                 },
@@ -179,19 +167,15 @@ angular.module('mobbr', [
                         }).$promise;
                     }
                 }
-            }).state('box.task', {
+            }).state('task', {
                 url: '/task/:task',
                 params: {
                     task: {
                         value: null
                     }
                 },
-                views: {
-                    'tasks-section': {
-                        controller: 'TaskController',
-                        templateUrl: 'views/task.html'
-                    }
-                },
+                controller: 'TaskController',
+                templateUrl: 'views/task.html',
                 data: {
                     title: 'Task status'
                 },
@@ -203,7 +187,7 @@ angular.module('mobbr', [
                         }).$promise || null;
                     }
                 }
-            }).state('box.task.domain', {
+            }).state('task.domain', {
                 url: '/domain',
                 views: {
                     'task-section': {
@@ -220,7 +204,7 @@ angular.module('mobbr', [
                 },
                 onEnter: blockUI,
                 onExit: unblockUI
-            }).state('box.task.script', {
+            }).state('task.script', {
                 url: '/script',
                 views: {
                     'task-section': {
@@ -229,7 +213,7 @@ angular.module('mobbr', [
                 },
                 onEnter: blockUI,
                 onExit: unblockUI
-            }).state('box.task.payments', {
+            }).state('task.payments', {
                 url: '/payments',
                 views: {
                     'task-section': {
@@ -246,7 +230,7 @@ angular.module('mobbr', [
                 },
                 onEnter: blockUI,
                 onExit: unblockUI
-            }).state('box.task.persons', {
+            }).state('task.persons', {
                 url: '/persons',
                 views: {
                     'task-section': {
@@ -264,7 +248,7 @@ angular.module('mobbr', [
                 },
                 onEnter: blockUI,
                 onExit: unblockUI
-            }).state('box.task.invite', {
+            }).state('task.invite', {
                 url: '/invite',
                 views: {
                     'task-section': {
@@ -296,7 +280,7 @@ angular.module('mobbr', [
                 },
                 onEnter: blockUI,
                 onExit: unblockUI
-            }).state('box.task.pay', {
+            }).state('task.pay', {
                 url: '/pay',
                 views: {
                     'pay@box': {

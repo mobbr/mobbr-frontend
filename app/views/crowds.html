@@ -1,3 +1,35 @@
+<div class="row top-bar">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h1 ng-bind="$state.current.data.title"></h1>
+            </div>
+            <div>
+                <div class="col-sm-3 col-sm-offset-3">
+                    <select class="form-control"
+                            ng-options="language.code as language.name for language in usedLanguages.result"
+                            ng-model="filter_language">
+                        <option value="">Choose language</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row top-info query-bar">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <mobbr-smart-url-box active-query="activeQuery"
+                                     url-type="{{ $state.includes('crowds') && 'CROWDS' || $state.includes('tasks') && 'TASKS' || $state.includes('person') && 'PROFILE' || 'TASK' }}"
+                                     query="query"
+                                     user="$mobbrStorage.user"></mobbr-smart-url-box>
+            </div>
+        </div>
+    </div>
+</div>
+
 <smart-tags filtered-tags="filteredTags"
             suggested-tags="suggestedTags"
             limiter="tagsLimiter"
@@ -41,7 +73,7 @@
                 <span ng-show="selectedPersons && selectedPersons.length == 0"><span class="mobbricon mobbricon-hardalert"></span> This page has no Mobbr support button</span>
             </div>
             <div class="col-md-3">
-                <a ui-sref="box.task({ task: $state.params.task })" class="btn btn-primary btn-block">Prepare page</a>
+                <a ui-sref="task({ task: $state.params.task })" class="btn btn-primary btn-block">Prepare page</a>
             </div>
         </div>
     </div>
@@ -63,7 +95,7 @@
                         Invite for this task
                     </label>
                 </div>
-                <a ui-sref="box.person({ username: person.username })">
+                <a ui-sref="person({ username: person.username })">
                     <div class="top">
                         <div class="clearfix">
                             <img ng-src="https://secure.gravatar.com/avatar/{{ person['gravatar'] }}?s=50&default=https://mobbr.com/img/default-gravatar2.png"

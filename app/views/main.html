@@ -11,7 +11,7 @@
         <div class="row pusher">
             <div class="col-md-12">
                 <mobbr-smart-url-box active-query="activeQuery"
-                                     url-type="{{ $state.includes('box.crowds') && 'CROWDS' || $state.includes('box.tasks') && 'TASKS' || $state.includes('box.person') && 'PROFILE' || 'TASK' }}"
+                                     url-type="{{ $state.includes('crowds') && 'CROWDS' || $state.includes('tasks') && 'TASKS' || $state.includes('person') && 'PROFILE' || 'TASK' }}"
                                      query="query"
                                      user="$mobbrStorage.user"></mobbr-smart-url-box>
             </div>
@@ -62,7 +62,7 @@
             <div class="container">
                 <div class="row happening">
                     <div class="col-md-12" ng-init="limiter = numblocks; taglimiter = numblocks * 6">
-                        <a ng-repeat="url in happening.result.uris | limitTo: limiter | limitTo: -numblocks" ui-sref="box.task({ task: encodeTask(url.url) })">
+                        <a ng-repeat="url in happening.result.uris | limitTo: limiter | limitTo: -numblocks" ui-sref="task({ task: encodeTask(url.url) })">
                             <div class="col-xs-12 col-sm-4 col-md-3 data-card-container">
                                 <div class="data-card">
                                     <h3 ng-bind="url.title"></h3>

@@ -1,3 +1,42 @@
+<div class="row top-bar">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h1 ng-bind="$state.current.data.title"></h1>
+            </div>
+            <div>
+                <div class="col-sm-3">
+                    <a ng-disabled="!activeQuery"
+                       ng-href="{{ activeQuery }}"
+                       class="btn btn-call white btn-block"
+                       target="_blank">Go to task</a>
+                </div>
+                <div class="col-sm-3">
+                    <a ng-disabled="!activeQuery"
+                       ui-sref="task.pay"
+                       ng-bind="'Add a ' + task.result.script.type"
+                       class="btn btn-block btn-call"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ui-view="pay" class="task-pay"></div>
+
+<div class="row top-info query-bar">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <mobbr-smart-url-box active-query="activeQuery"
+                                     url-type="{{ $state.includes('crowds') && 'CROWDS' || $state.includes('tasks') && 'TASKS' || $state.includes('person') && 'PROFILE' || 'TASK' }}"
+                                     query="query"
+                                     user="$mobbrStorage.user"></mobbr-smart-url-box>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div ng-show="task && !task.$resolved">
     <div class="row">
         <div class="col-md-12">
@@ -10,8 +49,8 @@
     <div class="row top-info tasks-summary">
         <div class="container task-card-container">
             <div class="row">
-                <a ng-class="$state.is('box.task.domain') ? 'active' : ''"
-                   ng-href="{{ $state.is('box.task.domain') ? $state.href('box.task') : $state.href('box.task.domain') }}"
+                <a ng-class="$state.is('task.domain') ? 'active' : ''"
+                   ng-href="{{ $state.is('task.domain') ? $state.href('task') : $state.href('task.domain') }}"
                      class="card-container col-xs-3 col-md-3">
                     <div class="card" ng-class="has_failed ? 'failed' : ''">
                         <div ng-hide="has_failed">
@@ -27,7 +66,7 @@
                                 </div>
                                 <div class="row bottom-icon">
                                     <div class="col-xs-1 text-center icon right pull-right">
-                                        <span ng-class="$state.is('box.task.domain') ? 'mobbricon-softclose' : 'mobbricon-addopen'" class="mobbricon"></span>
+                                        <span ng-class="$state.is('task.domain') ? 'mobbricon-softclose' : 'mobbricon-addopen'" class="mobbricon"></span>
                                     </div>
                                 </div>
                             </div>
@@ -51,7 +90,7 @@
                                         <span class="mobbricon mobbricon-hardalert"></span>
                                     </div>
                                     <div class="col-xs-1 text-center icon right pull-right">
-                                        <span ng-class="$state.is('box.task.domain') ? 'mobbricon-softclose' : 'mobbricon-addopen'" class="mobbricon"></span>
+                                        <span ng-class="$state.is('task.domain') ? 'mobbricon-softclose' : 'mobbricon-addopen'" class="mobbricon"></span>
                                     </div>
                                 </div>
                             </div>
@@ -59,8 +98,8 @@
                     </div>
                 </a>
 
-                <a ng-class="{ active: $state.is('box.task.script'), disabled: has_failed }"
-                     ng-href="{{ !has_failed && ($state.is('box.task.script') ? $state.href('box.task') : $state.href('box.task.script')) || $state.href('box.task.domain') }}"
+                <a ng-class="{ active: $state.is('task.script'), disabled: has_failed }"
+                     ng-href="{{ !has_failed && ($state.is('task.script') ? $state.href('task') : $state.href('task.script')) || $state.href('task.domain') }}"
                      class="card-container col-xs-3 col-md-3">
                     <div class="card" ng-class="!has_failed && has_script ? '' : 'failed'">
                         <div ng-show="!has_failed && has_script">
@@ -77,7 +116,7 @@
                                 </div>
                                 <div class="row bottom-icon">
                                     <div class="col-xs-1 text-center icon right pull-right">
-                                        <span ng-class="$state.is('box.task.script') ? 'mobbricon-softclose' : 'mobbricon-addopen'" class="mobbricon"></span>
+                                        <span ng-class="$state.is('task.script') ? 'mobbricon-softclose' : 'mobbricon-addopen'" class="mobbricon"></span>
                                     </div>
                                 </div>
                             </div>
@@ -101,7 +140,7 @@
                                         <span class="mobbricon mobbricon-hardalert"></span>
                                     </div>
                                     <div class="col-xs-1 text-center icon right pull-right">
-                                        <span ng-class="$state.is('box.task.script') ? 'mobbricon-softclose' : 'mobbricon-addopen'" class="mobbricon"></span>
+                                        <span ng-class="$state.is('task.script') ? 'mobbricon-softclose' : 'mobbricon-addopen'" class="mobbricon"></span>
                                     </div>
                                 </div>
                             </div>
@@ -109,8 +148,8 @@
                     </div>
                 </a>
 
-                <a ng-class="{ active: $state.is('box.task.payments') || $state.is('box.task.pay'), disabled: has_failed || !has_script }"
-                   ng-href="{{ has_failed ? $state.href('box.task.domain') : (!has_script ? $state.href('box.task.script') : (has_payments ? ($state.is('box.task.payments') ? $state.href('box.task') : $state.href('box.task.payments')) : ($state.is('box.task.pay') ? $state.href('box.task') : $state.href('box.task.pay')))) }}"
+                <a ng-class="{ active: $state.is('task.payments') || $state.is('task.pay'), disabled: has_failed || !has_script }"
+                   ng-href="{{ has_failed ? $state.href('task.domain') : (!has_script ? $state.href('task.script') : (has_payments ? ($state.is('task.payments') ? $state.href('task') : $state.href('task.payments')) : ($state.is('task.pay') ? $state.href('task') : $state.href('task.pay')))) }}"
                      class="card-container col-xs-3 col-md-3">
                     <div class="card funding" ng-class="has_script && has_payments ? '' : 'failed'">
                         <div ng-show="!has_failed && has_script && has_payments">
@@ -135,7 +174,7 @@
                                 </div>
                                 <div class="row bottom-icon">
                                     <div class="col-xs-1 text-center icon right pull-right">
-                                        <span ng-class="$state.is('box.task.payments') ? 'mobbricon-softclose' : 'mobbricon-addopen'" class="mobbricon"></span>
+                                        <span ng-class="$state.is('task.payments') ? 'mobbricon-softclose' : 'mobbricon-addopen'" class="mobbricon"></span>
                                     </div>
                                 </div>
                             </div>
@@ -165,9 +204,9 @@
                     </div>
                 </a>
 
-                <a ng-class="{ active: $state.is('box.task.persons') || $state.is('box.task.invite'), disabled: has_failed || !has_script || !has_payments  }"
+                <a ng-class="{ active: $state.is('task.persons') || $state.is('task.invite'), disabled: has_failed || !has_script || !has_payments  }"
                      class="card-container col-xs-3 col-md-3"
-                     ng-href="{{ has_failed ? $state.href('box.task.domain') : (!has_script ? $state.href('box.task.script') : (has_participants && has_payments ? ($state.is('box.task.persons') ? $state.href('box.task') : $state.href('box.task.persons')) : (has_payments ? ($state.is('box.task.invite') ? $state.href('box.task') : $state.href('box.task.invite')) : $state.href('box.task.view') ))) }}">
+                     ng-href="{{ has_failed ? $state.href('task.domain') : (!has_script ? $state.href('task.script') : (has_participants && has_payments ? ($state.is('task.persons') ? $state.href('task') : $state.href('task.persons')) : (has_payments ? ($state.is('task.invite') ? $state.href('task') : $state.href('task.invite')) : $state.href('task.view') ))) }}">
                     <div class="card" ng-class="has_script && has_payments && has_participants ? '' : 'failed'">
                         <div ng-show="!has_failed && has_script && has_payments && has_participants">
                             <div class="front">
@@ -183,7 +222,7 @@
                                 </div>
                                 <div class="row bottom-icon">
                                     <div class="col-xs-1 text-center icon right pull-right">
-                                        <span ng-class="$state.is('box.task.persons') ? 'mobbricon-softclose' : 'mobbricon-addopen'" class="mobbricon"></span>
+                                        <span ng-class="$state.is('task.persons') ? 'mobbricon-softclose' : 'mobbricon-addopen'" class="mobbricon"></span>
                                     </div>
                                 </div>
                             </div>

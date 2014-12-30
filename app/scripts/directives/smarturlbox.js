@@ -80,12 +80,12 @@ angular.module('mobbr.directives').directive('mobbrSmartUrlBox', function factor
 
                     switch ($scope.urlType) {
                         case 'CROWDS':
-                            $state.go('box.crowds', { task: url });
+                            $state.go('crowds', { task: url });
                             break;
                         case 'TASK':
                         case 'TASKS':
                         case 'PROFILE':
-                            $state.go('box.task', { task: url });
+                            $state.go('task', { task: url });
                             break;
                     }
 
@@ -93,12 +93,12 @@ angular.module('mobbr.directives').directive('mobbrSmartUrlBox', function factor
 
                     switch ($scope.urlType) {
                         case 'TASKS':
-                            $state.go('box.tasks', { username: $window.encodeURIComponent(query) });
+                            $state.go('tasks', { username: $window.encodeURIComponent(query) });
                             break;
                         case 'PROFILE':
                         case 'TASK':
                         case 'CROWDS':
-                            $state.go('box.person', { username: $window.encodeURIComponent(query) });
+                            $state.go('person', { username: $window.encodeURIComponent(query) });
                             break;
                     }
 
@@ -106,16 +106,16 @@ angular.module('mobbr.directives').directive('mobbrSmartUrlBox', function factor
 
                     switch ($scope.urlType) {
                         case 'TASK':
-                            $state.go('box.task');
+                            $state.go('task');
                             break;
                         case 'CROWDS':
-                            $state.go('box.crowds', { task: null });
+                            $state.go('crowds', { task: null });
                             break;
                         case 'TASKS':
-                            $state.go('box.tasks');
+                            $state.go('tasks');
                             break;
                         case 'PROFILE':
-                            $state.go('box.person');
+                            $state.go('person');
                             break;
                     }
                 }

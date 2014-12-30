@@ -4,7 +4,7 @@ angular.module('mobbr.controllers').controller('PayController', function ($scope
 
     function preview() {
 
-        var data = $state.includes('box.task') && window.atob($state.params.task) || $scope.activeQuery || $scope.payQuery;
+        var data = $state.includes('task') && window.atob($state.params.task) || $scope.activeQuery || $scope.payQuery;
 
         return $scope.payment = MobbrPayment.preview({
             data: data,

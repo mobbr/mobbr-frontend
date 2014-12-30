@@ -33,63 +33,63 @@
             </li>
             <li ng-show="(query != activeQuery && is_url) || $state.params.task">
                 <a ng-click="isopen = false; isfocus = false"
-                   ui-sref="box.task({ task: $state.params.task || encodeTask(query) })">
+                   ui-sref="task({ task: $state.params.task || encodeTask(query) })">
                     <span class="mobbricon mobbricon-settings"></span>
                     <span ng-bind="'Create and manage task at `' + ((query != activeQuery && is_url) ? query : activeQuery) + '`'"></span>
                 </a>
             </li>
             <li ng-show="(query != activeQuery && is_url) || $state.params.task">
                 <a ng-click="isopen = false"
-                   ui-sref="box.crowds({ task: $state.params.task || encodeTask(query) })">
+                   ui-sref="crowds({ task: $state.params.task || encodeTask(query) })">
                     <span class="mobbricon mobbricon-crowd"></span>
                     <span ng-bind="'Find and invite crowdworkers for `' + ((query != activeQuery && is_url) ? query : activeQuery) + '`'"></span>
                 </a>
             </li>
             <li ng-show="(query != activeQuery && is_user) || $state.params.username">
                 <a ng-click="isopen = false"
-                   ui-sref="box.person({ username: $state.params.username || null })">
+                   ui-sref="person({ username: $state.params.username || null })">
                     <span class="mobbricon mobbricon-person"></span>
                     <span ng-bind="'View profile of `' + ((query != activeQuery && is_user) ? query : $state.params.username) + '`'"></span>
                 </a>
             </li>
             <li ng-show="(query != activeQuery && is_user) || $state.params.username">
                 <a ng-click="isopen = false"
-                   ui-sref="box.tasks({ username: $state.params.username || null })">
+                   ui-sref="tasks({ username: $state.params.username || null })">
                     <span class="mobbricon mobbricon-digger"></span>
                     <span ng-bind="'Find tasks worked at by `' + ((query != activeQuery && is_user) ? query : $state.params.username) +  '`'"></span>
                 </a>
             </li>
             <li ng-show="!is_url && !$state.params.task">
                 <a ng-click="isopen = false"
-                   ui-sref="box.task">
+                   ui-sref="task">
                     <span class="mobbricon mobbricon-settings"></span>
                     Create and manage task
                 </a>
             </li>
             <li ng-show="!is_url && !$state.params.task">
                 <a ng-click="isopen = false"
-                   ui-sref="box.crowds">
+                   ui-sref="crowds">
                     <span class="mobbricon mobbricon-crowd"></span>
                     Find and invite crowdworkers
                 </a>
             </li>
             <li ng-show="!is_user && !$state.params.username">
                 <a ng-click="isopen = false"
-                   ui-sref="box.tasks">
+                   ui-sref="tasks">
                     <span class="mobbricon mobbricon-digger"></span>
                     Find new tasks
                 </a>
             </li>
             <li ng-show="!is_user && !$state.params.username">
                 <a ng-click="isopen = false"
-                   ui-sref="box.person">
+                   ui-sref="person">
                     <span class="mobbricon mobbricon-person"></span>
                     Find person
                 </a>
             </li>
             <li ng-show="mobbrSession.isAuthorized()">
                 <a ng-click="isopen = false"
-                   ui-sref="box.tasks({ username: user.username })">
+                   ui-sref="tasks({ username: user.username })">
                     <img ng-src="{{ user.thumbnail }}"  width="32" height="32">
                     My tasks
                 </a>

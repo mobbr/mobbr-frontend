@@ -1,3 +1,28 @@
+<div class="row top-bar">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h1 ng-bind="$state.current.data.title"></h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ui-view="pay" class="task-pay"></div>
+
+<div class="row top-info query-bar">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <mobbr-smart-url-box active-query="activeQuery"
+                                     url-type="{{ $state.includes('crowds') && 'CROWDS' || $state.includes('tasks') && 'TASKS' || $state.includes('person') && 'PROFILE' || 'TASK' }}"
+                                     query="query"
+                                     user="$mobbrStorage.user"></mobbr-smart-url-box>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="row top-info" ng-show="person">
     <div class="container">
         <div class="row cards-wrapper">
@@ -89,7 +114,7 @@
                         </div>
                         <div class="row bottom">
                             <div class="col-md-12">
-                                <a ui-sref="box.tasks({ username: person.user.username })" class="btn btn-block">Show tasks</a>
+                                <a ui-sref="tasks({ username: person.user.username })" class="btn btn-block">Show tasks</a>
                             </div>
                         </div>
                     </div>

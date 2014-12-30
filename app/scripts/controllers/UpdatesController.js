@@ -136,10 +136,10 @@ angular.module('mobbr.controllers').controller('UpdatesController', function ($s
                     break;
                 case 'script_mention':
                 case 'task_invitation':
-                    $state.go('box.task', { task: $window.btoa(notification.link) });
+                    $state.go('task', { task: $window.btoa(notification.link) });
                     break;
                 case 'profile_update':
-                    $state.go('box.person', { username: $scope.$mobbrStorage.user.username });
+                    $state.go('person', { username: $scope.$mobbrStorage.user.username });
                     break;
                 case 'xpayment_failure':
                     $state.go('wallet.xpayments');
