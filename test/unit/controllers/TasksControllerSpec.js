@@ -43,10 +43,13 @@ describe('mobbr.controllers: TasksController', function () {
         {'language_iso': 'EN', 'keyword': 'mobbr', 'currency_iso': 'EUR', 'amount': '10751.51', 'num_urls': '13', 'num_domains': '2', 'my_task': '0'},
         {'language_iso': 'EN', 'keyword': 'css programming', 'currency_iso': 'EUR', 'amount': '10391.61', 'num_urls': '12', 'num_domains': '1', 'my_task': '0'},
         {'language_iso': 'EN', 'keyword': 'mobbr-frontend', 'currency_iso': 'EUR', 'amount': '3087846.1208879407', 'num_urls': '10', 'num_domains': '1', 'my_task': '0'}
-    ], 'message': null}
+    ], 'message': null};
+
+    var url;
 
     // Initialize the controller and a mock scope
-    beforeEach(inject(function ($controller, $rootScope, $httpBackend, mobbrSession, commonTest, mobbrMsg, $localStorage) {
+    beforeEach(inject(function ($controller, $rootScope, $httpBackend, mobbrSession, commonTest, mobbrMsg, $localStorage, apiUrl) {
+        url = apiUrl;
         controller = undefined;
         contr = $controller;
         rootScope = $rootScope;
@@ -58,37 +61,37 @@ describe('mobbr.controllers: TasksController', function () {
         $localStorage.token = undefined;
         // dummy login
         mobbrSession.setUser({ email: 'jan@work.com', id: [ 'http://github.com/test' ], username: 'Handijk', token: 'testtoken' });
-        httpBackend.expectGET('https://test-api.mobbr.com/api_v1/user/ping').respond(200, {});
+        httpBackend.expectGET(url + '/api_v1/user/ping').respond(200, {});
         httpBackend.flush();
 
     }));
 
     function expectTasksMoreRequest() {
-        httpBackend.expectGET('https://test-api.mobbr.com/api_v1/uris?limit=20&offset=20').respond(200, tasksResult);
+        httpBackend.expectGET(url + '/api_v1/uris?limit=20&offset=20').respond(200, tasksResult);
     }
 
     function expectTasksRequest() {
-        httpBackend.expectGET('https://test-api.mobbr.com/api_v1/uris?limit=20&offset=0').respond(200, tasksResult);
+        httpBackend.expectGET(url + '/api_v1/uris?limit=20&offset=0').respond(200, tasksResult);
     }
 
     function expectUserTasksRequest() {
-        httpBackend.expectGET('https://test-api.mobbr.com/api_v1/uris?limit=20&offset=0&username=Handijk').respond(200, tasksResult);
+        httpBackend.expectGET(url + '/api_v1/uris?limit=20&offset=0&username=Handijk').respond(200, tasksResult);
     }
 
     function expectUserTasksNLRequest() {
-        httpBackend.expectGET('https://test-api.mobbr.com/api_v1/uris?language=NL&limit=20&offset=0&username=Handijk').respond(200, tasksResult);
+        httpBackend.expectGET(url + '/api_v1/uris?language=NL&limit=20&offset=0&username=Handijk').respond(200, tasksResult);
     }
 
     function expectKeywordsRequest() {
-        httpBackend.expectGET('https://test-api.mobbr.com/api_v1/keywords?limit=10&offset=0').respond(200, keywordsResult);
+        httpBackend.expectGET(url + '/api_v1/keywords?limit=10&offset=0').respond(200, keywordsResult);
     }
 
     function expectUserKeywordsRequest() {
-        httpBackend.expectGET('https://test-api.mobbr.com/api_v1/keywords?limit=10&offset=0&username=Handijk').respond(200, userKeywordsResult);
+        httpBackend.expectGET(url + '/api_v1/keywords?limit=10&offset=0&username=Handijk').respond(200, userKeywordsResult);
     }
 
     function expectKeywordsMoreRequest() {
-        httpBackend.expectGET('https://test-api.mobbr.com/api_v1/keywords?limit=10&offset=10').respond(200, keywordsMoreResult);
+        httpBackend.expectGET(url + '/api_v1/keywords?limit=10&offset=10').respond(200, keywordsMoreResult);
     }
 
     function createController(withHash) {
@@ -173,8 +176,8 @@ describe('mobbr.controllers: TasksController', function () {
 
         scope.filteredTags.push(scope.suggestedTags[0].keyword);
 
-        httpBackend.expectGET('https://test-api.mobbr.com/api_v1/uris?keywords=coding&limit=20&offset=0&username=Handijk').respond(200, tasksResult);
-        httpBackend.expectGET('https://test-api.mobbr.com/api_v1/keywords?limit=10&offset=0&related_to=coding&username=Handijk').respond(200, keywordsResult);
+        httpBackend.expectGET(url + '/api_v1/uris?keywords=coding&limit=20&offset=0&username=Handijk').respond(200, tasksResult);
+        httpBackend.expectGET(url + '/api_v1/keywords?limit=10&offset=0&related_to=coding&username=Handijk').respond(200, keywordsResult);
         httpBackend.flush();
 
         expect(scope.tasks.length).toBe(18);
@@ -196,8 +199,8 @@ describe('mobbr.controllers: TasksController', function () {
 
         scope.filteredTags.push(scope.suggestedTags[0].keyword);
 
-        httpBackend.expectGET('https://test-api.mobbr.com/api_v1/uris?keywords=coding&limit=20&offset=0').respond(200, tasksResult);
-        httpBackend.expectGET('https://test-api.mobbr.com/api_v1/keywords?limit=10&offset=0&related_to=coding').respond(200, keywordsResult);
+        httpBackend.expectGET(url + '/api_v1/uris?keywords=coding&limit=20&offset=0').respond(200, tasksResult);
+        httpBackend.expectGET(url + '/api_v1/keywords?limit=10&offset=0&related_to=coding').respond(200, keywordsResult);
         httpBackend.flush();
 
         expect(scope.tasks.length).toBe(18);

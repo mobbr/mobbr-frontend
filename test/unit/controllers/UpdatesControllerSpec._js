@@ -15,7 +15,7 @@ describe('mobbr.controllers: UpdatesController', function () {
         q,
         oAuthProvidersDeferred;
 
-//    var UPDATE_USER_ENDPOINT = 'https://test-api.mobbr.com/api_v1/user/update_user';
+//    var UPDATE_USER_ENDPOINT = url + '/api_v1/user/update_user';
 
 
     // Initialize the controller and a mock scope

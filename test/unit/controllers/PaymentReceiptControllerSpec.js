@@ -46,7 +46,7 @@ describe('mobbr.controllers: PaymentReceiptController', function () {
         if (auth) {
             // dummy login
             session.setUser({ email: 'jan@work.com', id: [ 'http://github.com/test' ], username: 'Handijk', token: 'testtoken' });
-            httpBackend.expectGET('https://test-api.mobbr.com/api_v1/user/ping').respond(200, {});
+            httpBackend.expectGET(url + '/api_v1/user/ping').respond(200, {});
             httpBackend.flush();
         }
 
@@ -196,7 +196,7 @@ describe('mobbr.controllers: PaymentReceiptController', function () {
 
         scope.download();
 
-        httpBackend.expectGET('https://test-api.mobbr.com/api_v1/invoices?share_ids=3306&share_ids=3303&share_ids=3301&share_ids=3310&share_ids=3302&share_ids=3305&share_ids=3304&share_ids=3307&share_ids=3308&share_ids=3309').respond(200, { data: 'test', type: 'test'});
+        httpBackend.expectGET(url + '/api_v1/invoices?share_ids=3306&share_ids=3303&share_ids=3301&share_ids=3310&share_ids=3302&share_ids=3305&share_ids=3304&share_ids=3307&share_ids=3308&share_ids=3309').respond(200, { data: 'test', type: 'test'});
         httpBackend.flush();
         expect(window.saveAs).toHaveBeenCalled();
     });

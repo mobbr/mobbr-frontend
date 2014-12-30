@@ -32,7 +32,7 @@ describe('mobbr.controllers: RecoverPasswordController', function () {
         $localStorage.token = undefined;
         // dummy login
         mobbrSession.setUser({ email: 'jan@work.com', id: [ 'http://github.com/test' ], username: 'Handijk', token: 'testtoken' });
-        httpBackend.expectGET('https://test-api.mobbr.com/api_v1/user/ping').respond(200, {});
+        httpBackend.expectGET(url + '/api_v1/user/ping').respond(200, {});
         httpBackend.flush();
 
     }));
@@ -53,7 +53,7 @@ describe('mobbr.controllers: RecoverPasswordController', function () {
         createController();
         scope.username_or_email = 'info@handijk.nl';
         scope.recoverPassword();
-        httpBackend.expectGET('https://test-api.mobbr.com/api_v1/user/send_login_link?username_or_email_or_id=info@handijk.nl').respond(200, loginlinkResult);
+        httpBackend.expectGET(url + '/api_v1/user/send_login_link?username_or_email_or_id=info@handijk.nl').respond(200, loginlinkResult);
         httpBackend.flush();
     });
 });

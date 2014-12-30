@@ -41,8 +41,11 @@ describe('mobbr.controllers: TaskController', function () {
         'addresses': []
     };
 
+    var url;
+
     // Initialize the controller and a mock scope
-    beforeEach(inject(function ($controller, $rootScope, $httpBackend, mobbrSession, commonTest, mobbrMsg, $localStorage, $injector, $state, $filter) {
+    beforeEach(inject(function ($controller, $rootScope, $httpBackend, mobbrSession, commonTest, mobbrMsg, $localStorage, $injector, $state, $filter, apiUrl) {
+        url = apiUrl;
         controller = undefined;
         contr = $controller;
         rootScope = $rootScope;
@@ -57,7 +60,7 @@ describe('mobbr.controllers: TaskController', function () {
         $localStorage.token = undefined;
         // dummy login
         mobbrSession.setUser({ email: 'jan@work.com', id: [ 'http://github.com/test' ], username: 'Handijk', token: 'testtoken' });
-        httpBackend.expectGET('https://test-api.mobbr.com/api_v1/user/ping').respond(200, {});
+        httpBackend.expectGET(url + '/api_v1/user/ping').respond(200, {});
         httpBackend.flush();
 
     }));

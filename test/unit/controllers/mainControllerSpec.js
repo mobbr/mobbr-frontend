@@ -33,17 +33,17 @@ describe('mobbr.controllers: MainController', function () {
         $localStorage.token = undefined;
         // dummy login
         mobbrSession.setUser({ email: 'jan@work.com', id: [ 'http://github.com/test' ], username: 'Handijk', token: 'testtoken' });
-        httpBackend.expectGET('https://test-api.mobbr.com/api_v1/user/ping').respond(200, {});
+        httpBackend.expectGET(url + '/api_v1/user/ping').respond(200, {});
         httpBackend.flush();
 
     }));
 
     function expectHappeningRequest() {
-        httpBackend.expectGET('https://test-api.mobbr.com/api_v1/api/happening_right_now').respond(200, happeningResult);
+        httpBackend.expectGET(url + '/api_v1/api/happening_right_now').respond(200, happeningResult);
     }
 
     function expectMethodsRequest() {
-        httpBackend.expectGET('https://test-api.mobbr.com/api_v1/api/methods').respond(200, methodsResult);
+        httpBackend.expectGET(url + '/api_v1/api/methods').respond(200, methodsResult);
     }
 
     function createController() {
