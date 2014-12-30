@@ -468,6 +468,7 @@ angular.module('mobbr', [
         }
 
         $rootScope.$on('$stateChangeSuccess', function () {
+            $window.scrollTo(0, 0);
             $window.ga('send', 'pageview', { page: $location.path() });
         });
 

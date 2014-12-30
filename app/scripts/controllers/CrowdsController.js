@@ -119,7 +119,7 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
     $scope.$watch('filter_language', function (newValue, oldValue) {
         if (newValue !== $scope.language) {
             $scope.language = newValue;
-            $scope.queryTasks();
+            $scope.queryPeople();
         }
     }, true);
 
