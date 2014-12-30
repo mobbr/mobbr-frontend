@@ -11,6 +11,8 @@ angular.module('mobbr.services').run(function ($rootScope, $state, $stateParams,
             if(mobbrSession.isAuthorized() === false) {
                 mobbrMsg.add({ msg: 'Please login to access this page' });
                 $state.go('userlogin');
+            } else {
+                $state.go('updates');
             }
 
             return false;
@@ -27,7 +29,7 @@ angular.module('mobbr.services').run(function ($rootScope, $state, $stateParams,
     });
 
     $rootScope.$on('mobbrApi:authchange', function () {
-        $state.current.name && $state.go($state.current.name, $stateParams, { reload: true });
+        $state.current.name && $state.current.name.length > 1 && $state.go($state.current.name, $stateParams, { reload: true });
     });
 
     $rootScope.mobbrSession = mobbrSession;

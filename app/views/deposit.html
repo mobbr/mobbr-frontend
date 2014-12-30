@@ -159,7 +159,7 @@
                         </button>
                     </div>
                     <div class="col-xs-2 col-sm-1">
-                        <button ng-click="$state.go('^')" class="btn btn-danger btn-block">
+                        <button ng-click="$state.go('^', {}, { reload: bankwire || deposit_type.type == 'btc' || false })" class="btn btn-danger btn-block">
                             <span class="mobbricon mobbricon-hardclose"></span>
                         </button>
                     </div>

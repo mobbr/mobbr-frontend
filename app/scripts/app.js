@@ -313,17 +313,17 @@ angular.module('mobbr', [
                 url: '/recover',
                 templateUrl: 'views/recover-password.html',
                 controller: 'ResetPasswordController',
-                data: { authenticated: false, redirectTo: 'updates' }
+                data: { authenticated: false }
             }).state('join', {
                 url: '/join',
                 templateUrl: 'views/join.html',
                 controller: 'JoinController',
-                data: { authenticated: false, redirectTo: 'updates' }
+                data: { authenticated: false }
             }).state('userlogin', {
                 url: '/login',
                 templateUrl: 'views/login.html',
                 controller: 'LoginController',
-                data: { authenticated: false, redirectTo: 'updates' }
+                data: { authenticated: false }
 
             // hash confirm states
 
@@ -350,7 +350,7 @@ angular.module('mobbr', [
                 url: '/updates',
                 templateUrl: 'views/updates.html',
                 controller: 'UpdatesController',
-                data: { authenticated: true, redirectTo: 'userlogin' },
+                data: { authenticated: true },
                 resolve: {
                     balance: function (MobbrBalance) {
                         return MobbrBalance.get().$promise;
@@ -367,8 +367,7 @@ angular.module('mobbr', [
                 templateUrl: 'views/wallet.html',
                 controller: 'WalletController',
                 data: {
-                    authenticated: true,
-                    redirectTo: 'userlogin'
+                    authenticated: true
                 },
                 resolve: {
                     balance: function (MobbrBalance) {
@@ -410,8 +409,7 @@ angular.module('mobbr', [
                 templateUrl: 'views/payments.html',
                 controller: 'PaymentsController',
                 data: {
-                    authenticated: true,
-                    redirectTo: 'userlogin'
+                    authenticated: true
                 },
                 resolve: {
                     payments: function (MobbrPayment) {
@@ -444,7 +442,7 @@ angular.module('mobbr', [
                 url: '/settings',
                 templateUrl: 'views/settings.html',
                 controller: 'UserSettingsController',
-                data: { authenticated: true, redirectTo: 'userlogin' }
+                data: { authenticated: true }
             }).state('settings.account', {
                 url: '/account'
             }).state('settings.identity', {
@@ -477,7 +475,6 @@ angular.module('mobbr', [
 
         function setCurrencies() {
             if (mobbrSession.isAuthorized()) {
-                $state.go('updates');
                 MobbrBalance.get(function (response) {
                     $rootScope.userCurrencies = response.result.balances;
                 });

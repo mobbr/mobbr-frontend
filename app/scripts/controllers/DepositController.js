@@ -54,7 +54,6 @@ angular.module('mobbr.controllers').controller('DepositController', function ($s
             if (data.result.type === 'bankwire') {
                 $scope.bankwire = data.result;
                 $window.ga('send', 'event', 'finance', 'deposit bankwire', 'amount', $scope.deposit_type.amount);
-                $state.go($state.current, $stateParams, { reload: true });
             }
 
             if (data.result.type === 'creditcard') {
