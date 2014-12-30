@@ -27,8 +27,7 @@ angular.module('mobbr.services').run(function ($rootScope, $state, $stateParams,
     });
 
     $rootScope.$on('mobbrApi:authchange', function () {
-        //authState($state.current);
-        $state.go($state.current, $stateParams, { reload: true });
+        $state.current.name && $state.go($state.current.name, $stateParams, { reload: true });
     });
 
     $rootScope.mobbrSession = mobbrSession;
