@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('DepositController', function ($scope, $state, $window, $timeout, MobbrXPayment, addresses) {
+angular.module('mobbr.controllers').controller('DepositController', function ($scope, $state, $stateParams, $window, $timeout, MobbrXPayment, addresses) {
 
     var popup_url, oauth_popup, feeTimeout;;
 
@@ -31,7 +31,7 @@ angular.module('mobbr.controllers').controller('DepositController', function ($s
         if (e.data === 'oauth-popup') {
             oauth_popup.close();
             $window.removeEventListener('message', popupMessage);
-            $state.go('wallet.x-payments');
+            $state.go('^', $stateParams, { reload: true });
         }
     }
 
@@ -54,6 +54,7 @@ angular.module('mobbr.controllers').controller('DepositController', function ($s
             if (data.result.type === 'bankwire') {
                 $scope.bankwire = data.result;
                 $window.ga('send', 'event', 'finance', 'deposit bankwire', 'amount', $scope.deposit_type.amount);
+                $state.go($state.current, $stateParams, { reload: true });
             }
 
             if (data.result.type === 'creditcard') {

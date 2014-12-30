@@ -5,16 +5,14 @@ angular.module('mobbr.services').run(function ($rootScope, $state, $timeout, $mo
     function authState(toState, event, fromState) {
 
         if (toState.data && toState.data.authenticated !== undefined && toState.data.authenticated !== mobbrSession.isAuthorized()) {
+
             event && event.preventDefault();
+
             if(mobbrSession.isAuthorized() === false) {
                 mobbrMsg.add({ msg: 'Please login at the account menu' });
+                $state.go('userlogin');
             }
 
-            if (fromState && fromState.name && (!fromState.data || !fromState.data.authenticated || fromState.data.authenticated === mobbrSession.isAuthorized())) {
-                $state.go(fromState.name);
-            } else {
-                $state.go(toState.data.redirectTo);
-            }
             return false;
         }
     }
@@ -26,7 +24,6 @@ angular.module('mobbr.services').run(function ($rootScope, $state, $timeout, $mo
     $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
         $window.ga('send', 'event', 'error', 'openening state', 'name', toState.name);
         mobbrMsg.add({ msg: 'Something went wrong trying to open this page', type: 'danger' });
-        $state.go('main');
     });
 
     $rootScope.$on('mobbrApi:authchange', function () {

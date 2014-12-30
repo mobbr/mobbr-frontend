@@ -319,6 +319,11 @@ angular.module('mobbr', [
                 templateUrl: 'views/join.html',
                 controller: 'JoinController',
                 data: { authenticated: false, redirectTo: 'updates' }
+            }).state('userlogin', {
+                url: '/login',
+                templateUrl: 'views/login.html',
+                controller: 'LoginController',
+                data: { authenticated: false, redirectTo: 'updates' }
 
             // hash confirm states
 
@@ -472,6 +477,7 @@ angular.module('mobbr', [
 
         function setCurrencies() {
             if (mobbrSession.isAuthorized()) {
+                $state.go('updates');
                 MobbrBalance.get(function (response) {
                     $rootScope.userCurrencies = response.result.balances;
                 });
@@ -551,17 +557,14 @@ angular.module('mobbr', [
 
         $rootScope.filter_language = null;
 
-        $rootScope.login = function (username, password) {
-            $rootScope.authenticating = MobbrUser.passwordLogin({ username: username, password: password }, function () {
-                $state.go('updates');
-            });
-        };
-
         $rootScope.encodeTask = function (url) {
             return $window.btoa(url);
         };
 
         $rootScope.logout = function () {
+            if ($state.current.data.authenticated === true) {
+                $state.go('main');
+            }
             MobbrUser.logout();
         };
 

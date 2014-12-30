@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('WithdrawController', function ($scope, $state, $timeout, $window, MobbrXPayment) {
+angular.module('mobbr.controllers').controller('WithdrawController', function ($scope, $state, $stateParams, $timeout, $window, MobbrXPayment) {
 
     var feeTimeout;
 
@@ -72,7 +72,7 @@ angular.module('mobbr.controllers').controller('WithdrawController', function ($
     $scope.confirm = function () {
         $scope.withdrawing = MobbrXPayment.withdraw($scope.network_method.send, function (response) {
             $window.ga('send', 'event', 'finance', 'withdraw', 'amount', $scope.network_method.send.amount);
-            $state.go('^');
+            $state.go('^', $stateParams, { reload: true });
         }, function () {
             $window.ga('send', 'event', 'error', 'withdraw', 'amount', $scope.network_method.send.amount);
         });

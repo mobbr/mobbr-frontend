@@ -1,0 +1,62 @@
+<div class="row top-bar">
+    <div class="container">
+        <div class="row left-pad">
+            <div class="col-md-3">
+                <h1>Login</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row page-white">
+    <div class="container">
+            <form name="login" class="form-horizontal" ng-submit="loginuser(username, password)">
+
+                <fieldset class="form-group">
+                    <label class="control-label col-md-2" for="username">Username</label>
+                    <div class="col-md-10">
+                        <input class="form-control"
+                               ng-model="username"
+                               auto-fill-sync
+                               name="username"
+                               type="text"
+                               id="username"
+                               required>
+                    </div>
+                </fieldset>
+
+                <fieldset class="form-group">
+                    <label class="control-label col-md-2" for="password">Password</label>
+                    <div class="col-md-10">
+                        <input class="form-control"
+                               ng-model="password"
+                               auto-fill-sync
+                               name="password"
+                               type="password"
+                               id="password"
+                               required>
+                    </div>
+                </fieldset>
+
+                <fieldset class="form-group">
+                    <div class="col-md-9 text-right">
+                        <a class="btn" ui-sref="recover">
+                            <span class="mobbricon mobbricon-mail"></span>
+                            Recover password
+                        </a>
+                        <a class="btn" ui-sref="join">
+                            <span class="mobbricon mobbricon-starttask"></span>
+                            Register me now
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <button type="submit"
+                                class="btn btn-block btn-call">
+                            Login
+                            <span class="pull-right mobbricon mobbricon-starttask"></span>
+                        </button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+</div>

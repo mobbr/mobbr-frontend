@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('PayController', function ($scope, $window, $state, MobbrPayment) {
+angular.module('mobbr.controllers').controller('PayController', function ($scope, $window, $state, $stateParams, MobbrPayment) {
 
     function preview() {
 
@@ -36,6 +36,7 @@ angular.module('mobbr.controllers').controller('PayController', function ($scope
             $scope.payment = undefined;
             $scope.payError = false;
             $window.ga('send', 'event', 'finance', 'pay', 'amount', $scope.amount);
+            $state.go('^', $stateParams, { reload: true });
         }, function (response) {
             $scope.confirm = null;
             $scope.payment = undefined;

@@ -124,32 +124,32 @@
 
                     <div class="col-xs-6 main-menu">
                         <ul class="nav menu">
-                            <li ng-class="{ 'active': $state.includes('updates') }" class="col-55">
-                                <a ng-href="#{{ $state.href('updates') }}" class="text-center">
+                            <li ui-sref-active="active" class="col-55">
+                                <a ui-sref="updates" class="text-center">
                                     <span class="mobbricon mobbricon-updates"></span>
                                     <small>Updates</small>
                                 </a>
                             </li>
-                            <li ng-class="{ 'active': $state.includes('box.tasks') }" class="col-55">
-                                <a ng-href="#{{ $state.href('box.tasks') }}" class="text-center">
+                            <li ui-sref-active="active" class="col-55">
+                                <a ui-sref="box.tasks" class="text-center">
                                     <span class="mobbricon mobbricon-digger"></span>
                                     <small>Tasks</small>
                                 </a>
                             </li>
-                            <li ng-class="{ 'active': $state.includes('box.crowds') }" class="col-55">
-                                <a ng-href="#{{ $state.href('box.crowds') }}" class="text-center">
+                            <li ui-sref-active="active" class="col-55">
+                                <a ui-sref="box.crowds" class="text-center">
                                     <span class="mobbricon mobbricon-crowd"></span>
                                     <small>Workforce</small>
                                 </a>
                             </li>
-                            <li ng-class="{ 'active': $state.includes('payments') }" class="col-55">
-                                <a ng-href="#{{ $state.href('payments.pledges') }}" class="text-center">
+                            <li ui-sref-active="active" class="col-55">
+                                <a ui-sref="payments.pledges" class="text-center">
                                     <span class="mobbricon mobbricon-payments"></span>
                                     <small>Payments</small>
                                 </a>
                             </li>
-                            <li ng-class="{ 'active': $state.includes('wallet') }" class="col-55">
-                                <a ng-href="#{{ $state.href('wallet') }}" class="text-center">
+                            <li ui-sref-active="active" class="col-55">
+                                <a ui-sref="wallet" class="text-center">
                                     <span class="mobbricon mobbricon-wallet"></span>
                                     <small>Wallet</small>
                                 </a>
@@ -157,12 +157,29 @@
                         </ul>
                     </div>
 
-                    <form name="loginform" ng-submit="login(username, password)">
+                    <div class="col-sm-3" ng-show="mobbrSession && !mobbrSession.isAuthorized()">
+                        <ul class="nav menu pull-right">
+                            <li ui-sref-active="active" class="col-55">
+                                <a ui-sref="join" class="text-center">
+                                    <span class="mobbricon mobbricon-starttask"></span>
+                                    <small>Register</small>
+                                </a>
+                            </li>
+                            <li ui-sref-active="active" class="col-55">
+                                <a ui-sref="userlogin" class="text-center">
+                                    <span class="mobbricon mobbricon-person"></span>
+                                    <small>Login</small>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <form name="loginform" ng-submit="login(username, password)" ng-show="mobbrSession && mobbrSession.isAuthorized()">
                         <div class="col-xs-6 col-sm-3 user-menu">
                             <ul class="nav">
                                 <li class="dropdown">
                                     <a class="dropdown-toggle text-right" data-toggle="dropdown">
-                                            <span ng-show="mobbrSession && !mobbrSession.isAuthorized()">
+                                            <!--<span ng-show="mobbrSession && !mobbrSession.isAuthorized()">
                                                 <span class="user-msg">
                                                     <span class="caret pull-left"></span>
                                                     <span class="txt">Register/login</span>
@@ -173,9 +190,9 @@
                                                         <small>User</small>
                                                     </span>
                                                 </span>
-                                            </span>
+                                            </span>-->
 
-                                            <span ng-show="mobbrSession && mobbrSession.isAuthorized()" >
+                                            <span>
                                                 <span class="user-msg">
                                                     <span class="caret pull-left"></span>
                                                     <span class="txt" ng-bind="'Hi ' + $mobbrStorage.user.username"></span>
@@ -186,7 +203,7 @@
                                             </span>
                                     </a>
 
-                                        <ul ng-show="mobbrSession && !mobbrSession.isAuthorized()" class="dropdown-menu logo-menu" role="menu">
+                                        <!--<ul ng-show="mobbrSession && !mobbrSession.isAuthorized()" class="dropdown-menu logo-menu" role="menu">
                                             <li>
                                                 <input ng-model="username"
                                                        auto-fill-sync
@@ -224,9 +241,9 @@
                                                     Register me now
                                                 </a>
                                             </li>
-                                        </ul>
+                                        </ul>-->
 
-                                    <ul ng-show="mobbrSession && mobbrSession.isAuthorized()" class="dropdown-menu logo-menu" role="menu">
+                                    <ul class="dropdown-menu logo-menu" role="menu">
                                         <li>
                                             <a ng-href="#{{ $state.href('box.person', { username: $mobbrStorage.user.username }) }}">
                                                 <span class="mobbricon mobbricon-myprofile"></span>
@@ -287,6 +304,7 @@
         <script src="scripts/controllers/WalletController.js"></script>
         <script src="scripts/controllers/DepositController.js"></script>
         <script src="scripts/controllers/WithdrawController.js"></script>
+        <script src="scripts/controllers/LoginController.js"></script>
         <script src="scripts/controllers/LinkLoginController.js"></script>
         <script src="scripts/controllers/UserSettingsController.js"></script>
         <script src="scripts/controllers/UserIdsController.js"></script>
