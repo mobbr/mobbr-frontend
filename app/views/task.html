@@ -37,14 +37,6 @@
     </div>
 </div>
 
-<div ng-show="task && !task.$resolved">
-    <div class="row">
-        <div class="col-md-12">
-            <h2 class="text-center"><em>Loading task...</em></h2>
-        </div>
-    </div>
-</div>
-
 <div ui-view ng-show="task && task.$resolved">
     <div class="row top-info tasks-summary">
         <div class="container task-card-container">
