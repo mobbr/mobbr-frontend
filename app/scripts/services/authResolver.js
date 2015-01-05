@@ -9,7 +9,6 @@ angular.module('mobbr.services').run(function ($rootScope, $state, $stateParams,
             event && event.preventDefault();
 
             if(mobbrSession.isAuthorized() === false) {
-                mobbrMsg.add({ msg: 'Please login to access this page' });
                 $state.go('userlogin');
             } else {
                 $state.go('updates');
