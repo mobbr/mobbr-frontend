@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-9">
                 <h1>
-                    Payment receipt
+                    Payment overview
                     <!--<span ng-if="payment.paiddatetime" ng-bind="payment.paiddatetime | amDateFormat : 'YYYYMMDD HH:MM'"></span>
                     <span ng-if="!payment.paiddatetime && payment.faileddatetime" ng-bind="payment.faileddatetime | amDateFormat : 'YYYYMMDD HH:MM'"></span>
                     <span ng-if="payment.faileddatetime && payment.service_message" ng-bind="payment.service_message"></span>-->
@@ -76,7 +76,7 @@
                             </div>
                             <div class="row">
                                 <span class="txt xsmall padd col-md-12">
-                                    <span ng-bind="payment.result.invoiced == '1'?'Payment is invoiced':'Payment is not invoiced'"></span>
+                                    <span ng-bind="payment.result.invoiced == '1'?'Payment is invoiced':'Not applicable'"></span>
                                    </span>
                             </div>
                         </div>
@@ -127,7 +127,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h5>Task/payment description</h5>
+                    <h5>Payment description</h5>
                 </div>
                 <div class="col-md-12" ng-if="payment.result.title">
                     <strong ng-bind="payment.result.title"></strong><br>
