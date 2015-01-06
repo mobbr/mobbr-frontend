@@ -1,9 +1,9 @@
 angular.module('mobbr.directives').directive('mobbrSmartUrlBox', function factory(mobbrSession) {
     'use strict';
     var placeholders = {
-            'TASK': 'Enter any URL we\'ll analyze it',
-            'CROWDS': 'Enter any URL, we\'ll find your workforce',
-            'TASKS': 'Enter a username or just ENTER to show fitting tasks',
+            'TASK': 'To make a payment to a task, drop the task URL here',
+            'CROWDS': 'Enter any URL to browse matching workforce',
+            'TASKS': 'Enter a username to browse fitting tasks',
             'PROFILE': 'Enter any email, username or profile id'
         };
 

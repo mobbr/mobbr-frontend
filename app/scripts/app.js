@@ -177,7 +177,7 @@ angular.module('mobbr', [
                 controller: 'TaskController',
                 templateUrl: 'views/task.html',
                 data: {
-                    title: 'Task status'
+                    title: 'Task overview'
                 },
                 resolve: {
                     task: function (MobbrUri, mobbrSession, $rootScope, $stateParams, $window) {
