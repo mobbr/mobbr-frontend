@@ -446,6 +446,9 @@ angular.module('mobbr', [
             });
 
         $urlRouterProvider.when('/task/:task/view', '/task/:task');
+        $urlRouterProvider.when('/crowds', '/crowds/');
+        $urlRouterProvider.when('/tasks', '/tasks/');
+        $urlRouterProvider.when('/task', '/task/');
         $urlRouterProvider.otherwise('/');
 
     }).run(function ($http, $rootScope, $state, $location, $window, $anchorScroll, filterFilter, MobbrApi, MobbrUser, MobbrBalance, MobbrXPayment, mobbrMsg, mobbrSession, apiUrl, uiUrl, lightboxUrl, environment) {
