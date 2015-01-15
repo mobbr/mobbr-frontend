@@ -420,6 +420,11 @@ angular.module('mobbr', [
                         templateUrl: 'views/pay.html'
                     }
                 },
+                resolve: {
+                    task: function () {
+                        return null;
+                    }
+                },
                 onEnter: blockUI,
                 onExit: unblockUI
             }).state('settings', {

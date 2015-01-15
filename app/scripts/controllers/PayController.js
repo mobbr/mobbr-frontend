@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('PayController', function ($scope, $window, $state, $stateParams, MobbrPayment) {
+angular.module('mobbr.controllers').controller('PayController', function ($scope, $window, $state, $stateParams, MobbrPayment, task) {
 
     function preview() {
 
@@ -27,7 +27,7 @@ angular.module('mobbr.controllers').controller('PayController', function ($scope
     $scope.preview = function () {
         $scope.show_preview = true;
         preview();
-    }
+    };
 
     $scope.pay = function () {
         $scope.confirm = MobbrPayment.confirm({
@@ -43,9 +43,11 @@ angular.module('mobbr.controllers').controller('PayController', function ($scope
             $scope.payError = true;
             $window.ga('send', 'event', 'error', 'pay', 'amount', $scope.amount);
         });
-    }
+    };
 
     $scope.previewPay = function () {
         preview().$promise.then($scope.pay);
-    }
+    };
+
+    $scope.task = task;
 });
