@@ -335,7 +335,7 @@ module.exports = function (grunt) {
         },
         sshconfig: {
             test: {
-                host: 'mobbr.com',
+                host: 'test-www.mobbr.com',
                 agent: process.env.SSH_AUTH_SOCK,
                 showProgress: true
             },
@@ -345,7 +345,7 @@ module.exports = function (grunt) {
                 showProgress: true
             },
             stage: {
-                host: 'mobbr.com',
+                host: 'stage-www.mobbr.com',
                 agent: process.env.SSH_AUTH_SOCK,
                 showProgress: true
             }

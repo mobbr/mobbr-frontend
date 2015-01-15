@@ -283,7 +283,7 @@ angular.module('mobbr', [
             }).state('task.pay', {
                 url: '/pay',
                 views: {
-                    'pay@box': {
+                    'pay': {
                         controller: 'PayController',
                         templateUrl: 'views/pay.html'
                     }
