@@ -153,7 +153,7 @@
             <div class="row">
                 <fieldset class="form-group" ng-disabled="(fee && !fee.$resolved) || (depositing && !depositing.$resolved)">
                     <div class="col-xs-10 col-sm-offset-9 col-sm-2">
-                        <button class="btn btn-success btn-block" ng-click="addBitcoinAddress('BTC')" ng-if="!bankwire && deposit_type.type == 'btc'">Add another</button>
+                        <button class="btn btn-success btn-block" ng-click="generateAddress('BTC')" ng-if="!bankwire && deposit_type.type == 'btc'">Add another</button>
                         <button type="submit" ng-disabled="!deposit_type.currency || !deposit_type.amount" class="btn btn-success btn-block" ng-show="!bankwire && deposit_type.type != 'btc'">
                             Confirm
                         </button>

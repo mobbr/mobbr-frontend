@@ -84,6 +84,16 @@ angular.module('mobbr.controllers').controller('DepositController', function ($s
         feeTimeout = $timeout($scope.getFee, 1000);
     }, true);
 
+    $scope.generateAddress = function (currency) {
+        $scope.generating = MobbrXPayment.newAccountAddress({
+                currency: currency
+            },
+            function() {
+                $scope.supportedCurrencies = MobbrXPayment.supportedCurrencies();
+            }
+        );
+    };
+
     $scope.supportedCurrencies = addresses;
 });
 
