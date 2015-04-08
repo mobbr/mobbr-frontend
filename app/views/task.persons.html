@@ -29,7 +29,7 @@
                             <time ng-bind="person.datetime | amDateFormat : 'DD-MM-YYYY HH:MM'"></time>
                         </p>
 
-                        <span ng-show="person.unclaimed_id">Connect this ID at settings/ids to claim this share.</span>
+                        <small class="unclaimed-msg" ng-show="person.unclaimed_id">Goto settings/id and connect this ID to claim this amount.</small>
 
                         <ul ng-show="!person.unclaimed_id" class="list-unstyled">
                             <li ng-repeat="role in person.role">
