@@ -28,6 +28,7 @@
                 <div class="col-xs-8 title" ng-click="data.pledges.result.length > 0 && ($state.is('payments.pledges') ? $state.go('^') : $state.go('payments.pledges'))">
                     <span class="mobbricon mobbricon-pledge"></span>
                     <strong>Pledges</strong>
+                    <span class="hidden-xs" ng-show="data.pledges.result.length > 0">Your active pledges, you can still revoke them</span>
                     <span class="hidden-xs" ng-show="data.pledges.result.length == 0">No pledged payments</span>
                 </div>
                 <div class="icons" ng-show="data.pledges.result.length > 0">
@@ -104,6 +105,7 @@
                     <span class="mobbricon mobbricon-unclaimed"></span>
                     <strong>Unclaimed</strong>
                     <span class="hidden-xs" ng-show="data.unclaimed.result.length == 0">No unclaimed shares</span>
+                    <span class="hidden-xs" ng-show="data.unclaimed.result.length > 0">Payments that where not yet claimed by the recipient, you can still reclaim them</span>
                 </div>
                 <div class="icons" ng-show="data.unclaimed.result.length > 0">
                     <div class="col-xs-1 text-center icon">
@@ -185,6 +187,7 @@
                     <span class="mobbricon mobbricon-payments"></span>
                     <strong>Payments</strong>
                     <span class="hidden-xs" ng-show="data.payments.$resolved && !filterText && data.payments.result.length == 0">No payments</span>
+                    <span class="hidden-xs" ng-show="data.payments.result.length > 0">Incoming and outgoing payments</span>
                 </div>
                 <div class="icons" ng-show="data.payments.result.length > 0">
                     <div class="col-xs-1 text-center icon">
