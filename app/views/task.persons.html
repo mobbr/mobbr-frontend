@@ -14,22 +14,28 @@
     <div ng-class="{ loading: persons && !persons.$resolved }" class="row data-cards data-cards-persons">
         <div ng-repeat="person in persons.result" class="col-xs-12 col-sm-4 col-md-3 data-card-container">
             <div class="data-card">
-                <a ui-sref="{{ !person.unclaimed_id ? 'person({ username: person.username })' : 'settings.ids' }}">
+                <a ui-sref="{{ !person.unclaimed_id ? 'person({ username: person.username })' : (mobbrSession.isAuthorized() ? 'settings.ids' : 'join') }}">
                     <div class="top">
                         <img ng-src="https://secure.gravatar.com/avatar/{{ person['gravatar'] }}?s=50&default=https://mobbr.com/img/default-gravatar2.png"
                              width="50"
                              height="50"
                              ng-show="!person.unclaimed_id"
                              class="pull-left">
-                        <h3 ng-bind="person.unclaimed_id ? person.unclaimed_id : person.username"></h3>
+                        <h3 ng-bind="person.unclaimed_id ? 'To claim this reward:' : person.username"></h3>
                         <span ng-show="person.verified_identity == '1'">Verified</span>
                         <span ng-show="person.invoicable == '1'">Invoicable</span>
                         <p ng-show="!person.unclaimed_id">
                             Active since<br>
-                            <time ng-bind="person.datetime | amDateFormat : 'DD-MM-YYYY HH:MM'"></time>
+                            <time ng-bind="person.registerdatetime | amDateFormat : 'DD-MM-YYYY HH:MM'"></time>
                         </p>
 
-                        <small class="unclaimed-msg" ng-show="person.unclaimed_id">Goto settings/id and connect this ID to claim this amount.</small>
+                        <div class="unclaimed-msg" ng-show="person.unclaimed_id">
+                            <ul>
+                                <li ng-hide="mobbrSession.isAuthorized()"><small>Register</small></li>
+                                <li><small>Go to settings/id</small></li>
+                                <li><small>Connect this ID: <strong>{{ person.unclaimed_id }}</strong></small></li>
+                            </ul>
+                        </div>
 
                         <ul ng-show="!person.unclaimed_id" class="list-unstyled">
                             <li ng-repeat="role in person.role">

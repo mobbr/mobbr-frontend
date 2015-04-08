@@ -393,6 +393,9 @@ fieldset[disabled] .btn {
 }
 
 .unclaimed-msg {
-  display: block;
-  margin-top: 18px;
+  margin-top: 8px;
+
+  ul {
+    padding-left: 16px;
+  }
 }
