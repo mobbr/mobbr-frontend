@@ -118,7 +118,7 @@
 
                     <div class="col-xs-6 main-menu">
                         <ul class="nav menu">
-                            <li ng-class="{ 'active': $state.includes('updates') }" class="col-55">
+                            <li ng-class="{ 'active': $state.includes('updates') }" class="col-55" ng-show="mobbrSession && mobbrSession.isAuthorized()">
                                 <a ng-href="{{ $state.href('updates') }}" class="text-center">
                                     <span class="mobbricon mobbricon-updates"></span>
                                     <small>Updates</small>
@@ -136,13 +136,13 @@
                                     <small>Workforce</small>
                                 </a>
                             </li>
-                            <li ng-class="{ 'active': $state.includes('payments') }" class="col-55">
+                            <li ng-class="{ 'active': $state.includes('payments') }" class="col-55" ng-show="mobbrSession && mobbrSession.isAuthorized()">
                                 <a ng-href="{{ $state.href('payments.pledges') }}" class="text-center">
                                     <span class="mobbricon mobbricon-payments"></span>
                                     <small>Payments</small>
                                 </a>
                             </li>
-                            <li ng-class="{ 'active': $state.includes('wallet') }" class="col-55">
+                            <li ng-class="{ 'active': $state.includes('wallet') }" class="col-55" ng-show="mobbrSession && mobbrSession.isAuthorized()">
                                 <a ng-href="{{ $state.href('wallet') }}" class="text-center">
                                     <span class="mobbricon mobbricon-wallet"></span>
                                     <small>Wallet</small>
