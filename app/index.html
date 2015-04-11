@@ -124,7 +124,7 @@
 
                     <div class="col-xs-6 main-menu">
                         <ul class="nav menu">
-                            <li ui-sref-active="active" class="col-55">
+                            <li ui-sref-active="active" class="col-55" ng-show="mobbrSession && mobbrSession.isAuthorized()">
                                 <a ui-sref="updates" class="text-center">
                                     <span class="mobbricon mobbricon-updates"></span>
                                     <small>Updates</small>
@@ -142,13 +142,13 @@
                                     <small>Workforce</small>
                                 </a>
                             </li>
-                            <li ui-sref-active="active" class="col-55">
+                            <li ui-sref-active="active" class="col-55" ng-show="mobbrSession && mobbrSession.isAuthorized()">
                                 <a ui-sref="payments" class="text-center">
                                     <span class="mobbricon mobbricon-payments"></span>
                                     <small>Payments</small>
                                 </a>
                             </li>
-                            <li ui-sref-active="active" class="col-55">
+                            <li ui-sref-active="active" class="col-55" ng-show="mobbrSession && mobbrSession.isAuthorized()">
                                 <a ui-sref="wallet" class="text-center">
                                     <span class="mobbricon mobbricon-wallet"></span>
                                     <small>Wallet</small>
