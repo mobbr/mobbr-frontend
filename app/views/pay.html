@@ -55,7 +55,7 @@
                             </div>
                             <div class="col-xs-5">
                                 <button ng-disabled="!currency || !amount || confirm.$resolved || (invoices && !invoices_confirm) || (!activeQuery && !payQuery) || !mobbrSession.isAuthorized() || (payment && !payment.$resolved)"
-                                        ng-click="payment.result.hash ? pay() : preview()"
+                                        ng-click="payment.result.hash || task.result.script.type == 'pledge' ? pay() : preview()"
                                         ng-bind="!mobbrSession.isAuthorized() && 'Login to pay' || task.result.script.type && ((show_preview && payment.$resolved ? 'Confirm ' : 'Make a ') + task.result.script.type) || payment.result.script.type && ((show_preview && payment.$resolved ? 'Confirm ' : 'Make a ') + payment.result.script.type) || 'Pay'"
                                         class="btn btn-success btn-block"
                                         type="submit">

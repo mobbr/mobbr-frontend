@@ -29,7 +29,7 @@ angular.module('mobbr.controllers').controller('PayController', function ($scope
         preview();
     };
 
-    $scope.pay = function () {
+    function pay() {
         $scope.confirm = MobbrPayment.confirm({
             hash: $scope.payment.result.hash
         }, function (response) {
@@ -43,10 +43,15 @@ angular.module('mobbr.controllers').controller('PayController', function ($scope
             $scope.payError = true;
             $window.ga('send', 'event', 'error', 'pay', 'amount', $scope.amount);
         });
-    };
+    }
 
-    $scope.previewPay = function () {
-        preview().$promise.then($scope.pay);
+    $scope.pay = function () {
+        if(task.result.script.type == 'pledge') {
+            preview().$promise.then(pay);
+        }
+        else {
+            pay();
+        }
     };
 
     $scope.task = task;
