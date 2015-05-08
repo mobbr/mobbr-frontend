@@ -83,41 +83,7 @@
                                     <span class="crop">
                                         <img ng-click="$state.go('main')" src="img/logo-mobbr.png">
                                     </span>
-                                    <span class="caret"></span>
                                 </a>
-
-                                <ul class="dropdown-menu logo-menu" role="menu">
-                                    <li>
-                                        <a href="https://plus.google.com/communities/100962413817465214183" target="_blank">
-                                            <span class="mobbricon mobbricon-google"></span>
-                                            Community
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="http://blog.mobbr.com" target="_blank">
-                                            <span class="mobbricon mobbricon-feedback"></span>
-                                            Weblog
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="http://ask.mobbr.com/" target="_blank">
-                                            <span class="mobbricon mobbricon-feedback"></span>
-                                            Help &amp; Support
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="http://docs.mobbr.com/" target="_blank">
-                                            <span class="mobbricon mobbricon-develop"></span>
-                                            Documentation
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://twitter.com/mobbrcom" target="_blank">
-                                            <span class="mobbricon mobbricon-twitter"></span>
-                                            Twitter
-                                        </a>
-                                    </li>
-                                </ul>
                             </li>
                         </ul>
                     </div>
@@ -179,69 +145,16 @@
                             <ul class="nav">
                                 <li class="dropdown">
                                     <a class="dropdown-toggle text-right" data-toggle="dropdown">
-                                            <!--<span ng-show="mobbrSession && !mobbrSession.isAuthorized()">
-                                                <span class="user-msg">
-                                                    <span class="caret pull-left"></span>
-                                                    <span class="txt">Register/login</span>
-                                                </span>
-                                                <span ng-class="{ 'active': $state.includes('tasks') }" class="col-55">
-                                                    <span class="user-icon text-center">
-                                                        <span class="mobbricon mobbricon-person"></span>
-                                                        <small>User</small>
-                                                    </span>
-                                                </span>
-                                            </span>-->
-
-                                            <span>
-                                                <span class="user-msg">
-                                                    <span class="caret pull-left"></span>
-                                                    <span class="txt" ng-bind="'Hi ' + $mobbrStorage.user.username"></span>
-                                                </span>
-                                                <span>
-                                                    <img ng-src="{{ $mobbrStorage.user.thumbnail }}"  width="50" height="50">
-                                                </span>
+                                        <span>
+                                            <span class="user-msg">
+                                                <span class="caret pull-left"></span>
+                                                <span class="txt" ng-bind="'Hi ' + $mobbrStorage.user.username"></span>
                                             </span>
+                                            <span>
+                                                <img ng-src="{{ $mobbrStorage.user.thumbnail }}"  width="50" height="50">
+                                            </span>
+                                        </span>
                                     </a>
-
-                                        <!--<ul ng-show="mobbrSession && !mobbrSession.isAuthorized()" class="dropdown-menu logo-menu" role="menu">
-                                            <li>
-                                                <input ng-model="username"
-                                                       auto-fill-sync
-                                                       class="form-control"
-                                                       type="text"
-                                                       name="username"
-                                                       placeholder="username"
-                                                       required>
-                                            </li>
-                                            <li>
-                                                <input ng-model="password"
-                                                       auto-fill-sync
-                                                       class="form-control"
-                                                       type="password"
-                                                       name="password"
-                                                       placeholder="password"
-                                                       required>
-                                            </li>
-                                            <li>
-                                                <button ng-disabled="authenticating && !authenticating.$resolved"
-                                                        class="btn btn-block">
-                                                    <span class="mobbricon mobbricon-login"></span>
-                                                    Log in
-                                                </button>
-                                            </li>
-                                            <li>
-                                                <a ng-href="#{{ $state.href('recover') }}">
-                                                    <span class="mobbricon mobbricon-mail"></span>
-                                                    Recover password
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="link-call" ng-href="#{{ $state.href('join') }}">
-                                                    <span class="mobbricon mobbricon-starttask"></span>
-                                                    Register me now
-                                                </a>
-                                            </li>
-                                        </ul>-->
 
                                     <ul class="dropdown-menu logo-menu" role="menu">
                                         <li>
@@ -272,6 +185,54 @@
         </header>
 
         <div class="container-fluid main" ui-view></div>
+
+        <div class="site-footer">
+            <div class="container">
+                <ul class="list-unstyled row" role="menu">
+                    <li class="col-xs-2">
+                        <a href="https://plus.google.com/communities/100962413817465214183" target="_blank">
+                            <span class="mobbricon mobbricon-google"></span>
+                            Community
+                        </a>
+                    </li>
+                    <li class="col-xs-2">
+                        <a href="http://blog.mobbr.com" target="_blank">
+                            <span class="mobbricon mobbricon-feedback"></span>
+                            Weblog
+                        </a>
+                    </li>
+                    <li class="col-xs-2">
+                        <a href="http://ask.mobbr.com/" target="_blank">
+                            <span class="mobbricon mobbricon-feedback"></span>
+                            Help &amp; Support
+                        </a>
+                    </li>
+                    <li class="col-xs-2">
+                        <a href="http://docs.mobbr.com/" target="_blank">
+                            <span class="mobbricon mobbricon-develop"></span>
+                            Documentation
+                        </a>
+                    </li>
+                    <li class="col-xs-2">
+                        <a href="https://twitter.com/mobbrcom" target="_blank">
+                            <span class="mobbricon mobbricon-twitter"></span>
+                            Twitter
+                        </a>
+                    </li>
+                    <li class="col-xs-2">
+                        <a href="https://docs.mobbr.com/display/MobDoc/Terms+of+service" target="_blank">
+                            <span class="mobbricon mobbricon-feedback"></span>
+                            Terms of service
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="container text-center">
+                <img src="img/logo-eu.png">
+                Powered by:
+                <img src="img/logo-leetchi.png">
+            </div>
+        </div>
 
         <!-- build:js scripts/combined.js -->
         <script src="components/jquery/dist/jquery.js"></script>

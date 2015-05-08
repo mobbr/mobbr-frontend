@@ -399,3 +399,17 @@ fieldset[disabled] .btn {
     padding-left: 16px;
   }
 }
+
+.site-footer {
+  border-top: 1px solid white;
+  padding: $grid-gutter-width 0;
+
+  li {
+    border-right: 1px solid white;
+    text-align: center;
+  }
+
+  li:last-child {
+    border-right: 0;
+  }
+}
