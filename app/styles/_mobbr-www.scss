@@ -403,6 +403,7 @@ fieldset[disabled] .btn {
 .site-footer {
   border-top: 1px solid white;
   padding: $grid-gutter-width 0;
+  margin-bottom: $grid-gutter-width;
 
   li {
     border-right: 1px solid white;
@@ -412,4 +413,20 @@ fieldset[disabled] .btn {
   li:last-child {
     border-right: 0;
   }
+}
+
+.logo-leetchi {
+  margin-left: $grid-gutter-width;
+}
+
+.logos-footer {
+  margin-top: $grid-gutter-width;
+}
+
+.logo-blockchain {
+  margin-left: $grid-gutter-width;
+}
+
+.powered-by {
+  margin-right: $grid-gutter-width / 2;
 }
