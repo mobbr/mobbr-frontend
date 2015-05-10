@@ -402,12 +402,29 @@ fieldset[disabled] .btn {
 
 .site-footer {
   border-top: 1px solid white;
-  padding: $grid-gutter-width 0;
-  margin-bottom: $grid-gutter-width;
+  padding: ($grid-gutter-width * 5) 0 ($grid-gutter-width * 4) 0;
 
-  li {
-    border-right: 1px solid white;
-    text-align: center;
+  ul {
+    margin: 0;
+  }
+
+  li a {
+    display: block;
+    border-right: 1px solid $gray;
+    background: white;
+    line-height: 32px;
+    padding: ($grid-gutter-width / 4);
+    margin-bottom: $grid-gutter-width;
+
+    .mobbricon {
+      margin: 0 ($grid-gutter-width / 4);
+    }
+
+    &:hover {
+      background: $mobbrblue;
+      text-decoration: none;
+      color: white;
+    }
   }
 
   li:last-child {
@@ -416,15 +433,33 @@ fieldset[disabled] .btn {
 }
 
 .logo-leetchi {
-  margin-left: $grid-gutter-width;
+
+  small {
+    line-height: 34px;
+  }
+
+  img {
+    height: 25px;
+  }
 }
 
 .logos-footer {
-  margin-top: $grid-gutter-width;
+  font-size: 0;
+
+  .block {
+    font-size: 11px;
+    background: white;
+    display: inline-block;
+    line-height: 34px;
+    height: 40px;
+    padding: ($grid-gutter-width / 4);
+    margin: 0 ($grid-gutter-width / 2);
+    margin-bottom: $grid-gutter-width;
+  }
 }
 
 .logo-blockchain {
-  margin-left: $grid-gutter-width;
+
 }
 
 .powered-by {
