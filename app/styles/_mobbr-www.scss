@@ -402,29 +402,43 @@ fieldset[disabled] .btn {
 
 .site-footer {
   border-top: 1px solid white;
+  text-align: center;
   padding: ($grid-gutter-width * 5) 0 ($grid-gutter-width * 4) 0;
 
   ul {
     margin: 0;
   }
 
-  li a {
+  li {
+    float: none;
+    width: auto;
+    display: inline-block;
+  }
+
+  li a,
+  li .licensed {
     display: block;
     border-right: 1px solid $gray;
     background: white;
     line-height: 32px;
-    padding: ($grid-gutter-width / 4);
+    padding: ($grid-gutter-width / 4) ($grid-gutter-width / 2);
     margin-bottom: $grid-gutter-width;
 
     .mobbricon {
       margin: 0 ($grid-gutter-width / 4);
     }
+  }
 
+  li a {
     &:hover {
       background: $mobbrblue;
       text-decoration: none;
       color: white;
     }
+  }
+
+  li .licensed img {
+    height: 32px;
   }
 
   li:last-child {
@@ -459,7 +473,7 @@ fieldset[disabled] .btn {
 }
 
 .logo-blockchain {
-
+  margin-right: $grid-gutter-width * 2;
 }
 
 .powered-by {
