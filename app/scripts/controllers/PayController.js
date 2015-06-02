@@ -46,7 +46,7 @@ angular.module('mobbr.controllers').controller('PayController', function ($scope
     }
 
     $scope.pay = function () {
-        if(task.result.script.type == 'pledge') {
+        if(task != null && task.result.script.type == 'pledge') {
             preview().$promise.then(pay);
         }
         else {
