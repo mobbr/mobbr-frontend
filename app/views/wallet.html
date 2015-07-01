@@ -29,29 +29,6 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="row cards-wrapper">
-                    <div class="card-container flip col-xs-6 col-sm-3">
-                        <div class="card fixed">
-                            <div class="front">
-                                <div class="row top">
-                                <div class="col-md-12">
-                                    <span class="mobbricon mobbricon-wallet"></span>
-                                    Combined balance in {{ dashboard.result.total_currency_iso }}
-                                </div>
-                                </div>
-                                <div class="row">
-                                    <span class="txt xbig col-md-12" ng-bind-html="dashboard.result.total_amount | mobbrcurrency:'':true"></span>
-                                </div>
-                                <div class="row bottom">
-                                    <div class="col-md-12">
-                                        <button ui-sref="settings.display" class="btn btn-block">
-                                            Change your preference
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="card-container flip col-xs-6 col-sm-3" ng-repeat="balance in dashboard.result.balances">
                         <div class="card">
                             <div class="front">
