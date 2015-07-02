@@ -407,6 +407,40 @@ a.btn-call {
   }
 }
 
+.data-card:hover,
+.data-card-highlight {
+  background: $mobbrblue;
+  color: $white;
+
+  .item {
+    color: $white;
+  }
+}
+
+.data-cards-persons {
+
+  .data-card.anonymised {
+    opacity: .6;
+  }
+
+  .data-card.anonymised:hover {
+    background: white;
+    color: black;
+
+    .top {
+      color: black;
+    }
+
+    .item {
+      color: black;
+    }
+
+    .amount {
+      color: $mobbrgreen;
+    }
+  }
+}
+
 .data-cards-persons .data-card:hover,
 .data-cards-persons .data-card-highlight {
   background: $mobbryellow;

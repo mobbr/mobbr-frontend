@@ -87,7 +87,7 @@
         <div ng-repeat="person in persons | filter:filterUser as filteredPersons"
              class="col-md-3 col-sm-4 col-xs-12 data-card-container">
             <div class="data-card person-card"
-                 ng-class="{ 'data-card-highlight': person.match_percentage > 90 }"
+                 ng-class="{ 'data-card-highlight': person.match_percentage > 90, anonymised: person.username === '<anonymised>' }"
                  ng-init="person.selected = person.selected || false">
                 <div class="checkbox" ng-show="activeQuery && mobbrSession.isAuthorized()" ng-class="{ selected: person.selected }">
                     <label>
@@ -95,7 +95,7 @@
                         Invite for this task
                     </label>
                 </div>
-                <a ui-sref="person({ username: person.username })">
+                <a ui-sref="{{ person.username !== '<anonymised>' && 'person({ username: person.username })' }}">
                     <div class="top">
                         <div class="clearfix">
                             <img ng-src="https://secure.gravatar.com/avatar/{{ person['gravatar'] }}?s=50&default=https://mobbr.com/img/default-gravatar2.png"
