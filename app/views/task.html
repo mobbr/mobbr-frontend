@@ -275,7 +275,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-12">
-                        <h2 ng-bind="task.result.script.title || task.result.metadata.title"></h2>
+                        <h2 class="task-title"><a ng-href="{{ activeQuery }}">{{ task.result.script.title || task.result.metadata.title }}</a></h2>
                         <p ng-bind="task.result.script.description || task.result.metadata.description"></p>
                         <small ng-show="task.result.script.copyright" ng-bind="task.result.script.copyright"></small>
                         <abbr ng-bind="languagesMap[task.result.script.language]"
