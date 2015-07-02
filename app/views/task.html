@@ -7,15 +7,16 @@
             <div>
                 <div class="col-sm-3">
                     <a ng-disabled="!activeQuery"
-                       ng-href="{{ activeQuery }}"
-                       class="btn btn-call white btn-block"
-                       target="_blank">Go to task</a>
-                </div>
-                <div class="col-sm-3">
-                    <a ng-disabled="!activeQuery"
+                       ng-show="!has_failed && has_script"
                        ui-sref="task.pay"
                        ng-bind="'Add a ' + task.result.script.type"
                        class="btn btn-block btn-call"></a>
+                </div>
+                <div class="col-sm-3">
+                    <a ng-disabled="!activeQuery"
+                       ng-href="{{ activeQuery }}"
+                       class="btn btn-call white btn-block"
+                       target="_blank">Go to task</a>
                 </div>
             </div>
         </div>
@@ -42,7 +43,7 @@
         <div class="container task-card-container">
             <div class="row">
                 <a ng-class="$state.is('task.domain') ? 'active' : ''"
-                   ng-href="{{ $state.is('task.domain') ? $state.href('task') : $state.href('task.domain') }}"
+                   ng-href="{{ !has_failed ? ($state.is('task.domain') ? $state.href('task') : $state.href('task.domain')) : $state.href('task') }}"
                      class="card-container col-xs-3 col-md-3">
                     <div class="card" ng-class="has_failed ? 'failed' : ''">
                         <div ng-hide="has_failed">
