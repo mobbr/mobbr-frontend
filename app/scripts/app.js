@@ -340,7 +340,7 @@ angular.module('mobbr', [
                         return MobbrBalance.get().$promise;
                     },
                     notifications: function (MobbrNotifications) {
-                        return MobbrNotifications.get({ limit: 10 }).$promise;
+                        return MobbrNotifications.get({ limit: 25 }).$promise;
                     },
                     person: function (MobbrPerson, $rootScope) {
                         return MobbrPerson.info({ username: $rootScope.$mobbrStorage.user.username }).$promise;
