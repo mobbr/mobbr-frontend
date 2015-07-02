@@ -1,9 +1,15 @@
-angular.module('mobbr.controllers').controller('TaskController', function ($scope, $state, $window, $rootScope, uniqueFilter, MobbrUri, task) {
+angular.module('mobbr.controllers').controller('TaskController', function ($scope, $state, $window, $rootScope, uniqueFilter, MobbrUri, uiUrl, task) {
     'use strict';
 
     var url = $state.params.task && $window.atob($state.params.task) || null;
 
-    if (task !== null && task.result.script && task.result.script.url && task.result.script.url !== url) {
+    if (task === null) {
+        if ($window.document.referrer && $window.document.referrer.indexOf($window.location.origin) === -1){
+            $state.go('task', { task: $window.btoa($window.document.referrer) });
+        } else {
+
+        }
+    } if (task !== null && task.result.script && task.result.script.url && task.result.script.url !== url) {
         $state.go('task', { task: $window.btoa(task.result.script.url) });
     } else {
         $scope.task = task;
