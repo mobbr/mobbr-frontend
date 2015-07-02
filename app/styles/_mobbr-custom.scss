@@ -510,3 +510,11 @@ a.btn-call {
   padding-top: 0;
   padding-bottom: 0;
 }
+
+.task-section .tags {
+  padding-top: $grid-gutter-width / 1.5;
+
+  h2 {
+    display: none;
+  }
+}
