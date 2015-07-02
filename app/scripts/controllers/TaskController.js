@@ -7,7 +7,7 @@ angular.module('mobbr.controllers').controller('TaskController', function ($scop
         if ($window.document.referrer && $window.document.referrer.indexOf($window.location.origin) === -1){
             $state.go('task', { task: $window.btoa($window.document.referrer) });
         } else {
-
+            $state.go('main');
         }
     } if (task !== null && task.result.script && task.result.script.url && task.result.script.url !== url) {
         $state.go('task', { task: $window.btoa(task.result.script.url) });
