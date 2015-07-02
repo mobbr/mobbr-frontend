@@ -75,7 +75,7 @@
                                     <span class="txt xbig col-md-12">1/4</span>
                                 </div>
                                 <div class="row">
-                                    <span class="txt xsmall nopad col-md-12">Enter valid URL</span>
+                                    <span class="txt xsmall nopad col-md-12" ng-bind="task.result.script.error"></span>
                                 </div>
                                 <div class="row bottom-icon">
                                     <div class="col-xs-1 text-center icon left pull-left">
@@ -91,7 +91,7 @@
                 </a>
 
                 <a ng-class="{ active: $state.is('task.script'), disabled: has_failed }"
-                     ng-href="{{ !has_failed && ($state.is('task.script') ? $state.href('task') : $state.href('task.script')) || $state.href('task.domain') }}"
+                     ng-href="{{ !has_failed && ($state.is('task.script') ? $state.href('task') : $state.href('task.script')) || $state.href('task') }}"
                      class="card-container col-xs-3 col-md-3">
                     <div class="card" ng-class="!has_failed && has_script ? '' : 'failed'">
                         <div ng-show="!has_failed && has_script">
@@ -141,7 +141,7 @@
                 </a>
 
                 <a ng-class="{ active: $state.is('task.payments') || $state.is('task.pay'), disabled: has_failed || !has_script }"
-                   ng-href="{{ has_failed ? $state.href('task.domain') : (!has_script ? $state.href('task.script') : (has_payments ? ($state.is('task.payments') ? $state.href('task') : $state.href('task.payments')) : ($state.is('task.pay') ? $state.href('task') : $state.href('task.pay')))) }}"
+                   ng-href="{{ has_failed ? $state.href('task') : (!has_script ? $state.href('task.script') : (has_payments ? ($state.is('task.payments') ? $state.href('task') : $state.href('task.payments')) : ($state.is('task.pay') ? $state.href('task') : $state.href('task.pay')))) }}"
                      class="card-container col-xs-3 col-md-3">
                     <div class="card funding" ng-class="has_script && has_payments ? '' : 'failed'">
                         <div ng-show="!has_failed && has_script && has_payments">
@@ -190,6 +190,9 @@
                                     <div class="col-xs-1 text-center icon left pull-left">
                                         <span class="mobbricon mobbricon-hardalert"></span>
                                     </div>
+                                    <div class="col-xs-1 text-center icon right pull-right">
+                                        <span ng-class="$state.is('task.pay') ? 'mobbricon-softclose' : 'mobbricon-addopen'" class="mobbricon"></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -198,7 +201,7 @@
 
                 <a ng-class="{ active: $state.is('task.persons') || $state.is('task.invite'), disabled: has_failed || !has_script || !has_payments  }"
                      class="card-container col-xs-3 col-md-3"
-                     ng-href="{{ has_failed ? $state.href('task.domain') : (!has_script ? $state.href('task.script') : (has_participants && has_payments ? ($state.is('task.persons') ? $state.href('task') : $state.href('task.persons')) : (has_payments ? ($state.is('task.invite') ? $state.href('task') : $state.href('task.invite')) : $state.href('task.view') ))) }}">
+                     ng-href="{{ has_failed ? $state.href('task') : (!has_script ? $state.href('task.script') : (has_participants && has_payments ? ($state.is('task.persons') ? $state.href('task') : $state.href('task.persons')) : (has_payments ? ($state.is('task.invite') ? $state.href('task') : $state.href('task.invite')) : $state.href('task.view') ))) }}">
                     <div class="card" ng-class="has_script && has_payments && has_participants ? '' : 'failed'">
                         <div ng-show="!has_failed && has_script && has_payments && has_participants">
                             <div class="front">
@@ -281,6 +284,19 @@
                         <abbr ng-bind="languagesMap[task.result.script.language]"
                               lang="{{ task.result.script.language }}"
                               title="{{ languagesMap[task.result.script.language] }}"></abbr>
+                    </div>
+                    <div class="col-sm-12">
+                        These properties are missing in your HTML page:
+
+                        <ul>
+                            <li ng-show="!task.result.metadata.title">The HTML &lt;title&gt; element.</li>
+                            <li ng-show="!task.result.metadata.description">A &lt;metadata name="description"&sol;&gt; element.</li>
+                            <li ng-show="!task.result.metadata.canonical">A &lt;metadata name="canonical"&sol;&gt; element.</li>
+                            <!--<li ng-show="!task.result.metadata.title">A &lt;metadata name="original-source"&sol;&gt; element(s).</li>-->
+                            <li ng-show="!task.result.metadata.copyright">A &lt;metalink rel="copyright"&sol;&gt; element, defining sharing and derivation rights</li>
+                            <!--<li>A correct set of OG-properties, as specified by Facebook.</li>-->
+                        </ul>
+                        Go <a href="https://github.com/mobbr/mobbr-api-v1/tree/master/specifications" target="_blank">here</a> for instructions
                     </div>
                 </div>
             </div>
