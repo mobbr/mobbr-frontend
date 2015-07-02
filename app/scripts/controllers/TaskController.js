@@ -19,7 +19,7 @@ angular.module('mobbr.controllers').controller('TaskController', function ($scop
         $scope.has_script = $scope.has_failed && false || task && task.result.script && task.result.script.url && true;
         if (!$scope.has_failed && $scope.has_script) {
             $scope.has_payments = task && parseFloat(task.result.statistics.num_payments) > 0;
-            $scope.has_participants = task && task.result.statistics.num_recipients && task.result.statistics.num_recipients.length > 0 && uniqueFilter(task.result.script.participants, 'id').length > 1 || false;
+            $scope.has_participants = task && task.result.statistics.num_recipients && parseInt(task.result.statistics.num_recipients) > 0 && uniqueFilter(task.result.script.participants, 'id').length > 0 || false;
         }
         $rootScope.query = url;
         $rootScope.activeQuery = url;
