@@ -57,15 +57,17 @@ angular.module('mobbr.controllers').controller('UpdatesController', function ($s
         });
     }
 
-    $scope.$watch('$mobbrStorage.user.id', function () {
-        if ($scope.oAuthProviders && $scope.oAuthProviders.$resolved) {
-            parseIds();
-        } else {
-            $q.when($scope.oAuthProviders).then(function () {
-                if ($scope.$mobbrStorage.user && $scope.$mobbrStorage.user.id) {
-                    parseIds();
-                }
-            });
+    $scope.$watch('$mobbrStorage.user.id', function (newValue) {
+        if (newValue) {
+            if ($scope.oAuthProviders && $scope.oAuthProviders.$resolved) {
+                parseIds();
+            } else {
+                $q.when($scope.oAuthProviders).then(function () {
+                    if ($scope.$mobbrStorage.user && $scope.$mobbrStorage.user.id) {
+                        parseIds();
+                    }
+                });
+            }
         }
     });
 
@@ -84,10 +86,14 @@ angular.module('mobbr.controllers').controller('UpdatesController', function ($s
 
     $scope.countProfileCompleted = function () {
 
-        var count = countFields(profileFields);
+        var count = 1;
 
-        if ($scope.$mobbrStorage.user.mangopay_identity_proof === 'VALIDATION_ASKED' || $scope.$mobbrStorage.user.kyc_level === 'regular') {
-            count++;
+        if ($scope.$mobbrStorage.user) {
+            count = countFields(profileFields);
+
+            if ($scope.$mobbrStorage.user.mangopay_identity_proof === 'VALIDATION_ASKED' || $scope.$mobbrStorage.user.kyc_level === 'regular') {
+                count++;
+            }
         }
 
         return count / 14;
