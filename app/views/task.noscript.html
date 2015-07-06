@@ -1,0 +1,168 @@
+<div class="row top-info filter task-top task-warning" ng-if="!has_failed && !has_script && task && $state.is('task')">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 title">
+                <span class="mobbricon mobbricon-tasks"></span>
+                <strong>Mobbr cannot find any payment information at this URL</strong>
+            </div>
+            Your HTML page should list all contributors and payment shares in a <a href="https://github.com/mobbr/mobbr-api-v1/tree/master/specifications">dedicated HTML-tag</a>.
+            Ask your web designer to add this information.
+            Upon payment Mobbr will use this information to distribute payments or do pledges.
+        </div>
+    </div>
+</div>
+
+<div ng-if="!has_failed && !has_script && task && $state.is('task')" class="task-instructions">
+    <section>
+        <div class="row top-info filter">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 title">
+                        <span class="mobbricon mobbricon-plugin"></span>
+                        <strong>The quick fixes</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row content borderbottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>Create this /PARTICIPATION.TXT in the root of your domain</p>
+<pre><code>[
+    {
+    "url-pattern": "*",
+    "script":
+    {
+    "participants":
+    [
+    {
+    "id": "mailto:your@email.com"
+    "role": "owner",
+    "share": "1"
+    }
+    ]
+    }
+    }
+    ]</code></pre>
+                    </div>
+
+                    <div class="col-md-6">
+                        <p>...and/or put this &lt;metatag&gt; in your HTML page(s)</p>
+<pre><code>&lt;html&gt;
+    &lt;head&gt;
+    ...
+    &lt;meta name="participation" content='{
+    "participants" :
+    [
+    {
+    "id": "mailto:your@email.com",
+    "role": "owner",
+    "share": "1"
+    }
+    ]
+    }'/&gt;
+    ...
+    &lt;/head&gt;
+    &lt;body&gt;</code></pre>
+                    </div>
+                </div>
+                <p>
+                    Use these fixes to incrementally <a href="https://github.com/mobbr/mobbr-api-v1/tree/master/examples">extend</a> the Mobbr support on your site.
+                </p>
+            </div>
+        </div>
+        <div class="row top-info filter bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 title">
+                        &nbsp;
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="row top-info filter">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 title">
+                        <span class="mobbricon mobbricon-plugin"></span>
+                        <strong>Turn your website into a task platform</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row content borderbottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="indent">
+                            <strong>Plugin</strong>
+                            <p>
+                                The easiest way to start hosting tasks is to install collaboration software for which
+                                Mobbr has already built a plugin. Mobbr uses the software's reputation system as the
+                                basis for distributing money. To let Mobbr know the distribution key the plugin connects
+                                your site to Mobbr. Ask your system administrator to do this.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="https://github.com/mobbr?query=plugin" target="_blank" class="btn btn-block btn-call">
+                            <span class="mobbricon mobbricon-plugin pull-right"></span>Find a plugin
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="indent">
+                            <strong>HTML metadata</strong>
+                            <p>
+                                The most flexible way to host tasks is to have your web-designer generate a simple
+                                script into the HTML of your site, which tells us how to distribute the money if a
+                                payment is done to it. Upon payment Mobbr will do a callback to your page and find
+                                the script. You can make the distribution key as simple or as complex as you like.
+                            </p>
+                            <p>
+                                <img src="../img/scheme.png">
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="https://github.com/mobbr/mobbr-api-v1/tree/master/specifications#page-inline" target="_blank" class="btn btn-block btn-call">
+                            <span class="mobbricon mobbricon-connect pull-right"></span>Metadata integration
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="indent">
+                            <strong>Connect your API to Mobbr</strong>
+                            <p>
+                                If your site has an API in which Mobbr can find the contribution statistics for your
+                                projects, we can integrate your site from our side. We already did this with Github,
+                                Gitlab and Stack Exchange. Please mail us if you would like your API to be connected.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="/#/" class="btn btn-block btn-call">
+                            <span class="mobbricon mobbricon-develop pull-right"></span>API integration
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row top-info filter bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 title">
+                        &nbsp;
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
