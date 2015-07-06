@@ -201,18 +201,18 @@ angular.module('mobbr', [
                             domain: purl($window.atob($stateParams.task)).data.attr.host
                         });
                     }
-                },
-                onEnter: blockUI,
-                onExit: unblockUI
+                }//,
+                //onEnter: blockUI,
+                //onExit: unblockUI
             }).state('task.script', {
                 url: '/script',
                 views: {
                     'task-section': {
                         templateUrl: 'views/task.script.html'
                     }
-                },
-                onEnter: blockUI,
-                onExit: unblockUI
+                }//,
+                //onEnter: blockUI,
+                //onExit: unblockUI
             }).state('task.payments', {
                 url: '/payments',
                 views: {
@@ -227,9 +227,9 @@ angular.module('mobbr', [
                             url: $window.atob($stateParams.task)
                         }).$promise;
                     }
-                },
-                onEnter: blockUI,
-                onExit: unblockUI
+                }//,
+                //onEnter: blockUI,
+                //onExit: unblockUI
             }).state('task.persons', {
                 url: '/persons',
                 views: {
@@ -245,15 +245,15 @@ angular.module('mobbr', [
                             base_currency: mobbrSession.isAuthorized() && $rootScope.$mobbrStorage.user.currency_iso || null
                         }).$promise;
                     }
-                },
-                onEnter: blockUI,
-                onExit: unblockUI
+                }//,
+                //onEnter: blockUI,
+                //onExit: unblockUI
             }).state('task.invite', {
                 url: '/invite',
                 views: {
                     'task-section': {
                         controller: 'CrowdsController',
-                        templateUrl: 'views/crowds.html'
+                        templateUrl: 'views/invite.html'
                     }
                 },
                 resolve: {
@@ -277,9 +277,9 @@ angular.module('mobbr', [
                             offset: 0
                         }).$promise;
                     }
-                },
-                onEnter: blockUI,
-                onExit: unblockUI
+                }//,
+                //onEnter: blockUI,
+                //onExit: unblockUI
             }).state('task.pay', {
                 url: '/pay',
                 views: {
@@ -340,7 +340,7 @@ angular.module('mobbr', [
                         return MobbrBalance.get().$promise;
                     },
                     notifications: function (MobbrNotifications) {
-                        return MobbrNotifications.get({ limit: 10 }).$promise;
+                        return MobbrNotifications.get({ limit: 25 }).$promise;
                     },
                     person: function (MobbrPerson, $rootScope) {
                         return MobbrPerson.info({ username: $rootScope.$mobbrStorage.user.username }).$promise;

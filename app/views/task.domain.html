@@ -3,8 +3,7 @@
         <div class="row">
             <div class="col-md-12 title">
                 <span class="mobbricon mobbricon-domain"></span>
-                <strong ng-if="!has_failed">Tasks at this domain</strong>
-                <strong ng-if="has_failed">HTML validation</strong>
+                <strong>Tasks at this domain</strong>
             </div>
         </div>
     </div>
@@ -41,32 +40,6 @@
             <div class="row">
                 <div ng-hide="has_failed || (urls.$resolved && urls.result.length > 0) || !urls.$resolved" class="col-md-12">
                     <h2 class="text-center"><em>This domain has no tasks</em></h2>
-                </div>
-                <div ng-show="has_failed" class="col-md-12 task-tags" class="col-md-12">
-                    <div class="row">
-                        <div class="col-sm-3 col-md-2">
-                            <span class="mobbricon" ng-class="{ 'mobbricon-done': task.result.metadata.title, 'mobbricon-hardalert': !task.result.metadata.title }"></span>
-                            Title
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3 col-md-2">
-                            <span class="mobbricon" ng-class="{ 'mobbricon-done': task.result.metadata.description, 'mobbricon-hardalert': !task.result.metadata.description }"></span>
-                            Description
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3 col-md-2">
-                            <span class="mobbricon" ng-class="{ 'mobbricon-done': task.result.metadata.keywords, 'mobbricon-hardalert': !task.result.metadata.keywords }"></span>
-                            Keywords
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3 col-md-2">
-                            <span class="mobbricon" ng-class="{ 'mobbricon-done': task.result.metadata.language, 'mobbricon-hardalert': !task.result.metadata.language }"></span>
-                            Language
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

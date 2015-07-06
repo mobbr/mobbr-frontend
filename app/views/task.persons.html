@@ -13,8 +13,8 @@
 <div class="container" ng-show="has_participants">
     <div ng-class="{ loading: persons && !persons.$resolved }" class="row data-cards data-cards-persons">
         <div ng-repeat="person in persons.result" class="col-xs-12 col-sm-4 col-md-3 data-card-container">
-            <div class="data-card">
-                <a ui-sref="{{ !person.unclaimed_id ? 'person({ username: person.username })' : (mobbrSession.isAuthorized() ? 'settings.ids' : 'join') }}">
+            <div class="data-card" ng-class="{ anonymised: person.username === '<anonymised>' }">
+                <a ui-sref="{{ !person.unclaimed_id ? (person.username !== '<anonymised>' && 'person({ username: person.username })') : (mobbrSession.isAuthorized() ? 'settings.ids' : 'join') }}">
                     <div class="top">
                         <img ng-src="https://secure.gravatar.com/avatar/{{ person['gravatar'] }}?s=50&default=https://mobbr.com/img/default-gravatar2.png"
                              width="50"

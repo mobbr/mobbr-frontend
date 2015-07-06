@@ -407,6 +407,40 @@ a.btn-call {
   }
 }
 
+.data-card:hover,
+.data-card-highlight {
+  background: $mobbrblue;
+  color: $white;
+
+  .item {
+    color: $white;
+  }
+}
+
+.data-cards-persons {
+
+  .data-card.anonymised {
+    opacity: .6;
+  }
+
+  .data-card.anonymised:hover {
+    background: white;
+    color: black;
+
+    .top {
+      color: black;
+    }
+
+    .item {
+      color: black;
+    }
+
+    .amount {
+      color: $mobbrgreen;
+    }
+  }
+}
+
 .data-cards-persons .data-card:hover,
 .data-cards-persons .data-card-highlight {
   background: $mobbryellow;
@@ -475,4 +509,17 @@ a.btn-call {
   text-align: center;
   padding-top: 0;
   padding-bottom: 0;
+}
+
+.task-section .tags {
+  padding-top: $grid-gutter-width / 1.5;
+
+  h2 {
+    display: none;
+  }
+}
+
+.task-title a {
+  color: black;
+  text-decoration: none;
 }

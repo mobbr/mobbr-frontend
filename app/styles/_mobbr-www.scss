@@ -273,6 +273,11 @@ fieldset[disabled] .btn {
   color: #000;
   border: 0;
   border-bottom: 1px solid shade($gray, 5);
+
+  &.task-warning {
+    background: $mobbrcallout;
+    color: black;
+  }
 }
 
 .home .filter.bottom,
@@ -316,11 +321,21 @@ fieldset[disabled] .btn {
 .task-instructions section:nth-child(odd) .content,
 .task-instructions section:nth-child(odd) .top-info {
   background: $white;
+
+  &.task-warning {
+    background: $mobbrcallout;
+    color: black;
+  }
 }
 
 .task-instructions section:nth-child(even) .content,
 .task-instructions section:nth-child(even) .top-info {
   background: $gray;
+
+  &.task-warning {
+    background: $mobbrcallout;
+    color: black;
+  }
 }
 
 .home .content p,
