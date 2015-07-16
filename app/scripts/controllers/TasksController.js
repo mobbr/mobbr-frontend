@@ -12,7 +12,7 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
             $scope.tasks = [];
         }
 
-        MobbrUri.get({
+        $scope.tasksPromise = MobbrUri.get({
             limit: $scope.initial_limit,
             language: $scope.language,
             keywords: $scope.filteredTags,
