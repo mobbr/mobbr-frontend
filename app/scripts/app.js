@@ -303,6 +303,11 @@ angular.module('mobbr', [
                 templateUrl: 'views/join.html',
                 controller: 'JoinController',
                 data: { authenticated: false }
+            }).state('forex', {
+                url: '/forex',
+                templateUrl: 'views/forex.html',
+                controller: 'ForExController',
+                data: { authenticated: false }
             }).state('userlogin', {
                 url: '/login',
                 templateUrl: 'views/login.html',
