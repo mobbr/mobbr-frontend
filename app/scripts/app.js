@@ -304,7 +304,7 @@ angular.module('mobbr', [
                 controller: 'JoinController',
                 data: { authenticated: false }
             }).state('forex', {
-                url: '/forex',
+                url: '/forex/:base_currency_iso',
                 templateUrl: 'views/forex.html',
                 controller: 'ForExController',
                 data: { authenticated: false }

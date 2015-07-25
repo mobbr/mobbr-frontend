@@ -1,8 +1,8 @@
 <div class="row top-bar">
 	<div class="container">
 		<div class="row left-pad">
-			<div class="col-md-3">
-				<h1>Exchange Rates</h1>
+			<div class="col-md-7">
+				<h1>{{ base_currency_iso }} (LAST UPDATED: {{ exchange_rate_datetime }})</h1>
 			</div>
 		</div>
 	</div>
@@ -14,18 +14,18 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<th>Base Currency</th>
-						<th class="text-center">Currency</th>
+						<th>Currency</th>
 						<th>Description</th>
 						<th>Exchange Rate</th>
+						<th>Host</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="currency in currencies.result">
-						<td ng-bind="currency.base_currency_iso"></td>
-						<td class="text-center" ng-bind="currency.currency_iso"></td>
+					<tr ng-repeat="currency in currencies">
+						<td class="text-left" ng-bind="currency.currency_iso"></td>
 						<td ng-bind="currency.description"></td>
-						<td ng-bind="currency.exchange_rate"></td>
+						<td>{{ currency.exchange_rate }}/{{ base_currency_iso }}</td>
+						<td>{{ currency.exchange_rate_source_url | domain }}</td>
 					</tr>
 				</tbody>
 			</table>
