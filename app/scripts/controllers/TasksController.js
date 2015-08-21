@@ -3,6 +3,11 @@
 angular.module('mobbr.controllers').controller('TasksController', function ($scope, $state, $rootScope, mobbrMsg, MobbrUri, MobbrKeywords, tasks, tags) {
 
     var username = $state.params.username || null;
+    $scope.filteredTags =  [];
+    if($state.params.keywords) {
+        var keywords = $state.params.keywords.split('+');
+        $scope.filteredTags = keywords;
+    }
 
     $scope.queryTasks = function (limit) {
 
@@ -50,10 +55,16 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
     };
 
     $scope.$watch('filteredTags', function (newValue, oldValue) {
-        if (newValue && (newValue.length > 0 || oldValue.length > 0)) {
-            $scope.queryTasks();
-            $scope.queryTags();
+        var next_state = 'tasks';
+        if($scope.filteredTags.length) {
+            next_state += '.filter';
         }
+        $state.go(next_state, {username: username, keywords: $scope.filteredTags.join('+')});
+    }, true);
+
+    $scope.$watch('$state.params.keywords', function (newValue, oldValue) {
+        $scope.queryTasks();
+        $scope.queryTags();
     }, true);
 
     $scope.$watch('filter_language', function (newValue, oldValue) {
@@ -66,7 +77,7 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
     $scope.tagsInitialLimit = 10;
     $scope.tagsLimiter = $scope.tagsInitialLimit;
     $scope.suggestedTags = tags.result;
-    $scope.filteredTags = [];
+    //$scope.filteredTags = [];
     $scope.tasks = tasks.result;
     $scope.initial_limit = 20;
     $scope.limiter = $scope.initial_limit;
