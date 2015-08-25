@@ -43,8 +43,6 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
 
     $scope.queryPeople = function (limit) {
 
-        console.log('query people');
-
         var tags,
             params;
 
