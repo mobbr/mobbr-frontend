@@ -81,10 +81,13 @@ angular.module('mobbr', [
                 //templateUrl: 'views/box.html',
                 //controller: 'BoxController'
             }).state('crowds', {
-                url: '/crowds/:task',
+                url: '/crowds/:task?keywords',
                 params: {
                     task: {
                         value: null
+                    },
+                    keywords: {
+                        array: true
                     }
                 },
                 controller: 'CrowdsController',
@@ -109,13 +112,7 @@ angular.module('mobbr', [
                     },
                     persons: function ($rootScope, MobbrPerson, taskTags, $stateParams) {
 
-                        var keywords;
-                        if($stateParams.keywords) {
-                            keywords = $state.params.keywords.split('+');
-                            $scope.filteredTags = keywords;
-                        } else {
-                            keywords = taskTags;
-                        }
+                        var keywords = $stateParams.keywords ? $stateParams.keywords : taskTags;
 
                         return MobbrPerson.get({
                             keywords: keywords || null,
@@ -125,8 +122,6 @@ angular.module('mobbr', [
                         }).$promise;
                     }
                 }
-            }).state('crowds.filter', {
-                url: '/:keywords'
             }).state('person', {
                 url: '/person/:username',
                 params: {
@@ -148,10 +143,13 @@ angular.module('mobbr', [
                     }
                 }
             }).state('tasks', {
-                url: '/tasks/:username',
+                url: '/tasks/:username?keywords',
                 params: {
                     username: {
                         value: null
+                    },
+                    keywords: {
+                        array: true
                     }
                 },
                 controller: 'TasksController',
@@ -177,8 +175,6 @@ angular.module('mobbr', [
                         }).$promise;
                     }
                 }
-            }).state('tasks.filter', {
-                url: '/:keywords'
             }).state('task', {
                 url: '/task/:task',
                 params: {

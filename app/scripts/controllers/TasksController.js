@@ -1,13 +1,11 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('TasksController', function ($scope, $state, $rootScope, mobbrMsg, MobbrUri, MobbrKeywords, tasks, tags) {
+angular.module('mobbr.controllers').controller('TasksController', function ($scope, $state, $stateParams, $rootScope, mobbrMsg, MobbrUri, MobbrKeywords, tasks, tags) {
 
     var username = $state.params.username || null;
+    var offset = 0;
+    var new_offset;
     $scope.filteredTags =  [];
-    if($state.params.keywords) {
-        var keywords = $state.params.keywords.split('+');
-        $scope.filteredTags = keywords;
-    }
 
     $scope.queryTasks = function (limit) {
 
@@ -17,14 +15,21 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
             $scope.tasks = [];
         }
 
+        new_offset = $scope.limiter - $scope.initial_limit;
+
         $scope.tasksPromise = MobbrUri.get({
             limit: $scope.initial_limit,
             language: $scope.language,
             keywords: $scope.filteredTags,
             username: username,
-            offset: $scope.limiter - $scope.initial_limit
+            offset: offset
         }, function (response) {
-            $scope.tasks = $scope.tasks.concat(response.result);
+            if (new_offset > offset) {
+                $scope.tasks = $scope.tasks.concat(response.result);
+            } else {
+                $scope.tasks = response.result;
+            }
+            offset = new_offset;
         });
     };
 
@@ -54,12 +59,14 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
         });
     };
 
+    $scope.$on('$stateChangeSuccess', function () {
+        $scope.filteredTags = $state.params.keywords ? angular.copy($state.params.keywords) : [];
+    });
+
     $scope.$watch('filteredTags', function (newValue, oldValue) {
-        var next_state = 'tasks';
-        if($scope.filteredTags.length) {
-            next_state += '.filter';
+        if (!angular.equals($scope.filteredTags, $state.params.keywords)) {
+            $state.go('tasks', {username: username, keywords: $scope.filteredTags});
         }
-        $state.go(next_state, {username: username, keywords: $scope.filteredTags.join('+')});
     }, true);
 
     $scope.$watch('$state.params.keywords', function (newValue, oldValue) {
