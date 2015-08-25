@@ -107,16 +107,26 @@ angular.module('mobbr', [
                             offset: 0
                         }).$promise || null;
                     },
-                    persons: function ($rootScope, MobbrPerson, taskTags) {
+                    persons: function ($rootScope, MobbrPerson, taskTags, $stateParams) {
+
+                        var keywords;
+                        if($stateParams.keywords) {
+                            keywords = $state.params.keywords.split('+');
+                            $scope.filteredTags = keywords;
+                        } else {
+                            keywords = taskTags;
+                        }
 
                         return MobbrPerson.get({
-                            keywords: taskTags || null,
+                            keywords: keywords || null,
                             language: $rootScope.filter_language,
                             limit: 20,
                             offset: 0
                         }).$promise;
                     }
                 }
+            }).state('crowds.filter', {
+                url: '/:keywords'
             }).state('person', {
                 url: '/person/:username',
                 params: {
@@ -167,6 +177,8 @@ angular.module('mobbr', [
                         }).$promise;
                     }
                 }
+            }).state('tasks.filter', {
+                url: '/:keywords'
             }).state('task', {
                 url: '/task/:task',
                 params: {
