@@ -1,8 +1,11 @@
 'use strict';
 
-angular.module('mobbr.controllers').controller('TasksController', function ($scope, $state, $rootScope, mobbrMsg, MobbrUri, MobbrKeywords, tasks, tags) {
+angular.module('mobbr.controllers').controller('TasksController', function ($scope, $state, $stateParams, $rootScope, mobbrMsg, MobbrUri, MobbrKeywords, tasks, tags) {
 
     var username = $state.params.username || null;
+    var offset = 0;
+    var new_offset;
+    $scope.filteredTags =  [];
 
     $scope.queryTasks = function (limit) {
 
@@ -12,14 +15,21 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
             $scope.tasks = [];
         }
 
+        new_offset = $scope.limiter - $scope.initial_limit;
+
         $scope.tasksPromise = MobbrUri.get({
             limit: $scope.initial_limit,
             language: $scope.language,
             keywords: $scope.filteredTags,
             username: username,
-            offset: $scope.limiter - $scope.initial_limit
+            offset: offset
         }, function (response) {
-            $scope.tasks = $scope.tasks.concat(response.result);
+            if (new_offset > offset) {
+                $scope.tasks = $scope.tasks.concat(response.result);
+            } else {
+                $scope.tasks = response.result;
+            }
+            offset = new_offset;
         });
     };
 
@@ -49,11 +59,19 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
         });
     };
 
+    $scope.$on('$stateChangeSuccess', function () {
+        $scope.filteredTags = $state.params.keywords ? angular.copy($state.params.keywords) : [];
+    });
+
     $scope.$watch('filteredTags', function (newValue, oldValue) {
-        if (newValue && (newValue.length > 0 || oldValue.length > 0)) {
-            $scope.queryTasks();
-            $scope.queryTags();
+        if (!angular.equals($scope.filteredTags, $state.params.keywords)) {
+            $state.go('tasks', {username: username, keywords: $scope.filteredTags});
         }
+    }, true);
+
+    $scope.$watch('$state.params.keywords', function (newValue, oldValue) {
+        $scope.queryTasks();
+        $scope.queryTags();
     }, true);
 
     $scope.$watch('filter_language', function (newValue, oldValue) {
@@ -66,7 +84,7 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
     $scope.tagsInitialLimit = 10;
     $scope.tagsLimiter = $scope.tagsInitialLimit;
     $scope.suggestedTags = tags.result;
-    $scope.filteredTags = [];
+    //$scope.filteredTags = [];
     $scope.tasks = tasks.result;
     $scope.initial_limit = 20;
     $scope.limiter = $scope.initial_limit;

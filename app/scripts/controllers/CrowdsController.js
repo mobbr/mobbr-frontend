@@ -3,6 +3,10 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
 
     var url = $state.params.task && $window.atob($state.params.task) || null,
         suggestedTaskTags = [];
+    var offset = 0;
+    var new_offset;
+
+    $scope.filteredTags =  [];
 
     function setTaskTags() {
         suggestedTaskTags = [];
@@ -39,6 +43,8 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
 
     $scope.queryPeople = function (limit) {
 
+        console.log('query people');
+
         var tags,
             params;
 
@@ -60,11 +66,13 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
             tags = $scope.filteredTags;
         }
 
+        new_offset = $scope.limiter - $scope.initial_limit;
+
         params = {
             keywords: tags,
             language: $scope.language,
             limit: $scope.initial_limit,
-            offset: $scope.limiter - $scope.initial_limit
+            offset: new_offset
         };
 
         $scope.personPromise = MobbrPerson.get(params, function () {
@@ -78,7 +86,12 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
                 }
             });
 
-            $scope.persons = $scope.persons.concat($scope.personPromise.result);
+            if (new_offset > offset) {
+                $scope.persons = $scope.persons.concat($scope.personPromise.result);
+            } else {
+                $scope.persons = $scope.personPromise.result;
+            }
+            offset = new_offset;
         });
     };
 
@@ -123,17 +136,24 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
         }
     }, true);
 
+    $scope.$on('$stateChangeSuccess', function () {
+        $scope.filteredTags = $state.params.keywords ? angular.copy($state.params.keywords) : [];
+    });
+
     $scope.$watch('filteredTags', function (newValue, oldValue) {
-        if (newValue && (newValue.length > 0 || oldValue.length > 0)) {
-
-            if ($scope.task && taskTags.length > 0 && $scope.filteredTags.length === 0) {
-                setTaskTags();
-            } else {
-                $scope.queryTags();
-            }
-
-            $scope.queryPeople();
+        if (!angular.equals($scope.filteredTags, $state.params.keywords)) {
+            $state.go('crowds', {task: $state.params.task, keywords: $scope.filteredTags});
         }
+    }, true);
+
+    $scope.$watch('$state.params.keywords', function (newValue, oldValue) {
+        if ($scope.task && taskTags.length > 0 && $scope.filteredTags.length === 0) {
+            setTaskTags();
+        } else {
+            $scope.queryTags();
+        }
+
+        $scope.queryPeople();
     }, true);
 
     if (task !== null && task.result.script && task.result.script.url && task.result.script.url !== url) {
@@ -143,7 +163,7 @@ angular.module('mobbr.controllers').controller('CrowdsController', function ($sc
         $scope.tagsLimiter = $scope.tagsInitialLimit;
         $scope.initial_limit = 20;
         $scope.limiter = $scope.initial_limit;
-        $scope.filteredTags = [];
+        //$scope.filteredTags = [];
         $scope.form = {};
         $scope.selectedPersons = [];
         $scope.task = task;

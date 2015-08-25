@@ -81,10 +81,13 @@ angular.module('mobbr', [
                 //templateUrl: 'views/box.html',
                 //controller: 'BoxController'
             }).state('crowds', {
-                url: '/crowds/:task',
+                url: '/crowds/:task?keywords',
                 params: {
                     task: {
                         value: null
+                    },
+                    keywords: {
+                        array: true
                     }
                 },
                 controller: 'CrowdsController',
@@ -107,10 +110,12 @@ angular.module('mobbr', [
                             offset: 0
                         }).$promise || null;
                     },
-                    persons: function ($rootScope, MobbrPerson, taskTags) {
+                    persons: function ($rootScope, MobbrPerson, taskTags, $stateParams) {
+
+                        var keywords = $stateParams.keywords ? $stateParams.keywords : taskTags;
 
                         return MobbrPerson.get({
-                            keywords: taskTags || null,
+                            keywords: keywords || null,
                             language: $rootScope.filter_language,
                             limit: 20,
                             offset: 0
@@ -138,10 +143,13 @@ angular.module('mobbr', [
                     }
                 }
             }).state('tasks', {
-                url: '/tasks/:username',
+                url: '/tasks/:username?keywords',
                 params: {
                     username: {
                         value: null
+                    },
+                    keywords: {
+                        array: true
                     }
                 },
                 controller: 'TasksController',
