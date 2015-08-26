@@ -60,16 +60,16 @@ angular.module('mobbr.controllers').controller('TasksController', function ($sco
     };
 
     $scope.$on('$stateChangeSuccess', function () {
-        $scope.filteredTags = $state.params.keywords ? angular.copy($state.params.keywords) : [];
+        $scope.filteredTags = $state.params.tags ? angular.copy($state.params.tags) : [];
     });
 
     $scope.$watch('filteredTags', function (newValue, oldValue) {
-        if (!angular.equals($scope.filteredTags, $state.params.keywords)) {
-            $state.go('tasks', {username: username, keywords: $scope.filteredTags});
+        if (!angular.equals($scope.filteredTags, $state.params.tags)) {
+            $state.go('tasks', {username: username, tags: $scope.filteredTags});
         }
     }, true);
 
-    $scope.$watch('$state.params.keywords', function (newValue, oldValue) {
+    $scope.$watch('$state.params.tags', function (newValue, oldValue) {
         $scope.queryTasks();
         $scope.queryTags();
     }, true);

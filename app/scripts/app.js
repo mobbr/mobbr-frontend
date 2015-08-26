@@ -81,12 +81,12 @@ angular.module('mobbr', [
                 //templateUrl: 'views/box.html',
                 //controller: 'BoxController'
             }).state('crowds', {
-                url: '/crowds/:task?keywords',
+                url: '/crowds/:task?tags',
                 params: {
                     task: {
                         value: null
                     },
-                    keywords: {
+                    tags: {
                         array: true
                     }
                 },
@@ -112,7 +112,7 @@ angular.module('mobbr', [
                     },
                     persons: function ($rootScope, MobbrPerson, taskTags, $stateParams) {
 
-                        var keywords = $stateParams.keywords ? $stateParams.keywords : taskTags;
+                        var keywords = $stateParams.tags ? $stateParams.tags : taskTags;
 
                         return MobbrPerson.get({
                             keywords: keywords || null,
@@ -143,12 +143,12 @@ angular.module('mobbr', [
                     }
                 }
             }).state('tasks', {
-                url: '/tasks/:username?keywords',
+                url: '/tasks/:username?tags',
                 params: {
                     username: {
                         value: null
                     },
-                    keywords: {
+                    tags: {
                         array: true
                     }
                 },
