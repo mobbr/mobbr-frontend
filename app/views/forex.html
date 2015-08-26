@@ -1,0 +1,34 @@
+<div class="row top-bar">
+	<div class="container">
+		<div class="row left-pad">
+			<div class="col-md-7">
+				<h1>{{ base_currency_iso }} (LAST UPDATED: {{ exchange_rate_datetime }})</h1>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="container">
+		<div class="row">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Currency</th>
+						<th>Description</th>
+						<th>Exchange Rate</th>
+						<th>Source</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="currency in currencies">
+						<td class="text-left" ng-bind="currency.currency_iso"></td>
+						<td ng-bind="currency.description"></td>
+						<td>{{ currency.exchange_rate }}/{{ base_currency_iso }}</td>
+						<td>{{ currency.exchange_rate_source_url | domain }}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
