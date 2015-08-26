@@ -314,8 +314,7 @@ angular.module('mobbr', [
             }).state('forex', {
                 url: '/forex/:base_currency_iso',
                 templateUrl: 'views/forex.html',
-                controller: 'ForExController',
-                data: { authenticated: false }
+                controller: 'ForExController'
             }).state('userlogin', {
                 url: '/login',
                 templateUrl: 'views/login.html',
