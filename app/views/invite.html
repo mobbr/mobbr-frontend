@@ -1,7 +1,7 @@
 <div class="row top-info filter" ng-show="task.$resolved && !no_script">
     <div class="container">
         <div class="row">
-            <fieldset ng-disabled="persons && persons.length == 0" class="form-horizontal">
+            <fieldset ng-disabled="persons && persons.length == 0" class="form-horizontal form-group">
                 <div class="col-md-3 title">
                     <span class="mobbricon mobbricon-crowd"></span>
                     <strong>My future team</strong>
@@ -13,7 +13,8 @@
                          ng-src="https://secure.gravatar.com/avatar/{{ person['gravatar'] }}?s=50&default=https://mobbr.com/img/default-gravatar2.png"
                          width="40"
                          height="40"
-                         ng-click="removePerson(person)">
+                         ng-click="removePerson(person)"
+                         title="{{ person.username }}">
                     <button class="btn btn-danger" ng-click="removePerson()" ng-show="selectedPersons.length > 0">
                         Clear invites
                         <span class="mobbricon mobbricon-hardclose"></span>
@@ -24,6 +25,22 @@
                     </button>
                 </div>
             </fieldset>
+        </div>
+
+        <div class="row" ng-show="mobbrSession.isAuthorized()">
+            <div class="col-md-12">
+                <fieldset class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <span class="mobbricon mobbricon-person"></span>
+                        </span>
+                        <input type="text" class="form-control" placeholder="Invite by username, email address or ID" ng-model="invitee_id">
+                        <span class="input-group-btn" ng-show="invitee_id">
+                            <button type="submit" class="btn btn-primary" ng-click="addPerson({username: invitee_id, selected: true, gravatar: 'https://mobbr.com/img/default-gravatar2.png'});invitee_id='';">Add to List</button>
+                        </span>
+                    </div>
+                </fieldset>
+            </div>
         </div>
     </div>
 </div>
