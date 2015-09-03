@@ -100,7 +100,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
-                    <p><strong>1/6</strong> Select a button type</p>
+                    <p><strong>1/5</strong> Select a button type</p>
                     <div class="row">
                         <!--<fieldset class="form-group">
                             <div class="col-md-12">
@@ -127,7 +127,7 @@
                                 <div class="checkbox">
                                     <label for="button_large">
                                         <input type="radio" ng-model="button_type" value="large" id="button_large">
-                                        <mobbrbutton url="{{ task.result.script.url }}" size="large" class="share_button"></mobbrbutton>
+                                        <mobbrbutton url="{{ task.result.script.url }}" size="large" currency="{{ button_currency }}" class="share_button"></mobbrbutton>
                                     </label>
                                 </div>
                             </div>
@@ -137,7 +137,7 @@
                                 <div class="checkbox">
                                     <label>
                                         <input type="radio" ng-model="button_type" value="medium" id="button_medium">
-                                        <mobbrbutton url="{{ task.result.script.url }}" size="medium" class="share_button"></mobbrbutton>
+                                        <mobbrbutton url="{{ task.result.script.url }}" size="medium" currency="{{ button_currency }}" class="share_button"></mobbrbutton>
                                     </label>
                                 </div>
                             </div>
@@ -187,7 +187,7 @@
                                 <div class="checkbox">
                                     <label>
                                         <input type="radio" ng-model="button_type" value="slim" id="button_slim">
-                                        <mobbrbutton url="{{ task.result.script.url }}" size="slim" class="share_button"></mobbrbutton>
+                                        <mobbrbutton url="{{ task.result.script.url }}" size="slim" currency="{{ button_currency }}" class="share_button"></mobbrbutton>
                                     </label>
                                 </div>
                             </div>
@@ -196,7 +196,7 @@
                 </div>
                 <div class="col-md-8">
                     <fieldset class="form-group">
-                        <p><strong>2/6</strong> Select your currency</p>
+                        <p><strong>2/5</strong> Select your currency</p>
                         <select class="form-control"
                                 ng-init="button_currency = $mobbrStorage.user.currency_iso || 'EUR'"
                                 ng-model="button_currency"
@@ -205,25 +205,22 @@
                         </select>
                     </fieldset>
                     <p>
-                        <strong>3/6</strong> Include the mobbr script in the head of your page
-                    <pre><code>&lt;script type="text/javascript" src="https://mobbr.com/mobbr-button.js"&gt;&lt;/script&gt;</code></pre>
+                        <strong>3/5</strong> Paste the mobbr button code on the place you want your button to appear
+                        <pre><code>&lt;script type="text/javascript" src="https://mobbr.com/mobbr-button.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+    mobbr.button('{{ task.result.script.url }}', '{{ button_currency }}', '{{ button_type }}');
+&lt;/script&gt;</code></pre>
                     </p>
                     <p>
-                        <strong>4/6</strong> Paste the mobbr button code on the place you want your button to appear
-                            <pre><code>&lt;script type="text/javascript"&gt;
-                                mobbr.button('{{ task.result.script.url }}', '{{ button_currency }}', '{{ button_type }}');
-                                &lt;/script&gt;</code></pre>
+                        <strong>4/5</strong> Static Mobbr button (an image that redirects to the Mobbr page)
+                        <pre><code>&lt;a href="{{ $state.href($state.current.name, $state.params, {absolute: true}) }}"&gt;
+    &lt;img src="https://api.mobbr.com/images/buttons/mobbr32.png"&gt;
+&lt;/a&gt;</code></pre>
                     </p>
                     <p>
-                        <strong>5/6</strong> Static Mobbr button (an image that redirects to the Mobbr page)
-                            <pre><code>&lt;a href="{{ $state.href($state.current.name, $state.params, {absolute: true}) }}"&gt;
-                                &lt;img src="https://api.mobbr.com/images/buttons/mobbr32.png"&gt;
-                                &lt;/a&gt;</code></pre>
-                    </p>
-                    <p>
-                        <strong>6/6</strong> The bitcoin address
-                            <pre ng-if="task.result.addresses.length"><code>&lt;a href="bitcoin:{{ task.result.addresses[0].address }}"&gt;{{ task.result.addresses[0].address }}&lt;/a&gt;</code></pre>
-                            <pre ng-if="!task.result.addresses.length"><code>No bitcoin address available for this task</code></pre>
+                        <strong>5/5</strong> The bitcoin address
+                        <pre ng-if="task.result.addresses.length"><code>&lt;a href="bitcoin:{{ task.result.addresses[0].address }}"&gt;{{ task.result.addresses[0].address }}&lt;/a&gt;</code></pre>
+                        <pre ng-if="!task.result.addresses.length"><code>No bitcoin address available for this task</code></pre>
                     </p>
                 </div>
             </div>
