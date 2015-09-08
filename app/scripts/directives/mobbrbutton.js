@@ -8,18 +8,20 @@ angular.module('mobbr.directives').directive('mobbrbutton', function factory() {
         templateUrl: 'views/directives/mobbrbutton.html',
         scope: {
             size:'@',
-            url:'@'
+            url:'@',
+            currency:'@'
         },
         controller: function ($scope, $rootScope, apiUrl) {
-            $scope.createButtonUrl = function (size, url){
+            $scope.createButtonUrl = function (size, url, currency){
                 // temporary undefined urls fix, make sure the size is known here at all times
                 size = size || 'large';
-                return apiUrl + '/button/' + md5(url) + '/' + size;
-            }
+                currency = currency || 'EUR';
+                return apiUrl + '/button/' + md5(url) + '/' + size + '/' + currency;
+            };
             $scope.submit = function ($event) {
                 mobbr.makePayment($scope.url, $event.target);
-            }
+            };
         }
 
     }
-})
+});
